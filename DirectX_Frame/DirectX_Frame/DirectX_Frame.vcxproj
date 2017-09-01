@@ -140,6 +140,8 @@
     <Text Include="ReadMe.txt" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="cAutoReleasePool.h" />
+    <ClInclude Include="cObject.h" />
     <ClInclude Include="cMainGame.h" />
     <ClInclude Include="DirectX_Frame.h" />
     <ClInclude Include="Resource.h" />
@@ -147,6 +149,8 @@
     <ClInclude Include="targetver.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="cAutoReleasePool.cpp" />
+    <ClCompile Include="cObject.cpp" />
     <ClCompile Include="cMainGame.cpp" />
     <ClCompile Include="DirectX_Frame.cpp" />
     <ClCompile Include="stdafx.cpp">
