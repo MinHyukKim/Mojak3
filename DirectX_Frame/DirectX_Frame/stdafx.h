@@ -25,10 +25,14 @@
 #include <map>
 #include <vector>
 #include <queue>
+#include <assert.h>
 
 #pragma comment(lib,"d3d9.lib")
 #pragma comment(lib,"d3dx9.lib")
 #pragma comment(lib, "msimg32.lib")
+
+// TODO: 매니저 헤더는 여기에서 참조합니다.
+#include "cAutoReleasePool.h"
 
 // 전역 함수
 extern HWND g_hWnd;
