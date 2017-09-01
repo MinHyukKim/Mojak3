@@ -1,0 +1,197 @@
+﻿  WinAPI.cpp
+c:\program files (x86)\windows kits\8.1\include\um\winnt.h(31): fatal error C1083: 포함 파일을 열 수 없습니다. 'ctype.h': No such file or directory
+  Timer.cpp
+d:\네트웍 게임 통합 프로그래머\project 000\timer.cpp(1): error C2014: 전처리기 명령은 공백 아닌 문자로 시작해야 합니다.
+c:\program files (x86)\windows kits\8.1\include\um\mmsyscom.h(29): error C2144: 구문 오류: int'은(는) ';' 다음에 와야 합니다.
+c:\program files (x86)\windows kits\8.1\include\um\mmsyscom.h(29): error C4430: 형식 지정자가 없습니다. int로 가정합니다. 참고: C++에서는 기본 int를 지원하지 않습니다.
+c:\program files (x86)\windows kits\8.1\include\um\mmsyscom.h(94): error C4430: 형식 지정자가 없습니다. int로 가정합니다. 참고: C++에서는 기본 int를 지원하지 않습니다.
+c:\program files (x86)\windows kits\8.1\include\um\mmsyscom.h(94): error C2146: 구문 오류: ';'이(가) 'MMVERSION' 식별자 앞에 없습니다.
+c:\program files (x86)\windows kits\8.1\include\um\mmsyscom.h(98): error C2059: 구문 오류: 'return'
+c:\program files (x86)\windows kits\8.1\include\um\mmsyscom.h(102): error C2143: 구문 오류: ';'이(가) '*' 앞에 없습니다.
+c:\program files (x86)\windows kits\8.1\include\um\mmsyscom.h(102): error C4430: 형식 지정자가 없습니다. int로 가정합니다. 참고: C++에서는 기본 int를 지원하지 않습니다.
+c:\program files (x86)\windows kits\8.1\include\um\mmsyscom.h(112): error C3646: 'ms': 알 수 없는 재정의 지정자입니다.
+c:\program files (x86)\windows kits\8.1\include\um\mmsyscom.h(112): error C4430: 형식 지정자가 없습니다. int로 가정합니다. 참고: C++에서는 기본 int를 지원하지 않습니다.
+c:\program files (x86)\windows kits\8.1\include\um\mmsyscom.h(113): error C3646: 'sample': 알 수 없는 재정의 지정자입니다.
+c:\program files (x86)\windows kits\8.1\include\um\mmsyscom.h(113): error C4430: 형식 지정자가 없습니다. int로 가정합니다. 참고: C++에서는 기본 int를 지원하지 않습니다.
+c:\program files (x86)\windows kits\8.1\include\um\mmsyscom.h(114): error C3646: 'cb': 알 수 없는 재정의 지정자입니다.
+c:\program files (x86)\windows kits\8.1\include\um\mmsyscom.h(114): error C4430: 형식 지정자가 없습니다. int로 가정합니다. 참고: C++에서는 기본 int를 지원하지 않습니다.
+c:\program files (x86)\windows kits\8.1\include\um\mmsyscom.h(115): error C3646: 'ticks': 알 수 없는 재정의 지정자입니다.
+c:\program files (x86)\windows kits\8.1\include\um\mmsyscom.h(115): error C4430: 형식 지정자가 없습니다. int로 가정합니다. 참고: C++에서는 기본 int를 지원하지 않습니다.
+c:\program files (x86)\windows kits\8.1\include\um\mmsyscom.h(120): error C3646: 'hour': 알 수 없는 재정의 지정자입니다.
+c:\program files (x86)\windows kits\8.1\include\um\mmsyscom.h(120): error C4430: 형식 지정자가 없습니다. int로 가정합니다. 참고: C++에서는 기본 int를 지원하지 않습니다.
+c:\program files (x86)\windows kits\8.1\include\um\mmsyscom.h(121): error C3646: 'min': 알 수 없는 재정의 지정자입니다.
+c:\program files (x86)\windows kits\8.1\include\um\mmsyscom.h(121): error C4430: 형식 지정자가 없습니다. int로 가정합니다. 참고: C++에서는 기본 int를 지원하지 않습니다.
+c:\program files (x86)\windows kits\8.1\include\um\mmsyscom.h(122): error C3646: 'sec': 알 수 없는 재정의 지정자입니다.
+c:\program files (x86)\windows kits\8.1\include\um\mmsyscom.h(122): error C4430: 형식 지정자가 없습니다. int로 가정합니다. 참고: C++에서는 기본 int를 지원하지 않습니다.
+c:\program files (x86)\windows kits\8.1\include\um\mmsyscom.h(123): error C3646: 'frame': 알 수 없는 재정의 지정자입니다.
+c:\program files (x86)\windows kits\8.1\include\um\mmsyscom.h(123): error C4430: 형식 지정자가 없습니다. int로 가정합니다. 참고: C++에서는 기본 int를 지원하지 않습니다.
+c:\program files (x86)\windows kits\8.1\include\um\mmsyscom.h(124): error C3646: 'fps': 알 수 없는 재정의 지정자입니다.
+c:\program files (x86)\windows kits\8.1\include\um\mmsyscom.h(124): error C4430: 형식 지정자가 없습니다. int로 가정합니다. 참고: C++에서는 기본 int를 지원하지 않습니다.
+c:\program files (x86)\windows kits\8.1\include\um\mmsyscom.h(125): error C3646: 'dummy': 알 수 없는 재정의 지정자입니다.
+c:\program files (x86)\windows kits\8.1\include\um\mmsyscom.h(125): error C4430: 형식 지정자가 없습니다. int로 가정합니다. 참고: C++에서는 기본 int를 지원하지 않습니다.
+c:\program files (x86)\windows kits\8.1\include\um\mmsyscom.h(127): error C3646: 'pad': 알 수 없는 재정의 지정자입니다.
+c:\program files (x86)\windows kits\8.1\include\um\mmsyscom.h(127): error C2143: 구문 오류: ','이(가) '[' 앞에 없습니다.
+c:\program files (x86)\windows kits\8.1\include\um\mmsyscom.h(127): error C2143: 구문 오류: ')'이(가) ';' 앞에 없습니다.
+c:\program files (x86)\windows kits\8.1\include\um\mmsyscom.h(127): error C2238: ';' 앞에 예기치 않은 토큰이 있습니다.
+c:\program files (x86)\windows kits\8.1\include\um\mmsyscom.h(134): error C3646: 'songptrpos': 알 수 없는 재정의 지정자입니다.
+c:\program files (x86)\windows kits\8.1\include\um\mmsyscom.h(134): error C4430: 형식 지정자가 없습니다. int로 가정합니다. 참고: C++에서는 기본 int를 지원하지 않습니다.
+c:\program files (x86)\windows kits\8.1\include\um\mmsyscom.h(137): error C2143: 구문 오류: ';'이(가) '*' 앞에 없습니다.
+c:\program files (x86)\windows kits\8.1\include\um\mmsyscom.h(137): error C4430: 형식 지정자가 없습니다. int로 가정합니다. 참고: C++에서는 기본 int를 지원하지 않습니다.
+c:\program files (x86)\windows kits\8.1\include\um\mmsyscom.h(137): error C2377: 'FAR': 재정의. 다른 기호를 사용하여 형식 정의를 오버로드할 수 없습니다.
+  c:\program files (x86)\windows kits\8.1\include\um\mmsyscom.h(102): note: 'FAR' 선언을 참조하십시오.
+c:\program files (x86)\windows kits\8.1\include\um\mmsyscom.h(275): error C2065: 'HDRVR': 선언되지 않은 식별자입니다.
+c:\program files (x86)\windows kits\8.1\include\um\mmsyscom.h(275): error C4430: 형식 지정자가 없습니다. int로 가정합니다. 참고: C++에서는 기본 int를 지원하지 않습니다.
+c:\program files (x86)\windows kits\8.1\include\um\mmsyscom.h(297): error C2146: 구문 오류: ')'이(가) 'DRVCALLBACK' 식별자 앞에 없습니다.
+c:\program files (x86)\windows kits\8.1\include\um\mmsyscom.h(297): error C2146: 구문 오류: ';'이(가) 'DRVCALLBACK' 식별자 앞에 없습니다.
+c:\program files (x86)\windows kits\8.1\include\um\mmsyscom.h(297): error C2059: 구문 오류: ')'
+c:\program files (x86)\windows kits\8.1\include\um\mmsyscom.h(297): error C2065: 'HDRVR': 선언되지 않은 식별자입니다.
+c:\program files (x86)\windows kits\8.1\include\um\mmsyscom.h(297): error C2146: 구문 오류: ')'이(가) 'hdrvr' 식별자 앞에 없습니다.
+c:\program files (x86)\windows kits\8.1\include\um\mmsyscom.h(299): error C4430: 형식 지정자가 없습니다. int로 가정합니다. 참고: C++에서는 기본 int를 지원하지 않습니다.
+c:\program files (x86)\windows kits\8.1\include\um\mmsyscom.h(299): error C2146: 구문 오류: ';'이(가) 'FAR' 식별자 앞에 없습니다.
+c:\program files (x86)\windows kits\8.1\include\um\mmsyscom.h(299): error C2143: 구문 오류: ';'이(가) '*' 앞에 없습니다.
+c:\program files (x86)\windows kits\8.1\include\um\mmsyscom.h(299): error C2086: 'int FAR': 재정의
+  c:\program files (x86)\windows kits\8.1\include\um\mmsyscom.h(137): note: 'FAR' 선언을 참조하십시오.
+c:\program files (x86)\windows kits\8.1\include\um\mciapi.h(49): error C4430: 형식 지정자가 없습니다. int로 가정합니다. 참고: C++에서는 기본 int를 지원하지 않습니다.
+c:\program files (x86)\windows kits\8.1\include\um\mciapi.h(49): error C2146: 구문 오류: ';'이(가) 'MCIERROR' 식별자 앞에 없습니다.
+c:\program files (x86)\windows kits\8.1\include\um\mciapi.h(58): error C2143: 구문 오류: ')'이(가) '*' 앞에 없습니다.
+c:\program files (x86)\windows kits\8.1\include\um\mciapi.h(58): error C2143: 구문 오류: ';'이(가) '*' 앞에 없습니다.
+c:\program files (x86)\windows kits\8.1\include\um\mciapi.h(58): error C2371: 'CALLBACK': 재정의. 기본 형식이 다릅니다.
+  c:\program files (x86)\windows kits\8.1\include\um\mmsyscom.h(297): note: 'CALLBACK' 선언을 참조하십시오.
+c:\program files (x86)\windows kits\8.1\include\um\mciapi.h(58): error C2059: 구문 오류: ')'
+c:\program files (x86)\windows kits\8.1\include\um\mciapi.h(58): error C4430: 형식 지정자가 없습니다. int로 가정합니다. 참고: C++에서는 기본 int를 지원하지 않습니다.
+c:\program files (x86)\windows kits\8.1\include\um\mciapi.h(65): error C4430: 형식 지정자가 없습니다. int로 가정합니다. 참고: C++에서는 기본 int를 지원하지 않습니다.
+c:\program files (x86)\windows kits\8.1\include\um\mciapi.h(65): error C2146: 구문 오류: ';'이(가) 'MCIERROR' 식별자 앞에 없습니다.
+c:\program files (x86)\windows kits\8.1\include\um\mciapi.h(75): error C4430: 형식 지정자가 없습니다. int로 가정합니다. 참고: C++에서는 기본 int를 지원하지 않습니다.
+c:\program files (x86)\windows kits\8.1\include\um\mciapi.h(75): error C2086: 'int DECLSPEC_IMPORT': 재정의
+  c:\program files (x86)\windows kits\8.1\include\um\mciapi.h(64): note: 'DECLSPEC_IMPORT' 선언을 참조하십시오.
+c:\program files (x86)\windows kits\8.1\include\um\mciapi.h(75): error C2146: 구문 오류: ';'이(가) 'MCIERROR' 식별자 앞에 없습니다.
+c:\program files (x86)\windows kits\8.1\include\um\mciapi.h(90): error C4430: 형식 지정자가 없습니다. int로 가정합니다. 참고: C++에서는 기본 int를 지원하지 않습니다.
+c:\program files (x86)\windows kits\8.1\include\um\mciapi.h(90): error C2086: 'int DECLSPEC_IMPORT': 재정의
+  c:\program files (x86)\windows kits\8.1\include\um\mciapi.h(64): note: 'DECLSPEC_IMPORT' 선언을 참조하십시오.
+c:\program files (x86)\windows kits\8.1\include\um\mciapi.h(90): error C2146: 구문 오류: ';'이(가) 'MCIERROR' 식별자 앞에 없습니다.
+c:\program files (x86)\windows kits\8.1\include\um\mciapi.h(100): error C4430: 형식 지정자가 없습니다. int로 가정합니다. 참고: C++에서는 기본 int를 지원하지 않습니다.
+c:\program files (x86)\windows kits\8.1\include\um\mciapi.h(100): error C2086: 'int DECLSPEC_IMPORT': 재정의
+  c:\program files (x86)\windows kits\8.1\include\um\mciapi.h(64): note: 'DECLSPEC_IMPORT' 선언을 참조하십시오.
+c:\program files (x86)\windows kits\8.1\include\um\mciapi.h(100): error C2146: 구문 오류: ';'이(가) 'MCIERROR' 식별자 앞에 없습니다.
+c:\program files (x86)\windows kits\8.1\include\um\mciapi.h(115): error C4430: 형식 지정자가 없습니다. int로 가정합니다. 참고: C++에서는 기본 int를 지원하지 않습니다.
+c:\program files (x86)\windows kits\8.1\include\um\mciapi.h(115): error C2086: 'int DECLSPEC_IMPORT': 재정의
+  c:\program files (x86)\windows kits\8.1\include\um\mciapi.h(64): note: 'DECLSPEC_IMPORT' 선언을 참조하십시오.
+c:\program files (x86)\windows kits\8.1\include\um\mciapi.h(115): error C2146: 구문 오류: ';'이(가) 'MCIDEVICEID' 식별자 앞에 없습니다.
+c:\program files (x86)\windows kits\8.1\include\um\mciapi.h(122): error C4430: 형식 지정자가 없습니다. int로 가정합니다. 참고: C++에서는 기본 int를 지원하지 않습니다.
+c:\program files (x86)\windows kits\8.1\include\um\mciapi.h(122): error C2086: 'int DECLSPEC_IMPORT': 재정의
+  c:\program files (x86)\windows kits\8.1\include\um\mciapi.h(64): note: 'DECLSPEC_IMPORT' 선언을 참조하십시오.
+c:\program files (x86)\windows kits\8.1\include\um\mciapi.h(122): error C2146: 구문 오류: ';'이(가) 'MCIDEVICEID' 식별자 앞에 없습니다.
+c:\program files (x86)\windows kits\8.1\include\um\mciapi.h(134): error C4430: 형식 지정자가 없습니다. int로 가정합니다. 참고: C++에서는 기본 int를 지원하지 않습니다.
+c:\program files (x86)\windows kits\8.1\include\um\mciapi.h(134): error C2086: 'int DECLSPEC_IMPORT': 재정의
+  c:\program files (x86)\windows kits\8.1\include\um\mciapi.h(64): note: 'DECLSPEC_IMPORT' 선언을 참조하십시오.
+c:\program files (x86)\windows kits\8.1\include\um\mciapi.h(134): error C2146: 구문 오류: ';'이(가) 'MCIDEVICEID' 식별자 앞에 없습니다.
+c:\program files (x86)\windows kits\8.1\include\um\mciapi.h(142): error C4430: 형식 지정자가 없습니다. int로 가정합니다. 참고: C++에서는 기본 int를 지원하지 않습니다.
+c:\program files (x86)\windows kits\8.1\include\um\mciapi.h(142): error C2086: 'int DECLSPEC_IMPORT': 재정의
+  c:\program files (x86)\windows kits\8.1\include\um\mciapi.h(64): note: 'DECLSPEC_IMPORT' 선언을 참조하십시오.
+c:\program files (x86)\windows kits\8.1\include\um\mciapi.h(142): error C2146: 구문 오류: ';'이(가) 'MCIDEVICEID' 식별자 앞에 없습니다.
+c:\program files (x86)\windows kits\8.1\include\um\mciapi.h(155): error C4430: 형식 지정자가 없습니다. int로 가정합니다. 참고: C++에서는 기본 int를 지원하지 않습니다.
+c:\program files (x86)\windows kits\8.1\include\um\mciapi.h(155): error C2086: 'int DECLSPEC_IMPORT': 재정의
+  c:\program files (x86)\windows kits\8.1\include\um\mciapi.h(64): note: 'DECLSPEC_IMPORT' 선언을 참조하십시오.
+c:\program files (x86)\windows kits\8.1\include\um\mciapi.h(155): error C2146: 구문 오류: ';'이(가) 'BOOL' 식별자 앞에 없습니다.
+c:\program files (x86)\windows kits\8.1\include\um\mciapi.h(164): error C4430: 형식 지정자가 없습니다. int로 가정합니다. 참고: C++에서는 기본 int를 지원하지 않습니다.
+c:\program files (x86)\windows kits\8.1\include\um\mciapi.h(164): error C2086: 'int DECLSPEC_IMPORT': 재정의
+  c:\program files (x86)\windows kits\8.1\include\um\mciapi.h(64): note: 'DECLSPEC_IMPORT' 선언을 참조하십시오.
+c:\program files (x86)\windows kits\8.1\include\um\mciapi.h(164): error C2146: 구문 오류: ';'이(가) 'BOOL' 식별자 앞에 없습니다.
+c:\program files (x86)\windows kits\8.1\include\um\mciapi.h(186): error C4430: 형식 지정자가 없습니다. int로 가정합니다. 참고: C++에서는 기본 int를 지원하지 않습니다.
+c:\program files (x86)\windows kits\8.1\include\um\mciapi.h(186): error C2086: 'int DECLSPEC_IMPORT': 재정의
+  c:\program files (x86)\windows kits\8.1\include\um\mciapi.h(64): note: 'DECLSPEC_IMPORT' 선언을 참조하십시오.
+c:\program files (x86)\windows kits\8.1\include\um\mciapi.h(186): error C2146: 구문 오류: ';'이(가) 'BOOL' 식별자 앞에 없습니다.
+c:\program files (x86)\windows kits\8.1\include\um\mciapi.h(217): error C4430: 형식 지정자가 없습니다. int로 가정합니다. 참고: C++에서는 기본 int를 지원하지 않습니다.
+c:\program files (x86)\windows kits\8.1\include\um\mciapi.h(217): error C2086: 'int DECLSPEC_IMPORT': 재정의
+  c:\program files (x86)\windows kits\8.1\include\um\mciapi.h(64): note: 'DECLSPEC_IMPORT' 선언을 참조하십시오.
+c:\program files (x86)\windows kits\8.1\include\um\mciapi.h(217): error C2146: 구문 오류: ';'이(가) 'BOOL' 식별자 앞에 없습니다.
+c:\program files (x86)\windows kits\8.1\include\um\mciapi.h(517): error C3646: 'dwCallback': 알 수 없는 재정의 지정자입니다.
+c:\program files (x86)\windows kits\8.1\include\um\mciapi.h(517): error C4430: 형식 지정자가 없습니다. int로 가정합니다. 참고: C++에서는 기본 int를 지원하지 않습니다.
+c:\program files (x86)\windows kits\8.1\include\um\mciapi.h(518): error C2143: 구문 오류: ';'이(가) '*' 앞에 없습니다.
+c:\program files (x86)\windows kits\8.1\include\um\mciapi.h(518): error C2371: 'FAR': 재정의. 기본 형식이 다릅니다.
+  c:\program files (x86)\windows kits\8.1\include\um\mmsyscom.h(137): note: 'FAR' 선언을 참조하십시오.
+c:\program files (x86)\windows kits\8.1\include\um\mciapi.h(518): error C4430: 형식 지정자가 없습니다. int로 가정합니다. 참고: C++에서는 기본 int를 지원하지 않습니다.
+c:\program files (x86)\windows kits\8.1\include\um\mciapi.h(525): error C3646: 'dwCallback': 알 수 없는 재정의 지정자입니다.
+c:\program files (x86)\windows kits\8.1\include\um\mciapi.h(525): error C4430: 형식 지정자가 없습니다. int로 가정합니다. 참고: C++에서는 기본 int를 지원하지 않습니다.
+c:\program files (x86)\windows kits\8.1\include\um\mciapi.h(527): error C3646: 'lpstrDeviceType': 알 수 없는 재정의 지정자입니다.
+c:\program files (x86)\windows kits\8.1\include\um\mciapi.h(527): error C4430: 형식 지정자가 없습니다. int로 가정합니다. 참고: C++에서는 기본 int를 지원하지 않습니다.
+c:\program files (x86)\windows kits\8.1\include\um\mciapi.h(528): error C3646: 'lpstrElementName': 알 수 없는 재정의 지정자입니다.
+c:\program files (x86)\windows kits\8.1\include\um\mciapi.h(528): error C4430: 형식 지정자가 없습니다. int로 가정합니다. 참고: C++에서는 기본 int를 지원하지 않습니다.
+c:\program files (x86)\windows kits\8.1\include\um\mciapi.h(529): error C3646: 'lpstrAlias': 알 수 없는 재정의 지정자입니다.
+c:\program files (x86)\windows kits\8.1\include\um\mciapi.h(529): error C4430: 형식 지정자가 없습니다. int로 가정합니다. 참고: C++에서는 기본 int를 지원하지 않습니다.
+c:\program files (x86)\windows kits\8.1\include\um\mciapi.h(532): error C3646: 'dwCallback': 알 수 없는 재정의 지정자입니다.
+c:\program files (x86)\windows kits\8.1\include\um\mciapi.h(532): error C4430: 형식 지정자가 없습니다. int로 가정합니다. 참고: C++에서는 기본 int를 지원하지 않습니다.
+c:\program files (x86)\windows kits\8.1\include\um\mciapi.h(534): error C3646: 'lpstrDeviceType': 알 수 없는 재정의 지정자입니다.
+c:\program files (x86)\windows kits\8.1\include\um\mciapi.h(534): error C4430: 형식 지정자가 없습니다. int로 가정합니다. 참고: C++에서는 기본 int를 지원하지 않습니다.
+c:\program files (x86)\windows kits\8.1\include\um\mciapi.h(535): error C3646: 'lpstrElementName': 알 수 없는 재정의 지정자입니다.
+c:\program files (x86)\windows kits\8.1\include\um\mciapi.h(535): error C4430: 형식 지정자가 없습니다. int로 가정합니다. 참고: C++에서는 기본 int를 지원하지 않습니다.
+c:\program files (x86)\windows kits\8.1\include\um\mciapi.h(536): error C3646: 'lpstrAlias': 알 수 없는 재정의 지정자입니다.
+c:\program files (x86)\windows kits\8.1\include\um\mciapi.h(536): error C4430: 형식 지정자가 없습니다. int로 가정합니다. 참고: C++에서는 기본 int를 지원하지 않습니다.
+c:\program files (x86)\windows kits\8.1\include\um\mciapi.h(562): error C3646: 'dwCallback': 알 수 없는 재정의 지정자입니다.
+c:\program files (x86)\windows kits\8.1\include\um\mciapi.h(562): error C4430: 형식 지정자가 없습니다. int로 가정합니다. 참고: C++에서는 기본 int를 지원하지 않습니다.
+c:\program files (x86)\windows kits\8.1\include\um\mciapi.h(565): error C2143: 구문 오류: ';'이(가) '*' 앞에 없습니다.
+c:\program files (x86)\windows kits\8.1\include\um\mciapi.h(565): error C2371: 'FAR': 재정의. 기본 형식이 다릅니다.
+  c:\program files (x86)\windows kits\8.1\include\um\mmsyscom.h(137): note: 'FAR' 선언을 참조하십시오.
+c:\program files (x86)\windows kits\8.1\include\um\mciapi.h(565): error C4430: 형식 지정자가 없습니다. int로 가정합니다. 참고: C++에서는 기본 int를 지원하지 않습니다.
+c:\program files (x86)\windows kits\8.1\include\um\mciapi.h(570): error C3646: 'dwCallback': 알 수 없는 재정의 지정자입니다.
+c:\program files (x86)\windows kits\8.1\include\um\mciapi.h(570): error C4430: 형식 지정자가 없습니다. int로 가정합니다. 참고: C++에서는 기본 int를 지원하지 않습니다.
+c:\program files (x86)\windows kits\8.1\include\um\mciapi.h(572): error C2143: 구문 오류: ';'이(가) '*' 앞에 없습니다.
+c:\program files (x86)\windows kits\8.1\include\um\mciapi.h(572): error C2371: 'FAR': 재정의. 기본 형식이 다릅니다.
+  c:\program files (x86)\windows kits\8.1\include\um\mmsyscom.h(137): note: 'FAR' 선언을 참조하십시오.
+c:\program files (x86)\windows kits\8.1\include\um\mciapi.h(572): error C4430: 형식 지정자가 없습니다. int로 가정합니다. 참고: C++에서는 기본 int를 지원하지 않습니다.
+c:\program files (x86)\windows kits\8.1\include\um\mciapi.h(577): error C3646: 'dwCallback': 알 수 없는 재정의 지정자입니다.
+c:\program files (x86)\windows kits\8.1\include\um\mciapi.h(577): error C4430: 형식 지정자가 없습니다. int로 가정합니다. 참고: C++에서는 기본 int를 지원하지 않습니다.
+c:\program files (x86)\windows kits\8.1\include\um\mciapi.h(578): error C3646: 'dwReturn': 알 수 없는 재정의 지정자입니다.
+c:\program files (x86)\windows kits\8.1\include\um\mciapi.h(578): error C4430: 형식 지정자가 없습니다. int로 가정합니다. 참고: C++에서는 기본 int를 지원하지 않습니다.
+c:\program files (x86)\windows kits\8.1\include\um\mciapi.h(581): error C2143: 구문 오류: ';'이(가) '*' 앞에 없습니다.
+c:\program files (x86)\windows kits\8.1\include\um\mciapi.h(581): error C2371: 'FAR': 재정의. 기본 형식이 다릅니다.
+  c:\program files (x86)\windows kits\8.1\include\um\mmsyscom.h(137): note: 'FAR' 선언을 참조하십시오.
+c:\program files (x86)\windows kits\8.1\include\um\mciapi.h(581): error C4430: 형식 지정자가 없습니다. int로 가정합니다. 참고: C++에서는 기본 int를 지원하지 않습니다.
+c:\program files (x86)\windows kits\8.1\include\um\mciapi.h(588): error C3646: 'dwCallback': 알 수 없는 재정의 지정자입니다.
+c:\program files (x86)\windows kits\8.1\include\um\mciapi.h(588): error C4430: 형식 지정자가 없습니다. int로 가정합니다. 참고: C++에서는 기본 int를 지원하지 않습니다.
+c:\program files (x86)\windows kits\8.1\include\um\mciapi.h(589): error C3646: 'lpstrReturn': 알 수 없는 재정의 지정자입니다.
+c:\program files (x86)\windows kits\8.1\include\um\mciapi.h(589): error C4430: 형식 지정자가 없습니다. int로 가정합니다. 참고: C++에서는 기본 int를 지원하지 않습니다.
+c:\program files (x86)\windows kits\8.1\include\um\mciapi.h(593): error C3646: 'dwCallback': 알 수 없는 재정의 지정자입니다.
+c:\program files (x86)\windows kits\8.1\include\um\mciapi.h(593): error C4430: 형식 지정자가 없습니다. int로 가정합니다. 참고: C++에서는 기본 int를 지원하지 않습니다.
+c:\program files (x86)\windows kits\8.1\include\um\mciapi.h(594): error C3646: 'lpstrReturn': 알 수 없는 재정의 지정자입니다.
+c:\program files (x86)\windows kits\8.1\include\um\mciapi.h(594): error C4430: 형식 지정자가 없습니다. int로 가정합니다. 참고: C++에서는 기본 int를 지원하지 않습니다.
+c:\program files (x86)\windows kits\8.1\include\um\mciapi.h(616): error C3646: 'dwCallback': 알 수 없는 재정의 지정자입니다.
+c:\program files (x86)\windows kits\8.1\include\um\mciapi.h(616): error C4430: 형식 지정자가 없습니다. int로 가정합니다. 참고: C++에서는 기본 int를 지원하지 않습니다.
+c:\program files (x86)\windows kits\8.1\include\um\mciapi.h(619): error C2143: 구문 오류: ';'이(가) '*' 앞에 없습니다.
+c:\program files (x86)\windows kits\8.1\include\um\mciapi.h(619): error C2371: 'FAR': 재정의. 기본 형식이 다릅니다.
+  c:\program files (x86)\windows kits\8.1\include\um\mmsyscom.h(137): note: 'FAR' 선언을 참조하십시오.
+c:\program files (x86)\windows kits\8.1\include\um\mciapi.h(619): error C4430: 형식 지정자가 없습니다. int로 가정합니다. 참고: C++에서는 기본 int를 지원하지 않습니다.
+c:\program files (x86)\windows kits\8.1\include\um\mciapi.h(626): error C3646: 'dwCallback': 알 수 없는 재정의 지정자입니다.
+c:\program files (x86)\windows kits\8.1\include\um\mciapi.h(626): error C4430: 형식 지정자가 없습니다. int로 가정합니다. 참고: C++에서는 기본 int를 지원하지 않습니다.
+c:\program files (x86)\windows kits\8.1\include\um\mciapi.h(627): error C3646: 'lpstrReturn': 알 수 없는 재정의 지정자입니다.
+c:\program files (x86)\windows kits\8.1\include\um\mciapi.h(627): error C4430: 형식 지정자가 없습니다. int로 가정합니다. 참고: C++에서는 기본 int를 지원하지 않습니다.
+c:\program files (x86)\windows kits\8.1\include\um\mciapi.h(633): error C3646: 'dwCallback': 알 수 없는 재정의 지정자입니다.
+c:\program files (x86)\windows kits\8.1\include\um\mciapi.h(633): error C4430: 형식 지정자가 없습니다. int로 가정합니다. 참고: C++에서는 기본 int를 지원하지 않습니다.
+c:\program files (x86)\windows kits\8.1\include\um\mciapi.h(634): error C3646: 'lpstrReturn': 알 수 없는 재정의 지정자입니다.
+c:\program files (x86)\windows kits\8.1\include\um\mciapi.h(634): error C4430: 형식 지정자가 없습니다. int로 가정합니다. 참고: C++에서는 기본 int를 지원하지 않습니다.
+c:\program files (x86)\windows kits\8.1\include\um\mciapi.h(662): error C3646: 'dwCallback': 알 수 없는 재정의 지정자입니다.
+c:\program files (x86)\windows kits\8.1\include\um\mciapi.h(662): error C4430: 형식 지정자가 없습니다. int로 가정합니다. 참고: C++에서는 기본 int를 지원하지 않습니다.
+c:\program files (x86)\windows kits\8.1\include\um\mciapi.h(665): error C2143: 구문 오류: ';'이(가) '*' 앞에 없습니다.
+c:\program files (x86)\windows kits\8.1\include\um\mciapi.h(665): error C2371: 'FAR': 재정의. 기본 형식이 다릅니다.
+  c:\program files (x86)\windows kits\8.1\include\um\mmsyscom.h(137): note: 'FAR' 선언을 참조하십시오.
+c:\program files (x86)\windows kits\8.1\include\um\mciapi.h(665): error C4430: 형식 지정자가 없습니다. int로 가정합니다. 참고: C++에서는 기본 int를 지원하지 않습니다.
+c:\program files (x86)\windows kits\8.1\include\um\mciapi.h(670): error C3646: 'dwCallback': 알 수 없는 재정의 지정자입니다.
+c:\program files (x86)\windows kits\8.1\include\um\mciapi.h(670): error C4430: 형식 지정자가 없습니다. int로 가정합니다. 참고: C++에서는 기본 int를 지원하지 않습니다.
+c:\program files (x86)\windows kits\8.1\include\um\mciapi.h(673): error C3646: 'hwndBreak': 알 수 없는 재정의 지정자입니다.
+c:\program files (x86)\windows kits\8.1\include\um\mciapi.h(673): error C4430: 형식 지정자가 없습니다. int로 가정합니다. 참고: C++에서는 기본 int를 지원하지 않습니다.
+c:\program files (x86)\windows kits\8.1\include\um\mciapi.h(680): error C2143: 구문 오류: ';'이(가) '*' 앞에 없습니다.
+c:\program files (x86)\windows kits\8.1\include\um\mciapi.h(680): error C2371: 'FAR': 재정의. 기본 형식이 다릅니다.
+  c:\program files (x86)\windows kits\8.1\include\um\mmsyscom.h(137): note: 'FAR' 선언을 참조하십시오.
+c:\program files (x86)\windows kits\8.1\include\um\mciapi.h(680): error C4430: 형식 지정자가 없습니다. int로 가정합니다. 참고: C++에서는 기본 int를 지원하지 않습니다.
+c:\program files (x86)\windows kits\8.1\include\um\mciapi.h(688): error C3646: 'dwCallback': 알 수 없는 재정의 지정자입니다.
+c:\program files (x86)\windows kits\8.1\include\um\mciapi.h(688): error C4430: 형식 지정자가 없습니다. int로 가정합니다. 참고: C++에서는 기본 int를 지원하지 않습니다.
+c:\program files (x86)\windows kits\8.1\include\um\mciapi.h(689): error C3646: 'lpfilename': 알 수 없는 재정의 지정자입니다.
+c:\program files (x86)\windows kits\8.1\include\um\mciapi.h(689): error C4430: 형식 지정자가 없습니다. int로 가정합니다. 참고: C++에서는 기본 int를 지원하지 않습니다.
+c:\program files (x86)\windows kits\8.1\include\um\mciapi.h(692): error C3646: 'dwCallback': 알 수 없는 재정의 지정자입니다.
+c:\program files (x86)\windows kits\8.1\include\um\mciapi.h(692): fatal error C1003: 오류 수가 100개를 초과했습니다. 컴파일을 중지합니다.
+  GameNode.cpp
+c:\program files (x86)\windows kits\8.1\include\um\winnt.h(31): fatal error C1083: 포함 파일을 열 수 없습니다. 'ctype.h': No such file or directory
+  GameManager.cpp
+c:\program files (x86)\windows kits\8.1\include\um\winnt.h(31): fatal error C1083: 포함 파일을 열 수 없습니다. 'ctype.h': No such file or directory
+  BackBuffer.cpp
+  코드를 생성하고 있습니다...
