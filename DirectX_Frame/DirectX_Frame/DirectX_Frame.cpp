@@ -3,6 +3,7 @@
 
 #include "stdafx.h"
 #include "DirectX_Frame.h"
+#include "cMainGame.h"
 
 #define MAX_LOADSTRING 100
 
@@ -10,6 +11,9 @@
 HINSTANCE hInst;                                // 현재 인스턴스입니다.
 WCHAR szTitle[MAX_LOADSTRING];                  // 제목 표시줄 텍스트입니다.
 WCHAR szWindowClass[MAX_LOADSTRING];            // 기본 창 클래스 이름입니다.
+
+cMainGame*  g_pMainGame;
+HWND		g_hWnd;
 
 // 이 코드 모듈에 들어 있는 함수의 정방향 선언입니다.
 ATOM                MyRegisterClass(HINSTANCE hInstance);
@@ -42,16 +46,32 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
 
     MSG msg;
 
-    // 기본 메시지 루프입니다.
-    while (GetMessage(&msg, nullptr, 0, 0))
-    {
-        if (!TranslateAccelerator(msg.hwnd, hAccelTable, &msg))
-        {
-            TranslateMessage(&msg);
-            DispatchMessage(&msg);
-        }
-    }
+	g_pMainGame = new cMainGame;
+	g_pMainGame->Setup();
 
+    // 기본 메시지 루프입니다.
+	while (true)
+	{
+		if (PeekMessage(&msg, NULL, 0, 0, PM_REMOVE))
+		{
+			if (msg.message == WM_QUIT)
+			{
+				break;
+			}
+			else
+			{
+				TranslateMessage(&msg);
+				DispatchMessage(&msg);
+			}
+		}
+		else
+		{
+			g_pMainGame->Update();
+			g_pMainGame->Render();
+		}
+	}
+
+	if (g_pMainGame) delete g_pMainGame;
     return (int) msg.wParam;
 }
 
@@ -104,6 +124,8 @@ BOOL InitInstance(HINSTANCE hInstance, int nCmdShow)
    {
       return FALSE;
    }
+
+   g_hWnd = hWnd;
 
    ShowWindow(hWnd, nCmdShow);
    UpdateWindow(hWnd);
