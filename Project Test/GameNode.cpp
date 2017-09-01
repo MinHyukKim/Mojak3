@@ -4,7 +4,7 @@
 
 GameNode::GameNode(void)
 {
-
+	//게임 노드 생성자에 주석추가
 }
 
 
