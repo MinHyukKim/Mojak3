@@ -1,6 +1,0 @@
-﻿  WinAPI.cpp
-  GameManager.cpp
-c:\users\minhyuk\documents\mojak3\project test\gamemanager.cpp(68): warning C4018: '>': signed 또는 unsigned가 일치하지 않습니다.
-  코드를 생성하고 있습니다...
-  Project 000.vcxproj -> C:\Users\MinHyuk\Documents\Mojak3\Project Test\Debug\Project 000.exe
-  Project 000.vcxproj -> C:\Users\MinHyuk\Documents\Mojak3\Project Test\Debug\Project 000.pdb (Partial PDB)
