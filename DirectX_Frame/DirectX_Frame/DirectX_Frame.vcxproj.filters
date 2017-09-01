@@ -30,12 +30,18 @@
     <ClInclude Include="DirectX_Frame.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
+    <ClInclude Include="cAutoReleasePool.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
     <ClCompile Include="DirectX_Frame.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="cAutoReleasePool.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
   </ItemGroup>

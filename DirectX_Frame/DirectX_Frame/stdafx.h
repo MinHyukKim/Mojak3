@@ -19,3 +19,23 @@
 
 
 // TODO: 프로그램에 필요한 추가 헤더는 여기에서 참조합니다.
+#include <d3dx9.h>
+#include <assert.h>
+#include <set>
+#include <map>
+#include <vector>
+#include <queue>
+
+#pragma comment(lib,"d3d9.lib")
+#pragma comment(lib,"d3dx9.lib")
+#pragma comment(lib, "msimg32.lib")
+
+// 전역 함수
+extern HWND g_hWnd;
+
+//콜백 함수
+typedef void(*CallbackFunctionParamer)(void*);
+typedef void(*CallbackFunction)(void);
+
+//사용할 이름공간
+using namespace std;
