@@ -29,5 +29,5 @@ public:
 	Timer(void);
 	virtual ~Timer(void);
 
-}TIMER, *LPTIMER;
+}_Timer, *LPTIMER;
 

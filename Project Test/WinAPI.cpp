@@ -6,6 +6,7 @@
 HINSTANCE g_hInstance;
 HWND g_hWnd;
 GameManager* _pGame;
+POINT g_ptMouse;
 
 
 int APIENTRY WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpszCmdParam, int cmdShow)

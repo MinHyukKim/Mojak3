@@ -4,7 +4,8 @@
 
 GameManager::GameManager(void)
 {
-
+	//푸시 2차 시도
+	//푸시 3차 시도
 }
 
 GameManager::~GameManager(void)
@@ -15,11 +16,11 @@ GameManager::~GameManager(void)
 HRESULT GameManager::Init(void)
 {
 	// 이미지
-	_buffer = new BUFFER;
-	_GameObject.push_back(_buffer);
+//	_buffer = new BUFFER;
+//	_GameObject.push_back(_buffer);
 
 	// 타이머
-	_timer = new TIME;
+	_timer = new _Timer;
 	_GameObject.push_back(_timer);
 
 
@@ -57,7 +58,7 @@ void GameManager::Update(void)
 
 void GameManager::Render(void)
 {
-	_buffer->Render();
+//	_buffer->Render();
 }
 
 

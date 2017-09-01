@@ -18,8 +18,7 @@ public:
 private:
 	VectorGameNode _GameObject;
 
-	BUFFER* _buffer;
-	TIME* _timer;
+	_Timer* _timer;
 
 public:
 	virtual HRESULT Init(void);
@@ -29,8 +28,7 @@ public:
 
 	PGNODE GetNode(int id);
 
-	inline LPBUFFER GetBuffer() { return _buffer; }
-	inline LPTIME GetTimer() { return _timer; }
+	inline LPTIMER GetTimer() { return _timer; }
 
 	LRESULT GameProc(HWND hWnd, UINT iMessage, WPARAM wParam, LPARAM lParam);
 

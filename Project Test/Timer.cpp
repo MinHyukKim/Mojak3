@@ -1,4 +1,4 @@
-s#include "Timer.h"
+#include "Timer.h"
 #include <MMSystem.h>
 #pragma comment(lib, "winmm.lib")
 
