@@ -3,6 +3,8 @@
 
 cTimer::cTimer(void)
 {
+	//생성과 동시에 설정
+	this->Setup();
 }
 
 cTimer::~cTimer(void)

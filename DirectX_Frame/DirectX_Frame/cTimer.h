@@ -1,7 +1,6 @@
 #pragma once
 #define g_pTimer cTimer::GetInstance()
 
-
 class cTimer
 {
 private:
@@ -49,7 +48,6 @@ public:
 	virtual float GetWorldCheck(void) final;
 	//시간당 프레임 가져오는 함수
 	virtual int GetFPS(void) { return _frameRate; }
-
 
 	//싱글톤 생성
 	static cTimer* GetInstance() { static cTimer instance; return &instance; }
