@@ -33,6 +33,7 @@
 
 // TODO: 매니저 헤더는 여기에서 참조합니다.
 #include "cAutoReleasePool.h"
+#include "cDeviceManager.h"
 
 // 전역 함수
 extern HWND g_hWnd;
@@ -52,8 +53,4 @@ using namespace std;
 #define SAFE_SETUP(pointer) if (pointer) {(pointer)->Setup();}
 #define SAFE_UPDATE(pointer) if (pointer) {(pointer)->Update();}
 #define SAFE_RENDER(pointer) if (pointer) {(pointer)->Render();}
-#define SINGLETON(class_name)	private:\
-	class_name(void);\
-	~class_name(void);\
-public:\
-	static class_name* GetInstance() {static class_name instance; return &instance; }
+
