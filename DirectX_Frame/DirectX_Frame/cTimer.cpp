@@ -55,6 +55,15 @@ void cTimer::Update(void)
 	//업데이트 간격당 걸린 시간 계산
 	_timeElapsed = (_curTime - _lastTime) * _timeScale;
 
+	//이전 시간을 업데이트
+	_lastTime = _curTime;
+	//FPS프레임 카운트증가
+	_FPSFrameCount++;
+	//초당 프레임계산 변수 반영
+	_FPSTimeElapsed += _timeElapsed;
+	//월드 타임 증가
+	_worldTime += _timeElapsed;
+
 }
 
 float cTimer::GetWorldCheck(void)
