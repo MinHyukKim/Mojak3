@@ -35,6 +35,10 @@ public:
 	virtual void Setup(void);
 	//업데이트 함수
 	virtual void Update(void);
+	
+	//렌더 함수(차후 작성)
+	//virtual void Render(void);
+
 
 
 	//싱글톤 생성
