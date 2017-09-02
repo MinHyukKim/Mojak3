@@ -10,8 +10,8 @@ private:
 	std::bitset<KEYMAX> m_isKeyDown;
 
 public:
-	bool IsOnceKeyDown(const int nKey);
-	bool IsOnceKeyUp(const int nKey);
+	bool IsOnceKeyDown(const int nKey);		//한번만 확인 가능 합니다
+	bool IsOnceKeyUp(const int nKey);		//한번만 확인 가능 합니다
 	bool IsStayKeyDown(const int nKey);
 	bool IsToggleKey(const int nKey);
 
