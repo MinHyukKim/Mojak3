@@ -16,11 +16,14 @@ private:
 
 
 public:
-	cTimer(void);
-	~cTimer(void);
+
 
 	//½Ì±ÛÅæ »ý¼º
 	static cTimer* GetInstance() { static cTimer instance; return &instance; }
+
+private:
+	cTimer(void);
+	virtual ~cTimer(void);
 
 };
 
