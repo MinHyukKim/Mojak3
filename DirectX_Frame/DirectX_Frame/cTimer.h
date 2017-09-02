@@ -33,6 +33,8 @@ private:
 public:
 	//셋업 함수
 	virtual void Setup(void);
+	//업데이트 함수
+	virtual void Update(void);
 
 
 	//싱글톤 생성
