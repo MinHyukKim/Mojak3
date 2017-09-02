@@ -23,6 +23,10 @@ public:
 	//카메라 시야각 설정 함수
 	static void SetFovLH(void);
 
+	//카메라를 레퍼런스에 넣음
+	virtual cCamera* AddRef(void) override;
+	//카메라 생성 함수
+	static cCamera* Create(void);
 
 
 protected:
