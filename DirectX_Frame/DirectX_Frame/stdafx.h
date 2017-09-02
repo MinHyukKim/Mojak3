@@ -52,3 +52,8 @@ using namespace std;
 #define SAFE_SETUP(pointer) if (pointer) {(pointer)->Setup();}
 #define SAFE_UPDATE(pointer) if (pointer) {(pointer)->Update();}
 #define SAFE_RENDER(pointer) if (pointer) {(pointer)->Render();}
+#define SINGLETON(class_name)	private:\
+	class_name(void);\
+	~class_name(void);\
+public:\
+	static class_name* GetInstance() {static class_name instance; return &instance; }

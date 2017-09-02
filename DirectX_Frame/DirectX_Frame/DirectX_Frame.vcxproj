@@ -141,6 +141,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="cAutoReleasePool.h" />
+    <ClInclude Include="cDeviceManager.h" />
     <ClInclude Include="cObject.h" />
     <ClInclude Include="cMainGame.h" />
     <ClInclude Include="DirectX_Frame.h" />
@@ -150,6 +151,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="cAutoReleasePool.cpp" />
+    <ClCompile Include="cDeviceManager.cpp" />
     <ClCompile Include="cObject.cpp" />
     <ClCompile Include="cMainGame.cpp" />
     <ClCompile Include="DirectX_Frame.cpp" />
