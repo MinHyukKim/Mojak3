@@ -29,7 +29,7 @@ bool cInputManager::IsStayKeyDown(const int nKey)
 			this->SetKeyDown(nKey, true);
 			return true;
 		}
-	}
+	} 
 	else this->SetKeyDown(nKey, false);
 	return false;
 }
