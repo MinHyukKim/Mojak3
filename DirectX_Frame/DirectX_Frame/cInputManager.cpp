@@ -3,7 +3,11 @@
 
 cInputManager::cInputManager(void)
 {
-
+	for (int i = 0; i < KEYMAX; i++)
+	{
+		this->SetKeyUp(i, false);
+		this->SetKeyDown(i, false);
+	}
 }
 
 cInputManager::~cInputManager(void)
