@@ -1,6 +1,7 @@
 #pragma once
 
 #define FONT_SIZE 20
+#define FONT_LENGTH 32
 #define FONT_STYLE "궁서체"
 
 class cFont : public cObject
@@ -16,7 +17,7 @@ private:
 public:
 	//기본 설정 (Setup)
 	void Setup(void);
-	void Setup(int x, int y, LPCSTR text);
+	void Setup(int x, int y, LPCSTR text, int size = 20);
 
 	//정보 수정 (Update)
 
