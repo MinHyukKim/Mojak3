@@ -39,6 +39,7 @@ public:
 	//렌더 함수(차후 작성)
 	//virtual void Render(void);
 
+	virtual void SetLockFPS(float lockFPS = 0.0f) final { _lockFPS = lockFPS; }
 
 
 	//싱글톤 생성
