@@ -44,7 +44,7 @@ bool cInputManager::IsOnceKeyUp(const int nKey)
 
 bool cInputManager::IsStayKeyDown(const int nKey)
 {
-
+	if (GetAsyncKeyState(nKey) & 0x8000) return true;
 	return false;
 }
 
