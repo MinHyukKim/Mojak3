@@ -45,6 +45,8 @@ public:
 	virtual float GetElapsedTime(void) final { return _timeElapsed; }
 	//게임 시작시점부터의 누적시간 가져오기
 	virtual float GetWorldTime(void) final { return _worldTime; } 
+	//타임 동기화 함수(가설)
+	virtual float GetWorldCheck(void) final;
 
 
 	//싱글톤 생성
