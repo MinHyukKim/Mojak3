@@ -31,6 +31,8 @@ private:
 	float _lockFPS;
 
 public:
+	//¼Â¾÷ ÇÔ¼ö
+	virtual void Setup(void);
 
 
 	//½Ì±ÛÅæ »ý¼º
