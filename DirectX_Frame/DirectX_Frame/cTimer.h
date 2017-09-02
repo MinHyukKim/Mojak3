@@ -16,8 +16,8 @@ private:
 
 
 public:
-	cTimer();
-	~cTimer();
+	cTimer(void);
+	~cTimer(void);
 
 	//½Ì±ÛÅæ »ý¼º
 	static cTimer* GetInstance() { static cTimer instance; return &instance; }
