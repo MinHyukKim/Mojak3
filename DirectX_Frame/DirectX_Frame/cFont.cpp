@@ -52,11 +52,8 @@ void cFont::Render(void)
 
 cFont* cFont::Create(void)
 {
-	return nullptr;
-}
-
-cFont* cFont::AddRef(void)
-{
-	return nullptr;
+	cFont* newClass = new cFont;
+	newClass->AddRef();
+	return newClass;
 }
 

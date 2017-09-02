@@ -30,7 +30,6 @@ public:
 
 
 	static cFont* Create(void);
-	virtual cFont* AddRef(void);
 protected:
 	cFont(void);
 	virtual ~cFont(void);

@@ -5,7 +5,9 @@
 cObject::cObject(void)
 	: m_nReferenceCount(1)
 {
+	g_pAutoRelasePool->MemoryInsert(this);
 	g_pAutoRelasePool->ReleaseDelay(this);
+
 }
 
 cObject::~cObject(void)
@@ -36,10 +38,4 @@ cObject* cObject::Create(void)
 	cObject* newClass = new cObject;
 	newClass->AddRef();
 	return newClass;
-}
-
-cObject* cObject::AddRef(void)
-{
-	++m_nReferenceCount;
-	return this;
 }
