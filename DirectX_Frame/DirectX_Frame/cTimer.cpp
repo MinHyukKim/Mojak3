@@ -47,6 +47,14 @@ void cTimer::Setup(void)
 
 void cTimer::Update(void)
 {
+	//하드웨어 카운터를 사용할 수 있으면 현재시간을 받아옴
+	//그렇지 않으면 getTickCount를 사용한다.
+	if (_isHardware) QueryPerformanceCounter((LARGE_INTEGER*)&_curTime);
+	else _curTime = GetTickCount();
+
+	//업데이트 간격당 걸린 시간 계산
+	_timeElapsed = (_curTime - _lastTime) * _timeScale;
+
 }
 
 float cTimer::GetWorldCheck(void)
