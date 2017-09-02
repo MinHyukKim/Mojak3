@@ -19,6 +19,11 @@ private:
 	//정밀 타이머 간격
 	__int64 _periodFrequency;
 
+	//1초마다 프레임 카운트를 저장
+	unsigned long _frameRate;
+	//프레임마다 카운트를 1씩 증가
+	unsigned long _FPSFrameCount;
+
 
 public:
 
