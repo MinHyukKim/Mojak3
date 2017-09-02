@@ -1,4 +1,7 @@
 #pragma once
+#define g_pTimer cTimer::GetInstance()
+
+
 class cTimer
 {
 public:
