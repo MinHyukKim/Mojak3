@@ -11,11 +11,14 @@ private:
 	LPDIRECT3DDEVICE9	m_pD3DDevice;
 
 public:
+	
 	LPDIRECT3DDEVICE9 GetDevice();
 	void Destroy();
 
 	static cDeviceManager* GetInstance() { static cDeviceManager instance; return &instance; }
-private:
 
+private:
+	cDeviceManager(void);
+	~cDeviceManager(void);
 
 };
