@@ -50,5 +50,6 @@ bool cInputManager::IsStayKeyDown(const int nKey)
 
 bool cInputManager::IsToggleKey(const int nKey)
 {
+	if (GetKeyState(nKey) & 0x0001) return true;
 	return false;
 }
