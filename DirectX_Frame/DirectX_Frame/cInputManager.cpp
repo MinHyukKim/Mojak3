@@ -12,6 +12,15 @@ cInputManager::~cInputManager(void)
 
 bool cInputManager::IsOnceKeyDown(const int nKey)
 {
+	if (GetAsyncKeyState(nKey) & 0x8000)
+	{
+		if (!this->GetKeyDown()[nKey])
+		{
+			this->SetKeyDown(nKey, true);
+			return true;
+		}		
+	}
+	else this->SetKeyDown(nKey, false);
 	return false;
 }
 
