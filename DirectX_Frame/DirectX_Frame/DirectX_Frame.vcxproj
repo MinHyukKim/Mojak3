@@ -142,6 +142,7 @@
   <ItemGroup>
     <ClInclude Include="cAutoReleasePool.h" />
     <ClInclude Include="cDeviceManager.h" />
+    <ClInclude Include="cInputManager.h" />
     <ClInclude Include="cObject.h" />
     <ClInclude Include="cMainGame.h" />
     <ClInclude Include="cTimer.h" />
@@ -153,6 +154,7 @@
   <ItemGroup>
     <ClCompile Include="cAutoReleasePool.cpp" />
     <ClCompile Include="cDeviceManager.cpp" />
+    <ClCompile Include="cInputManager.cpp" />
     <ClCompile Include="cObject.cpp" />
     <ClCompile Include="cMainGame.cpp" />
     <ClCompile Include="cTimer.cpp" />

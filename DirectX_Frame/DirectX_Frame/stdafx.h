@@ -34,6 +34,7 @@
 // TODO: 매니저 헤더는 여기에서 참조합니다.
 #include "cAutoReleasePool.h"
 #include "cDeviceManager.h"
+#include "cInputManager.h"
 
 // 전역 함수
 extern HWND g_hWnd;
