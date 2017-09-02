@@ -2,28 +2,28 @@
 #include "cMainGame.h"
 
 
-cMainGame::cMainGame()
+cMainGame::cMainGame(void)
 {
 }
 
 
-cMainGame::~cMainGame()
+cMainGame::~cMainGame(void)
 {
 	g_pDeviceManager->Destroy();
 
 }
 
 
-void cMainGame::Setup()
+void cMainGame::Setup(void)
 {
 
 }
 
-void cMainGame::Update()
+void cMainGame::Update(void)
 {
 }
 
-void cMainGame::Render()
+void cMainGame::Render(void)
 {
 	g_pD3DDevice->Clear(NULL, NULL, D3DCLEAR_TARGET | D3DCLEAR_ZBUFFER,
 		D3DCOLOR_XRGB(0, 0, 255), 1.0f, 0);

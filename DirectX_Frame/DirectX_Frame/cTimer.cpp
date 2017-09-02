@@ -1,6 +1,13 @@
 #include "stdafx.h"
 #include "cTimer.h"
 
+cTimer::cTimer(void)
+{
+}
+
+cTimer::~cTimer(void)
+{
+}
 
 void cTimer::Setup(void)
 {
@@ -8,11 +15,11 @@ void cTimer::Setup(void)
 	this->SetLockFPS();
 }
 
-cTimer::cTimer()
+void cTimer::Update(void)
 {
 }
 
-
-cTimer::~cTimer()
+float cTimer::GetWorldCheck(void)
 {
+	return 0.0f;
 }
