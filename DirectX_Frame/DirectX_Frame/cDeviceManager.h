@@ -15,6 +15,7 @@ public:
 	LPDIRECT3DDEVICE9 GetDevice();
 	void Destroy();
 
+	//½Ì±ÛÅæ »ý¼º
 	static cDeviceManager* GetInstance() { static cDeviceManager instance; return &instance; }
 
 private:
