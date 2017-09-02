@@ -1,5 +1,6 @@
 #pragma once
 #include "cObject.h"
+
 class cCamera :
 	public cObject
 {
@@ -9,7 +10,9 @@ private:
 	float m_fDistance;
 
 public:
-	cCamera();
-	~cCamera();
+
+protected:
+	cCamera(void);
+	virtual ~cCamera(void);
 };
 
