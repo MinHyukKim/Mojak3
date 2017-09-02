@@ -36,6 +36,13 @@ void cTimer::Setup(void)
 		_timeScale = 0.001f;
 	}
 
+	//변수 초기값 세트
+	_frameRate = 0;
+	_FPSFrameCount = 0;
+	_FPSTimeElapsed = 0.0f;
+	_worldTime = 0.0f;
+	_lockFPS = 60.0f;
+
 }
 
 void cTimer::Update(void)
