@@ -4,6 +4,10 @@
 
 class cTimer
 {
+private:
+	//하드웨어 타이머 사용가능 여부
+	bool	_isHardware;
+
 public:
 	cTimer();
 	~cTimer();
