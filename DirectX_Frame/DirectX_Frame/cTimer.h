@@ -47,6 +47,8 @@ public:
 	virtual float GetWorldTime(void) final { return _worldTime; } 
 	//타임 동기화 함수(가설)
 	virtual float GetWorldCheck(void) final;
+	//시간당 프레임 가져오는 함수
+	virtual int GetFPS(void) { return _frameRate; }
 
 
 	//싱글톤 생성
