@@ -38,8 +38,12 @@ public:
 	
 	//렌더 함수(차후 작성)
 	//virtual void Render(void);
-
+	
+	//초당 프레임 설정
 	virtual void SetLockFPS(float lockFPS = 0.0f) final { _lockFPS = lockFPS; }
+	//업데이트간 간격 가져오기
+	virtual float GetElapsedTime(void) final { return _timeElapsed; }
+
 
 
 	//싱글톤 생성
