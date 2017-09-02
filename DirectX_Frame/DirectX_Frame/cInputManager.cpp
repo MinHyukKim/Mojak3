@@ -30,6 +30,15 @@ bool cInputManager::IsOnceKeyDown(const int nKey)
 
 bool cInputManager::IsOnceKeyUp(const int nKey)
 {
+	if (GetAsyncKeyState(nKey) & 0x8000) this->SetKeyUp(nKey, true);
+	else
+	{
+		if (this->GetKeyUp()[nKey])
+		{
+			this->SetKeyUp(nKey, false);
+			return true;
+		}
+	}
 	return false;
 }
 
