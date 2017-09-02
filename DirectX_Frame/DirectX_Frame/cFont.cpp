@@ -33,7 +33,7 @@ void cFont::Setup(int nFontSize, LPCSTR szFontStyle)
 	if (nFontSize)																			// if(0 == fontsize) 출력범위 수정안함
 	{
 		m_nFontSize = nFontSize;
-		if (m_text.empty) this->SetRectangle(0, 0, fd.Width * FONT_LENGTH / 2, nFontSize);	//글씨가 없으면 기본값 = 32
+		if (m_text.empty()) this->SetRectangle(0, 0, fd.Width * FONT_LENGTH / 2, nFontSize);	//글씨가 없으면 기본값 = 32
 	}
 }
 
