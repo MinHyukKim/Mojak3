@@ -64,6 +64,17 @@ void cTimer::Update(void)
 	//월드 타임 증가
 	_worldTime += _timeElapsed;
 
+	//_FPSTimeElepsed가 1초가 지났다면 초당FPS를 갱신한다.
+	if (_FPSTimeElapsed > 1.0f)
+	{
+		//초당 프레임을 갱신하고
+		_frameRate = _FPSFrameCount;
+		//프레임 카운트를 초기화
+		_FPSFrameCount = 0.0f;
+		//FPS시간 변수도 초기화
+		_FPSTimeElapsed = 0.0f;
+	}
+
 }
 
 float cTimer::GetWorldCheck(void)
