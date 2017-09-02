@@ -16,6 +16,8 @@ private:
 	__int64	_curTime;
 	//이전 시간
 	__int64 _lastTime;
+	//정밀 타이머 간격
+	__int64 _periodFrequency;
 
 
 public:
