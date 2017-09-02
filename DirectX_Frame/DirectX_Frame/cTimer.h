@@ -12,7 +12,10 @@ private:
 	//1초/업데이트되는 횟수
 	float	_timeScale;
 
-
+	//현재 시간
+	__int64	_curTime;
+	//이전 시간
+	__int64 _lastTime;
 
 
 public:
