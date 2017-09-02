@@ -23,7 +23,12 @@ private:
 	unsigned long _frameRate;
 	//프레임마다 카운트를 1씩 증가
 	unsigned long _FPSFrameCount;
-
+	//1초가 될때까지 카운트를 누적하는 변수
+	float _FPSTimeElapsed;
+	//프로그램을 시작하고 나서부터의 누적 시간
+	float _worldTime;
+	//고정 프레임 설정 변수
+	float _lockFPS;
 
 public:
 
