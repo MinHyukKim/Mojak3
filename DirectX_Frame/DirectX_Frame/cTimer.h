@@ -9,6 +9,10 @@ private:
 	bool	_isHardware;
 	//한번 업데이트할때마다 걸린 시간 간격.
 	float	_timeElapsed;
+	//1초/업데이트되는 횟수
+	float	_timeScale;
+
+
 
 
 public:
