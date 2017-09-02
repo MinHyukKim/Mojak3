@@ -1,6 +1,5 @@
 #include "stdafx.h"
 #include "cAutoReleasePool.h"
-#include "cObject.h"
 
 cAutoReleasePool::cAutoReleasePool(void)
 {

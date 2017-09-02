@@ -1,9 +1,9 @@
 #pragma once
+#include "cObject.h"
 
 //메모리 관리자
 #define g_pAutoRelasePool cAutoReleasePool::GetInstance()
 
-class cObject;
 class cAutoReleasePool
 {
 private:

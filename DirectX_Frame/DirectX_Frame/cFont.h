@@ -1,9 +1,9 @@
 #pragma once
-class cFont
+class cFont : public cObject
 {
 private:
 public:
-	cFont();
-	~cFont();
+	cFont(void);
+	~cFont(void);
 };
 
