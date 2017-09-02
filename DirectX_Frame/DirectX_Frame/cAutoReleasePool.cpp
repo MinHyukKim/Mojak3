@@ -9,7 +9,7 @@ cAutoReleasePool::cAutoReleasePool(void)
 cAutoReleasePool::~cAutoReleasePool(void)
 {
 	//시스템 종료시 메모리풀에 데이터가 남아있으면 프로그램 경고!
-	assert(m_setMemoryPool.empty() && "Release를 사용합시다.");
+	assert(m_setMemoryPool.empty() && "Release를 사용합시다 .");
 }
 
 
