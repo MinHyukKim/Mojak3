@@ -4,6 +4,7 @@
 
 cObject::cObject(void)
 	: m_nReferenceCount(1)
+	, m_pParent(NULL)
 {
 	g_pAutoRelasePool->MemoryInsert(this);
 	g_pAutoRelasePool->ReleaseDelay(this);
