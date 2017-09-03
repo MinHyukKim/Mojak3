@@ -53,7 +53,7 @@ void cObject::Update(void)
 
 void cObject::Render(void)
 {
-	this->RanderChild();
+	this->RenderChild();
 }
 
 void cObject::SetupChild(void)
@@ -66,7 +66,7 @@ void cObject::UpdateChild(void)
 	for each (auto p in m_vecChild) SAFE_UPDATE(p);
 }
 
-void cObject::RanderChild(void)
+void cObject::RenderChild(void)
 {
 	for each (auto p in m_vecChild) SAFE_RENDER(p);
 }

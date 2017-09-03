@@ -28,7 +28,7 @@ public:
 	virtual void Render(void);
 	virtual void SetupChild(void) final;
 	virtual void UpdateChild(void) final;
-	virtual void RanderChild(void) final;
+	virtual void RenderChild(void) final;
 	virtual void RelaseChild(void) final;
 
 // 오브젝트를 상속받은 모든 클래스는 아래와 같은 형식을 사용합니다. (오버로딩하여 사용하세요.)
