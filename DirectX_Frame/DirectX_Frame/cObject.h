@@ -14,7 +14,7 @@ public:
 	virtual int GetReferenceCount(void) final { return m_nReferenceCount; }
 
 // 이 함수를 호출후 반드시 Release 해주세요.
-	virtual void AddRef(void) { ++m_nReferenceCount; }
+	virtual void AddRef(void) final { ++m_nReferenceCount; }
 
 // Release()를 오버로딩시 함수안에서 이 함수를 호출해 주세요.
 	virtual void Release(void) final;		// Delete 대신 사용
