@@ -32,6 +32,14 @@ cObject* cObject::AutoRelease(void)
 	return this;
 }
 
+//생성자와 얕은복사
+cObject* cObject::Create(void)
+{
+	cObject* newClass = new cObject;
+	newClass->AddRef();
+	return newClass;
+}
+
 void cObject::Setup(void)
 {
 }
@@ -42,12 +50,4 @@ void cObject::Update(void)
 
 void cObject::Render(void)
 {
-}
-
-//생성자와 얕은복사
-cObject* cObject::Create(void)
-{
-	cObject* newClass = new cObject;
-	newClass->AddRef();
-	return newClass;
 }

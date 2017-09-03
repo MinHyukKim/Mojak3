@@ -4,6 +4,10 @@ class cObject
 {
 private:
 	int m_nReferenceCount;
+	
+	//0903추가
+	cObject*				m_pParent;
+	std::vector<cObject*>	m_vecChild;
 
 public:
 // 현재 레퍼런스값을 반환합니다. (자신을 관리하고 있는 횟수를 저장합니다.)
