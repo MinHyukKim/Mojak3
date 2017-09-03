@@ -43,14 +43,17 @@ cObject* cObject::Create(void)
 
 void cObject::Setup(void)
 {
+	this->SetupChild();
 }
 
 void cObject::Update(void)
 {
+	this->UpdateChild();
 }
 
 void cObject::Render(void)
 {
+	this->RanderChild();
 }
 
 void cObject::SetupChild(void)
