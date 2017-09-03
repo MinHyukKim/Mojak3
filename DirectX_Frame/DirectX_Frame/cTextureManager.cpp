@@ -23,6 +23,11 @@ LPDIRECT3DTEXTURE9 cTextureManager::GetTexture(std::string& szKeyName)
 	this->GetTexture(szKeyName.c_str());
 }
 
+void cTextureManager::Destroy(void)
+{
+	for each(auto it in m_mapTexture) SAFE_RELEASE(it.second);
+}
+
 cTextureManager::cTextureManager(void)
 {
 }
