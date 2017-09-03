@@ -62,3 +62,8 @@ void cObject::UpdateChild(void)
 {
 	for each (auto p in m_vecChild) SAFE_UPDATE(p);
 }
+
+void cObject::RanderChild(void)
+{
+	for each (auto p in m_vecChild) SAFE_RENDER(p);
+}
