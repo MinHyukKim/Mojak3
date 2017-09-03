@@ -1,8 +1,7 @@
 #pragma once
 #include "cObject.h"
 
-class cCamera :
-	public cObject
+class cCamera : public cObject
 {
 private:
 	static RECT m_rc;
