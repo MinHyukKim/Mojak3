@@ -16,6 +16,10 @@ cObject::~cObject(void)
 	//0보다 작을시 중복제거됨
 	assert(m_nReferenceCount <= 0 && "Delete를 사용하지 마세요.");
 	g_pAutoRelasePool->MemoryErase(this);
+
+	//0903 추가
+	//자식 소멸
+	this->RelaseChild();
 }
 
 //릴리즈
@@ -41,6 +45,7 @@ cObject* cObject::Create(void)
 	return newClass;
 }
 
+//0903 추가
 void cObject::Setup(void)
 {
 	this->SetupChild();
@@ -56,6 +61,7 @@ void cObject::Render(void)
 	this->RenderChild();
 }
 
+//자식들 생성 업데이트 렌더 릴리즈
 void cObject::SetupChild(void)
 {
 	for each(auto p in m_vecChild) SAFE_SETUP(p);
