@@ -52,3 +52,8 @@ void cObject::Update(void)
 void cObject::Render(void)
 {
 }
+
+void cObject::SetupChild(void)
+{
+	for each(auto p in m_vecChild) SAFE_SETUP(p);
+}
