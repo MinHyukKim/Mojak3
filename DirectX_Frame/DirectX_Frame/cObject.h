@@ -5,7 +5,7 @@ class cObject
 private:
 	int m_nReferenceCount;
 	
-	//0903추가
+	//0903추가 11 : 12 추가
 	cObject*				m_pParent;
 	std::vector<cObject*>	m_vecChild;
 

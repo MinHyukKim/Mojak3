@@ -21,8 +21,8 @@ void cTimer::Setup(void)
 	{
 		//하드웨어 타이머가 사용가능하다는것을 세트
 		_isHardware = true;
-		//초기 시간 설정
-		QueryPerformanceCounter((LARGE_INTEGER*)&_lastTime));
+		//초기 시간 설정 (09/03 구문 오류 수정)
+		QueryPerformanceCounter((LARGE_INTEGER*)&_lastTime);
 		//초당 빈도수 설정
 		_timeScale = 1.0f / _periodFrequency;
 	}//하드웨어 정밀 타이머를 사용할 수 없을 경우
