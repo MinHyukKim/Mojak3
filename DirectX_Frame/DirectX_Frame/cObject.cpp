@@ -67,3 +67,9 @@ void cObject::RanderChild(void)
 {
 	for each (auto p in m_vecChild) SAFE_RENDER(p);
 }
+
+void cObject::RelaseChild(void)
+{
+	for each(auto p in m_vecChild) SAFE_RELEASE(p);
+	m_vecChild.clear();
+}
