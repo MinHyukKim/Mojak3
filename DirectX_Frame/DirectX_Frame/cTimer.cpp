@@ -13,8 +13,8 @@ cTimer::~cTimer(void)
 
 void cTimer::Setup(void)
 {
-	//프레임 해제
-	this->SetLockFPS();
+	//프레임 해제 (아래에서 _lockFPS = 60.0f 해줘서 필요없음)
+//	this->SetLockFPS();
 
 	//하드웨어 정밀 타이머를 사용할 수 있을 경우
 	if (QueryPerformanceFrequency((LARGE_INTEGER*)&_periodFrequency))
