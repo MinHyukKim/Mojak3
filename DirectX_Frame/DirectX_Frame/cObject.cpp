@@ -40,6 +40,10 @@ void cObject::Update(void)
 {
 }
 
+void cObject::Render(void)
+{
+}
+
 //생성자와 얕은복사
 cObject* cObject::Create(void)
 {
