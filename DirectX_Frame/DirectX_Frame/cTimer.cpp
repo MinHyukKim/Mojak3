@@ -79,5 +79,8 @@ void cTimer::Update(void)
 
 float cTimer::GetWorldCheck(void)
 {
-	return 0.0f;
+	if (_isHardware) QueryPerformanceCounter((LARGE_INTEGER*)&_curTime);
+	else _curTime = GetTickCount();
+
+	return _curTime * _timeScale;
 }
