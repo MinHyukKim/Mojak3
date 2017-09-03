@@ -32,6 +32,10 @@ cObject* cObject::AutoRelease(void)
 	return this;
 }
 
+void cObject::Setup(void)
+{
+}
+
 //생성자와 얕은복사
 cObject* cObject::Create(void)
 {
