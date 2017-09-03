@@ -36,6 +36,7 @@
 #include "cAutoReleasePool.h"
 #include "cDeviceManager.h"
 #include "cInputManager.h"
+#include "cTextureManager.h"
 
 // 전역 함수
 extern HWND g_hWnd;
