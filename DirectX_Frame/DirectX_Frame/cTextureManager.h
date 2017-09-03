@@ -11,6 +11,9 @@ private:
 public:
 	LPDIRECT3DTEXTURE9 GetTexture(LPCSTR szKeyName);
 	LPDIRECT3DTEXTURE9 GetTexture(std::string& szKeyName);
+	bool GetImageInfo(OUT D3DXIMAGE_INFO* pImageInfo, IN LPCSTR szKeyName);
+	bool GetImageInfo(OUT D3DXIMAGE_INFO* pImageInfo, IN std::string& szKeyName);
+
 	void Destroy(void);
 
 	//½Ì±ÛÅæ »ý¼º
