@@ -18,7 +18,7 @@ public:
 // 이 함수는 오버로딩 하실 수 없습니다. (오토릴리즈풀 리스트에 this를 추가합니다.)	
 	virtual cObject* AutoRelease(void) final;
 
-	//0903 11:12추가 
+	//0903 11:12추가 내부구현 안되있습니다!
 	virtual void Setup(void);
 	virtual void Update(void);
 	virtual void Render(void);

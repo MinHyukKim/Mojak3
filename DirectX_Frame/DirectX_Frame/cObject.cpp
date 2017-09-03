@@ -36,6 +36,10 @@ void cObject::Setup(void)
 {
 }
 
+void cObject::Update(void)
+{
+}
+
 //생성자와 얕은복사
 cObject* cObject::Create(void)
 {
