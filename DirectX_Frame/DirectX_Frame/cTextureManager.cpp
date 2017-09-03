@@ -9,7 +9,7 @@ cTextureManager::~cTextureManager(void)
 {
 }
 
-LPDIRECT3DTEXTURE9 cTextureManager::GetTexture(LPCSTR szKeyName)
+LPDIRECT3DTEXTURE9 cTextureManager::GetTexture(IN LPCSTR szKeyName)
 {
 	if (m_mapTexture.find(szKeyName) == m_mapTexture.end())
 	{
@@ -26,7 +26,7 @@ LPDIRECT3DTEXTURE9 cTextureManager::GetTexture(LPCSTR szKeyName)
 	return m_mapTexture[szKeyName];
 }
 
-LPDIRECT3DTEXTURE9 cTextureManager::GetTexture(std::string& szKeyName)
+LPDIRECT3DTEXTURE9 cTextureManager::GetTexture(IN std::string& szKeyName)
 {
 	this->GetTexture(szKeyName.c_str());
 }

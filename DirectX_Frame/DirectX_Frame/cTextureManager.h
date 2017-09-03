@@ -9,8 +9,8 @@ private:
 	std::map<std::string, LPDIRECT3DTEXTURE9> m_mapTexture;
 
 public:
-	LPDIRECT3DTEXTURE9 GetTexture(LPCSTR szKeyName);
-	LPDIRECT3DTEXTURE9 GetTexture(std::string& szKeyName);
+	LPDIRECT3DTEXTURE9 GetTexture(IN LPCSTR szKeyName);
+	LPDIRECT3DTEXTURE9 GetTexture(IN std::string& szKeyName);
 	bool GetImageInfo(OUT D3DXIMAGE_INFO* pImageInfo, IN LPCSTR szKeyName);
 	bool GetImageInfo(OUT D3DXIMAGE_INFO* pImageInfo, IN std::string& szKeyName);
 
