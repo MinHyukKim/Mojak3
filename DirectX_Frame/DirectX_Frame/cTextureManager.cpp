@@ -2,6 +2,27 @@
 #include "cTextureManager.h"
 
 
+LPDIRECT3DTEXTURE9 cTextureManager::GetTexture(LPCSTR szKeyName)
+{
+	if (m_mapTexture.find(szKeyName) == m_mapTexture.end())
+	{
+		D3DXIMAGE_INFO ImageInfo = {};
+		LPDIRECT3DTEXTURE9 pTexture = NULL;
+
+		if (FAILED(D3DXCreateTextureFromFileEx(g_pD3DDevice, szKeyName, D3DX_DEFAULT_NONPOW2, D3DX_DEFAULT_NONPOW2, D3DX_DEFAULT,
+			0, D3DFMT_UNKNOWN, D3DPOOL_MANAGED, D3DX_FILTER_NONE, D3DX_DEFAULT, 0, &ImageInfo, NULL, &pTexture))) return NULL;
+		m_mapImageInfo[szKeyName] = ImageInfo;
+		m_mapTexture[szKeyName] = pTexture;
+	}
+
+	return m_mapTexture[szKeyName];
+}
+
+LPDIRECT3DTEXTURE9 cTextureManager::GetTexture(std::string& szKeyName)
+{
+	this->GetTexture(szKeyName.c_str());
+}
+
 cTextureManager::cTextureManager(void)
 {
 }

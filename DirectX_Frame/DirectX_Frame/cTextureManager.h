@@ -1,8 +1,22 @@
 #pragma once
+
+#define g_pTexture cTextureManager::GetInstance()
+
 class cTextureManager
 {
+private:
+	std::map<std::string, D3DXIMAGE_INFO> m_mapImageInfo;
+	std::map<std::string, LPDIRECT3DTEXTURE9> m_mapTexture;
+
 public:
+	LPDIRECT3DTEXTURE9 GetTexture(LPCSTR szKeyName);
+	LPDIRECT3DTEXTURE9 GetTexture(std::string& szKeyName);
+	void Destroy(void);
+
+	//½Ì±ÛÅæ »ý¼º
+	static cTextureManager* GetInstance() { static cTextureManager instance; return &instance; }
+private:
 	cTextureManager(void);
-	~cTextureManager(void);
+	virtual ~cTextureManager(void);
 };
 

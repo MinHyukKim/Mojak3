@@ -149,6 +149,7 @@
     <ClInclude Include="cInputManager.h" />
     <ClInclude Include="cObject.h" />
     <ClInclude Include="cMainGame.h" />
+    <ClInclude Include="cTextureManager.h" />
     <ClInclude Include="cTimer.h" />
     <ClInclude Include="DirectX_Frame.h" />
     <ClInclude Include="Resource.h" />
@@ -163,6 +164,7 @@
     <ClCompile Include="cInputManager.cpp" />
     <ClCompile Include="cObject.cpp" />
     <ClCompile Include="cMainGame.cpp" />
+    <ClCompile Include="cTextureManager.cpp" />
     <ClCompile Include="cTimer.cpp" />
     <ClCompile Include="DirectX_Frame.cpp" />
     <ClCompile Include="stdafx.cpp">
