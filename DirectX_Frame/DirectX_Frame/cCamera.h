@@ -3,7 +3,16 @@
 
 class cCamera : public cObject
 {
+public:
+	//용책 275p 참고
+	enum CAMERA_TYPE
+	{
+		E_LANDOBJECT,
+		E_AIRCRAFT,
+	};
+
 private:
+
 	static RECT m_rc;
 	//카메라 거리
 	float m_fDistance;
