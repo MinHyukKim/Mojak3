@@ -19,7 +19,7 @@ cObject::~cObject(void)
 
 	//0903 추가
 	//자식 소멸
-	this->RelaseChild();
+//	this->RelaseChild();
 }
 
 //릴리즈
@@ -46,39 +46,40 @@ cObject* cObject::Create(void)
 }
 
 //0903 추가
-void cObject::Setup(void)
+HRESULT cObject::Setup(void)
 {
-	this->SetupChild();
+//	this->SetupChild();
+	return D3D_OK;
 }
 
 void cObject::Update(void)
 {
-	this->UpdateChild();
+//	this->UpdateChild();
 }
 
 void cObject::Render(void)
 {
-	this->RenderChild();
+//	this->RenderChild();
 }
 
 //자식들 생성 업데이트 렌더 릴리즈
-void cObject::SetupChild(void)
-{
-	for each(auto p in m_vecChild) SAFE_SETUP(p);
-}
-
-void cObject::UpdateChild(void)
-{
-	for each (auto p in m_vecChild) SAFE_UPDATE(p);
-}
-
-void cObject::RenderChild(void)
-{
-	for each (auto p in m_vecChild) SAFE_RENDER(p);
-}
-
-void cObject::RelaseChild(void)
-{
-	for each(auto p in m_vecChild) SAFE_RELEASE(p);
-	m_vecChild.clear();
-}
+//void cObject::SetupChild(void)
+//{
+//	for each(auto p in m_vecChild) SAFE_SETUP(p);
+//}
+//
+//void cObject::UpdateChild(void)
+//{
+//	for each (auto p in m_vecChild) SAFE_UPDATE(p);
+//}
+//
+//void cObject::RenderChild(void)
+//{
+//	for each (auto p in m_vecChild) SAFE_RENDER(p);
+//}
+//
+//void cObject::RelaseChild(void)
+//{
+//	for each(auto p in m_vecChild) SAFE_RELEASE(p);
+//	m_vecChild.clear();
+//}
