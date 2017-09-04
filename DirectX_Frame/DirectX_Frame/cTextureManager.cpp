@@ -28,7 +28,7 @@ LPDIRECT3DTEXTURE9 cTextureManager::GetTexture(IN LPCSTR szKeyName)
 
 LPDIRECT3DTEXTURE9 cTextureManager::GetTexture(IN std::string& szKeyName)
 {
-	this->GetTexture(szKeyName.c_str());
+	return this->GetTexture(szKeyName.c_str());
 }
 
 bool cTextureManager::GetImageInfo(OUT D3DXIMAGE_INFO* pImageInfo, IN LPCSTR szKeyName)
