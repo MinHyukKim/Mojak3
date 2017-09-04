@@ -9,17 +9,21 @@ cSceneObject::~cSceneObject(void)
 {
 }
 
-HRESULT cSceneObject::Setup()
+HRESULT cSceneObject::Setup(void)
 {
 
 	return D3D_OK;
 }
 
-void cSceneObject::Update()
+void cSceneObject::Reset(void)
 {
 }
 
-void cSceneObject::Render()
+void cSceneObject::Update(void)
+{
+}
+
+void cSceneObject::Render(void)
 {
 }
 

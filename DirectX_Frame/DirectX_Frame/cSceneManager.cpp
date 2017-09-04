@@ -2,11 +2,14 @@
 #include "cSceneManager.h"
 #include "cSceneObject.h"	
 
+//외부 초기화
+cSceneObject* cSceneManager::m_pCurrentScene = NULL;
+cSceneObject* cSceneManager::m_pLoadingScene = NULL;
+cSceneObject* cSceneManager::m_pReadyScene = NULL;
+
 cSceneManager::cSceneManager()
 {
-	m_pCurrentScene = NULL;
-	m_pLoadingScene = NULL;
-	m_pReadyScene = NULL;
+
 }
 
 
@@ -18,6 +21,12 @@ HRESULT cSceneManager::Setup(void)
 {
 
 	return D3D_OK;
+}
+
+//릴리즈 대용
+void cSceneManager::Reset(void)
+{
+
 }
 
 void cSceneManager::Update(void)

@@ -19,7 +19,8 @@ private:
 
 public:
 	virtual HRESULT Setup(void);
-	virtual void Update(void);
+	virtual void Reset(void);		//릴리증 대용
+	virtual void Update(void);	
 	virtual void Render(void);
 
 	cSceneObject* AddScene(std::string sceneName, cSceneObject* scene); //씬 추가
