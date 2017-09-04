@@ -7,7 +7,7 @@ class cSceneManager
 public:
 	//씬 리스트 맵으로 저장, 이터레이터
 	typedef std::map<std::string, cSceneObject*> mapSceneList;
-	typedef std::map<std::string, cSceneObject*>::iterator mapSceneLter;
+	typedef std::map<std::string, cSceneObject*>::iterator mapSceneIter;
 
 private:
 	static cSceneObject* m_pCurrentScene;		//현재 씬

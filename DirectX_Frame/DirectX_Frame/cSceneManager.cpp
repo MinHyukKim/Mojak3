@@ -2,16 +2,14 @@
 #include "cSceneManager.h"
 #include "cSceneObject.h"	
 
-//외부 초기화
+//외부에서 초기화
 cSceneObject* cSceneManager::m_pCurrentScene = NULL;
 cSceneObject* cSceneManager::m_pLoadingScene = NULL;
 cSceneObject* cSceneManager::m_pReadyScene = NULL;
 
 cSceneManager::cSceneManager()
 {
-
 }
-
 
 cSceneManager::~cSceneManager()
 {
@@ -26,7 +24,15 @@ HRESULT cSceneManager::Setup(void)
 //릴리즈 대용
 void cSceneManager::Reset(void)
 {
+	mapSceneIter iter = m_mapSceneList.begin();
 
+	while (iter != m_mapSceneList.end())
+	{
+		if (iter->second != NULL)
+		{
+
+		}
+	}
 }
 
 void cSceneManager::Update(void)
@@ -48,7 +54,7 @@ cSceneObject * cSceneManager::AddScene(std::string sceneName, cSceneObject * sce
 
 HRESULT cSceneManager::ChangScene(std::string sceneName)
 {
-	mapSceneLter find = m_mapSceneList.find(sceneName);
+	mapSceneIter find = m_mapSceneList.find(sceneName);
 	if (find == m_mapSceneList.end()) return E_FAIL;
 	if (SUCCEEDED(find->second->Setup()))
 	{
