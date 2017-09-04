@@ -1,5 +1,7 @@
 #pragma once
-class cSceneManager
+#include "cSceneObject.h"
+
+class cSceneManager : public cSceneObject
 {
 private:
 
