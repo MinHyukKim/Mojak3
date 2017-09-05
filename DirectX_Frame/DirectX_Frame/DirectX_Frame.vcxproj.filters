@@ -13,6 +13,9 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
+    <Filter Include="관리자">
+      <UniqueIdentifier>{f51bfe75-fb36-4592-823a-1a992c2c84d4}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <Text Include="ReadMe.txt" />
@@ -30,22 +33,13 @@
     <ClInclude Include="DirectX_Frame.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
-    <ClInclude Include="cAutoReleasePool.h">
-      <Filter>헤더 파일</Filter>
-    </ClInclude>
     <ClInclude Include="cObject.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
     <ClInclude Include="cMainGame.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
-    <ClInclude Include="cDeviceManager.h">
-      <Filter>헤더 파일</Filter>
-    </ClInclude>
     <ClInclude Include="cTimer.h">
-      <Filter>헤더 파일</Filter>
-    </ClInclude>
-    <ClInclude Include="cInputManager.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
     <ClInclude Include="cFont.h">
@@ -54,8 +48,23 @@
     <ClInclude Include="cCamera.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
+    <ClInclude Include="cAutoReleasePool.h">
+      <Filter>관리자</Filter>
+    </ClInclude>
+    <ClInclude Include="cDeviceManager.h">
+      <Filter>관리자</Filter>
+    </ClInclude>
+    <ClInclude Include="cInputManager.h">
+      <Filter>관리자</Filter>
+    </ClInclude>
     <ClInclude Include="cTextureManager.h">
-      <Filter>헤더 파일</Filter>
+      <Filter>관리자</Filter>
+    </ClInclude>
+    <ClInclude Include="cSceneManager.h">
+      <Filter>관리자</Filter>
+    </ClInclude>
+    <ClInclude Include="cSoundManager.h">
+      <Filter>관리자</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -65,22 +74,13 @@
     <ClCompile Include="DirectX_Frame.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
-    <ClCompile Include="cAutoReleasePool.cpp">
-      <Filter>소스 파일</Filter>
-    </ClCompile>
     <ClCompile Include="cObject.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
     <ClCompile Include="cMainGame.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
-    <ClCompile Include="cDeviceManager.cpp">
-      <Filter>소스 파일</Filter>
-    </ClCompile>
     <ClCompile Include="cTimer.cpp">
-      <Filter>소스 파일</Filter>
-    </ClCompile>
-    <ClCompile Include="cInputManager.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
     <ClCompile Include="cFont.cpp">
@@ -89,8 +89,23 @@
     <ClCompile Include="cCamera.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
+    <ClCompile Include="cAutoReleasePool.cpp">
+      <Filter>관리자</Filter>
+    </ClCompile>
+    <ClCompile Include="cDeviceManager.cpp">
+      <Filter>관리자</Filter>
+    </ClCompile>
+    <ClCompile Include="cInputManager.cpp">
+      <Filter>관리자</Filter>
+    </ClCompile>
+    <ClCompile Include="cSceneManager.cpp">
+      <Filter>관리자</Filter>
+    </ClCompile>
     <ClCompile Include="cTextureManager.cpp">
-      <Filter>소스 파일</Filter>
+      <Filter>관리자</Filter>
+    </ClCompile>
+    <ClCompile Include="cSoundManager.cpp">
+      <Filter>관리자</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
