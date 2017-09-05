@@ -64,7 +64,7 @@ HRESULT cSceneManager::ChangScene(std::string sceneName)
 	if (find == m_mapSceneList.end()) return E_FAIL;
 	if (SUCCEEDED(find->second->Setup()))
 	{
-		//현재 씬이 있다면 현재씬 제거 필요(미구현)
+		if (m_pCurrentScene) m_pCurrentScene->Reset();
 		m_pCurrentScene = find->second;
 
 		return D3D_OK;
@@ -79,7 +79,7 @@ DWORD CALLBACK LoadingThread(LPVOID prc)
 
 	cSceneManager::m_pCurrentScene = cSceneManager::m_pReadyScene;
 
-	//로딩씬 제거 필요(미구현)
+	cSceneManager::m_pLoadingScene->Reset();
 	cSceneManager::m_pLoadingScene = NULL;
 	cSceneManager::m_pReadyScene = NULL;
 
