@@ -1,245 +1,131 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
-    <Filter Include="소스 파일">
-      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
-      <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
-    </Filter>
-    <Filter Include="헤더 파일">
-      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
-      <Extensions>h;hh;hpp;hxx;hm;inl;inc;xsd</Extensions>
-    </Filter>
-    <Filter Include="리소스 파일">
-      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
-      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
-    </Filter>
-    <Filter Include="소스 파일\00-메인">
-      <UniqueIdentifier>{a0d75f41-f49c-4549-9e95-f73d28377ce9}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="소스 파일\01-메니져">
-      <UniqueIdentifier>{8a2d87dd-a67d-4f0f-844f-da395eb1452d}</UniqueIdentifier>
-    </Filter>
-  </ItemGroup>
-  <ItemGroup>
-    <Text Include="ReadMe.txt" />
-  </ItemGroup>
-  <ItemGroup>
-    <ClInclude Include="targetver.h">
-      <Filter>헤더 파일</Filter>
-    </ClInclude>
-    <ClInclude Include="Resource.h">
-      <Filter>헤더 파일</Filter>
-    </ClInclude>
-    <ClInclude Include="cMainGame.h">
-      <Filter>소스 파일\00-메인</Filter>
-    </ClInclude>
-    <ClInclude Include="cObject.h">
-      <Filter>소스 파일\00-메인</Filter>
-    </ClInclude>
-    <ClInclude Include="DirectX_Frame.h">
-      <Filter>소스 파일\00-메인</Filter>
-    </ClInclude>
-<<<<<<< .mine
-
-
-
-
-
-
-=======
-    <ClInclude Include="stdafx.h">
-      <Filter>소스 파일\00-메인</Filter>
-    </ClInclude>
-    <ClInclude Include="cAutoReleasePool.h">
-      <Filter>소스 파일\01-메니져</Filter>
-    </ClInclude>
->>>>>>> .theirs
-    <ClInclude Include="cDeviceManager.h">
-      <Filter>소스 파일\01-메니져</Filter>
-    </ClInclude>
-    <ClInclude Include="cInputManager.h">
-      <Filter>소스 파일\01-메니져</Filter>
-    </ClInclude>
-<<<<<<< .mine
-
-
-
-=======
-    <ClInclude Include="cTextureManager.h">
-      <Filter>소스 파일\01-메니져</Filter>
-    </ClInclude>
->>>>>>> .theirs
-    <ClInclude Include="cTimer.h">
-      <Filter>소스 파일\01-메니져</Filter>
-    </ClInclude>
-<<<<<<< .mine
-
-
-
-=======
-    <ClInclude Include="cCamera.h">
-      <Filter>소스 파일</Filter>
-    </ClInclude>
->>>>>>> .theirs
-    <ClInclude Include="cFont.h">
-      <Filter>소스 파일</Filter>
-    </ClInclude>
-    <ClInclude Include="cSceneManager.h">
-      <Filter>소스 파일\01-메니져</Filter>
-    </ClInclude>
-<<<<<<< .mine
-    <ClInclude Include="cAutoReleasePool.h">
+    <ClCompile Include="cAutoReleasePool.cpp">
       <Filter>관리자</Filter>
-    </ClInclude>
-    <ClInclude Include="cDeviceManager.h">
+    </ClCompile>
+    <ClCompile Include="cDeviceManager.cpp">
       <Filter>관리자</Filter>
-    </ClInclude>
-    <ClInclude Include="cInputManager.h">
+    </ClCompile>
+    <ClCompile Include="cFont.cpp">
+      <Filter>인터페이스</Filter>
+    </ClCompile>
+    <ClCompile Include="cInputManager.cpp">
       <Filter>관리자</Filter>
-    </ClInclude>
-    <ClInclude Include="cTextureManager.h">
-      <Filter>관리자</Filter>
-=======
-    <ClInclude Include="cSoundManager.h">
-      <Filter>소스 파일\01-메니져</Filter>
-
-
-
-
-
-
-
-
-
->>>>>>> .theirs
-    </ClInclude>
-<<<<<<< .mine
-    <ClInclude Include="cSceneManager.h">
-      <Filter>관리자</Filter>
-    </ClInclude>
-    <ClInclude Include="cSoundManager.h">
-      <Filter>관리자</Filter>
-    </ClInclude>
-=======
-    <ClInclude Include="cSceneObject.h">
-      <Filter>소스 파일\00-메인</Filter>
-    </ClInclude>
-
-
-
->>>>>>> .theirs
-  </ItemGroup>
-  <ItemGroup>
+    </ClCompile>
+    <ClCompile Include="cCamera.cpp">
+      <Filter>인터페이스</Filter>
+    </ClCompile>
     <ClCompile Include="cMainGame.cpp">
-      <Filter>소스 파일\00-메인</Filter>
+      <Filter>씬 리스트</Filter>
     </ClCompile>
     <ClCompile Include="cObject.cpp">
-      <Filter>소스 파일\00-메인</Filter>
+      <Filter>인터페이스</Filter>
+    </ClCompile>
+    <ClCompile Include="cSceneManager.cpp">
+      <Filter>관리자</Filter>
+    </ClCompile>
+    <ClCompile Include="cSceneObject.cpp">
+      <Filter>인터페이스</Filter>
+    </ClCompile>
+    <ClCompile Include="cSoundManager.cpp">
+      <Filter>관리자</Filter>
+    </ClCompile>
+    <ClCompile Include="cTextureManager.cpp">
+      <Filter>관리자</Filter>
+    </ClCompile>
+    <ClCompile Include="cTimer.cpp">
+      <Filter>관리자</Filter>
     </ClCompile>
     <ClCompile Include="DirectX_Frame.cpp">
-      <Filter>소스 파일\00-메인</Filter>
+      <Filter>기본 프레임워크</Filter>
     </ClCompile>
-<<<<<<< .mine
-
-
-
-
-
-
-=======
     <ClCompile Include="stdafx.cpp">
-      <Filter>소스 파일\00-메인</Filter>
+      <Filter>기본 프레임워크</Filter>
     </ClCompile>
-    <ClCompile Include="cAutoReleasePool.cpp">
-      <Filter>소스 파일\01-메니져</Filter>
-    </ClCompile>
->>>>>>> .theirs
-    <ClCompile Include="cDeviceManager.cpp">
-      <Filter>소스 파일\01-메니져</Filter>
-    </ClCompile>
-    <ClCompile Include="cInputManager.cpp">
-      <Filter>소스 파일\01-메니져</Filter>
-    </ClCompile>
-<<<<<<< .mine
-
-
-
-=======
-    <ClCompile Include="cTextureManager.cpp">
-      <Filter>소스 파일\01-메니져</Filter>
-    </ClCompile>
->>>>>>> .theirs
-    <ClCompile Include="cTimer.cpp">
-      <Filter>소스 파일\01-메니져</Filter>
-    </ClCompile>
-<<<<<<< .mine
-
-
-
-=======
-    <ClCompile Include="cCamera.cpp">
-      <Filter>소스 파일</Filter>
-    </ClCompile>
->>>>>>> .theirs
-    <ClCompile Include="cFont.cpp">
-      <Filter>소스 파일</Filter>
-    </ClCompile>
-    <ClCompile Include="cSceneManager.cpp">
-      <Filter>소스 파일\01-메니져</Filter>
-    </ClCompile>
-<<<<<<< .mine
-    <ClCompile Include="cAutoReleasePool.cpp">
+    <ClCompile Include="cMapToolScene.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="cAutoReleasePool.h">
       <Filter>관리자</Filter>
-    </ClCompile>
-    <ClCompile Include="cDeviceManager.cpp">
+    </ClInclude>
+    <ClInclude Include="cDeviceManager.h">
       <Filter>관리자</Filter>
-    </ClCompile>
-    <ClCompile Include="cInputManager.cpp">
+    </ClInclude>
+    <ClInclude Include="cFont.h">
+      <Filter>인터페이스</Filter>
+    </ClInclude>
+    <ClInclude Include="cInputManager.h">
       <Filter>관리자</Filter>
-    </ClCompile>
-    <ClCompile Include="cSceneManager.cpp">
+    </ClInclude>
+    <ClInclude Include="cCamera.h">
+      <Filter>인터페이스</Filter>
+    </ClInclude>
+    <ClInclude Include="cMainGame.h">
+      <Filter>씬 리스트</Filter>
+    </ClInclude>
+    <ClInclude Include="cObject.h">
+      <Filter>인터페이스</Filter>
+    </ClInclude>
+    <ClInclude Include="cSceneManager.h">
       <Filter>관리자</Filter>
-    </ClCompile>
-    <ClCompile Include="cTextureManager.cpp">
+    </ClInclude>
+    <ClInclude Include="cSceneObject.h">
+      <Filter>인터페이스</Filter>
+    </ClInclude>
+    <ClInclude Include="cSoundManager.h">
       <Filter>관리자</Filter>
-=======
-    <ClCompile Include="cSoundManager.cpp">
-      <Filter>소스 파일\01-메니져</Filter>
-
-
-
-
-
-
-
-
-
-
-
-
->>>>>>> .theirs
-    </ClCompile>
-<<<<<<< .mine
-    <ClCompile Include="cSoundManager.cpp">
+    </ClInclude>
+    <ClInclude Include="cTextureManager.h">
       <Filter>관리자</Filter>
-    </ClCompile>
-=======
-    <ClCompile Include="cSceneObject.cpp">
-      <Filter>소스 파일\00-메인</Filter>
-    </ClCompile>
->>>>>>> .theirs
+    </ClInclude>
+    <ClInclude Include="cTimer.h">
+      <Filter>관리자</Filter>
+    </ClInclude>
+    <ClInclude Include="targetver.h">
+      <Filter>기본 프레임워크</Filter>
+    </ClInclude>
+    <ClInclude Include="DirectX_Frame.h">
+      <Filter>기본 프레임워크</Filter>
+    </ClInclude>
+    <ClInclude Include="Resource.h">
+      <Filter>기본 프레임워크</Filter>
+    </ClInclude>
+    <ClInclude Include="stdafx.h">
+      <Filter>기본 프레임워크</Filter>
+    </ClInclude>
+    <ClInclude Include="cMapToolScene.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="DirectX_Frame.ico">
+      <Filter>기본 프레임워크</Filter>
+    </Image>
+    <Image Include="small.ico">
+      <Filter>기본 프레임워크</Filter>
+    </Image>
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="관리자">
+      <UniqueIdentifier>{a00033ce-df81-474a-a580-c6911d9ae21b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="인터페이스">
+      <UniqueIdentifier>{e3963e1c-c25c-4106-95f3-86e82b5137ad}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="기본 프레임워크">
+      <UniqueIdentifier>{d21af26d-d1e0-420e-9223-1d586e6eeff1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="씬 리스트">
+      <UniqueIdentifier>{9a3fe67d-450a-4f7e-962b-f2be4591745d}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="DirectX_Frame.rc">
-      <Filter>리소스 파일</Filter>
+      <Filter>기본 프레임워크</Filter>
     </ResourceCompile>
   </ItemGroup>
   <ItemGroup>
-    <Image Include="small.ico">
-      <Filter>리소스 파일</Filter>
-    </Image>
-    <Image Include="DirectX_Frame.ico">
-      <Filter>리소스 파일</Filter>
-    </Image>
+    <Text Include="ReadMe.txt">
+      <Filter>기본 프레임워크</Filter>
+    </Text>
   </ItemGroup>
 </Project>

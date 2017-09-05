@@ -1,5 +1,4 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-
 <Project DefaultTargets="Build" ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup Label="ProjectConfigurations">
     <ProjectConfiguration Include="Debug|Win32">
@@ -148,6 +147,7 @@
     <ClInclude Include="cDeviceManager.h" />
     <ClInclude Include="cFont.h" />
     <ClInclude Include="cInputManager.h" />
+    <ClInclude Include="cMapToolScene.h" />
     <ClInclude Include="cObject.h" />
     <ClInclude Include="cMainGame.h" />
     <ClInclude Include="cSceneManager.h" />
@@ -166,6 +166,7 @@
     <ClCompile Include="cDeviceManager.cpp" />
     <ClCompile Include="cFont.cpp" />
     <ClCompile Include="cInputManager.cpp" />
+    <ClCompile Include="cMapToolScene.cpp" />
     <ClCompile Include="cObject.cpp" />
     <ClCompile Include="cMainGame.cpp" />
     <ClCompile Include="cSceneManager.cpp" />

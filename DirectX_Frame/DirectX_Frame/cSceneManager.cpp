@@ -7,13 +7,14 @@ cSceneObject* cSceneManager::m_pCurrentScene = NULL;
 cSceneObject* cSceneManager::m_pLoadingScene = NULL;
 cSceneObject* cSceneManager::m_pReadyScene = NULL;
 
-cSceneManager::cSceneManager()
+cSceneManager::cSceneManager(void)
 {
 }
 
-cSceneManager::~cSceneManager()
+cSceneManager::~cSceneManager(void)
 {
 }
+
 
 HRESULT cSceneManager::Setup(void)
 {
@@ -21,7 +22,6 @@ HRESULT cSceneManager::Setup(void)
 	return D3D_OK;
 }
 
-//릴리즈 대용
 void cSceneManager::Reset(void)
 {
 	mapSceneIter iter = m_mapSceneList.begin();
@@ -51,16 +51,28 @@ void cSceneManager::Render(void)
 	if (m_pCurrentScene)m_pCurrentScene->Render();
 }
 
-cSceneObject * cSceneManager::AddScene(std::string sceneName, cSceneObject * scene)
+
+cSceneObject * cSceneManager::AddScene(std::string& stringName, cSceneObject* pScene)
 {
-	if (!scene) return NULL;
-	m_mapSceneList.insert(make_pair(sceneName, scene));
-	return scene;
+	return this->AddScene(stringName.c_str(), pScene);
 }
 
-HRESULT cSceneManager::ChangScene(std::string sceneName)
+cSceneObject * cSceneManager::AddScene(LPCSTR szSceneName, cSceneObject* pScene)
 {
-	mapSceneIter find = m_mapSceneList.find(sceneName);
+	if (!pScene) return NULL;
+	m_mapSceneList.insert(make_pair(szSceneName, pScene));
+
+	return pScene;
+}
+
+HRESULT cSceneManager::ChangScene(std::string& sceneName)
+{
+	return this->ChangScene(sceneName.c_str());
+}
+
+HRESULT cSceneManager::ChangScene(LPCSTR szSceneName)
+{
+	mapSceneIter find = m_mapSceneList.find(szSceneName);
 	if (find == m_mapSceneList.end()) return E_FAIL;
 	if (SUCCEEDED(find->second->Setup()))
 	{
@@ -69,7 +81,6 @@ HRESULT cSceneManager::ChangScene(std::string sceneName)
 
 		return D3D_OK;
 	}
-
 	return E_FAIL;
 }
 
