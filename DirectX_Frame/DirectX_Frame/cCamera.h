@@ -24,7 +24,7 @@ private:
 	LPD3DXMATRIX m_pParentMatrix;
 
 public:
-	void Setup(void);
+	HRESULT Setup(void);
 	void Update(void);
 
 	//부모 매트릭스 설정

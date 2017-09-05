@@ -52,6 +52,7 @@ using namespace std;
 //디파인문
 #define SAFE_ADDREF(pointer) if(pointer) { (pointer)->AddRef(); }
 #define SAFE_RELEASE(pointer) if(pointer) { (pointer)->Release(); (pointer) = nullptr; }
+#define SAFE_RESET(pointer) if(pointer) { (pointer)->Reset(); (pointer) = nullptr; }
 #define SAFE_DELETE(pointer) if(pointer) { delete (pointer); (pointer) = nullptr; }
 #define SAFE_DELETE_ARRAY(pointer) if (pointer) {delete[] (pointer); (pointer) = nullptr;}
 #define SAFE_SETUP(pointer) if (pointer) {(pointer)->Setup();}

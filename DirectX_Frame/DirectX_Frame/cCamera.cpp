@@ -15,9 +15,9 @@ cCamera::~cCamera(void)
 {
 }
 
-void cCamera::Setup(void)
+HRESULT cCamera::Setup(void)
 {
-
+	return D3D_OK;
 }
 
 void cCamera::Update(void)

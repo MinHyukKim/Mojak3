@@ -22,25 +22,6 @@ HRESULT cSceneManager::Setup(void)
 	return D3D_OK;
 }
 
-void cSceneManager::Reset(void)
-{
-	mapSceneIter iter = m_mapSceneList.begin();
-
-	while (iter != m_mapSceneList.end())
-	{
-		if (iter->second != NULL)
-		{
-			if (m_pCurrentScene == iter->second) iter->second->Release();
-			SAFE_RELEASE(iter->second);
-			iter = m_mapSceneList.erase(iter);
-		}
-		else ++iter;
-	}
-
-	m_pCurrentScene = NULL;
-	m_mapSceneList.clear();
-}
-
 void cSceneManager::Update(void)
 {
 	if (m_pCurrentScene) m_pCurrentScene->Update();
@@ -78,10 +59,25 @@ HRESULT cSceneManager::ChangScene(LPCSTR szSceneName)
 	{
 		if (m_pCurrentScene) m_pCurrentScene->Reset();
 		m_pCurrentScene = find->second;
-
 		return D3D_OK;
 	}
 	return E_FAIL;
+}
+
+void cSceneManager::Destroy(void)
+{
+	for each(auto it in m_mapSceneList)
+	{
+		if (it.second)
+		{
+			it.second->Reset();
+			it.second->Release();
+		}
+	}
+	m_mapSceneList.clear();
+	m_pCurrentScene = NULL;
+	m_pLoadingScene = NULL;
+	m_pReadyScene = NULL;
 }
 
 DWORD CALLBACK LoadingThread(LPVOID prc)

@@ -1,9 +1,13 @@
 #pragma once
 #include "cSceneObject.h"
 
+//테스트용
+class cFont;
+
 class cMapToolScene : public cSceneObject
 {
 private:
+	cFont* m_pFont;
 
 public:
 	virtual HRESULT Setup(void) override;
