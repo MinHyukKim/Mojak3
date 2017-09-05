@@ -22,14 +22,14 @@ public:
 // 이 함수는 오버로딩 하실 수 없습니다. (오토릴리즈풀 리스트에 this를 추가합니다.)	
 	virtual cObject* AutoRelease(void) final;
 
-//0903 11:12추가 내부구현 안되있습니다!
-	virtual void Setup(void);
+//0903 11:12추가 내부구현 안되있습니다
+	virtual HRESULT Setup(void);
 	virtual void Update(void);
 	virtual void Render(void);
-	virtual void SetupChild(void) final;
-	virtual void UpdateChild(void) final;
-	virtual void RenderChild(void) final;
-	virtual void RelaseChild(void) final;
+	//virtual void SetupChild(void) final;
+	//virtual void UpdateChild(void) final;
+	//virtual void RenderChild(void) final;
+	//virtual void RelaseChild(void) final;
 
 // 오브젝트를 상속받은 모든 클래스는 아래와 같은 형식을 사용합니다. (오버로딩하여 사용하세요.)
 	static cObject* Create(void);	//메모리관리용 생성자 
