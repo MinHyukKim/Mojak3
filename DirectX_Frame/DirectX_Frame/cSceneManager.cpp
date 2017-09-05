@@ -30,9 +30,15 @@ void cSceneManager::Reset(void)
 	{
 		if (iter->second != NULL)
 		{
-
+			if (m_pCurrentScene == iter->second) iter->second->Release();
+			SAFE_RELEASE(iter->second);
+			iter = m_mapSceneList.erase(iter);
 		}
+		else ++iter;
 	}
+
+	m_pCurrentScene = NULL;
+	m_mapSceneList.clear();
 }
 
 void cSceneManager::Update(void)
