@@ -38,6 +38,7 @@
 #include "cInputManager.h"
 #include "cTextureManager.h"
 #include "cSceneManager.h"
+#include "cUIManager.h"
 
 // 전역 함수
 extern HWND g_hWnd;

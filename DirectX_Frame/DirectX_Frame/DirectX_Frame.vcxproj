@@ -156,6 +156,7 @@
     <ClInclude Include="cTestScene.h" />
     <ClInclude Include="cTextureManager.h" />
     <ClInclude Include="cTimer.h" />
+    <ClInclude Include="cUIManager.h" />
     <ClInclude Include="DirectX_Frame.h" />
     <ClInclude Include="Resource.h" />
     <ClInclude Include="stdafx.h" />
@@ -176,6 +177,7 @@
     <ClCompile Include="cTestScene.cpp" />
     <ClCompile Include="cTextureManager.cpp" />
     <ClCompile Include="cTimer.cpp" />
+    <ClCompile Include="cUIManager.cpp" />
     <ClCompile Include="DirectX_Frame.cpp" />
     <ClCompile Include="stdafx.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
