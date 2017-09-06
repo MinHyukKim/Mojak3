@@ -47,7 +47,12 @@
       <Filter>씬 리스트</Filter>
     </ClCompile>
     <ClCompile Include="cTestScene.cpp" />
-    <ClCompile Include="cUIManager.cpp" />
+    <ClCompile Include="cUIManager.cpp">
+      <Filter>관리자</Filter>
+    </ClCompile>
+    <ClCompile Include="cUiObject.cpp">
+      <Filter>인터페이스</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="cAutoReleasePool.h">
@@ -102,7 +107,12 @@
       <Filter>씬 리스트</Filter>
     </ClInclude>
     <ClInclude Include="cTestScene.h" />
-    <ClInclude Include="cUIManager.h" />
+    <ClInclude Include="cUIManager.h">
+      <Filter>관리자</Filter>
+    </ClInclude>
+    <ClInclude Include="cUiObject.h">
+      <Filter>인터페이스</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Image Include="DirectX_Frame.ico">
