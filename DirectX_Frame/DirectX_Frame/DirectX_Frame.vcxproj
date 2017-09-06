@@ -153,6 +153,7 @@
     <ClInclude Include="cSceneManager.h" />
     <ClInclude Include="cSceneObject.h" />
     <ClInclude Include="cSoundManager.h" />
+    <ClInclude Include="cTestScene.h" />
     <ClInclude Include="cTextureManager.h" />
     <ClInclude Include="cTimer.h" />
     <ClInclude Include="DirectX_Frame.h" />
@@ -172,6 +173,7 @@
     <ClCompile Include="cSceneManager.cpp" />
     <ClCompile Include="cSceneObject.cpp" />
     <ClCompile Include="cSoundManager.cpp" />
+    <ClCompile Include="cTestScene.cpp" />
     <ClCompile Include="cTextureManager.cpp" />
     <ClCompile Include="cTimer.cpp" />
     <ClCompile Include="DirectX_Frame.cpp" />

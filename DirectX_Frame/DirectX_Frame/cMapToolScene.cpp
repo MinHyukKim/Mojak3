@@ -19,7 +19,7 @@ HRESULT cMapToolScene::Setup(void)
 	//테스트용
 	m_pFont = cFont::Create();
 	m_pFont->Setup();
-	m_pFont->DrawFont(0, 0, "씬매니저 가 첫 로딩에 성공했습니다.");
+	m_pFont->DrawFont(0, 0, "씬매니저가 로딩에 성공했습니다.");
 
 	return S_OK;
 }

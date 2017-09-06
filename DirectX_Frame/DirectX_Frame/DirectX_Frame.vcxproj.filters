@@ -43,7 +43,10 @@
     <ClCompile Include="stdafx.cpp">
       <Filter>기본 프레임워크</Filter>
     </ClCompile>
-    <ClCompile Include="cMapToolScene.cpp" />
+    <ClCompile Include="cMapToolScene.cpp">
+      <Filter>씬 리스트</Filter>
+    </ClCompile>
+    <ClCompile Include="cTestScene.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="cAutoReleasePool.h">
@@ -94,7 +97,10 @@
     <ClInclude Include="stdafx.h">
       <Filter>기본 프레임워크</Filter>
     </ClInclude>
-    <ClInclude Include="cMapToolScene.h" />
+    <ClInclude Include="cMapToolScene.h">
+      <Filter>씬 리스트</Filter>
+    </ClInclude>
+    <ClInclude Include="cTestScene.h" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="DirectX_Frame.ico">
