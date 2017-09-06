@@ -5,6 +5,10 @@ class cUiObject : public cObject
 {
 private:
 
+protected:
+	vector<cUiObject*>	m_vecChild;		//자식
+	D3DXVECTOR2			m_vPos;			//상대위치
+
 public:
 	virtual HRESULT Setup(void) override;
 	virtual void Update(void) override;
