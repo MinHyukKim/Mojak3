@@ -1,0 +1,168 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <ClCompile Include="cAutoReleasePool.cpp">
+      <Filter>관리자</Filter>
+    </ClCompile>
+    <ClCompile Include="cDeviceManager.cpp">
+      <Filter>관리자</Filter>
+    </ClCompile>
+    <ClCompile Include="cHeightMapLoader.cpp">
+      <Filter>파일로더</Filter>
+    </ClCompile>
+    <ClCompile Include="cAllocateHierarchy.cpp">
+      <Filter>파일로더</Filter>
+    </ClCompile>
+    <ClCompile Include="cFont.cpp">
+      <Filter>인터페이스</Filter>
+    </ClCompile>
+    <ClCompile Include="cCamera.cpp">
+      <Filter>인터페이스</Filter>
+    </ClCompile>
+    <ClCompile Include="cObject.cpp">
+      <Filter>인터페이스</Filter>
+    </ClCompile>
+    <ClCompile Include="cInputManager.cpp">
+      <Filter>관리자</Filter>
+    </ClCompile>
+    <ClCompile Include="cMainGame.cpp">
+      <Filter>장면 관리</Filter>
+    </ClCompile>
+    <ClCompile Include="cMapToolScene.cpp">
+      <Filter>장면 관리</Filter>
+    </ClCompile>
+    <ClCompile Include="cSoundManager.cpp">
+      <Filter>관리자</Filter>
+    </ClCompile>
+    <ClCompile Include="cSceneManager.cpp">
+      <Filter>관리자</Filter>
+    </ClCompile>
+    <ClCompile Include="cSceneObject.cpp">
+      <Filter>인터페이스</Filter>
+    </ClCompile>
+    <ClCompile Include="cTestScene.cpp">
+      <Filter>장면 관리</Filter>
+    </ClCompile>
+    <ClCompile Include="cTextureManager.cpp">
+      <Filter>관리자</Filter>
+    </ClCompile>
+    <ClCompile Include="cTimer.cpp">
+      <Filter>관리자</Filter>
+    </ClCompile>
+    <ClCompile Include="cUIManager.cpp">
+      <Filter>관리자</Filter>
+    </ClCompile>
+    <ClCompile Include="cUiObject.cpp">
+      <Filter>인터페이스</Filter>
+    </ClCompile>
+    <ClCompile Include="DirectX_Frame.cpp">
+      <Filter>기본 API</Filter>
+    </ClCompile>
+    <ClCompile Include="stdafx.cpp">
+      <Filter>기본 API</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="cAutoReleasePool.h">
+      <Filter>관리자</Filter>
+    </ClInclude>
+    <ClInclude Include="cDeviceManager.h">
+      <Filter>관리자</Filter>
+    </ClInclude>
+    <ClInclude Include="cHeightMapLoader.h">
+      <Filter>파일로더</Filter>
+    </ClInclude>
+    <ClInclude Include="cAllocateHierarchy.h">
+      <Filter>파일로더</Filter>
+    </ClInclude>
+    <ClInclude Include="cFont.h">
+      <Filter>인터페이스</Filter>
+    </ClInclude>
+    <ClInclude Include="cCamera.h">
+      <Filter>인터페이스</Filter>
+    </ClInclude>
+    <ClInclude Include="cObject.h">
+      <Filter>인터페이스</Filter>
+    </ClInclude>
+    <ClInclude Include="cInputManager.h">
+      <Filter>관리자</Filter>
+    </ClInclude>
+    <ClInclude Include="cMainGame.h">
+      <Filter>장면 관리</Filter>
+    </ClInclude>
+    <ClInclude Include="cMapToolScene.h">
+      <Filter>장면 관리</Filter>
+    </ClInclude>
+    <ClInclude Include="cSoundManager.h">
+      <Filter>관리자</Filter>
+    </ClInclude>
+    <ClInclude Include="cSceneManager.h">
+      <Filter>관리자</Filter>
+    </ClInclude>
+    <ClInclude Include="cSceneObject.h">
+      <Filter>인터페이스</Filter>
+    </ClInclude>
+    <ClInclude Include="cTestScene.h">
+      <Filter>장면 관리</Filter>
+    </ClInclude>
+    <ClInclude Include="cTextureManager.h">
+      <Filter>관리자</Filter>
+    </ClInclude>
+    <ClInclude Include="cTimer.h">
+      <Filter>관리자</Filter>
+    </ClInclude>
+    <ClInclude Include="cUIManager.h">
+      <Filter>관리자</Filter>
+    </ClInclude>
+    <ClInclude Include="cUiObject.h">
+      <Filter>인터페이스</Filter>
+    </ClInclude>
+    <ClInclude Include="DirectX_Frame.h">
+      <Filter>기본 API</Filter>
+    </ClInclude>
+    <ClInclude Include="Resource.h">
+      <Filter>기본 API</Filter>
+    </ClInclude>
+    <ClInclude Include="stdafx.h">
+      <Filter>기본 API</Filter>
+    </ClInclude>
+    <ClInclude Include="targetver.h">
+      <Filter>기본 API</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="DirectX_Frame.ico">
+      <Filter>기본 API</Filter>
+    </Image>
+    <Image Include="small.ico">
+      <Filter>기본 API</Filter>
+    </Image>
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="관리자">
+      <UniqueIdentifier>{3d5bd5fd-2472-48c3-ac80-ca5f41a33f28}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="파일로더">
+      <UniqueIdentifier>{4fa70453-95b3-4155-b2ab-e0fd7915c921}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="인터페이스">
+      <UniqueIdentifier>{899ce3e4-b783-42a2-a214-0ff50a2c530f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="장면 관리">
+      <UniqueIdentifier>{c19dda95-601a-4648-b75c-5eac33bbe7a3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="기본 API">
+      <UniqueIdentifier>{656e45ca-b36d-4f42-9a2d-63b8ebc782a8}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="DirectX_Frame.rc">
+      <Filter>기본 API</Filter>
+    </ResourceCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="ReadMe.txt">
+      <Filter>기본 API</Filter>
+    </Text>
+  </ItemGroup>
+</Project>
