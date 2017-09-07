@@ -104,15 +104,79 @@ void cHeightMapLoader::Load(char * szFolder, char * szFile,
 		}
 	}
 	//마저 하기
+	D3DXCreateMeshFVF(vecIndex.size() / 3, vecVertex.size(),
+		D3DXMESH_MANAGED | D3DXMESH_32BIT, ST_PNT_VERTEX::FVF,
+		g_pD3DDevice, &m_pMesh);
 
+	ST_PNT_VERTEX* pV = 0;
+	m_pMesh->LockVertexBuffer(0, (LPVOID*)&pV);
+	memcpy(pV, &vecVertex[0], vecVertex.size() * sizeof(ST_PNT_VERTEX));
+	m_pMesh->UnlockVertexBuffer();
+
+	DWORD* pI = 0;
+	m_pMesh->LockIndexBuffer(0, (LPVOID*)&pI);
+	memcpy(pI, &vecIndex[0], vecIndex.size() * sizeof(DWORD));
+	m_pMesh->UnlockIndexBuffer();
+
+	DWORD* pA = 0;
+	m_pMesh->LockAttributeBuffer(0, &pA);
+	ZeroMemory(pA, (vecIndex.size() / 3) * sizeof(DWORD));
+	m_pMesh->UnlockAttributeBuffer();
+
+	vector<DWORD> vecAdj(vecIndex.size());
+	m_pMesh->GenerateAdjacency(0, &vecAdj[0]);
+
+	m_pMesh->OptimizeInplace(D3DXMESHOPT_ATTRSORT | D3DXMESHOPT_COMPACT | D3DXMESHOPT_VERTEXCACHE,
+		&vecAdj[0], 0, 0, 0);
+
+	ZeroMemory(&m_stMtl, sizeof(D3DMATERIAL9));
+//	m_stMtl.Ambient = m_stMtl.Diffuse = m_stMtl.Specular = D3DXCOLOR(0.8f, 0.8f, 0.8f, 1.0f);
 }
 
 bool cHeightMapLoader::GetHeight(IN float x, OUT float & y, IN float z)
 {
-	return false;
+	if(x < 0 || z < 0 || x > m_nTile || z > m_nTile) return false;
+
+	//  1--3
+	//  |\ |
+	//  | \|
+	//  0--2 
+	int nX = x;
+	int nZ = z;
+	float fDeltaX = x - nX;
+	float fDeltaZ = z - nZ;
+
+	int _0 = (nZ + 0) * (m_nTile + 1) + nX + 0;
+	int _1 = (nZ + 1) * (m_nTile + 1) + nX + 0;
+	int _2 = (nZ + 0) * (m_nTile + 1) + nX + 1;
+	int _3 = (nZ + 1) * (m_nTile + 1) + nX + 1;
+
+	if (fDeltaX + fDeltaZ < 1.0f)
+	{
+		D3DXVECTOR3 _01 = m_vecVertex[_1] - m_vecVertex[_0];
+		D3DXVECTOR3 _02 = m_vecVertex[_2] - m_vecVertex[_0];
+		y - ((_01 * fDeltaZ) + (_02 * fDeltaX)).y + m_vecVertex[_0].y;
+	}
+	else
+	{
+		D3DXVECTOR3 _31 = m_vecVertex[_1] - m_vecVertex[_3];
+		D3DXVECTOR3 _32 = m_vecVertex[_2] - m_vecVertex[_3];
+		fDeltaX = 1 - fDeltaX;
+		fDeltaZ = 1 - fDeltaZ;
+		y = ((_31 * fDeltaX) + (_32 * fDeltaZ)).y + m_vecVertex[_3].y;
+	}
+	return true;
 }
 
 void cHeightMapLoader::Render()
 {
+	D3DXMATRIX matWorld;
+	D3DXMatrixIdentity(&matWorld);
+	g_pD3DDevice->SetTransform(D3DTS_WORLD, &matWorld);
+	//추후 텍스트 메니져로 텍스트 가져오게끔 만들기!!
+	g_pD3DDevice->SetTexture(0, 0);
+	g_pD3DDevice->SetMaterial(&m_stMtl);
+	g_pD3DDevice->SetFVF(m_pMesh->GetFVF());
+	m_pMesh->DrawSubset(0);
 }
 
