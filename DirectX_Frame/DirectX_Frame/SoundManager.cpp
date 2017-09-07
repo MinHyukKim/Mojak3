@@ -1,26 +1,30 @@
+#include "stdafx.h"
 #include "cObject.h"
 #include "SoundManager.h"
 
-SoundManger::SoundManger(void)
+cSoundManager::cSoundManager(void)
 {
 
 }
 
-SoundManger::~SoundManger(void)
+cSoundManager::~cSoundManager(void)
 {
 
 }
 
-HRESULT SoundManger::Init(void)
+HRESULT cSoundManager::Init(void)
 {
+	//사운드 시스템 설정
 	System_Create(&_system);
 
+	//초기화
 	_system->init(TOTALSOUNDBUFFER, FMOD_INIT_NORMAL, 0);
+
 
 	return S_OK;
 }
 
-void SoundManger::Release(void)
+void cSoundManager::Destroy(void)
 {
 	if (_system != NULL)
 	{
@@ -32,12 +36,13 @@ void SoundManger::Release(void)
 	_mTotalChannels.clear();
 }
 
-void SoundManger::Update(void)
+
+void cSoundManager::Update(void)
 {
 	_system->update();
 }
 
-void SoundManger::AddSound(std::string keyName, std::string soundName, bool bgm, bool loop)
+void cSoundManager::AddSound(std::string keyName, std::string soundName, bool bgm, bool loop)
 {
 	//맵에 사운드가 있다면 추가하지 않음
 	if (_mTotalSounds.find(keyName) != _mTotalSounds.end()) return;
@@ -61,7 +66,7 @@ void SoundManger::AddSound(std::string keyName, std::string soundName, bool bgm,
 
 }
 
-Channel* SoundManger::Play(std::string keyName, float volume)
+Channel* cSoundManager::Play(std::string keyName, float volume)
 {
 	arrSoundsIter iter = _mTotalSounds.find(keyName);
 	if (iter == _mTotalSounds.end()) return NULL;
@@ -73,7 +78,7 @@ Channel* SoundManger::Play(std::string keyName, float volume)
 	return _mTotalChannels[keyName];
 }
 
-Channel* SoundManger::Play(std::string keyName)
+Channel* cSoundManager::Play(std::string keyName)
 {
 	//사운드 찾기 없으면 리턴
 	arrSoundsIter iter = _mTotalSounds.find(keyName);
@@ -85,7 +90,7 @@ Channel* SoundManger::Play(std::string keyName)
 	return _mTotalChannels[keyName];
 }
 
-void SoundManger::Pause(std::string keyName)
+void cSoundManager::Pause(std::string keyName)
 {
 	//채널 찾기 없으면 리턴
 	arrChannelsIter iter = _mTotalChannels.find(keyName);
@@ -94,7 +99,7 @@ void SoundManger::Pause(std::string keyName)
 	iter->second->setPaused(true);
 }
 
-void SoundManger::Resume(std::string keyName)
+void cSoundManager::Resume(std::string keyName)
 {
 	arrChannelsIter iter = _mTotalChannels.find(keyName);
 	if (iter == _mTotalChannels.end()) return;
@@ -102,7 +107,7 @@ void SoundManger::Resume(std::string keyName)
 	iter->second->setPaused(false);
 }
 
-void SoundManger::Stop(std::string keyName)
+void cSoundManager::Stop(std::string keyName)
 {
 	arrChannelsIter iter = _mTotalChannels.find(keyName);
 	if (iter == _mTotalChannels.end()) return;
@@ -112,7 +117,7 @@ void SoundManger::Stop(std::string keyName)
 	_mTotalChannels.erase(iter);
 }
 
-void SoundManger::SetPosition(std::string keyName, unsigned int ms)
+void cSoundManager::SetPosition(std::string keyName, unsigned int ms)
 {
 	arrChannelsIter iter = _mTotalChannels.find(keyName);
 	if (iter == _mTotalChannels.end()) return;
@@ -120,7 +125,7 @@ void SoundManger::SetPosition(std::string keyName, unsigned int ms)
 	iter->second->setPosition(ms, FMOD_TIMEUNIT_MS);
 }
 
-void SoundManger::OrderSound(const TCHAR* keyName)
+void cSoundManager::OrderSound(LPCSTR keyName)
 {
 	bool isPlaye;
 	if (_channel) _channel->isPlaying(&isPlaye);
@@ -129,7 +134,7 @@ void SoundManger::OrderSound(const TCHAR* keyName)
 	if (!isPlaye) _channel = this->Play(keyName);
 }
 
-bool SoundManger::isPauseSound(std::string keyName)
+bool cSoundManager::isPauseSound(std::string keyName)
 {
 	arrChannelsIter iter = _mTotalChannels.find(keyName);
 	if (iter == _mTotalChannels.end()) return false;
@@ -139,7 +144,7 @@ bool SoundManger::isPauseSound(std::string keyName)
 	return isPaused;
 }
 
-bool SoundManger::isPlaySound(std::string keyName)
+bool cSoundManager::isPlaySound(std::string keyName)
 {
 	arrChannelsIter iter = _mTotalChannels.find(keyName);
 	if (iter == _mTotalChannels.end()) return false;
@@ -149,7 +154,7 @@ bool SoundManger::isPlaySound(std::string keyName)
 	return isPlaying;
 }
 
-unsigned int SoundManger::GetLength(std::string keyName)
+unsigned int cSoundManager::GetLength(std::string keyName)
 {
 	arrSoundsIter iter = _mTotalSounds.find(keyName);
 	if (iter == _mTotalSounds.end()) return NULL;
@@ -159,7 +164,7 @@ unsigned int SoundManger::GetLength(std::string keyName)
 	return length;
 }
 
-unsigned int SoundManger::GetPosition(std::string keyName)
+unsigned int cSoundManager::GetPosition(std::string keyName)
 {
 	arrChannelsIter iter = _mTotalChannels.find(keyName);
 	if (iter == _mTotalChannels.end()) return false;

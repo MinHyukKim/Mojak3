@@ -298,3 +298,6 @@ __pycache__/
 *.odx.cs
 *.xsd.cs
 /DirectX_Frame/DirectX_Frame/lib
+/DirectX_Frame/DirectX_Frame/inc
+/DirectX_Frame/DirectX_Frame/fmodexL.dll
+/DirectX_Frame/DirectX_Frame/fmodex.dll

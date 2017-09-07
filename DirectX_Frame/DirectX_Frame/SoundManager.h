@@ -1,6 +1,11 @@
 #pragma once
-#include "fmod/inc/fmod.hpp"
-#pragma comment (lib, "fmod/lib/fmodex_vc.lib")
+//fmod hpp眠啊!!
+#include "inc/fmod.hpp"
+
+//lib傅农...
+#pragma comment (lib, "lib/fmodex_vc.lib")
+
+#define	g_pSoundManager cSoundManager::GetInstance()
 
 #define EXTRACHANNELBUFFER 5
 #define SOUNDBUFFER 10
@@ -9,9 +14,8 @@
 
 using namespace FMOD;
 
-class cObject;
 
-class SoundDB : public cObject
+class cSoundManager
 {
 public:
 	typedef std::map<std::string, Sound*> arrSounds;
@@ -21,13 +25,16 @@ public:
 
 private:
 	Channel* _channel;
+	Sound** _sound;
 	System* _system;
 
 	arrSounds _mTotalSounds;
 	arrChannels _mTotalChannels;
 public:
 	virtual HRESULT Init(void);
-	virtual void Release(void);
+	void Destroy(void);
+
+
 	virtual void Update(void);
 
 
@@ -41,14 +48,18 @@ public:
 	void SetPosition(std::string keyName, unsigned int ms);
 
 	void SetChannel(Channel* channel) { _channel = channel; }
-	void OrderSound(const TCHAR* keyName);
+	void OrderSound(LPCSTR keyName);
 
 	bool isPauseSound(std::string keyName);
 	bool isPlaySound(std::string keyName);
 	unsigned int GetLength(std::string keyName);
 	unsigned int GetPosition(std::string keyName);
 
-	SoundDB(void);
-	virtual ~SoundDB(void);
+	//教臂沛 积己
+	static cSoundManager* GetInstance() { static cSoundManager instance; return &instance; }
+
+private:
+	cSoundManager(void);
+	virtual ~cSoundManager(void);
 };
 
