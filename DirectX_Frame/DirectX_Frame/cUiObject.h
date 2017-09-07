@@ -9,8 +9,8 @@ protected:
 	vector<cUiObject*>	m_vecChild;		//자식
 	D3DXVECTOR3			m_vPos;			//상대위치
 	cUiObject*			m_pParent;		//부모?
-//	SYNTHESIZE(ST_SIZE, m_stSize, Size);
-//	SYNTHESIZE(int, m_nTag, Tag);
+	SYNTHESIZE(ST_SIZE, m_stSize, Size);
+	SYNTHESIZE(int, m_nTag, Tag);
 
 public:
 	virtual HRESULT Setup(void) override;
