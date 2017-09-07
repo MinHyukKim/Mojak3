@@ -53,6 +53,7 @@
     <ClCompile Include="cUiObject.cpp">
       <Filter>인터페이스</Filter>
     </ClCompile>
+    <ClCompile Include="cHeightMapLoader.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="cAutoReleasePool.h">
@@ -113,6 +114,7 @@
     <ClInclude Include="cUiObject.h">
       <Filter>인터페이스</Filter>
     </ClInclude>
+    <ClInclude Include="cHeightMapLoader.h" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="DirectX_Frame.ico">
