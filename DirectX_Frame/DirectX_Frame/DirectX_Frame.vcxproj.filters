@@ -61,6 +61,9 @@
     <ClCompile Include="stdafx.cpp">
       <Filter>기본 API</Filter>
     </ClCompile>
+    <ClCompile Include="cMapObject.cpp">
+      <Filter>인터페이스</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="cAutoReleasePool.h">
@@ -128,6 +131,9 @@
     </ClInclude>
     <ClInclude Include="targetver.h">
       <Filter>기본 API</Filter>
+    </ClInclude>
+    <ClInclude Include="cMapObject.h">
+      <Filter>인터페이스</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
