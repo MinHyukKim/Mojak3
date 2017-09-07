@@ -78,3 +78,9 @@ struct ST_PNT_VERTEX
 
 	enum { FVF = D3DFVF_XYZ | D3DFVF_NORMAL | D3DFVF_TEX1 };
 };
+
+//신디사이저 생성
+#define SYNTHESIZE(varType, varName, funName)\
+protected: varType varName;\
+public: inline varType Get##funName(void) const { return varName; }\
+public: inline void Set##funName(varType var){ varName = var; }
