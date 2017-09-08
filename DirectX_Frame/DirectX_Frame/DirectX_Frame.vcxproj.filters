@@ -65,6 +65,7 @@
       <Filter>인터페이스</Filter>
     </ClCompile>
     <ClCompile Include="SoundManager.cpp" />
+    <ClCompile Include="cMapLoder.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="cAutoReleasePool.h">
@@ -137,6 +138,7 @@
       <Filter>인터페이스</Filter>
     </ClInclude>
     <ClInclude Include="SoundManager.h" />
+    <ClInclude Include="cMapLoder.h" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="DirectX_Frame.ico">

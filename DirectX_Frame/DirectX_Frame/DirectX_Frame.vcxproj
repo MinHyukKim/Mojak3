@@ -149,6 +149,7 @@
     <ClInclude Include="cFont.h" />
     <ClInclude Include="cHeightMapLoader.h" />
     <ClInclude Include="cInputManager.h" />
+    <ClInclude Include="cMapLoder.h" />
     <ClInclude Include="cMapObject.h" />
     <ClInclude Include="cMapToolScene.h" />
     <ClInclude Include="cObject.h" />
@@ -175,6 +176,7 @@
     <ClCompile Include="cFont.cpp" />
     <ClCompile Include="cHeightMapLoader.cpp" />
     <ClCompile Include="cInputManager.cpp" />
+    <ClCompile Include="cMapLoder.cpp" />
     <ClCompile Include="cMapObject.cpp" />
     <ClCompile Include="cMapToolScene.cpp" />
     <ClCompile Include="cObject.cpp" />
