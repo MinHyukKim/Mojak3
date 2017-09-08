@@ -4,8 +4,6 @@
 cAllocateHierarchy::cAllocateHierarchy(void)
 	: m_dwDefaultPalette(0)
 	, m_dwNumMaxPalette(0)
-	, m_vMin(FLT_MAX, FLT_MAX, FLT_MAX)
-	, m_vMax(FLT_MIN, FLT_MIN, FLT_MIN)
 {
 }
 
@@ -18,8 +16,9 @@ HRESULT cAllocateHierarchy::CreateFrame(LPCSTR Name, LPD3DXFRAME* ppNewFrame)
 	//생성
 	ST_BONE* pNewFrame = new ST_BONE;
 	cAllocateHierarchy::CopyString(&pNewFrame->Name, Name);
-	(*ppNewFrame) = pNewFrame;
 
+	//반환
+	(*ppNewFrame) = pNewFrame;
 	return D3D_OK;
 }
 
@@ -37,15 +36,17 @@ HRESULT cAllocateHierarchy::CreateMeshContainer(LPCSTR Name, CONST D3DXMESHDATA*
 	{
 		pNewMeshContainer->pMaterials = new D3DXMATERIAL[NumMaterials];																//생성
 		memcpy(pNewMeshContainer->pMaterials, pMaterials, NumMaterials * sizeof(D3DXMATERIAL));										//재질 복사
+		pNewMeshContainer->vecTexture.resize(NumMaterials);
 		for (DWORD i = 0; i < NumMaterials; ++i)
 		{
 			cAllocateHierarchy::CopyString(&pNewMeshContainer->pMaterials[i].pTextureFilename, pMaterials[i].pTextureFilename);		//텍스쳐 이름 복사
+			//텍스쳐 포인터는 Setup에서 해줄 예정
+			//기본값 : pNewMeshContainer->vecTexture[i] = NULL;
 		}
-		
 		pNewMeshContainer->NumMaterials = NumMaterials;																				//갯수
 	}
 
-	//셰이더 저장
+	//임펙트 저장
 	if (pEffectInstances)
 	{
 		pNewMeshContainer->pEffects = new D3DXEFFECTINSTANCE;
@@ -60,9 +61,6 @@ HRESULT cAllocateHierarchy::CreateMeshContainer(LPCSTR Name, CONST D3DXMESHDATA*
 		NumFaces = pMesh->GetNumFaces(); //면의 갯수 (인덱스 버퍼의 3분의 1);
 		pNewMeshContainer->MeshData = *pMeshData;
 		pMesh->AddRef();
-
-		//복사(워킹)
-		pMesh->CloneMeshFVF(pMesh->GetOptions(), pMesh->GetFVF(), g_pD3DDevice, &pNewMeshContainer->pWorkingMesh);
 	}
 
 	//인접정보 복사
@@ -72,8 +70,84 @@ HRESULT cAllocateHierarchy::CreateMeshContainer(LPCSTR Name, CONST D3DXMESHDATA*
 		memcpy(pNewMeshContainer->pAdjacency, pAdjacency, sizeof(DWORD) * NumFaces * 3);
 	}
 
+	// 스킨정보 저장
+	if (pSkinInfo)
+	{
+		DWORD dwNumBones = pSkinInfo->GetNumBones();
+		pNewMeshContainer->pSkinInfo = pSkinInfo;
+		pNewMeshContainer->pSkinInfo->AddRef();
+
+		//매트릭스 동적할당
+		pNewMeshContainer->ppBoneMatrixPtrs = new D3DXMATRIXA16*[dwNumBones];
+		pNewMeshContainer->pBoneOffsetMatrices = new D3DXMATRIXA16[dwNumBones];
+		//매트릭스 복사
+		for (int i = 0; i < dwNumBones; i++)
+		{
+			pNewMeshContainer->ppBoneMatrixPtrs[i] = NULL;
+			pNewMeshContainer->pBoneOffsetMatrices[i] = *pSkinInfo->GetBoneOffsetMatrix(i);
+		}
+
+		pNewMeshContainer->dwNumPaletteEntries = min(m_dwDefaultPalette, pSkinInfo->GetNumBones());
+
+		if (m_dwNumMaxPalette < pNewMeshContainer->dwNumPaletteEntries) m_dwNumMaxPalette = pNewMeshContainer->dwNumPaletteEntries;
+		
+		//워킹 메시 복사 및 재설정 (기능추가)
+		if (pMesh)
+		{
+			pNewMeshContainer->pSkinInfo->ConvertToIndexedBlendedMesh(
+				pMesh,
+				D3DXMESH_MANAGED | D3DXMESHOPT_VERTEXCACHE,
+				pNewMeshContainer->dwNumPaletteEntries,
+				pNewMeshContainer->pAdjacency,
+				NULL, NULL, NULL,
+				&pNewMeshContainer->dwMaxNumFaceInfls,
+				&pNewMeshContainer->dwNumAttrGroups,
+				&pNewMeshContainer->pBufBoneCombos,
+				&pNewMeshContainer->pWorkingMesh);
+
+			DWORD dwOldFVF = pNewMeshContainer->pWorkingMesh->GetFVF();
+			DWORD dwNewFVF = (dwOldFVF & D3DFVF_POSITION_MASK) | D3DFVF_NORMAL | D3DFVF_TEX1 | D3DFVF_LASTBETA_UBYTE4;
+			if (dwNewFVF != dwOldFVF)
+			{
+				LPD3DXMESH pMeshSetup = nullptr;
+				pNewMeshContainer->pWorkingMesh->CloneMeshFVF(pNewMeshContainer->pWorkingMesh->GetOptions(), dwNewFVF, g_pD3DDevice, &pMeshSetup);
+				if (pMeshSetup)
+				{
+					SAFE_RELEASE(pNewMeshContainer->pWorkingMesh);
+					pNewMeshContainer->pWorkingMesh = pMeshSetup;
+				}
+
+				if (!(dwOldFVF & D3DFVF_NORMAL))
+				{
+					D3DXComputeNormals(pNewMeshContainer->pWorkingMesh, NULL);
+				}
+			}
+
+		}
+	
+		//알 수 없음 (셰이더에서 사용하는거 같음)
+		if (pNewMeshContainer->pWorkingMesh)
+		{
+			D3DVERTEXELEMENT9 pDecl[MAX_FVF_DECL_SIZE];
+			D3DVERTEXELEMENT9* pDeclCur;
+			pNewMeshContainer->pWorkingMesh->GetDeclaration(pDecl);
+
+			pDeclCur = pDecl;
+			while (pDeclCur->Stream != 0xff)
+			{
+				if ((pDeclCur->Usage == D3DDECLUSAGE_BLENDINDICES) &&
+					(pDeclCur->UsageIndex == 0))
+					pDeclCur->Type = D3DDECLTYPE_D3DCOLOR;
+				pDeclCur++;
+			}
+
+			pNewMeshContainer->pWorkingMesh->UpdateSemantics(pDecl);
+		}
+
+	}
+
 	//반환
-	*ppNewMeshContainer = pNewMeshContainer;
+	(*ppNewMeshContainer) = pNewMeshContainer;
 	return D3D_OK;
 }
 
@@ -90,48 +164,45 @@ HRESULT cAllocateHierarchy::DestroyFrame(LPD3DXFRAME pFrameToFree)
 	return E_FAIL;
 }
 
-HRESULT cAllocateHierarchy::DestroyMeshContainer(LPD3DXMESHCONTAINER pMeshContainerToFree)
+HRESULT cAllocateHierarchy::DestroyMeshContainer(THIS_ LPD3DXMESHCONTAINER pMeshContainerToFree)
 {
-	if (pMeshContainerToFree)
+	//캐스팅
+	ST_BONE_MESH* pBoneMesh = (ST_BONE_MESH*)pMeshContainerToFree;
+
+	//복사된 워킹 메시 제거
+	SAFE_RELEASE(pBoneMesh->pWorkingMesh);
+
+	//매트릭스 제거
+	SAFE_DELETE_ARRAY(pBoneMesh->ppBoneMatrixPtrs);
+	SAFE_DELETE_ARRAY(pBoneMesh->pBoneOffsetMatrices);
+	SAFE_RELEASE(pBoneMesh->pSkinInfo);
+
+	//인접정보 제거
+	SAFE_DELETE_ARRAY(pBoneMesh->pAdjacency);
+	//원본 메시
+	SAFE_RELEASE(pBoneMesh->MeshData.pMesh)
+
+	//임펙트 제거
+	SAFE_DELETE(pBoneMesh->pEffects);
+
+	//재질정보 제거
+	if (pBoneMesh->pMaterials && pBoneMesh->NumMaterials)
 	{
-		//캐스팅
-		ST_BONE_MESH* pBoneMesh = (ST_BONE_MESH*)pMeshContainerToFree;
-
-		if (pMeshContainerToFree->MeshData.pMesh)
+		//텍스쳐 이름 제거
+		for (DWORD i = 0; i < pBoneMesh->NumMaterials; ++i)
 		{
-			//인접정보 제거
-			SAFE_DELETE_ARRAY(pMeshContainerToFree->pAdjacency);
-			
-			//원본 메시(최적화를 위해 메시매니저에서 처리 예정)
-			pMeshContainerToFree->MeshData.pMesh->Release();
+			SAFE_DELETE_ARRAY(pBoneMesh->pMaterials[i].pTextureFilename);				//
 		}
 
-		//복사된 워킹 메시 제거
-		SAFE_RELEASE(pBoneMesh->pWorkingMesh);
-
-		//임펙트 제거
-		SAFE_DELETE(pMeshContainerToFree->pEffects);
-
-		//재질정보 제거
-		if (pMeshContainerToFree->pMaterials && pMeshContainerToFree->NumMaterials)
-		{
-			//텍스쳐 이름 제거
-			for (DWORD i = 0; i < pMeshContainerToFree->NumMaterials; ++i)
-			{
-				SAFE_DELETE_ARRAY(pMeshContainerToFree->pMaterials[i].pTextureFilename);				//
-			}
-
-			//재질배열 제거
-			SAFE_DELETE_ARRAY(pMeshContainerToFree->pMaterials);																			//갯수
-		}
-
-		//제거
-		SAFE_DELETE_ARRAY(pMeshContainerToFree->Name);
-		delete pMeshContainerToFree;
-
-		return D3D_OK;
+		//재질배열 제거
+		SAFE_DELETE_ARRAY(pBoneMesh->pMaterials);																			//갯수
 	}
-	return E_FAIL;
+
+	//제거
+	SAFE_DELETE_ARRAY(pBoneMesh->Name);
+	delete pBoneMesh;
+
+	return D3D_OK;
 }
 
 HRESULT cAllocateHierarchy::CopyString(OUT LPSTR* ppTextCopy, IN LPCSTR pTextOrigin)

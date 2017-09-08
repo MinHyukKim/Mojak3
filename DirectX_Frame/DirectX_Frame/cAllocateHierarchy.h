@@ -13,10 +13,20 @@ struct ST_BONE : public D3DXFRAME
 
 struct ST_BONE_MESH : public D3DXMESHCONTAINER
 {
+	//형상
+	std::vector<LPDIRECT3DTEXTURE9> vecTexture;
 	LPD3DXMESH pWorkingMesh;
-	LPDIRECT3DTEXTURE9 pTexture;
+	//애니메이션
+	D3DXMATRIXA16**			ppBoneMatrixPtrs;
+	D3DXMATRIXA16*			pBoneOffsetMatrices;
+	//셰이더
+	LPD3DXBUFFER			pBufBoneCombos;
+	DWORD					dwNumPaletteEntries;
+	DWORD					dwMaxNumFaceInfls;
+	DWORD					dwNumAttrGroups;
 
-	ST_BONE_MESH(void) : D3DXMESHCONTAINER({}), pWorkingMesh(nullptr), pTexture(nullptr)
+	ST_BONE_MESH(void) : D3DXMESHCONTAINER({}), pWorkingMesh(nullptr), ppBoneMatrixPtrs(nullptr), pBoneOffsetMatrices(nullptr)
+		, pBufBoneCombos(nullptr), dwNumPaletteEntries(0), dwMaxNumFaceInfls(0), dwNumAttrGroups(0)
 	{
 	}
 };
@@ -24,11 +34,8 @@ struct ST_BONE_MESH : public D3DXMESHCONTAINER
 class cAllocateHierarchy : public ID3DXAllocateHierarchy
 {
 private:
-
 	DWORD m_dwDefaultPalette;
 	DWORD m_dwNumMaxPalette;
-	D3DXVECTOR3 m_vMin;
-	D3DXVECTOR3 m_vMax;
 
 public:
 	STDMETHOD(CreateFrame)(THIS_ LPCSTR Name, LPD3DXFRAME *ppNewFrame) override;
