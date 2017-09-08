@@ -1,13 +1,31 @@
 #pragma once
 #include "cObject.h"
 
+struct ST_TILE
+{
+	D3DXVECTOR3 vPosition;
+	DWORD dwData;
+
+	ST_TILE(D3DXVECTOR3& _vPosition, DWORD _dwData)
+		: vPosition(_vPosition), dwData(_dwData)
+	{
+
+	}
+};
+
 class cMapObject : public cObject
 {
 private:
+	std::vector<ST_TILE> m_vecTile;
+	std::vector<LPD3DXMATERIAL> m_vecTexMtl;
+
+	DWORD m_dwMapSize;
+	float m_fMinHeight;
+	float m_fMaxHeight;
 
 public:
 	virtual HRESULT Setup(void) override;
-	virtual void Reset(void);					//릴리즈 대용
+	void Reset(void);
 	virtual void Update(void) override;
 	virtual void Render(void) override;
 
