@@ -16,9 +16,11 @@ public:
 	virtual HRESULT Setup(void) override;	
 	virtual void Update(void) override;
 	virtual void Render(void) override;
+
 	void AddChild(cUiObject* pChild);
 	void Render(LPD3DXSPRITE pSprite);
 	void SetPosition(float x, float y);
+	void GetRect(RECT* pRect);
 	cUiObject* GetChildByTag(int nTag);
 
 
