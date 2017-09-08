@@ -52,9 +52,6 @@
     <ClCompile Include="cUIManager.cpp">
       <Filter>관리자</Filter>
     </ClCompile>
-    <ClCompile Include="cUiObject.cpp">
-      <Filter>인터페이스</Filter>
-    </ClCompile>
     <ClCompile Include="DirectX_Frame.cpp">
       <Filter>기본 API</Filter>
     </ClCompile>
@@ -63,6 +60,18 @@
     </ClCompile>
     <ClCompile Include="cMapObject.cpp">
       <Filter>인터페이스</Filter>
+    </ClCompile>
+    <ClCompile Include="cUIImageView.cpp">
+      <Filter>인터페이스\Ui</Filter>
+    </ClCompile>
+    <ClCompile Include="cUiObject.cpp">
+      <Filter>인터페이스\Ui</Filter>
+    </ClCompile>
+    <ClCompile Include="cUITextView.cpp">
+      <Filter>인터페이스\Ui</Filter>
+    </ClCompile>
+    <ClCompile Include="cUIButton.cpp">
+      <Filter>인터페이스\Ui</Filter>
     </ClCompile>
     <ClCompile Include="SoundManager.cpp" />
     <ClCompile Include="cMapLoder.cpp" />
@@ -119,9 +128,6 @@
     <ClInclude Include="cUIManager.h">
       <Filter>관리자</Filter>
     </ClInclude>
-    <ClInclude Include="cUiObject.h">
-      <Filter>인터페이스</Filter>
-    </ClInclude>
     <ClInclude Include="DirectX_Frame.h">
       <Filter>기본 API</Filter>
     </ClInclude>
@@ -136,6 +142,18 @@
     </ClInclude>
     <ClInclude Include="cMapObject.h">
       <Filter>인터페이스</Filter>
+    </ClInclude>
+    <ClInclude Include="cUIImageView.h">
+      <Filter>인터페이스\Ui</Filter>
+    </ClInclude>
+    <ClInclude Include="cUiObject.h">
+      <Filter>인터페이스\Ui</Filter>
+    </ClInclude>
+    <ClInclude Include="cUITextView.h">
+      <Filter>인터페이스\Ui</Filter>
+    </ClInclude>
+    <ClInclude Include="cUIButton.h">
+      <Filter>인터페이스\Ui</Filter>
     </ClInclude>
     <ClInclude Include="SoundManager.h" />
     <ClInclude Include="cMapLoder.h" />
@@ -163,6 +181,9 @@
     </Filter>
     <Filter Include="기본 API">
       <UniqueIdentifier>{656e45ca-b36d-4f42-9a2d-63b8ebc782a8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="인터페이스\Ui">
+      <UniqueIdentifier>{ea909b17-61b2-4943-8ab3-dabd2230e656}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
