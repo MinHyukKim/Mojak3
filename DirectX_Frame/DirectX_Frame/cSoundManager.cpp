@@ -1,6 +1,6 @@
 #include "stdafx.h"
 #include "cObject.h"
-#include "SoundManager.h"
+#include "cSoundManager.h"
 
 cSoundManager::cSoundManager(void)
 {
