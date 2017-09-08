@@ -64,7 +64,6 @@
     <ClCompile Include="cMapObject.cpp">
       <Filter>인터페이스</Filter>
     </ClCompile>
-    <ClCompile Include="SoundManager.cpp" />
     <ClCompile Include="cUIImageView.cpp">
       <Filter>인터페이스</Filter>
     </ClCompile>
