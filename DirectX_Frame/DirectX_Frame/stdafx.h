@@ -78,3 +78,19 @@ struct ST_PNT_VERTEX
 
 	enum { FVF = D3DFVF_XYZ | D3DFVF_NORMAL | D3DFVF_TEX1 };
 };
+
+//ST_SIZE
+struct ST_SIZE
+{
+	float			fWidth;
+	float			fHeight;
+
+	ST_SIZE() : fWidth(0.0f), fHeight(0.0f) {}
+	ST_SIZE(float _w, float _h) : fWidth(_w), fHeight(_h) {}
+};
+
+//신디사이저 생성
+#define SYNTHESIZE(varType, varName, funName)\
+protected: varType varName;\
+public: inline varType Get##funName(void) const { return varName; }\
+public: inline void Set##funName(varType var){ varName = var; }
