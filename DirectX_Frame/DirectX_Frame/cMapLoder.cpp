@@ -11,12 +11,12 @@ cMapLoder::~cMapLoder(void)
 {
 }
 
-void cMapLoder::Create(cMapObject** ppMap, int nMapSize)
+void cMapLoder::Create(cMapObject** ppMap, int nMapSize, LPD3DXMATERIAL pTexMtl)
 {
 	cMapObject* pMapObject = cMapObject::Create();
-	(*ppMap) = pMapObject;
 	pMapObject->Setup();
 
 
+	(*ppMap) = pMapObject;
 }
 

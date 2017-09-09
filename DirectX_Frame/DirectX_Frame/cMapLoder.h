@@ -7,7 +7,7 @@ class cMapLoder
 private:
 
 public:
-	void Create(cMapObject** ppMap, int nMapSize);
+	void Create(cMapObject** ppMap, int nMapSize, LPD3DXMATERIAL pTexMtl);
 
 
 

@@ -2,6 +2,10 @@
 #include "cMapObject.h"
 
 cMapObject::cMapObject(void)
+	: m_texHeight(NULL)
+	, m_texDiffuse(NULL)
+	, m_dwRow(0)
+	, m_dwCol(0)
 {
 }
 
@@ -11,11 +15,11 @@ cMapObject::~cMapObject(void)
 
 HRESULT cMapObject::Setup(void)
 {
+//	if (FAILED(D3DXCreate))
+//	{
+//
+//	}
 	return D3D_OK;
-}
-
-void cMapObject::Reset(void)
-{
 }
 
 void cMapObject::Update(void)
@@ -26,8 +30,7 @@ void cMapObject::Render(void)
 {
 }
 
-//생성자와 얕은 복사
-cMapObject * cMapObject::Create(void)
+cMapObject* cMapObject::Create(void)
 {
 	cMapObject* newClass = new cMapObject;
 	newClass->AddRef();

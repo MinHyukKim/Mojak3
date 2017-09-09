@@ -8,7 +8,7 @@ private:
 
 public:
 	void SetTexture(std::string sFullPath);
-	void Render(LPD3DXSPRITE pSprite) override;
+//	void Render(LPD3DXSPRITE pSprite);
 
 	cUIImageView(void);
 	virtual ~cUIImageView(void);
