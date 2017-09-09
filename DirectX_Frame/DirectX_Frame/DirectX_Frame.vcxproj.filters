@@ -143,20 +143,7 @@
     <ClInclude Include="cMapObject.h">
       <Filter>인터페이스</Filter>
     </ClInclude>
-    <ClInclude Include="cUIImageView.h">
-      <Filter>인터페이스\Ui</Filter>
-    </ClInclude>
-    <ClInclude Include="cUiObject.h">
-      <Filter>인터페이스\Ui</Filter>
-    </ClInclude>
-    <ClInclude Include="cUITextView.h">
-      <Filter>인터페이스\Ui</Filter>
-    </ClInclude>
-    <ClInclude Include="cUIButton.h">
-      <Filter>인터페이스\Ui</Filter>
-    </ClInclude>
     <ClInclude Include="SoundManager.h" />
-    <ClInclude Include="cMapLoder.h" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="DirectX_Frame.ico">
