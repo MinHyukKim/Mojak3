@@ -10,9 +10,11 @@ private:
 
 public:
 	LPDIRECT3DTEXTURE9 GetTexture(IN LPCSTR szKeyName);
-	LPDIRECT3DTEXTURE9 GetTexture(IN std::string& szKeyName);
+	LPDIRECT3DTEXTURE9 GetTexture(IN std::string& sKeyName);
+	LPDIRECT3DTEXTURE9 GetHeightMap(IN LPCSTR szKeyName);
+	LPDIRECT3DTEXTURE9 GetHeightMap(IN std::string& sKeyName);
 	bool GetImageInfo(OUT D3DXIMAGE_INFO* pImageInfo, IN LPCSTR szKeyName);
-	bool GetImageInfo(OUT D3DXIMAGE_INFO* pImageInfo, IN std::string& szKeyName);
+	bool GetImageInfo(OUT D3DXIMAGE_INFO* pImageInfo, IN std::string& sKeyName);
 
 	void Destroy(void);
 

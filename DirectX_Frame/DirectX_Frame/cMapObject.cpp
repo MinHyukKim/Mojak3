@@ -15,10 +15,10 @@ cMapObject::~cMapObject(void)
 
 HRESULT cMapObject::Setup(void)
 {
-//	if (FAILED(D3DXCreate))
-//	{
-//
-//	}
+	if (FAILED(D3DXCreateTextureFromFileEx(g_pD3DDevice, BMP_HEIGHT)))
+	{
+
+	}
 	return D3D_OK;
 }
 
