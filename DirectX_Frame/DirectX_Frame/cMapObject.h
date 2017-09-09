@@ -5,20 +5,24 @@
 class cMapObject : public cObject
 {
 private:
-	D3DSURFACE_DESC m_SurfaceDesc;
-	D3DLOCKED_RECT m_rc;
+	LPDIRECT3DVERTEXBUFFER9 m_pVertexBuffer;
+	LPDIRECT3DINDEXBUFFER9 m_pIndexBufer;
 	LPDIRECT3DTEXTURE9 m_texHeight;
 	LPDIRECT3DTEXTURE9 m_texDiffuse;
-	DWORD m_dwRow;
 	DWORD m_dwCol;
+	DWORD m_dwRow;
 
 public:
 
-	virtual HRESULT Setup(void) override;
+	virtual HRESULT Setup(IN LPCSTR szHeightMap);
+//	virtual HRESULT Setup(void) override;
 	virtual void Update(void) override;
 	virtual void Render(void) override;
 
 //	virtual void Destroy(void);
+
+	HRESULT InitVB(void);
+	HRESULT InitIB(void);
 
 // 오브젝트를 상속받은 모든 클래스는 아래와 같은 형식을 사용합니다. (오버로딩하여 사용하세요.)
 	static cMapObject* Create(void);		//메모리관리용 생성자 
