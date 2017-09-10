@@ -1,4 +1,6 @@
 #pragma once
+
+class cFrustum;
 class cQuadTree
 {
 private:
@@ -19,7 +21,7 @@ public:
 
 	cQuadTree(IN int nX, IN int nY);
 	cQuadTree(cQuadTree* pParent);
-	~cQuadTree(void);
+	virtual ~cQuadTree(void);
 
 private:
 	enum LOCATION_STATE
@@ -51,7 +53,7 @@ private:
 	inline void _Destroy(void);
 //절두체 컬링
 	// 충돌체크
-	int _IsInFrustum(std::vector<ST_PNT_VERTEX>* pVecVertex,);
+	int _IsInFrustum(std::vector<ST_PNT_VERTEX>* pVecVertex, cFrustum* pFrustum);
 
 };
 
