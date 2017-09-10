@@ -44,24 +44,25 @@ void cPyramid::Setup(D3DXMATRIX* pmat, D3DCOLOR c)
 	{
 		for (size_t i = 0; i < m_vecVertex.size(); ++i)
 		{
-			D3DXVec3TransformCoord(&m_vecVertex[i].p,
-				&m_vecVertex[i].p,
+			D3DXVec3TransformCoord(&m_vecVertex[i].position,
+				&m_vecVertex[i].position,
 				pmat);
 		}
 	}
 
 	for (size_t i = 0; i < m_vecVertex.size(); i += 3)
 	{
-		D3DXVECTOR3 v0 = m_vecVertex[i].p;
-		D3DXVECTOR3 v1 = m_vecVertex[i + 1].p;
-		D3DXVECTOR3 v2 = m_vecVertex[i + 2].p;
+		D3DXVECTOR3 v0 = m_vecVertex[i].position;
+		D3DXVECTOR3 v1 = m_vecVertex[i + 1].position;
+		D3DXVECTOR3 v2 = m_vecVertex[i + 2].position;
 		D3DXVECTOR3 v01 = v1 - v0;
 		D3DXVECTOR3 v02 = v2 - v0;
 		D3DXVECTOR3 n;
 		D3DXVec3Cross(&n, &v01, &v02);
 		D3DXVec3Normalize(&n, &n);
-		m_vecVertex[i].n = m_vecVertex[i + 1].n = m_vecVertex[i + 2].n = n;
+		m_vecVertex[i].normal = m_vecVertex[i + 1].normal = m_vecVertex[i + 2].normal = n;
 	}
+	D3DXMatrixIdentity(&m_matWorld);
 }
 
 void cPyramid::Render()
