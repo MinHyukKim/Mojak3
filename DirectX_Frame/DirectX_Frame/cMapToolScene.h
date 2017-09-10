@@ -3,12 +3,16 @@
 
 class cCamera;
 class cMapObject;
+//테스트용
+class cGrid;
 
 class cMapToolScene : public cSceneObject
 {
 private:
 	cCamera* m_pCamera;
 	cMapObject* m_pMapObject;
+	//테스트용
+	cGrid* m_pGrid;
 
 public:
 	virtual HRESULT Setup(void) override;

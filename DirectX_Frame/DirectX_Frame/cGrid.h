@@ -9,10 +9,12 @@ private:
 	vector<cPyramid*>		m_vecPyramid;
 
 public:
-	cGrid(void);
-	~cGrid(void);
-
 	void Setup(int nNumLine = 30, float fInterval = 1.0f);
 	void Render();
+
+	static cGrid* Create(void);
+protected:
+	cGrid(void);
+	virtual ~cGrid(void);
 };
 

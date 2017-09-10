@@ -14,7 +14,7 @@ cGrid::~cGrid(void)
 	}
 }
 
-void cGrid::Setup( int nNumLine /*= 20*/, float fInterval /*= 1.0f*/ )
+void cGrid::Setup( int nNumLine, float fInterval )
 {
 	int nHalfNumLine = nNumLine / 2;
 
@@ -57,18 +57,21 @@ void cGrid::Setup( int nNumLine /*= 20*/, float fInterval /*= 1.0f*/ )
 	D3DXMatrixScaling(&matS, 0.1f, 2.0f, 0.1f);
 	
 	cPyramid* pPyramid = new cPyramid;
+	pPyramid->AddRef();
 	D3DXMatrixRotationZ(&matR, D3DX_PI / 2.0f);
 	mat = matS * matR;
 	pPyramid->Setup(&mat, D3DCOLOR_XRGB(255, 0, 0));
 	m_vecPyramid.push_back(pPyramid);
 
 	pPyramid = new cPyramid;
+	pPyramid->AddRef();
 	D3DXMatrixRotationZ(&matR, D3DX_PI);
 	mat = matS * matR;
 	pPyramid->Setup(&mat, D3DCOLOR_XRGB(0, 255, 0));
 	m_vecPyramid.push_back(pPyramid);
 
 	pPyramid = new cPyramid;
+	pPyramid->AddRef();
 	D3DXMatrixRotationX(&matR, -D3DX_PI / 2.0f);
 	mat = matS * matR;
 	pPyramid->Setup(&mat, D3DCOLOR_XRGB(0, 0, 255));
@@ -95,4 +98,11 @@ void cGrid::Render()
 		p->Render();
 	}
 	g_pD3DDevice->SetRenderState(D3DRS_LIGHTING, (bool)dwPrev);
+}
+
+cGrid* cGrid::Create(void)
+{
+	cGrid* newClass = new cGrid;
+	newClass->AddRef();
+	return newClass;
 }
