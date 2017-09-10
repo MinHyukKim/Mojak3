@@ -6,6 +6,8 @@ cMapObject::cMapObject(void)
 	, m_pIndexBufer(NULL)
 	, m_texHeight(NULL)
 	, m_texDiffuse(NULL)
+	, m_dwNumVertex(0)
+	, m_dwNumFace(0)
 	, m_dwCol(0)
 	, m_dwRow(0)
 	, m_fMinHeight(-8.0)
@@ -50,7 +52,12 @@ void cMapObject::Update(void)
 
 void cMapObject::Render(void)
 {
-
+	D3DXMATRIXA16 mat;
+	g_pD3DDevice->SetTransform(D3DTS_WORLD, D3DXMatrixIdentity(&mat));
+	g_pD3DDevice->SetStreamSource(0, m_pVertexBuffer, 0, sizeof(ST_PNT_VERTEX));
+	g_pD3DDevice->SetFVF(ST_PNT_VERTEX::FVF);
+	g_pD3DDevice->SetIndices(m_pIndexBufer);
+	g_pD3DDevice->DrawIndexedPrimitive(D3DPT_TRIANGLELIST, 0, 0, m_dwNumVertex, 0, m_dwNumFace);
 }
 
 HRESULT cMapObject::InitVB(void)
@@ -63,7 +70,8 @@ HRESULT cMapObject::InitVB(void)
 	m_texHeight->GetLevelDesc(0, &surfaceDesc);
 	m_dwCol = surfaceDesc.Width;
 	m_dwRow = surfaceDesc.Height;
-	DWORD dwBufferSize = m_dwCol * m_dwRow * sizeof(ST_PNT_VERTEX);
+	m_dwNumVertex = m_dwCol * m_dwRow;
+	DWORD dwBufferSize = m_dwNumVertex * sizeof(ST_PNT_VERTEX);
 	if (FAILED(g_pD3DDevice->CreateVertexBuffer(dwBufferSize, 0,
 		ST_PNT_VERTEX::FVF, D3DPOOL_DEFAULT, &m_pVertexBuffer, NULL)))
 	{
@@ -135,7 +143,8 @@ HRESULT cMapObject::InitVB(IN DWORD dwCol, IN DWORD dwRow)
 	//하이맵 크기의 정점 생성
 	m_dwCol = dwCol;
 	m_dwRow = dwRow;
-	DWORD dwBufferSize = m_dwCol * m_dwRow * sizeof(ST_PNT_VERTEX);
+	m_dwNumVertex = m_dwCol * m_dwRow;
+	DWORD dwBufferSize = m_dwNumVertex * sizeof(ST_PNT_VERTEX);
 	if (FAILED(g_pD3DDevice->CreateVertexBuffer(dwBufferSize, 0,
 		ST_PNT_VERTEX::FVF, D3DPOOL_DEFAULT, &m_pVertexBuffer, NULL)))
 	{
@@ -182,7 +191,8 @@ HRESULT cMapObject::InitIB(void)
 {
 	LPDIRECT3DINDEXBUFFER9 pPrevBuffer = m_pIndexBufer;
 	//생성
-	DWORD dwBufferSize = (m_dwCol - 1) * (m_dwRow - 1) * 6 * sizeof(DWORD);
+	m_dwNumFace = (m_dwCol - 1) * (m_dwRow - 1) * 2;
+	DWORD dwBufferSize = m_dwNumFace * 3 * sizeof(DWORD);
 	if (FAILED(g_pD3DDevice->CreateIndexBuffer(dwBufferSize, 0, D3DFMT_INDEX32, D3DPOOL_DEFAULT, &m_pIndexBufer, NULL)))
 	{
 		m_pIndexBufer = pPrevBuffer;

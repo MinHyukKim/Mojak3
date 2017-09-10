@@ -9,6 +9,8 @@ private:
 	LPDIRECT3DINDEXBUFFER9 m_pIndexBufer;
 	LPDIRECT3DTEXTURE9 m_texHeight;
 	LPDIRECT3DTEXTURE9 m_texDiffuse;
+	DWORD m_dwNumVertex;
+	DWORD m_dwNumFace;
 	DWORD m_dwCol;
 	DWORD m_dwRow;
 	float m_fMinHeight;
