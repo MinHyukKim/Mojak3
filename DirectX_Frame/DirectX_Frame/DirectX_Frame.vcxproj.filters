@@ -80,6 +80,9 @@
     </ClCompile>
     <ClCompile Include="cGrid.cpp" />
     <ClCompile Include="cPyramid.cpp" />
+    <ClCompile Include="cUiFontManager.cpp">
+      <Filter>관리자</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="cAutoReleasePool.h">
@@ -167,6 +170,9 @@
     </ClInclude>
     <ClInclude Include="cGrid.h" />
     <ClInclude Include="cPyramid.h" />
+    <ClInclude Include="cUiFontManager.h">
+      <Filter>관리자</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Image Include="DirectX_Frame.ico">

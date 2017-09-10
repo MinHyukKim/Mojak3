@@ -8,3 +8,7 @@ cUIButton::cUIButton(void)
 cUIButton::~cUIButton(void)
 {
 }
+
+void iButtonDelegate::OnClick(cUiObject * pSender)
+{
+}
