@@ -28,7 +28,7 @@ HRESULT cMapToolScene::Setup(void)
 	m_pGrid = cGrid::Create();
 	m_pGrid->Setup();
 	m_pTexture = g_pTexture->GetTexture("./HeightMapData/terrain.jpg");
-
+	SetMatrial(&m_stMtl);
 	return S_OK;
 }
 
@@ -52,6 +52,7 @@ void cMapToolScene::Render(void)
 {
 	//테스트용
 	g_pD3DDevice->SetTexture(0, m_pTexture);
+	g_pD3DDevice->SetMaterial(&m_stMtl);
 	SAFE_RENDER(m_pMapObject);
 	SAFE_RENDER(m_pGrid);
 }

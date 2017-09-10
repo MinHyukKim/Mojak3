@@ -1,8 +1,13 @@
 #include "stdafx.h"
 #include "cMapTerrain.h"
 
+#include "cQuadTree.h"
+
 cMapTerrain::cMapTerrain(void)
 	: m_vScale(1.0f, 10.0f, 1.0f)
+	, m_pVertexBuffer(nullptr)
+	, m_pIndexBufer(nullptr)
+	, m_pQuadTree(nullptr)
 {
 }
 
@@ -24,11 +29,25 @@ void cMapTerrain::Render(void)
 {
 }
 
+
 cMapTerrain* cMapTerrain::Create(void)
 {
 	cMapTerrain* newClass = new cMapTerrain;
 	newClass->AddRef();
 	return newClass;
+}
+
+
+inline HRESULT cMapTerrain::_Destroy(void)
+{
+	SAFE_DELETE(m_pQuadTree);
+	SAFE_RELEASE(m_pVertexBuffer);
+	SAFE_RELEASE(m_pIndexBufer);
+	return S_OK;
+}
+inline HRESULT cMapTerrain::_LoadTexture(LPSTR szTexFileName)
+{
+	return E_NOTIMPL;
 }
 
 inline HRESULT cMapTerrain::_BuildHeightMap(LPCSTR szMapName)
@@ -119,4 +138,27 @@ inline HRESULT cMapTerrain::_BuildHeightMap(DWORD dwCol, DWORD dwRow)
 	//버텍스 잠금해제
 	m_pVertexBuffer->Unlock();
 	return S_OK;
+}
+
+inline HRESULT cMapTerrain::_BuilldQuadTree(void)
+{
+	if (m_pQuadTree)
+	{
+		m_pQuadTree->TreeBuild();
+		return S_OK;
+	}
+	return E_FAIL;
+}
+
+inline HRESULT cMapTerrain::_CreateIndexBuffer(void)
+{
+	SAFE_RELEASE(m_pIndexBufer);
+
+
+	return E_NOTIMPL;
+}
+
+inline HRESULT cMapTerrain::_Draw(void)
+{
+	return E_NOTIMPL;
 }

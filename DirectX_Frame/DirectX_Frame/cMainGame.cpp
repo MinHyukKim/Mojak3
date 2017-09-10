@@ -23,6 +23,7 @@ void cMainGame::Setup(void)
 	//±¤¿ø ¼³Á¤
 	SetDirectional(0, D3DXVECTOR3(0.0f, -1.0f, 0.0f), D3DXCOLOR(0.75f, 0.75f, 0.75f, 1.0f));
 	g_pD3DDevice->LightEnable(0, true);
+
 	g_pD3DDevice->SetRenderState(D3DRS_NORMALIZENORMALS, true);
 	g_pD3DDevice->SetRenderState(D3DRS_LIGHTING, true);
 	

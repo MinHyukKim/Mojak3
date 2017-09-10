@@ -125,6 +125,17 @@ inline void SetDirectional(int index, D3DXVECTOR3& direction, D3DXCOLOR& lightCo
 	g_pD3DDevice->SetLight(index, &light);
 }
 
+inline bool SetMatrial(OUT D3DMATERIAL9* stMtl, IN D3DXCOLOR& stColor = IN D3DXCOLOR(0.75f, 0.75f, 0.75f, 1.0f), IN DWORD dwPower = 1000.0f)
+{
+	ZeroMemory(stMtl, sizeof(D3DMATERIAL9));
+	stMtl->Ambient = stColor;
+	stMtl->Diffuse = stColor;
+	stMtl->Specular = stColor;
+//	stMtl->Emissive = dwColor;
+	stMtl->Power = dwPower;
+	return true;
+}
+
 //신디사이저 생성
 #define SYNTHESIZE(varType, varName, funName)\
 protected: varType varName;\
