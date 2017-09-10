@@ -62,7 +62,6 @@ using namespace std;
 #define SAFE_RENDER(pointer) if (pointer) {(pointer)->Render();}
 
 //정점 구조체
-
 struct ST_PC_VERTEX
 {
 	enum { FVF = D3DFVF_XYZ | D3DFVF_DIFFUSE };
