@@ -58,11 +58,11 @@ void cCamera::TestController(void)
 		}
 		if (g_pInputManager->IsStayKeyDown('A'))
 		{
-			this->AxisDirectionY(g_pTimeManager->GetElapsedTime());
+			this->AxisDirectionY(-g_pTimeManager->GetElapsedTime());
 		}
 		if (g_pInputManager->IsStayKeyDown('D'))
 		{
-			this->AxisDirectionY(-g_pTimeManager->GetElapsedTime());
+			this->AxisDirectionY(g_pTimeManager->GetElapsedTime());
 		}
 	}
 }
