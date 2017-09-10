@@ -24,6 +24,10 @@ public:
 	bool GetImageInfo(OUT D3DXIMAGE_INFO* pImageInfo, IN LPCSTR szKeyName);
 	bool GetImageInfo(OUT D3DXIMAGE_INFO* pImageInfo, IN std::string& sKeyName);
 
+	//Ãß°¡
+	LPDIRECT3DTEXTURE9 GetTextureEx(const char* szFullPath, OUT D3DXIMAGE_INFO* pImageInfo);
+	LPDIRECT3DTEXTURE9 GetTextureEx(const std::string& sFullPath, OUT D3DXIMAGE_INFO* pImageInfo);
+
 	void Destroy(void);
 
 	//½Ì±ÛÅæ »ý¼º
