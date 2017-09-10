@@ -37,11 +37,21 @@ HRESULT cUiTestScene::Setup(void)
 	D3DXCreateSprite(g_pD3DDevice, &m_pSprite);
 
 	cUIImageView* pimageView = new cUIImageView;
-//	pimageView->SetTexture("Ui/panel-info.png");
+	pimageView->SetTexture("Ui/panel-info.png");
 	m_pUiRoot = pimageView;
 
 	cUITextView* pTextView = new cUITextView;
-//	pTextView->
+	pTextView->SetText("태스트용");
+	pTextView->SetSize(ST_SIZE(300, 200));
+	pTextView->SetPosition(100, 100);
+	pTextView->SetDtawTextFormat(DT_CENTER | DT_VCENTER | DT_WORDBREAK);
+	pTextView->SetTag(E_TEXT_VIEW);
+	m_pUiRoot->AddChild(pTextView);
+
+	D3DXMATRIX matWorld, matS, matR;
+	D3DXMatrixRotationX(&matR, -D3DX_PI / 2.0f);
+	D3DXMatrixScaling(&matS, 0.01f, 0.01f, 0.01f);
+	matWorld = matS * matR;
 
 	return D3D_OK;
 }
