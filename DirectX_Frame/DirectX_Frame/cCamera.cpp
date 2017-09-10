@@ -3,10 +3,11 @@
 
 cCamera::cCamera(void)
 	: m_eCameraType(cCamera::E_LANDOBJECT)
+	, m_fMoveSpeed(5.0f)
 	, m_vAxisX(1.0f, 0.0f, 0.0f)
 	, m_vAxisY(0.0f, 1.0f, 0.0f)
 	, m_vAxisZ(0.0f, 0.0f, 1.0f)
-	, m_vPosition(0.0f, 0.0f, -10.0f)
+	, m_vPosition(0.0f, 1.0f, -10.0f)
 	, m_pParentMatrix(NULL)
 {
 }
@@ -31,25 +32,17 @@ void cCamera::Update(void)
 void cCamera::TestController(void)
 {
 	//조작법 w,a,s,d,shift로 조작함
-	//shift 가 눌리면 회전 아니면 이동
+	//shift 가 눌리면 상, 하 이동
 	if (g_pInputManager->IsStayKeyDown(VK_SHIFT))
 	{
-		//회전
+		//상하 이동
 		if (g_pInputManager->IsStayKeyDown('W'))
 		{
-			this->AxisDirectionX(g_pTimer);
+			this->MovePositionY(g_pTimeManager->GetElapsedTime());
 		}
 		if (g_pInputManager->IsStayKeyDown('S'))
 		{
-
-		}
-		if (g_pInputManager->IsStayKeyDown('A'))
-		{
-
-		}
-		if (g_pInputManager->IsStayKeyDown('D'))
-		{
-
+			this->MovePositionY(-g_pTimeManager->GetElapsedTime());
 		}
 	}
 	else
@@ -57,19 +50,19 @@ void cCamera::TestController(void)
 		//이동
 		if (g_pInputManager->IsStayKeyDown('W'))
 		{
-
+			this->MovePositionZ(g_pTimeManager->GetElapsedTime());
 		}
 		if (g_pInputManager->IsStayKeyDown('S'))
 		{
-
+			this->MovePositionZ(-g_pTimeManager->GetElapsedTime());
 		}
 		if (g_pInputManager->IsStayKeyDown('A'))
 		{
-
+			this->AxisDirectionY(g_pTimeManager->GetElapsedTime());
 		}
 		if (g_pInputManager->IsStayKeyDown('D'))
 		{
-
+			this->AxisDirectionY(-g_pTimeManager->GetElapsedTime());
 		}
 	}
 }
@@ -95,21 +88,28 @@ void cCamera::SetupParentMatrix(IN LPD3DXMATRIX pWorldMatrix)
 
 void cCamera::MovePositionX(OUT float fUnits)
 {
-	if (!m_pParentMatrix) return;
+	if (m_pParentMatrix) return;
 
-	m_vPosition.x += fUnits;
+	m_vPosition += m_vAxisX * (m_fMoveSpeed * fUnits);
 }
 
 void cCamera::MovePositionY(OUT float fUnits)
 {
-	if (!m_pParentMatrix) return;
+	if (m_pParentMatrix) return;
 
-	m_vPosition.y += fUnits;
+	m_vPosition += m_vAxisY * (m_fMoveSpeed * fUnits);
 }
 
 void cCamera::MovePositionZ(OUT float fUnits)
 {
-	m_vPosition.z += fUnits;
+	if (m_pParentMatrix)
+	{
+		m_vPosition.z += (m_fMoveSpeed * fUnits);
+	}
+	else
+	{
+		m_vPosition += m_vAxisZ  * (m_fMoveSpeed * fUnits);
+	}
 }
 
 void cCamera::AxisDirectionX(OUT float fAngle)
@@ -159,7 +159,7 @@ void cCamera::UpdateViewSpace(void)
 		else
 		{
 			//자유 시점
-			D3DXMatrixLookAtLH(&m_matViewMatrix, &m_vPosition, &(-m_vAxisZ), &D3DXVECTOR3(0.0f, 1.0f, 0.0f));
+			D3DXMatrixLookAtLH(&m_matViewMatrix, &m_vPosition, &(m_vPosition + m_vAxisZ), &D3DXVECTOR3(0.0f, 1.0f, 0.0f));
 		}
 	}
 	else if (cCamera::E_AIRCRAFT == m_eCameraType)
@@ -174,7 +174,7 @@ void cCamera::UpdateViewSpace(void)
 		else
 		{
 			//자유 시점
-			D3DXMatrixLookAtLH(&m_matViewMatrix, &m_vPosition, &(-m_vAxisZ), &m_vAxisY);
+			D3DXMatrixLookAtLH(&m_matViewMatrix, &m_vPosition, &(m_vPosition + m_vAxisZ), &m_vAxisY);
 		}
 	}
 

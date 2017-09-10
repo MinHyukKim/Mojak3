@@ -25,20 +25,25 @@ void cMainGame::Setup(void)
 	g_pD3DDevice->SetRenderState(D3DRS_NORMALIZENORMALS, true);
 	g_pD3DDevice->SetRenderState(D3DRS_LIGHTING, true);
 	
+	//씬 매니저
 	g_pSceneManager->AddScene("cMapToolScene", cMapToolScene::Create());
 	g_pSceneManager->ChangScene("cMapToolScene");
+
+	//타이머
+	g_pTimeManager->Setup();
 }
 
 void cMainGame::Update(void)
 {
 	g_pAutoRelasePool->AutoReleaseCheck();	//제거가 필요한 객체 릴리즈
+	g_pTimeManager->Update();
 	g_pSceneManager->Update();
 }
 
 void cMainGame::Render(void)
 {
 	g_pD3DDevice->Clear(NULL, NULL, D3DCLEAR_TARGET | D3DCLEAR_ZBUFFER,
-		D3DCOLOR_XRGB(0, 0, 255), 1.0f, 0);
+		D3DCOLOR_XRGB(128, 128, 128), 1.0f, 0);
 	g_pD3DDevice->BeginScene();
 	//그림을 그린다
 	g_pSceneManager->Render();

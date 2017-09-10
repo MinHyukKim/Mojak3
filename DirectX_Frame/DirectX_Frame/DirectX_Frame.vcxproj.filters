@@ -58,9 +58,6 @@
     <ClCompile Include="stdafx.cpp">
       <Filter>기본 API</Filter>
     </ClCompile>
-    <ClCompile Include="cMapObject.cpp">
-      <Filter>인터페이스</Filter>
-    </ClCompile>
     <ClCompile Include="cUIImageView.cpp">
       <Filter>인터페이스\Ui</Filter>
     </ClCompile>
@@ -73,13 +70,19 @@
     <ClCompile Include="cUIButton.cpp">
       <Filter>인터페이스\Ui</Filter>
     </ClCompile>
-    <ClCompile Include="cMapLoder.cpp" />
     <ClCompile Include="cTile.cpp" />
     <ClCompile Include="cUiTestScene.cpp">
       <Filter>장면 관리</Filter>
     </ClCompile>
     <ClCompile Include="cGrid.cpp" />
     <ClCompile Include="cPyramid.cpp" />
+    <ClCompile Include="cMapObject.cpp">
+      <Filter>진형</Filter>
+    </ClCompile>
+    <ClCompile Include="cQuadTree.cpp">
+      <Filter>진형</Filter>
+    </ClCompile>
+    <ClCompile Include="cMapTerrain.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="cAutoReleasePool.h">
@@ -145,10 +148,6 @@
     <ClInclude Include="targetver.h">
       <Filter>기본 API</Filter>
     </ClInclude>
-    <ClInclude Include="cMapObject.h">
-      <Filter>인터페이스</Filter>
-    </ClInclude>
-    <ClInclude Include="cMapLoder.h" />
     <ClInclude Include="cTile.h" />
     <ClInclude Include="cUIButton.h">
       <Filter>인터페이스\Ui</Filter>
@@ -167,6 +166,13 @@
     </ClInclude>
     <ClInclude Include="cGrid.h" />
     <ClInclude Include="cPyramid.h" />
+    <ClInclude Include="cMapObject.h">
+      <Filter>진형</Filter>
+    </ClInclude>
+    <ClInclude Include="cQuadTree.h">
+      <Filter>진형</Filter>
+    </ClInclude>
+    <ClInclude Include="cMapTerrain.h" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="DirectX_Frame.ico">
@@ -194,6 +200,9 @@
     </Filter>
     <Filter Include="인터페이스\Ui">
       <UniqueIdentifier>{ea909b17-61b2-4943-8ab3-dabd2230e656}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="진형">
+      <UniqueIdentifier>{1ab107b1-b26d-4773-9812-fb11120998f0}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>

@@ -7,12 +7,13 @@ class cMapObject : public cObject
 private:
 	LPDIRECT3DVERTEXBUFFER9 m_pVertexBuffer;
 	LPDIRECT3DINDEXBUFFER9 m_pIndexBufer;
-	LPDIRECT3DTEXTURE9 m_texHeight;
+	ST_HEIGHT_MAP* m_texHeight;
 	LPDIRECT3DTEXTURE9 m_texDiffuse;
 	DWORD m_dwNumVertex;
 	DWORD m_dwNumFace;
 	DWORD m_dwCol;
 	DWORD m_dwRow;
+	D3DXVECTOR3 m_vScale;
 	float m_fMinHeight;
 	float m_fMaxHeight;
 

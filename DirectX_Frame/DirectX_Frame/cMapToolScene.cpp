@@ -21,8 +21,8 @@ HRESULT cMapToolScene::Setup(void)
 	m_pCamera = cCamera::Create();
 	m_pCamera->Setup();
 
-	//m_pMapObject = cMapObject::Create();
-	//m_pMapObject->Setup(256, 256);
+	m_pMapObject = cMapObject::Create();
+	m_pMapObject->Setup("./HeightMapData/HeightMap.raw");
 
 	//테스트용
 	m_pGrid = cGrid::Create();
@@ -42,10 +42,13 @@ void cMapToolScene::Reset(void)
 
 void cMapToolScene::Update(void)
 {
+	m_pCamera->TestController();
+	m_pCamera->Update();
 }
 
 void cMapToolScene::Render(void)
 {
+	//g_pD3DDevice->SetTexture(0, g_pTexture->GetTexture("./HeightMapData/terrain.jpg"));
 	SAFE_RENDER(m_pMapObject);
 	//테스트용
 	SAFE_RENDER(m_pGrid);

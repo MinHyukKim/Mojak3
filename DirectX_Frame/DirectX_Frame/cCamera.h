@@ -13,6 +13,7 @@ public:
 
 private:
 	CAMERA_TYPE m_eCameraType;
+	float m_fMoveSpeed;
 
 	D3DXVECTOR3 m_vAxisX;
 	D3DXVECTOR3 m_vAxisY;

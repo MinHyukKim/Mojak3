@@ -59,20 +59,24 @@ void cMapObject::Render(void)
 	g_pD3DDevice->SetStreamSource(0, m_pVertexBuffer, 0, sizeof(ST_PNT_VERTEX));
 	g_pD3DDevice->SetFVF(ST_PNT_VERTEX::FVF);
 	g_pD3DDevice->SetIndices(m_pIndexBufer);
+	g_pD3DDevice->SetTexture(0, NULL);
 	g_pD3DDevice->DrawIndexedPrimitive(D3DPT_TRIANGLELIST, 0, 0, m_dwNumVertex, 0, m_dwNumFace);
 }
 
 HRESULT cMapObject::InitVB(void)
 {
 	LPDIRECT3DVERTEXBUFFER9 pPrevBuffer = m_pVertexBuffer;
-	D3DSURFACE_DESC surfaceDesc;
-	D3DLOCKED_RECT lockedRect;
+//	D3DSURFACE_DESC surfaceDesc;
+//	D3DLOCKED_RECT lockedRect;
 
 	//하이맵 크기의 정점 생성
-	m_texHeight->GetLevelDesc(0, &surfaceDesc);
-	m_dwCol = surfaceDesc.Width;
-	m_dwRow = surfaceDesc.Height;
-	m_dwNumVertex = m_dwCol * m_dwRow;
+	m_dwNumVertex = m_texHeight->dwSize / m_texHeight->dwByte;
+	m_dwRow = (DWORD)sqrt(m_dwNumVertex + FLT_EPSILON);
+	if (m_dwNumVertex != m_dwRow * m_dwRow)
+	{
+		assert(false && "정사각형태의 RAW파일만 사용 가능합니다.");
+	}
+	m_dwCol = m_dwRow;
 	DWORD dwBufferSize = m_dwNumVertex * sizeof(ST_PNT_VERTEX);
 	if (FAILED(g_pD3DDevice->CreateVertexBuffer(dwBufferSize, 0,
 		ST_PNT_VERTEX::FVF, D3DPOOL_DEFAULT, &m_pVertexBuffer, NULL)))
@@ -81,15 +85,12 @@ HRESULT cMapObject::InitVB(void)
 		return E_FAIL;
 	}
 
-	//텍스처 메모리 락
-	m_texHeight->LockRect(0, &lockedRect, NULL, D3DLOCK_READONLY);
 	//버텍스 락
-	LPVOID pVertices;
+	ST_PNT_VERTEX* pVertices;
 	if (FAILED(m_pVertexBuffer->Lock(0, dwBufferSize, (LPVOID*)&pVertices, 0)))
 	{
 		SAFE_RELEASE(m_pVertexBuffer);
 		m_pVertexBuffer = pPrevBuffer;
-		m_texHeight->UnlockRect(0);
 		return E_FAIL;
 	}
 
@@ -97,41 +98,40 @@ HRESULT cMapObject::InitVB(void)
 	const float fColHalf = (float)m_dwCol / 2.0f;
 	const float fRowHalf = (float)m_dwRow / 2.0f;
 	const float fScale = (m_fMaxHeight - m_fMinHeight) / 255.0f;
-	ST_PNT_VERTEX* pVertexBuffer = (ST_PNT_VERTEX*)pVertices;
+
+	DWORD dwNumIndex = 0;
 	for (DWORD z = 0; z < m_dwRow; z++)
 	{
 		for (DWORD x = 0; x < m_dwCol; x++)
 		{
-			float fY = (*((LPDWORD)lockedRect.pBits + x + z * (lockedRect.Pitch / 4)) & 0x000000ff);
+			float fY = (float)m_texHeight->pBytes[x + z * m_dwCol];
 
 			ST_PNT_VERTEX vVertex(
 				D3DXVECTOR3((float)x - fColHalf, fY * fScale + m_fMinHeight, fRowHalf - (float)z),
 				D3DXVECTOR3(0.0f, 1.0f, 0.0f),
 				D3DXVECTOR2((float)x / (m_dwCol - 1), (float)z / (m_dwRow - 1)));
 
-			(*pVertexBuffer) = vVertex;
+			pVertices[dwNumIndex] = vVertex;
 			//포인터 이동
-			++pVertexBuffer;
+			++dwNumIndex;
 		}
 	}
 
 	//노말값 계산
-	pVertexBuffer = (ST_PNT_VERTEX*)pVertices;
 	for (DWORD z = 1; z < (m_dwRow - 1); z++)
 	{
 		for (DWORD x = 1; x < (m_dwCol - 1); x++)
 		{
-			D3DXVec3Cross(&pVertexBuffer->n,
-				&((pVertexBuffer - 1)->p - (pVertexBuffer + 1)->p),
-				&((pVertexBuffer - m_dwCol)->p - (pVertexBuffer + m_dwCol)->p));
-			D3DXVec3Normalize(&pVertexBuffer->n, &pVertexBuffer->n);
-			//포인터 이동
-			++pVertexBuffer;
+			dwNumIndex = x + z * m_dwCol;
+			D3DXVECTOR3 v0, v1;
+			v0 = pVertices[dwNumIndex - 1].p - pVertices[dwNumIndex + 1].p;
+			v1 = pVertices[dwNumIndex - m_dwCol].p - pVertices[dwNumIndex + m_dwCol].p;
+			D3DXVec3Cross(&pVertices[dwNumIndex].n, &v0, &v1);
+			D3DXVec3Normalize(&pVertices[dwNumIndex].n, &pVertices[dwNumIndex].n);
 		}
 	}
 
 	m_pVertexBuffer->Unlock();
-	m_texHeight->UnlockRect(0);
 	SAFE_RELEASE(pPrevBuffer);
 	return S_OK;
 }
@@ -139,8 +139,6 @@ HRESULT cMapObject::InitVB(void)
 HRESULT cMapObject::InitVB(IN DWORD dwCol, IN DWORD dwRow)
 {
 	LPDIRECT3DVERTEXBUFFER9 pPrevBuffer = m_pVertexBuffer;
-	D3DSURFACE_DESC surfaceDesc;
-	D3DLOCKED_RECT lockedRect;
 
 	//하이맵 크기의 정점 생성
 	m_dwCol = dwCol;
@@ -160,7 +158,6 @@ HRESULT cMapObject::InitVB(IN DWORD dwCol, IN DWORD dwRow)
 	{
 		SAFE_RELEASE(m_pVertexBuffer);
 		m_pVertexBuffer = pPrevBuffer;
-		m_texHeight->UnlockRect(0);
 		return E_FAIL;
 	}
 
@@ -183,7 +180,7 @@ HRESULT cMapObject::InitVB(IN DWORD dwCol, IN DWORD dwRow)
 		}
 	}
 
-	//마무리
+	//잠금해제
 	m_pVertexBuffer->Unlock();
 	SAFE_RELEASE(pPrevBuffer);
 	return S_OK;

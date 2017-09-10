@@ -56,22 +56,19 @@ void cGrid::Setup( int nNumLine, float fInterval )
 	D3DXMATRIX matS, matR, mat;
 	D3DXMatrixScaling(&matS, 0.1f, 2.0f, 0.1f);
 	
-	cPyramid* pPyramid = new cPyramid;
-	pPyramid->AddRef();
+	cPyramid* pPyramid = cPyramid::Create();
 	D3DXMatrixRotationZ(&matR, D3DX_PI / 2.0f);
 	mat = matS * matR;
 	pPyramid->Setup(&mat, D3DCOLOR_XRGB(255, 0, 0));
 	m_vecPyramid.push_back(pPyramid);
 
-	pPyramid = new cPyramid;
-	pPyramid->AddRef();
+	pPyramid = cPyramid::Create();
 	D3DXMatrixRotationZ(&matR, D3DX_PI);
 	mat = matS * matR;
 	pPyramid->Setup(&mat, D3DCOLOR_XRGB(0, 255, 0));
 	m_vecPyramid.push_back(pPyramid);
 
-	pPyramid = new cPyramid;
-	pPyramid->AddRef();
+	pPyramid = cPyramid::Create();
 	D3DXMatrixRotationX(&matR, -D3DX_PI / 2.0f);
 	mat = matS * matR;
 	pPyramid->Setup(&mat, D3DCOLOR_XRGB(0, 0, 255));
