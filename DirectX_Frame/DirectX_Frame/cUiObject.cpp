@@ -24,9 +24,9 @@ HRESULT cUiObject::Setup(void)
 }
 
 
-void cUiObject::Render(void)
-{
-}
+//void cUiObject::Render(void)
+//{
+//}
 
 cUiObject * cUiObject::Create(void)
 {

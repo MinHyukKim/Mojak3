@@ -3,6 +3,7 @@
 
 //씬 리스트
 #include "cMapToolScene.h"
+#include "cUiTestScene.h"
 
 cMainGame::cMainGame(void)
 {
@@ -29,6 +30,7 @@ void cMainGame::Setup(void)
 	
 	//씬 매니저
 	g_pSceneManager->AddScene("cMapToolScene", cMapToolScene::Create());
+	g_pSceneManager->AddScene("cUiTestScene", cUiTestScene::Create());
 	g_pSceneManager->ChangScene("cMapToolScene");
 
 	//타이머
