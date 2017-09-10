@@ -40,6 +40,7 @@
 #include "cSceneManager.h"
 #include "cUIManager.h"
 #include "cSoundManager.h"
+#include "cUiFontManager.h"
 
 // 전역 함수
 extern HWND g_hWnd;
