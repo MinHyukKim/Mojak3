@@ -19,6 +19,11 @@ cMainGame::~cMainGame(void)
 
 void cMainGame::Setup(void)
 {
+	//±¤¿ø ¼³Á¤
+	g_pD3DDevice->LightEnable(0, true);
+	g_pD3DDevice->SetRenderState(D3DRS_NORMALIZENORMALS, true);
+	g_pD3DDevice->SetRenderState(D3DRS_LIGHTING, true);
+
 	g_pSceneManager->AddScene("cMapToolScene", cMapToolScene::Create());
 	g_pSceneManager->ChangScene("cMapToolScene");
 }

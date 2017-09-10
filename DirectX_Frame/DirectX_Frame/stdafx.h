@@ -90,6 +90,17 @@ struct ST_SIZE
 	ST_SIZE(float _w, float _h) : fWidth(_w), fHeight(_h) {}
 };
 
+//광원 설정
+void SetDirectional(D3DXVECTOR3& direction, D3DXCOLOR& lightColor, int index)
+{
+	D3DLIGHT9 light;
+	ZeroMemory(&light, sizeof(D3DLIGHT9));
+	light.Type = D3DLIGHT_DIRECTIONAL;
+	light.Ambient = light.Diffuse = light.Specular = lightColor;
+	D3DXVec3Normalize((D3DXVECTOR3*)&light.Direction, &direction);
+	g_pD3DDevice->SetLight(index, &light);
+}
+
 //신디사이저 생성
 #define SYNTHESIZE(varType, varName, funName)\
 protected: varType varName;\
