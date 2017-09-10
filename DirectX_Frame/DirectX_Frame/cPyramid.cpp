@@ -76,3 +76,10 @@ void cPyramid::Render()
 		&m_vecVertex[0],
 		sizeof(ST_PN_VERTEX));
 }
+
+cPyramid* cPyramid::Create(void)
+{
+	cPyramid* newClass = new cPyramid;
+	newClass->AddRef();
+	return newClass;
+}

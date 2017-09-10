@@ -25,8 +25,7 @@ HRESULT cMapToolScene::Setup(void)
 	//m_pMapObject->Setup(256, 256);
 
 	//테스트용
-	m_pGrid = new cGrid;
-	m_pGrid->AddRef();
+	m_pGrid = cGrid::Create();
 	m_pGrid->Setup();
 
 

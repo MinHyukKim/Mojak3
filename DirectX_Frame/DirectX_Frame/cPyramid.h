@@ -8,10 +8,13 @@ private:
 	D3DXMATRIXA16			m_matWorld;
 
 public:
-	cPyramid(void);
-	~cPyramid(void);
 	
 	void Setup(D3DXMATRIX* pmat, D3DCOLOR c);
 	void Render();
+
+	static cPyramid* Create(void);
+protected:
+	cPyramid(void);
+	virtual ~cPyramid(void);
 };
 
