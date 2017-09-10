@@ -40,6 +40,7 @@
 #include "cSceneManager.h"
 #include "cUIManager.h"
 #include "cSoundManager.h"
+#include "cUiFontManager.h"
 #include "cTimer.h"
 
 // 전역 함수

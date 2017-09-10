@@ -165,6 +165,7 @@
     <ClInclude Include="cTile.h" />
     <ClInclude Include="cTimer.h" />
     <ClInclude Include="cUIButton.h" />
+    <ClInclude Include="cUiFontManager.h" />
     <ClInclude Include="cUIImageView.h" />
     <ClInclude Include="cUIManager.h" />
     <ClInclude Include="cUiObject.h" />
@@ -199,6 +200,7 @@
     <ClCompile Include="cTile.cpp" />
     <ClCompile Include="cTimer.cpp" />
     <ClCompile Include="cUIButton.cpp" />
+    <ClCompile Include="cUiFontManager.cpp" />
     <ClCompile Include="cUIImageView.cpp" />
     <ClCompile Include="cUIManager.cpp" />
     <ClCompile Include="cUiObject.cpp" />

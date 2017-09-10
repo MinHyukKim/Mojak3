@@ -1,5 +1,6 @@
 #pragma once
 #include "cSceneObject.h"
+#include "cUIButton.h"
 
 //태스트
 class cFont;
@@ -15,6 +16,10 @@ private:
 	cFont* m_pFont;
 	LPD3DXSPRITE m_pSprite;
 	LPDIRECT3DTEXTURE9 m_pTexture;
+	cUiObject* m_pUiRoot;
+
+	//클릭변수?
+	bool m_isClick;
 
 public:
 	virtual HRESULT Setup(void) override;
@@ -23,8 +28,8 @@ public:
 	virtual void Render(void) override;
 
 	void MsgProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam);
-	// iButtonDelegate override
-//	void OnClick(cUIButton* pSender) override;
+//	virtual void OnClick(cUIButton* pSender) override;
+	void Onclick();
 
 	static cSceneObject* Create(void);
 protected:

@@ -83,6 +83,9 @@
       <Filter>진형</Filter>
     </ClCompile>
     <ClCompile Include="cMapTerrain.cpp" />
+    <ClCompile Include="cUiFontManager.cpp">
+      <Filter>관리자</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="cAutoReleasePool.h">
@@ -166,13 +169,6 @@
     </ClInclude>
     <ClInclude Include="cGrid.h" />
     <ClInclude Include="cPyramid.h" />
-    <ClInclude Include="cMapObject.h">
-      <Filter>진형</Filter>
-    </ClInclude>
-    <ClInclude Include="cQuadTree.h">
-      <Filter>진형</Filter>
-    </ClInclude>
-    <ClInclude Include="cMapTerrain.h" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="DirectX_Frame.ico">
