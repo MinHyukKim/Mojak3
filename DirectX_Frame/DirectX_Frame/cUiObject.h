@@ -14,7 +14,7 @@ protected:
 	SYNTHESIZE(int, m_nTag, Tag);
 
 public:
-	virtual HRESULT Setup(void) override;	
+	virtual HRESULT Setup(void) override;
 	virtual void Update(void) override;
 	virtual void Render(void) override;
 

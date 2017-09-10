@@ -37,7 +37,8 @@ HRESULT cUiTestScene::Setup(void)
 	D3DXCreateSprite(g_pD3DDevice, &m_pSprite);
 
 	cUIImageView* pimageView = new cUIImageView;
-	pimageView->SetTexture("Ui/panel-info.png");
+	assert(false && "주석처리");
+	//pimageView->SetTexture("Ui/panel-info.png");
 	m_pUiRoot = pimageView;
 
 	cUITextView* pTextView = new cUITextView;
