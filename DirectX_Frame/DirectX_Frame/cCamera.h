@@ -24,8 +24,10 @@ private:
 	LPD3DXMATRIX m_pParentMatrix;
 
 public:
-	HRESULT Setup(void);
-	void Update(void);
+	virtual HRESULT Setup(void);
+	virtual void Update(void);
+
+	void TestController(void);
 
 	//부모 매트릭스 설정
 	void SetupParentMatrix(IN LPD3DXMATRIX pWorldMatrix);

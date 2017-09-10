@@ -1,5 +1,5 @@
 #pragma once
-#define g_pTimer cTimer::GetInstance()
+#define g_pTimeManager cTimer::GetInstance()
 
 class cTimer
 {

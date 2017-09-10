@@ -28,6 +28,52 @@ void cCamera::Update(void)
 	this->UpdateViewSpace();
 }
 
+void cCamera::TestController(void)
+{
+	//조작법 w,a,s,d,shift로 조작함
+	//shift 가 눌리면 회전 아니면 이동
+	if (g_pInputManager->IsStayKeyDown(VK_SHIFT))
+	{
+		//회전
+		if (g_pInputManager->IsStayKeyDown('W'))
+		{
+			this->AxisDirectionX(g_pTimer);
+		}
+		if (g_pInputManager->IsStayKeyDown('S'))
+		{
+
+		}
+		if (g_pInputManager->IsStayKeyDown('A'))
+		{
+
+		}
+		if (g_pInputManager->IsStayKeyDown('D'))
+		{
+
+		}
+	}
+	else
+	{
+		//이동
+		if (g_pInputManager->IsStayKeyDown('W'))
+		{
+
+		}
+		if (g_pInputManager->IsStayKeyDown('S'))
+		{
+
+		}
+		if (g_pInputManager->IsStayKeyDown('A'))
+		{
+
+		}
+		if (g_pInputManager->IsStayKeyDown('D'))
+		{
+
+		}
+	}
+}
+
 void cCamera::SetupParentMatrix(IN LPD3DXMATRIX pWorldMatrix)
 {
 	if (m_pParentMatrix && !pWorldMatrix)
