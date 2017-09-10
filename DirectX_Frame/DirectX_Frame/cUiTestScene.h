@@ -10,7 +10,7 @@ class cUIButton;
 class cUITextView;
 class iButtonDelegate;
 
-class cUiTestScene : public cSceneObject, public iButtonDelegate
+class cUiTestScene : public cSceneObject/*, public iButtonDelegate*/
 {
 private:
 	cFont* m_pFont;

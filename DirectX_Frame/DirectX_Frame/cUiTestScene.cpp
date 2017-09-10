@@ -41,7 +41,7 @@ HRESULT cUiTestScene::Setup(void)
 	m_pUiRoot = pimageView;
 
 	cUITextView* pTextView = new cUITextView;
-	pTextView->
+//	pTextView->
 
 	return D3D_OK;
 }

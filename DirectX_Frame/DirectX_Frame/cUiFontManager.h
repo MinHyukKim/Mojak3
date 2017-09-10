@@ -22,4 +22,8 @@ private:
 public:
 	LPD3DXFONT GetFont(eFontType e);
 	void Destroy();
+
+private:
+	cUiFontManager(void);
+	virtual ~cUiFontManager(void);
 };
