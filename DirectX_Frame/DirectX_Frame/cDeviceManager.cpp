@@ -46,7 +46,10 @@ LPDIRECT3DDEVICE9 cDeviceManager::GetDevice()
 
 void cDeviceManager::Destroy()
 {
-	SAFE_RELEASE(m_pD3D);
-	ULONG ul = m_pD3DDevice->Release();
-//	assert(ul == 0 && "삭제되지 않은 COM 객체가 있습니다");
+	if (m_pD3DDevice)
+	{
+		ULONG ul = m_pD3DDevice->Release();
+		assert(ul == 0 && "삭제되지 않은 COM 객체가 있습니다");
+		SAFE_RELEASE(m_pD3D);
+	}
 }

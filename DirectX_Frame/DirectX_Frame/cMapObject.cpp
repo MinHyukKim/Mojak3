@@ -17,6 +17,8 @@ cMapObject::cMapObject(void)
 
 cMapObject::~cMapObject(void)
 {
+	SAFE_RELEASE(m_pVertexBuffer);
+	SAFE_RELEASE(m_pIndexBufer);
 }
 
 HRESULT cMapObject::Setup(IN LPCSTR szHeightMap)

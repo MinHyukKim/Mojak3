@@ -5,6 +5,8 @@
 #include "cMapObject.h"
 
 cMapToolScene::cMapToolScene(void)
+	: m_pCamera(NULL)
+	, m_pMapObject(NULL)
 {
 }
 
@@ -14,11 +16,11 @@ cMapToolScene::~cMapToolScene(void)
 
 HRESULT cMapToolScene::Setup(void)
 {
-	m_pCamera = cCamera::Create();
-	m_pCamera->Setup();
-
-	m_pMapObject = cMapObject::Create();
-	m_pMapObject->Setup(256, 256);
+	//m_pCamera = cCamera::Create();
+	//m_pCamera->Setup();
+	//
+	//m_pMapObject = cMapObject::Create();
+	//m_pMapObject->Setup(256, 256);
 
 
 	return S_OK;

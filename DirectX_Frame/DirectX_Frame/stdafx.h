@@ -91,7 +91,7 @@ struct ST_SIZE
 };
 
 //±¤¿ø ¼³Á¤
-void SetDirectional(D3DXVECTOR3& direction, D3DXCOLOR& lightColor, int index)
+inline void SetDirectional(int index, D3DXVECTOR3& direction, D3DXCOLOR& lightColor)
 {
 	D3DLIGHT9 light;
 	ZeroMemory(&light, sizeof(D3DLIGHT9));

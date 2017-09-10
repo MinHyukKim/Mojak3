@@ -6,7 +6,7 @@ cCamera::cCamera(void)
 	, m_vAxisX(1.0f, 0.0f, 0.0f)
 	, m_vAxisY(0.0f, 1.0f, 0.0f)
 	, m_vAxisZ(0.0f, 0.0f, 1.0f)
-	, m_vPosition(0.0f, 0.0f, -1.0f)
+	, m_vPosition(0.0f, 0.0f, -10.0f)
 	, m_pParentMatrix(NULL)
 {
 }
@@ -17,11 +17,15 @@ cCamera::~cCamera(void)
 
 HRESULT cCamera::Setup(void)
 {
+	this->UpdateViewSpace();
+	this->UpdateProjection();
+
 	return D3D_OK;
 }
 
 void cCamera::Update(void)
 {
+	this->UpdateViewSpace();
 }
 
 void cCamera::SetupParentMatrix(IN LPD3DXMATRIX pWorldMatrix)
