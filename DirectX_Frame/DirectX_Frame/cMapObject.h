@@ -11,17 +11,23 @@ private:
 	LPDIRECT3DTEXTURE9 m_texDiffuse;
 	DWORD m_dwCol;
 	DWORD m_dwRow;
+	float m_fMinHeight;
+	float m_fMaxHeight;
 
 public:
 
-	virtual HRESULT Setup(IN LPCSTR szHeightMap);
 //	virtual HRESULT Setup(void) override;
+	virtual HRESULT Setup(IN LPCSTR szHeightMap);
+	virtual HRESULT Setup(IN DWORD dwCol, IN DWORD dwRow);
 	virtual void Update(void) override;
 	virtual void Render(void) override;
 
 //	virtual void Destroy(void);
 
+	//버텍스 초기화
 	HRESULT InitVB(void);
+	HRESULT InitVB(IN DWORD dwCol, IN DWORD dwRow);
+	//인덱스 초기화
 	HRESULT InitIB(void);
 
 // 오브젝트를 상속받은 모든 클래스는 아래와 같은 형식을 사용합니다. (오버로딩하여 사용하세요.)

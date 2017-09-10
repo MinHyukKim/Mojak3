@@ -40,7 +40,6 @@ LPDIRECT3DTEXTURE9 cTextureManager::GetHeightMap(IN LPCSTR szKeyName)
 
 		if (FAILED(D3DXCreateTextureFromFileEx(g_pD3DDevice, szKeyName, D3DX_DEFAULT, D3DX_DEFAULT, D3DX_DEFAULT,
 			0, D3DFMT_X8R8G8B8, D3DPOOL_MANAGED, D3DX_DEFAULT, D3DX_DEFAULT, 0, &ImageInfo, NULL, &pTexture))) return NULL;
-
 		m_mapImageInfo[szKeyName] = ImageInfo;
 		m_mapTexture[szKeyName] = pTexture;
 	}
