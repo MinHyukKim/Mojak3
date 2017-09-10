@@ -12,7 +12,7 @@ protected:
 //	SYNTHESIZE()
 
 public:
-	virtual void Render(LPD3DXSPRITE pSprite) override {};
+//	void Render(LPD3DXSPRITE pSprite) override;
 
 	cUITextView(void);
 	virtual ~cUITextView(void);
