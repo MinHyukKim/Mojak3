@@ -72,6 +72,21 @@ void cUiTestScene::MsgProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam
 {
 }
 
+void cUiTestScene::OnClick(cUIButton * pSender)
+{
+	cUITextView* pTextView = (cUITextView*)m_pUiRoot->GetChildByTag(E_TEXT_VIEW);
+	if (pTextView == NULL) return;
+
+	if (pSender->GetTag() == E_CONFIRM_BUTTON)
+	{
+		pTextView->SetText("1버튼(CONFIRM) 택스트 변경");
+	}
+	else if (pSender->GetTag() == E_CANCEL_BUTTON)
+	{
+		pTextView->SetText("2버튼(CANCEL) 택스트 변경");
+	}
+}
+
 cSceneObject * cUiTestScene::Create(void)
 {
 	return nullptr;

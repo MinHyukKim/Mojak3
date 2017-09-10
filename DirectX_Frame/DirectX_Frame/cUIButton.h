@@ -6,8 +6,8 @@ class cUIButton;
 class iButtonDelegate
 {
 public:
-	virtual void OnClick(cUiObject* pSender) = 0;
-//	virtual void OnClick(cUiObject* pSender) {};
+//	virtual void OnClick(cUIButton* pSender) = 0;
+	virtual void OnClick(cUIButton* pSender) {};
 };
 
 class cUIButton : public cUiObject
