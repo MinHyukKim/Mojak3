@@ -73,6 +73,17 @@ struct ST_PC_VERTEX
 		: position(_position), color(_color) {}
 };
 
+struct ST_PN_VERTEX
+{
+	enum { FVF = D3DFVF_XYZ | D3DFVF_NORMAL };
+
+	D3DXVECTOR3 position;
+	D3DXVECTOR3 normal;
+
+	ST_PN_VERTEX(D3DXVECTOR3 _position = D3DXVECTOR3(0.0f, 0.0f, 0.0f), D3DXVECTOR3 _normal = D3DXVECTOR3(0.0f, 0.0f, 0.0f))
+		: position(_position), normal(_normal) {}
+};
+
 struct ST_PNT_VERTEX
 {
 	enum { FVF = D3DFVF_XYZ | D3DFVF_NORMAL | D3DFVF_TEX1 };
