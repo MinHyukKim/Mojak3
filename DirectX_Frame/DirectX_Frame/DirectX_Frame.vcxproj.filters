@@ -73,8 +73,11 @@
     <ClCompile Include="cUIButton.cpp">
       <Filter>인터페이스\Ui</Filter>
     </ClCompile>
-    <ClCompile Include="SoundManager.cpp" />
     <ClCompile Include="cMapLoder.cpp" />
+    <ClCompile Include="cTile.cpp" />
+    <ClCompile Include="cUiTestScene.cpp">
+      <Filter>장면 관리</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="cAutoReleasePool.h">
@@ -143,7 +146,23 @@
     <ClInclude Include="cMapObject.h">
       <Filter>인터페이스</Filter>
     </ClInclude>
-    <ClInclude Include="SoundManager.h" />
+    <ClInclude Include="cMapLoder.h" />
+    <ClInclude Include="cTile.h" />
+    <ClInclude Include="cUIButton.h">
+      <Filter>인터페이스\Ui</Filter>
+    </ClInclude>
+    <ClInclude Include="cUIImageView.h">
+      <Filter>인터페이스\Ui</Filter>
+    </ClInclude>
+    <ClInclude Include="cUITextView.h">
+      <Filter>인터페이스\Ui</Filter>
+    </ClInclude>
+    <ClInclude Include="cUiObject.h">
+      <Filter>인터페이스\Ui</Filter>
+    </ClInclude>
+    <ClInclude Include="cUiTestScene.h">
+      <Filter>장면 관리</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Image Include="DirectX_Frame.ico">

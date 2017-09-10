@@ -165,6 +165,7 @@
     <ClInclude Include="cUIImageView.h" />
     <ClInclude Include="cUIManager.h" />
     <ClInclude Include="cUiObject.h" />
+    <ClInclude Include="cUiTestScene.h" />
     <ClInclude Include="cUITextView.h" />
     <ClInclude Include="DirectX_Frame.h" />
     <ClInclude Include="Resource.h" />
@@ -195,6 +196,7 @@
     <ClCompile Include="cUIImageView.cpp" />
     <ClCompile Include="cUIManager.cpp" />
     <ClCompile Include="cUiObject.cpp" />
+    <ClCompile Include="cUiTestScene.cpp" />
     <ClCompile Include="cUITextView.cpp" />
     <ClCompile Include="DirectX_Frame.cpp" />
     <ClCompile Include="stdafx.cpp">
