@@ -61,9 +61,23 @@ using namespace std;
 #define SAFE_UPDATE(pointer) if (pointer) {(pointer)->Update();}
 #define SAFE_RENDER(pointer) if (pointer) {(pointer)->Render();}
 
-//ST_PNT_VERTEX 
+//정점 구조체
+
+struct ST_PC_VERTEX
+{
+	enum { FVF = D3DFVF_XYZ | D3DFVF_DIFFUSE };
+
+	D3DXVECTOR3 position;
+	D3DCOLOR color;
+
+	ST_PC_VERTEX(D3DXVECTOR3 _position = D3DXVECTOR3(0.0f, 0.0f, 0.0f), D3DCOLOR _color = D3DCOLOR_XRGB(255, 255, 255))
+		: position(_position), color(_color) {}
+};
+
 struct ST_PNT_VERTEX
 {
+	enum { FVF = D3DFVF_XYZ | D3DFVF_NORMAL | D3DFVF_TEX1 };
+
 	D3DXVECTOR3 p;
 	D3DXVECTOR3	n;
 	D3DXVECTOR2	t;
@@ -76,8 +90,6 @@ struct ST_PNT_VERTEX
 		: p(_p), n(_n), t(_t)
 	{
 	}
-
-	enum { FVF = D3DFVF_XYZ | D3DFVF_NORMAL | D3DFVF_TEX1 };
 };
 
 //ST_SIZE

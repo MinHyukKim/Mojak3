@@ -78,6 +78,8 @@
     <ClCompile Include="cUiTestScene.cpp">
       <Filter>장면 관리</Filter>
     </ClCompile>
+    <ClCompile Include="cGrid.cpp" />
+    <ClCompile Include="cPyramid.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="cAutoReleasePool.h">
@@ -163,6 +165,8 @@
     <ClInclude Include="cUiTestScene.h">
       <Filter>장면 관리</Filter>
     </ClInclude>
+    <ClInclude Include="cGrid.h" />
+    <ClInclude Include="cPyramid.h" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="DirectX_Frame.ico">
