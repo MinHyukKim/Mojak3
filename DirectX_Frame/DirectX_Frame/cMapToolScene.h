@@ -1,13 +1,14 @@
 #pragma once
 #include "cSceneObject.h"
 
-//테스트용
-class cFont;
+class cCamera;
+class cMapObject;
 
 class cMapToolScene : public cSceneObject
 {
 private:
-	cFont* m_pFont;
+	cCamera* m_pCamera;
+	cMapObject* m_pMapObject;
 
 public:
 	virtual HRESULT Setup(void) override;

@@ -38,7 +38,7 @@ HRESULT cMapObject::Setup(IN DWORD dwCol, IN DWORD dwRow)
 {
 
 	//버텍스 초기화
-	if (FAILED(this->InitVB(dwCol, dwRow))) return E_FAIL;
+	if (FAILED(this->InitVB(dwCol + 1, dwRow + 1))) return E_FAIL;
 
 	//인덱스 초기화
 	if (FAILED(this->InitIB())) return E_FAIL;

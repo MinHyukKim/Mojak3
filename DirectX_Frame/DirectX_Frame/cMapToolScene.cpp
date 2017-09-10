@@ -1,13 +1,11 @@
 #include "stdafx.h"
 #include "cMapToolScene.h"
 
-//테스트용
-#include "cFont.h"
+#include "cCamera.h"
+#include "cMapObject.h"
 
 cMapToolScene::cMapToolScene(void)
 {
-	//테스트용
-	m_pFont = NULL;
 }
 
 cMapToolScene::~cMapToolScene(void)
@@ -16,34 +14,29 @@ cMapToolScene::~cMapToolScene(void)
 
 HRESULT cMapToolScene::Setup(void)
 {
-	//테스트용
-	m_pFont = cFont::Create();
-	m_pFont->Setup();
-	m_pFont->DrawFont(0, 0, "씬매니저가 로딩에 성공했습니다.");
+	m_pCamera = cCamera::Create();
+	m_pCamera->Setup();
+
+	m_pMapObject = cMapObject::Create();
+	m_pMapObject->Setup(256, 256);
+
 
 	return S_OK;
 }
 
 void cMapToolScene::Reset(void)
 {
-	//테스트용
-	SAFE_RELEASE(m_pFont);
+	SAFE_RELEASE(m_pCamera);
+	SAFE_RELEASE(m_pMapObject);
 }
 
 void cMapToolScene::Update(void)
 {
-	//테스트용
-	SAFE_UPDATE(m_pFont);
-	if (g_pInputManager->IsOnceKeyDown(VK_SPACE))
-	{
-
-	}
 }
 
 void cMapToolScene::Render(void)
 {
-	//테스트용
-	SAFE_RENDER(m_pFont);
+	SAFE_RENDER(m_pMapObject);
 }
 
 cMapToolScene* cMapToolScene::Create(void)
