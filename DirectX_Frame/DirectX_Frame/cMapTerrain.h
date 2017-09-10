@@ -5,7 +5,7 @@ class cMapTerrain : public cObject
 {
 private:
 	std::vector<LPDIRECT3DTEXTURE9> m_vecTexture;
-	std::vector<ST_PNT_VERTEX> m_vecMapVertex;
+	std::vector<ST_PNT_VERTEX> m_vecVertex;
 	D3DXVECTOR3 m_vScale;
 	DWORD m_dwCol, m_dwRow;
 
@@ -19,9 +19,9 @@ public:
 	void Render(void) override;
 	
 	//버텍스 포인터
-	ST_PNT_VERTEX* GetVertex(DWORD dwX, DWORD dwZ) { return &m_vecMapVertex[dwX + dwZ * m_dwCol]; }
+	ST_PNT_VERTEX* GetVertex(DWORD dwX, DWORD dwZ) { return &m_vecVertex[dwX + dwZ * m_dwCol]; }
 	//버텍스 높이
-	float GetHeight(DWORD dwX, DWORD dwZ) { return m_vecMapVertex[dwX + dwZ * m_dwCol].p.y; }
+	float GetHeight(DWORD dwX, DWORD dwZ) { return m_vecVertex[dwX + dwZ * m_dwCol].p.y; }
 	//버텍스갯수 (가로)
 	DWORD GetCol(void) { return m_dwCol; }
 	//버텍스갯수 (세로)

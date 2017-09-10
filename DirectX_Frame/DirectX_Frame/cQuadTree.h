@@ -8,6 +8,9 @@ private:
 	DWORD m_dwCenter;
 	DWORD m_dwCorner[4];
 
+	float m_fRadius;
+	bool m_bCulled;
+
 public:
 	//퀴드트리를 구축한다. (박멸아님)
 	bool TreeBuild(void);
@@ -48,7 +51,7 @@ private:
 	inline void _Destroy(void);
 //절두체 컬링
 	// 충돌체크
-	int _IsInFrustum();
+	int _IsInFrustum(std::vector<ST_PNT_VERTEX>* pVecVertex,);
 
 };
 

@@ -80,7 +80,7 @@ inline HRESULT cMapTerrain::_BuildHeightMap(LPCSTR szMapName)
 		{
 			float fY = (float)pHeightMap->pBytes[(x + z * m_dwCol) * pHeightMap->dwByte + pHeightMap->dwByte - 1];
 
-			m_vecMapVertex.push_back(ST_PNT_VERTEX(
+			m_vecVertex.push_back(ST_PNT_VERTEX(
 				D3DXVECTOR3((float)x * m_vScale.x - fColHalf, fY * fScaleY - fHighHalf, fRowHalf - (float)z * m_vScale.z),
 				D3DXVECTOR3(0.0f, 1.0f, 0.0f),
 				D3DXVECTOR2((float)(x & 0x1), (float)(z & 0x1))));
@@ -95,10 +95,10 @@ inline HRESULT cMapTerrain::_BuildHeightMap(LPCSTR szMapName)
 			//인덱스
 			DWORD dwNumIndex = x + z * m_dwCol;
 			//노말값
-			D3DXVec3Cross(&m_vecMapVertex[dwNumIndex].n,
-				&(m_vecMapVertex[dwNumIndex - 1].p - m_vecMapVertex[dwNumIndex + 1].p),
-				&(m_vecMapVertex[dwNumIndex - m_dwCol].p - m_vecMapVertex[dwNumIndex + m_dwCol].p));
-			D3DXVec3Normalize(&m_vecMapVertex[dwNumIndex].n, &m_vecMapVertex[dwNumIndex].n);
+			D3DXVec3Cross(&m_vecVertex[dwNumIndex].n,
+				&(m_vecVertex[dwNumIndex - 1].p - m_vecVertex[dwNumIndex + 1].p),
+				&(m_vecVertex[dwNumIndex - m_dwCol].p - m_vecVertex[dwNumIndex + m_dwCol].p));
+			D3DXVec3Normalize(&m_vecVertex[dwNumIndex].n, &m_vecVertex[dwNumIndex].n);
 		}
 	}
 
@@ -128,7 +128,7 @@ inline HRESULT cMapTerrain::_BuildHeightMap(DWORD dwCol, DWORD dwRow)
 	{
 		for (DWORD x = 0; x < m_dwCol; x++)
 		{
-			m_vecMapVertex.push_back(ST_PNT_VERTEX(
+			m_vecVertex.push_back(ST_PNT_VERTEX(
 				D3DXVECTOR3((float)x * m_vScale.x - fColHalf, 0.0f, fRowHalf - (float)z * m_vScale.z),
 				D3DXVECTOR3(0.0f, 1.0f, 0.0f),
 				D3DXVECTOR2((float)(x & 0x1), (float)(z & 0x1))));
