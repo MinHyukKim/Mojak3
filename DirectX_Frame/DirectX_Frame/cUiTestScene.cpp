@@ -37,6 +37,8 @@ HRESULT cUiTestScene::Setup(void)
 	D3DXCreateSprite(g_pD3DDevice, &m_pSprite);
 
 	cUIImageView* pimageView = new cUIImageView;
+//	m_pUIImageView = cUIImageView::Create();
+//	m_pGrid = cGrid::Create();
 	pimageView->SetTexture("Ui/panel-info.png");
 	m_pUiRoot = pimageView;
 
@@ -48,24 +50,49 @@ HRESULT cUiTestScene::Setup(void)
 	pTextView->SetTag(E_TEXT_VIEW);
 	m_pUiRoot->AddChild(pTextView);
 
-	D3DXMATRIX matWorld, matS, matR;
-	D3DXMatrixRotationX(&matR, -D3DX_PI / 2.0f);
-	D3DXMatrixScaling(&matS, 0.01f, 0.01f, 0.01f);
-	matWorld = matS * matR;
+	cUIButton* pButton = new cUIButton;
+	pButton->SetTexture("Ui/btn-med-up.png", "Ui/btn-med-over.png",
+		"Ui/btn-med-down.png");
+	pButton->SetPosition(135, 330);
+	pButton->SetDelegate(this);
+	pButton->SetTag(E_CONFIRM_BUTTON);
+	m_pUiRoot->AddChild(pButton);
+
+	pButton = new cUIButton;
+	pButton->SetTexture("Ui/btn-med-up.png", "Ui/btn-med-over.png",
+		"Ui/btn-med-down.png");
+	pButton->SetPosition(135, 400);
+	pButton->SetDelegate(this);
+	pButton->SetTag(E_CONFIRM_BUTTON);
+	m_pUiRoot->AddChild(pButton);
+
+
+//	D3DXMATRIX matWorld, matS, matR;
+//	D3DXMatrixRotationX(&matR, -D3DX_PI / 2.0f);
+//	D3DXMatrixScaling(&matS, 0.01f, 0.01f, 0.01f);
+//	matWorld = matS * matR;
 
 	return D3D_OK;
 }
 
 void cUiTestScene::Reset(void)
 {
+//	SAFE_RELEASE(m_pFont);
+//	SAFE_RELEASE(m_pSprite);
+//	SAFE_RELEASE(m_pTexture);
+//	SAFE_RELEASE(m_pUiRoot);
 }
 
 void cUiTestScene::Update(void)
 {
+	if (m_pUiRoot) m_pUiRoot->Update();
 }
 
 void cUiTestScene::Render(void)
 {
+	g_pD3DDevice->SetTexture(0, m_pTexture);
+//	SAFE_RENDER(m_pUiRoot->Render(m_pSprite));
+	m_pUiRoot->Render(m_pSprite);
 }
 
 void cUiTestScene::MsgProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
@@ -89,5 +116,7 @@ void cUiTestScene::OnClick(cUIButton * pSender)
 
 cSceneObject * cUiTestScene::Create(void)
 {
-	return nullptr;
+	cUiTestScene* newClass = new cUiTestScene;
+	newClass->AddRef();
+	return newClass;
 }

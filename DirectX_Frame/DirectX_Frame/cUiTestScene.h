@@ -18,8 +18,12 @@ private:
 	LPDIRECT3DTEXTURE9 m_pTexture;
 	cUiObject* m_pUiRoot;
 
+	cUIImageView* m_pUIImageView;
+	cUIButton* m_pUIButton;
+
 	//클릭변수?
 	bool m_isClick;
+
 
 public:
 	virtual HRESULT Setup(void) override;
