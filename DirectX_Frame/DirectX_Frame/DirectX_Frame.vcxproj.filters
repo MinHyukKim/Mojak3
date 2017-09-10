@@ -169,6 +169,16 @@
     </ClInclude>
     <ClInclude Include="cGrid.h" />
     <ClInclude Include="cPyramid.h" />
+    <ClInclude Include="cMapObject.h">
+      <Filter>진형</Filter>
+    </ClInclude>
+    <ClInclude Include="cQuadTree.h">
+      <Filter>진형</Filter>
+    </ClInclude>
+    <ClInclude Include="cMapTerrain.h" />
+    <ClInclude Include="cUiFontManager.h">
+      <Filter>관리자</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Image Include="DirectX_Frame.ico">
