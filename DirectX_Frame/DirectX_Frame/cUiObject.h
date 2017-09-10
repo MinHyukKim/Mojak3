@@ -16,7 +16,7 @@ protected:
 public:
 	virtual HRESULT Setup(void) override;
 	virtual void Update(void) override;
-	virtual void Render(void) override;
+//	virtual void Render(void) override;
 
 	//내부 미구현
 	virtual void AddChild(cUiObject* pChild);
