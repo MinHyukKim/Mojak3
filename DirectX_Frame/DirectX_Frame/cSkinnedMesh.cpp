@@ -221,7 +221,7 @@ void cSkinnedMesh::SetAnimationIndex(int nIndex)
 
 void cSkinnedMesh::SetBlendingAnimation(int nAnimationKey, float fTravalTime)
 {
-
+	//¹Ì±¸Çö
 }
 
 void cSkinnedMesh::SetRandomTrackPosition()
