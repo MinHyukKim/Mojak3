@@ -41,7 +41,7 @@ void cSkinnedMesh::Load(char * szFolder, char * szFilename)
 	m_pEffect->GetInt("MATRIX_PALETTE_SIZE", &nPaletteSize);
 
 	cAllocateHierarchy ah;
-	ah.setFol
+	ah.set
 
 }
 

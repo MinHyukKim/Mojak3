@@ -36,6 +36,8 @@ class cAllocateHierarchy : public ID3DXAllocateHierarchy
 private:
 	DWORD m_dwDefaultPalette;
 	DWORD m_dwNumMaxPalette;
+	std::string m_sFolder;
+
 
 public:
 	STDMETHOD(CreateFrame)(THIS_ LPCSTR Name, LPD3DXFRAME *ppNewFrame) override;
@@ -55,6 +57,9 @@ public:
 
 	void setMaxPaletteSize(DWORD value) { m_dwNumMaxPalette = value; };
 	DWORD getMaxPaletteSize() { return m_dwNumMaxPalette; };
+
+	void setFolder(std::string value) { m_sFolder = value; };
+	std::string getFolder() { return m_sFolder; };
 
 
 	cAllocateHierarchy(void);
