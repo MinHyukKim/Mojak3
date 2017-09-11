@@ -207,6 +207,12 @@ void cSkinnedMesh::UpdateAndRender()
 
 void cSkinnedMesh::SetAnimationIndex(int nIndex)
 {
+	if (!m_pAnimController)
+		return;
+	LPD3DXANIMATIONSET pAnimSet = NULL;
+	m_pAnimController->GetAnimationSet(nIndex, &pAnimSet);
+	m_pAnimController->SetTrackAnimationSet(0, pAnimSet);
+	SAFE_RELEASE(pAnimSet);
 }
 
 void cSkinnedMesh::SetBlendingAnimation(int nAnimationKey, float fTravalTime)
