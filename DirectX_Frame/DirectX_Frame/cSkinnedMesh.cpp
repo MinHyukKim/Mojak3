@@ -147,10 +147,48 @@ void cSkinnedMesh::Update(ST_BONE * pCurrent, D3DXMATRIXA16 * pmatParent)
 
 void cSkinnedMesh::Render(ST_BONE * pBone)
 {
+
+
 }
 
 void cSkinnedMesh::SetupBoneMatrixPtrs(ST_BONE * pBone)
 {
+	assert(pBone);
+
+	// 각 프레임의 메시 컨테이너에 있는 pSkinInfo를 이용하여 영향받는 모든 
+	// 프레임의 매트릭스를 ppBoneMatrixPtrs에 연결한다.
+	if (pBone->pMeshContainer)
+	{
+		ST_BONE_MESH* pBoneMesh = (ST_BONE_MESH*)pBone->pMeshContainer;
+		if (pBoneMesh->pSkinInfo)
+		{
+			LPD3DXSKININFO pSkinInfo = pBoneMesh->pSkinInfo;
+			// pSkinInfo->GetNumBones() 으로 영향받는 본의 개수를 찾음.
+			// pSkinInfo->GetBoneName(i) 로 i번 프레임의 이름을 찾음
+			// D3DXFrameFind(루트 프레임, 프레임 이름) 로 프레임을 찾음.
+			// 찾아서 월드매트릭스를 걸어줘라.
+			DWORD dwNumBones = pSkinInfo->GetNumBones();
+			for (DWORD i = 0; i < dwNumBones; ++i)
+			{
+				LPCSTR szBoneName = pSkinInfo->GetBoneName(i);
+				if (szBoneName == NULL || strlen(szBoneName) == 0)
+					continue;
+				ST_BONE* pInfluence = (ST_BONE*)D3DXFrameFind(m_pRootFrame, szBoneName);
+				pBoneMesh->ppBoneMatrixPtrs[i] = &(pInfluence->CombinedTransformationMatrix);
+			}
+		}
+	}
+	//재귀적으로 모든 프레임에 대해서 실행.
+	if (pBone->pFrameSibling)
+	{
+		SetupBoneMatrixPtrs((ST_BONE*)pBone->pFrameSibling);
+	}
+
+	if (pBone->pFrameFirstChild)
+	{
+		SetupBoneMatrixPtrs((ST_BONE*)pBone->pFrameFirstChild);
+	}
+
 }
 
 void cSkinnedMesh::Destroy()
