@@ -30,6 +30,20 @@ public:
 	D3DXVECTOR3 getPosition() { return m_vPosition; };
 	void setPosition(D3DXVECTOR3 value) { m_vPosition = value; };
 
+	void UpdateAndRender();
+	void SetAnimationIndex(int nIndex);
+	void SetBlendingAnimation(int nAnimationKey, float fTravalTime = 0.1f);
+
+
+	void SetRandomTrackPosition();
+
 private:
 	cSkinnedMesh();
+	void Load(char* szFolder, char* szFilename);
+	LPD3DXEFFECT LoadEffect(char* szFilename);
+	void Update(ST_BONE* pCurrent, D3DXMATRIXA16* pmatParent);
+	void Render(ST_BONE* pBone = NULL);
+	void SetupBoneMatrixPtrs(ST_BONE* pBone);
+	void Destroy();
+
 };
