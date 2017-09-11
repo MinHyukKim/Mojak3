@@ -36,6 +36,13 @@ cSkinnedMesh::cSkinnedMesh()
 
 void cSkinnedMesh::Load(char * szFolder, char * szFilename)
 {
+	m_pEffect = LoadEffect("MultiAnimation.hpp");
+	int nPaletteSize = 0;
+	m_pEffect->GetInt("MATRIX_PALETTE_SIZE", &nPaletteSize);
+
+	cAllocateHierarchy ah;
+	ah.setFol
+
 }
 
 LPD3DXEFFECT cSkinnedMesh::LoadEffect(char * szFilename)

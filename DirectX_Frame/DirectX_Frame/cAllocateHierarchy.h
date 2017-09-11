@@ -50,6 +50,13 @@ public:
 
 	static HRESULT CopyString(OUT LPSTR* ppTextCopy, IN LPCSTR pTextOrigin);
 
+	void setDefaultPaletteSize(DWORD value) { m_dwDefaultPalette = value; };
+	DWORD getDefaultPaletteSize() { return m_dwDefaultPalette; }
+
+	void setMaxPaletteSize(DWORD value) { m_dwNumMaxPalette = value; };
+	DWORD getMaxPaletteSize() { return m_dwNumMaxPalette; };
+
+
 	cAllocateHierarchy(void);
 	virtual ~cAllocateHierarchy(void);
 };
