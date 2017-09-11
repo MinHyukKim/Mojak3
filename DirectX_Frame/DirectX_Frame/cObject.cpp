@@ -16,7 +16,7 @@ cObject::~cObject(void)
 	//0보다 작을시 중복제거됨
 	assert(m_nReferenceCount <= 0 && "Delete를 사용하지 마세요.");
 	g_pAutoRelasePool->MemoryErase(this);
-
+	
 	//0903 추가
 	//자식 소멸
 //	this->RelaseChild();

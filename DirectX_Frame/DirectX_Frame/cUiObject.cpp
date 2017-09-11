@@ -7,6 +7,7 @@ cUiObject::cUiObject(void)
 	, m_pParent(NULL)
 	, m_nTag(0)
 {
+	D3DXMatrixIdentity(&m_matWorld);
 }
 
 cUiObject::~cUiObject(void)
@@ -16,17 +17,6 @@ cUiObject::~cUiObject(void)
 		SAFE_RELEASE(p);
 	}
 }
-
-
-HRESULT cUiObject::Setup(void)
-{
-	return D3D_OK;
-}
-
-
-//void cUiObject::Render(void)
-//{
-//}
 
 cUiObject * cUiObject::Create(void)
 {

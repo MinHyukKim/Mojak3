@@ -12,6 +12,13 @@ cUITextView::~cUITextView(void)
 {
 }
 
+cUITextView * cUITextView::Create(void)
+{
+	cUITextView* newClass = new cUITextView;
+	newClass->AddRef();
+	return newClass;
+}
+
 void cUITextView::Render(LPD3DXSPRITE pSprite)
 {
 	RECT rc;
@@ -24,3 +31,4 @@ void cUITextView::Render(LPD3DXSPRITE pSprite)
 	pFont->DrawTextA(NULL, m_sText.c_str(), m_sText.length(),
 		&rc, m_dwDT, m_dwColor);
 }
+
