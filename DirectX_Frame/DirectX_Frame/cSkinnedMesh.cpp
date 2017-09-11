@@ -62,6 +62,7 @@ void cSkinnedMesh::Destroy()
 
 cSkinnedMesh::~cSkinnedMesh(void)
 {
+	SAFE_RELEASE(m_pAnimController);
 }
 
 void cSkinnedMesh::UpdateAndRender()
