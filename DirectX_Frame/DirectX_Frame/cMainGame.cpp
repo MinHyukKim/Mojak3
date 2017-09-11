@@ -4,6 +4,7 @@
 //¾À ¸®½ºÆ®
 #include "cMapToolScene.h"
 #include "cUiTestScene.h"
+#include "cCharTestScene.h"
 
 cMainGame::cMainGame(void)
 {
@@ -33,8 +34,11 @@ void cMainGame::Setup(void)
 	//¾À ¸Å´ÏÀú
 	g_pSceneManager->AddScene("cMapToolScene", cMapToolScene::Create());
 	g_pSceneManager->AddScene("cUiTestScene", cUiTestScene::Create());
-	
-	g_pSceneManager->ChangScene("cUiTestScene");
+	g_pSceneManager->AddScene("cCharTestScene", cUiTestScene::Create());
+
+	//g_pSceneManager->ChangScene("cUiTestScene");
+	g_pSceneManager->ChangScene("cCharTestScene");
+
 
 	//Å¸ÀÌ¸Ó
 	g_pTimeManager->Setup();

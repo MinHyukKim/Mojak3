@@ -46,6 +46,7 @@ void cCharTestScene::Update(void)
 
 void cCharTestScene::Render(void)
 {
+	SAFE_RENDER(m_pGrid);
 }
 
 cCharTestScene* cCharTestScene::Create(void)
