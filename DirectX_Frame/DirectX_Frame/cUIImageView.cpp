@@ -9,6 +9,12 @@ cUIImageView::~cUIImageView(void)
 {
 }
 
+cUIImageView * cUIImageView::Create(void)
+{
+	cUIImageView* newClass = new cUIImageView;
+	newClass->AddRef();
+	return newClass;
+}
 
 void cUIImageView::SetTexture(std::string sFullPath)
 {

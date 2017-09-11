@@ -12,6 +12,13 @@ cUIButton::~cUIButton(void)
 {
 }
 
+cUIButton * cUIButton::Create(void)
+{
+	cUIButton* newClass = new cUIButton;
+	newClass->AddRef();
+	return newClass;
+}
+
 //void iButtonDelegate::OnClick(cUiObject * pSender)
 //{
 //
