@@ -10,10 +10,19 @@ cSkinnedMesh::cSkinnedMesh(char * szFolder, char * szFilename)
 	, m_pEffect(NULL)
 	, m_vPosition(0, 0, 0)
 {
-	//cSkinnedMesh* pSkinnedMesh =
+	cSkinnedMesh* pSkinnedMesh = g_pSkinnedMeshManager->GetSkinnedMesh(szFolder, szFilename);
 
-
-
+	m_pRootFrame = pSkinnedMesh->m_pRootFrame;
+	m_dwWorkingPaletteSize = pSkinnedMesh->m_dwWorkingPaletteSize;
+	m_pmWorkingPalette = pSkinnedMesh->m_pmWorkingPalette;
+	m_pEffect = pSkinnedMesh->m_pEffect;
+	
+	pSkinnedMesh->m_pAnimController->CloneAnimationController(
+		pSkinnedMesh->m_pAnimController->GetMaxNumAnimationOutputs(),
+		pSkinnedMesh->m_pAnimController->GetMaxNumAnimationSets(),
+		pSkinnedMesh->m_pAnimController->GetMaxNumTracks(),
+		pSkinnedMesh->m_pAnimController->GetMaxNumEvents(),
+		&m_pAnimController);
 }
 
 cSkinnedMesh::cSkinnedMesh()

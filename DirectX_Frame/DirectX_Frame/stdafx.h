@@ -41,6 +41,7 @@
 #include "cUIManager.h"
 #include "cSoundManager.h"
 #include "cUiFontManager.h"
+#include "cSkinnedMeshManager.h"
 #include "cTimer.h"
 
 // 전역 함수
