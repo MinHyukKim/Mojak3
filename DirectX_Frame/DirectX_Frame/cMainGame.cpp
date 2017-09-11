@@ -16,6 +16,8 @@ cMainGame::~cMainGame(void)
 	g_pSceneManager->Destroy();
 	g_pAutoRelasePool->Destroy();
 	g_pDeviceManager->Destroy();
+	g_pFontManager->Destroy();
+	
 }
 
 

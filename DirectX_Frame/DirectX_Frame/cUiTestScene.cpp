@@ -51,21 +51,21 @@ HRESULT cUiTestScene::Setup(void)
 	pTextView->SetTag(E_TEXT_VIEW);
 	m_pUiRoot->AddChild(pTextView);
 
-//	cUIButton* pButton = cUIButton::Create();
-//	pButton->SetTexture("Ui/btn-med-up.png", "Ui/btn-med-over.png",
-//		"Ui/btn-med-down.png");
-//	pButton->SetPosition(135, 330);
-////	pButton->SetDelegate(this);
-//	pButton->SetTag(E_CONFIRM_BUTTON);
-//	m_pUiRoot->AddChild(pButton);
-//
-//	pButton =  cUIButton::Create();
-//	pButton->SetTexture("Ui/btn-med-up.png", "Ui/btn-med-over.png",
-//		"Ui/btn-med-down.png");
-//	pButton->SetPosition(135, 400);
-////	pButton->SetDelegate(this);
-//	pButton->SetTag(E_CANCEL_BUTTON);
-//	m_pUiRoot->AddChild(pButton);
+	cUIButton* pButton = cUIButton::Create();
+	pButton->SetTexture("Ui/btn-med-up.png", "Ui/btn-med-over.png",
+		"Ui/btn-med-down.png");
+	pButton->SetPosition(135, 330);
+	pButton->SetDelegate(this);
+	pButton->SetTag(E_CONFIRM_BUTTON);
+	m_pUiRoot->AddChild(pButton);
+
+	pButton =  cUIButton::Create();
+	pButton->SetTexture("Ui/btn-med-up.png", "Ui/btn-med-over.png",
+		"Ui/btn-med-down.png");
+	pButton->SetPosition(135, 400);
+	pButton->SetDelegate(this);
+	pButton->SetTag(E_CANCEL_BUTTON);
+	m_pUiRoot->AddChild(pButton);
 
 	return D3D_OK;
 }
@@ -93,17 +93,17 @@ void cUiTestScene::MsgProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam
 {
 }
 
-//void cUiTestScene::OnClick(cUIButton * pSender)
-//{
-//	cUITextView* pTextView = (cUITextView*)m_pUiRoot->GetChildByTag(E_TEXT_VIEW);
-//	if (pTextView == NULL) return;
-//
-//	if (pSender->GetTag() == E_CONFIRM_BUTTON)
-//	{
-//		pTextView->SetText("1버튼(CONFIRM) 택스트 변경");
-//	}
-//	else if (pSender->GetTag() == E_CANCEL_BUTTON)
-//	{
-//		pTextView->SetText("2버튼(CANCEL) 택스트 변경");
-//	}
-//}
+void cUiTestScene::OnClick(cUIButton * pSender)
+{
+	cUITextView* pTextView = (cUITextView*)m_pUiRoot->GetChildByTag(E_TEXT_VIEW);
+	if (pTextView == NULL) return;
+
+	if (pSender->GetTag() == E_CONFIRM_BUTTON)
+	{
+		pTextView->SetText("1버튼(CONFIRM) 택스트 변경");
+	}
+	else if (pSender->GetTag() == E_CANCEL_BUTTON)
+	{
+		pTextView->SetText("2버튼(CANCEL) 택스트 변경");
+	}
+}
