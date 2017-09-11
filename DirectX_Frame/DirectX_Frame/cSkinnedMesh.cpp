@@ -41,8 +41,33 @@ void cSkinnedMesh::Load(char * szFolder, char * szFilename)
 	m_pEffect->GetInt("MATRIX_PALETTE_SIZE", &nPaletteSize);
 
 	cAllocateHierarchy ah;
-	ah.set
+	ah.setFolder(szFolder);
+	ah.setDefaultPaletteSize(nPaletteSize);
 
+	std::string sFullPath(szFolder);
+	sFullPath += std::string(szFilename);
+
+	D3DXLoadMeshHierarchyFromX(sFullPath.c_str(),
+		D3DXMESH_MANAGED,
+		g_pD3DDevice,
+		&ah,
+		NULL,
+		(LPD3DXFRAME*)&m_pRootFrame,
+		&m_pAnimController);
+
+
+	if (m_pmWorkingPalette)
+		delete[] m_pmWorkingPalette;
+
+	m_dwWorkingPaletteSize = ah.getMaxPaletteSize();
+	m_pmWorkingPalette = new D3DXMATRIX[m_dwWorkingPaletteSize];
+	if (m_pmWorkingPalette == NULL)
+	{
+		m_dwWorkingPaletteSize = 0;
+	}
+
+	if (m_pRootFrame)
+		SetupBoneMatrixPtrs(m_pRootFrame);
 }
 
 LPD3DXEFFECT cSkinnedMesh::LoadEffect(char * szFilename)
