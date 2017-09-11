@@ -125,10 +125,24 @@ LPD3DXEFFECT cSkinnedMesh::LoadEffect(char * szFilename)
 
 	return pEffect;
 }
-}
 
 void cSkinnedMesh::Update(ST_BONE * pCurrent, D3DXMATRIXA16 * pmatParent)
 {
+	pCurrent->CombinedTransformationMatrix = pCurrent->TransformationMatrix;
+	if (pmatParent)
+	{
+		pCurrent->CombinedTransformationMatrix = pCurrent->CombinedTransformationMatrix *(*pmatParent);
+	}
+	//형제 노드가 있으면 업데이트를 부르고 부모 매트리스를 줌.
+	if (pCurrent->pFrameSibling)
+	{
+		Update((ST_BONE*)pCurrent->pFrameSibling, pmatParent);
+	}
+	//자식 노드가 있으면 업데이트를 부르고 자기 매트리스를 줌.
+	if (pCurrent->pFrameFirstChild)
+	{
+		Update((ST_BONE*)pCurrent->pFrameFirstChild, &(pCurrent->CombinedTransformationMatrix));
+	}
 }
 
 void cSkinnedMesh::Render(ST_BONE * pBone)
