@@ -10,6 +10,10 @@ cSkinnedMesh::cSkinnedMesh(char * szFolder, char * szFilename)
 	, m_pEffect(NULL)
 	, m_vPosition(0, 0, 0)
 {
+	//cSkinnedMesh* pSkinnedMesh =
+
+
+
 }
 
 cSkinnedMesh::cSkinnedMesh()
