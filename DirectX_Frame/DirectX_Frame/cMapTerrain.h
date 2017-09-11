@@ -31,7 +31,7 @@ public:
 	//∏ ≈©±‚ z
 	float GetTerrainRow(void) { return (float)m_dwRow * m_vScale.z; }
 
-	static cMapTerrain* Create(void);
+	static cMapTerrain* Create(LPCSTR szHeightMapName, LPCSTR szTextureFileName, LPD3DXVECTOR3 pScale = &D3DXVECTOR3(1.0f, 16.0f, 1.0f));
 protected:
 	cMapTerrain(void);
 	virtual ~cMapTerrain(void);

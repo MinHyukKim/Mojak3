@@ -17,6 +17,20 @@
 #include <memory.h>
 #include <tchar.h>
 
+//콘솔 디버깅
+#define CONSOLE_DEBUG_TEST
+
+#ifdef CONSOLE_DEBUG_TEST
+#ifdef 멀티바이트 사용중이냐?
+#pragma comment(linker, "/entry:WinMainCRTStartup /subsystem:console")
+#else
+#pragma comment(linker, "/entry:wWinMainCRTStartup /subsystem:console")
+#endif
+#include <iostream>
+#define DEBUG_TEXT(text) std::cout<< text << std::endl //콘솔 출력
+#else // CONSOLE_DEBUG_TEST
+#define DEBUG_TEXT(text) //출력안함
+#endif // !CONSOLE_DEBUG_TEST
 
 // TODO: 프로그램에 필요한 추가 헤더는 여기에서 참조합니다.
 #include <d3dx9.h>
@@ -31,7 +45,6 @@
 #pragma comment(lib,"d3d9.lib")
 #pragma comment(lib,"d3dx9.lib")
 #pragma comment(lib, "msimg32.lib")
-
 // TODO: 매니저 헤더는 여기에서 참조합니다.
 #include "cAutoReleasePool.h"
 #include "cDeviceManager.h"

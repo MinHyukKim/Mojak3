@@ -2,8 +2,10 @@
 #include "cMapToolScene.h"
 
 #include "cCamera.h"
-#include "cMapObject.h"
+#include "cMapTerrain.h"
+
 //테스트용
+#include "cMapObject.h"
 #include "cGrid.h"
 
 cMapToolScene::cMapToolScene(void)
@@ -21,14 +23,17 @@ HRESULT cMapToolScene::Setup(void)
 	m_pCamera = cCamera::Create();
 	m_pCamera->Setup();
 
-	m_pMapObject = cMapObject::Create();
-	m_pMapObject->Setup("./HeightMapData/HeightMap.raw");
+	m_pMapTerrain = cMapTerrain::Create(&D3DXVECTOR3(1.0f, 16.0f, 1.0f), "./HeightMapData/HeightMap.raw", "./HeightMapData/terrain.jpg");
 
 	//테스트용
 	m_pGrid = cGrid::Create();
 	m_pGrid->Setup();
 	m_pTexture = g_pTexture->GetTexture("./HeightMapData/terrain.jpg");
 	SetMatrial(&m_stMtl);
+	//	m_pMapObject = cMapObject::Create();
+	//	m_pMapObject->Setup("./HeightMapData/HeightMap.raw");
+
+
 	return S_OK;
 }
 

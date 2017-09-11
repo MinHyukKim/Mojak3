@@ -8,11 +8,14 @@ cMapTerrain::cMapTerrain(void)
 	, m_pVertexBuffer(nullptr)
 	, m_pIndexBufer(nullptr)
 	, m_pQuadTree(nullptr)
+	, m_dwCol(0)
+	, m_dwRow(0)
 {
 }
 
 cMapTerrain::~cMapTerrain(void)
 {
+	this->_Destroy();
 }
 
 
@@ -30,9 +33,10 @@ void cMapTerrain::Render(void)
 }
 
 
-cMapTerrain* cMapTerrain::Create(void)
+cMapTerrain* cMapTerrain::Create(LPCSTR szHeightMapName, LPCSTR szTextureFileName, LPD3DXVECTOR3 pScale)
 {
 	cMapTerrain* newClass = new cMapTerrain;
+	newClass->m_vScale = *pScale;
 	newClass->AddRef();
 	return newClass;
 }
@@ -144,7 +148,7 @@ inline HRESULT cMapTerrain::_BuilldQuadTree(void)
 {
 	if (m_pQuadTree)
 	{
-		m_pQuadTree->TreeBuild();
+		//m_pQuadTree->TreeBuild();
 		return S_OK;
 	}
 	return E_FAIL;
