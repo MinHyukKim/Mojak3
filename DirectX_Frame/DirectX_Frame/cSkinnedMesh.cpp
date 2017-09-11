@@ -34,7 +34,48 @@ cSkinnedMesh::cSkinnedMesh()
 {
 }
 
+void cSkinnedMesh::Load(char * szFolder, char * szFilename)
+{
+}
+
+LPD3DXEFFECT cSkinnedMesh::LoadEffect(char * szFilename)
+{
+	return LPD3DXEFFECT();
+}
+
+void cSkinnedMesh::Update(ST_BONE * pCurrent, D3DXMATRIXA16 * pmatParent)
+{
+}
+
+void cSkinnedMesh::Render(ST_BONE * pBone)
+{
+}
+
+void cSkinnedMesh::SetupBoneMatrixPtrs(ST_BONE * pBone)
+{
+}
+
+void cSkinnedMesh::Destroy()
+{
+}
+
 
 cSkinnedMesh::~cSkinnedMesh(void)
+{
+}
+
+void cSkinnedMesh::UpdateAndRender()
+{
+}
+
+void cSkinnedMesh::SetAnimationIndex(int nIndex)
+{
+}
+
+void cSkinnedMesh::SetBlendingAnimation(int nAnimationKey, float fTravalTime)
+{
+}
+
+void cSkinnedMesh::SetRandomTrackPosition()
 {
 }
