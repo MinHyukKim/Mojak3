@@ -72,7 +72,59 @@ void cSkinnedMesh::Load(char * szFolder, char * szFilename)
 
 LPD3DXEFFECT cSkinnedMesh::LoadEffect(char * szFilename)
 {
-	return LPD3DXEFFECT();
+	LPD3DXEFFECT pEffect = NULL;
+
+	D3DXMACRO mac[2] =
+	{
+		{ "MATRIX_PALETTE_SIZE_DEFAULT", "35" },
+		{ NULL,                          NULL }
+	};
+
+	D3DCAPS9 caps;
+	D3DXMACRO *pmac = NULL;
+	g_pD3DDevice->GetDeviceCaps(&caps);
+	if (caps.VertexShaderVersion > D3DVS_VERSION(1, 1))
+		pmac = mac;
+
+	DWORD dwShaderFlags = 0;
+
+#if defined( DEBUG ) || defined( _DEBUG )
+	// Set the D3DXSHADER_DEBUG flag to embed debug information in the shaders.
+	// Setting this flag improves the shader debugging experience, but still allows 
+	// the shaders to be optimized and to run exactly the way they will run in 
+	// the release configuration of this program.
+	dwShaderFlags |= D3DXSHADER_DEBUG;
+#endif
+
+#ifdef DEBUG_VS
+	dwShaderFlags |= D3DXSHADER_FORCE_VS_SOFTWARE_NOOPT;
+#endif
+#ifdef DEBUG_PS
+	dwShaderFlags |= D3DXSHADER_FORCE_PS_SOFTWARE_NOOPT;
+#endif
+
+	ID3DXBuffer* pBuffer = NULL;
+	if (FAILED(D3DXCreateEffectFromFile(g_pD3DDevice,
+		szFilename,
+		pmac,
+		NULL,
+		dwShaderFlags,
+		NULL,
+		&pEffect,
+		&pBuffer)))
+	{
+		// if creation fails, and debug information has been returned, output debug info
+		if (pBuffer)
+		{
+			OutputDebugStringA((char*)pBuffer->GetBufferPointer());
+			SAFE_RELEASE(pBuffer);
+		}
+
+		return NULL;
+	}
+
+	return pEffect;
+}
 }
 
 void cSkinnedMesh::Update(ST_BONE * pCurrent, D3DXMATRIXA16 * pmatParent)
