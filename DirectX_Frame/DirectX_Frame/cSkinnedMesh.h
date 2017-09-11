@@ -37,6 +37,10 @@ public:
 
 	void SetRandomTrackPosition();
 
+
+	//SYNTHESIZE(D3DXVECTOR3, m_vPosition, Position);
+
+
 private:
 	cSkinnedMesh();
 	void Load(char* szFolder, char* szFilename);
