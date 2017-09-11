@@ -27,10 +27,16 @@ HRESULT cCharTestScene::Setup(void)
 	m_pGrid->Setup();
 
 	cSkinnedMesh* pSkinnedMesh = new cSkinnedMesh("", "Run3.X");
-	pSkinnedMesh->setPosition(D3DXVECTOR3(0, 0, 0));
+	pSkinnedMesh->setPosition(D3DXVECTOR3(0, 3, 0));
 	pSkinnedMesh->SetRandomTrackPosition();
 
+	cSkinnedMesh* pSkinnedMesh2 = new cSkinnedMesh("", "Run3.X");
+	pSkinnedMesh2->setPosition(D3DXVECTOR3(2, 3, 0));
+	pSkinnedMesh2->SetRandomTrackPosition();
+
+
 	m_vecSkinnedMesh.push_back(pSkinnedMesh);
+	m_vecSkinnedMesh.push_back(pSkinnedMesh2);
 	return S_OK;
 
 }
@@ -55,7 +61,20 @@ void cCharTestScene::Update(void)
 
 void cCharTestScene::Render(void)
 {
+
+		D3DLIGHT9 stLight;
+	ZeroMemory(&stLight, sizeof(D3DLIGHT9));
+	stLight.Type = D3DLIGHT_DIRECTIONAL;
+	D3DXVECTOR3 vDir(1, -1, 1);
+	D3DXVec3Normalize(&vDir, &vDir);
+	stLight.Direction = vDir;
+	stLight.Ambient = stLight.Diffuse = stLight.Specular = D3DXCOLOR(0.75f, 0.75f, 0.75f, 1.0f);
+	g_pD3DDevice->SetLight(0, &stLight);
+	g_pD3DDevice->LightEnable(0, true);
 	SAFE_RENDER(m_pGrid);
+
+
+
 
 	for each (auto p in m_vecSkinnedMesh)
 	{
