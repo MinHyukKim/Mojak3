@@ -46,7 +46,7 @@ HRESULT cAllocateHierarchy::CreateMeshContainer(LPCSTR Name, CONST D3DXMESHDATA*
 		pNewMeshContainer->NumMaterials = NumMaterials;																				//°¹¼ö
 	}
 
-	//ÀÓÆåÆ® ÀúÀå
+	//ÀÌÆåÆ® ÀúÀå
 	if (pEffectInstances)
 	{
 		pNewMeshContainer->pEffects = new D3DXEFFECTINSTANCE;

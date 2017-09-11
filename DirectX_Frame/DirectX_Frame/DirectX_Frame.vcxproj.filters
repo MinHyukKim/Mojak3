@@ -34,6 +34,7 @@
     <ClCompile Include="stdafx.cpp" />
     <ClCompile Include="cFrustum.cpp" />
     <ClCompile Include="cCharTestScene.cpp" />
+    <ClCompile Include="cSkinnedMesh.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="cAllocateHierarchy.h" />
@@ -71,6 +72,7 @@
     <ClInclude Include="targetver.h" />
     <ClInclude Include="cFrustum.h" />
     <ClInclude Include="cCharTestScene.h" />
+    <ClInclude Include="cSkinnedMesh.h" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="DirectX_Frame.rc" />

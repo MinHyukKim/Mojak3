@@ -161,6 +161,7 @@
     <ClInclude Include="cQuadTree.h" />
     <ClInclude Include="cSceneManager.h" />
     <ClInclude Include="cSceneObject.h" />
+    <ClInclude Include="cSkinnedMesh.h" />
     <ClInclude Include="cSoundManager.h" />
     <ClInclude Include="cTestScene.h" />
     <ClInclude Include="cTextureManager.h" />
@@ -198,6 +199,7 @@
     <ClCompile Include="cQuadTree.cpp" />
     <ClCompile Include="cSceneManager.cpp" />
     <ClCompile Include="cSceneObject.cpp" />
+    <ClCompile Include="cSkinnedMesh.cpp" />
     <ClCompile Include="cSoundManager.cpp" />
     <ClCompile Include="cTestScene.cpp" />
     <ClCompile Include="cTextureManager.cpp" />
