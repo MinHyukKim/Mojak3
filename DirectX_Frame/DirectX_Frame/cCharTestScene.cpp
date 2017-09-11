@@ -26,7 +26,7 @@ HRESULT cCharTestScene::Setup(void)
 	m_pGrid = cGrid::Create();
 	m_pGrid->Setup();
 
-	cSkinnedMesh* pSkinnedMesh = new cSkinnedMesh("Zealot/", "Zealot.X");
+	cSkinnedMesh* pSkinnedMesh = new cSkinnedMesh("", "Run3.X");
 	pSkinnedMesh->setPosition(D3DXVECTOR3(0, 0, 0));
 	pSkinnedMesh->SetRandomTrackPosition();
 
