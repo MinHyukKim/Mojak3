@@ -20,7 +20,6 @@ cUiTestScene::cUiTestScene(void)
 	, m_pSprite(NULL)
 	, m_pTexture(NULL)
 	, m_pUiRoot(NULL)
-	, m_pUIImageView(NULL)
 {
 }
 
@@ -38,25 +37,25 @@ cUiTestScene* cUiTestScene::Create(void)
 
 HRESULT cUiTestScene::Setup(void)
 {
-//	D3DXCreateSprite(g_pD3DDevice, &m_pSprite);
-//
-//	m_pUIImageView = cUIImageView::Create();
-//	m_pUIImageView->SetTexture("Ui/panel-info.png");
-//	m_pUiRoot = m_pUIImageView;
-//
-//	cUITextView* pTextView = cUITextView::Create();
-//	pTextView->SetText("태스트용");
-//	pTextView->SetSize(ST_SIZE(400, 200));
-//	pTextView->SetPosition(80, 100);
-//	pTextView->SetDtawTextFormat(DT_CENTER | DT_VCENTER | DT_WORDBREAK);
-//	pTextView->SetTag(E_TEXT_VIEW);
-//	m_pUiRoot->AddChild(pTextView);
-//
+	D3DXCreateSprite(g_pD3DDevice, &m_pSprite);
+
+	cUIImageView* pImageView = cUIImageView::Create();
+	pImageView->SetTexture("Ui/panel-info.png");
+	m_pUiRoot = pImageView;
+
+	cUITextView* pTextView = cUITextView::Create();
+	pTextView->SetText("태스트용");
+	pTextView->SetSize(ST_SIZE(400, 200));
+	pTextView->SetPosition(80, 100);
+	pTextView->SetDtawTextFormat(DT_CENTER | DT_VCENTER | DT_WORDBREAK);
+	pTextView->SetTag(E_TEXT_VIEW);
+	m_pUiRoot->AddChild(pTextView);
+
 //	cUIButton* pButton = cUIButton::Create();
 //	pButton->SetTexture("Ui/btn-med-up.png", "Ui/btn-med-over.png",
 //		"Ui/btn-med-down.png");
 //	pButton->SetPosition(135, 330);
-//	pButton->SetDelegate(this);
+////	pButton->SetDelegate(this);
 //	pButton->SetTag(E_CONFIRM_BUTTON);
 //	m_pUiRoot->AddChild(pButton);
 //
@@ -64,7 +63,7 @@ HRESULT cUiTestScene::Setup(void)
 //	pButton->SetTexture("Ui/btn-med-up.png", "Ui/btn-med-over.png",
 //		"Ui/btn-med-down.png");
 //	pButton->SetPosition(135, 400);
-//	pButton->SetDelegate(this);
+////	pButton->SetDelegate(this);
 //	pButton->SetTag(E_CANCEL_BUTTON);
 //	m_pUiRoot->AddChild(pButton);
 
@@ -77,18 +76,17 @@ void cUiTestScene::Reset(void)
 	SAFE_RELEASE(m_pSprite);
 	SAFE_RELEASE(m_pTexture);
 	SAFE_RELEASE(m_pUiRoot);
-	SAFE_RELEASE(m_pUIImageView);
 }
 
 void cUiTestScene::Update(void)
 {
-//	if (m_pUiRoot) m_pUiRoot->Update();
+	if (m_pUiRoot) m_pUiRoot->Update();
 }
 
 void cUiTestScene::Render(void)
 {
-//	g_pD3DDevice->SetTexture(0, m_pTexture);
-//	if(m_pUiRoot) m_pUiRoot->Render(m_pSprite);
+	g_pD3DDevice->SetTexture(0, m_pTexture);
+	if(m_pUiRoot) m_pUiRoot->Render(m_pSprite);
 }
 
 void cUiTestScene::MsgProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
