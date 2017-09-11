@@ -145,6 +145,7 @@
     <ClInclude Include="cAllocateHierarchy.h" />
     <ClInclude Include="cAutoReleasePool.h" />
     <ClInclude Include="cCamera.h" />
+    <ClInclude Include="cCharTestScene.h" />
     <ClInclude Include="cDeviceManager.h" />
     <ClInclude Include="cFont.h" />
     <ClInclude Include="cFrustum.h" />
@@ -181,6 +182,7 @@
     <ClCompile Include="cAllocateHierarchy.cpp" />
     <ClCompile Include="cAutoReleasePool.cpp" />
     <ClCompile Include="cCamera.cpp" />
+    <ClCompile Include="cCharTestScene.cpp" />
     <ClCompile Include="cDeviceManager.cpp" />
     <ClCompile Include="cFont.cpp" />
     <ClCompile Include="cFrustum.cpp" />
