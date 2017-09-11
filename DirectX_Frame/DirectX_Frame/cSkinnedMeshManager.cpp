@@ -14,10 +14,15 @@ cSkinnedMeshManager::~cSkinnedMeshManager(void)
 cSkinnedMesh * cSkinnedMeshManager::GetSkinnedMesh(char * szFolder, char * szFilename)
 {
 	std::string sFullPath(szFolder);
-	sFullPath += std::string
+	sFullPath += std::string(szFilename);
 
-
-	return nullptr;
+	if (m_mapSkinnedMesh.find(sFullPath) == m_mapSkinnedMesh.end())
+	{
+		cSkinnedMesh* pSkinnedMesh = new cSkinnedMesh();
+		pSkinnedMesh->Load(szFolder, szFilename);
+		m_mapSkinnedMesh[sFullPath] = pSkinnedMesh;
+	}
+	return m_mapSkinnedMesh[sFullPath];
 }
 
 void cSkinnedMeshManager::Destroy()
