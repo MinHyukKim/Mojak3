@@ -290,7 +290,19 @@ cSkinnedMesh::~cSkinnedMesh(void)
 
 void cSkinnedMesh::UpdateAndRender()
 {
+	if (m_pAnimController)
+	{
+		m_pAnimController->AdvanceTime(g_pTimeManager->GetElapsedTime(), NULL);
+	}
 
+	if (m_pRootFrame)
+	{
+		D3DXMATRIXA16 mat;
+		D3DXMatrixTranslation(&mat, m_vPosition.x, m_vPosition.y, m_vPosition.z);
+
+		Update(m_pRootFrame, &mat);
+		Render(m_pRootFrame);
+	}
 }
 
 void cSkinnedMesh::SetAnimationIndex(int nIndex)
