@@ -34,7 +34,7 @@ void cMainGame::Setup(void)
 	//¾À ¸Å´ÏÀú
 	g_pSceneManager->AddScene("cMapToolScene", cMapToolScene::Create());
 	g_pSceneManager->AddScene("cUiTestScene", cUiTestScene::Create());
-	g_pSceneManager->AddScene("cCharTestScene", cUiTestScene::Create());
+	g_pSceneManager->AddScene("cCharTestScene", cCharTestScene::Create());
 
 	//g_pSceneManager->ChangScene("cUiTestScene");
 	g_pSceneManager->ChangScene("cCharTestScene");
