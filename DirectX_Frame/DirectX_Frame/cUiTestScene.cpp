@@ -15,25 +15,21 @@ enum
 };
 
 cUiTestScene::cUiTestScene(void)
-//	: m_pFont(NULL)
-//	, m_isClick(false)
-//	, m_pSprite(NULL)
-//	, m_pTexture(NULL)
-//	, m_pUiRoot(NULL)
-//	, m_pUIImageView(NULL)
+	: m_pFont(NULL)
+	, m_isClick(false)
+	, m_pSprite(NULL)
+	, m_pTexture(NULL)
+	, m_pUiRoot(NULL)
+	, m_pUIImageView(NULL)
 {
 }
 
 cUiTestScene::~cUiTestScene(void)
 {
-//	SAFE_RELEASE(m_pFont);
-//	SAFE_RELEASE(m_pSprite);
-//	SAFE_RELEASE(m_pTexture);
-//	SAFE_RELEASE(m_pUiRoot);
-//	SAFE_RELEASE(m_pUIImageView);
+	this->Reset();
 }
 
-cUiTestScene * cUiTestScene::Create(void)
+cUiTestScene* cUiTestScene::Create(void)
 {
 	cUiTestScene* newClass = new cUiTestScene;
 	newClass->AddRef();
@@ -77,10 +73,11 @@ HRESULT cUiTestScene::Setup(void)
 
 void cUiTestScene::Reset(void)
 {
-//	SAFE_RELEASE(m_pFont);
-//	SAFE_RELEASE(m_pSprite);
-//	SAFE_RELEASE(m_pTexture);
-//	SAFE_RELEASE(m_pUiRoot);
+	SAFE_RELEASE(m_pFont);
+	SAFE_RELEASE(m_pSprite);
+	SAFE_RELEASE(m_pTexture);
+	SAFE_RELEASE(m_pUiRoot);
+	SAFE_RELEASE(m_pUIImageView);
 }
 
 void cUiTestScene::Update(void)

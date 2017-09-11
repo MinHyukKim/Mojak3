@@ -13,7 +13,11 @@ public:
 	//½Ì±ÛÅæ »ý¼º
 	static cSkinnedMeshManager* GetInstance() { static cSkinnedMeshManager instance; return &instance; }
 
-	cSkinnedMesh* GetSkinnedMesh(char* szFolder, char* szFilename);
+//	cSkinnedMesh* GetSkinnedMesh(char* szFolder, char* szFilename);
 
-	void Destroy();
+	//void Destroy();
+
+private:
+	cSkinnedMeshManager(void);
+	virtual ~cSkinnedMeshManager(void);
 };

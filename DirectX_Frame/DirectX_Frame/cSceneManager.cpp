@@ -70,7 +70,6 @@ void cSceneManager::Destroy(void)
 	{
 		if (it.second)
 		{
-			it.second->Reset();
 			it.second->Release();
 		}
 	}

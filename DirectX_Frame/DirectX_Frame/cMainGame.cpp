@@ -31,7 +31,7 @@ void cMainGame::Setup(void)
 	//씬 매니저
 	g_pSceneManager->AddScene("cMapToolScene", cMapToolScene::Create());
 	g_pSceneManager->AddScene("cUiTestScene", cUiTestScene::Create());
-	g_pSceneManager->ChangScene("cMapToolScene");
+	g_pSceneManager->ChangScene("cUiTestScene");
 
 	//타이머
 	g_pTimeManager->Setup();
