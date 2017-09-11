@@ -193,6 +193,10 @@ void cSkinnedMesh::SetupBoneMatrixPtrs(ST_BONE * pBone)
 
 void cSkinnedMesh::Destroy()
 {
+	cAllocateHierarchy ah;
+	D3DXFrameDestroy((LPD3DXFRAME)m_pRootFrame, &ah);
+	SAFE_DELETE_ARRAY(m_pmWorkingPalette);
+	SAFE_RELEASE(m_pEffect);
 }
 
 
@@ -217,8 +221,10 @@ void cSkinnedMesh::SetAnimationIndex(int nIndex)
 
 void cSkinnedMesh::SetBlendingAnimation(int nAnimationKey, float fTravalTime)
 {
+
 }
 
 void cSkinnedMesh::SetRandomTrackPosition()
 {
+	m_pAnimController->SetTrackPosition(0, (rand() % 100) / 10.0f);
 }
