@@ -10,7 +10,7 @@ class cUIButton;
 class cUITextView;
 class iButtonDelegate;
 
-class cUiTestScene : public cSceneObject/*, iButtonDelegate*/
+class cUiTestScene : public cSceneObject, iButtonDelegate
 {
 private:
 	cFont* m_pFont;
@@ -31,7 +31,7 @@ public:
 	virtual void Render(void) override;
 
 	void MsgProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam);
-//	virtual void OnClick(cUIButton* pSender) override;
+	virtual void OnClick(cUIButton* pSender) override;
 //	virtual void Onclick(cUIButton* pSender) override;
 
 	static cUiTestScene* Create(void);
