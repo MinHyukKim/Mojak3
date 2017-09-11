@@ -26,7 +26,7 @@ LPD3DXFONT cUiFontManager::GetFont(eFontType e)
 			fd.CharSet = DEFAULT_CHARSET;
 			fd.OutputPrecision = OUT_DEFAULT_PRECIS;
 			fd.PitchAndFamily = FF_DONTCARE;
-			strcpy_s(fd.FaceName, "±√º≠√º");
+			strcpy_s(fd.FaceName, "πŸ≈¡√º");
 		}
 		else if (e == E_QUEST)
 		{
@@ -37,7 +37,7 @@ LPD3DXFONT cUiFontManager::GetFont(eFontType e)
 			fd.CharSet = DEFAULT_CHARSET;
 			fd.OutputPrecision = OUT_CHARACTER_PRECIS;
 			fd.PitchAndFamily = FF_DONTCARE;
-			strcpy_s(fd.FaceName, "±√º≠√º");
+			strcpy_s(fd.FaceName, "πŸ≈¡√º");
 		}
 		
 		D3DXCreateFontIndirect(g_pD3DDevice, &fd, &m_mapFont[e]);

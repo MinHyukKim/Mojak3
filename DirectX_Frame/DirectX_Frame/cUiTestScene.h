@@ -17,6 +17,7 @@ private:
 	LPD3DXSPRITE m_pSprite;
 	LPDIRECT3DTEXTURE9 m_pTexture;
 	cUiObject* m_pUiRoot;
+	cUiObject* m_pUiTestRoot;
 //	cUIImageView* m_pUIImageView;
 //	cUIButton* m_pUIButton;
 
