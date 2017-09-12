@@ -29,7 +29,7 @@ HRESULT cCharTestScene::Setup(void)
 	cSkinnedMesh* pSkinnedMesh = new cSkinnedMesh("", "Run3.X");
 	pSkinnedMesh->setPosition(D3DXVECTOR3(0, 3, 0));
 	pSkinnedMesh->SetRandomTrackPosition();
-
+	
 	cSkinnedMesh* pSkinnedMesh2 = new cSkinnedMesh("", "Run3.X");
 	pSkinnedMesh2->setPosition(D3DXVECTOR3(2, 3, 0));
 	pSkinnedMesh2->SetRandomTrackPosition();
@@ -37,6 +37,9 @@ HRESULT cCharTestScene::Setup(void)
 
 	m_vecSkinnedMesh.push_back(pSkinnedMesh);
 	m_vecSkinnedMesh.push_back(pSkinnedMesh2);
+
+	SetMatrial(&m_stMtl);
+
 	return S_OK;
 
 }
@@ -62,7 +65,7 @@ void cCharTestScene::Update(void)
 void cCharTestScene::Render(void)
 {
 
-		D3DLIGHT9 stLight;
+	D3DLIGHT9 stLight;
 	ZeroMemory(&stLight, sizeof(D3DLIGHT9));
 	stLight.Type = D3DLIGHT_DIRECTIONAL;
 	D3DXVECTOR3 vDir(1, -1, 1);
@@ -74,6 +77,7 @@ void cCharTestScene::Render(void)
 	SAFE_RENDER(m_pGrid);
 
 
+	g_pD3DDevice->SetMaterial(&m_stMtl);
 
 
 	for each (auto p in m_vecSkinnedMesh)

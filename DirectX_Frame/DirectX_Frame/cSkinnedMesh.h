@@ -36,6 +36,8 @@ public:
 
 
 	void SetRandomTrackPosition();
+	//컬러값 변경 임시
+	void SetColorChild(LPD3DXFRAME pFrame, D3DXCOLOR & stColor);
 
 
 	//SYNTHESIZE(D3DXVECTOR3, m_vPosition, Position);
