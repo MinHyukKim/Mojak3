@@ -17,7 +17,7 @@ private:
 	cMapObject* m_pMapObject;
 	cGrid* m_pGrid;
 	LPDIRECT3DTEXTURE9 m_pTexture;
-	D3DMATERIAL9 m_stMtl;
+	D3DXMATERIAL m_stMtl;
 
 public:
 	virtual HRESULT Setup(void) override;

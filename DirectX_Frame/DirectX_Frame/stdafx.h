@@ -18,7 +18,7 @@
 #include <tchar.h>
 
 //콘솔 디버깅
-#define CONSOLE_DEBUG_TEST
+//#define CONSOLE_DEBUG_TEST
 
 #ifdef CONSOLE_DEBUG_TEST
 #ifdef 멀티바이트 사용중이냐?
@@ -56,6 +56,7 @@
 #include "cUiFontManager.h"
 #include "cSkinnedMeshManager.h"
 #include "cTimer.h"
+#include "cFrustum.h"
 
 // 전역 함수
 extern HWND g_hWnd;

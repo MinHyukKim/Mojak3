@@ -13,6 +13,7 @@ cMainGame::cMainGame(void)
 
 cMainGame::~cMainGame(void)
 {
+	g_pFrustum->Destroy();
 	g_pTexture->Destroy();
 	g_pSceneManager->Destroy();
 	g_pFontManager->Destroy();

@@ -39,13 +39,13 @@ public:
 	//virtual void Render(void);
 	
 	//초당 프레임 설정
-	virtual void SetLockFPS(float lockFPS = 0.0f) final { _lockFPS = lockFPS; }
+	virtual void SetLockFPS(float lockFPS = 0.0f) { _lockFPS = lockFPS; }
 	//업데이트간 간격 가져오기
-	virtual float GetElapsedTime(void) final { return _timeElapsed; }
+	virtual float GetElapsedTime(void) { return _timeElapsed; }
 	//게임 시작시점부터의 누적시간 가져오기
-	virtual float GetWorldTime(void) final { return _worldTime; } 
+	virtual float GetWorldTime(void) { return _worldTime; } 
 	//타임 동기화 함수(가설)
-	virtual float GetWorldCheck(void) final;
+	virtual float GetWorldCheck(void);
 	//시간당 프레임 가져오는 함수
 	virtual int GetFPS(void) { return _frameRate; }
 

@@ -14,10 +14,10 @@ private:
 	bool m_bCulled;
 
 public:
-	//퀴드트리를 구축한다. (박멸아님)
-	bool TreeBuild(std::vector<ST_PNT_VERTEX>* pVecVertex);
+	//퀴드트리를 구축한다.
+	bool TreeBuild(ST_PNT_VERTEX* pVertex);
 	//삼각형 갯수와 인덱스 반환
-	int GenerateIndex(OUT LPDWORD pIndexBuffer, std::vector<ST_PNT_VERTEX>* pVecVertex, cFrustum* pFrustum);
+	int GenerateIndex(OUT LPDWORD pIndexBuffer, ST_PNT_VERTEX* pVertex, cFrustum* pFrustum);
 
 	cQuadTree(IN int nX, IN int nY);
 	cQuadTree(cQuadTree* pParent);
@@ -53,8 +53,8 @@ private:
 	inline void _Destroy(void);
 //절두체 컬링
 	// 충돌체크
-	int _IsInFrustum(std::vector<ST_PNT_VERTEX>* pVecVertex, cFrustum* pFrustum);
+	int _IsInFrustum(ST_PNT_VERTEX* pVertex, cFrustum* pFrustum);
 	// 컬링
-	void _FrustumCull(std::vector<ST_PNT_VERTEX>* pVecVertex, cFrustum* pFrustum);
+	void _FrustumCull(ST_PNT_VERTEX* pVertex, cFrustum* pFrustum);
 };
 
