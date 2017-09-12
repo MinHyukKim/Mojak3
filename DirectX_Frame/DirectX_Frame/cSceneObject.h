@@ -7,7 +7,7 @@ private:
 
 public:
 	virtual HRESULT Setup(void) override;
-	virtual void Reset(void);					//릴리즈 대용
+	virtual void Reset(void);
 	virtual void Update(void) override;
 	virtual void Render(void) override;	
 

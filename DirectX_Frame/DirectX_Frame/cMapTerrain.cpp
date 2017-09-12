@@ -29,7 +29,7 @@ HRESULT cMapTerrain::Setup(LPCSTR szHeightMapName, D3DXMATERIAL* pMaterial, LPD3
 	this->_LoadTexture(pMaterial);
 	this->_CreateVertexBuffer();
 	this->_CreateIndexBuffer();
-//	SAFE_DELETE(m_pQuadTree);
+	SAFE_DELETE(m_pQuadTree);
 //	m_pQuadTree = new cQuadTree(m_dwCol, m_dwRow);
 //	this->_BuilldQuadTree();
 

@@ -20,6 +20,7 @@ cMapToolScene::cMapToolScene(void)
 
 cMapToolScene::~cMapToolScene(void)
 {
+	this->Reset();
 }
 
 HRESULT cMapToolScene::Setup(void)
@@ -28,7 +29,7 @@ HRESULT cMapToolScene::Setup(void)
 	m_pCamera->Setup();
 
 	SetMatrial(&m_stMtl.MatD3D);
-	m_stMtl.pTextureFilename = "./HeightMapData/terrain.jpg";
+	m_stMtl.pTextureFilename = "./Texture/steppegrass01_only.dds";
 
 	m_pMapTerrain = cMapTerrain::Create();
 	m_pMapTerrain->Setup("./HeightMapData/HeightMap.raw", &m_stMtl);
@@ -36,10 +37,10 @@ HRESULT cMapToolScene::Setup(void)
 	//테스트용
 	m_pGrid = cGrid::Create();
 	m_pGrid->Setup();
-//	m_pTexture = g_pTexture->GetTexture("./HeightMapData/terrain.jpg");
+	m_pTexture = g_pTexture->GetTexture("./HeightMapData/terrain.jpg");
 //	SetMatrial(&m_stMtl);
-	//	m_pMapObject = cMapObject::Create();
-	//	m_pMapObject->Setup("./HeightMapData/HeightMap.raw");
+//	m_pMapObject = cMapObject::Create();
+//	m_pMapObject->Setup("./HeightMapData/HeightMap.raw");
 
 
 	return S_OK;
@@ -58,11 +59,14 @@ void cMapToolScene::Update(void)
 {
 
 	//테스트용
-	m_pCamera->SetCameraType(cCamera::E_AIRCRAFT); // 뱅기모드
-	m_pCamera->TestController();
+	if (m_pCamera)
+	{
+		m_pCamera->SetCameraType(cCamera::E_AIRCRAFT); // 뱅기모드
+		m_pCamera->TestController();
+	}
 
 	SAFE_UPDATE(m_pMapTerrain);
-	m_pCamera->Update();
+	SAFE_UPDATE(m_pCamera);
 }
 
 void cMapToolScene::Render(void)
