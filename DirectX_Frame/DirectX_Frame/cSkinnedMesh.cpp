@@ -154,6 +154,22 @@ void cSkinnedMesh::Render(ST_BONE * pBone)
 	if (pBone->pMeshContainer)
 	{
 		ST_BONE_MESH* pBoneMesh = (ST_BONE_MESH*)pBone->pMeshContainer;
+		// get bone combinations
+		LPD3DXBONECOMBINATION pBoneCombos =
+			(LPD3DXBONECOMBINATION)(pBoneMesh->pBufBoneCombos->GetBufferPointer());
+
+		D3DXMATRIXA16 matViewProj, matView, matProj;
+		g_pD3DDevice->GetTransform(D3DTS_VIEW, &matView);
+		g_pD3DDevice->GetTransform(D3DTS_PROJECTION, &matProj);
+		matViewProj = matView * matProj;
+
+		D3DXMATRIXA16 mView, mInvView;
+		g_pD3DDevice->GetTransform(D3DTS_VIEW, &mView);
+		D3DXMatrixInverse(&mInvView, 0, &mView);
+		D3DXVECTOR3 vEye = D3DXVECTOR3(0, 0, 0);
+		D3DXVec3TransformCoord(&vEye, &vEye, &mInvView);
+
+
 		g_pD3DDevice->SetTransform(D3DTS_WORLD, &pBone->CombinedTransformationMatrix);
 		g_pD3DDevice->SetMaterial(&(pBoneMesh->pMaterials->MatD3D));
 		g_pD3DDevice->SetTexture(0, g_pTexture->GetTexture(pBoneMesh->pMaterials->pTextureFilename));
@@ -260,4 +276,60 @@ void cSkinnedMesh::SetBlendingAnimation(int nAnimationKey, float fTravalTime)
 void cSkinnedMesh::SetRandomTrackPosition()
 {
 	m_pAnimController->SetTrackPosition(0, (rand() % 100) / 10.0f);
+}
+
+void cSkinnedMesh::UpdateSkinnedMesh(LPD3DXFRAME pFrame, D3DXMATRIX * pPMat)
+{
+		// pCurrentBoneMatrices 를 계산하시오
+	// pCurrentBoneMatrices = pBoneOffsetMatrices * ppBoneMatrixPtrs 
+	assert(pFrame);
+
+	if (pPMat == NULL)
+	{
+		pPMat = new D3DXMATRIX;
+		D3DXMatrixIdentity(pPMat);
+	}
+
+	ST_BONE* pBone = (ST_BONE*)pFrame;
+	if(pBone->pMeshContainer)
+	{
+		ST_BONE_MESH* pBoneMesh = (ST_BONE_MESH*)pBone->pMeshContainer;
+		if(pBoneMesh->pSkinInfo)
+		{
+			LPD3DXSKININFO pSkinInfo = pBoneMesh->pSkinInfo;
+			DWORD dwNumBones = pSkinInfo->GetNumBones();
+			for (DWORD i = 0; i < dwNumBones; ++i)
+			{
+				pBoneMesh->pCurrentBoneMatrices[i] = 
+					pBoneMesh->pBoneOffsetMatrices[i] *
+					*(pBoneMesh->ppBoneMatrixPtrs[i]) * *pPMat;
+			}
+
+			BYTE* src = NULL;
+			BYTE* dest = NULL;
+
+			pBoneMesh->pOrigMesh->LockVertexBuffer( D3DLOCK_READONLY, (void**)&src );
+			pBoneMesh->pWorkMesh->LockVertexBuffer( 0, (void**)&dest );
+
+			//pWorkMesh을 업데이트 시켜준다.
+			pSkinInfo->UpdateSkinnedMesh(
+				pBoneMesh->pCurrentBoneMatrices, NULL, src, dest );
+
+			pBoneMesh->pWorkMesh->UnlockVertexBuffer();
+			pBoneMesh->pOrigMesh->UnlockVertexBuffer();
+		}
+	}
+
+	//재귀적으로 모든 프레임에 대해서 실행.
+	if(pFrame->pFrameFirstChild)
+	{
+		UpdateSkinnedMesh(pFrame->pFrameFirstChild, pPMat);
+	}
+
+	if(pFrame->pFrameSibling)
+	{
+		UpdateSkinnedMesh(pFrame->pFrameSibling, pPMat);
+	}
+
+
 }
