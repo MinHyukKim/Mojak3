@@ -44,9 +44,12 @@ HRESULT cUiTestScene::Setup(void)
 {
 	D3DXCreateSprite(g_pD3DDevice, &m_pSprite);
 
+	int mainButtonH = -25;
+	int mainButtoninterval = 40;
+
 	//테스트용 메인버튼들
 	cUIImageView* pImageView = cUIImageView::Create();
-	pImageView->SetTexture("Ui/TestRoot1.png");
+	pImageView->SetTexture("Texture/Ui/TestRoot1.png");
 	pImageView->SetPosition(300, 500);
 	m_pUiRoot = pImageView;
 
@@ -59,49 +62,49 @@ HRESULT cUiTestScene::Setup(void)
 	m_pUiRoot->AddChild(pTextView);
 
 	cUIButton* pButton = cUIButton::Create();
-	pButton->SetTexture("Ui/buttonTest0.png", "Ui/buttonTest1.png",
-		"Ui/buttonTest0.png");
-	pButton->SetPosition(32, -32);
+	pButton->SetTexture("Texture/Ui/01_button_up.png", "Texture/Ui/01_button_over.png",
+		"Texture/Ui/01_button_down.png");
+	pButton->SetPosition(32, mainButtonH);
 	pButton->SetDelegate(this);
 	pButton->SetTag(E_CONFIRM_BUTTON);
 	m_pUiRoot->AddChild(pButton);
 
 	pButton =  cUIButton::Create();
-	pButton->SetTexture("Ui/buttonTest0.png", "Ui/buttonTest1.png",
-		"Ui/buttonTest0.png");
-	pButton->SetPosition(128, -32);
+	pButton->SetTexture("Texture/Ui/02_button_up.png", "Texture/Ui/02_button_over.png",
+		"Texture/Ui/02_button_down.png");
+	pButton->SetPosition(32 + mainButtoninterval, mainButtonH);
 	pButton->SetDelegate(this);
 	pButton->SetTag(E_CANCEL_BUTTON);
 	m_pUiRoot->AddChild(pButton);
 
 	pButton = cUIButton::Create();
-	pButton->SetTexture("Ui/buttonTest0.png", "Ui/buttonTest1.png",
-		"Ui/buttonTest0.png");
-	pButton->SetPosition(224, -32);
+	pButton->SetTexture("Texture/Ui/03_button_up.png", "Texture/Ui/03_button_over.png",
+		"Texture/Ui/03_button_down.png");
+	pButton->SetPosition(32+ mainButtoninterval * 2, mainButtonH);
 	pButton->SetDelegate(this);
 	pButton->SetTag(E_3_BUTTON);
 	m_pUiRoot->AddChild(pButton);
 
 	pButton = cUIButton::Create();
-	pButton->SetTexture("Ui/buttonTest0.png", "Ui/buttonTest1.png",
-		"Ui/buttonTest0.png");
-	pButton->SetPosition(320, -32);
+	pButton->SetTexture("Texture/Ui/04_button_up.png", "Texture/Ui/04_button_over.png",
+		"Texture/Ui/04_button_down.png");
+	pButton->SetPosition(32 + mainButtoninterval * 3, mainButtonH);
 	pButton->SetDelegate(this);
 	pButton->SetTag(E_4_BUTTON);
 	m_pUiRoot->AddChild(pButton);
 
 	pButton = cUIButton::Create();
-	pButton->SetTexture("Ui/buttonTest0.png", "Ui/buttonTest1.png",
-		"Ui/buttonTest0.png");
-	pButton->SetPosition(416, -32);
+	pButton->SetTexture("Texture/Ui/05_button_up.png", "Texture/Ui/05_button_over.png",
+		"Texture/Ui/05_button_down.png");
+	pButton->SetPosition(32 + mainButtoninterval * 4, mainButtonH);
 	pButton->SetDelegate(this);
 	pButton->SetTag(E_5_BUTTON);
 	m_pUiRoot->AddChild(pButton);
 
 	pButton = cUIButton::Create();
-	pButton->SetTexture("Ui/buttonTest0.png", "Ui/buttonTest1.png",
-		"Ui/buttonTest0.png");
-	pButton->SetPosition(512, -32);
+	pButton->SetTexture("Texture/Ui/06_button_up.png", "Texture/Ui/06_button_over.png",
+		"Texture/Ui/06_button_down.png");
+	pButton->SetPosition(32 + mainButtoninterval * 5, mainButtonH);
 	pButton->SetDelegate(this);
 	pButton->SetTag(E_6_BUTTON);
 	m_pUiRoot->AddChild(pButton);
