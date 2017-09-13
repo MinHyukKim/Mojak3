@@ -14,10 +14,10 @@ private:
 	bool m_bCulled;
 
 public:
-	//퀴드트리를 구축한다. (박멸아님)
-	bool TreeBuild(void);
+	//퀴드트리를 구축한다.
+	bool TreeBuild(ST_PNT_VERTEX* pVertex);
 	//삼각형 갯수와 인덱스 반환
-	int GenerateIndex(OUT LPDWORD pIndexBuffer);
+	int GenerateIndex(OUT LPDWORD pIndexBuffer, ST_PNT_VERTEX* pVertex, cFrustum* pFrustum);
 
 	cQuadTree(IN int nX, IN int nY);
 	cQuadTree(cQuadTree* pParent);
@@ -27,8 +27,8 @@ private:
 	enum LOCATION_STATE
 	{
 		LOCATION_NULL = -1,
-		LOCATION_OUT = 1,
-		LOCATION_HALF = 2,
+		LOCATION_OUT = 0,
+		LOCATION_HALF = 1,
 		LOCATION_IN = 2,
 	};
 	enum CORNER_LOCATION
@@ -53,7 +53,8 @@ private:
 	inline void _Destroy(void);
 //절두체 컬링
 	// 충돌체크
-	int _IsInFrustum(std::vector<ST_PNT_VERTEX>* pVecVertex, cFrustum* pFrustum);
-
+	int _IsInFrustum(ST_PNT_VERTEX* pVertex, cFrustum* pFrustum);
+	// 컬링
+	void _FrustumCull(ST_PNT_VERTEX* pVertex, cFrustum* pFrustum);
 };
 

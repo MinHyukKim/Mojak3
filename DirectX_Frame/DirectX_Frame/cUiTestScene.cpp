@@ -46,8 +46,8 @@ HRESULT cUiTestScene::Setup(void)
 
 	//테스트용 메인버튼들
 	cUIImageView* pImageView = cUIImageView::Create();
-	pImageView->SetTexture("Ui/ui-test-main1.png");
-	pImageView->SetPosition(300, 450);
+	pImageView->SetTexture("Ui/TestRoot1.png");
+	pImageView->SetPosition(300, 500);
 	m_pUiRoot = pImageView;
 
 	cUITextView* pTextView = cUITextView::Create();
@@ -59,48 +59,48 @@ HRESULT cUiTestScene::Setup(void)
 	m_pUiRoot->AddChild(pTextView);
 
 	cUIButton* pButton = cUIButton::Create();
-	pButton->SetTexture("Ui/ui-test-button-up.png", "Ui/ui-test-button-over.png",
-		"Ui/ui-test-button-down.png");
+	pButton->SetTexture("Ui/buttonTest0.png", "Ui/buttonTest1.png",
+		"Ui/buttonTest0.png");
 	pButton->SetPosition(32, -32);
 	pButton->SetDelegate(this);
 	pButton->SetTag(E_CONFIRM_BUTTON);
 	m_pUiRoot->AddChild(pButton);
 
 	pButton =  cUIButton::Create();
-	pButton->SetTexture("Ui/ui-test-button-up.png", "Ui/ui-test-button-over.png",
-		"Ui/ui-test-button-down.png");
+	pButton->SetTexture("Ui/buttonTest0.png", "Ui/buttonTest1.png",
+		"Ui/buttonTest0.png");
 	pButton->SetPosition(128, -32);
 	pButton->SetDelegate(this);
 	pButton->SetTag(E_CANCEL_BUTTON);
 	m_pUiRoot->AddChild(pButton);
 
 	pButton = cUIButton::Create();
-	pButton->SetTexture("Ui/ui-test-button-up.png", "Ui/ui-test-button-over.png",
-		"Ui/ui-test-button-down.png");
+	pButton->SetTexture("Ui/buttonTest0.png", "Ui/buttonTest1.png",
+		"Ui/buttonTest0.png");
 	pButton->SetPosition(224, -32);
 	pButton->SetDelegate(this);
 	pButton->SetTag(E_3_BUTTON);
 	m_pUiRoot->AddChild(pButton);
 
 	pButton = cUIButton::Create();
-	pButton->SetTexture("Ui/ui-test-button-up.png", "Ui/ui-test-button-over.png",
-		"Ui/ui-test-button-down.png");
+	pButton->SetTexture("Ui/buttonTest0.png", "Ui/buttonTest1.png",
+		"Ui/buttonTest0.png");
 	pButton->SetPosition(320, -32);
 	pButton->SetDelegate(this);
 	pButton->SetTag(E_4_BUTTON);
 	m_pUiRoot->AddChild(pButton);
 
 	pButton = cUIButton::Create();
-	pButton->SetTexture("Ui/ui-test-button-up.png", "Ui/ui-test-button-over.png",
-		"Ui/ui-test-button-down.png");
+	pButton->SetTexture("Ui/buttonTest0.png", "Ui/buttonTest1.png",
+		"Ui/buttonTest0.png");
 	pButton->SetPosition(416, -32);
 	pButton->SetDelegate(this);
 	pButton->SetTag(E_5_BUTTON);
 	m_pUiRoot->AddChild(pButton);
 
 	pButton = cUIButton::Create();
-	pButton->SetTexture("Ui/ui-test-button-up.png", "Ui/ui-test-button-over.png",
-		"Ui/ui-test-button-down.png");
+	pButton->SetTexture("Ui/buttonTest0.png", "Ui/buttonTest1.png",
+		"Ui/buttonTest0.png");
 	pButton->SetPosition(512, -32);
 	pButton->SetDelegate(this);
 	pButton->SetTag(E_6_BUTTON);

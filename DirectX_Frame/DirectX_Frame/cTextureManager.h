@@ -19,14 +19,13 @@ private:
 public:
 	LPDIRECT3DTEXTURE9 GetTexture(IN LPCSTR szKeyName);
 	LPDIRECT3DTEXTURE9 GetTexture(IN std::string& sKeyName);
+	LPDIRECT3DTEXTURE9 GetTextureEx(const char* szFullPath, OUT D3DXIMAGE_INFO* pImageInfo);
+	LPDIRECT3DTEXTURE9 GetTextureEx(const std::string& sFullPath, OUT D3DXIMAGE_INFO* pImageInfo);
 	ST_HEIGHT_MAP* GetHeightMap(IN LPCSTR szKeyName, IN DWORD dwBytes = 1);
 	ST_HEIGHT_MAP* GetHeightMap(IN std::string& sKeyName, IN DWORD dwBytes = 1);
 	bool GetImageInfo(OUT D3DXIMAGE_INFO* pImageInfo, IN LPCSTR szKeyName);
 	bool GetImageInfo(OUT D3DXIMAGE_INFO* pImageInfo, IN std::string& sKeyName);
 
-	//Ãß°¡
-	LPDIRECT3DTEXTURE9 GetTextureEx(const char* szFullPath, OUT D3DXIMAGE_INFO* pImageInfo);
-	LPDIRECT3DTEXTURE9 GetTextureEx(const std::string& sFullPath, OUT D3DXIMAGE_INFO* pImageInfo);
 
 	void Destroy(void);
 

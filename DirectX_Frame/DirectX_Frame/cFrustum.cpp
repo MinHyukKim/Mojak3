@@ -63,3 +63,9 @@ bool cFrustum::IsCollision(IN LPD3DXVECTOR3 pPosition, IN float fRadius)
 	}
 	return true;
 }
+
+void cFrustum::Destroy(void)
+{
+	SAFE_DELETE_ARRAY(m_pLocalPos);
+	SAFE_DELETE_ARRAY(m_pPosition);
+}

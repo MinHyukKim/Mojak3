@@ -13,6 +13,7 @@ cMainGame::cMainGame(void)
 
 cMainGame::~cMainGame(void)
 {
+	g_pFrustum->Destroy();
 	g_pTexture->Destroy();
 	g_pSceneManager->Destroy();
 	g_pFontManager->Destroy();
@@ -37,7 +38,8 @@ void cMainGame::Setup(void)
 	g_pSceneManager->AddScene("cCharTestScene", cCharTestScene::Create());
 
 	//g_pSceneManager->ChangScene("cUiTestScene");
-	g_pSceneManager->ChangScene("cCharTestScene");
+	//g_pSceneManager->ChangScene("cCharTestScene");
+	g_pSceneManager->ChangScene("cMapToolScene");
 
 
 	//≈∏¿Ã∏”

@@ -31,6 +31,44 @@ LPDIRECT3DTEXTURE9 cTextureManager::GetTexture(IN std::string& sKeyName)
 	return this->GetTexture(sKeyName.c_str());
 }
 
+LPDIRECT3DTEXTURE9 cTextureManager::GetTextureEx(const char * szFullPath, OUT D3DXIMAGE_INFO * pImageInfo)
+{
+	if (m_mapTexture.find(szFullPath) == m_mapTexture.end())
+	{
+		D3DXCreateTextureFromFileEx(
+			g_pD3DDevice,
+			szFullPath,
+			D3DX_DEFAULT_NONPOW2,
+			D3DX_DEFAULT_NONPOW2,
+			D3DX_DEFAULT,
+			0,
+			D3DFMT_UNKNOWN,
+			D3DPOOL_MANAGED,
+			D3DX_FILTER_NONE,
+			D3DX_DEFAULT,
+			0,
+			&m_mapImageInfo[szFullPath],
+			NULL,
+			&m_mapTexture[szFullPath]);
+	}
+	else if (m_mapImageInfo.find(szFullPath) == m_mapImageInfo.end())
+	{
+		assert(true && "이전에 로드된적 있습니다");
+	}
+
+	if (pImageInfo)
+	{
+		*pImageInfo = m_mapImageInfo[szFullPath];
+	}
+
+	return m_mapTexture[szFullPath];
+}
+
+LPDIRECT3DTEXTURE9 cTextureManager::GetTextureEx(const string & sFullPath, OUT D3DXIMAGE_INFO * pImageInfo)
+{
+	return GetTextureEx(sFullPath.c_str(), pImageInfo);
+}
+
 ST_HEIGHT_MAP* cTextureManager::GetHeightMap(IN LPCSTR szKeyName, IN DWORD dwBytes)
 {
 	if (m_mapHeightMap.find(szKeyName) == m_mapHeightMap.end())
@@ -86,43 +124,6 @@ bool cTextureManager::GetImageInfo(OUT D3DXIMAGE_INFO* pImageInfo, IN std::strin
 	return this->GetImageInfo(pImageInfo, sKeyName.c_str());
 }
 
-LPDIRECT3DTEXTURE9 cTextureManager::GetTextureEx(const char * szFullPath, OUT D3DXIMAGE_INFO * pImageInfo)
-{
-	if (m_mapTexture.find(szFullPath) == m_mapTexture.end())
-	{
-		D3DXCreateTextureFromFileEx(
-			g_pD3DDevice,
-			szFullPath,
-			D3DX_DEFAULT_NONPOW2,
-			D3DX_DEFAULT_NONPOW2,
-			D3DX_DEFAULT,
-			0,
-			D3DFMT_UNKNOWN,
-			D3DPOOL_MANAGED,
-			D3DX_FILTER_NONE,
-			D3DX_DEFAULT,
-			0,
-			&m_mapImageInfo[szFullPath],
-			NULL,
-			&m_mapTexture[szFullPath]);
-	}
-	else if (m_mapImageInfo.find(szFullPath) == m_mapImageInfo.end())
-	{
-		assert(true && "이전에 로드된적 있습니다");
-	}
-
-	if (pImageInfo)
-	{
-		*pImageInfo = m_mapImageInfo[szFullPath];
-	}
-
-	return m_mapTexture[szFullPath];
-}
-
-LPDIRECT3DTEXTURE9 cTextureManager::GetTextureEx(const string & sFullPath, OUT D3DXIMAGE_INFO * pImageInfo)
-{
-	return GetTextureEx(sFullPath.c_str(), pImageInfo);
-}
 void cTextureManager::Destroy(void)
 {
 	for each(auto it in m_mapTexture) SAFE_RELEASE(it.second);

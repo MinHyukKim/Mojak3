@@ -2,19 +2,22 @@
 #include "cSceneObject.h"
 
 class cCamera;
-class cMapObject;
+class cMapTerrain;
+
 //테스트용
 class cGrid;
+class cMapObject;
 
 class cMapToolScene : public cSceneObject
 {
 private:
 	cCamera* m_pCamera;
+	cMapTerrain* m_pMapTerrain;
 	//테스트용
 	cMapObject* m_pMapObject;
 	cGrid* m_pGrid;
 	LPDIRECT3DTEXTURE9 m_pTexture;
-	D3DMATERIAL9 m_stMtl;
+	D3DXMATERIAL m_stMtl;
 
 public:
 	virtual HRESULT Setup(void) override;
