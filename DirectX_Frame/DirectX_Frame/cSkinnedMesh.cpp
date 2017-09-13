@@ -69,7 +69,10 @@ void cSkinnedMesh::Load(char * szFolder, char * szFilename)
 	}
 
 	if (m_pRootFrame)
+	{
 		SetupBoneMatrixPtrs(m_pRootFrame);
+		D3DXMatrixRotationX(&m_pRootFrame->TransformationMatrix, -D3DX_PI / 2.0f);
+	}
 }
 
 LPD3DXEFFECT cSkinnedMesh::LoadEffect(char * szFilename)
