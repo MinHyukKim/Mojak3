@@ -10,6 +10,8 @@ cMapTerrain::cMapTerrain(void)
 	, m_pHeightMap(nullptr)
 	, m_pQuadTree(nullptr)
 	, m_vScale(1.0f, 10.0f, 1.0f)
+	, m_fMaxTerrainX(0.0f)
+	, m_fMaxTerrainZ(0.0f)
 	, m_dwCol(0)
 	, m_dwRow(0)
 	, m_dwTriangles(0)
@@ -22,7 +24,7 @@ cMapTerrain::~cMapTerrain(void)
 }
 
 
-HRESULT cMapTerrain::Setup(LPCSTR szHeightMapName, D3DXMATERIAL* pMaterial, LPD3DXVECTOR3 pScale)
+HRESULT cMapTerrain::Setup(IN LPCSTR szHeightMapName, IN D3DXMATERIAL* pMaterial, IN LPD3DXVECTOR3 pScale)
 {
 	this->m_vScale = *pScale;
 	this->_BuildHeightMap(szHeightMapName);
@@ -47,6 +49,43 @@ void cMapTerrain::Update(void)
 void cMapTerrain::Render(void)
 {
 	this->_Draw();
+}
+
+bool cMapTerrain::GetHeight(OUT float* fY, IN float fX, IN float fZ)
+{
+	const float fColHalf = m_fMaxTerrainX / 2.0f;
+	const float fRowHalf = m_fMaxTerrainZ / 2.0f;
+	if (fX < -fColHalf || fZ < -fRowHalf || fX > fColHalf || fZ > fRowHalf) return false;
+
+	if (fY)
+	{
+		DWORD dwX = (DWORD)(fX + fColHalf);
+		DWORD dwZ = (DWORD)(fZ + fRowHalf);
+
+		float fDeltaX = (fX + fColHalf) - (float)dwX;
+		float fDeltaZ = (fZ + fRowHalf) - (float)dwZ;
+
+		DWORD _dw0 = dwX + dwZ * m_dwCol	/*== ((dwX + 0) + (dwZ + 0) * m_dwCol)*/;
+		DWORD _dw1 = _dw0 + 1				/*== ((dwX + 1) + (dwZ + 0) * m_dwCo)l*/;
+		DWORD _dw2 = _dw0 + m_dwCol			/*== ((dwX + 0) + (dwZ + 1) * m_dwCol)*/;
+		DWORD _dw3 = _dw2 + 1				/*== ((dwX + 1) + (dwZ + 1) * m_dwCol)*/;
+
+		if (1.0f > (fDeltaX + fDeltaZ))
+		{
+			D3DXVECTOR3 _v01 = m_pHeightMap[_dw1].p - m_pHeightMap[_dw0].p;
+			D3DXVECTOR3 _v02 = m_pHeightMap[_dw2].p - m_pHeightMap[_dw0].p;
+			(*fY) = (_v01 * fDeltaZ + _v02 * fDeltaZ).y + m_pHeightMap[_dw0].p.y;
+		}
+		else
+		{
+			D3DXVECTOR3 _31 = m_pHeightMap[_dw1].p - m_pHeightMap[_dw3].p;
+			D3DXVECTOR3 _32 = m_pHeightMap[_dw2].p - m_pHeightMap[_dw3].p;
+			fDeltaX = 1.0f - fDeltaX;
+			fDeltaZ = 1.0f - fDeltaZ;
+			(*fY) = (_31 * fDeltaX + _32 * fDeltaZ).y + m_pHeightMap[_dw3].p.y;
+		}
+	}
+	return true;
 }
 
 
@@ -95,8 +134,10 @@ inline HRESULT cMapTerrain::_BuildHeightMap(LPCSTR szMapName)
 	m_pHeightMap = new ST_PNT_VERTEX[dwNumVertex];
 
 	//버텍스 좌표 계산
-	const float fColHalf = (float)m_dwCol * m_vScale.x / 2.0f;
-	const float fRowHalf = (float)m_dwRow * m_vScale.z / 2.0f;
+	m_fMaxTerrainX = (float)m_dwCol * m_vScale.x;
+	m_fMaxTerrainZ = (float)m_dwCol * m_vScale.z;
+	const float fColHalf = m_fMaxTerrainX / 2.0f;
+	const float fRowHalf = m_fMaxTerrainZ / 2.0f;
 	const float fHighHalf = (float)m_vScale.y / 2.0f;
 	const float fScaleY = m_vScale.y / 255.0f;
 	DWORD dwNumIndex = 0;

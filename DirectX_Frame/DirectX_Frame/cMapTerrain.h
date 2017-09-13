@@ -15,25 +15,28 @@ private:
 	D3DXVECTOR3 m_vScale;
 	DWORD m_dwCol, m_dwRow;
 	DWORD m_dwTriangles;
+	float m_fMaxTerrainX;
+	float m_fMaxTerrainZ;
 
 
 public:
-	HRESULT Setup(LPCSTR szHeightMapName, D3DXMATERIAL* pMaterial, LPD3DXVECTOR3 pScale = &D3DXVECTOR3(1.0f, 16.0f, 1.0f));
+	HRESULT Setup(IN LPCSTR szHeightMapName, IN D3DXMATERIAL* pMaterial, IN LPD3DXVECTOR3 pScale = &D3DXVECTOR3(1.0f, 16.0f, 1.0f));
 	void Update(void) override;
 	void Render(void) override;
 	
 	//버텍스 포인터
-	ST_PNT_VERTEX* GetVertex(DWORD dwX, DWORD dwZ) { return &m_pHeightMap[dwX + dwZ * m_dwCol]; }
+	ST_PNT_VERTEX* GetVertex(IN DWORD dwX, IN DWORD dwZ) { return &m_pHeightMap[dwX + dwZ * m_dwCol]; }
 	//버텍스 높이
-	float GetHeight(DWORD dwX, DWORD dwZ) { return m_pHeightMap[dwX + dwZ * m_dwCol].p.y; }
+	float GetHeight(IN DWORD dwX, IN DWORD dwZ) { return m_pHeightMap[dwX + dwZ * m_dwCol].p.y; }
+	bool GetHeight(OUT float* fY, IN float fX, IN float fZ);
 	//버텍스갯수 (가로)
 	DWORD GetCol(void) { return m_dwCol; }
 	//버텍스갯수 (세로)
 	DWORD GetRow(void) { return m_dwRow; }
 	//맵크기 x
-	float GetTerrainCol(void) { return (float)m_dwCol * m_vScale.x; }
+	float GetTerrainCol(void) { return m_fMaxTerrainX; }
 	//맵크기 z
-	float GetTerrainRow(void) { return (float)m_dwRow * m_vScale.z; }
+	float GetTerrainRow(void) { return m_fMaxTerrainZ; }
 
 	static cMapTerrain* Create(void);
 protected:

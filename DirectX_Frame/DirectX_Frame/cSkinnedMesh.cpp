@@ -262,6 +262,9 @@ void cSkinnedMesh::ShaderRender(ST_BONE * pBone)
 			for (uiPass = 0; uiPass < uiPasses; ++uiPass)
 			{
 				m_pEffect->BeginPass(uiPass);
+				
+				m_pEffect->SetVector("vMaterialAmbient", (D3DXVECTOR4*)&pBoneMesh->pMaterials[dwAttrib].MatD3D.Ambient);
+				m_pEffect->SetVector("vMaterialDiffuse", (D3DXVECTOR4*)&pBoneMesh->pMaterials[dwAttrib].MatD3D.Diffuse);
 				pBoneMesh->pWorkingMesh->DrawSubset(dwAttrib);
 				m_pEffect->EndPass();
 			}
