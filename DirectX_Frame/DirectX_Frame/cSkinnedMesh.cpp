@@ -70,6 +70,7 @@ void cSkinnedMesh::Load(char * szFolder, char * szFilename)
 
 	if (m_pRootFrame)
 	{
+		DEBUG_TEXT("계층구조 : " << szFolder << szFilename);
 		SetupBoneMatrixPtrs(m_pRootFrame);
 		D3DXMatrixRotationX(&m_pRootFrame->TransformationMatrix, -D3DX_PI / 2.0f);
 	}
@@ -287,6 +288,9 @@ void cSkinnedMesh::SetupBoneMatrixPtrs(ST_BONE * pBone)
 
 	// 각 프레임의 메시 컨테이너에 있는 pSkinInfo를 이용하여 영향받는 모든 
 	// 프레임의 매트릭스를 ppBoneMatrixPtrs에 연결한다.
+#ifdef CONSOLE_DEBUG_TEST
+	if (pBone->Name) DEBUG_TEXT_EX("본 이름 : " << pBone->Name);
+#endif
 	if (pBone->pMeshContainer)
 	{
 		ST_BONE_MESH* pBoneMesh = (ST_BONE_MESH*)pBone->pMeshContainer;
@@ -306,13 +310,33 @@ void cSkinnedMesh::SetupBoneMatrixPtrs(ST_BONE * pBone)
 				ST_BONE* pInfluence = (ST_BONE*)D3DXFrameFind(m_pRootFrame, szBoneName);
 				pBoneMesh->ppBoneMatrixPtrs[i] = &(pInfluence->CombinedTransformationMatrix);
 			}
+#ifdef CONSOLE_DEBUG_TEST
+			if (pBone->pMeshContainer->Name) DEBUG_TEXT_EX("메쉬 이름 : " << pBone->pMeshContainer->Name);
+			DEBUG_ADD_COUNT();
+			for (int DEUBG_j = 0; DEUBG_j < pBone->pMeshContainer->NumMaterials; DEUBG_j++)
+			{
+				if (pBone->pMeshContainer->pMaterials[DEUBG_j].pTextureFilename)
+				{
+					DEBUG_TEXT_EX("텍스처 이름 : " << pBone->pMeshContainer->pMaterials[DEUBG_j].pTextureFilename);
+				}
+				else
+				{
+					DEBUG_TEXT_EX("텍스처 이름 : 없음");
+				}
+			}
+			DEBUG_SUB_COUNT();
+#endif
 		}
 	}
 	//재귀적으로 모든 프레임에 대해서 실행.
+	DEBUG_ADD_COUNT();
+	DEBUG_TEXT_EX('{');
 	if (pBone->pFrameSibling)
 	{
 		SetupBoneMatrixPtrs((ST_BONE*)pBone->pFrameSibling);
 	}
+	DEBUG_TEXT_EX('}');
+	DEBUG_SUB_COUNT();
 
 	if (pBone->pFrameFirstChild)
 	{

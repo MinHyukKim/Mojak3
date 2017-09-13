@@ -18,18 +18,24 @@
 #include <tchar.h>
 
 //콘솔 디버깅
-//#define CONSOLE_DEBUG_TEST
+#define CONSOLE_DEBUG_TEST
 
 #ifdef CONSOLE_DEBUG_TEST
-#ifdef 멀티바이트 사용중이냐?
-#pragma comment(linker, "/entry:WinMainCRTStartup /subsystem:console")
-#else
+#ifdef CONSOLE_DEBUG_TEST
 #pragma comment(linker, "/entry:wWinMainCRTStartup /subsystem:console")
+#else
+#pragma comment(linker, "/entry:WinMainCRTStartup /subsystem:console")
 #endif
 #include <iostream>
+static int nHierachyCount = 0;
 #define DEBUG_TEXT(text) std::cout<< text << std::endl //콘솔 출력
+#define DEBUG_TEXT_EX(text) {for(int DEBUG_i = 0; DEBUG_i < nHierachyCount; ++DEBUG_i) std::cout<<'\t'; std::cout<< text << std::endl;} //콘솔 출력
+#define DEBUG_ADD_COUNT() ++nHierachyCount
+#define DEBUG_SUB_COUNT() --nHierachyCount
 #else // CONSOLE_DEBUG_TEST
 #define DEBUG_TEXT(text) //출력안함
+#define DEBUG_ADD_COUNT()
+#define DEBUG_SUB_COUNT()
 #endif // !CONSOLE_DEBUG_TEST
 
 // TODO: 프로그램에 필요한 추가 헤더는 여기에서 참조합니다.
