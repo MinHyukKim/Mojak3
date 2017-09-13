@@ -159,6 +159,7 @@
     <ClInclude Include="cMainGame.h" />
     <ClInclude Include="cPyramid.h" />
     <ClInclude Include="cQuadTree.h" />
+    <ClInclude Include="crtCtl.h" />
     <ClInclude Include="cSceneManager.h" />
     <ClInclude Include="cSceneObject.h" />
     <ClInclude Include="cSkinnedMesh.h" />
@@ -198,6 +199,7 @@
     <ClCompile Include="cMainGame.cpp" />
     <ClCompile Include="cPyramid.cpp" />
     <ClCompile Include="cQuadTree.cpp" />
+    <ClCompile Include="crtCtl.cpp" />
     <ClCompile Include="cSceneManager.cpp" />
     <ClCompile Include="cSceneObject.cpp" />
     <ClCompile Include="cSkinnedMesh.cpp" />

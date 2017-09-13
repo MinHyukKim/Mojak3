@@ -17,7 +17,6 @@ private:
 	D3DMATERIAL9 m_stMtl;
 	vector<cSkinnedMesh*>	m_vecSkinnedMesh;
 
-
 public:
 	virtual HRESULT Setup(void) override;
 	virtual void Reset(void) override;

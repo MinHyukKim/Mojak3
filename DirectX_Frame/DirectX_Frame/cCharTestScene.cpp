@@ -15,6 +15,7 @@ cCharTestScene::cCharTestScene(void)
 
 cCharTestScene::~cCharTestScene(void)
 {
+	this->Reset();
 }
 
 HRESULT cCharTestScene::Setup(void)
@@ -46,6 +47,10 @@ void cCharTestScene::Reset(void)
 	SAFE_RELEASE(m_pCamera);
 	//테스트용
 	SAFE_RELEASE(m_pGrid);
+	for each(auto it in m_vecSkinnedMesh)
+	{
+		SAFE_DELETE(it);
+	}
 }
 
 void cCharTestScene::Update(void)
