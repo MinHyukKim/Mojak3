@@ -18,8 +18,6 @@ private:
 	LPDIRECT3DTEXTURE9 m_pTexture;
 	cUiObject* m_pUiRoot;
 	cUiObject* m_pUiTestRoot;
-//	cUIImageView* m_pUIImageView;
-//	cUIButton* m_pUIButton;
 
 	//클릭변수?
 	bool m_isClick;
