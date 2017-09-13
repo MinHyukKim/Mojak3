@@ -19,11 +19,6 @@ cUIButton * cUIButton::Create(void)
 	return newClass;
 }
 
-//void iButtonDelegate::OnClick(cUiObject * pSender)
-//{
-//
-//}
-
 void cUIButton::SetTexture(std::string sNor, std::string sOvr, std::string sSel)
 {
 	m_aTexture[E_NORMAL] = sNor;
