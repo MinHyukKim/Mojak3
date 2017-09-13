@@ -266,12 +266,12 @@ void cSkinnedMesh::ShaderRender(ST_BONE * pBone)
 	//재귀적으로 모든 프레임에 대해서 실행.
 	if (pBone->pFrameSibling)
 	{
-		Render((ST_BONE*)pBone->pFrameSibling);
+		ShaderRender((ST_BONE*)pBone->pFrameSibling);
 	}
 
 	if (pBone->pFrameFirstChild)
 	{
-		Render((ST_BONE*)pBone->pFrameFirstChild);
+		ShaderRender((ST_BONE*)pBone->pFrameFirstChild);
 	}
 
 }
@@ -343,7 +343,9 @@ void cSkinnedMesh::UpdateAndRender()
 		D3DXMatrixTranslation(&mat, m_vPosition.x, m_vPosition.y, m_vPosition.z);
 
 		Update(m_pRootFrame, &mat);
-		Render(m_pRootFrame);
+		//쉐이더렌더 적용
+		ShaderRender(m_pRootFrame);
+		//Render(m_pRootFrame);
 	}
 }
 
