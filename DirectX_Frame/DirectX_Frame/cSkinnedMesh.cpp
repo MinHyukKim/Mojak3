@@ -15,6 +15,7 @@ cSkinnedMesh::cSkinnedMesh(char * szFolder, char * szFilename)
 	m_pRootFrame = pSkinnedMesh->m_pRootFrame;
 	m_dwWorkingPaletteSize = pSkinnedMesh->m_dwWorkingPaletteSize;
 	m_pmWorkingPalette = pSkinnedMesh->m_pmWorkingPalette;
+	SAFE_RELEASE(m_pEffect);
 	m_pEffect = pSkinnedMesh->m_pEffect;
 	
 	pSkinnedMesh->m_pAnimController->CloneAnimationController(
@@ -36,6 +37,7 @@ cSkinnedMesh::cSkinnedMesh()
 
 void cSkinnedMesh::Load(char * szFolder, char * szFilename)
 {
+	SAFE_RELEASE(m_pEffect);
 	m_pEffect = LoadEffect("MultiAnimation.hpp");
 	int nPaletteSize = 0;
 	m_pEffect->GetInt("MATRIX_PALETTE_SIZE", &nPaletteSize);

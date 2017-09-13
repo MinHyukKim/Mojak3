@@ -1,15 +1,16 @@
 #include "MultiAnimation.vsh"
 
+float4		vWorldLightPos = float4(-100.0f, 100.0f, -100.0f, 1.00); // 빛의 위치
+float4		vLightDiffuse = { 1.0f, 1.0f, 1.0f, 1.0f };   // 빛의 색상
 
-float4		vLightDiffuse;		// = { 1.0f, 1.0f, 1.0f, 1.0f };   // Light Diffuse
-float4		vMaterialAmbient;	// : MATERIALAMBIENT = { 1.0f, 0.1f, 0.1f, 1.0f };
-float4		vMaterialDiffuse;	// : MATERIALDIFFUSE = { 0.8f, 0.8f, 0.8f, 1.0f };
-float4		vWorldLightPos		= float4( 0.00, 500.00, -500.00, 1.00 );
-float4		vWorldCameraPos		= float4( -50.00, 50.00, -50.00, 1.00 );
+float4		vWorldCameraPos = float4(-50.00, 50.00, -50.00, 1.00); // 카메라의 위치
+float4		vMaterialAmbient = { 1.0f, 0.1f, 0.1f, 1.0f };	// 무방향 밝기
+float4		vMaterialDiffuse = { 0.8f, 0.8f, 0.8f, 1.0f };	// 방향성 밝기
+float4		vMaterialSpecular = { 0.4f, 0.4f, 0.4f, 1.0f };	// 시점 밝기 (추가함)
 
-float4x4	g_mWorld			: WORLD;
-float4x4	g_mViewProj			: VIEWPROJECTION;
-texture		g_txScene;
+float4x4	g_mWorld			: WORLD;			// World
+float4x4	g_mViewProj			: VIEWPROJECTION;	// view * Proj
+texture		g_txScene;								// 텍스쳐
 
 //--------------------------------------------------------------------------------------
 // Texture samplers
@@ -25,7 +26,7 @@ sampler g_samScene =
 
 
 //--------------------------------------------------------------------------------------
-struct VS_INPUT
+struct VS_INPUT //입력받는 함수
 {
 	float4  Pos         : POSITION;
 	float3  BlendWeights: BLENDWEIGHT;
@@ -34,7 +35,7 @@ struct VS_INPUT
 	float3  TexCoord    : TEXCOORD0;
 };
 
-struct VS_OUTPUT
+struct VS_OUTPUT //내보내는 함수
 {
 	float4 Pos			: POSITION;
 	float4 Diffuse		: COLOR0;
@@ -44,17 +45,13 @@ struct VS_OUTPUT
 	float3 fReflection	: TEXCOORD3;
 };
 
-float4 PixScene( 
-	float4 Diffuse		: COLOR0,
-	float2 TexCoord		: TEXCOORD0,
-	float3 fDiffuse		: TEXCOORD1,
-	float3 fViewDir		: TEXCOORD2,
-	float3 fReflection	: TEXCOORD3) : COLOR0
+float4 PixScene( float4 Diffuse : COLOR0, float2 TexCoord : TEXCOORD0, float3 fDiffuse : TEXCOORD1,
+	float3 fViewDir : TEXCOORD2, float3 fReflection	: TEXCOORD3) : COLOR0
 {
 	float3 color		= saturate(Diffuse);
 	float3 reflaction	= normalize(fReflection);
 	float3 viewDir		= normalize(fViewDir);
-	float3 specular		= 0;
+	float3 specular		= vMaterialSpecular;
 
 	if(color.x > 0)
 	{
@@ -67,12 +64,12 @@ float4 PixScene(
 }
 
 
-VS_OUTPUT VertSkinning( VS_INPUT Input, uniform int nNumBones )
+VS_OUTPUT VertSkinning( VS_INPUT Input, uniform int nNumBones ) // 메인 함수
 {
 	VS_OUTPUT   Output;
 	
-	Output.fDiffuse		= float3(0, 0, 0);
-	Output.fViewDir		= float3(0, 0, 0);
+	Output.fDiffuse		= vLightDiffuse;
+	Output.fViewDir		= ((vWorldCameraPos.xyz - Input.Pos.xyz), 1.0f);
 	Output.fReflection	= float3(0, 0, 0);
 
 	float3	Pos			= 0.0f;
@@ -93,7 +90,7 @@ VS_OUTPUT VertSkinning( VS_INPUT Input, uniform int nNumBones )
 	lightDir = normalize(lightDir);
 
 	// Shade (Ambient + etc.)
-	Output.Diffuse = float4( vMaterialAmbient.xyz + saturate( dot( Normal, lightDir.xyz ) ) * vMaterialDiffuse.xyz, 1.0 );
+	Output.Diffuse = float4( vMaterialAmbient.xyz + saturate( dot( Normal, lightDir.xyz ) ) * vMaterialDiffuse.xyz, 1.0f );
 
 	// copy the input texture coordinate through
 	Output.TexCoord  = Input.TexCoord.xy;
