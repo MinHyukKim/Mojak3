@@ -187,6 +187,95 @@ void cSkinnedMesh::Render(ST_BONE * pBone)
 	}
 }
 
+void cSkinnedMesh::ShaderRender(ST_BONE * pBone)
+{
+	assert(pBone);
+
+	// 각 프레임의 메시 컨테이너에 있는 pSkinInfo를 이용하여 영향받는 모든 
+	// 프레임의 매트릭스를 ppBoneMatrixPtrs에 연결한다.
+	if (pBone->pMeshContainer)
+	{
+		ST_BONE_MESH* pBoneMesh = (ST_BONE_MESH*)pBone->pMeshContainer;
+
+		// get bone combinations
+		LPD3DXBONECOMBINATION pBoneCombos =
+			(LPD3DXBONECOMBINATION)(pBoneMesh->pBufBoneCombos->GetBufferPointer());
+
+		D3DXMATRIXA16 matViewProj, matView, matProj;
+		g_pD3DDevice->GetTransform(D3DTS_VIEW, &matView);
+		g_pD3DDevice->GetTransform(D3DTS_PROJECTION, &matProj);
+		matViewProj = matView * matProj;
+
+		D3DXMATRIXA16 mView, mInvView;
+		g_pD3DDevice->GetTransform(D3DTS_VIEW, &mView);
+		D3DXMatrixInverse(&mInvView, 0, &mView);
+		D3DXVECTOR3 vEye = D3DXVECTOR3(0, 0, 0);
+		D3DXVec3TransformCoord(&vEye, &vEye, &mInvView);
+
+		// for each palette
+		for (DWORD dwAttrib = 0; dwAttrib < pBoneMesh->dwNumAttrGroups; ++dwAttrib)
+		{
+			// set each transform into the palette
+			for (DWORD dwPalEntry = 0; dwPalEntry < pBoneMesh->dwNumPaletteEntries; ++dwPalEntry)
+			{
+				DWORD dwMatrixIndex = pBoneCombos[dwAttrib].BoneId[dwPalEntry];
+				if (dwMatrixIndex != UINT_MAX)
+				{
+					m_pmWorkingPalette[dwPalEntry] =
+						pBoneMesh->pBoneOffsetMatrices[dwMatrixIndex] *
+						(*pBoneMesh->ppBoneMatrixPtrs[dwMatrixIndex]);
+				}
+			}
+
+			// set the matrix palette into the effect
+			m_pEffect->SetMatrixArray("amPalette",
+				m_pmWorkingPalette,
+				pBoneMesh->dwNumPaletteEntries);
+
+			m_pEffect->SetMatrix("g_mViewProj", &matViewProj);
+			m_pEffect->SetVector("vLightDiffuse", &D3DXVECTOR4(1.0f, 1.0f, 1.0f, 1.0f));
+			m_pEffect->SetVector("vWorldLightPos", &D3DXVECTOR4(500.0f, 500.0f, 500.0f, 1.0f));
+			m_pEffect->SetVector("vWorldCameraPos", &D3DXVECTOR4(vEye, 1.0f));
+			m_pEffect->SetVector("vMaterialAmbient", &D3DXVECTOR4(0.53f, 0.53f, 0.53f, 0.53f));
+			m_pEffect->SetVector("vMaterialDiffuse", &D3DXVECTOR4(1.0f, 1.0f, 1.0f, 1.0f));
+
+			// we're pretty much ignoring the materials we got from the x-file; just set
+			// the texture here
+			m_pEffect->SetTexture("g_txScene", pBoneMesh->vecTexture[pBoneCombos[dwAttrib].AttribId]);
+
+			// set the current number of bones; this tells the effect which shader to use
+			m_pEffect->SetInt("CurNumBones", pBoneMesh->dwMaxNumFaceInfls - 1);
+
+			// set the technique we use to draw
+			m_pEffect->SetTechnique("Skinning20");
+
+			UINT uiPasses, uiPass;
+
+			// run through each pass and draw
+			m_pEffect->Begin(&uiPasses, 0);
+			for (uiPass = 0; uiPass < uiPasses; ++uiPass)
+			{
+				m_pEffect->BeginPass(uiPass);
+				pBoneMesh->pWorkingMesh->DrawSubset(dwAttrib);
+				m_pEffect->EndPass();
+			}
+			m_pEffect->End();
+		}
+	}
+
+	//재귀적으로 모든 프레임에 대해서 실행.
+	if (pBone->pFrameSibling)
+	{
+		Render((ST_BONE*)pBone->pFrameSibling);
+	}
+
+	if (pBone->pFrameFirstChild)
+	{
+		Render((ST_BONE*)pBone->pFrameFirstChild);
+	}
+
+}
+
 void cSkinnedMesh::SetupBoneMatrixPtrs(ST_BONE * pBone)
 {
 	assert(pBone);
@@ -280,56 +369,56 @@ void cSkinnedMesh::SetRandomTrackPosition()
 
 void cSkinnedMesh::UpdateSkinnedMesh(LPD3DXFRAME pFrame, D3DXMATRIX * pPMat)
 {
-		// pCurrentBoneMatrices 를 계산하시오
-	// pCurrentBoneMatrices = pBoneOffsetMatrices * ppBoneMatrixPtrs 
-	assert(pFrame);
+	//	// pCurrentBoneMatrices 를 계산하시오
+	//// pCurrentBoneMatrices = pBoneOffsetMatrices * ppBoneMatrixPtrs 
+	//assert(pFrame);
 
-	if (pPMat == NULL)
-	{
-		pPMat = new D3DXMATRIX;
-		D3DXMatrixIdentity(pPMat);
-	}
+	//if (pPMat == NULL)
+	//{
+	//	pPMat = new D3DXMATRIX;
+	//	D3DXMatrixIdentity(pPMat);
+	//}
 
-	ST_BONE* pBone = (ST_BONE*)pFrame;
-	if(pBone->pMeshContainer)
-	{
-		ST_BONE_MESH* pBoneMesh = (ST_BONE_MESH*)pBone->pMeshContainer;
-		if(pBoneMesh->pSkinInfo)
-		{
-			LPD3DXSKININFO pSkinInfo = pBoneMesh->pSkinInfo;
-			DWORD dwNumBones = pSkinInfo->GetNumBones();
-			for (DWORD i = 0; i < dwNumBones; ++i)
-			{
-				pBoneMesh->pCurrentBoneMatrices[i] = 
-					pBoneMesh->pBoneOffsetMatrices[i] *
-					*(pBoneMesh->ppBoneMatrixPtrs[i]) * *pPMat;
-			}
+	//ST_BONE* pBone = (ST_BONE*)pFrame;
+	//if(pBone->pMeshContainer)
+	//{
+	//	ST_BONE_MESH* pBoneMesh = (ST_BONE_MESH*)pBone->pMeshContainer;
+	//	if(pBoneMesh->pSkinInfo)
+	//	{
+	//		LPD3DXSKININFO pSkinInfo = pBoneMesh->pSkinInfo;
+	//		DWORD dwNumBones = pSkinInfo->GetNumBones();
+	//		for (DWORD i = 0; i < dwNumBones; ++i)
+	//		{
+	//			pBoneMesh->pCurrentBoneMatrices[i] = 
+	//				pBoneMesh->pBoneOffsetMatrices[i] *
+	//				*(pBoneMesh->ppBoneMatrixPtrs[i]) * *pPMat;
+	//		}
 
-			BYTE* src = NULL;
-			BYTE* dest = NULL;
+	//		BYTE* src = NULL;
+	//		BYTE* dest = NULL;
 
-			pBoneMesh->pOrigMesh->LockVertexBuffer( D3DLOCK_READONLY, (void**)&src );
-			pBoneMesh->pWorkMesh->LockVertexBuffer( 0, (void**)&dest );
+	//		pBoneMesh->pOrigMesh->LockVertexBuffer( D3DLOCK_READONLY, (void**)&src );
+	//		pBoneMesh->pWorkMesh->LockVertexBuffer( 0, (void**)&dest );
 
-			//pWorkMesh을 업데이트 시켜준다.
-			pSkinInfo->UpdateSkinnedMesh(
-				pBoneMesh->pCurrentBoneMatrices, NULL, src, dest );
+	//		//pWorkMesh을 업데이트 시켜준다.
+	//		pSkinInfo->UpdateSkinnedMesh(
+	//			pBoneMesh->pCurrentBoneMatrices, NULL, src, dest );
 
-			pBoneMesh->pWorkMesh->UnlockVertexBuffer();
-			pBoneMesh->pOrigMesh->UnlockVertexBuffer();
-		}
-	}
+	//		pBoneMesh->pWorkMesh->UnlockVertexBuffer();
+	//		pBoneMesh->pOrigMesh->UnlockVertexBuffer();
+	//	}
+	//}
 
-	//재귀적으로 모든 프레임에 대해서 실행.
-	if(pFrame->pFrameFirstChild)
-	{
-		UpdateSkinnedMesh(pFrame->pFrameFirstChild, pPMat);
-	}
+	////재귀적으로 모든 프레임에 대해서 실행.
+	//if(pFrame->pFrameFirstChild)
+	//{
+	//	UpdateSkinnedMesh(pFrame->pFrameFirstChild, pPMat);
+	//}
 
-	if(pFrame->pFrameSibling)
-	{
-		UpdateSkinnedMesh(pFrame->pFrameSibling, pPMat);
-	}
+	//if(pFrame->pFrameSibling)
+	//{
+	//	UpdateSkinnedMesh(pFrame->pFrameSibling, pPMat);
+	//}
 
 
 }

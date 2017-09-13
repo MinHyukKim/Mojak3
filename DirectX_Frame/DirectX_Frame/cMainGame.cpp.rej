@@ -1,0 +1,12 @@
+diff a/DirectX_Frame/DirectX_Frame/cMainGame.cpp b/DirectX_Frame/DirectX_Frame/cMainGame.cpp	(rejected hunks)
+@@ -36,8 +36,8 @@
+ 	g_pSceneManager->AddScene("cUiTestScene", cUiTestScene::Create());
+ 	g_pSceneManager->AddScene("cCharTestScene", cCharTestScene::Create());
+ 
+-	g_pSceneManager->ChangScene("cUiTestScene");
+-	//g_pSceneManager->ChangScene("cCharTestScene");
++	//g_pSceneManager->ChangScene("cUiTestScene");
++	g_pSceneManager->ChangScene("cCharTestScene");
+ 
+ 
+ 	//Ÿ�̸�

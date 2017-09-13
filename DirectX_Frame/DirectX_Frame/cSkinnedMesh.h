@@ -49,6 +49,7 @@ private:
 	LPD3DXEFFECT LoadEffect(char* szFilename);
 	void Update(ST_BONE* pCurrent, D3DXMATRIXA16* pmatParent);
 	void Render(ST_BONE* pBone = NULL);
+	void ShaderRender(ST_BONE* pBone = NULL);
 	void SetupBoneMatrixPtrs(ST_BONE* pBone);
 	void Destroy();
 
