@@ -61,7 +61,6 @@ void cMapToolScene::Update(void)
 	//테스트용
 	if (m_pCamera)
 	{
-		m_pCamera->SetCameraType(cCamera::E_AIRCRAFT); // 뱅기모드
 		m_pCamera->TestController();
 	}
 

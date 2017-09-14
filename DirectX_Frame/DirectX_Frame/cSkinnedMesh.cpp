@@ -18,12 +18,15 @@ cSkinnedMesh::cSkinnedMesh(char * szFolder, char * szFilename)
 	SAFE_RELEASE(m_pEffect);
 	m_pEffect = pSkinnedMesh->m_pEffect;
 	
-	pSkinnedMesh->m_pAnimController->CloneAnimationController(
-		pSkinnedMesh->m_pAnimController->GetMaxNumAnimationOutputs(),
-		pSkinnedMesh->m_pAnimController->GetMaxNumAnimationSets(),
-		pSkinnedMesh->m_pAnimController->GetMaxNumTracks(),
-		pSkinnedMesh->m_pAnimController->GetMaxNumEvents(),
-		&m_pAnimController);
+	if (pSkinnedMesh->m_pAnimController)
+	{
+		pSkinnedMesh->m_pAnimController->CloneAnimationController(
+			pSkinnedMesh->m_pAnimController->GetMaxNumAnimationOutputs(),
+			pSkinnedMesh->m_pAnimController->GetMaxNumAnimationSets(),
+			pSkinnedMesh->m_pAnimController->GetMaxNumTracks(),
+			pSkinnedMesh->m_pAnimController->GetMaxNumEvents(),
+			&m_pAnimController);
+	}
 }
 
 cSkinnedMesh::cSkinnedMesh()
@@ -228,22 +231,22 @@ void cSkinnedMesh::ShaderRender(ST_BONE * pBone)
 				if (dwMatrixIndex != UINT_MAX)
 				{
 					m_pmWorkingPalette[dwPalEntry] =
-						pBoneMesh->pBoneOffsetMatrices[dwMatrixIndex] *
-						(*pBoneMesh->ppBoneMatrixPtrs[dwMatrixIndex]);
+						pBoneMesh->pBoneOffsetMatrices[dwMatrixIndex] * (*pBoneMesh->ppBoneMatrixPtrs[dwMatrixIndex]);
 				}
 			}
 
 			// set the matrix palette into the effect
-			m_pEffect->SetMatrixArray("amPalette",
-				m_pmWorkingPalette,
-				pBoneMesh->dwNumPaletteEntries);
+			m_pEffect->SetMatrixArray("amPalette", m_pmWorkingPalette, pBoneMesh->dwNumPaletteEntries);
 
 			m_pEffect->SetMatrix("g_mViewProj", &matViewProj);
 			m_pEffect->SetVector("vLightDiffuse", &D3DXVECTOR4(1.0f, 1.0f, 1.0f, 1.0f));
 			m_pEffect->SetVector("vWorldLightPos", &D3DXVECTOR4(500.0f, 500.0f, 500.0f, 1.0f));
 			m_pEffect->SetVector("vWorldCameraPos", &D3DXVECTOR4(vEye, 1.0f));
-			m_pEffect->SetVector("vMaterialAmbient", &D3DXVECTOR4(0.53f, 0.53f, 0.53f, 0.53f));
-			m_pEffect->SetVector("vMaterialDiffuse", &D3DXVECTOR4(1.0f, 1.0f, 1.0f, 1.0f));
+			//m_pEffect->SetVector("vMaterialAmbient", &D3DXVECTOR4(0.53f, 0.53f, 0.53f, 0.53f));
+			//m_pEffect->SetVector("vMaterialDiffuse", &D3DXVECTOR4(1.0f, 1.0f, 1.0f, 1.0f));
+
+			m_pEffect->SetVector("vMaterialAmbient", (D3DXVECTOR4*)&pBoneMesh->pMaterials[dwAttrib].MatD3D.Ambient);
+			m_pEffect->SetVector("vMaterialDiffuse", (D3DXVECTOR4*)&pBoneMesh->pMaterials[dwAttrib].MatD3D.Diffuse);
 
 			// we're pretty much ignoring the materials we got from the x-file; just set
 			// the texture here
@@ -263,8 +266,6 @@ void cSkinnedMesh::ShaderRender(ST_BONE * pBone)
 			{
 				m_pEffect->BeginPass(uiPass);
 				
-				m_pEffect->SetVector("vMaterialAmbient", (D3DXVECTOR4*)&pBoneMesh->pMaterials[dwAttrib].MatD3D.Ambient);
-				m_pEffect->SetVector("vMaterialDiffuse", (D3DXVECTOR4*)&pBoneMesh->pMaterials[dwAttrib].MatD3D.Diffuse);
 				pBoneMesh->pWorkingMesh->DrawSubset(dwAttrib);
 				m_pEffect->EndPass();
 			}
@@ -315,20 +316,17 @@ void cSkinnedMesh::SetupBoneMatrixPtrs(ST_BONE * pBone)
 			}
 #ifdef CONSOLE_DEBUG_TEST
 			if (pBone->pMeshContainer->Name) DEBUG_TEXT_EX("메쉬 이름 : " << pBone->pMeshContainer->Name);
+			if (pBone->pMeshContainer->MeshData.pMesh) DEBUG_TEXT_EX("메쉬 있음");
+#endif
+			//텍스처 로드
 			DEBUG_ADD_COUNT();
-			for (int DEUBG_j = 0; DEUBG_j < pBone->pMeshContainer->NumMaterials; DEUBG_j++)
+			for (DWORD i = 0; i < pBoneMesh->NumMaterials; i++)
 			{
-				if (pBone->pMeshContainer->pMaterials[DEUBG_j].pTextureFilename)
-				{
-					DEBUG_TEXT_EX("텍스처 이름 : " << pBone->pMeshContainer->pMaterials[DEUBG_j].pTextureFilename);
-				}
-				else
-				{
-					DEBUG_TEXT_EX("텍스처 이름 : 없음");
-				}
+				LPD3DXMATERIAL pMaterial = &pBoneMesh->pMaterials[i];
+				DEBUG_TEXT_EX("텍스처 이름 : " << pMaterial->pTextureFilename << '(' << pMaterial->MatD3D.Diffuse.r << ", " << pMaterial->MatD3D.Diffuse.g << ", " << pMaterial->MatD3D.Diffuse.b << ", " << pMaterial->MatD3D.Diffuse.a << ')');
+				pBoneMesh->vecTexture[i] = g_pTexture->GetTexture(pMaterial->pTextureFilename);
 			}
 			DEBUG_SUB_COUNT();
-#endif
 		}
 	}
 	//재귀적으로 모든 프레임에 대해서 실행.
@@ -398,6 +396,7 @@ void cSkinnedMesh::SetBlendingAnimation(int nAnimationKey, float fTravalTime)
 
 void cSkinnedMesh::SetRandomTrackPosition()
 {
+	if (!m_pAnimController) return;
 	m_pAnimController->SetTrackPosition(0, (rand() % 100) / 10.0f);
 }
 
@@ -455,4 +454,96 @@ void cSkinnedMesh::UpdateSkinnedMesh(LPD3DXFRAME pFrame, D3DXMATRIX * pPMat)
 	//}
 
 
+}
+
+void cSkinnedMesh::SetTextureDiffuse(LPD3DXFRAME pRoot, LPCSTR szTextureName, LPD3DXCOLOR pDiffuse)
+{
+	if (!pRoot) return;
+	if (pRoot->pMeshContainer)
+	{
+		for (DWORD i = 0; i < pRoot->pMeshContainer->NumMaterials; i++)
+		{
+			LPD3DXMATERIAL pMaterial = &pRoot->pMeshContainer->pMaterials[i];
+			//메트리얼->이름 == 찾는이름
+			if (pMaterial && !strcmp(pMaterial->pTextureFilename, szTextureName))
+			{
+				//색상변경
+				pMaterial->MatD3D.Diffuse = *pDiffuse;
+			}
+		}
+	}
+
+	//자식 찾기
+	if (pRoot->pFrameFirstChild)
+	{
+		cSkinnedMesh::SetTextureDiffuse(pRoot->pFrameFirstChild, szTextureName, pDiffuse);
+	}
+
+	//형제 찾기
+	if (pRoot->pFrameSibling)
+	{
+		cSkinnedMesh::SetTextureDiffuse(pRoot->pFrameSibling, szTextureName, pDiffuse);
+	}
+}
+
+void cSkinnedMesh::SetTextureAmbient(LPD3DXFRAME pRoot, LPCSTR szTextureName, LPD3DXCOLOR pAmbient)
+{
+	if (!pRoot) return;
+	if (pRoot->pMeshContainer)
+	{
+		for (DWORD i = 0; i < pRoot->pMeshContainer->NumMaterials; i++)
+		{
+			LPD3DXMATERIAL pMaterial = &pRoot->pMeshContainer->pMaterials[i];
+			//메트리얼->이름 == 찾는이름
+			if (pMaterial && !strcmp(pMaterial->pTextureFilename, szTextureName))
+			{
+				//색상변경
+				pMaterial->MatD3D.Ambient = *pAmbient;
+			}
+		}
+	}
+
+	//자식 찾기
+	if (pRoot->pFrameFirstChild)
+	{
+		cSkinnedMesh::SetTextureAmbient(pRoot->pFrameFirstChild, szTextureName, pAmbient);
+	}
+
+	//형제 찾기
+	if (pRoot->pFrameSibling)
+	{
+		cSkinnedMesh::SetTextureAmbient(pRoot->pFrameSibling, szTextureName, pAmbient);
+	}
+}
+
+void cSkinnedMesh::SetTextureColor(LPD3DXFRAME pRoot, LPCSTR szTextureName, LPD3DXCOLOR pColor)
+{
+	if (!pRoot) return;
+	if (pRoot->pMeshContainer)
+	{
+		for (DWORD i = 0; i < pRoot->pMeshContainer->NumMaterials; i++)
+		{
+			LPD3DXMATERIAL pMaterial = &pRoot->pMeshContainer->pMaterials[i];
+			//메트리얼->이름 == 찾는이름
+			if (pMaterial && !strcmp(pMaterial->pTextureFilename, szTextureName))
+			{
+				//색상변경
+				pMaterial->MatD3D.Ambient = *pColor;
+				pMaterial->MatD3D.Diffuse = *pColor;
+				pMaterial->MatD3D.Specular = *pColor;
+			}
+		}
+	}
+
+	//자식 찾기
+	if (pRoot->pFrameFirstChild)
+	{
+		cSkinnedMesh::SetTextureColor(pRoot->pFrameFirstChild, szTextureName, pColor);
+	}
+
+	//형제 찾기
+	if (pRoot->pFrameSibling)
+	{
+		cSkinnedMesh::SetTextureColor(pRoot->pFrameSibling, szTextureName, pColor);
+	}
 }

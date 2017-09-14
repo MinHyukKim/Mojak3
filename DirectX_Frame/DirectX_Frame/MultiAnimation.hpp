@@ -52,10 +52,10 @@ float4 PixScene(
 	float3 fViewDir		: TEXCOORD2,
 	float3 fReflection	: TEXCOORD3) : COLOR0
 {
-	float3 color		= saturate(Diffuse);
+	float4 color		= saturate(Diffuse);
 	float3 reflaction	= normalize(fReflection);
 	float3 viewDir		= normalize(fViewDir);
-	float3 specular		= float3(1.0f, 1.0f, 1.0f);
+	float4 specular		= float4(1.0f, 1.0f, 1.0f, 1.0f);
 
 	if(color.x > 0)
 	{
@@ -63,8 +63,8 @@ float4 PixScene(
 		specular = pow(specular, 20.0f);	
 	}
 
-	//float4 Color = tex2D(g_samScene, TexCoord) * float4(color + specular, 1.0f);
-	float4 Color = tex2D(g_samScene, TexCoord) + float4(color + specular, 1.0f) / 2.0f;
+	float4 Color = tex2D(g_samScene, TexCoord) * float4(color + specular);
+	//float4 Color = tex2D(g_samScene, TexCoord) + float4(color.xyz + specular.xyz, color.w * specular.w) / 2.0f;
 	return Color;
 }
 
