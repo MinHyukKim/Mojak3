@@ -56,7 +56,7 @@ void cMainGame::Update(void)
 void cMainGame::Render(void)
 {
 	g_pD3DDevice->Clear(NULL, NULL, D3DCLEAR_TARGET | D3DCLEAR_ZBUFFER,
-		D3DCOLOR_XRGB(128, 128, 128), 1.0f, 0);
+		D3DCOLOR_XRGB(128, 128, 255), 1.0f, 0);
 	g_pD3DDevice->BeginScene();
 	//그림을 그린다
 	g_pSceneManager->Render();

@@ -22,22 +22,26 @@ HRESULT cCharTestScene::Setup(void)
 {
 	m_pCamera = cCamera::Create();
 	m_pCamera->Setup();
+	m_pCamera->SetCameraType(cCamera::E_AIRCRAFT); // 뱅기모드
 
 	//테스트용
 	m_pGrid = cGrid::Create();
 	m_pGrid->Setup();
 
-	cSkinnedMesh* pSkinnedMesh = new cSkinnedMesh("", "Run3.X");
-	pSkinnedMesh->setPosition(D3DXVECTOR3(0, 3, 0));
+	cSkinnedMesh* pSkinnedMesh = new cSkinnedMesh("Chareter/", "female_natural_stand_straight.X");
+	cSkinnedMesh::SetTextureColor(pSkinnedMesh->GetRootFrame(), "bodymap01.dds", &D3DXCOLOR(1.0f, 0.53f, 0.53f, 1.0f));	//몸통
+	cSkinnedMesh::SetTextureColor(pSkinnedMesh->GetRootFrame(), "hair10.dds", &D3DXCOLOR(1.0f, 1.0f, 0.0f, 1.0f));		//머리
+	cSkinnedMesh::SetTextureColor(pSkinnedMesh->GetRootFrame(), "bodymap04.dds", &D3DXCOLOR(1.0f, 0.53f, 0.53f, 1.0f));	//얼굴
+	cSkinnedMesh::SetTextureColor(pSkinnedMesh->GetRootFrame(), "eye_0.dds", &D3DXCOLOR(1.0f, 1.0f, 1.0f, 1.0f));		//눈(블렌딩 필요)
+	cSkinnedMesh::SetTextureColor(pSkinnedMesh->GetRootFrame(), "mouth_0.dds", &D3DXCOLOR(1.0f, 1.0f, 1.0f, 1.0f));		//입(블렌딩 필요)
+	cSkinnedMesh::SetTextureColor(pSkinnedMesh->GetRootFrame(), "male_pumpkin_pants_c.dds", &D3DXCOLOR(0.0f, 0.0f, 1.0f, 1.0f));	//목걸이
+	cSkinnedMesh::SetTextureColor(pSkinnedMesh->GetRootFrame(), "uni_newbie03_c.dds", &D3DXCOLOR(0.0f, 1.0f, 0.0f, 1.0f));			// 하의
+	cSkinnedMesh::SetTextureColor(pSkinnedMesh->GetRootFrame(), "uni_3rd_premium_c.dds", &D3DXCOLOR(1.0f, 0.0f, 0.0f, 1.0f));		//상의
+	pSkinnedMesh->setPosition(D3DXVECTOR3(0, 0, 0));
 	pSkinnedMesh->SetRandomTrackPosition();
-
-	cSkinnedMesh* pSkinnedMesh2 = new cSkinnedMesh("", "winnly_attack.X");
-	pSkinnedMesh2->setPosition(D3DXVECTOR3(2, 3, 0));
-	pSkinnedMesh2->SetRandomTrackPosition();
 
 
 	m_vecSkinnedMesh.push_back(pSkinnedMesh);
-	m_vecSkinnedMesh.push_back(pSkinnedMesh2);
 	return S_OK;
 
 }

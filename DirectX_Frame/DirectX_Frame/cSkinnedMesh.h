@@ -24,8 +24,7 @@ private:
 
 
 public:
-	cSkinnedMesh(char* szFolder, char* szFilename);
-	~cSkinnedMesh(void);
+	LPD3DXFRAME GetRootFrame(void) { return (LPD3DXFRAME)m_pRootFrame; }
 
 	D3DXVECTOR3 getPosition() { return m_vPosition; };
 	void setPosition(D3DXVECTOR3 value) { m_vPosition = value; };
@@ -36,12 +35,15 @@ public:
 
 
 	void SetRandomTrackPosition();
-	//컬러값 변경 임시
-	void SetColorChild(LPD3DXFRAME pFrame, D3DXCOLOR & stColor);
 	void UpdateSkinnedMesh(LPD3DXFRAME pFrame, D3DXMATRIX* pPMat);
 
-	//SYNTHESIZE(D3DXVECTOR3, m_vPosition, Position);
 
+	static void SetTextureDiffuse(LPD3DXFRAME pRoot, LPCSTR szTextureName, LPD3DXCOLOR pDiffuse);
+	static void SetTextureAmbient(LPD3DXFRAME pRoot, LPCSTR szTextureName, LPD3DXCOLOR pAmbient);
+	static void SetTextureColor(LPD3DXFRAME pRoot, LPCSTR szTextureName, LPD3DXCOLOR pColor);
+
+	cSkinnedMesh(char* szFolder, char* szFilename);
+	~cSkinnedMesh(void);
 
 private:
 	cSkinnedMesh();

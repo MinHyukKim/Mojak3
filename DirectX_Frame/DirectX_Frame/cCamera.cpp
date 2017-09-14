@@ -44,6 +44,14 @@ void cCamera::TestController(void)
 		{
 			this->MovePositionY(-g_pTimeManager->GetElapsedTime());
 		}
+		if (g_pInputManager->IsStayKeyDown('A'))
+		{
+			this->MovePositionX(-g_pTimeManager->GetElapsedTime());
+		}
+		if (g_pInputManager->IsStayKeyDown('D'))
+		{
+			this->MovePositionX(g_pTimeManager->GetElapsedTime());
+		}
 	}
 	else
 	{
@@ -56,6 +64,14 @@ void cCamera::TestController(void)
 		{
 			this->MovePositionZ(-g_pTimeManager->GetElapsedTime());
 		}
+		if (g_pInputManager->IsStayKeyDown('A'))
+		{
+			this->AxisDirectionY(-g_pTimeManager->GetElapsedTime());
+		}
+		if (g_pInputManager->IsStayKeyDown('D'))
+		{
+			this->AxisDirectionY(g_pTimeManager->GetElapsedTime());
+		}
 	}
 	if (g_pInputManager->IsStayKeyDown('Q'))
 	{
@@ -64,14 +80,6 @@ void cCamera::TestController(void)
 	if (g_pInputManager->IsStayKeyDown('E'))
 	{
 		this->AxisDirectionZ(-g_pTimeManager->GetElapsedTime());
-	}
-	if (g_pInputManager->IsStayKeyDown('A'))
-	{
-		this->AxisDirectionY(-g_pTimeManager->GetElapsedTime());
-	}
-	if (g_pInputManager->IsStayKeyDown('D'))
-	{
-		this->AxisDirectionY(g_pTimeManager->GetElapsedTime());
 	}
 }
 

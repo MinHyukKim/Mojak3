@@ -40,8 +40,7 @@ HRESULT cAllocateHierarchy::CreateMeshContainer(LPCSTR Name, CONST D3DXMESHDATA*
 		for (DWORD i = 0; i < NumMaterials; ++i)
 		{
 			cAllocateHierarchy::CopyString(&pNewMeshContainer->pMaterials[i].pTextureFilename, pMaterials[i].pTextureFilename);		//텍스쳐 이름 복사
-			//텍스쳐 포인터는 Setup에서 해줄 예정
-			//기본값 : pNewMeshContainer->vecTexture[i] = NULL;
+			//하이라키에 폴더 이름이 없음 텍스쳐는 Setup에서
 		}
 		pNewMeshContainer->NumMaterials = NumMaterials;																				//갯수
 	}
