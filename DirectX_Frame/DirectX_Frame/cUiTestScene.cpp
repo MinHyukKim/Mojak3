@@ -9,14 +9,15 @@
 
 enum
 {
-	E_CONFIRM_BUTTON = 213,
-	E_CANCEL_BUTTON = 214,
-	E_3_BUTTON = 215,
-	E_4_BUTTON = 216,
-	E_5_BUTTON = 217,
-	E_6_BUTTON = 218,
-	E_7_BUTTON = 219,
-	E_8_BUTTON = 220,
+	//메인 버튼들
+	E_MAIN_BUTTON_PLAYER_INFO = 213,
+	E_MAIN_BUTTON_SKILL = 214,
+	E_MAIN_BUTTON_QUEST = 215,
+	E_MAIN_BUTTON_INVENTORY = 216,
+	E_MAIN_BUTTON_ABILITY = 217,
+	E_MAIN_BUTTON_ACTION = 218,
+	E_MAIN_BUTTON_PET = 219,
+	E_MAIN_BUTTON_MESSENGER = 220,
 	E_TEXT_VIEW
 };
 
@@ -69,67 +70,66 @@ HRESULT cUiTestScene::Setup(void)
 	m_pUiRoot->AddChild(pTextView);
 
 	cUIButton* pButton = cUIButton::Create();
-	pButton->SetTexture("Texture/Ui/01_button_up.png", "Texture/Ui/01_button_over.png",
-		"Texture/Ui/01_button_down.png");
+	pButton->SetTexture("Texture/Ui/player_info_button_up.png", 
+		"Texture/Ui/player_info_button_over.png",
+		"Texture/Ui/player_info_button_down.png");
 	pButton->SetPosition(mainButtonSrart, mainButtonH);
 	pButton->SetDelegate(this);
-	pButton->SetTag(E_CONFIRM_BUTTON);
+	pButton->SetTag(E_MAIN_BUTTON_PLAYER_INFO);
 	m_pUiRoot->AddChild(pButton);
 
 	pButton =  cUIButton::Create();
-	pButton->SetTexture("Texture/Ui/02_button_up.png", "Texture/Ui/02_button_over.png",
-		"Texture/Ui/02_button_down.png");
+	pButton->SetTexture("Texture/Ui/player_sikill_button_up.png", 
+		"Texture/Ui/player_sikill_button_over.png",
+		"Texture/Ui/player_sikill_button_down.png");
 	pButton->SetPosition(mainButtonSrart + mainButtoninterval, mainButtonH);
 	pButton->SetDelegate(this);
-	pButton->SetTag(E_CANCEL_BUTTON);
+	pButton->SetTag(E_MAIN_BUTTON_SKILL);
 	m_pUiRoot->AddChild(pButton);
 
 	pButton = cUIButton::Create();
-	pButton->SetTexture("Texture/Ui/03_button_up.png", "Texture/Ui/03_button_over.png",
-		"Texture/Ui/03_button_down.png");
+	pButton->SetTexture("Texture/Ui/player_quest_button_up.png", 
+		"Texture/Ui/player_quest_button_over.png",
+		"Texture/Ui/player_quest_button_down.png");
 	pButton->SetPosition(mainButtonSrart + mainButtoninterval * 2, mainButtonH);
 	pButton->SetDelegate(this);
-	pButton->SetTag(E_3_BUTTON);
+	pButton->SetTag(E_MAIN_BUTTON_QUEST);
 	m_pUiRoot->AddChild(pButton);
 
 	pButton = cUIButton::Create();
-	pButton->SetTexture("Texture/Ui/04_button_up.png", "Texture/Ui/04_button_over.png",
-		"Texture/Ui/04_button_down.png");
+	pButton->SetTexture("Texture/Ui/player_inventory_button_up.png", 
+		"Texture/Ui/player_inventory_button_over.png",
+		"Texture/Ui/player_inventory_button_down.png");
 	pButton->SetPosition(mainButtonSrart + mainButtoninterval * 3, mainButtonH);
 	pButton->SetDelegate(this);
-	pButton->SetTag(E_4_BUTTON);
+	pButton->SetTag(E_MAIN_BUTTON_INVENTORY);
 	m_pUiRoot->AddChild(pButton);
 
 	pButton = cUIButton::Create();
-	pButton->SetTexture("Texture/Ui/05_button_up.png", "Texture/Ui/05_button_over.png",
-		"Texture/Ui/05_button_down.png");
+	pButton->SetTexture("Texture/Ui/player_ability_button_up.png", 
+		"Texture/Ui/player_ability_button_over.png",
+		"Texture/Ui/player_ability_button_down.png");
 	pButton->SetPosition(mainButtonSrart + mainButtoninterval * 4, mainButtonH);
 	pButton->SetDelegate(this);
-	pButton->SetTag(E_5_BUTTON);
+	pButton->SetTag(E_MAIN_BUTTON_ABILITY);
 	m_pUiRoot->AddChild(pButton);
 
 	pButton = cUIButton::Create();
-	pButton->SetTexture("Texture/Ui/06_button_up.png", "Texture/Ui/06_button_over.png",
-		"Texture/Ui/06_button_down.png");
+	pButton->SetTexture("Texture/Ui/player_action_button_up.png", 
+		"Texture/Ui/player_action_button_over.png",
+		"Texture/Ui/player_action_button_down.png");
 	pButton->SetPosition(mainButtonSrart + mainButtoninterval * 5, mainButtonH);
 	pButton->SetDelegate(this);
-	pButton->SetTag(E_6_BUTTON);
+	pButton->SetTag(E_MAIN_BUTTON_ACTION);
 	m_pUiRoot->AddChild(pButton);
 
 	pButton = cUIButton::Create();
-	pButton->SetTexture("Texture/Ui/07_button_up.png", "Texture/Ui/07_button_over.png",
-		"Texture/Ui/07_button_down.png");
+	pButton->SetTexture("Texture/Ui/player_pet_button_up.png", 
+		"Texture/Ui/player_pet_button_over.png",
+		"Texture/Ui/player_pet_button_down.png");
 	pButton->SetPosition(mainButtonSrart + mainButtoninterval * 6, mainButtonH);
 	pButton->SetDelegate(this);
-	pButton->SetTag(E_7_BUTTON);
-	m_pUiRoot->AddChild(pButton);
-
-	pButton = cUIButton::Create();
-	pButton->SetTexture("Texture/Ui/08_button_up.png", "Texture/Ui/08_button_over.png",
-		"Texture/Ui/08_button_down.png");
-	pButton->SetPosition(mainButtonSrart + mainButtoninterval * 7, mainButtonH);
-	pButton->SetDelegate(this);
-	pButton->SetTag(E_8_BUTTON);
+	pButton->SetTag(E_MAIN_BUTTON_PET);
 	m_pUiRoot->AddChild(pButton);
 
 	return D3D_OK;
@@ -164,36 +164,43 @@ void cUiTestScene::OnClick(cUIButton * pSender)
 	cUITextView* pTextView = (cUITextView*)m_pUiRoot->GetChildByTag(E_TEXT_VIEW);
 	if (pTextView == NULL) return;
 
-	if (pSender->GetTag() == E_CONFIRM_BUTTON)
+	if (pSender->GetTag() == E_MAIN_BUTTON_PLAYER_INFO)
 	{
-		pTextView->SetText("1버튼 테스트");
+		pTextView->SetText("플레이어 정보창 구현하기");
 	}
-	else if (pSender->GetTag() == E_CANCEL_BUTTON)
+	else if (pSender->GetTag() == E_MAIN_BUTTON_SKILL)
 	{
-		pTextView->SetText("2버튼 테스트");
+		pTextView->SetText("플레이어 스킬창 구현하기");
 	}
-	else if (pSender->GetTag() == E_3_BUTTON)
+	else if (pSender->GetTag() == E_MAIN_BUTTON_QUEST)
 	{
-		pTextView->SetText("3버튼 테스트");
+		pTextView->SetText("퀘스트창 구현하기");
 	}
-	else if (pSender->GetTag() == E_4_BUTTON)
+	else if (pSender->GetTag() == E_MAIN_BUTTON_INVENTORY)
 	{
-		pTextView->SetText("4버튼 테스트");
+		pTextView->SetText("인벤토리 창 구현하기");
 	}
-	else if (pSender->GetTag() == E_5_BUTTON)
+	else if (pSender->GetTag() == E_MAIN_BUTTON_ABILITY)
 	{
-		pTextView->SetText("5버튼 테스트");
+		pTextView->SetText("재능창 구현하기(추가구성)");
 	}
-	else if (pSender->GetTag() == E_6_BUTTON)
+	else if (pSender->GetTag() == E_MAIN_BUTTON_ACTION)
 	{
-		pTextView->SetText("6버튼 테스트");
+		pTextView->SetText("액션 창 구현하기(추가구성)");
 	}
-	else if (pSender->GetTag() == E_7_BUTTON)
+	else if (pSender->GetTag() == E_MAIN_BUTTON_PET)
 	{
-		pTextView->SetText("7버튼 테스트");
+		pTextView->SetText("펫 창 구현하기(추가 구성)");
 	}
-	else if (pSender->GetTag() == E_8_BUTTON)
-	{
-		pTextView->SetText("8버튼 테스트");
-	}
+
+//	E_MAIN_BUTTON_PLAYER_INFO = 213,
+//		E_MAIN_BUTTON_SKILL = 214,
+//		E_MAIN_BUTTON_QUEST = 215,
+//		E_MAIN_BUTTON_INVENTORY = 216,
+//		E_MAIN_BUTTON_ABILITY = 217,
+//		E_MAIN_BUTTON_ACTION = 218,
+//		E_MAIN_BUTTON_PET = 219,
+//		E_MAIN_BUTTON_MESSENGER = 220,
+//		E_TEXT_VIEW
+
 }
