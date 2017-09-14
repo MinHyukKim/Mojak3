@@ -31,6 +31,13 @@ void cMainGame::Setup(void)
 
 	g_pD3DDevice->SetRenderState(D3DRS_NORMALIZENORMALS, true);
 	g_pD3DDevice->SetRenderState(D3DRS_LIGHTING, true);
+
+	//블랜더 설정
+	g_pD3DDevice->SetRenderState(D3DRS_BLENDOP, D3DBLENDOP_ADD);
+
+	g_pD3DDevice->SetRenderState(D3DRS_SRCBLEND, D3DBLEND_SRCALPHA);
+	g_pD3DDevice->SetRenderState(D3DRS_DESTBLEND, D3DBLEND_INVSRCALPHA);
+	g_pD3DDevice->SetRenderState(D3DRS_ALPHABLENDENABLE, true);
 	
 	//씬 매니저
 	g_pSceneManager->AddScene("cMapToolScene", cMapToolScene::Create());

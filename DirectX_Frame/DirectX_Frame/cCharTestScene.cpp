@@ -71,16 +71,16 @@ void cCharTestScene::Update(void)
 void cCharTestScene::Render(void)
 {
 
-		D3DLIGHT9 stLight;
-	ZeroMemory(&stLight, sizeof(D3DLIGHT9));
-	stLight.Type = D3DLIGHT_DIRECTIONAL;
-	D3DXVECTOR3 vDir(1, -1, 1);
-	D3DXVec3Normalize(&vDir, &vDir);
-	stLight.Direction = vDir;
-	stLight.Ambient = stLight.Diffuse = stLight.Specular = D3DXCOLOR(0.75f, 0.75f, 0.75f, 1.0f);
-	g_pD3DDevice->SetLight(0, &stLight);
-	g_pD3DDevice->LightEnable(0, true);
-	SAFE_RENDER(m_pGrid);
+//		D3DLIGHT9 stLight;
+//	ZeroMemory(&stLight, sizeof(D3DLIGHT9));
+//	stLight.Type = D3DLIGHT_DIRECTIONAL;
+//	D3DXVECTOR3 vDir(1, -1, 1);
+//	D3DXVec3Normalize(&vDir, &vDir);
+//	stLight.Direction = vDir;
+//	stLight.Ambient = stLight.Diffuse = stLight.Specular = D3DXCOLOR(0.75f, 0.75f, 0.75f, 1.0f);
+//	g_pD3DDevice->SetLight(0, &stLight);
+//	g_pD3DDevice->LightEnable(0, true);
+//	SAFE_RENDER(m_pGrid);
 
 
 	g_pD3DDevice->SetMaterial(&m_stMtl);

@@ -64,7 +64,7 @@ float4 PixScene(
 	}
 
 	float4 Color = tex2D(g_samScene, TexCoord) * float4(color + specular);
-	//float4 Color = tex2D(g_samScene, TexCoord) + float4(color + specular, 1.0f) / 2.0f;
+	//float4 Color = tex2D(g_samScene, TexCoord) + float4(color.xyz + specular.xyz, color.w * specular.w) / 2.0f;
 	return Color;
 }
 
