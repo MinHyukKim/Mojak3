@@ -13,7 +13,7 @@ cMapToolScene::cMapToolScene(void)
 	, m_pMapTerrain(NULL)
 {
 	//테스트용
-	m_pMapObject = NULL;
+	//m_pMapObject = NULL;
 	m_pTexture = NULL;
 	m_pGrid = NULL;
 }
@@ -50,7 +50,7 @@ void cMapToolScene::Reset(void)
 {
 	SAFE_RELEASE(m_pCamera);
 	//테스트용
-	SAFE_RELEASE(m_pMapObject);
+	//SAFE_RELEASE(m_pMapObject);
 	SAFE_RELEASE(m_pMapTerrain);
 	SAFE_RELEASE(m_pGrid);
 }
@@ -73,7 +73,7 @@ void cMapToolScene::Render(void)
 	//테스트용
 	g_pD3DDevice->SetTexture(0, m_pTexture);
 	g_pD3DDevice->SetMaterial(&m_stMtl.MatD3D);
-	SAFE_RENDER(m_pMapObject);
+	//SAFE_RENDER(m_pMapObject);
 	SAFE_RENDER(m_pMapTerrain);
 	
 	SAFE_RENDER(m_pGrid);
