@@ -3,7 +3,7 @@
 
 class cCamera;
 class cGrid;
-
+class cMapTerrain;
 
 
 class cCharTestScene : public cSceneObject
@@ -16,6 +16,9 @@ private:
 	LPDIRECT3DTEXTURE9 m_pTexture;
 	D3DMATERIAL9 m_stMtl;
 	vector<cSkinnedMesh*>	m_vecSkinnedMesh;
+
+	cMapTerrain* m_pMapTerrain;
+
 
 public:
 	virtual HRESULT Setup(void) override;
