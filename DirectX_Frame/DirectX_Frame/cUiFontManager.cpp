@@ -39,6 +39,10 @@ LPD3DXFONT cUiFontManager::GetFont(eFontType e)
 			fd.PitchAndFamily = FF_DONTCARE;
 			strcpy_s(fd.FaceName, "πŸ≈¡√º");
 		}
+		else if (e == E_INBUTTON)
+		{
+
+		}
 		
 		D3DXCreateFontIndirect(g_pD3DDevice, &fd, &m_mapFont[e]);
 	}

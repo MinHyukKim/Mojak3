@@ -54,8 +54,8 @@ HRESULT cUiTestScene::Setup(void)
 
 	//메인 ui틀 위치
 	int mainUiLocalX = 300;			//메인 틀 x
-	int mainUiLocalY = 500;			//메인 틀 y
-	m_nmainUiLocalY = 500;
+	int mainUiLocalY = 502;			//메인 틀 y
+	m_nmainUiLocalY = 502;
 
 	int mainButtonH = -25;			//메인 버튼들 높이
 	int mainButtoninterval = 40;	//메인 버튼들 가로 간격(크기)
@@ -69,7 +69,9 @@ HRESULT cUiTestScene::Setup(void)
 
 	cUITextView* pTextView = cUITextView::Create();
 	pTextView->SetText("태스트용");
-	pTextView->SetSize(ST_SIZE(400, 200));
+	pTextView->SetFontType(g_pFontManager->E_QUEST);
+	pTextView->SetColor(D3DCOLOR_XRGB(0, 0, 0));
+	pTextView->SetSize(ST_SIZE(400, 500));
 	pTextView->SetPosition(0, -300);
 	pTextView->SetDtawTextFormat(DT_CENTER | DT_VCENTER | DT_WORDBREAK);
 	pTextView->SetTag(E_TEXT_VIEW);
@@ -174,7 +176,7 @@ void cUiTestScene::Update(void)
 {
 	//메인창 내리기
 	if (m_isMainMin == true) m_pMainRootImageView->SetPosition(300, 520);
-	else m_pMainRootImageView->SetPosition(300, 500);
+	else m_pMainRootImageView->SetPosition(300, 502);
 
 	if (m_pUiRoot) m_pUiRoot->Update();
 }
@@ -193,6 +195,7 @@ void cUiTestScene::MsgProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam
 void cUiTestScene::OnClick(cUIButton * pSender)
 {
 	cUITextView* pTextView = (cUITextView*)m_pUiRoot->GetChildByTag(E_TEXT_VIEW);
+	pTextView->SetColor(D3DCOLOR_XRGB(0, 0, 0));
 	if (pTextView == NULL) return;
 
 	if (pSender->GetTag() == E_MAIN_BUTTON_PLAYER_INFO)
