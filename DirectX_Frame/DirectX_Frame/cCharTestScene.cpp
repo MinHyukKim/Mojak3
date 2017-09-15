@@ -6,12 +6,13 @@
 #include "cCamera.h"
 //테스트용
 #include "cGrid.h"
-
+#include "cMapTerrain.h"
 
 cCharTestScene::cCharTestScene(void)
 	: m_pCamera(NULL)
 	, m_pGrid(NULL)
 	, m_pCrtCtrl(NULL)
+	, m_pMapTerrain(NULL)
 {
 }
 
@@ -29,6 +30,12 @@ HRESULT cCharTestScene::Setup(void)
 	//테스트용
 	m_pGrid = cGrid::Create();
 	m_pGrid->Setup();
+
+	SetMatrial(&m_stMtl.MatD3D);
+	m_stMtl.pTextureFilename = "./Texture/steppegrass01_only.dds";
+
+	m_pMapTerrain = cMapTerrain::Create();
+	m_pMapTerrain->Setup("./HeightMapData/HeightMap.raw", &m_stMtl);
 
 	cSkinnedMesh* pSkinnedMesh = new cSkinnedMesh("Chareter/", "female_natural_stand_straight.X");
 	cSkinnedMesh::SetTextureColor(pSkinnedMesh->GetRootFrame(), "bodymap01.dds", &D3DXCOLOR(1.0f, 0.53f, 0.53f, 1.0f));	//몸통
@@ -59,6 +66,7 @@ void cCharTestScene::Reset(void)
 	{
 		SAFE_DELETE(it);
 	}
+	SAFE_RELEASE(m_pMapTerrain);
 }
 
 void cCharTestScene::Update(void)
@@ -68,8 +76,9 @@ void cCharTestScene::Update(void)
 	m_pCamera->TestController();
 
 	m_pCamera->Update();
-
-	//m_pCrtCtrl->Update(m_pMap);
+	
+	m_pMapTerrain->Update();
+	//m_pCrtCtrl->Update(m_pMapTerrain);
 }
 
 void cCharTestScene::Render(void)
@@ -87,7 +96,7 @@ void cCharTestScene::Render(void)
 //	SAFE_RENDER(m_pGrid);
 
 
-	g_pD3DDevice->SetMaterial(&m_stMtl);
+	g_pD3DDevice->SetMaterial(&m_stMtl.MatD3D);
 
 
 	for each (auto p in m_vecSkinnedMesh)
@@ -95,6 +104,8 @@ void cCharTestScene::Render(void)
 		if (&p->getPosition())
 			p->UpdateAndRender();
 	}
+
+	m_pMapTerrain->Render();
 }
 
 cCharTestScene* cCharTestScene::Create(void)
