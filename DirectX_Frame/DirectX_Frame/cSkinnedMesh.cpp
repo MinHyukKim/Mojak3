@@ -354,6 +354,19 @@ void cSkinnedMesh::Destroy()
 	SAFE_RELEASE(m_pEffect);
 }
 
+HRESULT cSkinnedMesh::CopyString(OUT LPSTR* ppTextCopy, IN LPCSTR pTextOrigin)
+{
+	if (pTextOrigin && ppTextCopy)
+	{
+		SAFE_DELETE_ARRAY(*ppTextCopy);
+		int nLength = lstrlen(pTextOrigin) + 1;
+		(*ppTextCopy) = new char[nLength];
+		memcpy(*ppTextCopy, pTextOrigin, nLength * sizeof(char));
+		return D3D_OK;
+	}
+	return E_FAIL;
+}
+
 
 cSkinnedMesh::~cSkinnedMesh(void)
 {
@@ -546,4 +559,34 @@ void cSkinnedMesh::SetTextureColor(LPD3DXFRAME pRoot, LPCSTR szTextureName, LPD3
 	{
 		cSkinnedMesh::SetTextureColor(pRoot->pFrameSibling, szTextureName, pColor);
 	}
+}
+
+void cSkinnedMesh::SetTextureChange(LPD3DXFRAME pRoot, LPCSTR szPrevTextureName, LPCSTR szNextTextureName)
+{
+	if (!pRoot || !strcmp(szPrevTextureName, szNextTextureName)) return;
+	if (pRoot->pMeshContainer)
+	{
+		for (DWORD i = 0; i < pRoot->pMeshContainer->NumMaterials; i++)
+		{
+			LPD3DXMATERIAL pMaterial = &pRoot->pMeshContainer->pMaterials[i];
+			//메트리얼->이름 == 찾는이름
+			if (pMaterial && !strcmp(pMaterial->pTextureFilename, szPrevTextureName))
+			{
+				cSkinnedMesh::CopyString(&pMaterial->pTextureFilename, szNextTextureName);
+				((ST_BONE_MESH*)pRoot->pMeshContainer)->vecTexture[i] = g_pTexture->GetTexture(szNextTextureName);
+			}
+		}
+	}
+//
+//	//자식 찾기
+//	if (pRoot->pFrameFirstChild)
+//	{
+//		cSkinnedMesh::SetTextureColor(pRoot->pFrameFirstChild, szTextureName, pColor);
+//	}
+//
+//	//형제 찾기
+//	if (pRoot->pFrameSibling)
+//	{
+//		cSkinnedMesh::SetTextureColor(pRoot->pFrameSibling, szTextureName, pColor);
+//	}
 }

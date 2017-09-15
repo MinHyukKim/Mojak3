@@ -29,7 +29,8 @@ HRESULT cCharTestScene::Setup(void)
 	m_pGrid->Setup();
 
 	cSkinnedMesh* pSkinnedMesh = new cSkinnedMesh("Chareter/", "female_natural_stand_straight.X");
-	cSkinnedMesh::SetTextureColor(pSkinnedMesh->GetRootFrame(), "bodymap01.dds", &D3DXCOLOR(1.0f, 0.53f, 0.53f, 1.0f));	//¸öÅë
+	cSkinnedMesh::SetTextureColor(pSkinnedMesh->GetRootFrame(), "bodymap01.dds", &D3DXCOLOR(2.0f, 0.43f, 0.43f, 1.0f));	//¸öÅë
+	cSkinnedMesh::SetTextureColor(pSkinnedMesh->GetRootFrame(), "bodymap01.dds", &D3DXCOLOR(2.0f, 0.43f, 0.43f, 1.0f));	//¸öÅë
 	cSkinnedMesh::SetTextureColor(pSkinnedMesh->GetRootFrame(), "hair10.dds", &D3DXCOLOR(1.0f, 1.0f, 0.0f, 1.0f));		//¸Ó¸®
 	cSkinnedMesh::SetTextureColor(pSkinnedMesh->GetRootFrame(), "bodymap04.dds", &D3DXCOLOR(1.0f, 0.53f, 0.53f, 1.0f));	//¾ó±¼
 	cSkinnedMesh::SetTextureColor(pSkinnedMesh->GetRootFrame(), "eye_0.dds", &D3DXCOLOR(1.0f, 1.0f, 1.0f, 1.0f));		//´«(ºí·»µù ÇÊ¿ä)

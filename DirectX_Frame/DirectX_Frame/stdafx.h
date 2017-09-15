@@ -135,6 +135,43 @@ struct ST_SIZE
 	ST_SIZE(float _w, float _h) : fWidth(_w), fHeight(_h) {}
 };
 
+//기본 프레임
+struct ST_BONE : public D3DXFRAME
+{
+	D3DXMATRIXA16 CombinedTransformationMatrix;
+
+	ST_BONE(void) : D3DXFRAME({})
+	{
+		D3DXMatrixIdentity(&TransformationMatrix);
+		D3DXMatrixIdentity(&CombinedTransformationMatrix);
+	}
+};
+
+//기본 메시컨테이너
+struct ST_BONE_MESH : public D3DXMESHCONTAINER
+{
+	//형상
+	std::vector<LPDIRECT3DTEXTURE9> vecTexture;
+	LPD3DXMESH				pOrigMesh;
+
+	LPD3DXMESH pWorkingMesh;
+	//애니메이션
+	D3DXMATRIXA16**			ppBoneMatrixPtrs;
+	D3DXMATRIXA16*			pBoneOffsetMatrices;
+	// 각 본의 계산된 월드매트릭스
+	D3DXMATRIX*				pCurrentBoneMatrices;
+	//셰이더
+	LPD3DXBUFFER			pBufBoneCombos;
+	DWORD					dwNumPaletteEntries;
+	DWORD					dwMaxNumFaceInfls;
+	DWORD					dwNumAttrGroups;
+
+	ST_BONE_MESH(void) : D3DXMESHCONTAINER({}), pWorkingMesh(nullptr), ppBoneMatrixPtrs(nullptr), pBoneOffsetMatrices(nullptr)
+		, pBufBoneCombos(nullptr), dwNumPaletteEntries(0), dwMaxNumFaceInfls(0), dwNumAttrGroups(0)
+	{
+	}
+};
+
 //광원 설정
 inline void SetDirectional(int index, D3DXVECTOR3& direction, D3DXCOLOR& lightColor)
 {
@@ -156,6 +193,7 @@ inline bool SetMatrial(OUT D3DMATERIAL9* stMtl, IN D3DXCOLOR& stColor = IN D3DXC
 	stMtl->Power = dwPower;
 	return true;
 }
+
 
 //신디사이저 생성
 #define SYNTHESIZE(varType, varName, funName)\

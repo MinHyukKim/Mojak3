@@ -151,6 +151,7 @@
     <ClInclude Include="cFrustum.h" />
     <ClInclude Include="cGrid.h" />
     <ClInclude Include="cHeightMapLoader.h" />
+    <ClInclude Include="cHierarchyBones.h" />
     <ClInclude Include="cInputManager.h" />
     <ClInclude Include="cMapObject.h" />
     <ClInclude Include="cMapTerrain.h" />
@@ -191,6 +192,7 @@
     <ClCompile Include="cFrustum.cpp" />
     <ClCompile Include="cGrid.cpp" />
     <ClCompile Include="cHeightMapLoader.cpp" />
+    <ClCompile Include="cHierarchyBones.cpp" />
     <ClCompile Include="cInputManager.cpp" />
     <ClCompile Include="cMapObject.cpp" />
     <ClCompile Include="cMapTerrain.cpp" />

@@ -41,6 +41,7 @@ public:
 	static void SetTextureDiffuse(LPD3DXFRAME pRoot, LPCSTR szTextureName, LPD3DXCOLOR pDiffuse);
 	static void SetTextureAmbient(LPD3DXFRAME pRoot, LPCSTR szTextureName, LPD3DXCOLOR pAmbient);
 	static void SetTextureColor(LPD3DXFRAME pRoot, LPCSTR szTextureName, LPD3DXCOLOR pColor);
+	static void SetTextureChange(LPD3DXFRAME pRoot, LPCSTR szPrevTextureName, LPCSTR szNextTextureName);
 
 	cSkinnedMesh(char* szFolder, char* szFilename);
 	~cSkinnedMesh(void);
@@ -54,5 +55,6 @@ private:
 	void ShaderRender(ST_BONE* pBone = NULL);
 	void SetupBoneMatrixPtrs(ST_BONE* pBone);
 	void Destroy();
+	static HRESULT CopyString(OUT LPSTR* ppTextCopy, IN LPCSTR pTextOrigin);
 
 };
