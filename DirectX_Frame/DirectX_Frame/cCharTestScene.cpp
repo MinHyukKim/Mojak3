@@ -10,6 +10,7 @@
 
 cCharTestScene::cCharTestScene(void)
 	: m_pCamera(NULL)
+	, m_pGrid(NULL)
 {
 }
 
