@@ -31,7 +31,7 @@ void cUIImageView::Render(LPD3DXSPRITE pSprite)
 	RECT rc;
 	SetRect(&rc, 0, 0, stImageInfo.Width, stImageInfo.Height);
 	pSprite->Draw(pTexture, &rc, &D3DXVECTOR3(0, 0, 0), &D3DXVECTOR3(0, 0, 0),
-		D3DCOLOR_ARGB(255, 255, 255, 255));
+		D3DCOLOR_ARGB(180, 255, 255, 255));
 
 	pSprite->End();
 

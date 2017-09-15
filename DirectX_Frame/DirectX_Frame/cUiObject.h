@@ -7,7 +7,7 @@ private:
 
 protected:
 	vector<cUiObject*>	m_vecChild;		//자식
-	D3DXVECTOR3			m_vPosition;			//상대위치
+	D3DXVECTOR3			m_vPosition;	//상대위치
 	cUiObject*			m_pParent;		//부모?
 	D3DXMATRIX			m_matWorld;		//월드 매트리스
 	SYNTHESIZE(ST_SIZE, m_stSize, Size);
