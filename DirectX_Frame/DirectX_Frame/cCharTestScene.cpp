@@ -1,7 +1,7 @@
 #include "stdafx.h"
 #include "cCharTestScene.h"
 #include "cSkinnedMesh.h"
-
+#include "crtCtl.h"
 
 #include "cCamera.h"
 //테스트용
@@ -11,6 +11,7 @@
 cCharTestScene::cCharTestScene(void)
 	: m_pCamera(NULL)
 	, m_pGrid(NULL)
+	, m_pCrtCtrl(NULL)
 {
 }
 
@@ -42,6 +43,8 @@ HRESULT cCharTestScene::Setup(void)
 	pSkinnedMesh->SetRandomTrackPosition();
 
 
+	m_pCrtCtrl = new cCrtCtrl;
+
 	m_vecSkinnedMesh.push_back(pSkinnedMesh);
 	return S_OK;
 
@@ -66,7 +69,7 @@ void cCharTestScene::Update(void)
 
 	m_pCamera->Update();
 
-
+	//m_pCrtCtrl->Update(m_pMap);
 }
 
 void cCharTestScene::Render(void)

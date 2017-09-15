@@ -4,6 +4,7 @@
 class cCamera;
 class cGrid;
 class cMapTerrain;
+class cCrtCtrl;
 
 
 class cCharTestScene : public cSceneObject
@@ -18,7 +19,7 @@ private:
 	vector<cSkinnedMesh*>	m_vecSkinnedMesh;
 
 	cMapTerrain* m_pMapTerrain;
-
+	cCrtCtrl*	m_pCrtCtrl;
 
 public:
 	virtual HRESULT Setup(void) override;
