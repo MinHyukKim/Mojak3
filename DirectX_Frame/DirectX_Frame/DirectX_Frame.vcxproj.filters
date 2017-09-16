@@ -37,6 +37,10 @@
     <ClCompile Include="cSkinnedMesh.cpp" />
     <ClCompile Include="cSkinnedMeshManager.cpp" />
     <ClCompile Include="crtCtl.cpp" />
+    <ClCompile Include="cHierarchyBones.cpp" />
+    <ClCompile Include="cFrmReader.cpp" />
+    <ClCompile Include="cChareterCustomScene.cpp" />
+    <ClCompile Include="cPlayer.cpp" />
     <ClCompile Include="cUiCustomizingScene.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -78,6 +82,10 @@
     <ClInclude Include="cSkinnedMesh.h" />
     <ClInclude Include="cSkinnedMeshManager.h" />
     <ClInclude Include="crtCtl.h" />
+    <ClInclude Include="cHierarchyBones.h" />
+    <ClInclude Include="cFrmReader.h" />
+    <ClInclude Include="cChareterCustomScene.h" />
+    <ClInclude Include="cPlayer.h" />
     <ClInclude Include="cUiCustomizingScene.h" />
   </ItemGroup>
   <ItemGroup>

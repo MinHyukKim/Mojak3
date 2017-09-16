@@ -8,6 +8,7 @@ class iButtonDelegate
 public:
 //	virtual void OnClick(cUIButton* pSender) = 0;
 	virtual void OnClick(cUIButton* pSender) {};
+//	virtual void OnOver(cUIButton* pSender) {};
 };
 
 class cUIButton : public cUiObject
@@ -32,6 +33,8 @@ public:
 	virtual void SetTexture(std::string sNor, std::string sOvr, std::string sSel);
 	virtual void Update() override;
 	virtual void Render(LPD3DXSPRITE pSprite) override;
+
+	bool isOver;
 
 	// 오브젝트를 상속받은 모든 클래스는 아래와 같은 형식을 사용합니다. (오버로딩하여 사용하세요.)
 	static cUIButton* Create(void);		//메모리관리용 생성자 

@@ -42,7 +42,7 @@ LPD3DXFONT cUiFontManager::GetFont(eFontType e)
 		else if (e == E_INBUTTON)
 		{
 			fd.Height = 12;
-			fd.Width = 12;
+			fd.Width = 6;
 			fd.Weight = FW_NORMAL;
 			fd.Italic = false;
 			fd.CharSet = DEFAULT_CHARSET;

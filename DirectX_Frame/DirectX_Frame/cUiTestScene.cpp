@@ -70,7 +70,7 @@ HRESULT cUiTestScene::Setup(void)
 
 	cUITextView* pTextView = cUITextView::Create();
 	pTextView->SetText("태스트용");
-	pTextView->SetFontType(g_pFontManager->E_QUEST);
+	pTextView->SetFontType(g_pFontManager->E_NORMAL);
 	pTextView->SetColor(D3DCOLOR_XRGB(0, 0, 0));
 	pTextView->SetSize(ST_SIZE(400, 500));
 	pTextView->SetPosition(0, -300);
