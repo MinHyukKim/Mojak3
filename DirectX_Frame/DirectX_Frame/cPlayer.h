@@ -1,8 +1,17 @@
 #pragma once
-class cPlayer
+class cPlayer : public cObject
 {
+private:
+	cSkinnedMesh* m_pMesh;
+
 public:
-	cPlayer();
-	~cPlayer();
+	virtual HRESULT Setup(void) override;
+	virtual void Update(void) override;
+	virtual void Render(void) override;
+
+	static cPlayer* Create(void);
+protected:
+	cPlayer(void);
+	virtual ~cPlayer(void);
 };
 

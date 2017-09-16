@@ -37,7 +37,8 @@ HRESULT cCharTestScene::Setup(void)
 	m_pMapTerrain = cMapTerrain::Create();
 	m_pMapTerrain->Setup("./HeightMapData/HeightMap.raw", &m_stMtl);
 
-	cSkinnedMesh* pSkinnedMesh = new cSkinnedMesh("Chareter/", "female_natural_stand_straight.X");
+
+	cSkinnedMesh* pSkinnedMesh = new cSkinnedMesh("Chareter/", "Run76.X");
 	cSkinnedMesh::SetTextureColor(pSkinnedMesh->GetRootFrame(), "bodymap01.dds", &D3DXCOLOR(1.0f, 0.53f, 0.53f, 1.0f));	//몸통
 	cSkinnedMesh::SetTextureColor(pSkinnedMesh->GetRootFrame(), "hair10.dds", &D3DXCOLOR(1.0f, 1.0f, 0.0f, 1.0f));		//머리
 	cSkinnedMesh::SetTextureColor(pSkinnedMesh->GetRootFrame(), "bodymap04.dds", &D3DXCOLOR(1.0f, 0.53f, 0.53f, 1.0f));	//얼굴
@@ -49,6 +50,23 @@ HRESULT cCharTestScene::Setup(void)
 	pSkinnedMesh->setPosition(D3DXVECTOR3(0, 0, 0));
 	pSkinnedMesh->SetRandomTrackPosition();
 
+	//애니메이션
+	cSkinnedMesh* pSkinnedMesh2 = new cSkinnedMesh("Chareter/", "Attack256.X");
+
+	//컨트롤러 확장
+	LPD3DXANIMATIONCONTROLLER pController;
+	pSkinnedMesh->GetAnimationController()->CloneAnimationController(pSkinnedMesh->GetAnimationController()->GetMaxNumAnimationOutputs(), 2, 2, 16, &pController);
+
+	LPD3DXANIMATIONSET pAni;
+	pSkinnedMesh2->GetAnimationController()->GetAnimationSet(0, &pAni);
+	pController->RegisterAnimationSet(pAni);
+	SAFE_RELEASE(pSkinnedMesh->GetAnimationController());
+	pSkinnedMesh->GetAnimationController() = pController;
+	
+
+	pSkinnedMesh->GetAnimationController()->SetTrackAnimationSet(0, pAni);
+	SAFE_RELEASE(pAni);
+	SAFE_DELETE(pSkinnedMesh2);
 
 	m_pCrtCtrl = new cCrtCtrl;
 

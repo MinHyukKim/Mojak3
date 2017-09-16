@@ -406,6 +406,22 @@ void cSkinnedMesh::SetBlendingAnimation(int nAnimationKey, float fTravalTime)
 	//¹Ì±¸Çö
 }
 
+DWORD cSkinnedMesh::AddAnimationSet(LPD3DXANIMATIONSET pAnimation)
+{
+	if (1 > m_pAnimController->GetMaxNumAnimationSets() - m_pAnimController->GetNumAnimationSets())
+	{
+		LPD3DXANIMATIONCONTROLLER pController;
+		m_pAnimController->CloneAnimationController(
+			m_pAnimController->GetMaxNumAnimationOutputs(),
+			m_pAnimController->GetMaxNumAnimationSets() * 2,
+			2, 16, &pController);
+		SAFE_RELEASE(m_pAnimController);
+		m_pAnimController = pController;
+	}
+	m_pAnimController->RegisterAnimationSet(pAnimation);
+	return m_pAnimController->GetNumAnimationSets();
+}
+
 void cSkinnedMesh::SetRandomTrackPosition()
 {
 	if (!m_pAnimController) return;
