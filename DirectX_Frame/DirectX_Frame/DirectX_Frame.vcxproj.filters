@@ -38,6 +38,8 @@
     <ClCompile Include="cSkinnedMeshManager.cpp" />
     <ClCompile Include="crtCtl.cpp" />
     <ClCompile Include="cHierarchyBones.cpp" />
+    <ClCompile Include="cFrmReader.cpp" />
+    <ClCompile Include="cChareterCustomScene.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="cAllocateHierarchy.h" />
@@ -79,6 +81,8 @@
     <ClInclude Include="cSkinnedMeshManager.h" />
     <ClInclude Include="crtCtl.h" />
     <ClInclude Include="cHierarchyBones.h" />
+    <ClInclude Include="cFrmReader.h" />
+    <ClInclude Include="cChareterCustomScene.h" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="DirectX_Frame.rc" />

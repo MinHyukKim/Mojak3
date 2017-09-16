@@ -33,7 +33,7 @@ public:
 	void SetAnimationIndex(int nIndex);
 	void SetBlendingAnimation(int nAnimationKey, float fTravalTime = 0.1f);
 
-
+	LPD3DXANIMATIONCONTROLLER GetAnimationController(void) { return m_pAnimController; }
 	void SetRandomTrackPosition();
 	void UpdateSkinnedMesh(LPD3DXFRAME pFrame, D3DXMATRIX* pPMat);
 

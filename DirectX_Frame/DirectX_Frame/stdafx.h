@@ -17,26 +17,6 @@
 #include <memory.h>
 #include <tchar.h>
 
-//콘솔 디버깅
-#define CONSOLE_DEBUG_TEST
-
-#ifdef CONSOLE_DEBUG_TEST
-#ifdef CONSOLE_DEBUG_TEST
-#pragma comment(linker, "/entry:wWinMainCRTStartup /subsystem:console")
-#else
-#pragma comment(linker, "/entry:WinMainCRTStartup /subsystem:console")
-#endif
-#include <iostream>
-static int nHierachyCount = 0;
-#define DEBUG_TEXT(text) std::cout<< text << std::endl //콘솔 출력
-#define DEBUG_TEXT_EX(text) {for(int DEBUG_i = 0; DEBUG_i < nHierachyCount; ++DEBUG_i) std::cout<<'\t'; std::cout<< text << std::endl;} //콘솔 출력
-#define DEBUG_ADD_COUNT() ++nHierachyCount
-#define DEBUG_SUB_COUNT() --nHierachyCount
-#else // CONSOLE_DEBUG_TEST
-#define DEBUG_TEXT(text) //출력안함
-#define DEBUG_ADD_COUNT()
-#define DEBUG_SUB_COUNT()
-#endif // !CONSOLE_DEBUG_TEST
 
 // TODO: 프로그램에 필요한 추가 헤더는 여기에서 참조합니다.
 #include <d3dx9.h>
@@ -64,6 +44,34 @@ static int nHierachyCount = 0;
 #include "cTimer.h"
 #include "cFrustum.h"
 
+//콘솔 디버깅
+#define CONSOLE_DEBUG_TEST
+
+#ifdef CONSOLE_DEBUG_TEST
+#ifdef CONSOLE_DEBUG_TEST
+#pragma comment(linker, "/entry:wWinMainCRTStartup /subsystem:console")
+#else
+#pragma comment(linker, "/entry:WinMainCRTStartup /subsystem:console")
+#endif
+#include <iostream>
+#include <fstream>
+static int nHierachyCount = 0;
+static std::ofstream BubugFile;
+#define DEBUG_WRIT(text) { BubugFile << text; }
+#define DEBUG_END() BubugFile.close()
+#define DEBUG_START(text) {BubugFile.open(text), BubugFile.is_open();}
+#define DEBUG_TEXT(text) {std::cout<< text << std::endl;} //콘솔 출력
+#define DEBUG_TEXT_EX(text) {for(int DEBUG_i = 0; DEBUG_i < nHierachyCount; ++DEBUG_i){std::cout<<' ';} std::cout<< text << std::endl;} //콘솔 출력
+#define DEBUG_ADD_COUNT() ++nHierachyCount
+#define DEBUG_SUB_COUNT() --nHierachyCount
+
+#else // CONSOLE_DEBUG_TEST
+#define DEBUG_START()
+#define DEBUG_END()
+#define DEBUG_TEXT(text) //출력안함
+#define DEBUG_ADD_COUNT()
+#define DEBUG_SUB_COUNT()
+#endif // !CONSOLE_DEBUG_TEST
 // 전역 함수
 extern HWND g_hWnd;
 
@@ -93,7 +101,8 @@ struct ST_PC_VERTEX
 	D3DCOLOR color;
 
 	ST_PC_VERTEX(D3DXVECTOR3 _position = D3DXVECTOR3(0.0f, 0.0f, 0.0f), D3DCOLOR _color = D3DCOLOR_XRGB(255, 255, 255))
-		: position(_position), color(_color) {}
+		: position(_position), color(_color) {
+	}
 };
 
 struct ST_PN_VERTEX
@@ -139,6 +148,8 @@ struct ST_SIZE
 struct ST_BONE : public D3DXFRAME
 {
 	D3DXMATRIXA16 CombinedTransformationMatrix;
+
+
 
 	ST_BONE(void) : D3DXFRAME({})
 	{
@@ -192,6 +203,20 @@ inline bool SetMatrial(OUT D3DMATERIAL9* stMtl, IN D3DXCOLOR& stColor = IN D3DXC
 //	stMtl->Emissive = dwColor;
 	stMtl->Power = dwPower;
 	return true;
+}
+
+// 문자열의 포인터(LPSTR*)에 문자열(LPSTR) 깊은복사한다.
+inline bool CopyString(OUT LPSTR* ppTextCopy, IN LPCSTR pTextOrigin)
+{
+	if (pTextOrigin && ppTextCopy)
+	{
+		SAFE_DELETE_ARRAY(*ppTextCopy);
+		int nLength = lstrlen(pTextOrigin) + 1;
+		(*ppTextCopy) = new char[nLength];
+		memcpy(*ppTextCopy, pTextOrigin, nLength * sizeof(char));
+		return true;
+	}
+	return false;
 }
 
 

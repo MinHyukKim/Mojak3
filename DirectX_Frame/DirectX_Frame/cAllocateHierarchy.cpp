@@ -17,6 +17,13 @@ HRESULT cAllocateHierarchy::CreateFrame(LPCSTR Name, LPD3DXFRAME* ppNewFrame)
 	ST_BONE* pNewFrame = new ST_BONE;
 	cAllocateHierarchy::CopyString(&pNewFrame->Name, Name);
 
+#ifdef CONSOLE_DEBUG_TEST
+	if (Name)
+	{
+		DEBUG_TEXT(Name);
+	}
+#endif
+
 	//¹ÝÈ¯
 	(*ppNewFrame) = pNewFrame;
 	return D3D_OK;

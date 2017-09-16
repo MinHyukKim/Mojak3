@@ -51,7 +51,6 @@ void cSkinnedMesh::Load(char * szFolder, char * szFilename)
 
 	std::string sFullPath(szFolder);
 	sFullPath += std::string(szFilename);
-
 	D3DXLoadMeshHierarchyFromX(sFullPath.c_str(),
 		D3DXMESH_MANAGED,
 		g_pD3DDevice,
@@ -59,7 +58,6 @@ void cSkinnedMesh::Load(char * szFolder, char * szFilename)
 		NULL,
 		(LPD3DXFRAME*)&m_pRootFrame,
 		&m_pAnimController);
-
 
 	if (m_pmWorkingPalette)
 		delete[] m_pmWorkingPalette;
@@ -316,14 +314,15 @@ void cSkinnedMesh::SetupBoneMatrixPtrs(ST_BONE * pBone)
 			}
 #ifdef CONSOLE_DEBUG_TEST
 			if (pBone->pMeshContainer->Name) DEBUG_TEXT_EX("메쉬 이름 : " << pBone->pMeshContainer->Name);
-			if (pBone->pMeshContainer->MeshData.pMesh) DEBUG_TEXT_EX("메쉬 있음");
+//			if (pBone->pMeshContainer->MeshData.pMesh) DEBUG_TEXT_EX("메쉬 있음");
 #endif
 			//텍스처 로드
 			DEBUG_ADD_COUNT();
 			for (DWORD i = 0; i < pBoneMesh->NumMaterials; i++)
 			{
 				LPD3DXMATERIAL pMaterial = &pBoneMesh->pMaterials[i];
-				DEBUG_TEXT_EX("텍스처 이름 : " << pMaterial->pTextureFilename << '(' << pMaterial->MatD3D.Diffuse.r << ", " << pMaterial->MatD3D.Diffuse.g << ", " << pMaterial->MatD3D.Diffuse.b << ", " << pMaterial->MatD3D.Diffuse.a << ')');
+				DEBUG_TEXT_EX("텍스처 이름 : " << pMaterial->pTextureFilename);
+//				DEBUG_TEXT_EX("텍스처 이름 : " << pMaterial->pTextureFilename << '(' << pMaterial->MatD3D.Diffuse.r << ", " << pMaterial->MatD3D.Diffuse.g << ", " << pMaterial->MatD3D.Diffuse.b << ", " << pMaterial->MatD3D.Diffuse.a << ')');
 				pBoneMesh->vecTexture[i] = g_pTexture->GetTexture(pMaterial->pTextureFilename);
 			}
 			DEBUG_SUB_COUNT();
@@ -331,12 +330,12 @@ void cSkinnedMesh::SetupBoneMatrixPtrs(ST_BONE * pBone)
 	}
 	//재귀적으로 모든 프레임에 대해서 실행.
 	DEBUG_ADD_COUNT();
-	DEBUG_TEXT_EX('{');
+//	DEBUG_TEXT_EX('{');
 	if (pBone->pFrameSibling)
 	{
 		SetupBoneMatrixPtrs((ST_BONE*)pBone->pFrameSibling);
 	}
-	DEBUG_TEXT_EX('}');
+//	DEBUG_TEXT_EX('}');
 	DEBUG_SUB_COUNT();
 
 	if (pBone->pFrameFirstChild)

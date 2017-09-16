@@ -8,11 +8,13 @@
 
 cMainGame::cMainGame(void)
 {
+	
 }
 
 
 cMainGame::~cMainGame(void)
 {
+	DEBUG_END();
 	g_pFrustum->Destroy();
 	g_pTexture->Destroy();
 	g_pSceneManager->Destroy();
@@ -25,6 +27,8 @@ cMainGame::~cMainGame(void)
 
 void cMainGame::Setup(void)
 {
+	DEBUG_START("Debug.txt");
+	DEBUG_WRIT("출력확인" << endl;);
 	//광원 설정
 	SetDirectional(0, D3DXVECTOR3(0.0f, -1.0f, 0.0f), D3DXCOLOR(0.75f, 0.75f, 0.75f, 1.0f));
 	g_pD3DDevice->LightEnable(0, true);
@@ -45,8 +49,8 @@ void cMainGame::Setup(void)
 	g_pSceneManager->AddScene("cCharTestScene", cCharTestScene::Create());
 
 	//g_pSceneManager->ChangScene("cUiTestScene");
-	//g_pSceneManager->ChangScene("cCharTestScene");
-	g_pSceneManager->ChangScene("cMapToolScene");
+	g_pSceneManager->ChangScene("cCharTestScene");
+	//g_pSceneManager->ChangScene("cMapToolScene");
 
 
 	//타이머

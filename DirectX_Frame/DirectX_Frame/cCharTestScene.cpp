@@ -29,7 +29,15 @@ HRESULT cCharTestScene::Setup(void)
 	m_pGrid = cGrid::Create();
 	m_pGrid->Setup();
 
-	cSkinnedMesh* pSkinnedMesh = new cSkinnedMesh("Chareter/", "female_natural_stand_straight.X");
+	cSkinnedMesh* pSkinnedMesh = new cSkinnedMesh("Chareter/", "Run5.X");
+	//cSkinnedMesh* pSkinnedMesh2 = new cSkinnedMesh("Chareter/", "Run1.X");
+	//LPD3DXANIMATIONSET pAni = NULL;
+	//pSkinnedMesh2->GetAnimationController()->GetAnimationSet(0, &pAni);
+	//pSkinnedMesh->GetAnimationController()->SetTrackAnimationSet(0, pAni);
+	//SAFE_RELEASE(pAni);
+	//SAFE_DELETE(pSkinnedMesh2);
+
+
 	cSkinnedMesh::SetTextureColor(pSkinnedMesh->GetRootFrame(), "bodymap01.dds", &D3DXCOLOR(2.0f, 0.43f, 0.43f, 1.0f));	//¸öÅë
 	cSkinnedMesh::SetTextureColor(pSkinnedMesh->GetRootFrame(), "bodymap01.dds", &D3DXCOLOR(2.0f, 0.43f, 0.43f, 1.0f));	//¸öÅë
 	cSkinnedMesh::SetTextureColor(pSkinnedMesh->GetRootFrame(), "hair10.dds", &D3DXCOLOR(1.0f, 1.0f, 0.0f, 1.0f));		//¸Ó¸®
@@ -82,7 +90,7 @@ void cCharTestScene::Render(void)
 //	stLight.Ambient = stLight.Diffuse = stLight.Specular = D3DXCOLOR(0.75f, 0.75f, 0.75f, 1.0f);
 //	g_pD3DDevice->SetLight(0, &stLight);
 //	g_pD3DDevice->LightEnable(0, true);
-//	SAFE_RENDER(m_pGrid);
+	SAFE_RENDER(m_pGrid);
 
 
 	g_pD3DDevice->SetMaterial(&m_stMtl);
