@@ -59,15 +59,11 @@ void cSkinnedMesh::Load(char * szFolder, char * szFilename)
 		(LPD3DXFRAME*)&m_pRootFrame,
 		&m_pAnimController);
 
-	if (m_pmWorkingPalette)
-		delete[] m_pmWorkingPalette;
-
+	SAFE_DELETE_ARRAY(m_pmWorkingPalette);
 	m_dwWorkingPaletteSize = ah.getMaxPaletteSize();
 	m_pmWorkingPalette = new D3DXMATRIX[m_dwWorkingPaletteSize];
-	if (m_pmWorkingPalette == NULL)
-	{
-		m_dwWorkingPaletteSize = 0;
-	}
+
+	if (m_pmWorkingPalette == NULL) m_dwWorkingPaletteSize = 0;
 
 	if (m_pRootFrame)
 	{
@@ -133,7 +129,7 @@ LPD3DXEFFECT cSkinnedMesh::LoadEffect(char * szFilename)
 	return pEffect;
 }
 
-void cSkinnedMesh::Update(ST_BONE * pCurrent, D3DXMATRIXA16 * pmatParent)
+void cSkinnedMesh::_Update(ST_BONE * pCurrent, D3DXMATRIXA16 * pmatParent)
 {
 	pCurrent->CombinedTransformationMatrix = pCurrent->TransformationMatrix;
 	if (pmatParent)
@@ -143,16 +139,16 @@ void cSkinnedMesh::Update(ST_BONE * pCurrent, D3DXMATRIXA16 * pmatParent)
 	//형제 노드가 있으면 업데이트를 부르고 부모 매트리스를 줌.
 	if (pCurrent->pFrameSibling)
 	{
-		Update((ST_BONE*)pCurrent->pFrameSibling, pmatParent);
+		_Update((ST_BONE*)pCurrent->pFrameSibling, pmatParent);
 	}
 	//자식 노드가 있으면 업데이트를 부르고 자기 매트리스를 줌.
 	if (pCurrent->pFrameFirstChild)
 	{
-		Update((ST_BONE*)pCurrent->pFrameFirstChild, &(pCurrent->CombinedTransformationMatrix));
+		_Update((ST_BONE*)pCurrent->pFrameFirstChild, &(pCurrent->CombinedTransformationMatrix));
 	}
 }
 
-void cSkinnedMesh::Render(ST_BONE * pBone)
+void cSkinnedMesh::_Render(ST_BONE * pBone)
 {
 	assert(pBone);
 
@@ -185,12 +181,12 @@ void cSkinnedMesh::Render(ST_BONE * pBone)
 
 	if (pBone->pFrameFirstChild)
 	{
-		Render((ST_BONE*)pBone->pFrameFirstChild);
+		_Render((ST_BONE*)pBone->pFrameFirstChild);
 	}
 
 	if (pBone->pFrameSibling)
 	{
-		Render((ST_BONE*)pBone->pFrameSibling);
+		_Render((ST_BONE*)pBone->pFrameSibling);
 	}
 }
 
@@ -383,10 +379,10 @@ void cSkinnedMesh::UpdateAndRender()
 		D3DXMATRIXA16 mat;
 		D3DXMatrixTranslation(&mat, m_vPosition.x, m_vPosition.y, m_vPosition.z);
 
-		Update(m_pRootFrame, &mat);
+		_Update(m_pRootFrame, &mat);
 		//쉐이더렌더 적용
 		ShaderRender(m_pRootFrame);
-		//Render(m_pRootFrame);
+		//_Render(m_pRootFrame);
 	}
 }
 
@@ -405,21 +401,33 @@ void cSkinnedMesh::SetBlendingAnimation(int nAnimationKey, float fTravalTime)
 	//미구현
 }
 
+bool cSkinnedMesh::FrameClone(OUT LPD3DXFRAME * ppClone, IN LPD3DXFRAME pOrigin)
+{
+	return false;
+}
+
 DWORD cSkinnedMesh::AddAnimationSet(LPD3DXANIMATIONSET pAnimation)
 {
-	if (1 > m_pAnimController->GetMaxNumAnimationSets() - m_pAnimController->GetNumAnimationSets())
+	if (m_pAnimController)
 	{
-		int count = m_pAnimController->GetMaxNumAnimationSets();
-		LPD3DXANIMATIONCONTROLLER pController;
-		m_pAnimController->CloneAnimationController(
-			m_pAnimController->GetMaxNumAnimationOutputs(),
-			count ? count * 2 : count + 1,
-			2, 16, &pController);
-		SAFE_RELEASE(m_pAnimController);
-		m_pAnimController = pController;
+		if (1 > m_pAnimController->GetMaxNumAnimationSets() - m_pAnimController->GetNumAnimationSets())
+		{
+			int count = m_pAnimController->GetMaxNumAnimationSets();
+			LPD3DXANIMATIONCONTROLLER pController;
+			m_pAnimController->CloneAnimationController(
+				m_pAnimController->GetMaxNumAnimationOutputs(),
+				count ? count * 2 : count + 1,
+				2, 32, &pController);
+			SAFE_RELEASE(m_pAnimController);
+			m_pAnimController = pController;
+		}
+	}
+	else
+	{
+		D3DXCreateAnimationController(24, 1, 2, 32, &m_pAnimController);
 	}
 	m_pAnimController->RegisterAnimationSet(pAnimation);
-	return m_pAnimController->GetNumAnimationSets();
+	return m_pAnimController->GetNumAnimationSets() - 1;
 }
 
 void cSkinnedMesh::SetRandomTrackPosition()

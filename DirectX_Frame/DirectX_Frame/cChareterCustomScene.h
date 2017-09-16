@@ -1,9 +1,11 @@
 #pragma once
 #include "cSceneObject.h"
 
+class cPlayer;
 class cChareterCustomScene : public cSceneObject
 {
 private:
+	cPlayer* m_pPlayer;
 
 public:
 	virtual HRESULT Setup(void) override;
