@@ -160,6 +160,7 @@
     <ClInclude Include="cMapToolScene.h" />
     <ClInclude Include="cObject.h" />
     <ClInclude Include="cMainGame.h" />
+    <ClInclude Include="cPlayer.h" />
     <ClInclude Include="cPyramid.h" />
     <ClInclude Include="cQuadTree.h" />
     <ClInclude Include="crtCtl.h" />
@@ -203,6 +204,7 @@
     <ClCompile Include="cMapToolScene.cpp" />
     <ClCompile Include="cObject.cpp" />
     <ClCompile Include="cMainGame.cpp" />
+    <ClCompile Include="cPlayer.cpp" />
     <ClCompile Include="cPyramid.cpp" />
     <ClCompile Include="cQuadTree.cpp" />
     <ClCompile Include="crtCtl.cpp" />
