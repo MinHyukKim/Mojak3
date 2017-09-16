@@ -70,7 +70,7 @@ void cSkinnedMesh::Load(char * szFolder, char * szFilename)
 	{
 		DEBUG_TEXT("°èÃþ±¸Á¶ : " << szFolder << szFilename);
 		SetupBoneMatrixPtrs(m_pRootFrame);
-		D3DXMatrixRotationX(&m_pRootFrame->TransformationMatrix, -D3DX_PI / 2.0f);
+		//D3DXMatrixRotationX(&m_pRootFrame->TransformationMatrix, -D3DX_PI / 2.0f);
 	}
 }
 
