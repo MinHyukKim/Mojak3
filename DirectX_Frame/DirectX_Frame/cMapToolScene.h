@@ -6,7 +6,7 @@ class cMapTerrain;
 
 //테스트용
 class cGrid;
-class cMapObject;
+//class cMapObject;
 
 class cMapToolScene : public cSceneObject
 {

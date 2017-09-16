@@ -1,16 +1,18 @@
 #include "stdafx.h"
 #include "cCharTestScene.h"
 #include "cSkinnedMesh.h"
-
+#include "crtCtl.h"
 
 #include "cCamera.h"
 //Å×½ºÆ®¿ë
 #include "cGrid.h"
-
+#include "cMapTerrain.h"
 
 cCharTestScene::cCharTestScene(void)
 	: m_pCamera(NULL)
 	, m_pGrid(NULL)
+	, m_pCrtCtrl(NULL)
+	, m_pMapTerrain(NULL)
 {
 }
 
@@ -29,17 +31,14 @@ HRESULT cCharTestScene::Setup(void)
 	m_pGrid = cGrid::Create();
 	m_pGrid->Setup();
 
-	cSkinnedMesh* pSkinnedMesh = new cSkinnedMesh("Chareter/", "Run5.X");
-	//cSkinnedMesh* pSkinnedMesh2 = new cSkinnedMesh("Chareter/", "Run1.X");
-	//LPD3DXANIMATIONSET pAni = NULL;
-	//pSkinnedMesh2->GetAnimationController()->GetAnimationSet(0, &pAni);
-	//pSkinnedMesh->GetAnimationController()->SetTrackAnimationSet(0, pAni);
-	//SAFE_RELEASE(pAni);
-	//SAFE_DELETE(pSkinnedMesh2);
+	SetMatrial(&m_stMtl.MatD3D);
+	m_stMtl.pTextureFilename = "./Texture/steppegrass01_only.dds";
 
+	m_pMapTerrain = cMapTerrain::Create();
+	m_pMapTerrain->Setup("./HeightMapData/HeightMap.raw", &m_stMtl);
 
-	cSkinnedMesh::SetTextureColor(pSkinnedMesh->GetRootFrame(), "bodymap01.dds", &D3DXCOLOR(2.0f, 0.43f, 0.43f, 1.0f));	//¸öÅë
-	cSkinnedMesh::SetTextureColor(pSkinnedMesh->GetRootFrame(), "bodymap01.dds", &D3DXCOLOR(2.0f, 0.43f, 0.43f, 1.0f));	//¸öÅë
+	cSkinnedMesh* pSkinnedMesh = new cSkinnedMesh("Chareter/", "female_natural_stand_straight.X");
+	cSkinnedMesh::SetTextureColor(pSkinnedMesh->GetRootFrame(), "bodymap01.dds", &D3DXCOLOR(1.0f, 0.53f, 0.53f, 1.0f));	//¸öÅë
 	cSkinnedMesh::SetTextureColor(pSkinnedMesh->GetRootFrame(), "hair10.dds", &D3DXCOLOR(1.0f, 1.0f, 0.0f, 1.0f));		//¸Ó¸®
 	cSkinnedMesh::SetTextureColor(pSkinnedMesh->GetRootFrame(), "bodymap04.dds", &D3DXCOLOR(1.0f, 0.53f, 0.53f, 1.0f));	//¾ó±¼
 	cSkinnedMesh::SetTextureColor(pSkinnedMesh->GetRootFrame(), "eye_0.dds", &D3DXCOLOR(1.0f, 1.0f, 1.0f, 1.0f));		//´«(ºí·»µù ÇÊ¿ä)
@@ -50,6 +49,8 @@ HRESULT cCharTestScene::Setup(void)
 	pSkinnedMesh->setPosition(D3DXVECTOR3(0, 0, 0));
 	pSkinnedMesh->SetRandomTrackPosition();
 
+
+	m_pCrtCtrl = new cCrtCtrl;
 
 	m_vecSkinnedMesh.push_back(pSkinnedMesh);
 	return S_OK;
@@ -65,6 +66,7 @@ void cCharTestScene::Reset(void)
 	{
 		SAFE_DELETE(it);
 	}
+	SAFE_RELEASE(m_pMapTerrain);
 }
 
 void cCharTestScene::Update(void)
@@ -74,8 +76,9 @@ void cCharTestScene::Update(void)
 	m_pCamera->TestController();
 
 	m_pCamera->Update();
-
-
+	
+	m_pMapTerrain->Update();
+	//m_pCrtCtrl->Update(m_pMapTerrain);
 }
 
 void cCharTestScene::Render(void)
@@ -93,7 +96,7 @@ void cCharTestScene::Render(void)
 	SAFE_RENDER(m_pGrid);
 
 
-	g_pD3DDevice->SetMaterial(&m_stMtl);
+	g_pD3DDevice->SetMaterial(&m_stMtl.MatD3D);
 
 
 	for each (auto p in m_vecSkinnedMesh)
@@ -101,6 +104,8 @@ void cCharTestScene::Render(void)
 		if (&p->getPosition())
 			p->UpdateAndRender();
 	}
+
+	m_pMapTerrain->Render();
 }
 
 cCharTestScene* cCharTestScene::Create(void)
