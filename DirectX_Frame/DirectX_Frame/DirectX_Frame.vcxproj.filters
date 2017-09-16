@@ -40,6 +40,7 @@
     <ClCompile Include="cHierarchyBones.cpp" />
     <ClCompile Include="cFrmReader.cpp" />
     <ClCompile Include="cChareterCustomScene.cpp" />
+    <ClCompile Include="cPlayer.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="cAllocateHierarchy.h" />
@@ -83,6 +84,7 @@
     <ClInclude Include="cHierarchyBones.h" />
     <ClInclude Include="cFrmReader.h" />
     <ClInclude Include="cChareterCustomScene.h" />
+    <ClInclude Include="cPlayer.h" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="DirectX_Frame.rc" />
