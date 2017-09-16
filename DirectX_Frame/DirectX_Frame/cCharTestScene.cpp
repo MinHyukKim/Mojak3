@@ -38,7 +38,7 @@ HRESULT cCharTestScene::Setup(void)
 	m_pMapTerrain->Setup("./HeightMapData/HeightMap.raw", &m_stMtl);
 
 
-	cSkinnedMesh* pSkinnedMesh = new cSkinnedMesh("Chareter/", "Run76.X");
+	cSkinnedMesh* pSkinnedMesh = new cSkinnedMesh("Chareter/", "lisa.X");
 	cSkinnedMesh::SetTextureColor(pSkinnedMesh->GetRootFrame(), "bodymap01.dds", &D3DXCOLOR(1.0f, 0.53f, 0.53f, 1.0f));	//몸통
 	cSkinnedMesh::SetTextureColor(pSkinnedMesh->GetRootFrame(), "hair10.dds", &D3DXCOLOR(1.0f, 1.0f, 0.0f, 1.0f));		//머리
 	cSkinnedMesh::SetTextureColor(pSkinnedMesh->GetRootFrame(), "bodymap04.dds", &D3DXCOLOR(1.0f, 0.53f, 0.53f, 1.0f));	//얼굴
@@ -51,7 +51,7 @@ HRESULT cCharTestScene::Setup(void)
 	pSkinnedMesh->SetRandomTrackPosition();
 
 	//애니메이션
-	cSkinnedMesh* pSkinnedMesh2 = new cSkinnedMesh("Chareter/", "Attack256.X");
+	cSkinnedMesh* pSkinnedMesh2 = new cSkinnedMesh("Chareter/", "lisa.X");
 
 	//애니메이션 등록
 	LPD3DXANIMATIONSET pAni;
