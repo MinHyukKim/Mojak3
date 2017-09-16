@@ -35,6 +35,7 @@ cSkinnedMesh::cSkinnedMesh()
 	, m_dwWorkingPaletteSize(0)
 	, m_pmWorkingPalette(NULL)
 	, m_pEffect(NULL)
+	, m_vPosition(0.0f, 0.0f, 0.0f)
 {
 }
 
@@ -224,8 +225,7 @@ void cSkinnedMesh::ShaderRender(ST_BONE * pBone)
 				DWORD dwMatrixIndex = pBoneCombos[dwAttrib].BoneId[dwPalEntry];
 				if (dwMatrixIndex != UINT_MAX)
 				{
-					m_pmWorkingPalette[dwPalEntry] =
-						pBoneMesh->pBoneOffsetMatrices[dwMatrixIndex] * (*pBoneMesh->ppBoneMatrixPtrs[dwMatrixIndex]);
+					m_pmWorkingPalette[dwPalEntry] = pBoneMesh->pBoneOffsetMatrices[dwMatrixIndex] * (*pBoneMesh->ppBoneMatrixPtrs[dwMatrixIndex]);
 				}
 			}
 
@@ -233,9 +233,9 @@ void cSkinnedMesh::ShaderRender(ST_BONE * pBone)
 			m_pEffect->SetMatrixArray("amPalette", m_pmWorkingPalette, pBoneMesh->dwNumPaletteEntries);
 
 			m_pEffect->SetMatrix("g_mViewProj", &matViewProj);
-			m_pEffect->SetVector("vLightDiffuse", &D3DXVECTOR4(1.0f, 1.0f, 1.0f, 1.0f));
-			m_pEffect->SetVector("vWorldLightPos", &D3DXVECTOR4(500.0f, 500.0f, 500.0f, 1.0f));
-			m_pEffect->SetVector("vWorldCameraPos", &D3DXVECTOR4(vEye, 1.0f));
+			m_pEffect->SetVector("vLightDiffuse", &D3DXVECTOR4(1.0f, 1.0f, 1.0f, 1.0f));		//ºûÀÇ ¹à±â
+			m_pEffect->SetVector("vWorldLightPos", &D3DXVECTOR4(500.0f, 500.0f, 500.0f, 1.0f));	//ºûÀÇ À§Ä¡
+			m_pEffect->SetVector("vWorldCameraPos", &D3DXVECTOR4(vEye, 1.0f));					//Ä«¸Þ¶ó À§Ä¡
 			//m_pEffect->SetVector("vMaterialAmbient", &D3DXVECTOR4(0.53f, 0.53f, 0.53f, 0.53f));
 			//m_pEffect->SetVector("vMaterialDiffuse", &D3DXVECTOR4(1.0f, 1.0f, 1.0f, 1.0f));
 
@@ -342,8 +342,11 @@ void cSkinnedMesh::SetupBoneMatrixPtrs(ST_BONE * pBone)
 
 void cSkinnedMesh::Destroy()
 {
-	cAllocateHierarchy ah;
-	D3DXFrameDestroy((LPD3DXFRAME)m_pRootFrame, &ah);
+	if (m_pRootFrame)
+	{
+		cAllocateHierarchy ah;
+		D3DXFrameDestroy((LPD3DXFRAME)m_pRootFrame, &ah);
+	}
 	SAFE_DELETE_ARRAY(m_pmWorkingPalette);
 	SAFE_RELEASE(m_pEffect);
 }
@@ -401,9 +404,11 @@ void cSkinnedMesh::SetBlendingAnimation(int nAnimationKey, float fTravalTime)
 	//¹Ì±¸Çö
 }
 
-bool cSkinnedMesh::FrameClone(OUT LPD3DXFRAME * ppClone, IN LPD3DXFRAME pOrigin)
+bool cSkinnedMesh::FrameClone(OUT LPD3DXFRAME* ppClone, IN LPD3DXFRAME pOrigin)
 {
-	return false;
+	if (!ppClone || pOrigin) return false;
+
+	return true;
 }
 
 DWORD cSkinnedMesh::AddAnimationSet(LPD3DXANIMATIONSET pAnimation)

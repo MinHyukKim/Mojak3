@@ -1,4 +1,6 @@
 #pragma once
+
+class cCamera;
 class cPlayer : public cObject
 {
 public:
@@ -9,7 +11,10 @@ public:
 		ANIMATION_END,
 	};
 private:
+	cCamera* m_pCamera;
 	cSkinnedMesh* m_pMesh;
+
+	D3DXMATRIXA16 m_matWorld;
 	std::vector<DWORD> m_vecAnimationKey;
 
 public:
@@ -18,6 +23,7 @@ public:
 	virtual void Update(void) override;
 	virtual void Render(void) override;
 
+	cCamera* GetCamera(void) { return m_pCamera; }
 	void CreateMesh(IN LPCSTR szFolder, IN LPCSTR szFilename);
 	DWORD RegisterAnimation(IN DWORD dwAnimationKey, IN LPD3DXANIMATIONSET pAnimation);
 	bool ExportAnimation(OUT LPD3DXANIMATIONSET* ppAnimation, IN DWORD dwAnimationKey = 0);

@@ -2,10 +2,17 @@
 #include "cSceneObject.h"
 
 class cPlayer;
+
+//임시
+class cCamera;
+
 class cChareterCustomScene : public cSceneObject
 {
 private:
+	
 	cPlayer* m_pPlayer;
+	//임시
+	cCamera* m_pMainCamera;
 
 public:
 	virtual HRESULT Setup(void) override;

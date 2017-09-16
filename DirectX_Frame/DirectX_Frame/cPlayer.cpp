@@ -2,10 +2,12 @@
 #include "cPlayer.h"
 
 #include "cSkinnedMesh.h"
+#include "cCamera.h"
 
 cPlayer::cPlayer(void)
 	: m_pMesh(nullptr)
 {
+	D3DXMatrixIdentity(&m_matWorld);
 }
 
 cPlayer::~cPlayer(void)
@@ -15,6 +17,9 @@ cPlayer::~cPlayer(void)
 
 HRESULT cPlayer::Setup(void)
 {
+	m_pCamera = cCamera::Create();
+	//m_pCamera->SetParentMatrix(&m_matWorld);
+
 	m_vecAnimationKey.resize(ANIMATION_END);
 	return S_OK;
 }
@@ -22,15 +27,20 @@ HRESULT cPlayer::Setup(void)
 void cPlayer::Reset(void)
 {
 	SAFE_DELETE(m_pMesh);
+
+	SAFE_RELEASE(m_pCamera);
 }
 
 void cPlayer::Update(void)
 {
-	SAFE_UPDATE(m_pMesh);
+
 }
 
 void cPlayer::Render(void)
 {
+	if (m_pMesh) m_pMesh->UpdateAndRender();
+
+
 }
 
 void cPlayer::CreateMesh(IN LPCSTR szFolder, IN LPCSTR szFilename)

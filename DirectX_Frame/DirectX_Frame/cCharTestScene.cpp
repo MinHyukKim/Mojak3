@@ -38,31 +38,31 @@ HRESULT cCharTestScene::Setup(void)
 	m_pMapTerrain->Setup("./HeightMapData/HeightMap.raw", &m_stMtl);
 
 
-	cSkinnedMesh* pSkinnedMesh = new cSkinnedMesh("Chareter/", "Run76.X");
-	cSkinnedMesh::SetTextureColor(pSkinnedMesh->GetRootFrame(), "bodymap01.dds", &D3DXCOLOR(1.0f, 0.53f, 0.53f, 1.0f));	//몸통
-	cSkinnedMesh::SetTextureColor(pSkinnedMesh->GetRootFrame(), "hair10.dds", &D3DXCOLOR(1.0f, 1.0f, 0.0f, 1.0f));		//머리
-	cSkinnedMesh::SetTextureColor(pSkinnedMesh->GetRootFrame(), "bodymap04.dds", &D3DXCOLOR(1.0f, 0.53f, 0.53f, 1.0f));	//얼굴
-	cSkinnedMesh::SetTextureColor(pSkinnedMesh->GetRootFrame(), "eye_0.dds", &D3DXCOLOR(1.0f, 1.0f, 1.0f, 1.0f));		//눈(블렌딩 필요)
-	cSkinnedMesh::SetTextureColor(pSkinnedMesh->GetRootFrame(), "mouth_0.dds", &D3DXCOLOR(1.0f, 1.0f, 1.0f, 1.0f));		//입(블렌딩 필요)
-	cSkinnedMesh::SetTextureColor(pSkinnedMesh->GetRootFrame(), "male_pumpkin_pants_c.dds", &D3DXCOLOR(0.0f, 0.0f, 1.0f, 1.0f));	//목걸이
-	cSkinnedMesh::SetTextureColor(pSkinnedMesh->GetRootFrame(), "uni_newbie03_c.dds", &D3DXCOLOR(0.0f, 1.0f, 0.0f, 1.0f));			// 하의
-	cSkinnedMesh::SetTextureColor(pSkinnedMesh->GetRootFrame(), "uni_3rd_premium_c.dds", &D3DXCOLOR(1.0f, 0.0f, 0.0f, 1.0f));		//상의
+	cSkinnedMesh* pSkinnedMesh = new cSkinnedMesh("./Chareter/", "lisa_basic_Scale0.01_leftHead288.X");
+//	cSkinnedMesh::SetTextureColor(pSkinnedMesh->GetRootFrame(), "bodymap01.dds", &D3DXCOLOR(1.0f, 0.53f, 0.53f, 1.0f));	//몸통
+//	cSkinnedMesh::SetTextureColor(pSkinnedMesh->GetRootFrame(), "hair10.dds", &D3DXCOLOR(1.0f, 1.0f, 0.0f, 1.0f));		//머리
+//	cSkinnedMesh::SetTextureColor(pSkinnedMesh->GetRootFrame(), "bodymap04.dds", &D3DXCOLOR(1.0f, 0.53f, 0.53f, 1.0f));	//얼굴
+//	cSkinnedMesh::SetTextureColor(pSkinnedMesh->GetRootFrame(), "eye_0.dds", &D3DXCOLOR(1.0f, 1.0f, 1.0f, 1.0f));		//눈(블렌딩 필요)
+//	cSkinnedMesh::SetTextureColor(pSkinnedMesh->GetRootFrame(), "mouth_0.dds", &D3DXCOLOR(1.0f, 1.0f, 1.0f, 1.0f));		//입(블렌딩 필요)
+//	cSkinnedMesh::SetTextureColor(pSkinnedMesh->GetRootFrame(), "male_pumpkin_pants_c.dds", &D3DXCOLOR(0.0f, 0.0f, 1.0f, 1.0f));	//목걸이
+//	cSkinnedMesh::SetTextureColor(pSkinnedMesh->GetRootFrame(), "uni_newbie03_c.dds", &D3DXCOLOR(0.0f, 1.0f, 0.0f, 1.0f));			// 하의
+//	cSkinnedMesh::SetTextureColor(pSkinnedMesh->GetRootFrame(), "uni_3rd_premium_c.dds", &D3DXCOLOR(1.0f, 0.0f, 0.0f, 1.0f));		//상의
 	pSkinnedMesh->setPosition(D3DXVECTOR3(0, 0, 0));
 	pSkinnedMesh->SetRandomTrackPosition();
 
-	//애니메이션
-	cSkinnedMesh* pSkinnedMesh2 = new cSkinnedMesh("Chareter/", "Attack256.X");
-
-	//애니메이션 등록
-	LPD3DXANIMATIONSET pAni;
-	pSkinnedMesh2->GetAnimationController()->GetAnimationSet(0, &pAni);
-	pSkinnedMesh->AddAnimationSet(pAni);
-	
-	//애니메이션 변경
-	pSkinnedMesh->GetAnimationController()->SetTrackAnimationSet(0, pAni);
-	pSkinnedMesh->GetAnimationController()->SetTrackSpeed(0, 0.01f);
-	SAFE_RELEASE(pAni);
-	SAFE_DELETE(pSkinnedMesh2);
+//	//애니메이션
+//	cSkinnedMesh* pSkinnedMesh2 = new cSkinnedMesh("Chareter/", "Run1.X");
+//
+//	//애니메이션 등록
+//	LPD3DXANIMATIONSET pAni;
+//	pSkinnedMesh2->GetAnimationController()->GetAnimationSet(0, &pAni);
+//	pSkinnedMesh->AddAnimationSet(pAni);
+//	
+//	//애니메이션 변경
+//	pSkinnedMesh->GetAnimationController()->SetTrackAnimationSet(0, pAni);
+//	pSkinnedMesh->GetAnimationController()->SetTrackSpeed(0, 0.01f);
+//	SAFE_RELEASE(pAni);
+//	SAFE_DELETE(pSkinnedMesh2);
 
 	m_pCrtCtrl = new cCrtCtrl;
 
