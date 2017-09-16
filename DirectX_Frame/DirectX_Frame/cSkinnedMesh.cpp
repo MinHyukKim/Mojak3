@@ -410,10 +410,11 @@ DWORD cSkinnedMesh::AddAnimationSet(LPD3DXANIMATIONSET pAnimation)
 {
 	if (1 > m_pAnimController->GetMaxNumAnimationSets() - m_pAnimController->GetNumAnimationSets())
 	{
+		int count = m_pAnimController->GetMaxNumAnimationSets();
 		LPD3DXANIMATIONCONTROLLER pController;
 		m_pAnimController->CloneAnimationController(
 			m_pAnimController->GetMaxNumAnimationOutputs(),
-			m_pAnimController->GetMaxNumAnimationSets() * 2,
+			count ? count * 2 : count + 1,
 			2, 16, &pController);
 		SAFE_RELEASE(m_pAnimController);
 		m_pAnimController = pController;

@@ -53,18 +53,14 @@ HRESULT cCharTestScene::Setup(void)
 	//애니메이션
 	cSkinnedMesh* pSkinnedMesh2 = new cSkinnedMesh("Chareter/", "Attack256.X");
 
-	//컨트롤러 확장
-	LPD3DXANIMATIONCONTROLLER pController;
-	pSkinnedMesh->GetAnimationController()->CloneAnimationController(pSkinnedMesh->GetAnimationController()->GetMaxNumAnimationOutputs(), 2, 2, 16, &pController);
-
+	//애니메이션 등록
 	LPD3DXANIMATIONSET pAni;
 	pSkinnedMesh2->GetAnimationController()->GetAnimationSet(0, &pAni);
-	pController->RegisterAnimationSet(pAni);
-	SAFE_RELEASE(pSkinnedMesh->GetAnimationController());
-	pSkinnedMesh->GetAnimationController() = pController;
+	pSkinnedMesh->AddAnimationSet(pAni);
 	
-
+	//애니메이션 변경
 	pSkinnedMesh->GetAnimationController()->SetTrackAnimationSet(0, pAni);
+	pSkinnedMesh->GetAnimationController()->SetTrackSpeed(0, 0.01f);
 	SAFE_RELEASE(pAni);
 	SAFE_DELETE(pSkinnedMesh2);
 
