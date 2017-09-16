@@ -37,7 +37,7 @@ HRESULT cCharTestScene::Setup(void)
 	m_pMapTerrain = cMapTerrain::Create();
 	m_pMapTerrain->Setup("./HeightMapData/HeightMap.raw", &m_stMtl);
 
-	cSkinnedMesh* pSkinnedMesh = new cSkinnedMesh("Chareter/", "female_natural_stand_straight.X");
+	cSkinnedMesh* pSkinnedMesh = new cSkinnedMesh("Chareter/", "rotateAxis_X_90.X");
 	cSkinnedMesh::SetTextureColor(pSkinnedMesh->GetRootFrame(), "bodymap01.dds", &D3DXCOLOR(1.0f, 0.53f, 0.53f, 1.0f));	//¸öÅë
 	cSkinnedMesh::SetTextureColor(pSkinnedMesh->GetRootFrame(), "hair10.dds", &D3DXCOLOR(1.0f, 1.0f, 0.0f, 1.0f));		//¸Ó¸®
 	cSkinnedMesh::SetTextureColor(pSkinnedMesh->GetRootFrame(), "bodymap04.dds", &D3DXCOLOR(1.0f, 0.53f, 0.53f, 1.0f));	//¾ó±¼
