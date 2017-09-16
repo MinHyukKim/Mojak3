@@ -9,6 +9,8 @@ public:
 	virtual void Update(void) override;
 	virtual void Render(void) override;
 
+	void CreateMesh(LPSTR foler)
+
 	static cPlayer* Create(void);
 protected:
 	cPlayer(void);

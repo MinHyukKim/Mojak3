@@ -322,8 +322,7 @@ void cSkinnedMesh::SetupBoneMatrixPtrs(ST_BONE * pBone)
 			{
 				LPD3DXMATERIAL pMaterial = &pBoneMesh->pMaterials[i];
 				DEBUG_TEXT_EX("텍스처 이름 : " << pMaterial->pTextureFilename);
-//				DEBUG_TEXT_EX("텍스처 이름 : " << pMaterial->pTextureFilename << '(' << pMaterial->MatD3D.Diffuse.r << ", " << pMaterial->MatD3D.Diffuse.g << ", " << pMaterial->MatD3D.Diffuse.b << ", " << pMaterial->MatD3D.Diffuse.a << ')');
-				pBoneMesh->vecTexture[i] = g_pTexture->GetTexture(pMaterial->pTextureFilename);
+//				DEBUG_TEXT_EX("텍스처 이름 : " << pMaterial->pTextureFilename << '(' << pMaterial->MatD3D.Diffuse.r << ", " << pMaterial->MatD3D.Diffuse.g << ", " << pMaterial->MatD3D.Diffuse.b << ", " << pMaterial->MatD3D.Diffuse.a << ')')
 			}
 			DEBUG_SUB_COUNT();
 		}
