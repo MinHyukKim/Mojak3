@@ -1,46 +1,64 @@
-﻿========================================================================
-    WIN32 응용 프로그램 : DirectX_Frame 프로젝트 개요
-========================================================================
+﻿#extension GL_EXT_gpu_shader4 : enable
 
-응용 프로그램 마법사에서 이 DirectX_Frame 응용 프로그램을 만들었습니다.
+uniform sampler2D textureIn;
+uniform int isOutline;
+uniform vec4 modifyRGB;
 
-DirectX_Frame 응용 프로그램을 구성하는 각 파일에 대한
-요약 설명이 포함되어 있습니다.
+varying vec3 N;
+varying vec3 v;
+varying vec2 tex;
+
+//픽셀 셰이더
+void main (void)
+{
+  if (isOutline == 1)
+  {
+    gl_FragColor = vec4(0.0, 0.0, 0.0, texture2D(textureIn, tex.xy).a);
+  } 
+  else 
+  {
+    vec3 L = normalize(gl_LightSource[0].position.xyz - v);
+    vec3 E = normalize(-v); // we are in Eye Coordinates, so EyePos is (0,0,0)
+    vec3 R = normalize(-reflect(L,N));
+    vec4 Iamb = gl_FrontLightProduct[0].ambient;
+    vec4 Idiff = gl_FrontLightProduct[0].diffuse * max(dot(N,L), 0.0);
+    Idiff = clamp(Idiff, 0.0, 1.0);
+    vec4 Ispec = gl_FrontLightProduct[0].specular * pow(max(dot(R,E),0.0),0.3*gl_FrontMaterial.shininess);
+    Ispec = clamp(Ispec, 0.0, 1.0);
+    vec4 colour = texture2D(textureIn, tex.xy).rgba;
+    if (modifyRGB.a > 0) {
+        float intensity = 0.3 * colour.r + 0.59 * colour.g + 0.11 * colour.b;
+        intensity = intensity - 0.5;
+        if (intensity < 0) intensity = 0;
+        colour.rgb = ((colour.rgb * 2) * (modifyRGB.rgb * (1.0 - (intensity * 2)))) + (intensity * 2);
+    }
+    //gl_FrontLightModelProduct.sceneColor
+    gl_FragColor = colour *
+    ((vec4(0.5, 0.4, 0.3, 1) + Iamb + Idiff + Ispec) / 3.0 + 0.66);
+  }
+}
 
 
-DirectX_Frame.vcxproj
-    응용 프로그램 마법사를 사용하여 생성한 VC++ 프로젝트의 기본 프로젝트 파일입니다. 파일을 생성한 Visual C++ 버전에 대한 정보와 응용 프로그램 마법사를 사용하여 선택한 플랫폼, 구성 및 프로젝트 기능에 대한 정보가 포함되어 있습니다.
+//버텍스 셰이더
 
-DirectX_Frame.vcxproj.filters
-    응용 프로그램 마법사를 사용하여 생성된 VC++ 프로젝트의 필터 파일입니다. 이 파일에는 프로젝트의 파일과 필터 간의 연결 정보가 들어 있습니다. 이러한 연결은 특정 노드에서 유사한 확장명으로 그룹화된 파일을 표시하기 위해 IDE에서 사용됩니다. 예를 들어 ".cpp" 파일은 "소스 파일" 필터와 연결되어 있습니다.
+varying vec3 N;
+varying vec3 v;
+varying vec2 tex;
+attribute vec3 vertexPos;
+attribute vec3 vertexNormal;
+attribute vec2 vertexUV;
+attribute vec2 boneWeight;
+attribute float boneID;
 
-DirectX_Frame.cpp
-    기본 응용 프로그램 소스 파일입니다.
+uniform mat4 boneMatrix[10];
 
-/////////////////////////////////////////////////////////////////////////////
-응용 프로그램 마법사에서 다음 리소스를 만들었습니다.
-
-DirectX_Frame.rc
-    프로그램에서 사용하는 모든 Microsoft Windows 리소스의 목록입니다. 여기에는 RES 하위 디렉터리에 저장된 아이콘, 비트맵 및 커서가 포함됩니다. 이 파일은 Microsoft Visual C++에서 직접 편집할 수 있습니다.
-
-Resource.h
-    새 리소스 ID를 정의하는 표준 헤더 파일입니다. Microsoft Visual C++에서 이 파일을 읽고 업데이트합니다.
-
-DirectX_Frame.ico
-    아이콘 파일이며, 응용 프로그램의 아이콘(32x32)으로 사용됩니다. 이 아이콘은 기본 리소스 파일인 DirectX_Frame.rc에 의해 포함됩니다.
-
-small.ico
-    응용 프로그램의 아이콘으로 사용되는 파일로, 16x16 크기의 작은 버전의 아이콘이 포함되어 있습니다. 이 아이콘은 기본 리소스 파일인 DirectX_Frame.rc에 의해 포함됩니다.
-
-/////////////////////////////////////////////////////////////////////////////
-기타 표준 파일:
-
-StdAfx.h, StdAfx.cpp
-    이 파일은 미리 컴파일된 헤더(PCH) 파일 DirectX_Frame.pch와 미리 컴파일된 형식(PCT) 파일 StdAfx.obj를 빌드하는 데 사용됩니다.
-
-/////////////////////////////////////////////////////////////////////////////
-기타 참고:
-
-응용 프로그램 마법사에서 사용하는 "TODO:" 주석은 사용자가 추가하거나 사용자 지정해야 하는 소스 코드 부분을 나타냅니다.
-
-/////////////////////////////////////////////////////////////////////////////
+void main(void)
+{
+  N = normalize(gl_NormalMatrix * vertexNormal);
+  vec4 newVertex;
+  newVertex =  ((boneMatrix[0] * vec4(vertexPos.xyz, 1.0)) * boneWeight.x);
+  newVertex += ((boneMatrix[int(boneID)] * vec4(vertexPos.xyz, 1.0)) * boneWeight.y);
+  v = vec3(gl_ModelViewMatrix * newVertex);
+  gl_Position = (gl_ModelViewProjectionMatrix * vec4(newVertex.xyz, 1.0));
+  tex = vertexUV;
+}

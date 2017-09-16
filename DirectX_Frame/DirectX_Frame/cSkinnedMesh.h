@@ -33,6 +33,8 @@ public:
 	void SetAnimationIndex(int nIndex);
 	void SetBlendingAnimation(int nAnimationKey, float fTravalTime = 0.1f);
 
+
+	bool FrameClone(OUT LPD3DXFRAME* ppClone, IN LPD3DXFRAME pOrigin);
 	DWORD AddAnimationSet(LPD3DXANIMATIONSET pAnimation);
 	LPD3DXANIMATIONCONTROLLER GetAnimationController(void) { return m_pAnimController; }
 	void SetRandomTrackPosition();
@@ -51,8 +53,8 @@ private:
 	cSkinnedMesh();
 	void Load(char* szFolder, char* szFilename);
 	LPD3DXEFFECT LoadEffect(char* szFilename);
-	void Update(ST_BONE* pCurrent, D3DXMATRIXA16* pmatParent);
-	void Render(ST_BONE* pBone = NULL);
+	void _Update(ST_BONE* pCurrent, D3DXMATRIXA16* pmatParent);
+	void _Render(ST_BONE* pBone = NULL);
 	void ShaderRender(ST_BONE* pBone = NULL);
 	void SetupBoneMatrixPtrs(ST_BONE* pBone);
 	void Destroy();

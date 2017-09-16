@@ -7,7 +7,7 @@ cCamera::cCamera(void)
 	, m_vAxisX(1.0f, 0.0f, 0.0f)
 	, m_vAxisY(0.0f, 1.0f, 0.0f)
 	, m_vAxisZ(0.0f, 0.0f, 1.0f)
-	, m_vPosition(0.0f, 1.0f, -10.0f)
+	, m_vPosition(0.0f, 1.0f, -5.0f)
 	, m_pParentMatrix(NULL)
 {
 }
@@ -94,7 +94,7 @@ void cCamera::SetupParentMatrix(IN LPD3DXMATRIX pWorldMatrix)
 	}
 	else if (!m_pParentMatrix && pWorldMatrix)
 	{
-		m_vPosition = D3DXVECTOR3(0.0f, 0.0f, -1.0f);
+		m_vPosition = D3DXVECTOR3(0.0f, 0.0f, -5.0f);
 		m_vAxisY = D3DXVECTOR3(0.0f, 1.0f, 0.0f);
 		m_vAxisZ = D3DXVECTOR3(0.0f, 0.0f, 1.0f);
 	}
