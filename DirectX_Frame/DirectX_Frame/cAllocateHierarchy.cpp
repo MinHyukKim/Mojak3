@@ -1,6 +1,46 @@
 #include "stdafx.h"
 #include "cAllocateHierarchy.h"
 
+void cAllocateHierarchy::SetupAnimationMatrix(LPD3DXFRAME pRoot, LPD3DXANIMATIONCONTROLLER pAnimationController)
+{
+	assert(false && "미구현");
+//	pAnimationController->RegisterAnimationOutput();
+//	pAnimationController->
+
+}
+
+void cAllocateHierarchy::RegisterAnimationMatrix(OUT LPD3DXFRAME pRoot, IN LPD3DXFRAME pDummy)
+{
+	assert(pRoot && pDummy && "ㄱ- 왜 왔음?");
+	if (pRoot->pMeshContainer)
+	{
+		ST_BONE_MESH* pBoneMesh = (ST_BONE_MESH*)pRoot->pMeshContainer;
+		if (pBoneMesh->pSkinInfo)
+		{
+			LPD3DXSKININFO pSkinInfo = pBoneMesh->pSkinInfo;
+			DWORD dwNumBones = pSkinInfo->GetNumBones();
+			for (DWORD i = 0; i < dwNumBones; ++i)
+			{
+				LPCSTR szBoneName = pSkinInfo->GetBoneName(i);
+				if (szBoneName == NULL || strlen(szBoneName) == 0) continue;
+
+				ST_BONE* pInfluence = (ST_BONE*)D3DXFrameFind(pDummy, szBoneName);
+				pBoneMesh->ppBoneMatrixPtrs[i] = &(pInfluence->CombinedTransformationMatrix);
+			}
+		}
+	}
+	//자식
+	if (pRoot->pFrameFirstChild)
+	{
+		this->RegisterAnimationMatrix(pRoot->pFrameFirstChild, pDummy);
+	}
+	//형제
+	if (pRoot->pFrameSibling)
+	{
+		this->RegisterAnimationMatrix(pRoot->pFrameSibling, pDummy);
+	}
+}
+
 void cAllocateHierarchy::Reset(void)
 {
 	m_dwDefaultPalette = 0;
@@ -238,8 +278,6 @@ HRESULT cAllocateHierarchy::CloneFrame(OUT LPD3DXFRAME* ppClone, IN LPD3DXFRAME 
 
 		ST_BONE_MESH* pMeshOrigin = (ST_BONE_MESH*)pOrigin->pMeshContainer;
 		ST_BONE_MESH* pMeshClone = new ST_BONE_MESH;
-		pMeshClone->dwMaxNumFaceInfls = pMeshOrigin->dwMaxNumFaceInfls;
-		pMeshClone->dwNumAttrGroups = pMeshOrigin->dwNumAttrGroups;
 		pMeshClone->dwNumPaletteEntries = pMeshOrigin->dwNumPaletteEntries;
 		pMeshClone->MeshData.Type = pMeshOrigin->MeshData.Type;
 		CopyString(&pMeshClone->Name, pMeshOrigin->Name); //pMeshClone->Name = pMeshOrigin->Name;
@@ -269,13 +307,6 @@ HRESULT cAllocateHierarchy::CloneFrame(OUT LPD3DXFRAME* ppClone, IN LPD3DXFRAME 
 				pMeshClone->ppBoneMatrixPtrs[i] = NULL;
 				pMeshClone->pBoneOffsetMatrices[i] = *pMeshClone->pSkinInfo->GetBoneOffsetMatrix(i);
 			}
-			//pMeshClone->pBufBoneCombos = pMeshOrigin->pBufBoneCombos;
-			if (pMeshOrigin->pBufBoneCombos)
-			{
-				pMeshClone->pBufBoneCombos = pMeshOrigin->pBufBoneCombos;
-				pMeshOrigin->pBufBoneCombos->AddRef();
-			}
-
 			//pMeshClone->pEffects = pMeshOrigin->pEffects;
 			pMeshClone->pEffects = new D3DXEFFECTINSTANCE;
 			*pMeshClone->pEffects = *pMeshOrigin->pEffects;
@@ -284,7 +315,21 @@ HRESULT cAllocateHierarchy::CloneFrame(OUT LPD3DXFRAME* ppClone, IN LPD3DXFRAME 
 		{
 			//pMeshClone->pWorkingMesh = pMeshOrigin->pWorkingMesh;
 			LPD3DXMESH pMesh = pMeshOrigin->pWorkingMesh;
-			pMesh->CloneMeshFVF(pMesh->GetOptions(), pMesh->GetFVF(), g_pD3DDevice, &pMeshClone->pWorkingMesh);
+
+			//pMeshClone->pBufBoneCombos = pMeshOrigin->pBufBoneCombos;
+			if (pMeshOrigin->pBufBoneCombos)
+			{
+				pMeshOrigin->pSkinInfo->ConvertToIndexedBlendedMesh(
+					pMesh,
+					D3DXMESH_MANAGED | D3DXMESHOPT_VERTEXCACHE,
+					pMeshClone->dwNumPaletteEntries,
+					pMeshClone->pAdjacency,
+					NULL, NULL, NULL,
+					&pMeshClone->dwMaxNumFaceInfls,
+					&pMeshClone->dwNumAttrGroups,
+					&pMeshClone->pBufBoneCombos,
+					&pMeshClone->pWorkingMesh);
+			}
 
 		}
 		if (pMeshOrigin->NumMaterials)
@@ -310,16 +355,16 @@ HRESULT cAllocateHierarchy::CloneFrame(OUT LPD3DXFRAME* ppClone, IN LPD3DXFRAME 
 	return S_OK;
 }
 
-bool cAllocateHierarchy::ChangeFrame(LPD3DXFRAME* ppRoot, LPD3DXFRAME pOrigin)
+LPD3DXFRAME cAllocateHierarchy::ChangeFrame(LPD3DXFRAME* ppRoot, LPD3DXFRAME pOrigin)
 {
 	//예외처리
-	if (!ppRoot || !(*ppRoot)) return false;
+	if (!ppRoot || !(*ppRoot)) return nullptr;
 
+	LPD3DXFRAME pClone = nullptr;
 	//이름으로 찾기
-	if (!strcmp((*ppRoot)->Name, pOrigin->Name))
+	if ((*ppRoot)->Name && pOrigin->Name &&!strcmp((*ppRoot)->Name, pOrigin->Name))
 	{
 		//클론 생성
-		LPD3DXFRAME pClone = nullptr;
 		this->CloneFrame(&pClone, pOrigin);
 		//링크 연결
 		pClone->pFrameFirstChild = (*ppRoot)->pFrameFirstChild;
@@ -332,18 +377,25 @@ bool cAllocateHierarchy::ChangeFrame(LPD3DXFRAME* ppRoot, LPD3DXFRAME pOrigin)
 		//클론 연결
 		*ppRoot = pClone;
 		// 찾기 종료
-		return true;
+		return pClone;
 	}
 
-	//형제 노드만 찾으러 다니기
+	//형제 찾기
 	if ((*ppRoot)->pFrameSibling)
 	{
-		if (ChangeFrame(&(*ppRoot)->pFrameSibling, pOrigin)) return true;
+		pClone = ChangeFrame(&(*ppRoot)->pFrameSibling, pOrigin);
+		if (pClone) return pClone;
 	}
-	//if ((*ppRoot)->pFrameFirstChild); 자식은 찾지 않는다.
+
+	//자식찾기
+	if ((*ppRoot)->pFrameFirstChild)
+	{
+		pClone = ChangeFrame(&(*ppRoot)->pFrameFirstChild, pOrigin);
+		if (pClone) return pClone;
+	}
 
 	//찾기 실패
-	return false;
+	return nullptr;
 }
 
 HRESULT cAllocateHierarchy::CloneHierarchy(OUT LPD3DXFRAME* ppRoot, IN LPD3DXFRAME pOrigin)
@@ -363,4 +415,19 @@ HRESULT cAllocateHierarchy::CloneHierarchy(OUT LPD3DXFRAME* ppRoot, IN LPD3DXFRA
 	}
 
 	return S_OK;
+}
+
+void cAllocateHierarchy::GetAnimationController(OUT LPD3DXANIMATIONCONTROLLER* ppAnimationController, LPCSTR szFullPath)
+{
+	LPD3DXFRAME pFrame;
+	D3DXLoadMeshHierarchyFromX(szFullPath, D3DXMESH_MANAGED, g_pD3DDevice, this, NULL, &pFrame, ppAnimationController);
+	D3DXFrameDestroy(pFrame, this);
+}
+
+void cAllocateHierarchy::GetAnimationSet(DWORD dwAnimationKey, OUT LPD3DXANIMATIONSET* ppAnimationSet, LPCSTR szFullPath)
+{
+	LPD3DXANIMATIONCONTROLLER pAnimationController;
+	this->GetAnimationController(&pAnimationController, szFullPath);
+	pAnimationController->GetAnimationSet(dwAnimationKey, ppAnimationSet);
+	SAFE_RELEASE(pAnimationController);
 }

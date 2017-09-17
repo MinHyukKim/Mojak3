@@ -39,7 +39,7 @@ HRESULT cCharTestScene::Setup(void)
 
 	//cSkinnedMesh* pSkinnedMesh = new cSkinnedMesh("./Chareter/", "female_natural_stand_straight.X");
 
-	cSkinnedMesh* pSkinnedMesh = new cSkinnedMesh("Chareter/DefaultPlayer/", "wear_adventurer01_ani.X");
+	cSkinnedMesh* pSkinnedMesh = new cSkinnedMesh("Chareter/DefaultPlayer/", "Frame.X");
 	cSkinnedMesh::SetTextureColor(pSkinnedMesh->GetRootFrame(), "bodymap01.dds", &D3DXCOLOR(1.0f, 0.53f, 0.53f, 1.0f));	//몸통
 	cSkinnedMesh::SetTextureColor(pSkinnedMesh->GetRootFrame(), "hair9.dds", &D3DXCOLOR(0.0f, 0.0f, 0.0f, 1.0f));		//머리
 	cSkinnedMesh::SetTextureColor(pSkinnedMesh->GetRootFrame(), "bodymap04.dds", &D3DXCOLOR(1.0f, 0.53f, 0.53f, 1.0f));	//얼굴
@@ -52,8 +52,14 @@ HRESULT cCharTestScene::Setup(void)
 	pSkinnedMesh->SetRandomTrackPosition();
 	pSkinnedMesh->GetAnimationController()->SetTrackSpeed(0, 0.01f);
 
+	//메쉬 체인지
+	cSkinnedMesh* pSkinnedMesh3 = new cSkinnedMesh("Chareter/DefaultPlayer/", "Frame_W.X");
+	pSkinnedMesh->FrameChange(D3DXFrameFind(pSkinnedMesh3->GetRootFrame(), "Female_Body"));
+
+	SAFE_DELETE(pSkinnedMesh3);
+
 	//애니메이션
-	cSkinnedMesh* pSkinnedMesh2 = new cSkinnedMesh("Chareter/DefaultPlayer/aniTest/", "ani_female_blow_ground.X");
+	cSkinnedMesh* pSkinnedMesh2 = new cSkinnedMesh("Chareter/DefaultPlayer/aniTest/", "ani_female_attack_01.X");
 
 	//애니메이션 등록
 	LPD3DXANIMATIONSET pAni;

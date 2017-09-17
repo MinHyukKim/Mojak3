@@ -9,23 +9,20 @@ cSkinnedMesh::cSkinnedMesh(char * szFolder, char * szFilename)
 	, m_pmWorkingPalette(NULL)
 	, m_pEffect(NULL)
 	, m_vPosition(0, 0, 0)
+	, m_isCurrentTrack(false)
 {
 	cSkinnedMesh* pSkinnedMesh = g_pSkinnedMeshManager->GetSkinnedMesh(szFolder, szFilename);
 
 //	g_pAllocateHierarchy->CloneHierarchy((LPD3DXFRAME*)&m_pRootFrame, pSkinnedMesh->m_pRootFrame);
 //	this->SetupBoneMatrixPtrs(m_pRootFrame);
 	m_pRootFrame = pSkinnedMesh->m_pRootFrame;
+	pSkinnedMesh->SetTrack(true);
 
 	m_dwWorkingPaletteSize = pSkinnedMesh->m_dwWorkingPaletteSize;
 	m_pmWorkingPalette = pSkinnedMesh->m_pmWorkingPalette;
 
 	SAFE_RELEASE(m_pEffect);
 	m_pEffect = pSkinnedMesh->m_pEffect;
-
-	if (true)
-	{
-
-	}
 	
 	if (pSkinnedMesh->m_pAnimController)
 	{
@@ -45,6 +42,7 @@ cSkinnedMesh::cSkinnedMesh()
 	, m_pmWorkingPalette(NULL)
 	, m_pEffect(NULL)
 	, m_vPosition(0.0f, 0.0f, 0.0f)
+	, m_isCurrentTrack(false)
 {
 }
 
@@ -140,7 +138,7 @@ LPD3DXEFFECT cSkinnedMesh::LoadEffect(char * szFilename)
 	return pEffect;
 }
 
-void cSkinnedMesh::_Update(ST_BONE * pCurrent, D3DXMATRIXA16 * pmatParent)
+void cSkinnedMesh::_Update(ST_BONE * pCurrent, D3DXMATRIX * pmatParent)
 {
 	pCurrent->CombinedTransformationMatrix = pCurrent->TransformationMatrix;
 	if (pmatParent)
@@ -306,10 +304,6 @@ void cSkinnedMesh::SetupBoneMatrixPtrs(ST_BONE * pBone)
 		if (pBoneMesh->pSkinInfo)
 		{
 			LPD3DXSKININFO pSkinInfo = pBoneMesh->pSkinInfo;
-			// pSkinInfo->GetNumBones() 으로 영향받는 본의 개수를 찾음.
-			// pSkinInfo->GetBoneName(i) 로 i번 프레임의 이름을 찾음
-			// D3DXFrameFind(루트 프레임, 프레임 이름) 로 프레임을 찾음.
-			// 찾아서 월드매트릭스를 걸어줘라.
 			DWORD dwNumBones = pSkinInfo->GetNumBones();
 			for (DWORD i = 0; i < dwNumBones; ++i)
 			{
@@ -387,20 +381,23 @@ cSkinnedMesh::~cSkinnedMesh(void)
 
 void cSkinnedMesh::UpdateAndRender()
 {
-	if (m_pAnimController)
+	D3DXMATRIXA16 mat;
+	D3DXMatrixTranslation(&mat, m_vPosition.x, m_vPosition.y, m_vPosition.z);
+	this->UpdateAndRender(&mat);
+}
+
+void cSkinnedMesh::UpdateAndRender(LPD3DXMATRIX pMatrix)
+{
+	if (m_isCurrentTrack && m_pAnimController)
 	{
 		m_pAnimController->AdvanceTime(g_pTimeManager->GetElapsedTime(), NULL);
 	}
 
 	if (m_pRootFrame)
 	{
-		D3DXMATRIXA16 mat;
-		D3DXMatrixTranslation(&mat, m_vPosition.x, m_vPosition.y, m_vPosition.z);
-
-		_Update(m_pRootFrame, &mat);
-		//쉐이더렌더 적용
-		ShaderRender(m_pRootFrame);
+		_Update(m_pRootFrame, pMatrix);
 		//_Render(m_pRootFrame);
+		ShaderRender(m_pRootFrame); //쉐이더렌더 적용
 	}
 }
 
@@ -451,6 +448,13 @@ DWORD cSkinnedMesh::AddAnimationSet(LPD3DXANIMATIONSET pAnimation)
 	//애니메이션 등록
 	m_pAnimController->RegisterAnimationSet(pAnimation);
 	return m_pAnimController->GetNumAnimationSets() - 1;
+}
+
+void cSkinnedMesh::SetAnimationController(LPD3DXANIMATIONCONTROLLER pAnimationController)
+{
+	SAFE_RELEASE(m_pAnimController);
+	m_pAnimController = pAnimationController;
+	m_pAnimController->AddRef();
 }
 
 void cSkinnedMesh::SetRandomTrackPosition()
@@ -513,6 +517,12 @@ void cSkinnedMesh::UpdateSkinnedMesh(LPD3DXFRAME pFrame, D3DXMATRIX * pPMat)
 	//}
 
 
+}
+
+void cSkinnedMesh::FrameChange(LPD3DXFRAME pFrame)
+{
+	(ST_BONE*)g_pAllocateHierarchy->ChangeFrame((LPD3DXFRAME*)&m_pRootFrame, pFrame);
+	this->SetupBoneMatrixPtrs(m_pRootFrame);
 }
 
 void cSkinnedMesh::SetTextureDiffuse(LPD3DXFRAME pRoot, LPCSTR szTextureName, LPD3DXCOLOR pDiffuse)
