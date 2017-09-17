@@ -10,6 +10,15 @@ class cUIButton;
 class cUITextView;
 class iButtonDelegate;
 
+enum eCustomizingTab
+{
+	E_CUSTOM_NONE,
+	E_CUSTOM_HAIR,
+	E_CUSTOM_EYE,
+	E_CUSTOM_MOUTH,
+	E_CUSTOM_END
+};
+
 class cUiCustomizingScene : public cSceneObject, iButtonDelegate
 {
 private:
@@ -31,16 +40,33 @@ private:
 	cUiObject* m_pServerSulastUi;
 
 	//이름 입력 창
+	cUIImageView* m_pNameImageHead;
 	cUIImageView* m_pNameImage;
 	cUIButton* m_pNameButton;
 	cUiObject* m_pNameUi;
 
-	//생성카드(...)
-
-	//종족 성별 나이
-
 	//커마...
-
+	eCustomizingTab m_eCustomizingTab;
+	//틀
+	cUIImageView* m_pCustomImageHead;
+	cUIImageView* m_pCustomImage;
+	cUIButton* m_pCustomButtonHair;
+	cUIButton* m_pCustomButtonEye;
+	cUIButton* m_pCustomButtonMouth;
+	cUIButton* m_pCustomButton;
+	cUiObject* m_pCustomUi;
+	//헤어
+	cUIImageView* m_pCustomHairImageHead;
+	cUIImageView* m_pCustomHairImage;
+	cUiObject* m_pCustomHairUi;
+	//눈
+	cUIImageView* m_pCustomEyeImageHead;
+	cUIImageView* m_pCustomEyeImage;
+	cUiObject* m_pCustomEyeUi;
+	//입
+	cUIImageView* m_pCustomMouthImageHead;
+	cUIImageView* m_pCustomMouthImage;
+	cUiObject* m_pCustomMouthUi;
 	//확인팝업
 
 public:

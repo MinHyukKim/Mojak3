@@ -15,7 +15,10 @@ enum
 	E_SERVER_BUTTON_SERVER = 213,
 	E_SERVER_BUTTON_NEXT = 214,
 	E_SERVER_BUTTON_CANCEL = 215,
-	
+
+	E_CUSTOM_BUTTON_HAIR = 216,
+	E_CUSTOM_BUTTON_EYE = 217,
+	E_CUSTOM_BUTTON_MOUTH = 218
 };
 
 cUiCustomizingScene::cUiCustomizingScene(void)
@@ -30,6 +33,12 @@ cUiCustomizingScene::cUiCustomizingScene(void)
 	, m_pServerTextNext(NULL)
 	, m_pServerTextCancel(NULL)
 	, m_pServerSulastUi(NULL)
+
+	, m_eCustomizingTab(E_CUSTOM_HAIR)
+	, m_pCustomButtonHair(NULL)
+	, m_pCustomButtonEye(NULL)
+	, m_pCustomButtonMouth(NULL)
+	, m_pCustomUi(NULL)
 {
 }
 
@@ -52,7 +61,7 @@ HRESULT cUiCustomizingScene::Setup(void)
 
 	//이미지 크기 태스트
 	m_pUiTesterSize = cUIImageView::Create();
-	m_pUiTesterSize->SetTexture("Texture/Ui/textButtonUp.png");
+	m_pUiTesterSize->SetTexture("Texture/Ui/buttonBase2Down.png");
 	m_pUiTesterSize->SetPosition(100, 20);
 	m_mUiTest = m_pUiTesterSize;
 
@@ -107,8 +116,46 @@ HRESULT cUiCustomizingScene::Setup(void)
 	m_pServerTextCancel->SetTag(E_SERVER_TEXT_CANCEL);
 	m_pServerSulastUi->AddChild(m_pServerTextCancel);
 
+	//커마 창 머리
+	m_pCustomImageHead = cUIImageView::Create();
+	m_pCustomImageHead->SetTexture("Texture/Ui/customUiBaseHead1.png");
+	m_pCustomImageHead->SetPosition(20, 20);
+	m_pCustomImageHead->m_Alpha = 200;
+	m_pCustomUi = m_pCustomImageHead;
 	//커마 창
-
+	m_pCustomImage = cUIImageView::Create();
+	m_pCustomImage->SetTexture("Texture/Ui/customUiBase2.png");
+	m_pCustomImage->SetPosition(2, 48);
+	m_pCustomImage->m_Alpha = 180;
+	m_pCustomUi->AddChild(m_pCustomImage);
+	//선택버튼
+	//머리 선택
+	m_pCustomButtonHair = cUIButton::Create();
+	m_pCustomButtonHair->SetTexture("Texture/Ui/buttonHairUp.png",
+		"Texture/Ui/buttonHairUp.png",
+		"Texture/Ui/buttonHairUp.png");
+	m_pCustomButtonHair->SetPosition(10, 60);
+	m_pCustomButtonHair->SetDelegate(this);
+	m_pCustomButtonHair->SetTag(E_CUSTOM_BUTTON_HAIR);
+	m_pCustomUi->AddChild(m_pCustomButtonHair);
+	//눈 선택
+	m_pCustomButtonEye = cUIButton::Create();
+	m_pCustomButtonEye->SetTexture("Texture/Ui/buttonEyeUp.png",
+		"Texture/Ui/buttonEyeUp.png",
+		"Texture/Ui/buttonEyeUp.png");
+	m_pCustomButtonEye->SetPosition(52, 60);
+	m_pCustomButtonEye->SetDelegate(this);
+	m_pCustomButtonEye->SetTag(E_CUSTOM_BUTTON_EYE);
+	m_pCustomUi->AddChild(m_pCustomButtonEye);
+	//입 선택
+	m_pCustomButtonMouth = cUIButton::Create();
+	m_pCustomButtonMouth->SetTexture("Texture/Ui/buttonMouseUp.png",
+		"Texture/Ui/buttonMouseUp.png",
+		"Texture/Ui/buttonMouseUp.png");
+	m_pCustomButtonMouth->SetPosition(94, 60);
+	m_pCustomButtonMouth->SetDelegate(this);
+	m_pCustomButtonMouth->SetTag(E_CUSTOM_BUTTON_MOUTH);
+	m_pCustomUi->AddChild(m_pCustomButtonMouth);
 
 
 
@@ -123,11 +170,50 @@ void cUiCustomizingScene::Reset(void)
 	SAFE_RELEASE(m_pTexture);
 
 	SAFE_RELEASE(m_pServerSulastUi);
+	SAFE_RELEASE(m_pCustomUi);
 }
 
 void cUiCustomizingScene::Update(void)
 {
-	if (m_pServerSulastUi) m_pServerSulastUi->Update();
+//	if (m_pServerSulastUi) m_pServerSulastUi->Update();
+	if (m_eCustomizingTab == E_CUSTOM_HAIR)
+	{
+		m_pCustomButtonHair->SetTexture("Texture/Ui/buttonHairDown.png",
+			"Texture/Ui/buttonHairDown.png",
+			"Texture/Ui/buttonHairDown.png");
+	}
+	else
+	{
+		m_pCustomButtonHair->SetTexture("Texture/Ui/buttonHairUp.png",
+			"Texture/Ui/buttonHairUp.png",
+			"Texture/Ui/buttonHairUp.png");
+	}
+	if (m_eCustomizingTab == E_CUSTOM_EYE)
+	{
+		m_pCustomButtonEye->SetTexture("Texture/Ui/buttonEyeDown.png",
+			"Texture/Ui/buttonEyeDown.png",
+			"Texture/Ui/buttonEyeDown.png");
+	}
+	else
+	{
+		m_pCustomButtonEye->SetTexture("Texture/Ui/buttonEyeUp.png",
+			"Texture/Ui/buttonEyeUp.png",
+			"Texture/Ui/buttonEyeUp.png");
+	}
+	if (m_eCustomizingTab == E_CUSTOM_MOUTH)
+	{
+		m_pCustomButtonMouth->SetTexture("Texture/Ui/buttonMouseDown.png",
+			"Texture/Ui/buttonMouseDown.png",
+			"Texture/Ui/buttonMouseDown.png");
+	}
+	else
+	{
+		m_pCustomButtonMouth->SetTexture("Texture/Ui/buttonMouseUp.png",
+			"Texture/Ui/buttonMouseUp.png",
+			"Texture/Ui/buttonMouseUp.png");
+	}
+
+	if (m_pCustomUi) m_pCustomUi->Update();
 	if (m_mUiTest) m_mUiTest->Update();
 }
 
@@ -135,8 +221,9 @@ void cUiCustomizingScene::Render(void)
 {
 	g_pD3DDevice->SetTexture(0, m_pTexture);
 
-	if (m_pServerSulastUi) m_pServerSulastUi->Render(m_pSprite);
-	if (m_mUiTest) m_mUiTest->Render(m_pSprite);
+//	if (m_pServerSulastUi) m_pServerSulastUi->Render(m_pSprite);
+	if (m_pCustomUi) m_pCustomUi->Render(m_pSprite);
+//	if (m_mUiTest) m_mUiTest->Render(m_pSprite);
 }
 
 void cUiCustomizingScene::MsgProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
@@ -147,10 +234,17 @@ void cUiCustomizingScene::OnClick(cUIButton * pSender)
 {
 	//cUITextView* pTextView = (cUITextView*)m_pServerSulastUi->GetChildByTag(E_SERVER_TEXT_NEXT);
 	// 0x8001 = 토글
-	if (pSender->GetTag() == E_SERVER_BUTTON_NEXT)
+	if (pSender->GetTag() == E_CUSTOM_BUTTON_HAIR)
 	{
-
+		m_eCustomizingTab = E_CUSTOM_HAIR;
 	}
-
+	else if (pSender->GetTag() == E_CUSTOM_BUTTON_EYE)
+	{
+		m_eCustomizingTab = E_CUSTOM_EYE;
+	}
+	else if (pSender->GetTag() == E_CUSTOM_BUTTON_MOUTH)
+	{
+		m_eCustomizingTab = E_CUSTOM_MOUTH;
+	}
 	
 }
