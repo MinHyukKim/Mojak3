@@ -20,7 +20,7 @@ HRESULT cChareterCustomScene::Setup(void)
 	//플레이어 생성
 	m_pPlayer = cPlayer::Create();
 	m_pPlayer->Setup();
-	m_pPlayer->CreateMesh("./Chareter/DefaultPlayer/", "ChareterNoAnimation.X");
+	m_pPlayer->CreateMesh("Chareter/DefaultPlayer/", "lisaAniTest.X");
 
 	//카메라 연결
 	m_pMainCamera = m_pPlayer->GetCamera();
@@ -40,7 +40,11 @@ void cChareterCustomScene::Update(void)
 	SAFE_UPDATE(m_pPlayer);
 
 
-	SAFE_UPDATE(m_pMainCamera);
+	if (m_pMainCamera)
+	{
+		m_pMainCamera->TestController();
+		m_pMainCamera->Update();
+	}
 }
 
 void cChareterCustomScene::Render(void)

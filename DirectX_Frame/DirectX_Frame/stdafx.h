@@ -61,7 +61,7 @@ static std::ofstream BubugFile;
 #define DEBUG_END() BubugFile.close()
 #define DEBUG_START(text) {BubugFile.open(text), BubugFile.is_open();}
 #define DEBUG_TEXT(text) {std::cout<< text << std::endl;} //콘솔 출력
-#define DEBUG_TEXT_EX(text) {for(int DEBUG_i = 0; DEBUG_i < nHierachyCount; ++DEBUG_i){std::cout<<' ';} std::cout<< text << std::endl;} //콘솔 출력
+#define DEBUG_TEXT_EX(text) {for(int DEBUG_i = 1; DEBUG_i < nHierachyCount; ++DEBUG_i){std::cout<<"│";} std::cout << "├" << text << std::endl;} //콘솔 출력
 #define DEBUG_ADD_COUNT() ++nHierachyCount
 #define DEBUG_SUB_COUNT() --nHierachyCount
 
@@ -166,14 +166,14 @@ struct ST_BONE_MESH : public D3DXMESHCONTAINER
 {
 	//형상
 	std::vector<LPDIRECT3DTEXTURE9> vecTexture;
-	LPD3DXMESH				pOrigMesh;
+//	LPD3DXMESH				pOrigMesh;
 
 	LPD3DXMESH pWorkingMesh;
 	//애니메이션
 	D3DXMATRIXA16**			ppBoneMatrixPtrs;
 	D3DXMATRIXA16*			pBoneOffsetMatrices;
 	// 각 본의 계산된 월드매트릭스
-	D3DXMATRIX*				pCurrentBoneMatrices;
+//	D3DXMATRIX*				pCurrentBoneMatrices;
 	//셰이더
 	LPD3DXBUFFER			pBufBoneCombos;
 	DWORD					dwNumPaletteEntries;

@@ -22,7 +22,6 @@ private:
 	D3DXVECTOR3 m_vPosition;
 	//SYNTHESIZE(ST_SPHERE, m_stSphere, BoundingSphere);
 
-
 public:
 	LPD3DXFRAME GetRootFrame(void) { return (LPD3DXFRAME)m_pRootFrame; }
 
@@ -45,6 +44,7 @@ public:
 	static void SetTextureAmbient(LPD3DXFRAME pRoot, LPCSTR szTextureName, LPD3DXCOLOR pAmbient);
 	static void SetTextureColor(LPD3DXFRAME pRoot, LPCSTR szTextureName, LPD3DXCOLOR pColor);
 	static void SetTextureChange(LPD3DXFRAME pRoot, LPCSTR szPrevTextureName, LPCSTR szNextTextureName);
+	static void AddTexture(LPD3DXFRAME pRoot, LPCSTR szFrameName, LPCSTR szTextureName);
 
 	cSkinnedMesh(char* szFolder, char* szFilename);
 	~cSkinnedMesh(void);

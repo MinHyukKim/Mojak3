@@ -12,11 +12,20 @@ cSkinnedMesh::cSkinnedMesh(char * szFolder, char * szFilename)
 {
 	cSkinnedMesh* pSkinnedMesh = g_pSkinnedMeshManager->GetSkinnedMesh(szFolder, szFilename);
 
+//	g_pAllocateHierarchy->CloneHierarchy((LPD3DXFRAME*)&m_pRootFrame, pSkinnedMesh->m_pRootFrame);
+//	this->SetupBoneMatrixPtrs(m_pRootFrame);
 	m_pRootFrame = pSkinnedMesh->m_pRootFrame;
+
 	m_dwWorkingPaletteSize = pSkinnedMesh->m_dwWorkingPaletteSize;
 	m_pmWorkingPalette = pSkinnedMesh->m_pmWorkingPalette;
+
 	SAFE_RELEASE(m_pEffect);
 	m_pEffect = pSkinnedMesh->m_pEffect;
+
+	if (true)
+	{
+
+	}
 	
 	if (pSkinnedMesh->m_pAnimController)
 	{
@@ -41,27 +50,28 @@ cSkinnedMesh::cSkinnedMesh()
 
 void cSkinnedMesh::Load(char * szFolder, char * szFilename)
 {
+	g_pAllocateHierarchy->Reset();
+
 	SAFE_RELEASE(m_pEffect);
 	m_pEffect = LoadEffect("MultiAnimation.hpp");
 	int nPaletteSize = 0;
 	m_pEffect->GetInt("MATRIX_PALETTE_SIZE", &nPaletteSize);
 
-	cAllocateHierarchy ah;
-	ah.setFolder(szFolder);
-	ah.setDefaultPaletteSize(nPaletteSize);
+	g_pAllocateHierarchy->setFolder(szFolder);
+	g_pAllocateHierarchy->setDefaultPaletteSize(nPaletteSize);
 
 	std::string sFullPath(szFolder);
 	sFullPath += std::string(szFilename);
 	D3DXLoadMeshHierarchyFromX(sFullPath.c_str(),
 		D3DXMESH_MANAGED,
 		g_pD3DDevice,
-		&ah,
+		g_pAllocateHierarchy,
 		NULL,
 		(LPD3DXFRAME*)&m_pRootFrame,
 		&m_pAnimController);
 
 	SAFE_DELETE_ARRAY(m_pmWorkingPalette);
-	m_dwWorkingPaletteSize = ah.getMaxPaletteSize();
+	m_dwWorkingPaletteSize = g_pAllocateHierarchy->getMaxPaletteSize();
 	m_pmWorkingPalette = new D3DXMATRIX[m_dwWorkingPaletteSize];
 
 	if (m_pmWorkingPalette == NULL) m_dwWorkingPaletteSize = 0;
@@ -287,7 +297,8 @@ void cSkinnedMesh::SetupBoneMatrixPtrs(ST_BONE * pBone)
 	// 각 프레임의 메시 컨테이너에 있는 pSkinInfo를 이용하여 영향받는 모든 
 	// 프레임의 매트릭스를 ppBoneMatrixPtrs에 연결한다.
 #ifdef CONSOLE_DEBUG_TEST
-	if (pBone->Name) DEBUG_TEXT_EX("본 이름 : " << pBone->Name);
+	if (pBone->Name) DEBUG_TEXT_EX("본 이름 : " << pBone->Name)
+	else DEBUG_TEXT_EX("이름없음");
 #endif
 	if (pBone->pMeshContainer)
 	{
@@ -303,50 +314,49 @@ void cSkinnedMesh::SetupBoneMatrixPtrs(ST_BONE * pBone)
 			for (DWORD i = 0; i < dwNumBones; ++i)
 			{
 				LPCSTR szBoneName = pSkinInfo->GetBoneName(i);
-				if (szBoneName == NULL || strlen(szBoneName) == 0)
-					continue;
+				if (szBoneName == NULL || strlen(szBoneName) == 0) continue;
+
 				ST_BONE* pInfluence = (ST_BONE*)D3DXFrameFind(m_pRootFrame, szBoneName);
 				pBoneMesh->ppBoneMatrixPtrs[i] = &(pInfluence->CombinedTransformationMatrix);
 			}
 #ifdef CONSOLE_DEBUG_TEST
 			if (pBone->pMeshContainer->Name) DEBUG_TEXT_EX("메쉬 이름 : " << pBone->pMeshContainer->Name);
-//			if (pBone->pMeshContainer->MeshData.pMesh) DEBUG_TEXT_EX("메쉬 있음");
-#endif
-			//텍스처 로드
 			DEBUG_ADD_COUNT();
 			for (DWORD i = 0; i < pBoneMesh->NumMaterials; i++)
 			{
 				LPD3DXMATERIAL pMaterial = &pBoneMesh->pMaterials[i];
-				DEBUG_TEXT_EX("텍스처 이름 : " << pMaterial->pTextureFilename);
-//				DEBUG_TEXT_EX("텍스처 이름 : " << pMaterial->pTextureFilename << '(' << pMaterial->MatD3D.Diffuse.r << ", " << pMaterial->MatD3D.Diffuse.g << ", " << pMaterial->MatD3D.Diffuse.b << ", " << pMaterial->MatD3D.Diffuse.a << ')')
+				DEBUG_TEXT_EX("텍스처 이름 : " << pMaterial->pTextureFilename << '(' << pMaterial->MatD3D.Diffuse.r << ", " << pMaterial->MatD3D.Diffuse.g << ", " << pMaterial->MatD3D.Diffuse.b << ", " << pMaterial->MatD3D.Diffuse.a << ')')
 			}
 			DEBUG_SUB_COUNT();
+#endif // CONSOLE_DEBUG_TEST
 		}
 	}
 	//재귀적으로 모든 프레임에 대해서 실행.
 	DEBUG_ADD_COUNT();
 //	DEBUG_TEXT_EX('{');
-	if (pBone->pFrameSibling)
+	if (pBone->pFrameFirstChild)
 	{
-		SetupBoneMatrixPtrs((ST_BONE*)pBone->pFrameSibling);
+		SetupBoneMatrixPtrs((ST_BONE*)pBone->pFrameFirstChild);
 	}
 //	DEBUG_TEXT_EX('}');
 	DEBUG_SUB_COUNT();
 
-	if (pBone->pFrameFirstChild)
+	if (pBone->pFrameSibling)
 	{
-		SetupBoneMatrixPtrs((ST_BONE*)pBone->pFrameFirstChild);
+		SetupBoneMatrixPtrs((ST_BONE*)pBone->pFrameSibling);
 	}
 
 }
 
 void cSkinnedMesh::Destroy()
 {
+	//계별적으로 관리함
 	if (m_pRootFrame)
 	{
-		cAllocateHierarchy ah;
-		D3DXFrameDestroy((LPD3DXFRAME)m_pRootFrame, &ah);
+		D3DXFrameDestroy((LPD3DXFRAME)m_pRootFrame, g_pAllocateHierarchy);
+		m_pRootFrame = nullptr;
 	}
+
 	SAFE_DELETE_ARRAY(m_pmWorkingPalette);
 	SAFE_RELEASE(m_pEffect);
 }
@@ -368,6 +378,11 @@ HRESULT cSkinnedMesh::CopyString(OUT LPSTR* ppTextCopy, IN LPCSTR pTextOrigin)
 cSkinnedMesh::~cSkinnedMesh(void)
 {
 	SAFE_RELEASE(m_pAnimController);
+//	if (m_pRootFrame)
+//	{
+//		D3DXFrameDestroy((LPD3DXFRAME)m_pRootFrame, g_pAllocateHierarchy);
+//		m_pRootFrame = nullptr;
+//	}
 }
 
 void cSkinnedMesh::UpdateAndRender()
@@ -413,24 +428,27 @@ bool cSkinnedMesh::FrameClone(OUT LPD3DXFRAME* ppClone, IN LPD3DXFRAME pOrigin)
 
 DWORD cSkinnedMesh::AddAnimationSet(LPD3DXANIMATIONSET pAnimation)
 {
-	if (m_pAnimController)
+	if (!m_pAnimController)
 	{
-		if (1 > m_pAnimController->GetMaxNumAnimationSets() - m_pAnimController->GetNumAnimationSets())
-		{
-			int count = m_pAnimController->GetMaxNumAnimationSets();
-			LPD3DXANIMATIONCONTROLLER pController;
-			m_pAnimController->CloneAnimationController(
-				m_pAnimController->GetMaxNumAnimationOutputs(),
-				count ? count * 2 : count + 1,
-				2, 32, &pController);
-			SAFE_RELEASE(m_pAnimController);
-			m_pAnimController = pController;
-		}
+		assert(false && "애니메이션 컨트롤러가 존재하지 않습니다.");
+//		D3DXCreateAnimationController(24, 1, 2, 32, &m_pAnimController); // 실패작
+		return 0;
 	}
-	else
+
+	//애니메이션 컨트롤러 재설정
+	if (1 > m_pAnimController->GetMaxNumAnimationSets() - m_pAnimController->GetNumAnimationSets())
 	{
-		D3DXCreateAnimationController(24, 1, 2, 32, &m_pAnimController);
+		int count = m_pAnimController->GetMaxNumAnimationSets();
+		LPD3DXANIMATIONCONTROLLER pController;
+		m_pAnimController->CloneAnimationController(
+			m_pAnimController->GetMaxNumAnimationOutputs(),
+			count ? count * 2 : count + 1,
+			2, 32, &pController);
+		SAFE_RELEASE(m_pAnimController);
+		m_pAnimController = pController;
 	}
+
+	//애니메이션 등록
 	m_pAnimController->RegisterAnimationSet(pAnimation);
 	return m_pAnimController->GetNumAnimationSets() - 1;
 }
@@ -605,16 +623,50 @@ void cSkinnedMesh::SetTextureChange(LPD3DXFRAME pRoot, LPCSTR szPrevTextureName,
 			}
 		}
 	}
-//
-//	//자식 찾기
-//	if (pRoot->pFrameFirstChild)
-//	{
-//		cSkinnedMesh::SetTextureColor(pRoot->pFrameFirstChild, szTextureName, pColor);
-//	}
-//
-//	//형제 찾기
-//	if (pRoot->pFrameSibling)
-//	{
-//		cSkinnedMesh::SetTextureColor(pRoot->pFrameSibling, szTextureName, pColor);
-//	}
+
+	//자식 찾기
+	if (pRoot->pFrameFirstChild)
+	{
+		cSkinnedMesh::SetTextureChange(pRoot->pFrameFirstChild, szPrevTextureName, szNextTextureName);
+	}
+
+	//형제 찾기
+	if (pRoot->pFrameSibling)
+	{
+		cSkinnedMesh::SetTextureChange(pRoot->pFrameSibling, szPrevTextureName, szNextTextureName);
+	}
 }
+
+void cSkinnedMesh::AddTexture(LPD3DXFRAME pRoot, LPCSTR szFrameName, LPCSTR szTextureName)
+{
+	if (!pRoot) return;
+	//프레임 찾기
+	ST_BONE_MESH* pFrame = (ST_BONE_MESH*)D3DXFrameFind(pRoot, szFrameName);
+	if (!pFrame) return;
+
+	//중복확인
+	for (DWORD i = 0; i < pFrame->NumMaterials; i++)
+	{
+		if (strcmp(pFrame->pMaterials[i].pTextureFilename, szTextureName)) continue;
+		return;
+	}
+
+	//얇은 복사
+	LPD3DXMATERIAL pMaterials = new D3DXMATERIAL[pFrame->NumMaterials + 1];
+	for (size_t i = 0; i < pFrame->NumMaterials; i++) pMaterials[i] = pFrame->pMaterials[i];
+
+	//메트리얼 복사
+	CopyString(&pMaterials[pFrame->NumMaterials].pTextureFilename, szTextureName);
+	ZeroMemory(&pMaterials[pFrame->NumMaterials].MatD3D, sizeof(D3DMATERIAL9));
+	pMaterials[pFrame->NumMaterials].MatD3D.Ambient = pMaterials[pFrame->NumMaterials].MatD3D.Diffuse =
+		pMaterials[pFrame->NumMaterials].MatD3D.Specular = D3DXCOLOR(1.0f, 1.0f, 1.0f, 1.0f);
+	SAFE_DELETE_ARRAY(pFrame->pMaterials);
+	pFrame->pMaterials = pMaterials;
+
+	//텍스쳐 추가
+	pFrame->vecTexture.push_back(g_pTexture->GetTexture(szTextureName));
+
+	//인덱스 추가
+	++pFrame->NumMaterials;
+}
+

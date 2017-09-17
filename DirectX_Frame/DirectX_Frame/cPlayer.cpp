@@ -18,7 +18,7 @@ cPlayer::~cPlayer(void)
 HRESULT cPlayer::Setup(void)
 {
 	m_pCamera = cCamera::Create();
-	//m_pCamera->SetParentMatrix(&m_matWorld);
+	m_pCamera->SetupParentMatrix(&m_matWorld);
 
 	m_vecAnimationKey.resize(ANIMATION_END);
 	return S_OK;

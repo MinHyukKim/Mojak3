@@ -1,6 +1,13 @@
 #include "stdafx.h"
 #include "cAllocateHierarchy.h"
 
+void cAllocateHierarchy::Reset(void)
+{
+	m_dwDefaultPalette = 0;
+	m_dwNumMaxPalette = 0;
+	m_sFolder.clear();
+}
+
 cAllocateHierarchy::cAllocateHierarchy(void)
 	: m_dwDefaultPalette(0)
 	, m_dwNumMaxPalette(0)
@@ -15,14 +22,7 @@ HRESULT cAllocateHierarchy::CreateFrame(LPCSTR Name, LPD3DXFRAME* ppNewFrame)
 {
 	//생성
 	ST_BONE* pNewFrame = new ST_BONE;
-	cAllocateHierarchy::CopyString(&pNewFrame->Name, Name);
-
-#ifdef CONSOLE_DEBUG_TEST
-	if (Name)
-	{
-		DEBUG_TEXT(Name);
-	}
-#endif
+	CopyString(&pNewFrame->Name, Name);
 
 	//반환
 	(*ppNewFrame) = pNewFrame;
@@ -32,22 +32,23 @@ HRESULT cAllocateHierarchy::CreateFrame(LPCSTR Name, LPD3DXFRAME* ppNewFrame)
 HRESULT cAllocateHierarchy::CreateMeshContainer(LPCSTR Name, CONST D3DXMESHDATA* pMeshData, CONST D3DXMATERIAL* pMaterials, CONST D3DXEFFECTINSTANCE * pEffectInstances, DWORD NumMaterials, CONST DWORD* pAdjacency, LPD3DXSKININFO pSkinInfo, LPD3DXMESHCONTAINER* ppNewMeshContainer)
 {
 	assert(pMeshData && pMeshData->Type == D3DXMESHTYPE_MESH);
+	*ppNewMeshContainer = NULL;
 
 	//생성
 	ST_BONE_MESH* pNewMeshContainer = new ST_BONE_MESH;
-	cAllocateHierarchy::CopyString(&pNewMeshContainer->Name, Name);
+	CopyString(&pNewMeshContainer->Name, Name);
 	int NumFaces = 0;
 
 	//재질정보 저장
 	if (pMaterials && NumMaterials)
 	{
-		pNewMeshContainer->pMaterials = new D3DXMATERIAL[NumMaterials];																//생성
-		memcpy(pNewMeshContainer->pMaterials, pMaterials, NumMaterials * sizeof(D3DXMATERIAL));										//재질 복사
+		pNewMeshContainer->pMaterials = new D3DXMATERIAL[NumMaterials];
 		pNewMeshContainer->vecTexture.resize(NumMaterials);
 		for (DWORD i = 0; i < NumMaterials; ++i)
 		{
-			std::string FullPath = m_sFolder + pMaterials[i].pTextureFilename;
-			cAllocateHierarchy::CopyString(&pNewMeshContainer->pMaterials[i].pTextureFilename, FullPath.c_str());		//텍스쳐 이름 복사
+			pNewMeshContainer->pMaterials[i].pTextureFilename = nullptr;
+			memcpy(&pNewMeshContainer->pMaterials[i].MatD3D, &pMaterials[i].MatD3D, sizeof(D3DMATERIAL9));
+			CopyString(&pNewMeshContainer->pMaterials[i].pTextureFilename, pMaterials[i].pTextureFilename);		//텍스쳐 이름 복사
 			pNewMeshContainer->vecTexture[i] = g_pTexture->GetTexture(pNewMeshContainer->pMaterials[i].pTextureFilename);
 		}
 		pNewMeshContainer->NumMaterials = NumMaterials;																				//갯수
@@ -60,14 +61,15 @@ HRESULT cAllocateHierarchy::CreateMeshContainer(LPCSTR Name, CONST D3DXMESHDATA*
 		*pNewMeshContainer->pEffects = *pEffectInstances;
 	}
 
-	//매니저에 메시등록 및 워킹 메시복사
+	//워킹 메시복사
 	LPD3DXMESH pMesh = pMeshData->pMesh;
 	if (pMesh)
 	{
 		//저장(오리진)
 		NumFaces = pMesh->GetNumFaces(); //면의 갯수 (인덱스 버퍼의 3분의 1);
-		pNewMeshContainer->MeshData = *pMeshData;
-		pMesh->AddRef();
+		pNewMeshContainer->MeshData.Type = pMeshData->Type;
+		pMesh->CloneMeshFVF(pMesh->GetOptions(), pMesh->GetFVF(), g_pD3DDevice, &pNewMeshContainer->MeshData.pMesh);
+		pMesh = pNewMeshContainer->MeshData.pMesh;
 	}
 
 	//인접정보 복사
@@ -212,14 +214,153 @@ HRESULT cAllocateHierarchy::DestroyMeshContainer(THIS_ LPD3DXMESHCONTAINER pMesh
 	return D3D_OK;
 }
 
-HRESULT cAllocateHierarchy::CopyString(OUT LPSTR* ppTextCopy, IN LPCSTR pTextOrigin)
+//HRESULT cAllocateHierarchy::CopyString(OUT LPSTR* ppTextCopy, IN LPCSTR pTextOrigin)
+//{
+//	if (pTextOrigin && ppTextCopy)
+//	{
+//		int nLength = lstrlen(pTextOrigin) + 1;
+//		(*ppTextCopy) = new char[nLength];
+//		memcpy(*ppTextCopy, pTextOrigin, nLength * sizeof(char));
+//		return D3D_OK;
+//	}
+//	return E_FAIL;
+//}
+
+HRESULT cAllocateHierarchy::CloneFrame(OUT LPD3DXFRAME* ppClone, IN LPD3DXFRAME pOrigin)
 {
-	if (pTextOrigin && ppTextCopy)
+	//조건 검사
+	if (!ppClone || !pOrigin) return E_FAIL;
+	//프레임 생성
+	if (!(*ppClone)) g_pAllocateHierarchy->CreateFrame(pOrigin->Name, ppClone);
+
+	if (pOrigin->pMeshContainer)
 	{
-		int nLength = lstrlen(pTextOrigin) + 1;
-		(*ppTextCopy) = new char[nLength];
-		memcpy(*ppTextCopy, pTextOrigin, nLength * sizeof(char));
-		return D3D_OK;
+
+		ST_BONE_MESH* pMeshOrigin = (ST_BONE_MESH*)pOrigin->pMeshContainer;
+		ST_BONE_MESH* pMeshClone = new ST_BONE_MESH;
+		pMeshClone->dwMaxNumFaceInfls = pMeshOrigin->dwMaxNumFaceInfls;
+		pMeshClone->dwNumAttrGroups = pMeshOrigin->dwNumAttrGroups;
+		pMeshClone->dwNumPaletteEntries = pMeshOrigin->dwNumPaletteEntries;
+		pMeshClone->MeshData.Type = pMeshOrigin->MeshData.Type;
+		CopyString(&pMeshClone->Name, pMeshOrigin->Name); //pMeshClone->Name = pMeshOrigin->Name;
+		if (pMeshOrigin->MeshData.pMesh)
+		{
+			//pMeshClone->MeshData = pMeshOrigin->MeshData;
+			LPD3DXMESH pMesh = pMeshOrigin->MeshData.pMesh;
+			pMesh->CloneMeshFVF(pMesh->GetOptions(), pMesh->GetFVF(), g_pD3DDevice, &pMeshClone->MeshData.pMesh);
+
+			//pMeshClone->pAdjacency = pMeshOrigin->pAdjacency;
+			DWORD NumFaces = pMesh->GetNumFaces();
+			pMeshClone->pAdjacency = new DWORD[NumFaces * 3];
+			memcpy(pMeshClone->pAdjacency, pMeshOrigin->pAdjacency, 3 * NumFaces * sizeof(DWORD));
+		}
+		if (pMeshOrigin->pSkinInfo)
+		{
+			//pMeshClone->pSkinInfo;
+			DWORD dwNumBones = pMeshOrigin->pSkinInfo->GetNumBones();
+			pMeshOrigin->pSkinInfo->Clone(&pMeshClone->pSkinInfo);
+
+			//pMeshClone->ppBoneMatrixPtrs;
+			//pMeshClone->pBoneOffsetMatrices = pMeshOrigin->pBoneOffsetMatrices;
+			pMeshClone->ppBoneMatrixPtrs = new D3DXMATRIXA16*[dwNumBones];
+			pMeshClone->pBoneOffsetMatrices = new D3DXMATRIXA16[dwNumBones];
+			for (int i = 0; i < dwNumBones; i++)
+			{
+				pMeshClone->ppBoneMatrixPtrs[i] = NULL;
+				pMeshClone->pBoneOffsetMatrices[i] = *pMeshClone->pSkinInfo->GetBoneOffsetMatrix(i);
+			}
+			//pMeshClone->pBufBoneCombos = pMeshOrigin->pBufBoneCombos;
+			if (pMeshOrigin->pBufBoneCombos)
+			{
+				pMeshClone->pBufBoneCombos = pMeshOrigin->pBufBoneCombos;
+				pMeshOrigin->pBufBoneCombos->AddRef();
+			}
+
+			//pMeshClone->pEffects = pMeshOrigin->pEffects;
+			pMeshClone->pEffects = new D3DXEFFECTINSTANCE;
+			*pMeshClone->pEffects = *pMeshOrigin->pEffects;
+		}
+		if (pMeshOrigin->pWorkingMesh)
+		{
+			//pMeshClone->pWorkingMesh = pMeshOrigin->pWorkingMesh;
+			LPD3DXMESH pMesh = pMeshOrigin->pWorkingMesh;
+			pMesh->CloneMeshFVF(pMesh->GetOptions(), pMesh->GetFVF(), g_pD3DDevice, &pMeshClone->pWorkingMesh);
+
+		}
+		if (pMeshOrigin->NumMaterials)
+		{
+			pMeshClone->NumMaterials = pMeshOrigin->NumMaterials;
+			pMeshClone->pMaterials = new D3DXMATERIAL[pMeshClone->NumMaterials];
+			pMeshClone->vecTexture.resize(pMeshClone->NumMaterials);
+			for (DWORD i = 0; i < pMeshClone->NumMaterials; i++)
+			{
+				//pMeshClone->pMaterials = pMeshOrigin->pMaterials;
+				pMeshClone->pMaterials[i].pTextureFilename = nullptr;
+				memcpy(&pMeshClone->pMaterials[i].MatD3D, &pMeshOrigin->pMaterials[i].MatD3D, sizeof(D3DMATERIAL9));
+				CopyString(&pMeshClone->pMaterials[i].pTextureFilename, pMeshOrigin->pMaterials[i].pTextureFilename);
+				//pMeshClone->vecTexture = pMeshOrigin->vecTexture;
+				pMeshClone->vecTexture[i] = g_pTexture->GetTexture(pMeshClone->pMaterials[i].pTextureFilename);
+			}
+		}
+
+		//pMeshClone->pCurrentBoneMatrices;
+		//pMeshClone->pNextMeshContainer = pMeshOrigin->pNextMeshContainer;
+		(*ppClone)->pMeshContainer = pMeshClone;
 	}
-	return E_FAIL;
+	return S_OK;
+}
+
+bool cAllocateHierarchy::ChangeFrame(LPD3DXFRAME* ppRoot, LPD3DXFRAME pOrigin)
+{
+	//예외처리
+	if (!ppRoot || !(*ppRoot)) return false;
+
+	//이름으로 찾기
+	if (!strcmp((*ppRoot)->Name, pOrigin->Name))
+	{
+		//클론 생성
+		LPD3DXFRAME pClone = nullptr;
+		this->CloneFrame(&pClone, pOrigin);
+		//링크 연결
+		pClone->pFrameFirstChild = (*ppRoot)->pFrameFirstChild;
+		pClone->pFrameSibling = (*ppRoot)->pFrameSibling;
+		//링크 해제
+		(*ppRoot)->pFrameFirstChild = nullptr;
+		(*ppRoot)->pFrameSibling = nullptr;
+		//기본 바디 제거
+		D3DXFrameDestroy(*ppRoot, g_pAllocateHierarchy);
+		//클론 연결
+		*ppRoot = pClone;
+		// 찾기 종료
+		return true;
+	}
+
+	//형제 노드만 찾으러 다니기
+	if ((*ppRoot)->pFrameSibling)
+	{
+		if (ChangeFrame(&(*ppRoot)->pFrameSibling, pOrigin)) return true;
+	}
+	//if ((*ppRoot)->pFrameFirstChild); 자식은 찾지 않는다.
+
+	//찾기 실패
+	return false;
+}
+
+HRESULT cAllocateHierarchy::CloneHierarchy(OUT LPD3DXFRAME* ppRoot, IN LPD3DXFRAME pOrigin)
+{
+	if (!ppRoot || !pOrigin) return E_FAIL;							//예외처리
+	if ((*ppRoot)) D3DXFrameDestroy(*ppRoot, g_pAllocateHierarchy); // 0xcdcdcdcd 는 걸리지말자!
+	this->CloneFrame(ppRoot, pOrigin);								//복사
+	//형제
+	if (pOrigin->pFrameSibling)
+	{
+		this->CloneHierarchy(&(*ppRoot)->pFrameSibling, pOrigin->pFrameSibling);
+	}
+	//자식
+	if (pOrigin->pFrameFirstChild)
+	{
+		CloneHierarchy(&(*ppRoot)->pFrameFirstChild, pOrigin->pFrameFirstChild);
+	}
+
+	return S_OK;
 }
