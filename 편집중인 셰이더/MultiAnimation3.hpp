@@ -72,8 +72,6 @@ float4 PixScene(
 VS_OUTPUT VertSkinning( VS_INPUT Input, uniform int nNumBones )
 {
 	VS_OUTPUT   Output;
-
-	vWorldLightPos -
 	
 	Output.fDiffuse		= float3(0, 0, 0);
 	Output.fViewDir		= float3(0, 0, 0);
@@ -94,6 +92,7 @@ VS_OUTPUT VertSkinning( VS_INPUT Input, uniform int nNumBones )
 	//Normal = normalize( vso.vNor);
 	Normal = normalize(vso.vNor) * normalize(vso.vPos) * Input.TexCoord;
 
+	//ºûÀÇ ¹æÇâ
 	float3 lightDir = vso.vPos.xyz - vWorldLightPos.xyz;
 	lightDir = normalize(lightDir);
 

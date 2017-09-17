@@ -64,6 +64,13 @@ void cCamera::TestController(void)
 		{
 			this->MovePositionZ(-g_pTimeManager->GetElapsedTime());
 		}
+		if (m_pParentMatrix)
+		{
+
+		}
+		else
+		{
+		}
 		if (g_pInputManager->IsStayKeyDown('A'))
 		{
 			this->AxisDirectionY(-g_pTimeManager->GetElapsedTime());
@@ -94,7 +101,7 @@ void cCamera::SetupParentMatrix(IN LPD3DXMATRIX pWorldMatrix)
 	}
 	else if (!m_pParentMatrix && pWorldMatrix)
 	{
-		m_vPosition = D3DXVECTOR3(0.0f, 0.0f, -5.0f);
+		m_vPosition = D3DXVECTOR3(0.0f, 0.5f, -5.0f);
 		m_vAxisY = D3DXVECTOR3(0.0f, 1.0f, 0.0f);
 		m_vAxisZ = D3DXVECTOR3(0.0f, 0.0f, 1.0f);
 	}
@@ -167,10 +174,11 @@ void cCamera::UpdateViewSpace(void)
 	{
 		if (m_pParentMatrix)
 		{
-			//고정 시점
-			D3DXVECTOR3 vParentPosition(m_pParentMatrix->_41, m_pParentMatrix->_42, m_pParentMatrix->_43);
-			D3DXVECTOR3 vParentAxisY(m_pParentMatrix->_31, m_pParentMatrix->_32, m_pParentMatrix->_33);
-			D3DXMatrixLookAtLH(&m_matViewMatrix, &(vParentPosition + m_vPosition), &(vParentAxisY - m_vAxisZ), &D3DXVECTOR3(0.0f, 1.0f, 0.0f));
+			//부모 위치
+			D3DXVECTOR3 vParentPosition(m_pParentMatrix->_41, m_pParentMatrix->_42 + m_vPosition.y, m_pParentMatrix->_43);
+
+			//카메라 위치
+			D3DXMatrixLookAtLH(&m_matViewMatrix, &(vParentPosition + m_vAxisZ * m_vPosition.z), &vParentPosition, &D3DXVECTOR3(0.0f, 1.0f, 0.0f));
 		}
 		else
 		{

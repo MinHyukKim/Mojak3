@@ -22,7 +22,6 @@ private:
 	D3DXVECTOR3 m_vPosition;
 	//SYNTHESIZE(ST_SPHERE, m_stSphere, BoundingSphere);
 
-
 public:
 	LPD3DXFRAME GetRootFrame(void) { return (LPD3DXFRAME)m_pRootFrame; }
 
@@ -30,21 +29,26 @@ public:
 	void setPosition(D3DXVECTOR3 value) { m_vPosition = value; };
 
 	void UpdateAndRender();
+	void UpdateAndRender(LPD3DXMATRIX pMatrix);
 	void SetAnimationIndex(int nIndex);
 	void SetBlendingAnimation(int nAnimationKey, float fTravalTime = 0.1f);
 
 
 	bool FrameClone(OUT LPD3DXFRAME* ppClone, IN LPD3DXFRAME pOrigin);
 	DWORD AddAnimationSet(LPD3DXANIMATIONSET pAnimation);
+	void SetAnimationController(LPD3DXANIMATIONCONTROLLER pAnimationController);
 	LPD3DXANIMATIONCONTROLLER GetAnimationController(void) { return m_pAnimController; }
 	void SetRandomTrackPosition();
 	void UpdateSkinnedMesh(LPD3DXFRAME pFrame, D3DXMATRIX* pPMat);
+	void FrameChange(LPD3DXFRAME pFrame);
+	void SetTrack(bool ibTrack) { m_isCurrentTrack = ibTrack; }
 
 
 	static void SetTextureDiffuse(LPD3DXFRAME pRoot, LPCSTR szTextureName, LPD3DXCOLOR pDiffuse);
 	static void SetTextureAmbient(LPD3DXFRAME pRoot, LPCSTR szTextureName, LPD3DXCOLOR pAmbient);
 	static void SetTextureColor(LPD3DXFRAME pRoot, LPCSTR szTextureName, LPD3DXCOLOR pColor);
 	static void SetTextureChange(LPD3DXFRAME pRoot, LPCSTR szPrevTextureName, LPCSTR szNextTextureName);
+	static void AddTexture(LPD3DXFRAME pRoot, LPCSTR szFrameName, LPCSTR szTextureName);
 
 	cSkinnedMesh(char* szFolder, char* szFilename);
 	~cSkinnedMesh(void);
@@ -53,7 +57,7 @@ private:
 	cSkinnedMesh();
 	void Load(char* szFolder, char* szFilename);
 	LPD3DXEFFECT LoadEffect(char* szFilename);
-	void _Update(ST_BONE* pCurrent, D3DXMATRIXA16* pmatParent);
+	void _Update(ST_BONE* pCurrent, D3DXMATRIX* pmatParent);
 	void _Render(ST_BONE* pBone = NULL);
 	void ShaderRender(ST_BONE* pBone = NULL);
 	void SetupBoneMatrixPtrs(ST_BONE* pBone);
