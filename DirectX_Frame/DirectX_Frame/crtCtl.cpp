@@ -1,25 +1,26 @@
 #include "stdafx.h"
 #include "crtCtl.h"
+#include "cMapTerrain.h"
 
-void cCrtCtrl::Update(iMap * pMap)
+void cCrtCtrl::Update(cMapTerrain * pMap)
 {
 	D3DXVECTOR3 vPos = m_vPos;
 
-	if (GetKeyState('W') & 0x8000)
+	if (GetKeyState('I') & 0x8000)
 	{
 		vPos = m_vPos + m_vDir * m_fSpeed;
 	}
-	if (GetKeyState('S') & 0x8000)
+	if (GetKeyState('K') & 0x8000)
 	{
 		vPos = m_vPos - m_vDir * m_fSpeed;
 	}
 
-	if (GetKeyState('A') & 0x8000)
+	if (GetKeyState('J') & 0x8000)
 	{
 		m_fAngle -= 0.1f;
 	}
 
-	if (GetKeyState('D') & 0x8000)
+	if (GetKeyState('L') & 0x8000)
 	{
 		m_fAngle += 0.1f;
 	}
@@ -27,7 +28,7 @@ void cCrtCtrl::Update(iMap * pMap)
 	//현재 맵 미구현으로 주석처리
 	if (pMap)
 	{
-		if (pMap->GetHeight(vPos.x, vPos.y, vPos.z))
+		if (pMap->GetHeight(&vPos.y, vPos.x, vPos.z));
 		{
 			m_vPos = vPos;
 		}
