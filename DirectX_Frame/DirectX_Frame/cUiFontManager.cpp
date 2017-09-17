@@ -41,7 +41,14 @@ LPD3DXFONT cUiFontManager::GetFont(eFontType e)
 		}
 		else if (e == E_INBUTTON)
 		{
-
+			fd.Height = 12;
+			fd.Width = 6;
+			fd.Weight = FW_NORMAL;
+			fd.Italic = false;
+			fd.CharSet = DEFAULT_CHARSET;
+			fd.OutputPrecision = OUT_CHARACTER_PRECIS;
+			fd.PitchAndFamily = FF_DONTCARE;
+			strcpy_s(fd.FaceName, "πŸ≈¡√º");
 		}
 		
 		D3DXCreateFontIndirect(g_pD3DDevice, &fd, &m_mapFont[e]);

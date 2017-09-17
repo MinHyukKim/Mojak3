@@ -25,6 +25,8 @@ private:
 
 	//안씀
 	cUiObject* m_pUiTestRoot;
+	//패널 이미지 크기 태스트용
+	cUIImageView* m_pUiTesterSize;
 
 	//클릭변수?
 	bool m_isClick;

@@ -6,6 +6,7 @@
 #include "cUiTestScene.h"
 #include "cCharTestScene.h"
 #include "cChareterCustomScene.h"
+#include "cUiCustomizingScene.h"
 
 cMainGame::cMainGame(void)
 {
@@ -49,8 +50,10 @@ void cMainGame::Setup(void)
 	g_pSceneManager->AddScene("cCharTestScene", cCharTestScene::Create());
 	g_pSceneManager->AddScene("cChareterCustomScene", cChareterCustomScene::Create());
 	
+	g_pSceneManager->AddScene("cUiCustomizingScene", cUiCustomizingScene::Create());
 
 	g_pSceneManager->ChangScene("cCharTestScene");
+	//g_pSceneManager->ChangScene("cUiCustomizingScene");
 
 
 	//≈∏¿Ã∏”

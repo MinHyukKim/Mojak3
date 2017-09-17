@@ -33,6 +33,7 @@ cUiTestScene::cUiTestScene(void)
 	, m_isMainMin(false)
 	, m_pMainRootImageView(NULL)
 	, m_pMainMainButton(NULL)
+	, m_pUiTesterSize(NULL)
 {
 }
 
@@ -69,7 +70,7 @@ HRESULT cUiTestScene::Setup(void)
 
 	cUITextView* pTextView = cUITextView::Create();
 	pTextView->SetText("태스트용");
-	pTextView->SetFontType(g_pFontManager->E_QUEST);
+	pTextView->SetFontType(g_pFontManager->E_NORMAL);
 	pTextView->SetColor(D3DCOLOR_XRGB(0, 0, 0));
 	pTextView->SetSize(ST_SIZE(400, 500));
 	pTextView->SetPosition(0, -300);
@@ -158,6 +159,10 @@ HRESULT cUiTestScene::Setup(void)
 	m_pMainMainButton->SetTag(E_MAIN_BUTTON_MAIN);
 	m_pUiRoot->AddChild(m_pMainMainButton);
 
+	//임시 태스트용
+	m_pUiTesterSize = cUIImageView::Create();
+	m_pUiTestRoot = m_pUiTesterSize;
+
 	return D3D_OK;
 }
 
@@ -167,9 +172,9 @@ void cUiTestScene::Reset(void)
 	SAFE_RELEASE(m_pSprite);
 	SAFE_RELEASE(m_pTexture);
 	SAFE_RELEASE(m_pUiRoot);
-	SAFE_RELEASE(m_pMainRootImageView);
+//	SAFE_RELEASE(m_pMainRootImageView);
 	SAFE_RELEASE(m_pUiTestRoot);
-	SAFE_RELEASE(m_pMainMainButton);
+//	SAFE_RELEASE(m_pMainMainButton);
 }
 
 void cUiTestScene::Update(void)

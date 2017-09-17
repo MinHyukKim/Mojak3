@@ -1,6 +1,6 @@
 #pragma once
 
-class iMap;
+class cMapTerrain;
 
 class cCrtCtrl
 {
@@ -23,7 +23,7 @@ public:
 	void SetWorldTM(D3DXMATRIX value) { m_matWorld = value; };
 	D3DXMATRIX GetWorldTM() {return m_matWorld;	};
 	
-	void Update(iMap* pMap = NULL);
+	void Update(cMapTerrain* pMap = NULL);
 
 	D3DXVECTOR3* GetPosition();
 

@@ -39,8 +39,7 @@ HRESULT cCharTestScene::Setup(void)
 
 	//cSkinnedMesh* pSkinnedMesh = new cSkinnedMesh("./Chareter/", "female_natural_stand_straight.X");
 
-	cSkinnedMesh* pSkinnedMesh = new cSkinnedMesh("./Chareter/", "female_natural_stand_straight.X");
-
+	cSkinnedMesh* pSkinnedMesh = new cSkinnedMesh("Chareter/DefaultPlayer/", "wear_adventurer01_ani.X");
 	cSkinnedMesh::SetTextureColor(pSkinnedMesh->GetRootFrame(), "bodymap01.dds", &D3DXCOLOR(1.0f, 0.53f, 0.53f, 1.0f));	//몸통
 	cSkinnedMesh::SetTextureColor(pSkinnedMesh->GetRootFrame(), "hair9.dds", &D3DXCOLOR(0.0f, 0.0f, 0.0f, 1.0f));		//머리
 	cSkinnedMesh::SetTextureColor(pSkinnedMesh->GetRootFrame(), "bodymap04.dds", &D3DXCOLOR(1.0f, 0.53f, 0.53f, 1.0f));	//얼굴
@@ -53,19 +52,20 @@ HRESULT cCharTestScene::Setup(void)
 	pSkinnedMesh->SetRandomTrackPosition();
 	pSkinnedMesh->GetAnimationController()->SetTrackSpeed(0, 0.01f);
 
+	//애니메이션
+	cSkinnedMesh* pSkinnedMesh2 = new cSkinnedMesh("Chareter/DefaultPlayer/aniTest/", "ani_female_blow_ground.X");
 
-//	//애니메이션
-//	cSkinnedMesh* pSkinnedMesh2 = new cSkinnedMesh("Chareter/", "Attack.X");
-//
-//	//애니메이션 등록
-//	LPD3DXANIMATIONSET pAni;
-//	pSkinnedMesh2->GetAnimationController()->GetAnimationSet(0, &pAni);
-//	pSkinnedMesh->AddAnimationSet(pAni);
-//	
-//	//애니메이션 변경
-//	pSkinnedMesh->GetAnimationController()->SetTrackAnimationSet(0, pAni);
-//	SAFE_RELEASE(pAni);
-//	SAFE_DELETE(pSkinnedMesh2);
+	//애니메이션 등록
+	LPD3DXANIMATIONSET pAni;
+	pSkinnedMesh2->GetAnimationController()->GetAnimationSet(0, &pAni);
+	pSkinnedMesh->AddAnimationSet(pAni);
+	
+	//애니메이션 변경
+	pSkinnedMesh->GetAnimationController()->SetTrackAnimationSet(0, pAni);
+	pSkinnedMesh->GetAnimationController()->SetTrackSpeed(0, 1.00f);
+	pSkinnedMesh->GetAnimationController()->SetTrackWeight(0, 1.00f);
+	SAFE_RELEASE(pAni);
+	SAFE_DELETE(pSkinnedMesh2);
 
 	m_pCrtCtrl = new cCrtCtrl;
 
@@ -94,7 +94,7 @@ void cCharTestScene::Update(void)
 
 	m_pCamera->Update();
 	
-	m_pMapTerrain->Update();
+	//m_pMapTerrain->Update();
 	//m_pCrtCtrl->Update(m_pMapTerrain);
 }
 

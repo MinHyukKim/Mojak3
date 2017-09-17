@@ -5,6 +5,7 @@
 cUIButton::cUIButton(void)
 	: m_eButtonStatus(E_NORMAL)
 	, m_pDelegate(NULL)
+	, isOver(false)
 {
 }
 
@@ -42,6 +43,7 @@ void cUIButton::Update()
 
 	if (PtInRect(&rc, ptMouse))
 	{
+		isOver = true;
 		if (GetKeyState(VK_LBUTTON) & 0x8000)
 		{
 			//마우스 오버
@@ -61,6 +63,7 @@ void cUIButton::Update()
 	}
 	else
 	{
+		isOver = false;
 		m_eButtonStatus = E_NORMAL;
 	}
 
