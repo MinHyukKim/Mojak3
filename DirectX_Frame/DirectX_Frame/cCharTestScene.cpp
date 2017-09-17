@@ -51,7 +51,7 @@ HRESULT cCharTestScene::Setup(void)
 	pSkinnedMesh->SetRandomTrackPosition();
 
 	//애니메이션
-	cSkinnedMesh* pSkinnedMesh2 = new cSkinnedMesh("Chareter/DefaultPlayer/aniTest/", "ani_female_guard.X");
+	cSkinnedMesh* pSkinnedMesh2 = new cSkinnedMesh("Chareter/DefaultPlayer/aniTest/", "ani_female_endure_02.X");
 
 	//애니메이션 등록
 	LPD3DXANIMATIONSET pAni;
