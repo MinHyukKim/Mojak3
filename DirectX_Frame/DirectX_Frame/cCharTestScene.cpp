@@ -92,8 +92,8 @@ void cCharTestScene::Update(void)
 
 	m_pCamera->Update();
 	
-	m_pMapTerrain->Update();
-	//m_pCrtCtrl->Update(m_pMapTerrain);
+	//m_pMapTerrain->Update();
+	m_pCrtCtrl->Update(m_pMapTerrain);
 }
 
 void cCharTestScene::Render(void)
