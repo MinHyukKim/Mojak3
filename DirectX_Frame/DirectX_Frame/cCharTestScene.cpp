@@ -51,7 +51,7 @@ HRESULT cCharTestScene::Setup(void)
 	pSkinnedMesh->SetRandomTrackPosition();
 
 	//애니메이션
-	cSkinnedMesh* pSkinnedMesh2 = new cSkinnedMesh("Chareter/DefaultPlayer/aniTest/", "ani_female_walk_offensive.X");
+	cSkinnedMesh* pSkinnedMesh2 = new cSkinnedMesh("Chareter/DefaultPlayer/aniTest/", "ani_female_blow_ground.X");
 
 	//애니메이션 등록
 	LPD3DXANIMATIONSET pAni;
@@ -93,7 +93,7 @@ void cCharTestScene::Update(void)
 	m_pCamera->Update();
 	
 	//m_pMapTerrain->Update();
-	m_pCrtCtrl->Update(m_pMapTerrain);
+	//m_pCrtCtrl->Update(m_pMapTerrain);
 }
 
 void cCharTestScene::Render(void)
