@@ -10,6 +10,11 @@ public:
 	{
 		ANIMATION_NULL,
 		ANIMATION_IDLE,
+		ANIMATION_2,
+		ANIMATION_3,
+		ANIMATION_4,
+		ANIMATION_5,
+		ANIMATION_6,
 		ANIMATION_END,
 	};
 	enum MESH_PART
@@ -39,8 +44,10 @@ public:
 	virtual void Render(void) override;
 
 	void ChangeMeshPart(IN DWORD dwPart, IN LPCSTR szFolder, IN LPCSTR szFilename);
+	cSkinnedMesh* GetMeshPart(IN DWORD dwPart) { return m_vecMesh[dwPart]; }
 
 	DWORD RegisterAnimation(IN DWORD dwAnimationKey, IN LPD3DXANIMATIONSET pAnimation);
+	LPD3DXANIMATIONCONTROLLER GetAnimationController(void) { return m_pAnimationController; }
 	void SetAnimation(IN DWORD dwAnimationKey);
 	bool ExportAnimation(OUT LPD3DXANIMATIONSET* ppAnimation, IN DWORD dwAnimationKey = 0);
 
