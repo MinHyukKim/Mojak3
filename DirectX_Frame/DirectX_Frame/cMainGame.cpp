@@ -53,8 +53,8 @@ void cMainGame::Setup(void)
 	
 	g_pSceneManager->AddScene("cUiCustomizingScene", cUiCustomizingScene::Create());
 
-	//g_pSceneManager->ChangScene("cCharTestScene");
-	g_pSceneManager->ChangScene("cUiCustomizingScene");
+	g_pSceneManager->ChangScene("cCharTestScene");
+	//g_pSceneManager->ChangScene("cUiCustomizingScene");
 
 
 	//≈∏¿Ã∏”
