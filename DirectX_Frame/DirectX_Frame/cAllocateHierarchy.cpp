@@ -46,8 +46,9 @@ HRESULT cAllocateHierarchy::CreateMeshContainer(LPCSTR Name, CONST D3DXMESHDATA*
 		pNewMeshContainer->vecTexture.resize(NumMaterials);
 		for (DWORD i = 0; i < NumMaterials; ++i)
 		{
-			cAllocateHierarchy::CopyString(&pNewMeshContainer->pMaterials[i].pTextureFilename, pMaterials[i].pTextureFilename);		//텍스쳐 이름 복사
-			//하이라키에 폴더 이름이 없음 텍스쳐는 Setup에서
+			std::string FullPath = m_sFolder + pMaterials[i].pTextureFilename;
+			cAllocateHierarchy::CopyString(&pNewMeshContainer->pMaterials[i].pTextureFilename, FullPath.c_str());		//텍스쳐 이름 복사
+			pNewMeshContainer->vecTexture[i] = g_pTexture->GetTexture(pNewMeshContainer->pMaterials[i].pTextureFilename);
 		}
 		pNewMeshContainer->NumMaterials = NumMaterials;																				//갯수
 	}

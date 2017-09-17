@@ -66,7 +66,9 @@ static std::ofstream BubugFile;
 #define DEBUG_SUB_COUNT() --nHierachyCount
 
 #else // CONSOLE_DEBUG_TEST
+#define DEBUG_WRIT(text) //출력안함
 #define DEBUG_START()
+#define DEBUG_TEXT_EX(text)
 #define DEBUG_END()
 #define DEBUG_TEXT(text) //출력안함
 #define DEBUG_ADD_COUNT()
@@ -148,10 +150,11 @@ struct ST_SIZE
 struct ST_BONE : public D3DXFRAME
 {
 	D3DXMATRIXA16 CombinedTransformationMatrix;
+//	bool bUpdate;
+//	bool bRender;
 
 
-
-	ST_BONE(void) : D3DXFRAME({})
+	ST_BONE(void) : D3DXFRAME({})/*, bUpdate(true), bRender(false)*/
 	{
 		D3DXMatrixIdentity(&TransformationMatrix);
 		D3DXMatrixIdentity(&CombinedTransformationMatrix);
