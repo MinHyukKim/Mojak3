@@ -25,17 +25,17 @@ void cCrtCtrl::Update(iMap * pMap)
 	}
 	//맵데이터에서 높이 정보를 받아와 높이를 높여준다
 	//현재 맵 미구현으로 주석처리
-	//if (pMap)
-	//{
-	//	if (pMap->GetHeight(vPos.x, vPos.y, vPos.z))
-	//	{
-	//		m_vPos = vPos;
-	//	}
-	//}
-	//else
-	//{
-	//	m_vPos = vPos;
-	//}
+	if (pMap)
+	{
+		if (pMap->GetHeight(vPos.x, vPos.y, vPos.z))
+		{
+			m_vPos = vPos;
+		}
+	}
+	else
+	{
+		m_vPos = vPos;
+	}
 	m_vPos = vPos;
 
 	m_vDir = D3DXVECTOR3(0, 0, 1);
