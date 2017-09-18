@@ -10,6 +10,7 @@ cPlayer::cPlayer(void)
 	, m_bCurrentTrack(false)
 {
 	D3DXMatrixIdentity(&m_matWorld);
+	ZeroMemory(&m_stHairMaterial, sizeof(D3DMATERIAL9));
 }
 
 cPlayer::~cPlayer(void)
@@ -175,6 +176,34 @@ void cPlayer::SetTextureMouth(LPCSTR szEyeName)
 	}
 	//텍스쳐 이름 업데이트
 	m_sCurrentMouthTextureName = szEyeName;
+}
+
+void cPlayer::SetTextureHair(LPCSTR szHairName)
+{
+	if (m_vecMesh[cPlayer::MESH_HAIR] && m_sCurrentHairTextureName.length())
+	{
+		m_vecMesh[cPlayer::MESH_HAIR]->SetTextureColor(szHairName, &m_stHairMaterial);
+	}
+	m_sCurrentHairTextureName = szHairName;
+}
+
+void cPlayer::SetTextureHairColor(D3DMATERIAL9* stMaterial)
+{
+	m_stHairMaterial = *stMaterial;
+	if (m_vecMesh[cPlayer::MESH_HAIR] && m_sCurrentHairTextureName.length())
+	{
+		m_vecMesh[cPlayer::MESH_HAIR]->SetTextureColor(m_sCurrentHairTextureName.c_str(), &m_stHairMaterial);
+	}
+
+}
+
+void cPlayer::SetTextureHairColor(LPD3DXCOLOR pColor)
+{
+	m_stHairMaterial.Ambient = m_stHairMaterial.Diffuse = m_stHairMaterial.Specular = *pColor;
+	if (m_vecMesh[cPlayer::MESH_HAIR] && m_sCurrentHairTextureName.length())
+	{
+		m_vecMesh[cPlayer::MESH_HAIR]->SetTextureColor(m_sCurrentHairTextureName.c_str(), &m_stHairMaterial);
+	}
 }
 
 cPlayer* cPlayer::Create(void)

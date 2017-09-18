@@ -43,7 +43,7 @@ public:
 	void FrameChange(LPD3DXFRAME pFrame);
 	void SetTrack(bool ibTrack) { m_isCurrentTrack = ibTrack; }
 	void SetTextureColor(LPCSTR szTextureName, LPD3DXCOLOR pColor);
-	void SetTextureColor(LPCSTR szTextureName, LPD3DXMATRIX pColor);
+	void SetTextureColor(LPCSTR szTextureName, D3DMATERIAL9* pMaterial);
 	void SetTextureDiffuse(LPCSTR szTextureName, LPD3DXCOLOR pDiffuse);
 	void SetTextureAmbient(LPCSTR szTextureName, LPD3DXCOLOR pAmbient);
 	void SetTextureSpecular(LPCSTR szTextureName, LPD3DXCOLOR pSpecular);
@@ -54,7 +54,7 @@ public:
 	static void SetTextureAmbient(LPD3DXFRAME pRoot, LPCSTR szTextureName, LPD3DXCOLOR pAmbient);
 	static void SetTextureSpecular(LPD3DXFRAME pRoot, LPCSTR szTextureName, LPD3DXCOLOR pSpecular);
 	static void SetTextureColor(LPD3DXFRAME pRoot, LPCSTR szTextureName, LPD3DXCOLOR pColor);
-	static void SetTextureColor(LPD3DXFRAME pRoot, LPCSTR szTextureName, LPD3DXMATRIX pColor);
+	static void SetTextureColor(LPD3DXFRAME pRoot, LPCSTR szTextureName, D3DMATERIAL9* pMaterial);
 	static void SetTextureChange(LPD3DXFRAME pRoot, LPCSTR szPrevTextureName, LPCSTR szNextTextureName);
 	static void AddTexture(LPD3DXFRAME pRoot, LPCSTR szFrameName, LPCSTR szTextureName);
 

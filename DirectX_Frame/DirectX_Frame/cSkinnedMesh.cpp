@@ -530,9 +530,9 @@ void cSkinnedMesh::SetTextureColor(LPCSTR szTextureName, LPD3DXCOLOR pColor)
 	cSkinnedMesh::SetTextureColor(m_pRootFrame, szTextureName, pColor);
 }
 
-void cSkinnedMesh::SetTextureColor(LPCSTR szTextureName, LPD3DXMATRIX pColor)
+void cSkinnedMesh::SetTextureColor(LPCSTR szTextureName, D3DMATERIAL9* pMaterial)
 {
-	cSkinnedMesh::SetTextureColor(m_pRootFrame, szTextureName, pColor);
+	cSkinnedMesh::SetTextureColor(m_pRootFrame, szTextureName, pMaterial);
 }
 
 void cSkinnedMesh::SetTextureDiffuse(LPCSTR szTextureName, LPD3DXCOLOR pDiffuse)
@@ -678,21 +678,19 @@ void cSkinnedMesh::SetTextureColor(LPD3DXFRAME pRoot, LPCSTR szTextureName, LPD3
 	}
 }
 
-void cSkinnedMesh::SetTextureColor(LPD3DXFRAME pRoot, LPCSTR szTextureName, LPD3DXMATRIX pColor)
+void cSkinnedMesh::SetTextureColor(LPD3DXFRAME pRoot, LPCSTR szTextureName, D3DMATERIAL9* pMaterial)
 {
 	if (!pRoot) return;
 	if (pRoot->pMeshContainer)
 	{
 		for (DWORD i = 0; i < pRoot->pMeshContainer->NumMaterials; i++)
 		{
-			LPD3DXMATERIAL pMaterial = &pRoot->pMeshContainer->pMaterials[i];
+			LPD3DXMATERIAL _pMaterial = &pRoot->pMeshContainer->pMaterials[i];
 			//메트리얼->이름 == 찾는이름
-			if (pMaterial && !strcmp(pMaterial->pTextureFilename, szTextureName))
+			if (_pMaterial && !strcmp(_pMaterial->pTextureFilename, szTextureName))
 			{
 				//색상변경
-				pMaterial->MatD3D.Ambient = D3DXCOLOR(pColor->_11, pColor->_12, pColor->_13, pColor->_14);
-				pMaterial->MatD3D.Diffuse = D3DXCOLOR(pColor->_21, pColor->_22, pColor->_23, pColor->_24);
-				pMaterial->MatD3D.Specular = D3DXCOLOR(pColor->_31, pColor->_32, pColor->_33, pColor->_34);
+				_pMaterial->MatD3D = *pMaterial;
 			}
 		}
 	}

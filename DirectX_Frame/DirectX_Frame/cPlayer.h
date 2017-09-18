@@ -33,6 +33,9 @@ private:
 
 	std::string m_sCurrentEyeTextureName;
 	std::string m_sCurrentMouthTextureName;
+	std::string m_sCurrentHairTextureName;
+
+	D3DMATERIAL9 m_stHairMaterial;
 
 	cCamera* m_pCamera;
 
@@ -58,6 +61,9 @@ public:
 	bool ExportAnimation(OUT LPD3DXANIMATIONSET* ppAnimation, IN DWORD dwAnimationKey = 0);
 	void SetTextureEye(LPCSTR szEyeName);
 	void SetTextureMouth(LPCSTR szEyeName);
+	void SetTextureHair(LPCSTR szHairName);
+	void SetTextureHairColor(D3DMATERIAL9* stMaterial);
+	void SetTextureHairColor(LPD3DXCOLOR pColor);
 
 	cCamera* GetCamera(void) { return m_pCamera; }
 
