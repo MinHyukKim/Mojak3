@@ -68,14 +68,20 @@ private:
 	//헤어
 	cUIImageView* m_pCustomHairImageHead;
 	cUIImageView* m_pCustomHairImage;
+	cUIButton* m_pCustomHairSulastButton;
+	cUIButton* m_pCustomHairColorSulastButton;
 	cUiObject* m_pCustomHairUi;
 	//눈
 	cUIImageView* m_pCustomEyeImageHead;
 	cUIImageView* m_pCustomEyeImage;
+	cUIButton* m_pCustomEyeSulastButton;
+	cUIButton* m_pCustomEyeColorSulastButton;
 	cUiObject* m_pCustomEyeUi;
 	//입
 	cUIImageView* m_pCustomMouthImageHead;
 	cUIImageView* m_pCustomMouthImage;
+	cUIButton* m_pCustomMouthSulastButton;
+	cUIButton* m_pCustomMouthColorSulastButton;
 	cUiObject* m_pCustomMouthUi;
 	//확인팝업
 
@@ -87,6 +93,9 @@ public:
 
 	void MsgProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam);
 	virtual void OnClick(cUIButton* pSender) override;
+
+	//커마 메인 색바꾸기
+	void changeButtonColor();
 
 	static cUiCustomizingScene* Create(void);
 protected:

@@ -21,7 +21,20 @@ private:
 
 	//패널 이미지 크기 태스트용
 	cUIImageView* m_pUiTesterSize;
-//	cUiObject* m_mUiTest;
+	cUiObject* m_pUiTest;
+
+	//전체 이미지
+	cUIImageView* m_pHairSulastHeadImage;
+	cUIImageView* m_pHairSulastImage;
+	cUIButton* m_pHairButton;
+	cUIButton* m_pHairButton01;
+	cUIButton* m_pHairButton02;
+	cUIButton* m_pHairButton03;
+	cUIButton* m_pHairColorButton;
+	cUIButton* m_pHairColorButton01;
+	cUIButton* m_pHairColorButton02;
+	cUIButton* m_pHairColorButton03;
+	cUiObject* m_pHairUi;
 
 public:
 	virtual HRESULT Setup(void);

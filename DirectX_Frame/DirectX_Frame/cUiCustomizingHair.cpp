@@ -8,6 +8,21 @@
 #include "cUITextView.h"
 #include "cUIButton.h"
 
+enum
+{
+	E_NOUN,
+
+	E_HAIR_BUTTON_01,
+	E_HAIR_BUTTON_02,
+	E_HAIR_BUTTON_03,
+
+	E_HAIR_COLOR_BUTTON_01,
+	E_HAIR_COLOR_BUTTON_02,
+	E_HAIR_COLOR_BUTTON_03,
+
+	E_END
+};
+
 cUiCustomizingHair::cUiCustomizingHair(void)
 	: m_pSprite(NULL)
 	, m_pTexture(NULL)
@@ -24,7 +39,6 @@ cUiCustomizingHair::~cUiCustomizingHair(void)
 //	newClass->AddRef();
 //	return newClass;
 //}
-
 
 HRESULT cUiCustomizingHair::Setup(void)
 {
