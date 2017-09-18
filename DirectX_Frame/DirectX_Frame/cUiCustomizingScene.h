@@ -109,13 +109,10 @@ public:
 	virtual void Update(void) override;
 	virtual void Render(void) override;
 
-	void MsgProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam);
 	virtual void OnClick(cUIButton* pSender) override;
 
 	//커마 메인 색바꾸기
 	void changeButtonColor();
-	//음직임?
-	void moveingPlayer();
 
 	static cUiCustomizingScene* Create(void);
 protected:
