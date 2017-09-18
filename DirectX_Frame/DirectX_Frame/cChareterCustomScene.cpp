@@ -36,6 +36,8 @@ HRESULT cChareterCustomScene::Setup(void)
 	m_pPlayer = cPlayer::Create();
 	m_pPlayer->Setup();
 	m_pPlayer->ChangeMeshPart(cPlayer::MESH_HAIR, "Chareter/DefaultPlayer/", "Hair.X");
+	m_pPlayer->ChangeMeshPart(cPlayer::MESH_FACE, "Chareter/DefaultPlayer/", "Hair.X");
+	m_pPlayer->ChangeMeshPart(cPlayer::MESH_BODY, "Chareter/DefaultPlayer/", "lisaAniTest.X");
 	//m_pPlayer->ChangeMeshPart(cPlayer::MESH_BODY, "Chareter/DefaultPlayer/", "lisaAniTest.X");
 	m_pPlayer->ChangeMeshPart(cPlayer::MESH_BODY, "Chareter/Female_Body/", "basicBody.X");
 	m_pPlayer->ChangeMeshPart(cPlayer::MESH_HAND, "Chareter/Female_Hand/", "basicFist.X");
