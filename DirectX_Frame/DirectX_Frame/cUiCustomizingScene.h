@@ -89,6 +89,7 @@ private:
 	bool m_isLButtonDown;
 	POINT m_ptMouse;
 	POINT m_ptPrevMouse;
+
 public:
 	virtual HRESULT Setup(void) override;
 	virtual void Reset(void) override;
@@ -100,6 +101,8 @@ public:
 
 	//커마 메인 색바꾸기
 	void changeButtonColor();
+	//음직임?
+	void moveingPlayer();
 
 	static cUiCustomizingScene* Create(void);
 protected:

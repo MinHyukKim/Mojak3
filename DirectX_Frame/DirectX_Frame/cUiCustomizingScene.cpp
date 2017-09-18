@@ -143,7 +143,7 @@ HRESULT cUiCustomizingScene::Setup(void)
 	//플레이어 설정
 	//메시 로드 및 색상 편집
 	cSkinnedMesh* pSkinMesh;
-	pSkinMesh = g_pSkinnedMeshManager->GetSkinnedMesh("Chareter/DefaultPlayer/", "Hair.X");
+	pSkinMesh = g_pSkinnedMeshManager->GetSkinnedMesh("Chareter/DefaultPlayer/", "lisaAniTest.X");
 	pSkinMesh->SetTextureColor("hair01.dds", &D3DXCOLOR(1.0f, 0.0f, 0.0f, 0.2f));
 
 	pSkinMesh = g_pSkinnedMeshManager->GetSkinnedMesh("Chareter/DefaultPlayer/", "lisaAniTest.X");
@@ -153,16 +153,26 @@ HRESULT cUiCustomizingScene::Setup(void)
 	pSkinMesh->SetTextureColor("uni_newbie03_c.dds", &D3DXCOLOR(0.8f, 0.2f, 0.8f, 0.2f));
 	pSkinMesh->SetTextureColor("uni_3rd_premium_c.dds", &D3DXCOLOR(0.5f, 0.0f, 0.1f, 0.2f));
 	pSkinMesh->SetTextureColor("male_pumpkin_pants_c.dds", &D3DXCOLOR(0.0f, 0.0f, 0.0f, 0.2f));
+
+//	pSkinMesh = g_pSkinnedMeshManager->GetSkinnedMesh("Chareter/DefaultPlayer/", "lisaAniTest.X");
+//	pSkinMesh->SetTextureColor("hair01.dds", &D3DXCOLOR(1.0f, 0.0f, 0.0f, 1.0f));
+//	pSkinMesh = g_pSkinnedMeshManager->GetSkinnedMesh("Chareter/DefaultPlayer/", "lisaAniTest.X");
 	//플레이어 생성
 	m_pPlayer = cPlayer::Create();
 	m_pPlayer->Setup();
 	m_pPlayer->ChangeMeshPart(cPlayer::MESH_HAIR, "Chareter/DefaultPlayer/", "Hair.X");
+	m_pPlayer->ChangeMeshPart(cPlayer::MESH_FACE, "Chareter/DefaultPlayer/", "Hair.X");
 	m_pPlayer->ChangeMeshPart(cPlayer::MESH_BODY, "Chareter/DefaultPlayer/", "lisaAniTest.X");
+	//m_pPlayer->ChangeMeshPart(cPlayer::MESH_BODY, "Chareter/DefaultPlayer/", "lisaAniTest.X");
+	m_pPlayer->ChangeMeshPart(cPlayer::MESH_BODY, "Chareter/Female_Body/", "basicBody.X");
+	m_pPlayer->ChangeMeshPart(cPlayer::MESH_HAND, "Chareter/Female_Hand/", "basicFist.X");
+	m_pPlayer->ChangeMeshPart(cPlayer::MESH_SHOES, "Chareter/Female_Shoes/", "basicShoes.X");
+	m_pPlayer->ChangeMeshPart(cPlayer::MESH_FACE, "Chareter/Female_Face/", "basicFace.X");
 	//카메라 연결
 	m_pMainCamera = m_pPlayer->GetCamera();
 	m_pMainCamera->Setup();
 	//위치
-	m_pMainCamera->SetPosition(&D3DXVECTOR3(50.0f, 0.6f, -1.1f));
+	m_pMainCamera->SetPosition(&D3DXVECTOR3(50.0f, 0.7f, -1.1f));
 //	m_pMainCamera->SetPosition(&D3DXVECTOR3(50.0f, 0.4f, -1.2f));
 	//애니메이션 등록
 	LPD3DXANIMATIONSET pAnimationSet;
@@ -275,12 +285,39 @@ HRESULT cUiCustomizingScene::Setup(void)
 	m_pCustomMouthImageHead->SetPosition(20, 20);
 	m_pCustomMouthImageHead->m_Alpha = 0;
 	m_pCustomMouthUi = m_pCustomMouthImageHead;
-	//눈 창
+	//입 창
 	m_pCustomMouthImage = cUIImageView::Create();
 	m_pCustomMouthImage->SetTexture("Texture/Ui/customUiBase2.png");
 	m_pCustomMouthImage->SetPosition(2, 48);
 	m_pCustomMouthImage->m_Alpha = 0;
 	m_pCustomMouthUi->AddChild(m_pCustomMouthImage);
+	//입 버튼 1
+	m_pCustomMouthSulastButton = cUIButton::Create();
+	m_pCustomMouthSulastButton->SetTexture("Texture/Ui/buttonBase2.png",
+		"Texture/Ui/buttonBase2.png",
+		"Texture/Ui/buttonBase2Down.png");
+	m_pCustomMouthSulastButton->SetPosition(10, 120);
+	m_pCustomMouthSulastButton->SetDelegate(this);
+	m_pCustomMouthSulastButton->SetTag(E_MOUTH_SELECT_01);
+	m_pCustomMouthUi->AddChild(m_pCustomMouthSulastButton);
+	//2
+	m_pCustomMouthSulastButton = cUIButton::Create();
+	m_pCustomMouthSulastButton->SetTexture("Texture/Ui/buttonBase2.png",
+		"Texture/Ui/buttonBase2.png",
+		"Texture/Ui/buttonBase2Down.png");
+	m_pCustomMouthSulastButton->SetPosition(70, 120);
+	m_pCustomMouthSulastButton->SetDelegate(this);
+	m_pCustomMouthSulastButton->SetTag(E_MOUTH_SELECT_02);
+	m_pCustomMouthUi->AddChild(m_pCustomMouthSulastButton);
+	//3
+	m_pCustomMouthSulastButton = cUIButton::Create();
+	m_pCustomMouthSulastButton->SetTexture("Texture/Ui/buttonBase2.png",
+		"Texture/Ui/buttonBase2.png",
+		"Texture/Ui/buttonBase2Down.png");
+	m_pCustomMouthSulastButton->SetPosition(130, 120);
+	m_pCustomMouthSulastButton->SetDelegate(this);
+	m_pCustomMouthSulastButton->SetTag(E_MOUTH_SELECT_03);
+	m_pCustomMouthUi->AddChild(m_pCustomMouthSulastButton);
 
 	return D3D_OK;
 }
@@ -323,19 +360,27 @@ void cUiCustomizingScene::Update(void)
 	case E_CUSTOM_HAIR:
 	{
 		m_pCustomHairUi->Update();
+		m_pMainCamera->SetPosition(&D3DXVECTOR3(50.0f, 0.4f, -1.1f));
 	}
 	break;
 	case E_CUSTOM_EYE:
 	{
 		m_pCustomEyeUi->Update();
+		m_pMainCamera->SetPosition(&D3DXVECTOR3(50.0f, 0.7f, -1.1f));
 	}
 	break;
 	case E_CUSTOM_MOUTH:
 	{
 		m_pCustomMouthUi->Update();
+		m_pMainCamera->SetPosition(&D3DXVECTOR3(50.0f, 0.7f, -1.1f));
 	}
 	break;
 	}
+
+	POINT ptMouse;
+	POINT ptClickMouse;
+	//GetCursorPos(&ptMouse);
+	//ScreenToClient(g_hWnd, &ptMouse);
 }
 
 void cUiCustomizingScene::Render(void)
@@ -488,4 +533,9 @@ void cUiCustomizingScene::changeButtonColor()
 			"Texture/Ui/buttonMouseUp.png",
 			"Texture/Ui/buttonMouseUp.png");
 	}
+}
+
+void cUiCustomizingScene::moveingPlayer()
+{
+
 }
