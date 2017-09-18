@@ -67,8 +67,8 @@ HRESULT cChareterCustomScene::Setup(void)
 	//추가된 애니메이션 매니저 사용법 위에 대신 아래와 같이 사용합니다.
 	g_pAnimationManager->RegisterAnimation("./Chareter/DefaultPlayer/aniTest/ani_female_attack_01.X", "공격1");
 	m_pPlayer->RegisterAnimation(cPlayer::ANIMATION_6, g_pAnimationManager->GetAnimation("공격1"));
-	g_pAnimationManager->RegisterAnimation("./Chareter/DefaultPlayer/aniTest/ani_female_run.X", "뛰기");
-	m_pPlayer->RegisterAnimation(cPlayer::ANIMATION_7, g_pAnimationManager->GetAnimation("뛰기"));
+	g_pAnimationManager->RegisterAnimation("./Chareter/DefaultPlayer/aniTest/ani_female_run.X", "뛰기가 아니네?");
+	m_pPlayer->RegisterAnimation(cPlayer::ANIMATION_7, g_pAnimationManager->GetAnimation("뛰기가 아니네?"));
 
 	//애니메이션 변형
 	m_pPlayer->SetAnimation(cPlayer::ANIMATION_IDLE);
@@ -90,11 +90,13 @@ void cChareterCustomScene::Update(void)
 	if (g_pInputManager->IsOnceKeyDown('3')) m_pPlayer->SetAnimation(cPlayer::ANIMATION_3);
 	if (g_pInputManager->IsOnceKeyDown('4')) m_pPlayer->SetAnimation(cPlayer::ANIMATION_4);
 	if (g_pInputManager->IsOnceKeyDown('5')) m_pPlayer->SetAnimation(cPlayer::ANIMATION_5);
+	if (g_pInputManager->IsOnceKeyDown('6')) m_pPlayer->SetAnimation(cPlayer::ANIMATION_6);
+	if (g_pInputManager->IsOnceKeyDown('7')) m_pPlayer->SetAnimation(cPlayer::ANIMATION_7);
 
-	if (g_pInputManager->IsOnceKeyDown('6')) m_pPlayer->ChangeMeshPart(cPlayer::MESH_HAIR, "Chareter/DefaultPlayer/", "hair_female_hair01_t01.X");
-	if (g_pInputManager->IsOnceKeyDown('7')) m_pPlayer->ChangeMeshPart(cPlayer::MESH_HAIR, "Chareter/DefaultPlayer/", "hair_female_hair02_t02.X");
-	if (g_pInputManager->IsOnceKeyDown('8')) m_pPlayer->ChangeMeshPart(cPlayer::MESH_HAIR, "Chareter/DefaultPlayer/", "hair_female_hair22_t22.X");
-	if (g_pInputManager->IsOnceKeyDown('9')) m_pPlayer->ChangeMeshPart(cPlayer::MESH_HAIR, "Chareter/DefaultPlayer/", "Hair.X");
+	if (g_pInputManager->IsOnceKeyDown('8')) m_pPlayer->ChangeMeshPart(cPlayer::MESH_HAIR, "Chareter/DefaultPlayer/", "hair_female_hair01_t01.X");
+	if (g_pInputManager->IsOnceKeyDown('9')) m_pPlayer->ChangeMeshPart(cPlayer::MESH_HAIR, "Chareter/DefaultPlayer/", "hair_female_hair02_t02.X");
+	if (g_pInputManager->IsOnceKeyDown('0')) m_pPlayer->ChangeMeshPart(cPlayer::MESH_HAIR, "Chareter/DefaultPlayer/", "hair_female_hair22_t22.X");
+	if (g_pInputManager->IsOnceKeyDown('-')) m_pPlayer->ChangeMeshPart(cPlayer::MESH_HAIR, "Chareter/DefaultPlayer/", "Hair.X");
 
 	if (g_pInputManager->IsOnceKeyDown('R')) m_pPlayer->ChangeMeshPart(cPlayer::MESH_BODY, "Chareter/DefaultPlayer/", "lisaAniTest.X");
 	if (g_pInputManager->IsOnceKeyDown('T')) m_pPlayer->ChangeMeshPart(cPlayer::MESH_BODY, "Chareter/DefaultPlayer/", "wear_adventurer01.X");
