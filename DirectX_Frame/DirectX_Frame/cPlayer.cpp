@@ -59,7 +59,13 @@ void cPlayer::Update(void)
 
 void cPlayer::Render(void)
 {
-	for each(auto p in m_vecMesh) if (p) p->UpdateAndRender(&m_matWorld);
+	for each(auto p in m_vecMesh)
+	{
+		if (p)
+		{
+			p->UpdateAndRender(&m_matWorld);
+		}
+	}
 
 
 }

@@ -20,16 +20,15 @@ HRESULT cChareterCustomScene::Setup(void)
 	//메시 로드 및 색상 편집
 	cSkinnedMesh* pSkinMesh;
 	pSkinMesh = g_pSkinnedMeshManager->GetSkinnedMesh("Chareter/DefaultPlayer/", "Hair.X");
-	pSkinMesh->SetTextureColor("hair01.dds", &D3DXCOLOR(1.0f, 0.0f, 0.0f, 0.2f));
+	pSkinMesh->SetTextureColor("hair01.dds", &D3DXCOLOR(1.0f, 0.0f, 0.0f, 1.0f));
 
 	pSkinMesh = g_pSkinnedMeshManager->GetSkinnedMesh("Chareter/DefaultPlayer/", "lisaAniTest.X");
-	pSkinMesh->SetTextureColor("uni_shoes01_c.dds", &D3DXCOLOR(1.0f, 1.0f, 0.0f, 0.2f));
+	pSkinMesh->SetTextureColor("uni_shoes01_c.dds", &D3DXCOLOR(1.0f, 1.0f, 0.0f, 1.0f));
 	pSkinMesh->SetTextureColor("hair09.dds", &D3DXCOLOR(0.0f, 0.0f, 0.0f, 0.0f));
-	pSkinMesh->SetTextureColor("bodymap01.dds", &D3DXCOLOR(1.0f, 0.53f, 0.53f, 0.2f));
-	pSkinMesh->SetTextureColor("uni_newbie03_c.dds", &D3DXCOLOR(0.8f, 0.2f, 0.8f, 0.2f));
-	pSkinMesh->SetTextureColor("uni_3rd_premium_c.dds", &D3DXCOLOR(0.5f, 0.0f, 0.1f, 0.2f));
-	pSkinMesh->SetTextureColor("male_pumpkin_pants_c.dds", &D3DXCOLOR(0.0f, 0.0f, 0.0f, 0.2f));
-
+	pSkinMesh->SetTextureColor("bodymap01.dds", &D3DXCOLOR(1.0f, 0.53f, 0.53f, 1.0f));
+	pSkinMesh->SetTextureColor("uni_newbie03_c.dds", &D3DXCOLOR(0.8f, 0.2f, 0.8f, 1.0f));
+	pSkinMesh->SetTextureColor("uni_3rd_premium_c.dds", &D3DXCOLOR(0.5f, 0.0f, 0.1f, 1.0f));
+	pSkinMesh->SetTextureColor("male_pumpkin_pants_c.dds", &D3DXCOLOR(0.0f, 0.0f, 0.0f, 1.0f));
 
 	pSkinMesh = g_pSkinnedMeshManager->GetSkinnedMesh("Chareter/DefaultPlayer/", "lisaAniTest.X");
 
@@ -46,7 +45,6 @@ HRESULT cChareterCustomScene::Setup(void)
 	//카메라 연결
 	m_pMainCamera = m_pPlayer->GetCamera();
 	m_pMainCamera->Setup();
-
 
 	//애니메이션 등록
 	LPD3DXANIMATIONSET pAnimationSet;
@@ -66,9 +64,16 @@ HRESULT cChareterCustomScene::Setup(void)
 	m_pPlayer->RegisterAnimation(cPlayer::ANIMATION_5, pAnimationSet);
 	SAFE_RELEASE(pAnimationSet);
 
+	//추가된 애니메이션 매니저 사용법 위에 대신 아래와 같이 사용합니다.
+	g_pAnimationManager->RegisterAnimation("./Chareter/DefaultPlayer/aniTest/ani_female_attack_01.X", "공격1");
+	m_pPlayer->RegisterAnimation(cPlayer::ANIMATION_6, g_pAnimationManager->GetAnimation("공격1"));
+	g_pAnimationManager->RegisterAnimation("./Chareter/DefaultPlayer/aniTest/ani_female_run.X", "뛰기");
+	m_pPlayer->RegisterAnimation(cPlayer::ANIMATION_7, g_pAnimationManager->GetAnimation("뛰기"));
+
 	//애니메이션 변형
 	m_pPlayer->SetAnimation(cPlayer::ANIMATION_IDLE);
 
+	m_n = 0;
 
 	return S_OK;
 }

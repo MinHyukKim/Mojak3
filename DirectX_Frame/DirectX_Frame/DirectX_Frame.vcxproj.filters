@@ -44,6 +44,7 @@
     <ClCompile Include="cUiCustomizingScene.cpp" />
     <ClCompile Include="cLodingScene.cpp" />
     <ClCompile Include="cDataLoder.cpp" />
+    <ClCompile Include="cAnimationManager.cpp" />
     <ClCompile Include="cUiCustomizingHair.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -92,6 +93,7 @@
     <ClInclude Include="cUiCustomizingScene.h" />
     <ClInclude Include="cLodingScene.h" />
     <ClInclude Include="cDataLoder.h" />
+    <ClInclude Include="cAnimationManager.h" />
     <ClInclude Include="cUiCustomizingHair.h" />
   </ItemGroup>
   <ItemGroup>
