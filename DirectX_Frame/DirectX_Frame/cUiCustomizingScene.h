@@ -9,6 +9,9 @@ class cUIImageView;
 class cUIButton;
 class cUITextView;
 class iButtonDelegate;
+//플레이어 띄우기
+class cPlayer;
+class cCamera;
 
 enum eCustomizingTab
 {
@@ -22,15 +25,22 @@ enum eCustomizingTab
 class cUiCustomizingScene : public cSceneObject, iButtonDelegate
 {
 private:
-	//이동 가변 뿌리들은 맴버변수로
+
+	//기본 구성 스프라이트, 택스트 등
 	cFont* m_pFont;
 	LPD3DXSPRITE m_pSprite;
 	LPDIRECT3DTEXTURE9 m_pTexture;
+
+	//플레이어 보여주기
+	cPlayer* m_pPlayer;
+	//임시 캐매라
+	cCamera* m_pMainCamera;
 
 	//패널 이미지 크기 태스트용
 	cUIImageView* m_pUiTesterSize;
 	cUiObject* m_mUiTest;
 
+	//이동 가변 뿌리들은 맴버변수로
 	//서버 생성 창
 	cUIImageView* m_pServerSulastHeadImage;
 	cUIImageView* m_pServerSulastImage;

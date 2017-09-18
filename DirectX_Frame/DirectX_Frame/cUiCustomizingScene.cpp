@@ -7,6 +7,9 @@
 #include "cUIImageView.h"
 #include "cUITextView.h"
 #include "cUIButton.h"
+//플레이어
+#include "cPlayer.h"
+#include "cCamera.h"
 
 enum
 {
@@ -26,6 +29,8 @@ cUiCustomizingScene::cUiCustomizingScene(void)
 	, m_pUiTesterSize(NULL)
 	, m_pSprite(NULL)
 	, m_pTexture(NULL)
+	, m_pPlayer(NULL)
+	, m_pMainCamera(NULL)
 
 	, m_pServerSulastHeadImage(NULL)
 	, m_pServerSulastImage(NULL)
@@ -65,6 +70,7 @@ HRESULT cUiCustomizingScene::Setup(void)
 	m_pUiTesterSize->SetPosition(100, 20);
 	m_mUiTest = m_pUiTesterSize;
 
+	//나중에 지울것
 	//서버 창 머리
 	m_pServerSulastHeadImage = cUIImageView::Create();
 	m_pServerSulastHeadImage->SetTexture("Texture/Ui/customUiBaseHead1.png"); 
@@ -116,6 +122,35 @@ HRESULT cUiCustomizingScene::Setup(void)
 	m_pServerTextCancel->SetTag(E_SERVER_TEXT_CANCEL);
 	m_pServerSulastUi->AddChild(m_pServerTextCancel);
 
+	//플레이어 설정
+	//메시 로드 및 색상 편집
+	cSkinnedMesh* pSkinMesh;
+	pSkinMesh = g_pSkinnedMeshManager->GetSkinnedMesh("Chareter/DefaultPlayer/", "Hair.X");
+	pSkinMesh->SetTextureColor("hair01.dds", &D3DXCOLOR(1.0f, 0.0f, 0.0f, 0.2f));
+
+	pSkinMesh = g_pSkinnedMeshManager->GetSkinnedMesh("Chareter/DefaultPlayer/", "lisaAniTest.X");
+	pSkinMesh->SetTextureColor("uni_shoes01_c.dds", &D3DXCOLOR(1.0f, 1.0f, 0.0f, 0.2f));
+	pSkinMesh->SetTextureColor("hair09.dds", &D3DXCOLOR(0.0f, 0.0f, 0.0f, 0.0f));
+	pSkinMesh->SetTextureColor("bodymap01.dds", &D3DXCOLOR(1.0f, 0.53f, 0.53f, 0.2f));
+	pSkinMesh->SetTextureColor("uni_newbie03_c.dds", &D3DXCOLOR(0.8f, 0.2f, 0.8f, 0.2f));
+	pSkinMesh->SetTextureColor("uni_3rd_premium_c.dds", &D3DXCOLOR(0.5f, 0.0f, 0.1f, 0.2f));
+	pSkinMesh->SetTextureColor("male_pumpkin_pants_c.dds", &D3DXCOLOR(0.0f, 0.0f, 0.0f, 0.2f));
+	//플레이어 생성
+	m_pPlayer = cPlayer::Create();
+	m_pPlayer->Setup();
+	m_pPlayer->ChangeMeshPart(cPlayer::MESH_HAIR, "Chareter/DefaultPlayer/", "Hair.X");
+	m_pPlayer->ChangeMeshPart(cPlayer::MESH_BODY, "Chareter/DefaultPlayer/", "lisaAniTest.X");
+	//카메라 연결
+	m_pMainCamera = m_pPlayer->GetCamera();
+	m_pMainCamera->Setup();
+	//애니메이션 등록
+	LPD3DXANIMATIONSET pAnimationSet;
+	g_pAllocateHierarchy->GetAnimationSet(0, &pAnimationSet, "./Chareter/DefaultPlayer/aniTest/ani_female_stand_leftahead.X");
+	m_pPlayer->RegisterAnimation(cPlayer::ANIMATION_5, pAnimationSet);
+	SAFE_RELEASE(pAnimationSet);
+	//애니메이션 변형
+	m_pPlayer->SetAnimation(cPlayer::ANIMATION_5);
+
 	//커마 창 머리
 	m_pCustomImageHead = cUIImageView::Create();
 	m_pCustomImageHead->SetTexture("Texture/Ui/customUiBaseHead1.png");
@@ -164,6 +199,7 @@ HRESULT cUiCustomizingScene::Setup(void)
 
 void cUiCustomizingScene::Reset(void)
 {
+	SAFE_RELEASE(m_pPlayer);
 	SAFE_RELEASE(m_mUiTest);
 
 	SAFE_RELEASE(m_pSprite);
@@ -213,6 +249,9 @@ void cUiCustomizingScene::Update(void)
 			"Texture/Ui/buttonMouseUp.png");
 	}
 
+	SAFE_UPDATE(m_pPlayer);
+	if (m_pMainCamera) m_pMainCamera->Update();
+	
 	if (m_pCustomUi) m_pCustomUi->Update();
 	if (m_mUiTest) m_mUiTest->Update();
 }
@@ -220,7 +259,7 @@ void cUiCustomizingScene::Update(void)
 void cUiCustomizingScene::Render(void)
 {
 	g_pD3DDevice->SetTexture(0, m_pTexture);
-
+	SAFE_RENDER(m_pPlayer);
 //	if (m_pServerSulastUi) m_pServerSulastUi->Render(m_pSprite);
 	if (m_pCustomUi) m_pCustomUi->Render(m_pSprite);
 //	if (m_mUiTest) m_mUiTest->Render(m_pSprite);
