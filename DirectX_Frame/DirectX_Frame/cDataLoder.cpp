@@ -41,7 +41,7 @@ bool cDataLoder::LoaderData(void)
 	{
 	case cDataLoder::DATA_NULL: break;
 	case cDataLoder::DATA_MESH: g_pSkinnedMeshManager->RegisterSkinnedMesh(pData->str1, pData->str2, pData->str3); break;
-	case cDataLoder::DATA_MESH_COLOR1: g_pSkinnedMeshManager->GetSkinnedMesh(pData->str1)->SetTextureColor(pData->str2.c_str(), &pData->mat1); break;
+//	case cDataLoder::DATA_MESH_COLOR1: g_pSkinnedMeshManager->GetSkinnedMesh(pData->str1)->SetTextureColor(pData->str2.c_str(), &pData->mat1); break;
 	case cDataLoder::DATA_MESH_COLOR2: break;
 	case cDataLoder::DATA_ANIMATION: break;
 	default: break;

@@ -113,7 +113,9 @@ HRESULT cUiCustomizingScene::Setup(void)
 	m_pPlayer = cPlayer::Create();
 	m_pPlayer->Setup();
 	m_pPlayer->ChangeMeshPart(cPlayer::MESH_HAIR, "Chareter/Female_Hair/", "hair_female_hair02_t02.X");
-	m_pPlayer->ChangeMeshPartColor(cPlayer::MESH_HAIR, "hair01.dds", &D3DXCOLOR(1.0f, 0.0f, 0.0f, 1.0f));
+//	m_pPlayer->ChangeMeshPartColor(cPlayer::MESH_HAIR, "hair01.dds", &D3DXCOLOR(1.0f, 0.0f, 0.0f, 1.0f));
+	m_pPlayer->SetTextureHair("hair01.dds");
+	m_pPlayer->SetTextureHairColor(&D3DXCOLOR(0.0f, 0.0f, 1.0f, 1.0f));
 	m_pPlayer->ChangeMeshPart(cPlayer::MESH_FACE, "./Chareter/Female_Face/", "basicFace.X");
 	m_pPlayer->ChangeMeshPartColor(cPlayer::MESH_FACE, "mouth_0.dds", &D3DXCOLOR(0.0f, 0.0f, 0.0f, 1.0f));
 	m_pPlayer->SetTextureMouth("mouth_0.dds");
@@ -465,10 +467,13 @@ void cUiCustomizingScene::OnClick(cUIButton * pSender)
 		if (pSender->GetTag() == E_HAIR_COLOR_SELECT_01)
 		{
 			m_pPlayer->ChangeMeshPartColor(cPlayer::MESH_HAIR, "hair01.dds", &D3DXCOLOR(1.0f, 0.0f, 0.0f, 1.0f));
+
 		}
 		else if (pSender->GetTag() == E_HAIR_COLOR_SELECT_02)
 		{
 			m_pPlayer->ChangeMeshPartColor(cPlayer::MESH_HAIR, "hair01.dds", &D3DXCOLOR(0.0f, 0.0f, 1.0f, 1.0f));
+		//	m_pPlayer->SetTextureHair("hair01.dds");
+		//	m_pPlayer->SetTextureHairColor(&D3DXCOLOR(0.0f, 0.0f, 1.0f, 1.0f));
 		}
 		else if ((pSender->GetTag() == E_HAIR_COLOR_SELECT_03))
 		{
