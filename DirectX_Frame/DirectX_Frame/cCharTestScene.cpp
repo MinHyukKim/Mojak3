@@ -7,7 +7,6 @@
 //테스트용
 #include "cGrid.h"
 #include "cMapTerrain.h"
-#include "cPlayer.h"
 
 cCharTestScene::cCharTestScene(void)
 	: m_pCamera(NULL)
@@ -38,10 +37,11 @@ HRESULT cCharTestScene::Setup(void)
 	m_pMapTerrain = cMapTerrain::Create();
 	m_pMapTerrain->Setup("./HeightMapData/HeightMap.raw", &m_stMtl);
 
+	//cSkinnedMesh* pSkinnedMesh = new cSkinnedMesh("./Chareter/", "female_natural_stand_straight.X");
 
-	cSkinnedMesh* pSkinnedMesh = new cSkinnedMesh("Chareter/DefaultPlayer/", "wear_adventurer02_ani.X");
+	cSkinnedMesh* pSkinnedMesh = new cSkinnedMesh("Chareter/DefaultPlayer/", "Frame.X");
 	cSkinnedMesh::SetTextureColor(pSkinnedMesh->GetRootFrame(), "bodymap01.dds", &D3DXCOLOR(1.0f, 0.53f, 0.53f, 1.0f));	//몸통
-	cSkinnedMesh::SetTextureColor(pSkinnedMesh->GetRootFrame(), "hair10.dds", &D3DXCOLOR(1.0f, 1.0f, 0.0f, 1.0f));		//머리
+	cSkinnedMesh::SetTextureColor(pSkinnedMesh->GetRootFrame(), "hair9.dds", &D3DXCOLOR(0.0f, 0.0f, 0.0f, 1.0f));		//머리
 	cSkinnedMesh::SetTextureColor(pSkinnedMesh->GetRootFrame(), "bodymap04.dds", &D3DXCOLOR(1.0f, 0.53f, 0.53f, 1.0f));	//얼굴
 	cSkinnedMesh::SetTextureColor(pSkinnedMesh->GetRootFrame(), "eye_0.dds", &D3DXCOLOR(1.0f, 1.0f, 1.0f, 1.0f));		//눈(블렌딩 필요)
 	cSkinnedMesh::SetTextureColor(pSkinnedMesh->GetRootFrame(), "mouth_0.dds", &D3DXCOLOR(1.0f, 1.0f, 1.0f, 1.0f));		//입(블렌딩 필요)
@@ -50,9 +50,16 @@ HRESULT cCharTestScene::Setup(void)
 	cSkinnedMesh::SetTextureColor(pSkinnedMesh->GetRootFrame(), "uni_3rd_premium_c.dds", &D3DXCOLOR(1.0f, 0.0f, 0.0f, 1.0f));		//상의
 	pSkinnedMesh->setPosition(D3DXVECTOR3(0, 0, 0));
 	pSkinnedMesh->SetRandomTrackPosition();
+	pSkinnedMesh->GetAnimationController()->SetTrackSpeed(0, 0.01f);
+
+	//메쉬 체인지
+	cSkinnedMesh* pSkinnedMesh3 = new cSkinnedMesh("Chareter/DefaultPlayer/", "Frame_W.X");
+	pSkinnedMesh->FrameChange(D3DXFrameFind(pSkinnedMesh3->GetRootFrame(), "Female_Body"));
+
+	SAFE_DELETE(pSkinnedMesh3);
 
 	//애니메이션
-	cSkinnedMesh* pSkinnedMesh2 = new cSkinnedMesh("Chareter/DefaultPlayer/aniTest/", "ani_female_walk_offensive.X");
+	cSkinnedMesh* pSkinnedMesh2 = new cSkinnedMesh("Chareter/DefaultPlayer/aniTest/", "ani_female_attack_01.X");
 
 	//애니메이션 등록
 	LPD3DXANIMATIONSET pAni;
@@ -94,9 +101,7 @@ void cCharTestScene::Update(void)
 	m_pCamera->Update();
 	
 	//m_pMapTerrain->Update();
-	m_pCrtCtrl->Update(m_pMapTerrain);
-
-	
+	//m_pCrtCtrl->Update(m_pMapTerrain);
 }
 
 void cCharTestScene::Render(void)
