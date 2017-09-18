@@ -51,7 +51,7 @@ void cMainGame::Setup(void)
 	g_pSceneManager->AddScene("cChareterCustomScene", cChareterCustomScene::Create());
 	g_pSceneManager->AddScene("cUiCustomizingScene", cUiCustomizingScene::Create());
 
-	g_pSceneManager->ChangeScene("cChareterCustomScene");
+	g_pSceneManager->ChangeScene("cUiCustomizingScene");
 
 
 	//Å¸ÀÌ¸Ó
@@ -76,3 +76,4 @@ void cMainGame::Render(void)
 	g_pD3DDevice->EndScene();
 	g_pD3DDevice->Present(NULL, NULL, NULL, NULL);
 }
+

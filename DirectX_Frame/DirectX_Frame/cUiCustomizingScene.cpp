@@ -28,8 +28,13 @@ enum
 	E_HAIR_SELECT_02 = 220,
 	E_HAIR_SELECT_03 = 221,
 	//눈 설랙트
-
+	E_EYE_SELECT_01 = 222,
+	E_EYE_SELECT_02 = 223,
+	E_EYE_SELECT_03 = 224,
 	//입 설랙트
+	E_MOUTH_SELECT_01 = 222,
+	E_MOUTH_SELECT_02 = 223,
+	E_MOUTH_SELECT_03 = 224,
 };
 
 cUiCustomizingScene::cUiCustomizingScene(void)
@@ -56,6 +61,7 @@ cUiCustomizingScene::cUiCustomizingScene(void)
 	, m_pCustomHairUi(NULL)
 	, m_pCustomEyeUi(NULL)
 	, m_pCustomMouthUi(NULL)
+	, m_isLButtonDown(false)
 {
 }
 
@@ -156,7 +162,8 @@ HRESULT cUiCustomizingScene::Setup(void)
 	m_pMainCamera = m_pPlayer->GetCamera();
 	m_pMainCamera->Setup();
 	//위치
-	m_pMainCamera->SetPosition(&D3DXVECTOR3(50.0f, 0.4f, -1.2f));
+	m_pMainCamera->SetPosition(&D3DXVECTOR3(50.0f, 0.6f, -1.1f));
+//	m_pMainCamera->SetPosition(&D3DXVECTOR3(50.0f, 0.4f, -1.2f));
 	//애니메이션 등록
 	LPD3DXANIMATIONSET pAnimationSet;
 	g_pAllocateHierarchy->GetAnimationSet(0, &pAnimationSet, "./Chareter/DefaultPlayer/aniTest/ani_female_stand_leftahead.X");
@@ -239,6 +246,14 @@ HRESULT cUiCustomizingScene::Setup(void)
 	m_pCustomHairSulastButton->SetTag(E_HAIR_SELECT_02);
 	m_pCustomHairUi->AddChild(m_pCustomHairSulastButton);
 	//3
+	m_pCustomHairSulastButton = cUIButton::Create();
+	m_pCustomHairSulastButton->SetTexture("Texture/Ui/buttonBase2.png",
+		"Texture/Ui/buttonBase2.png",
+		"Texture/Ui/buttonBase2Down.png");
+	m_pCustomHairSulastButton->SetPosition(130, 120);
+	m_pCustomHairSulastButton->SetDelegate(this);
+	m_pCustomHairSulastButton->SetTag(E_HAIR_SELECT_03);
+	m_pCustomHairUi->AddChild(m_pCustomHairSulastButton);
 
 	//눈 창(택스쳐)
 	//눈 머리
@@ -359,6 +374,44 @@ void cUiCustomizingScene::Render(void)
 
 void cUiCustomizingScene::MsgProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 {
+	switch (message)
+	{
+	case WM_LBUTTONDOWN:
+	{
+		m_isLButtonDown = true;
+		m_ptPrevMouse.x = LOWORD(lParam);
+		m_ptPrevMouse.y = HIWORD(lParam);
+	}
+	break;
+	case WM_LBUTTONUP:
+	{
+		m_isLButtonDown = false;
+	}
+	break;
+	case WM_MOUSEMOVE:
+	{
+		m_ptMouse.x = LOWORD(lParam);
+		m_ptMouse.y = HIWORD(lParam);
+
+		if (m_isLButtonDown)
+		{
+			POINT ptCurrMouse;
+			ptCurrMouse.x = LOWORD(lParam);
+			ptCurrMouse.y = HIWORD(lParam);
+
+			float fDeltaX = (ptCurrMouse.x - m_ptPrevMouse.x);
+			float fDeltaY = (ptCurrMouse.y - m_ptPrevMouse.y);
+
+	//		m_pPlayer->
+	//		nMatX += fDeltaX;
+	//		nMatY += fDeltaY;
+
+			m_ptPrevMouse = ptCurrMouse;
+
+		}
+	}
+	break;
+	}
 }
 
 void cUiCustomizingScene::OnClick(cUIButton * pSender)
@@ -382,8 +435,13 @@ void cUiCustomizingScene::OnClick(cUIButton * pSender)
 		if (pSender->GetTag() == E_HAIR_SELECT_01)
 		{
 			m_pPlayer->ChangeMeshPart(cPlayer::MESH_HAIR, "Chareter/DefaultPlayer/", "hair_female_hair01_t01.X");
+		//	m_pPlayer->GetMeshPart(cPlayer::MESH_FACE, )
 		}
 		else if (pSender->GetTag() == E_HAIR_SELECT_02)
+		{
+			m_pPlayer->ChangeMeshPart(cPlayer::MESH_HAIR, "Chareter/DefaultPlayer/", "hair_female_hair02_t02.X");
+		}
+		else if (pSender->GetTag() == E_HAIR_SELECT_03)
 		{
 			m_pPlayer->ChangeMeshPart(cPlayer::MESH_HAIR, "Chareter/DefaultPlayer/", "hair_female_hair02_t02.X");
 		}

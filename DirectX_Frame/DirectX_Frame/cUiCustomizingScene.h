@@ -85,6 +85,10 @@ private:
 	cUiObject* m_pCustomMouthUi;
 	//확인팝업
 
+	//마우스
+	bool m_isLButtonDown;
+	POINT m_ptMouse;
+	POINT m_ptPrevMouse;
 public:
 	virtual HRESULT Setup(void) override;
 	virtual void Reset(void) override;
