@@ -1,0 +1,2 @@
+텍스쳐 파일은 DirectX_Frame("./") 폴더에 넣어주세요.
+몸통 모델링만 Female_Body("./Chareter/Female_Body/") 폴더에 넣어주세요.
