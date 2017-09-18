@@ -30,6 +30,9 @@ HRESULT cChareterCustomScene::Setup(void)
 	pSkinMesh->SetTextureColor("uni_3rd_premium_c.dds", &D3DXCOLOR(0.5f, 0.0f, 0.1f, 0.2f));
 	pSkinMesh->SetTextureColor("male_pumpkin_pants_c.dds", &D3DXCOLOR(0.0f, 0.0f, 0.0f, 0.2f));
 
+
+	pSkinMesh = g_pSkinnedMeshManager->GetSkinnedMesh("Chareter/DefaultPlayer/", "lisaAniTest.X");
+
 	//플레이어 생성
 	m_pPlayer = cPlayer::Create();
 	m_pPlayer->Setup();

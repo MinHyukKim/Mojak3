@@ -17,6 +17,10 @@ public:
 	static cSkinnedMeshManager* GetInstance() { static cSkinnedMeshManager instance; return &instance; }
 
 	cSkinnedMesh* GetSkinnedMesh(char* szFolder, char* szFilename);
+	cSkinnedMesh* RegisterSkinnedMesh(LPCSTR szFolder, LPCSTR szFilename, LPCSTR szKeyName);
+	cSkinnedMesh* RegisterSkinnedMesh(std::string& szFolder, std::string& szFilename, std::string& szKeyName);
+	cSkinnedMesh* GetSkinnedMesh(LPCSTR szKeyName);
+	cSkinnedMesh* GetSkinnedMesh(std::string& szKeyName);
 	
 
 	void Destroy();

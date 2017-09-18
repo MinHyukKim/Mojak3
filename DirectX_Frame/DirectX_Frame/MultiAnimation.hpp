@@ -57,7 +57,7 @@ float4 PixScene(
 	float3 viewDir		= normalize(fViewDir);
 	float4 specular		= float4(1.0f, 1.0f, 1.0f, 1.0f);
 
-	if(color.x > 0)
+	if(color.a > 0)
 	{
 		specular = saturate(dot(reflaction, -viewDir));
 		specular = pow(specular, 20.0f);	
@@ -70,8 +70,9 @@ float4 PixScene(
 		if (intensity < 0.0f) intensity = 0.0f;
 		DrawColor.rgb = (DrawColor.rgb * 2 * color.rgb * (1.0f - intensity * 2.0f)) + (intensity * 2.0f);
 	}
-
+	//DrawColor = DrawColor * (float4(0.5f, 0.4f, 0.3f, 1.0f) + / 3.0f + 0.66f);
 	return DrawColor;
+	//return color;
 }
 
 //버텍스 셰이더
