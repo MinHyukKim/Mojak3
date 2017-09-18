@@ -42,6 +42,8 @@
     <ClCompile Include="cChareterCustomScene.cpp" />
     <ClCompile Include="cPlayer.cpp" />
     <ClCompile Include="cUiCustomizingScene.cpp" />
+    <ClCompile Include="cLodingScene.cpp" />
+    <ClCompile Include="cDataLoder.cpp" />
     <ClCompile Include="cUiCustomizingHair.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -88,6 +90,8 @@
     <ClInclude Include="cChareterCustomScene.h" />
     <ClInclude Include="cPlayer.h" />
     <ClInclude Include="cUiCustomizingScene.h" />
+    <ClInclude Include="cLodingScene.h" />
+    <ClInclude Include="cDataLoder.h" />
     <ClInclude Include="cUiCustomizingHair.h" />
   </ItemGroup>
   <ItemGroup>

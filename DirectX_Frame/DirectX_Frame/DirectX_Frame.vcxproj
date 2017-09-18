@@ -147,6 +147,7 @@
     <ClInclude Include="cCamera.h" />
     <ClInclude Include="cChareterCustomScene.h" />
     <ClInclude Include="cCharTestScene.h" />
+    <ClInclude Include="cDataLoder.h" />
     <ClInclude Include="cDeviceManager.h" />
     <ClInclude Include="cFont.h" />
     <ClInclude Include="cFrmReader.h" />
@@ -155,6 +156,7 @@
     <ClInclude Include="cHeightMapLoader.h" />
     <ClInclude Include="cHierarchyBones.h" />
     <ClInclude Include="cInputManager.h" />
+    <ClInclude Include="cLodingScene.h" />
     <ClInclude Include="cMapObject.h" />
     <ClInclude Include="cMapTerrain.h" />
     <ClInclude Include="cMapToolScene.h" />
@@ -193,6 +195,7 @@
     <ClCompile Include="cCamera.cpp" />
     <ClCompile Include="cChareterCustomScene.cpp" />
     <ClCompile Include="cCharTestScene.cpp" />
+    <ClCompile Include="cDataLoder.cpp" />
     <ClCompile Include="cDeviceManager.cpp" />
     <ClCompile Include="cFont.cpp" />
     <ClCompile Include="cFrmReader.cpp" />
@@ -201,6 +204,7 @@
     <ClCompile Include="cHeightMapLoader.cpp" />
     <ClCompile Include="cHierarchyBones.cpp" />
     <ClCompile Include="cInputManager.cpp" />
+    <ClCompile Include="cLodingScene.cpp" />
     <ClCompile Include="cMapObject.cpp" />
     <ClCompile Include="cMapTerrain.cpp" />
     <ClCompile Include="cMapToolScene.cpp" />

@@ -25,6 +25,34 @@ cSkinnedMesh * cSkinnedMeshManager::GetSkinnedMesh(char * szFolder, char * szFil
 	return m_mapSkinnedMesh[sFullPath];
 }
 
+cSkinnedMesh* cSkinnedMeshManager::RegisterSkinnedMesh(LPCSTR szFolder, LPCSTR szFilename, LPCSTR szKeyName)
+{
+
+	if (m_mapSkinnedMesh.find(szKeyName) == m_mapSkinnedMesh.end())
+	{
+		cSkinnedMesh* pSkinnedMesh = new cSkinnedMesh();
+		pSkinnedMesh->Load((LPSTR)szFolder, (LPSTR)szFilename);
+		m_mapSkinnedMesh[szKeyName] = pSkinnedMesh;
+	}
+	return m_mapSkinnedMesh[szKeyName];
+}
+
+cSkinnedMesh * cSkinnedMeshManager::RegisterSkinnedMesh(std::string & szFolder, std::string & szFilename, std::string & szKeyName)
+{
+	return this->RegisterSkinnedMesh(szFolder.c_str(), szFilename.c_str(), szKeyName.c_str());
+}
+
+cSkinnedMesh* cSkinnedMeshManager::GetSkinnedMesh(LPCSTR szKeyName)
+{
+	if (m_mapSkinnedMesh.find(szKeyName) == m_mapSkinnedMesh.end()) return nullptr;
+	return m_mapSkinnedMesh[szKeyName];
+}
+
+cSkinnedMesh * cSkinnedMeshManager::GetSkinnedMesh(std::string & szKeyName)
+{
+	return this->GetSkinnedMesh(szKeyName.c_str());
+}
+
 void cSkinnedMeshManager::Destroy()
 {
 	for each(auto it in m_mapSkinnedMesh)
