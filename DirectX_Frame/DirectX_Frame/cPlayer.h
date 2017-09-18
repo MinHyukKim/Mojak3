@@ -1,6 +1,7 @@
 #pragma once
 
 class cCamera;
+
 class cPlayer : public cObject
 {
 public:
@@ -13,14 +14,16 @@ public:
 private:
 	cCamera* m_pCamera;
 	cSkinnedMesh* m_pMesh;
+	D3DXVECTOR3 m_vPos;
 
 	D3DXMATRIXA16 m_matWorld;
 	std::vector<DWORD> m_vecAnimationKey;
 
 public:
-	virtual HRESULT Setup(void) override;
+	virtual HRESULT Setup(D3DXVECTOR3* pvTarget = NULL) override;
 	void Reset(void);
 	virtual void Update(void) override;
+	virtual void Update(D3DXVECTOR3 vPos);
 	virtual void Render(void) override;
 
 	cCamera* GetCamera(void) { return m_pCamera; }
@@ -32,5 +35,6 @@ public:
 protected:
 	cPlayer(void);
 	virtual ~cPlayer(void);
+	//HRESULT Setup(void);
 };
 

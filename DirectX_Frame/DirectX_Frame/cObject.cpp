@@ -52,6 +52,11 @@ HRESULT cObject::Setup(void)
 	return D3D_OK;
 }
 
+HRESULT cObject::Setup(D3DXVECTOR3 * pvTarget)
+{
+	return D3D_OK;
+}
+
 void cObject::Update(void)
 {
 //	this->UpdateChild();

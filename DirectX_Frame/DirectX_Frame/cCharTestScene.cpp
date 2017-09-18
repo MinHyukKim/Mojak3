@@ -7,6 +7,7 @@
 //테스트용
 #include "cGrid.h"
 #include "cMapTerrain.h"
+#include "cPlayer.h"
 
 cCharTestScene::cCharTestScene(void)
 	: m_pCamera(NULL)
@@ -94,6 +95,8 @@ void cCharTestScene::Update(void)
 	
 	//m_pMapTerrain->Update();
 	m_pCrtCtrl->Update(m_pMapTerrain);
+
+	
 }
 
 void cCharTestScene::Render(void)

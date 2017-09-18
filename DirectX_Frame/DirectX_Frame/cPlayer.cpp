@@ -15,7 +15,8 @@ cPlayer::~cPlayer(void)
 	this->Reset();
 }
 
-HRESULT cPlayer::Setup(void)
+
+HRESULT cPlayer::Setup(D3DXVECTOR3 * pvTarget)
 {
 	m_pCamera = cCamera::Create();
 	//m_pCamera->SetParentMatrix(&m_matWorld);
@@ -36,8 +37,15 @@ void cPlayer::Update(void)
 
 }
 
+void cPlayer::Update(D3DXVECTOR3 vPos)
+{
+	m_vPos = vPos;
+}
+
 void cPlayer::Render(void)
 {
+	//g_pD3DDevice->SetTransform(D3DTS_WORLD, &m_vPos);
+
 	if (m_pMesh) m_pMesh->UpdateAndRender();
 
 

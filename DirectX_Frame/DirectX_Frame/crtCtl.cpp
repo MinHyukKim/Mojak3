@@ -51,7 +51,6 @@ void cCrtCtrl::Update(cMapTerrain * pMap)
 	//월드 매트릭스 반영
 	m_matWorld = matR * matT;
 
-
 }
 
 D3DXVECTOR3 * cCrtCtrl::GetPosition()

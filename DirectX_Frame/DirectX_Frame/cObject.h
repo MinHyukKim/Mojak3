@@ -22,8 +22,10 @@ public:
 // 이 함수는 오버로딩 하실 수 없습니다. (오토릴리즈풀 리스트에 this를 추가합니다.)	
 	virtual cObject* AutoRelease(void);
 
-//0903 11:12추가 내부구현 안되있습니다
 	virtual HRESULT Setup(void);
+
+	//0903 11:12추가 내부구현 안되있습니다
+	virtual HRESULT Setup(D3DXVECTOR3* pvTarget = NULL);
 	virtual void Update(void);
 	virtual void Render(void);
 	//virtual void SetupChild(void) final;
