@@ -22,6 +22,19 @@ enum eCustomizingTab
 	E_CUSTOM_END
 };
 
+enum eCustomizingHair
+{
+
+};
+enum eCustomizingEye
+{
+
+};
+enum eCustomizingMouth
+{
+
+};
+
 class cUiCustomizingScene : public cSceneObject, iButtonDelegate
 {
 private:

@@ -160,8 +160,11 @@ HRESULT cUiCustomizingScene::Setup(void)
 	//플레이어 생성
 	m_pPlayer = cPlayer::Create();
 	m_pPlayer->Setup();
-	m_pPlayer->ChangeMeshPart(cPlayer::MESH_HAIR, "Chareter/DefaultPlayer/", "Hair.X");
-	m_pPlayer->ChangeMeshPart(cPlayer::MESH_FACE, "Chareter/DefaultPlayer/", "Hair.X");
+	m_pPlayer->ChangeMeshPart(cPlayer::MESH_HAIR, "Chareter/Female_Hair/", "hair_female_hair01_t01.X");
+	m_pPlayer->ChangeMeshPart(cPlayer::MESH_FACE, "./Chareter/Female_Face/", "basicFace.X");
+	m_pPlayer->ChangeMeshPartColor(cPlayer::MESH_FACE, "mouth_0.dds", &D3DXCOLOR(0.0f, 0.0f, 0.0f, 1.0f));
+	//m_pPlayer->ChangeMeshPart(cPlayer::MESH_HAIR, "Chareter/DefaultPlayer/", "Hair.X");
+	//m_pPlayer->ChangeMeshPart(cPlayer::MESH_FACE, "Chareter/DefaultPlayer/", "Hair.X");
 	m_pPlayer->ChangeMeshPart(cPlayer::MESH_BODY, "Chareter/DefaultPlayer/", "lisaAniTest.X");
 	//m_pPlayer->ChangeMeshPart(cPlayer::MESH_BODY, "Chareter/DefaultPlayer/", "lisaAniTest.X");
 	m_pPlayer->ChangeMeshPart(cPlayer::MESH_BODY, "Chareter/Female_Body/", "basicBody.X");
@@ -278,6 +281,33 @@ HRESULT cUiCustomizingScene::Setup(void)
 	m_pCustomEyeImage->SetPosition(2, 48);
 	m_pCustomEyeImage->m_Alpha = 0;
 	m_pCustomEyeUi->AddChild(m_pCustomEyeImage);
+	//눈 버튼1
+	m_pCustomEyeSulastButton = cUIButton::Create();
+	m_pCustomEyeSulastButton->SetTexture("Texture/Ui/buttonBase2.png",
+		"Texture/Ui/buttonBase2.png",
+		"Texture/Ui/buttonBase2Down.png");
+	m_pCustomEyeSulastButton->SetPosition(10, 120);
+	m_pCustomEyeSulastButton->SetDelegate(this);
+	m_pCustomEyeSulastButton->SetTag(E_EYE_SELECT_01);
+	m_pCustomEyeUi->AddChild(m_pCustomEyeSulastButton);
+	//2
+	m_pCustomEyeSulastButton = cUIButton::Create();
+	m_pCustomEyeSulastButton->SetTexture("Texture/Ui/buttonBase2.png",
+		"Texture/Ui/buttonBase2.png",
+		"Texture/Ui/buttonBase2Down.png");
+	m_pCustomEyeSulastButton->SetPosition(70, 120);
+	m_pCustomEyeSulastButton->SetDelegate(this);
+	m_pCustomEyeSulastButton->SetTag(E_EYE_SELECT_02);
+	m_pCustomEyeUi->AddChild(m_pCustomEyeSulastButton);
+	//3
+	m_pCustomEyeSulastButton = cUIButton::Create();
+	m_pCustomEyeSulastButton->SetTexture("Texture/Ui/buttonBase2.png",
+		"Texture/Ui/buttonBase2.png",
+		"Texture/Ui/buttonBase2Down.png");
+	m_pCustomEyeSulastButton->SetPosition(130, 120);
+	m_pCustomEyeSulastButton->SetDelegate(this);
+	m_pCustomEyeSulastButton->SetTag(E_EYE_SELECT_03);
+	m_pCustomEyeUi->AddChild(m_pCustomEyeSulastButton);
 
 	//입 창(택스쳐)
 	m_pCustomMouthImageHead = cUIImageView::Create();
@@ -417,48 +447,6 @@ void cUiCustomizingScene::Render(void)
 	}
 }
 
-void cUiCustomizingScene::MsgProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
-{
-	switch (message)
-	{
-	case WM_LBUTTONDOWN:
-	{
-		m_isLButtonDown = true;
-		m_ptPrevMouse.x = LOWORD(lParam);
-		m_ptPrevMouse.y = HIWORD(lParam);
-	}
-	break;
-	case WM_LBUTTONUP:
-	{
-		m_isLButtonDown = false;
-	}
-	break;
-	case WM_MOUSEMOVE:
-	{
-		m_ptMouse.x = LOWORD(lParam);
-		m_ptMouse.y = HIWORD(lParam);
-
-		if (m_isLButtonDown)
-		{
-			POINT ptCurrMouse;
-			ptCurrMouse.x = LOWORD(lParam);
-			ptCurrMouse.y = HIWORD(lParam);
-
-			float fDeltaX = (ptCurrMouse.x - m_ptPrevMouse.x);
-			float fDeltaY = (ptCurrMouse.y - m_ptPrevMouse.y);
-
-	//		m_pPlayer->
-	//		nMatX += fDeltaX;
-	//		nMatY += fDeltaY;
-
-			m_ptPrevMouse = ptCurrMouse;
-
-		}
-	}
-	break;
-	}
-}
-
 void cUiCustomizingScene::OnClick(cUIButton * pSender)
 {
 	//cUITextView* pTextView = (cUITextView*)m_pServerSulastUi->GetChildByTag(E_SERVER_TEXT_NEXT);
@@ -488,10 +476,39 @@ void cUiCustomizingScene::OnClick(cUIButton * pSender)
 		}
 		else if (pSender->GetTag() == E_HAIR_SELECT_03)
 		{
-			m_pPlayer->ChangeMeshPart(cPlayer::MESH_HAIR, "Chareter/DefaultPlayer/", "hair_female_hair02_t02.X");
+			m_pPlayer->ChangeMeshPart(cPlayer::MESH_HAIR, "Chareter/DefaultPlayer/", "hair_female_hair22_t22.X");
 		}
 	}
-	
+	if (m_eCustomizingTab == E_CUSTOM_EYE)
+	{
+		if (pSender->GetTag() == E_EYE_SELECT_01)
+		{
+
+		}
+		else if (pSender->GetTag() == E_EYE_SELECT_02)
+		{
+
+		}
+		else if (pSender->GetTag() == E_EYE_SELECT_03)
+		{
+
+		}
+	}
+	if (m_eCustomizingTab == E_CUSTOM_MOUTH)
+	{
+		if (pSender->GetTag() == E_MOUTH_SELECT_01)
+		{
+			m_pPlayer->ChangeMeshPartColor(cPlayer::MESH_FACE, "mouth_0.dds", &D3DXCOLOR(0.0f, 0.0f, 0.0f, 1.0f));
+		}
+		else if (pSender->GetTag() == E_MOUTH_SELECT_02)
+		{
+			m_pPlayer->ChangeMeshPartColor(cPlayer::MESH_FACE, "mouth_1.dds", &D3DXCOLOR(0.0f, 0.0f, 0.0f, 1.0f));
+		}
+		else if (pSender->GetTag() == E_MOUTH_SELECT_03)
+		{
+			m_pPlayer->ChangeMeshPartColor(cPlayer::MESH_FACE, "mouth_2.dds", &D3DXCOLOR(0.0f, 0.0f, 0.0f, 1.0f));
+		}
+	}
 }
 
 
@@ -533,9 +550,4 @@ void cUiCustomizingScene::changeButtonColor()
 			"Texture/Ui/buttonMouseUp.png",
 			"Texture/Ui/buttonMouseUp.png");
 	}
-}
-
-void cUiCustomizingScene::moveingPlayer()
-{
-
 }
