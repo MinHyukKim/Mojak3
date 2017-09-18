@@ -46,12 +46,12 @@ cSceneObject * cSceneManager::AddScene(LPCSTR szSceneName, cSceneObject* pScene)
 	return pScene;
 }
 
-HRESULT cSceneManager::ChangScene(std::string& sceneName)
+HRESULT cSceneManager::ChangeScene(std::string& sceneName)
 {
-	return this->ChangScene(sceneName.c_str());
+	return this->ChangeScene(sceneName.c_str());
 }
 
-HRESULT cSceneManager::ChangScene(LPCSTR szSceneName)
+HRESULT cSceneManager::ChangeScene(LPCSTR szSceneName)
 {
 	mapSceneIter find = m_mapSceneList.find(szSceneName);
 	if (find == m_mapSceneList.end()) return E_FAIL;

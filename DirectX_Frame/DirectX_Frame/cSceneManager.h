@@ -27,8 +27,8 @@ public:
 	cSceneObject* AddScene(std::string& szSceneName, cSceneObject* pScene);		//씬 추가
 	cSceneObject* AddScene(LPCSTR szSceneName, cSceneObject* pScene);			//문자열 복사를 줄이기 위해 추가함
 
-	HRESULT ChangScene(std::string& szSceneName);								//씬 변경
-	HRESULT ChangScene(LPCSTR szSceneName);										//문자열 복사를 줄이기 위해 추가함
+	HRESULT ChangeScene(std::string& szSceneName);								//씬 변경
+	HRESULT ChangeScene(LPCSTR szSceneName);										//문자열 복사를 줄이기 위해 추가함
 
 	friend DWORD CALLBACK LoadingThread(LPVOID prc);							//콜백 (안쓰일 가능성 높음)
 
