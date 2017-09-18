@@ -95,6 +95,11 @@ void cPlayer::ChangeMeshPart(IN DWORD dwPart, IN LPCSTR szFolder, IN LPCSTR szFi
 	m_vecMesh[dwPart]->SetTrack(false);
 }
 
+void cPlayer::ChangeMeshPartColor(IN DWORD dwPart, IN LPCSTR TextureName, IN LPD3DXCOLOR pColor)
+{
+	m_vecMesh[dwPart]->SetTextureColor(TextureName, pColor);
+}
+
 DWORD cPlayer::RegisterAnimation(IN DWORD dwAnimationKey, IN LPD3DXANIMATIONSET pAnimation)
 {
 	//예외 처리
