@@ -37,7 +37,11 @@ HRESULT cChareterCustomScene::Setup(void)
 	m_pPlayer = cPlayer::Create();
 	m_pPlayer->Setup();
 	m_pPlayer->ChangeMeshPart(cPlayer::MESH_HAIR, "Chareter/DefaultPlayer/", "Hair.X");
-	m_pPlayer->ChangeMeshPart(cPlayer::MESH_BODY, "Chareter/DefaultPlayer/", "lisaAniTest.X");
+	//m_pPlayer->ChangeMeshPart(cPlayer::MESH_BODY, "Chareter/DefaultPlayer/", "lisaAniTest.X");
+	m_pPlayer->ChangeMeshPart(cPlayer::MESH_BODY, "Chareter/Female_Body/", "basicBody.X");
+	m_pPlayer->ChangeMeshPart(cPlayer::MESH_HAND, "Chareter/Female_Hand/", "basicFist.X");
+	m_pPlayer->ChangeMeshPart(cPlayer::MESH_SHOES, "Chareter/Female_Shoes/", "basicShoes.X");
+	m_pPlayer->ChangeMeshPart(cPlayer::MESH_FACE, "Chareter/Female_Face/", "basicFace.X");
 
 	//카메라 연결
 	m_pMainCamera = m_pPlayer->GetCamera();
@@ -92,6 +96,11 @@ void cChareterCustomScene::Update(void)
 	if (g_pInputManager->IsOnceKeyDown('Y')) m_pPlayer->ChangeMeshPart(cPlayer::MESH_BODY, "Chareter/DefaultPlayer/", "wear_adventurer01_ani.X");
 	if (g_pInputManager->IsOnceKeyDown('U')) m_pPlayer->ChangeMeshPart(cPlayer::MESH_BODY, "Chareter/DefaultPlayer/", "wear_female_armor01.X");
 	if (g_pInputManager->IsOnceKeyDown('I')) m_pPlayer->ChangeMeshPart(cPlayer::MESH_BODY, "Chareter/", "female_natural_stand_straight.X");
+
+	if (g_pInputManager->IsOnceKeyDown('F')) m_pPlayer->ChangeMeshPart(cPlayer::MESH_HAND, "Chareter/Female_Hand/", "basicFist.X");
+	if (g_pInputManager->IsOnceKeyDown('P')) m_pPlayer->ChangeMeshPart(cPlayer::MESH_HAND, "Chareter/Female_Hand/", "basicPalm.X");
+
+
 
 
 	SAFE_UPDATE(m_pPlayer);
