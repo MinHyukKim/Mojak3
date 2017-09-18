@@ -46,6 +46,7 @@ private:
 
 	//플레이어 보여주기
 	cPlayer* m_pPlayer;
+	cSkinnedMesh* pSkinMesh;
 	//임시 캐매라
 	cCamera* m_pMainCamera;
 
@@ -84,6 +85,7 @@ private:
 	cUIButton* m_pCustomHairSulastButton;
 	cUIButton* m_pCustomHairColorSulastButton;
 	cUiObject* m_pCustomHairUi;
+	LPD3DXCOLOR m_pHairColor;
 	//눈
 	cUIImageView* m_pCustomEyeImageHead;
 	cUIImageView* m_pCustomEyeImage;
