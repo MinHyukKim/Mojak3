@@ -155,7 +155,7 @@ bool cPlayer::ExportAnimation(OUT LPD3DXANIMATIONSET* ppAnimation, IN DWORD dwAn
 	return true;
 }
 
-void cPlayer::SetTextureEyeName(LPCSTR szEyeName)
+void cPlayer::SetTextureEye(LPCSTR szEyeName)
 {
 	//얼굴이 있으면
 	if (m_vecMesh[cPlayer::MESH_FACE] && m_sCurrentEyeTextureName.length())
@@ -166,7 +166,7 @@ void cPlayer::SetTextureEyeName(LPCSTR szEyeName)
 	m_sCurrentEyeTextureName = szEyeName;
 }
 
-void cPlayer::SetTextureMouthName(LPCSTR szEyeName)
+void cPlayer::SetTextureMouth(LPCSTR szEyeName)
 {
 	//얼굴이 있으면
 	if (m_vecMesh[cPlayer::MESH_FACE] && m_sCurrentMouthTextureName.length())

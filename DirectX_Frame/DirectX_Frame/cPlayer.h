@@ -56,8 +56,8 @@ public:
 	LPD3DXANIMATIONCONTROLLER GetAnimationController(void) { return m_pAnimationController; }
 	void SetAnimation(IN DWORD dwAnimationKey);
 	bool ExportAnimation(OUT LPD3DXANIMATIONSET* ppAnimation, IN DWORD dwAnimationKey = 0);
-	void SetTextureEyeName(LPCSTR szEyeName);
-	void SetTextureMouthName(LPCSTR szEyeName);
+	void SetTextureEye(LPCSTR szEyeName);
+	void SetTextureMouth(LPCSTR szEyeName);
 
 	cCamera* GetCamera(void) { return m_pCamera; }
 
