@@ -44,6 +44,7 @@
 #include "cTimer.h"
 #include "cFrustum.h"
 #include "cAllocateHierarchy.h"
+#include "cAnimationManager.h"
 
 //콘솔 디버깅
 #define CONSOLE_DEBUG_TEST

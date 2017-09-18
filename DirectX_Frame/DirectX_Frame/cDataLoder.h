@@ -23,17 +23,20 @@ public:
 	{
 		DATA_NULL,
 		DATA_MESH,
-		DATA_TEXTURE_COLOR,
+		DATA_MESH_COLOR1,
+		DATA_MESH_COLOR2,
 		DATA_ANIMATION,
 	};
 private:
 	std::vector<ST_DATA> m_vecData;
+	DWORD m_dwCount;
 public:
 	void RegisterMesh(LPCSTR szFolder, LPCSTR szFilename, LPCSTR szKeyName);
 	void RegisterAnimation(LPCSTR szFolder, LPCSTR szFilename, LPCSTR szKeyName);
 	void RegisterMeshColor(LPCSTR szMeshName, LPCSTR szTextureName, LPD3DXMATRIX pMatrix);
+	void RegisterMeshColor(LPCSTR szMeshName, LPCSTR szTextureName, LPD3DXCOLOR color);
 
-
+	bool LoaderData(void);
 
 	cDataLoder(void);
 	virtual ~cDataLoder(void);

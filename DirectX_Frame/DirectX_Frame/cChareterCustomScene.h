@@ -9,6 +9,7 @@ class cCamera;
 class cChareterCustomScene : public cSceneObject
 {
 private:
+	int m_n;
 	
 	cPlayer* m_pPlayer;
 	//юс╫ц

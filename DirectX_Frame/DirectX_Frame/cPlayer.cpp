@@ -59,7 +59,13 @@ void cPlayer::Update(void)
 
 void cPlayer::Render(void)
 {
-	for each(auto p in m_vecMesh) if (p) p->UpdateAndRender(&m_matWorld);
+	for each(auto p in m_vecMesh)
+	{
+		if (p)
+		{
+			p->UpdateAndRender(&m_matWorld);
+		}
+	}
 
 
 }
@@ -87,6 +93,11 @@ void cPlayer::ChangeMeshPart(IN DWORD dwPart, IN LPCSTR szFolder, IN LPCSTR szFi
 
 	m_vecMesh[dwPart]->SetAnimationController(m_pAnimationController);
 	m_vecMesh[dwPart]->SetTrack(false);
+}
+
+void cPlayer::ChangeMeshPartColor(IN DWORD dwPart, IN LPCSTR TextureName, IN LPD3DXCOLOR pColor)
+{
+	m_vecMesh[dwPart]->SetTextureColor(TextureName, pColor);
 }
 
 DWORD cPlayer::RegisterAnimation(IN DWORD dwAnimationKey, IN LPD3DXANIMATIONSET pAnimation)

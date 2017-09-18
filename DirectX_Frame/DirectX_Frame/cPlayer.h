@@ -15,16 +15,17 @@ public:
 		ANIMATION_4,
 		ANIMATION_5,
 		ANIMATION_6,
+		ANIMATION_7,
 		ANIMATION_END,
 	};
 	enum MESH_PART
 	{
 		MESH_DUMMY,
-		MESH_HAIR,
-		MESH_FACE,
-		MESH_BODY,
 		MESH_HAND,
 		MESH_SHOES,
+		MESH_BODY,
+		MESH_FACE,
+		MESH_HAIR,
 		MESH_SIZE,
 	};
 private:
@@ -44,6 +45,7 @@ public:
 	virtual void Render(void) override;
 
 	void ChangeMeshPart(IN DWORD dwPart, IN LPCSTR szFolder, IN LPCSTR szFilename);
+	void ChangeMeshPartColor(IN DWORD dwPart, IN LPCSTR TextureName, IN LPD3DXCOLOR pColor);
 	cSkinnedMesh* GetMeshPart(IN DWORD dwPart) { return m_vecMesh[dwPart]; }
 
 	DWORD RegisterAnimation(IN DWORD dwAnimationKey, IN LPD3DXANIMATIONSET pAnimation);

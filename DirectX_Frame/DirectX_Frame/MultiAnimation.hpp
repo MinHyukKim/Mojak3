@@ -63,7 +63,7 @@ float4 PixScene(
 		specular = pow(specular, 20.0f);	
 	}
 
-	float4 DrawColor = tex2D(g_samScene, TexCoord).rgba;
+	float4 DrawColor = tex2D(g_samScene, TexCoord).rgba * (float4((color.rgb + specular.rgb) / 6.0f + 0.66f, color.w));
 	if (DrawColor.a > 0.0f)
 	{
 		float intensity = (0.3f * DrawColor.r + 0.59f * DrawColor.g + 0.11f * DrawColor.b) - 0.5f;
@@ -71,8 +71,7 @@ float4 PixScene(
 		DrawColor.rgb = (DrawColor.rgb * 2 * color.rgb * (1.0f - intensity * 2.0f)) + (intensity * 2.0f);
 	}
 	//DrawColor = DrawColor * (float4(0.5f, 0.4f, 0.3f, 1.0f) + / 3.0f + 0.66f);
-	return DrawColor;
-	//return color;
+	return DrawColor; //float4(DrawColor.rgb, 1.0f);
 }
 
 //버텍스 셰이더
