@@ -525,6 +525,21 @@ void cSkinnedMesh::FrameChange(LPD3DXFRAME pFrame)
 	this->SetupBoneMatrixPtrs(m_pRootFrame);
 }
 
+void cSkinnedMesh::SetTextureColor(LPCSTR szTextureName, LPD3DXCOLOR pColor)
+{
+	cSkinnedMesh::SetTextureColor(m_pRootFrame, szTextureName, pColor);
+}
+
+void cSkinnedMesh::SetTextureDiffuse(LPCSTR szTextureName, LPD3DXCOLOR pDiffuse)
+{
+	cSkinnedMesh::SetTextureDiffuse(m_pRootFrame, szTextureName, pDiffuse);
+}
+
+void cSkinnedMesh::SetTextureAmbient(LPCSTR szTextureName, LPD3DXCOLOR pAmbient)
+{
+	cSkinnedMesh::SetTextureAmbient(m_pRootFrame, szTextureName, pAmbient);
+}
+
 void cSkinnedMesh::SetTextureDiffuse(LPD3DXFRAME pRoot, LPCSTR szTextureName, LPD3DXCOLOR pDiffuse)
 {
 	if (!pRoot) return;

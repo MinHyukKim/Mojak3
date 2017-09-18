@@ -1,8 +1,9 @@
 #pragma once
+#include "cSkinnedMesh.h"
 
 #define g_pSkinnedMeshManager cSkinnedMeshManager::GetInstance()
 
-class cSkinnedMesh;
+//class cSkinnedMesh;
 
 class cSkinnedMeshManager
 {

@@ -42,6 +42,9 @@ public:
 	void UpdateSkinnedMesh(LPD3DXFRAME pFrame, D3DXMATRIX* pPMat);
 	void FrameChange(LPD3DXFRAME pFrame);
 	void SetTrack(bool ibTrack) { m_isCurrentTrack = ibTrack; }
+	void SetTextureColor(LPCSTR szTextureName, LPD3DXCOLOR pColor);
+	void SetTextureDiffuse(LPCSTR szTextureName, LPD3DXCOLOR pDiffuse);
+	void SetTextureAmbient(LPCSTR szTextureName, LPD3DXCOLOR pAmbient);
 
 
 	static void SetTextureDiffuse(LPD3DXFRAME pRoot, LPCSTR szTextureName, LPD3DXCOLOR pDiffuse);

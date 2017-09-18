@@ -1,9 +1,9 @@
 #include "MultiAnimation.vsh"
 
 
-float4		vLightDiffuse;		// = { 1.0f, 1.0f, 1.0f, 1.0f };   // Light Diffuse
-float4		vMaterialAmbient;	// : MATERIALAMBIENT = { 1.0f, 0.1f, 0.1f, 1.0f };
-float4		vMaterialDiffuse;	// : MATERIALDIFFUSE = { 0.8f, 0.8f, 0.8f, 1.0f };
+float4		vLightDiffuse		 = { 1.0f, 1.0f, 1.0f, 1.0f };   // Light Diffuse
+float4		vMaterialAmbient	 : MATERIALAMBIENT = { 1.0f, 0.1f, 0.1f, 1.0f };
+float4		vMaterialDiffuse	 : MATERIALDIFFUSE = { 0.8f, 0.8f, 0.8f, 1.0f };
 float4		vWorldLightPos		= float4( 0.00, 500.00, -500.00, 1.00 );
 float4		vWorldCameraPos		= float4( -50.00, 50.00, -50.00, 1.00 );
 
@@ -37,11 +37,11 @@ struct VS_INPUT
 struct VS_OUTPUT
 {
 	float4 Pos			: POSITION;
-	float4 Diffuse		: COLOR0;
-	float2 TexCoord		: TEXCOORD0;
-	float3 fDiffuse		: TEXCOORD1;
-	float3 fViewDir		: TEXCOORD2;
-	float3 fReflection	: TEXCOORD3;
+	float4 Diffuse		: COLOR0;		//색상값
+	float2 TexCoord		: TEXCOORD0;	//텍스쳐좌표
+	float3 fDiffuse		: TEXCOORD1;	//없음
+	float3 fViewDir		: TEXCOORD2;	//눈의 방향
+	float3 fReflection	: TEXCOORD3;	//빛의 방향
 };
 
 //픽셀 셰이더
@@ -63,9 +63,15 @@ float4 PixScene(
 		specular = pow(specular, 20.0f);	
 	}
 
-	float4 Color = tex2D(g_samScene, TexCoord) * float4(color + specular);
-	//float4 Color = tex2D(g_samScene, TexCoord) + float4(color.xyz + specular.xyz, color.w * specular.w) / 2.0f;
-	return Color;
+	float4 DrawColor = tex2D(g_samScene, TexCoord).rgba;
+	if (DrawColor.a > 0.0f)
+	{
+		float intensity = (0.3f * DrawColor.r + 0.59f * DrawColor.g + 0.11f * DrawColor.b) - 0.5f;
+		if (intensity < 0.0f) intensity = 0.0f;
+		DrawColor.rgb = (DrawColor.rgb * 2 * color.rgb * (1.0f - intensity * 2.0f)) + (intensity * 2.0f);
+	}
+
+	return DrawColor;
 }
 
 //버텍스 셰이더
@@ -81,24 +87,24 @@ VS_OUTPUT VertSkinning( VS_INPUT Input, uniform int nNumBones )
 	float3	Normal		= 0.0f;
 	float	LastWeight	= 0.0f;
 
-	// skin VB inputs
+	// skin VB inputs 본 매트릭스 (알 수 없음)
 	VS_SKIN_INPUT vsi = { Input.Pos, Input.BlendWeights, Input.BlendIndices, Input.Normal };
 	VS_SKIN_OUTPUT vso = VS_Skin( vsi, nNumBones );
 
-	// transform position from world space into view and then projection space
-	Output.Pos = mul( float4( vso.vPos.xyz, 1.0f ), g_mViewProj );
+	// 점의 위치
+	Output.Pos = mul( float4( vso.vPos.xyz, 1.0f ), g_mViewProj ); //gl_Position = (gl_ModelViewProjectionMatrix * vec4(newVertex.xyz, 1.0));
 
-	// normalize normals
+	// 노말값
 	Normal = normalize( vso.vNor );
 
-	float3 lightDir = vso.vPos.xyz - vWorldLightPos.xyz;
-	lightDir = normalize(lightDir);
+	//빛의 방향
+	float3 lightDir = normalize(vso.vPos.xyz - vWorldLightPos.xyz);
 
 	// Shade (Ambient + etc.)
 	Output.Diffuse = float4( vMaterialAmbient.xyz + saturate( dot( Normal, lightDir.xyz ) ) * vMaterialDiffuse.xyz, 1.0 );
 
-	// copy the input texture coordinate through
-	Output.TexCoord  = Input.TexCoord.xy;
+	// 텍스쳐 좌표
+	Output.TexCoord  = Input.TexCoord.xy; //tex = vertexUV;
 
 	
 
