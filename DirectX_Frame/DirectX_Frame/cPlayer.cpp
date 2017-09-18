@@ -97,7 +97,7 @@ void cPlayer::ChangeMeshPart(IN DWORD dwPart, IN LPCSTR szFolder, IN LPCSTR szFi
 
 void cPlayer::ChangeMeshPartColor(IN DWORD dwPart, IN LPCSTR TextureName, IN LPD3DXCOLOR pColor)
 {
-	m_vecMesh[dwPart]->SetTextureColor(TextureName, pColor);
+	if (m_vecMesh[dwPart]) m_vecMesh[dwPart]->SetTextureColor(TextureName, pColor);
 }
 
 DWORD cPlayer::RegisterAnimation(IN DWORD dwAnimationKey, IN LPD3DXANIMATIONSET pAnimation)
@@ -153,6 +153,28 @@ bool cPlayer::ExportAnimation(OUT LPD3DXANIMATIONSET* ppAnimation, IN DWORD dwAn
 	SAFE_RELEASE(*ppAnimation);
 	m_pAnimationController->GetAnimationSet(m_vecAnimationKey[dwAnimationKey], ppAnimation);
 	return true;
+}
+
+void cPlayer::SetTextureEyeName(LPCSTR szEyeName)
+{
+	//얼굴이 있으면
+	if (m_vecMesh[cPlayer::MESH_FACE] && m_sCurrentEyeTextureName.length())
+	{
+		m_vecMesh[cPlayer::MESH_FACE]->SetTextureChange(m_sCurrentEyeTextureName.c_str(), szEyeName);
+	}
+	//텍스쳐 이름 업데이트
+	m_sCurrentEyeTextureName = szEyeName;
+}
+
+void cPlayer::SetTextureMouthName(LPCSTR szEyeName)
+{
+	//얼굴이 있으면
+	if (m_vecMesh[cPlayer::MESH_FACE] && m_sCurrentMouthTextureName.length())
+	{
+		m_vecMesh[cPlayer::MESH_FACE]->SetTextureChange(m_sCurrentMouthTextureName.c_str(), szEyeName);
+	}
+	//텍스쳐 이름 업데이트
+	m_sCurrentMouthTextureName = szEyeName;
 }
 
 cPlayer* cPlayer::Create(void)
