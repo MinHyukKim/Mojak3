@@ -286,16 +286,19 @@ void cUiCustomizingScene::OnClick(cUIButton * pSender)
 		{
 		//	m_pPlayer->ChangeMeshPart(cPlayer::MESH_FACE, "./Chareter/Female_Face/", "basicFace.X");
 			m_pPlayer->SetTextureMouth("mouth_0.dds");
+			m_pPlayer->ChangeMeshPartColor(cPlayer::MESH_FACE, "mouth_0.dds", &D3DXCOLOR(0.0f, 0.0f, 0.0f, 1.0f));
 		}
 		else if (pSender->GetTag() == E_MOUTH_SELECT_02)
 		{
 		//	m_pPlayer->ChangeMeshPart(cPlayer::MESH_FACE, "./Chareter/Female_Face/", "basicFace.X");
 			m_pPlayer->SetTextureMouth("mouth_1.dds");
+			m_pPlayer->ChangeMeshPartColor(cPlayer::MESH_FACE, "mouth_0.dds", &D3DXCOLOR(0.0f, 0.0f, 0.0f, 1.0f));
 		}
 		else if (pSender->GetTag() == E_MOUTH_SELECT_03)
 		{
 		//	m_pPlayer->ChangeMeshPart(cPlayer::MESH_FACE, "./Chareter/Female_Face/", "basicFace.X");
 			m_pPlayer->SetTextureMouth("mouth_2.dds");
+			m_pPlayer->ChangeMeshPartColor(cPlayer::MESH_FACE, "mouth_0.dds", &D3DXCOLOR(0.0f, 0.0f, 0.0f, 1.0f));
 		}
 	}
 }
