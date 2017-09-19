@@ -20,6 +20,7 @@ enum
 	E_SERVER_TEXT_CANCEL,
 
 	E_TEXT_CUSTOM_NAME,
+	E_TEXT_CUSTOM_FIN,
 
 	E_SERVER_BUTTON_SERVER = 213,
 	E_SERVER_BUTTON_NEXT = 214,
@@ -148,6 +149,7 @@ private:
 	cUIButton* m_pCustomButtonHair;
 	cUIButton* m_pCustomButtonEye;
 	cUIButton* m_pCustomButtonMouth;
+	cUIButton* m_pCustomButtonFin;
 	cUIButton* m_pCustomButton;
 	cUiObject* m_pCustomUi;
 	//Ä¿¸¶ Ã¢ ±Û¾¾
