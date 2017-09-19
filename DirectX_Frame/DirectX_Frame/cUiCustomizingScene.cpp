@@ -11,38 +11,6 @@
 #include "cPlayer.h"
 #include "cCamera.h"
 
-//enum
-//{
-//	E_SERVER_TEXT_NEXT,
-//	E_SERVER_TEXT_CANCEL,
-//
-//	E_TEXT_CUSTOM_NAME,
-//
-//	E_SERVER_BUTTON_SERVER = 213,
-//	E_SERVER_BUTTON_NEXT = 214,
-//	E_SERVER_BUTTON_CANCEL = 215,
-//
-//	E_CUSTOM_BUTTON_HAIR = 216,
-//	E_CUSTOM_BUTTON_EYE = 217,
-//	E_CUSTOM_BUTTON_MOUTH = 218,
-//
-//	//헤어설랙트
-//	E_HAIR_SELECT_01 = 219,
-//	E_HAIR_SELECT_02 = 220,
-//	E_HAIR_SELECT_03 = 221,
-//	//눈 설랙트
-//	E_EYE_SELECT_01 = 222,
-//	E_EYE_SELECT_02 = 223,
-//	E_EYE_SELECT_03 = 224,
-//	//입 설랙트
-//	E_MOUTH_SELECT_01 = 222,
-//	E_MOUTH_SELECT_02 = 223,
-//	E_MOUTH_SELECT_03 = 224,
-//	//헤어 칼라 설렉트
-//	E_HAIR_COLOR_SELECT_01 = 225,
-//	E_HAIR_COLOR_SELECT_02 = 226,
-//	E_HAIR_COLOR_SELECT_03 = 227,
-//};
 
 cUiCustomizingScene::cUiCustomizingScene(void)
 	: m_mUiTest(NULL)
@@ -71,6 +39,8 @@ cUiCustomizingScene::cUiCustomizingScene(void)
 	, m_isLButtonDown(false)
 	, m_pHairColor(&D3DXCOLOR(0.07f, 0.07f, 0.07f, 1.0f))
 	, m_hairColor(1.0f, 0.0f, 0.0f, 1.0f)
+
+	, m_eHairStyleTab(E_HAIR_01)
 {
 }
 
@@ -160,6 +130,8 @@ void cUiCustomizingScene::Update(void)
 	}
 	break;
 	}
+
+	this->changeButtonColorHair();
 
 	POINT ptMouse;
 	POINT ptClickMouse;
@@ -367,4 +339,16 @@ void cUiCustomizingScene::changeButtonColor()
 			"Texture/Ui/buttonMouseUp.png",
 			"Texture/Ui/buttonMouseUp.png");
 	}
+}
+
+void cUiCustomizingScene::changeButtonColorHair()
+{
+	//if (m_eHairStyleTab == E_HAIR_01 )
+	//{
+	//	if(m_pCustomHairSulastButton->GetTag() == E_HAIR_SELECT_01)
+	//	m_pCustomHairSulastButton->SetTexture("Texture/Ui/buttonBase2Down.png",
+	//		"Texture/Ui/buttonBase2Down.png",
+	//		"Texture/Ui/buttonBase2Down.png");
+	//}
+
 }
