@@ -3,7 +3,7 @@
 
 cCamera::cCamera(void)
 	: m_eCameraType(cCamera::E_LANDOBJECT)
-	, m_fMoveSpeed(5.0f)
+	, m_fMoveSpeed(1.0f)
 	, m_vAxisX(1.0f, 0.0f, 0.0f)
 	, m_vAxisY(0.0f, 1.0f, 0.0f)
 	, m_vAxisZ(0.0f, 0.0f, 1.0f)

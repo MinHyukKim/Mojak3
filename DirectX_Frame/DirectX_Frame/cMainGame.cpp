@@ -54,7 +54,7 @@ void cMainGame::Setup(void)
 	g_pSceneManager->AddScene("cUiCustomizingScene", cUiCustomizingScene::Create());
 	g_pSceneManager->AddScene("cLodingScene", cLodingScene::Create());
 
-	g_pSceneManager->ChangeScene("cLodingScene");
+	g_pSceneManager->ChangeScene("cUiCustomizingScene");
 
 
 	//≈∏¿Ã∏”
