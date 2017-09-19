@@ -1,10 +1,14 @@
 #include "stdafx.h"
 #include "cLodingScene.h"
 
+#include "cDataLoder.h"
 
 HRESULT cLodingScene::Setup(void)
 {
-	return E_NOTIMPL;
+	cDataLoder* pData = cDataLoder::Create();
+	pData->RegisterData("./Data/SetupData.txt");
+	SAFE_RELEASE(pData);
+	return S_OK;
 }
 
 void cLodingScene::Reset(void)

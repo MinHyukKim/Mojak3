@@ -33,10 +33,68 @@ void cDataLoder::RegisterMeshColor(LPCSTR szMeshName, LPCSTR szTextureName, LPD3
 	m_vecData.push_back(ST_DATA(cDataLoder::DATA_MESH_COLOR, szMeshName, szTextureName, nullptr, nullptr, &materal));
 }
 
+bool cDataLoder::RegisterData(LPCSTR FullPath)
+{
+	FILE* fp = nullptr;
+	fopen_s(&fp, FullPath, "r");
+	if (!fp) return false;
+	while (!feof(fp))
+	{
+		char szPathData[1024] = {};
+		fgets(szPathData, 1024, fp);
+		char* pToken = nullptr;
+		pToken = strtok(szPathData, ":");
+
+		if (strstr(pToken, "//")) continue;
+		else if (strstr(pToken, "Mesh") || strstr(pToken, "형상"))
+		{
+			std::string sPath = strtok(nullptr, ",");
+			std::string sFile = strtok(nullptr, ",");
+			std::string sKey = strtok(nullptr, ";");
+			//등록
+			this->RegisterMesh(sPath.c_str(), sFile.c_str(), sKey.c_str());
+		}
+		else if (strstr(pToken, "Color") || strstr(pToken, "색상"))
+		{
+			std::string sMeshKey = strtok(nullptr, ",");
+			std::string sTexture = strtok(nullptr, ",");
+			D3DMATERIAL9 stColor;
+			stColor.Diffuse.r = atof(strtok(nullptr, ","));
+			stColor.Diffuse.g = atof(strtok(nullptr, ","));
+			stColor.Diffuse.b = atof(strtok(nullptr, ","));
+			stColor.Diffuse.a = atof(strtok(nullptr, ","));
+			pToken = strtok(nullptr, ",");
+			if (pToken)
+			{
+				stColor.Ambient.r = atof(pToken);
+				stColor.Ambient.g = atof(strtok(nullptr, ","));
+				stColor.Ambient.b = atof(strtok(nullptr, ","));
+				stColor.Ambient.a = atof(strtok(nullptr, ","));
+				stColor.Specular.r = atof(strtok(nullptr, ","));
+				stColor.Specular.g = atof(strtok(nullptr, ","));
+				stColor.Specular.b = atof(strtok(nullptr, ","));
+				stColor.Specular.a = atof(strtok(nullptr, ","));
+			}
+			else stColor.Ambient = stColor.Specular = stColor.Diffuse;
+			//등록
+			this->RegisterMeshColor(sMeshKey.c_str(), sTexture.c_str(), &stColor);
+		}
+		else if (strstr(pToken, "Animation") || strstr(pToken, "애니"))
+		{
+			std::string sPath = strtok(nullptr, ",");
+			std::string sFile = strtok(nullptr, ",");
+			std::string sAnimationKey = strtok(nullptr, ",");
+			this->RegisterAnimation(sPath.c_str(), sFile.c_str(), sAnimationKey.c_str());
+		}
+
+	}
+	fclose(fp);
+}
+
 bool cDataLoder::LoaderData(void)
 {
 	if (m_dwCount >= m_vecData.size()) return false;
-	ST_DATA* pData = &m_vecData[m_dwCount];
+	ST_DATA* pData = &m_vecData[m_dwCount++];
 	switch (pData->dwType)
 	{
 	case cDataLoder::DATA_NULL: break;
@@ -46,5 +104,18 @@ bool cDataLoder::LoaderData(void)
 	default: break;
 	}
 	return true;
+}
+
+void cDataLoder::LoadCallBack(THIS_ LPVOID pDataLoder)
+{
+	cDataLoder* pThis = (cDataLoder*)pDataLoder;
+	while (pThis->LoaderData());
+}
+
+cDataLoder* cDataLoder::Create(void)
+{
+	cDataLoder* newClass = new cDataLoder;
+	newClass->AddRef();
+	return newClass;
 }
 
