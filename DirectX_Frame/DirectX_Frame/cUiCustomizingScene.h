@@ -13,6 +13,41 @@ class iButtonDelegate;
 class cPlayer;
 class cCamera;
 
+//버튼 딜리게이트 이넘문
+enum
+{
+	E_SERVER_TEXT_NEXT,
+	E_SERVER_TEXT_CANCEL,
+
+	E_TEXT_CUSTOM_NAME,
+
+	E_SERVER_BUTTON_SERVER = 213,
+	E_SERVER_BUTTON_NEXT = 214,
+	E_SERVER_BUTTON_CANCEL = 215,
+
+	E_CUSTOM_BUTTON_HAIR = 216,
+	E_CUSTOM_BUTTON_EYE = 217,
+	E_CUSTOM_BUTTON_MOUTH = 218,
+
+	//헤어설랙트
+	E_HAIR_SELECT_01 = 219,
+	E_HAIR_SELECT_02 = 220,
+	E_HAIR_SELECT_03 = 221,
+	//눈 설랙트
+	E_EYE_SELECT_01 = 222,
+	E_EYE_SELECT_02 = 223,
+	E_EYE_SELECT_03 = 224,
+	//입 설랙트
+	E_MOUTH_SELECT_01 = 222,
+	E_MOUTH_SELECT_02 = 223,
+	E_MOUTH_SELECT_03 = 224,
+	//헤어 칼라 설렉트
+	E_HAIR_COLOR_SELECT_01 = 225,
+	E_HAIR_COLOR_SELECT_02 = 226,
+	E_HAIR_COLOR_SELECT_03 = 227,
+};
+
+//커스텀마이징 메뉴에서의 선택(머리 or 눈 or 입)
 enum eCustomizingTab
 {
 	E_CUSTOM_NONE,
@@ -109,14 +144,20 @@ private:
 	POINT m_ptPrevMouse;
 
 public:
-	virtual HRESULT Setup(void) override;
+	virtual HRESULT Setup(void) override;	
+	void SetupPlayer(void);				//셋업 플레이어 
+	void SetupTotal(void);				//셋업 커마 전제 창 
+	void SetupHairStyle(void);			//셋업 머리스타일 버튼(모양)
+	void SetupHairColor(void);			//셋업 머리 칼라 버튼
+	void SetupEyeStyle(void);			//셋업 눈 버튼
+	void SetupMouthStyle(void);			//셋업 입 버튼
 	virtual void Reset(void) override;
 	virtual void Update(void) override;
 	virtual void Render(void) override;
 
 	virtual void OnClick(cUIButton* pSender) override;
 
-	//커마 메인 색바꾸기
+	//커마 메인선택버튼 색바꾸기
 	void changeButtonColor();
 
 	static cUiCustomizingScene* Create(void);

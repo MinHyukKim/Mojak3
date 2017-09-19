@@ -46,6 +46,12 @@
     <ClCompile Include="cDataLoder.cpp" />
     <ClCompile Include="cAnimationManager.cpp" />
     <ClCompile Include="cUiCustomizingHair.cpp" />
+    <ClCompile Include="cUiCustomizingScene00playerSetup.cpp" />
+    <ClCompile Include="cUiCustomizingScene01TotalSetup.cpp" />
+    <ClCompile Include="cUiCustomizingScene02HairStyleSetup.cpp" />
+    <ClCompile Include="cUiCustomizingScene03HairColorSetup.cpp" />
+    <ClCompile Include="cUiCustomizingScene04EyeStyleSetup.cpp" />
+    <ClCompile Include="cUiCustomizingScene05MouthStyleSetup.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="cAllocateHierarchy.h" />
