@@ -46,6 +46,7 @@
     <ClCompile Include="cDataLoder.cpp" />
     <ClCompile Include="cAnimationManager.cpp" />
     <ClCompile Include="cUiCustomizingHair.cpp" />
+    <ClCompile Include="cObjectManager.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="cAllocateHierarchy.h" />
@@ -95,6 +96,7 @@
     <ClInclude Include="cDataLoder.h" />
     <ClInclude Include="cAnimationManager.h" />
     <ClInclude Include="cUiCustomizingHair.h" />
+    <ClInclude Include="cObjectManager.h" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="DirectX_Frame.rc" />
