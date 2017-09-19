@@ -86,6 +86,7 @@ private:
 	cUIButton* m_pCustomHairColorSulastButton;
 	cUiObject* m_pCustomHairUi;
 	LPD3DXCOLOR m_pHairColor;
+	D3DXCOLOR m_hairColor;
 	//´«
 	cUIImageView* m_pCustomEyeImageHead;
 	cUIImageView* m_pCustomEyeImage;
