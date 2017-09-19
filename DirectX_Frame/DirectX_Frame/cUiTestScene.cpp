@@ -74,7 +74,7 @@ HRESULT cUiTestScene::Setup(void)
 	pTextView->SetColor(D3DCOLOR_XRGB(0, 0, 0));
 	pTextView->SetSize(ST_SIZE(400, 500));
 	pTextView->SetPosition(0, -300);
-	pTextView->SetDtawTextFormat(DT_CENTER | DT_VCENTER | DT_WORDBREAK);
+	pTextView->SetDrawTextFormat(DT_CENTER | DT_VCENTER | DT_WORDBREAK);
 	pTextView->SetTag(E_TEXT_VIEW);
 	m_pUiRoot->AddChild(pTextView);
 

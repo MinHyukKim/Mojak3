@@ -15,6 +15,9 @@ enum
 {
 	E_SERVER_TEXT_NEXT,
 	E_SERVER_TEXT_CANCEL,
+
+	E_TEXT_CUSTOM_NAME,
+
 	E_SERVER_BUTTON_SERVER = 213,
 	E_SERVER_BUTTON_NEXT = 214,
 	E_SERVER_BUTTON_CANCEL = 215,
@@ -157,7 +160,16 @@ HRESULT cUiCustomizingScene::Setup(void)
 	m_pCustomImage->SetPosition(2, 48);
 	m_pCustomImage->m_Alpha = 180;
 	m_pCustomUi->AddChild(m_pCustomImage);
-
+	//택스트
+	m_pCustomNameTest = cUITextView::Create();
+	m_pCustomNameTest->SetText("캐릭터 생성");
+	m_pCustomNameTest->SetFontType(g_pFontManager->E_INBUTTON);
+	m_pCustomNameTest->SetColor(D3DCOLOR_XRGB(0, 0, 0));
+	m_pCustomNameTest->SetSize(ST_SIZE(200, 100));
+	m_pCustomNameTest->SetPosition(-10, -30);
+	m_pCustomNameTest->SetDrawTextFormat(DT_CENTER | DT_VCENTER | DT_WORDBREAK);
+	m_pCustomNameTest->SetTag(E_TEXT_CUSTOM_NAME);
+	m_pCustomUi->AddChild(m_pCustomNameTest);
 	//선택버튼
 	//머리 선택
 	m_pCustomButtonHair = cUIButton::Create();
@@ -365,13 +377,6 @@ void cUiCustomizingScene::Update(void)
 	if (m_pCustomUi) m_pCustomUi->Update();
 	if (m_mUiTest) m_mUiTest->Update();
 
-//	if (m_eCustomizingTab == E_CUSTOM_HAIR) m_pCustomHairUi->Update();
-//	else return;
-//	if (m_eCustomizingTab == E_CUSTOM_EYE) m_pCustomEyeUi->Update();
-//	else return;
-//	if (m_eCustomizingTab == E_CUSTOM_MOUTH) m_pCustomMouthUi->Update();
-//	else return;
-
 	switch (m_eCustomizingTab)
 	{
 	case E_CUSTOM_HAIR:
@@ -408,13 +413,6 @@ void cUiCustomizingScene::Render(void)
 	SAFE_RENDER(m_pPlayer);
 //	if (m_pServerSulastUi) m_pServerSulastUi->Render(m_pSprite);
 	if (m_pCustomUi) m_pCustomUi->Render(m_pSprite);
-//	if (m_mUiTest) m_mUiTest->Render(m_pSprite);
-//	if (m_eCustomizingTab == E_CUSTOM_HAIR) m_pCustomHairUi->Render(m_pSprite);
-//	else return;
-//	if (m_eCustomizingTab == E_CUSTOM_EYE) m_pCustomEyeUi->Render(m_pSprite);
-//	else return;
-//	if (m_eCustomizingTab == E_CUSTOM_MOUTH) m_pCustomMouthUi->Render(m_pSprite);
-//	else return;
 
 	switch (m_eCustomizingTab)
 	{

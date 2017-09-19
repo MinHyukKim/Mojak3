@@ -7,7 +7,7 @@ private:
 
 protected:
 	SYNTHESIZE(std::string, m_sText, Text);
-	SYNTHESIZE(DWORD, m_dwDT, DtawTextFormat);
+	SYNTHESIZE(DWORD, m_dwDT, DrawTextFormat);
 	SYNTHESIZE(D3DCOLOR, m_dwColor, Color);
 
 public:

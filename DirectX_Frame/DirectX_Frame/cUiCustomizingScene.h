@@ -79,6 +79,8 @@ private:
 	cUIButton* m_pCustomButtonMouth;
 	cUIButton* m_pCustomButton;
 	cUiObject* m_pCustomUi;
+	//±Û¾¾
+	cUITextView* m_pCustomNameTest;
 	//Çì¾î
 	cUIImageView* m_pCustomHairImageHead;
 	cUIImageView* m_pCustomHairImage;
