@@ -189,12 +189,11 @@ void cPlayer::SetTextureHair(LPCSTR szHairName)
 
 void cPlayer::SetTextureHairColor(D3DMATERIAL9* stMaterial)
 {
-	m_stHairMaterial = *stMaterial;
 	if (m_vecMesh[cPlayer::MESH_HAIR] && m_sCurrentHairTextureName.length())
 	{
 		m_vecMesh[cPlayer::MESH_HAIR]->SetTextureColor(m_sCurrentHairTextureName.c_str(), &m_stHairMaterial);
 	}
-
+	m_stHairMaterial = *stMaterial;
 }
 
 void cPlayer::SetTextureHairColor(LPD3DXCOLOR pColor)

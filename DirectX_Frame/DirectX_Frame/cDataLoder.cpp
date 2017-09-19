@@ -20,17 +20,17 @@ void cDataLoder::RegisterAnimation(LPCSTR szFolder, LPCSTR szFilename, LPCSTR sz
 	m_vecData.push_back(ST_DATA(cDataLoder::DATA_ANIMATION, szFolder, szFilename, szKeyName));
 }
 
-void cDataLoder::RegisterMeshColor(LPCSTR szMeshName, LPCSTR szTextureName, LPD3DXMATRIX pMatrix)
+void cDataLoder::RegisterMeshColor(LPCSTR szMeshName, LPCSTR szTextureName, D3DMATERIAL9* pMaterial)
 {
-	m_vecData.push_back(ST_DATA(cDataLoder::DATA_MESH_COLOR1, szMeshName, szTextureName, nullptr, pMatrix));
+	m_vecData.push_back(ST_DATA(cDataLoder::DATA_MESH_COLOR, szMeshName, szTextureName, nullptr, nullptr, pMaterial));
 }
 
 void cDataLoder::RegisterMeshColor(LPCSTR szMeshName, LPCSTR szTextureName, LPD3DXCOLOR color)
 {
-	D3DXMATRIXA16 mat;
-	mat._11 = mat._21 = mat._31 = color->r;
-	mat._12 = mat._22 = mat._32 = color->g;
-	mat._13 = mat._23 = mat._33 = color->b;
+	D3DMATERIAL9 materal;
+	ZeroMemory(&materal, sizeof(D3DMATERIAL9));
+	materal.Ambient = materal.Diffuse = materal.Specular = *color;
+	m_vecData.push_back(ST_DATA(cDataLoder::DATA_MESH_COLOR, szMeshName, szTextureName, nullptr, nullptr, &materal));
 }
 
 bool cDataLoder::LoaderData(void)
@@ -41,9 +41,8 @@ bool cDataLoder::LoaderData(void)
 	{
 	case cDataLoder::DATA_NULL: break;
 	case cDataLoder::DATA_MESH: g_pSkinnedMeshManager->RegisterSkinnedMesh(pData->str1, pData->str2, pData->str3); break;
-//	case cDataLoder::DATA_MESH_COLOR1: g_pSkinnedMeshManager->GetSkinnedMesh(pData->str1)->SetTextureColor(pData->str2.c_str(), &pData->mat1); break;
-	case cDataLoder::DATA_MESH_COLOR2: break;
-	case cDataLoder::DATA_ANIMATION: break;
+	case cDataLoder::DATA_MESH_COLOR: g_pSkinnedMeshManager->GetSkinnedMesh(pData->str1)->SetTextureColor(pData->str2.c_str(), &pData->material); break;
+	case cDataLoder::DATA_ANIMATION: g_pAnimationManager->RegisterAnimation(pData->str1.c_str(), pData->str2.c_str()); break;
 	default: break;
 	}
 	return true;

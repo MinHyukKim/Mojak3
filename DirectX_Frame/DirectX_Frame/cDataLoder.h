@@ -7,10 +7,10 @@ struct ST_DATA
 	std::string str2;
 	std::string str3;
 	D3DXMATRIXA16 mat1;
-	D3DXMATRIXA16 mat2;
+	D3DMATERIAL9 material;
 
-	ST_DATA(DWORD _dwType = 0, std::string _str1 = nullptr, std::string _str2 = nullptr, std::string _str3 = nullptr, LPD3DXMATRIX _mat1 = nullptr, LPD3DXMATRIX _mat2 = nullptr)
-		: dwType(_dwType), str1(_str1), str2(_str2), str3(_str3), mat1(*_mat1), mat2(*_mat2)
+	ST_DATA(DWORD _dwType = 0, std::string _str1 = nullptr, std::string _str2 = nullptr, std::string _str3 = nullptr, LPD3DXMATRIX _mat1 = nullptr, D3DMATERIAL9* _material = nullptr)
+		: dwType(_dwType), str1(_str1), str2(_str2), str3(_str3), mat1(*_mat1), material(*_material)
 	{
 
 	}
@@ -23,8 +23,7 @@ public:
 	{
 		DATA_NULL,
 		DATA_MESH,
-		DATA_MESH_COLOR1,
-		DATA_MESH_COLOR2,
+		DATA_MESH_COLOR,
 		DATA_ANIMATION,
 	};
 private:
@@ -33,7 +32,7 @@ private:
 public:
 	void RegisterMesh(LPCSTR szFolder, LPCSTR szFilename, LPCSTR szKeyName);
 	void RegisterAnimation(LPCSTR szFolder, LPCSTR szFilename, LPCSTR szKeyName);
-	void RegisterMeshColor(LPCSTR szMeshName, LPCSTR szTextureName, LPD3DXMATRIX pMatrix);
+	void RegisterMeshColor(LPCSTR szMeshName, LPCSTR szTextureName, D3DMATERIAL9* pMaterial);
 	void RegisterMeshColor(LPCSTR szMeshName, LPCSTR szTextureName, LPD3DXCOLOR color);
 
 	bool LoaderData(void);
