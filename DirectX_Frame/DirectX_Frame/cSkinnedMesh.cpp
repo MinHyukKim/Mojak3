@@ -35,6 +35,39 @@ cSkinnedMesh::cSkinnedMesh(char * szFolder, char * szFilename)
 	}
 }
 
+cSkinnedMesh::cSkinnedMesh(cSkinnedMesh* pSkinnedMesh)
+	: m_pRootFrame(NULL)
+	, m_pAnimController(NULL)
+	, m_dwWorkingPaletteSize(0)
+	, m_pmWorkingPalette(NULL)
+	, m_pEffect(NULL)
+	, m_vPosition(0, 0, 0)
+	, m_isCurrentTrack(false)
+{
+	//cSkinnedMesh* pSkinnedMesh = g_pSkinnedMeshManager->GetSkinnedMesh(szFolder, szFilename);
+
+	//	g_pAllocateHierarchy->CloneHierarchy((LPD3DXFRAME*)&m_pRootFrame, pSkinnedMesh->m_pRootFrame);
+	//	this->SetupBoneMatrixPtrs(m_pRootFrame);
+	m_pRootFrame = pSkinnedMesh->m_pRootFrame;
+	pSkinnedMesh->SetTrack(true);
+
+	m_dwWorkingPaletteSize = pSkinnedMesh->m_dwWorkingPaletteSize;
+	m_pmWorkingPalette = pSkinnedMesh->m_pmWorkingPalette;
+
+	SAFE_RELEASE(m_pEffect);
+	m_pEffect = pSkinnedMesh->m_pEffect;
+
+	if (pSkinnedMesh->m_pAnimController)
+	{
+		pSkinnedMesh->m_pAnimController->CloneAnimationController(
+			pSkinnedMesh->m_pAnimController->GetMaxNumAnimationOutputs(),
+			pSkinnedMesh->m_pAnimController->GetMaxNumAnimationSets(),
+			pSkinnedMesh->m_pAnimController->GetMaxNumTracks(),
+			pSkinnedMesh->m_pAnimController->GetMaxNumEvents(),
+			&m_pAnimController);
+	}
+}
+
 cSkinnedMesh::cSkinnedMesh()
 	: m_pRootFrame(NULL)
 	, m_pAnimController(NULL)
@@ -693,6 +726,17 @@ void cSkinnedMesh::SetTextureColor(LPD3DXFRAME pRoot, LPCSTR szTextureName, D3DM
 				_pMaterial->MatD3D = *pMaterial;
 			}
 		}
+	}
+	//자식 찾기
+	if (pRoot->pFrameFirstChild)
+	{
+		cSkinnedMesh::SetTextureColor(pRoot->pFrameFirstChild, szTextureName, pMaterial);
+	}
+
+	//형제 찾기
+	if (pRoot->pFrameSibling)
+	{
+		cSkinnedMesh::SetTextureColor(pRoot->pFrameSibling, szTextureName, pMaterial);
 	}
 }
 

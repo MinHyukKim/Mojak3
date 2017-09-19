@@ -96,6 +96,31 @@ void cPlayer::ChangeMeshPart(IN DWORD dwPart, IN LPCSTR szFolder, IN LPCSTR szFi
 	m_vecMesh[dwPart]->SetTrack(false);
 }
 
+void cPlayer::ChangeMeshPart(IN DWORD dwPart, IN cSkinnedMesh* pSkinnedMesh)
+{
+	//키가 적으면 늘리기
+	if (m_vecMesh.size() <= dwPart) m_vecMesh.resize(dwPart * 2);
+	//기존 메쉬 제거
+	SAFE_DELETE(m_vecMesh[dwPart]);
+	//새 메시 등록
+	m_vecMesh[dwPart] = new cSkinnedMesh(pSkinnedMesh);
+
+	//애니메이션 컨트롤로 복사
+	if (m_pAnimationController)
+	{
+		g_pAllocateHierarchy->RegisterAnimationMatrix(m_vecMesh[dwPart]->GetRootFrame(), m_vecMesh[cPlayer::MESH_DUMMY]->GetRootFrame());
+
+	}
+	else
+	{
+		LPD3DXANIMATIONCONTROLLER pAnimationController = m_vecMesh[dwPart]->GetAnimationController();
+		pAnimationController->CloneAnimationController(pAnimationController->GetMaxNumAnimationOutputs(), ANIMATION_END, 2, ANI_MATRIX, &m_pAnimationController);
+	}
+
+	m_vecMesh[dwPart]->SetAnimationController(m_pAnimationController);
+	m_vecMesh[dwPart]->SetTrack(false);
+}
+
 void cPlayer::ChangeMeshPartColor(IN DWORD dwPart, IN LPCSTR TextureName, IN LPD3DXCOLOR pColor)
 {
 	if (m_vecMesh[dwPart]) m_vecMesh[dwPart]->SetTextureColor(TextureName, pColor);
@@ -119,7 +144,8 @@ DWORD cPlayer::RegisterAnimation(IN DWORD dwAnimationKey, IN LPD3DXANIMATIONSET 
 	{
 		int count = m_pAnimationController->GetMaxNumAnimationSets();
 		LPD3DXANIMATIONCONTROLLER pController;
-		m_pAnimationController->CloneAnimationController(100,
+		m_pAnimationController->CloneAnimationController(
+			m_pAnimationController->GetMaxNumAnimationOutputs(),
 			count < 1 ? count * 2 : 2, 2, ANI_MATRIX, &pController);
 		SAFE_RELEASE(m_pAnimationController);
 		m_pAnimationController = pController;
@@ -191,13 +217,14 @@ void cPlayer::SetTextureHairColor(D3DMATERIAL9* stMaterial)
 {
 	if (m_vecMesh[cPlayer::MESH_HAIR] && m_sCurrentHairTextureName.length())
 	{
-		m_vecMesh[cPlayer::MESH_HAIR]->SetTextureColor(m_sCurrentHairTextureName.c_str(), &m_stHairMaterial);
+		m_vecMesh[cPlayer::MESH_HAIR]->SetTextureColor(m_sCurrentHairTextureName.c_str(), stMaterial);
 	}
 	m_stHairMaterial = *stMaterial;
 }
 
 void cPlayer::SetTextureHairColor(LPD3DXCOLOR pColor)
 {
+	ZeroMemory(&m_stHairMaterial, sizeof(D3DMATERIAL9));
 	m_stHairMaterial.Ambient = m_stHairMaterial.Diffuse = m_stHairMaterial.Specular = *pColor;
 	if (m_vecMesh[cPlayer::MESH_HAIR] && m_sCurrentHairTextureName.length())
 	{
