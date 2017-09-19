@@ -40,12 +40,13 @@ HRESULT cChareterCustomScene::Setup(void)
 	m_pPlayer->SetTextureHair("hair01.dds");
 	m_pPlayer->SetTextureHairColor(&D3DXCOLOR(0.0f, 1.0f, 0.0f, 1.0f));
 	m_pPlayer->ChangeMeshPart(cPlayer::MESH_FACE, "./Chareter/Female_Face/", "basicFace.X");
+	m_pPlayer->SetTextureEye("eye_0.dds");
+	m_pPlayer->SetTextureEyeColor(&D3DXCOLOR(0.0f, 0.0f, 0.5f, 0.2f));
 
 	m_pPlayer->ChangeMeshPartColor(cPlayer::MESH_FACE, "mouth_0.dds", &D3DXCOLOR(0.0f, 0.0f, 0.0f, 1.0f));
 	m_pPlayer->ChangeMeshPart(cPlayer::MESH_BODY, "Chareter/Female_Body/", "basicBody.X");
 	m_pPlayer->ChangeMeshPart(cPlayer::MESH_HAND, "Chareter/Female_Hand/", "basicFist.X");
 	m_pPlayer->ChangeMeshPart(cPlayer::MESH_SHOES, "Chareter/Female_Shoes/", "basicShoes.X");
-	m_pPlayer->ChangeMeshPart(cPlayer::MESH_FACE, "Chareter/Female_Face/", "basicFace.X");
 
 	//카메라 연결
 	m_pMainCamera = m_pPlayer->GetCamera();

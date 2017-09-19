@@ -61,9 +61,11 @@ public:
 	void SetAnimation(IN DWORD dwAnimationKey);
 	bool ExportAnimation(OUT LPD3DXANIMATIONSET* ppAnimation, IN DWORD dwAnimationKey = 0);
 	void SetTextureEye(LPCSTR szEyeName);
+	void SetTextureEyeColor(D3DMATERIAL9* pMaterial);
+	void SetTextureEyeColor(LPD3DXCOLOR pColor);
 	void SetTextureMouth(LPCSTR szEyeName);
 	void SetTextureHair(LPCSTR szHairName);
-	void SetTextureHairColor(D3DMATERIAL9* stMaterial);
+	void SetTextureHairColor(D3DMATERIAL9* pMaterial);
 	void SetTextureHairColor(LPD3DXCOLOR pColor);
 
 	cCamera* GetCamera(void) { return m_pCamera; }

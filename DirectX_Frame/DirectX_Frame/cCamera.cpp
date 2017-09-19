@@ -35,6 +35,14 @@ void cCamera::TestController(void)
 	//shift 가 눌리면 상, 하 이동
 	if (g_pInputManager->IsStayKeyDown(VK_SHIFT))
 	{
+		if (g_pInputManager->IsStayKeyDown('Q'))
+		{
+			this->AxisDirectionZ(g_pTimeManager->GetElapsedTime());
+		}
+		if (g_pInputManager->IsStayKeyDown('E'))
+		{
+			this->AxisDirectionZ(-g_pTimeManager->GetElapsedTime());
+		}
 		//상하 이동
 		if (g_pInputManager->IsStayKeyDown('W'))
 		{
@@ -55,6 +63,14 @@ void cCamera::TestController(void)
 	}
 	else
 	{
+		if (g_pInputManager->IsStayKeyDown('Q'))
+		{
+			this->AxisDirectionX(g_pTimeManager->GetElapsedTime());
+		}
+		if (g_pInputManager->IsStayKeyDown('E'))
+		{
+			this->AxisDirectionX(-g_pTimeManager->GetElapsedTime());
+		}
 		//이동
 		if (g_pInputManager->IsStayKeyDown('W'))
 		{
@@ -64,13 +80,6 @@ void cCamera::TestController(void)
 		{
 			this->MovePositionZ(-g_pTimeManager->GetElapsedTime());
 		}
-		if (m_pParentMatrix)
-		{
-
-		}
-		else
-		{
-		}
 		if (g_pInputManager->IsStayKeyDown('A'))
 		{
 			this->AxisDirectionY(-g_pTimeManager->GetElapsedTime());
@@ -79,14 +88,6 @@ void cCamera::TestController(void)
 		{
 			this->AxisDirectionY(g_pTimeManager->GetElapsedTime());
 		}
-	}
-	if (g_pInputManager->IsStayKeyDown('Q'))
-	{
-		this->AxisDirectionZ(g_pTimeManager->GetElapsedTime());
-	}
-	if (g_pInputManager->IsStayKeyDown('E'))
-	{
-		this->AxisDirectionZ(-g_pTimeManager->GetElapsedTime());
 	}
 }
 

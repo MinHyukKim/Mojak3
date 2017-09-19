@@ -193,6 +193,25 @@ void cPlayer::SetTextureEye(LPCSTR szEyeName)
 	m_sCurrentEyeTextureName = szEyeName;
 }
 
+void cPlayer::SetTextureEyeColor(D3DMATERIAL9* pMaterial)
+{
+	if (m_vecMesh[cPlayer::MESH_FACE] && m_sCurrentEyeTextureName.length())
+	{
+		m_vecMesh[cPlayer::MESH_FACE]->SetTextureColor(m_sCurrentEyeTextureName.c_str(), pMaterial);
+	}
+}
+
+void cPlayer::SetTextureEyeColor(LPD3DXCOLOR pColor)
+{
+	if (m_vecMesh[cPlayer::MESH_FACE] && m_sCurrentEyeTextureName.length())
+	{
+		D3DMATERIAL9 stMaterial;
+		ZeroMemory(&stMaterial, sizeof(D3DMATERIAL9));
+		stMaterial.Ambient = stMaterial.Diffuse = stMaterial.Specular = *pColor;
+		m_vecMesh[cPlayer::MESH_FACE]->SetTextureColor(m_sCurrentEyeTextureName.c_str(), &stMaterial);
+	}
+}
+
 void cPlayer::SetTextureMouth(LPCSTR szEyeName)
 {
 	//얼굴이 있으면
@@ -213,13 +232,13 @@ void cPlayer::SetTextureHair(LPCSTR szHairName)
 	m_sCurrentHairTextureName = szHairName;
 }
 
-void cPlayer::SetTextureHairColor(D3DMATERIAL9* stMaterial)
+void cPlayer::SetTextureHairColor(D3DMATERIAL9* pMaterial)
 {
 	if (m_vecMesh[cPlayer::MESH_HAIR] && m_sCurrentHairTextureName.length())
 	{
-		m_vecMesh[cPlayer::MESH_HAIR]->SetTextureColor(m_sCurrentHairTextureName.c_str(), stMaterial);
+		m_vecMesh[cPlayer::MESH_HAIR]->SetTextureColor(m_sCurrentHairTextureName.c_str(), pMaterial);
 	}
-	m_stHairMaterial = *stMaterial;
+	m_stHairMaterial = *pMaterial;
 }
 
 void cPlayer::SetTextureHairColor(LPD3DXCOLOR pColor)
