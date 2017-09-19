@@ -99,7 +99,7 @@ HRESULT cUiCustomizingScene::Setup(void)
 	pSkinMesh = g_pSkinnedMeshManager->GetSkinnedMesh("Chareter/Female_Hair/", "hair_female_hair02_t02.X");
 	pSkinMesh->SetTextureColor("hair01.dds", &D3DXCOLOR(1.0f, 0.0f, 0.0f, 1.0f));
 
-	pSkinMesh = g_pSkinnedMeshManager->GetSkinnedMesh("Chareter/DefaultPlayer/", "lisaAniTest.X");
+	pSkinMesh = g_pSkinnedMeshManager->GetSkinnedMesh("Chareter/DefaultPlayer/", "wear_female_3rd_newbie.X");
 	pSkinMesh->SetTextureColor("uni_shoes01_c.dds", &D3DXCOLOR(1.0f, 1.0f, 0.0f, 1.0f));
 	pSkinMesh->SetTextureColor("hair09.dds", &D3DXCOLOR(0.0f, 0.0f, 0.0f, 0.0f));
 	pSkinMesh->SetTextureColor("bodymap01.dds", &D3DXCOLOR(1.0f, 0.53f, 0.53f, 1.0f));
@@ -107,7 +107,9 @@ HRESULT cUiCustomizingScene::Setup(void)
 	pSkinMesh->SetTextureColor("uni_3rd_premium_c.dds", &D3DXCOLOR(0.5f, 0.0f, 0.1f, 1.0f));
 	pSkinMesh->SetTextureColor("male_pumpkin_pants_c.dds", &D3DXCOLOR(0.0f, 0.0f, 0.0f, 1.0f));
 
-	pSkinMesh = g_pSkinnedMeshManager->GetSkinnedMesh("./Chareter/Female_Face/", "basicFace.X");
+	pSkinMesh = g_pSkinnedMeshManager->GetSkinnedMesh("Chareter/Female_Face/", "basicFace.X");
+	pSkinMesh->SetTextureColor("bodymap01.dds", &D3DXCOLOR(0.8f, 0.3f, 0.3f, 1.0f));
+	//pSkinMesh->SetTextureColor("bodymap04.dds", &D3DXCOLOR(1.0f, 0.53f, 0.53f, 1.0f));
 
 	//플레이어 생성
 	m_pPlayer = cPlayer::Create();
@@ -116,11 +118,11 @@ HRESULT cUiCustomizingScene::Setup(void)
 //	m_pPlayer->ChangeMeshPartColor(cPlayer::MESH_HAIR, "hair01.dds", &D3DXCOLOR(1.0f, 0.0f, 0.0f, 1.0f));
 	m_pPlayer->SetTextureHair("hair01.dds");
 	m_pPlayer->SetTextureHairColor(&D3DXCOLOR(0.0f, 0.0f, 1.0f, 1.0f));
-	m_pPlayer->ChangeMeshPart(cPlayer::MESH_FACE, "./Chareter/Female_Face/", "basicFace.X");
+	//m_pPlayer->ChangeMeshPart(cPlayer::MESH_FACE, "./Chareter/Female_Face/", "basicFace.X");
 	m_pPlayer->ChangeMeshPartColor(cPlayer::MESH_FACE, "mouth_0.dds", &D3DXCOLOR(0.0f, 0.0f, 0.0f, 1.0f));
 	m_pPlayer->SetTextureMouth("mouth_0.dds");
 	m_pPlayer->SetTextureEye("eye_0.dds");
-	m_pPlayer->ChangeMeshPart(cPlayer::MESH_BODY, "Chareter/Female_Body/", "basicBody.X");
+	m_pPlayer->ChangeMeshPart(cPlayer::MESH_BODY, "Chareter/DefaultPlayer/", "wear_female_3rd_newbie.X");
 	m_pPlayer->ChangeMeshPart(cPlayer::MESH_HAND, "Chareter/Female_Hand/", "basicFist.X");
 	m_pPlayer->ChangeMeshPart(cPlayer::MESH_SHOES, "Chareter/Female_Shoes/", "basicShoes.X");
 	m_pPlayer->ChangeMeshPart(cPlayer::MESH_FACE, "Chareter/Female_Face/", "basicFace.X");
@@ -450,19 +452,23 @@ void cUiCustomizingScene::OnClick(cUIButton * pSender)
 		if (pSender->GetTag() == E_HAIR_SELECT_01)
 		{
 			m_pPlayer->ChangeMeshPart(cPlayer::MESH_HAIR, "Chareter/DefaultPlayer/", "hair_female_hair02_t02.X");
+		//	m_pPlayer->SetTextureHair("hair01.dds");
 		//	m_pPlayer->ChangeMeshPartColor(cPlayer::MESH_HAIR, "hair01.dds", &D3DXCOLOR(1.0f, 0.0f, 0.0f, 1.0f));
 		//	m_pPlayer->GetMeshPart(cPlayer::MESH_FACE, )
 		}
 		else if (pSender->GetTag() == E_HAIR_SELECT_02)
 		{
 			m_pPlayer->ChangeMeshPart(cPlayer::MESH_HAIR, "Chareter/DefaultPlayer/", "hair_female_hair01_t01.X");
+		//	m_pPlayer->SetTextureHair("hair01.dds");
 		//	m_pPlayer->ChangeMeshPartColor(cPlayer::MESH_HAIR, "hair01.dds", &D3DXCOLOR(0.0f, 1.0f, 1.0f, 1.0f));
 		}
 		else if (pSender->GetTag() == E_HAIR_SELECT_03)
 		{
 			m_pPlayer->ChangeMeshPart(cPlayer::MESH_HAIR, "Chareter/DefaultPlayer/", "hair_female_hair22_t22.X");
+		//	m_pPlayer->SetTextureHair("hair01.dds");
 		//	m_pPlayer->ChangeMeshPartColor(cPlayer::MESH_HAIR, "hair01.dds", &D3DXCOLOR(0.0f, 0.0f, 1.0f, 1.0f));
 		}
+
 		//칼라
 		if (pSender->GetTag() == E_HAIR_COLOR_SELECT_01)
 		{
@@ -471,9 +477,9 @@ void cUiCustomizingScene::OnClick(cUIButton * pSender)
 		}
 		else if (pSender->GetTag() == E_HAIR_COLOR_SELECT_02)
 		{
-			m_pPlayer->ChangeMeshPartColor(cPlayer::MESH_HAIR, "hair01.dds", &D3DXCOLOR(0.0f, 0.0f, 1.0f, 1.0f));
+		//	m_pPlayer->ChangeMeshPartColor(cPlayer::MESH_HAIR, "hair01.dds", &D3DXCOLOR(0.0f, 0.0f, 1.0f, 1.0f));
 		//	m_pPlayer->SetTextureHair("hair01.dds");
-		//	m_pPlayer->SetTextureHairColor(&D3DXCOLOR(0.0f, 0.0f, 1.0f, 1.0f));
+			m_pPlayer->SetTextureHairColor(&D3DXCOLOR(0.0f, 0.0f, 1.0f, 1.0f));
 		}
 		else if ((pSender->GetTag() == E_HAIR_COLOR_SELECT_03))
 		{
@@ -484,17 +490,17 @@ void cUiCustomizingScene::OnClick(cUIButton * pSender)
 	{
 		if (pSender->GetTag() == E_EYE_SELECT_01)
 		{
-			m_pPlayer->ChangeMeshPart(cPlayer::MESH_FACE, "./Chareter/Female_Face/", "basicFace.X");
+		//	m_pPlayer->ChangeMeshPart(cPlayer::MESH_FACE, "./Chareter/Female_Face/", "basicFace.X");
 			m_pPlayer->SetTextureEye("eye_0.dds");
 		}
 		else if (pSender->GetTag() == E_EYE_SELECT_02)
 		{
-			m_pPlayer->ChangeMeshPart(cPlayer::MESH_FACE, "./Chareter/Female_Face/", "basicFace.X");
+		//	m_pPlayer->ChangeMeshPart(cPlayer::MESH_FACE, "./Chareter/Female_Face/", "basicFace.X");
 			m_pPlayer->SetTextureEye("eye_1.dds");
 		}
 		else if (pSender->GetTag() == E_EYE_SELECT_03)
 		{
-			m_pPlayer->ChangeMeshPart(cPlayer::MESH_FACE, "./Chareter/Female_Face/", "basicFace.X");
+		//	m_pPlayer->ChangeMeshPart(cPlayer::MESH_FACE, "./Chareter/Female_Face/", "basicFace.X");
 			m_pPlayer->SetTextureEye("eye_2.dds");
 
 		//	m_pPlayer->ChangeMeshPartColor(cPlayer::MESH_HAIR, "hair01.dds", &D3DXCOLOR(1.0f, 0.0f, 1.0f, 1.0f));
@@ -504,17 +510,17 @@ void cUiCustomizingScene::OnClick(cUIButton * pSender)
 	{
 		if (pSender->GetTag() == E_MOUTH_SELECT_01)
 		{
-			m_pPlayer->ChangeMeshPart(cPlayer::MESH_FACE, "./Chareter/Female_Face/", "basicFace.X");
+		//	m_pPlayer->ChangeMeshPart(cPlayer::MESH_FACE, "./Chareter/Female_Face/", "basicFace.X");
 			m_pPlayer->SetTextureMouth("mouth_0.dds");
 		}
 		else if (pSender->GetTag() == E_MOUTH_SELECT_02)
 		{
-			m_pPlayer->ChangeMeshPart(cPlayer::MESH_FACE, "./Chareter/Female_Face/", "basicFace.X");
+		//	m_pPlayer->ChangeMeshPart(cPlayer::MESH_FACE, "./Chareter/Female_Face/", "basicFace.X");
 			m_pPlayer->SetTextureMouth("mouth_1.dds");
 		}
 		else if (pSender->GetTag() == E_MOUTH_SELECT_03)
 		{
-			m_pPlayer->ChangeMeshPart(cPlayer::MESH_FACE, "./Chareter/Female_Face/", "basicFace.X");
+		//	m_pPlayer->ChangeMeshPart(cPlayer::MESH_FACE, "./Chareter/Female_Face/", "basicFace.X");
 			m_pPlayer->SetTextureMouth("mouth_2.dds");
 		}
 	}
