@@ -69,7 +69,7 @@ cUiCustomizingScene::cUiCustomizingScene(void)
 	, m_pCustomEyeUi(NULL)
 	, m_pCustomMouthUi(NULL)
 	, m_isLButtonDown(false)
-	, m_pHairColor(&D3DXCOLOR(1.0f, 0.0f, 0.0f, 1.0f))
+	, m_pHairColor(&D3DXCOLOR(0.07f, 0.07f, 0.07f, 1.0f))
 	, m_hairColor(1.0f, 0.0f, 0.0f, 1.0f)
 {
 }
@@ -213,8 +213,10 @@ void cUiCustomizingScene::OnClick(cUIButton * pSender)
 		m_eCustomizingTab = E_CUSTOM_MOUTH;
 	}
 
+	//머리 메뉴가 나올시
 	if (m_eCustomizingTab == E_CUSTOM_HAIR)
 	{
+		//머리 스타일 변경
 		if (pSender->GetTag() == E_HAIR_SELECT_01)
 		{
 			m_pPlayer->ChangeMeshPart(cPlayer::MESH_HAIR, "Chareter/DefaultPlayer/", "hair_female_hair02_t02.X");
@@ -235,25 +237,55 @@ void cUiCustomizingScene::OnClick(cUIButton * pSender)
 		//	m_pPlayer->ChangeMeshPartColor(cPlayer::MESH_HAIR, "hair01.dds", &D3DXCOLOR(0.0f, 0.0f, 1.0f, 1.0f));
 		}
 
-		//칼라
-		if (pSender->GetTag() == E_HAIR_COLOR_SELECT_01)
+		//머리 색 변경
+		if (pSender->GetTag() == E_HAIR_COLOR_SELECT_BLACK)
 		{
 			//m_pPlayer->ChangeMeshPartColor(cPlayer::MESH_HAIR, "hair01.dds", &D3DXCOLOR(1.0f, 0.0f, 0.0f, 1.0f));
-			m_pPlayer->SetTextureHairColor(&D3DXCOLOR(1.0f, 0.0f, 0.0f, 1.0f));
+			m_pPlayer->SetTextureHairColor(&D3DXCOLOR(0.07f, 0.07f, 0.07f, 1.0f));
 
 		}
-		else if (pSender->GetTag() == E_HAIR_COLOR_SELECT_02)
+		else if (pSender->GetTag() == E_HAIR_COLOR_SELECT_MID_BLUE)
 		{
-			m_pPlayer->ChangeMeshPartColor(cPlayer::MESH_HAIR, "hair01.dds", &D3DXCOLOR(0.0f, 0.0f, 1.0f, 1.0f));
+		//	m_pPlayer->ChangeMeshPartColor(cPlayer::MESH_HAIR, "hair01.dds", &D3DXCOLOR(0.0f, 0.08f, 0.2f, 1.0f));
 		//	m_pPlayer->SetTextureHair("hair01.dds");
-			m_pPlayer->SetTextureHairColor(&D3DXCOLOR(0.0f, 0.0f, 1.0f, 1.0f));
+			m_pPlayer->SetTextureHairColor(&D3DXCOLOR(0.0f, 0.08f, 0.2f, 1.0f));
 		}
-		else if ((pSender->GetTag() == E_HAIR_COLOR_SELECT_03))
+		else if ((pSender->GetTag() == E_HAIR_COLOR_SELECT_RED))
 		{
 			//m_pPlayer->ChangeMeshPartColor(cPlayer::MESH_HAIR, "hair01.dds", &D3DXCOLOR(1.0f, 1.0f, 0.0f, 1.0f));
-			m_pPlayer->SetTextureHairColor(&D3DXCOLOR(1.0f, 1.0f, 0.0f, 1.0f));
+			m_pPlayer->SetTextureHairColor(&D3DXCOLOR(0.35f, 0.0f, 0.15f, 1.0f));
+		}
+		else if ((pSender->GetTag() == E_HAIR_COLOR_SELECT_BROWN))
+		{
+			m_pPlayer->SetTextureHairColor(&D3DXCOLOR(0.25f, 0.15f, 0.0f, 1.0f));
+		}
+		else if ((pSender->GetTag() == E_HAIR_COLOR_SELECT_BLONDE))
+		{
+			m_pPlayer->SetTextureHairColor(&D3DXCOLOR(0.89f, 0.85f, 0.53f, 1.0f));
+		}
+		else if ((pSender->GetTag() == E_HAIR_COLOR_SELECT_ORANGE))
+		{
+			m_pPlayer->SetTextureHairColor(&D3DXCOLOR(0.93f, 0.57f, 0.32f, 1.0f));
+		}
+		else if ((pSender->GetTag() == E_HAIR_COLOR_SELECT_DARKGREEN))
+		{
+			m_pPlayer->SetTextureHairColor(&D3DXCOLOR(0.0f, 0.12f, 0.0f, 1.0f));
+		}
+		else if ((pSender->GetTag() == E_HAIR_COLOR_SELECT_WHITE))
+		{
+			m_pPlayer->SetTextureHairColor(&D3DXCOLOR(0.90f, 0.88f, 1.0f, 1.0f));
+		}
+		else if ((pSender->GetTag() == E_HAIR_COLOR_SELECT_SKY))
+		{
+			m_pPlayer->SetTextureHairColor(&D3DXCOLOR(0.59f, 0.79f, 1.0f, 1.0f));
+		}
+		else if ((pSender->GetTag() == E_HAIR_COLOR_SELECT_BLUE))
+		{
+			m_pPlayer->SetTextureHairColor(&D3DXCOLOR(0.35f, 0.30f, 0.55f, 1.0f));
 		}
 	}
+
+	//눈깔 변경
 	if (m_eCustomizingTab == E_CUSTOM_EYE)
 	{
 		if (pSender->GetTag() == E_EYE_SELECT_01)
@@ -274,6 +306,8 @@ void cUiCustomizingScene::OnClick(cUIButton * pSender)
 		//	m_pPlayer->ChangeMeshPartColor(cPlayer::MESH_HAIR, "hair01.dds", &D3DXCOLOR(1.0f, 0.0f, 1.0f, 1.0f));
 		}
 	}
+
+	//입 변경
 	if (m_eCustomizingTab == E_CUSTOM_MOUTH)
 	{
 		if (pSender->GetTag() == E_MOUTH_SELECT_01)

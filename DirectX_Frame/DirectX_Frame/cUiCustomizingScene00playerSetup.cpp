@@ -38,8 +38,8 @@ void cUiCustomizingScene::SetupPlayer(void)
 	m_pPlayer->Setup();
 	m_pPlayer->ChangeMeshPart(cPlayer::MESH_HAIR, "Chareter/Female_Hair/", "hair_female_hair02_t02.X");
 	//	m_pPlayer->ChangeMeshPartColor(cPlayer::MESH_HAIR, "hair01.dds", &D3DXCOLOR(1.0f, 0.0f, 0.0f, 1.0f));
-	m_pPlayer->SetTextureHair("hair01.dds");
-	m_pPlayer->SetTextureHairColor(&D3DXCOLOR(0.25f, 0.0f, 0.5f, 1.0f));
+	m_pPlayer->SetTextureHair("hair01.dds");  //헤어.dds
+	m_pPlayer->SetTextureHairColor(&D3DXCOLOR(0.07f, 0.07f, 0.07f, 1.0f)); //헤어 색
 	//m_pPlayer->ChangeMeshPart(cPlayer::MESH_FACE, "./Chareter/Female_Face/", "basicFace.X");
 	m_pPlayer->ChangeMeshPartColor(cPlayer::MESH_FACE, "mouth_0.dds", &D3DXCOLOR(0.0f, 0.0f, 0.0f, 1.0f));
 	m_pPlayer->SetTextureMouth("mouth_0.dds");
