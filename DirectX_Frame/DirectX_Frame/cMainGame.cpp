@@ -52,7 +52,7 @@ void cMainGame::Setup(void)
 	g_pSceneManager->AddScene("cChareterCustomScene", cChareterCustomScene::Create());
 	g_pSceneManager->AddScene("cUiCustomizingScene", cUiCustomizingScene::Create());
 
-	g_pSceneManager->ChangeScene("cChareterCustomScene");
+	g_pSceneManager->ChangeScene("cUiCustomizingScene");
 
 
 	//≈∏¿Ã∏”
