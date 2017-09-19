@@ -19,8 +19,9 @@ HRESULT cChareterCustomScene::Setup(void)
 {
 	//메시 로드 및 색상 편집
 	cSkinnedMesh* pSkinMesh;
-	pSkinMesh = g_pSkinnedMeshManager->GetSkinnedMesh("Chareter/Female_Hair/", "hair_female_hair02_t02.X");
-	pSkinMesh->SetTextureColor("hair01.dds", &D3DXCOLOR(1.0f, 0.0f, 0.0f, 1.0f));
+
+	pSkinMesh = g_pSkinnedMeshManager->RegisterSkinnedMesh("Chareter/Female_Hair/", "hair_female_hair02_t02.X", "머리스타일");
+
 
 	pSkinMesh = g_pSkinnedMeshManager->GetSkinnedMesh("Chareter/DefaultPlayer/", "lisaAniTest.X");
 	pSkinMesh->SetTextureColor("uni_shoes01_c.dds", &D3DXCOLOR(1.0f, 1.0f, 0.0f, 1.0f));
@@ -35,8 +36,11 @@ HRESULT cChareterCustomScene::Setup(void)
 	//플레이어 생성
 	m_pPlayer = cPlayer::Create();
 	m_pPlayer->Setup();
-	m_pPlayer->ChangeMeshPart(cPlayer::MESH_HAIR, "Chareter/Female_Hair/", "hair_female_hair02_t02.X");
+	m_pPlayer->ChangeMeshPart(cPlayer::MESH_HAIR, g_pSkinnedMeshManager->GetSkinnedMesh("머리스타일"));
+	m_pPlayer->SetTextureHair("hair01.dds");
+	m_pPlayer->SetTextureHairColor(&D3DXCOLOR(0.0f, 1.0f, 0.0f, 1.0f));
 	m_pPlayer->ChangeMeshPart(cPlayer::MESH_FACE, "./Chareter/Female_Face/", "basicFace.X");
+
 	m_pPlayer->ChangeMeshPartColor(cPlayer::MESH_FACE, "mouth_0.dds", &D3DXCOLOR(0.0f, 0.0f, 0.0f, 1.0f));
 	m_pPlayer->ChangeMeshPart(cPlayer::MESH_BODY, "Chareter/Female_Body/", "basicBody.X");
 	m_pPlayer->ChangeMeshPart(cPlayer::MESH_HAND, "Chareter/Female_Hand/", "basicFist.X");
@@ -46,6 +50,7 @@ HRESULT cChareterCustomScene::Setup(void)
 	//카메라 연결
 	m_pMainCamera = m_pPlayer->GetCamera();
 	m_pMainCamera->Setup();
+	m_pMainCamera->UpdateProjection(0.001f);
 
 	//애니메이션 등록
 	LPD3DXANIMATIONSET pAnimationSet;

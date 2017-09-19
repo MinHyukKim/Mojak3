@@ -59,6 +59,7 @@ public:
 	static void AddTexture(LPD3DXFRAME pRoot, LPCSTR szFrameName, LPCSTR szTextureName);
 
 	cSkinnedMesh(char* szFolder, char* szFilename);
+	cSkinnedMesh(cSkinnedMesh* pSkinnedMesh);
 	virtual ~cSkinnedMesh(void);
 
 private:

@@ -473,7 +473,8 @@ void cUiCustomizingScene::OnClick(cUIButton * pSender)
 		//Ä®¶ó
 		if (pSender->GetTag() == E_HAIR_COLOR_SELECT_01)
 		{
-			m_pPlayer->ChangeMeshPartColor(cPlayer::MESH_HAIR, "hair01.dds", &D3DXCOLOR(1.0f, 0.0f, 0.0f, 1.0f));
+			//m_pPlayer->ChangeMeshPartColor(cPlayer::MESH_HAIR, "hair01.dds", &D3DXCOLOR(1.0f, 0.0f, 0.0f, 1.0f));
+			m_pPlayer->SetTextureHairColor(&D3DXCOLOR(1.0f, 0.0f, 0.0f, 1.0f));
 
 		}
 		else if (pSender->GetTag() == E_HAIR_COLOR_SELECT_02)
@@ -484,7 +485,8 @@ void cUiCustomizingScene::OnClick(cUIButton * pSender)
 		}
 		else if ((pSender->GetTag() == E_HAIR_COLOR_SELECT_03))
 		{
-			m_pPlayer->ChangeMeshPartColor(cPlayer::MESH_HAIR, "hair01.dds", &D3DXCOLOR(1.0f, 1.0f, 0.0f, 1.0f));
+			//m_pPlayer->ChangeMeshPartColor(cPlayer::MESH_HAIR, "hair01.dds", &D3DXCOLOR(1.0f, 1.0f, 0.0f, 1.0f));
+			m_pPlayer->SetTextureHairColor(&D3DXCOLOR(1.0f, 1.0f, 0.0f, 1.0f));
 		}
 	}
 	if (m_eCustomizingTab == E_CUSTOM_EYE)
