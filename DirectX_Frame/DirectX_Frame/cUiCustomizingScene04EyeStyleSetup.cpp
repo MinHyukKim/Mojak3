@@ -17,7 +17,7 @@ void cUiCustomizingScene::SetupEyeStyle(void)
 	//´« ¸Ó¸®
 	m_pCustomEyeImageHead = cUIImageView::Create();
 	m_pCustomEyeImageHead->SetTexture("Texture/Ui/customUiBaseHead1.png");
-	m_pCustomEyeImageHead->SetPosition(20, 20);
+	m_pCustomEyeImageHead->SetPosition(m_nX, m_nY);
 	m_pCustomEyeImageHead->m_Alpha = 0;
 	m_pCustomEyeUi = m_pCustomEyeImageHead;
 	//´« Ã¢

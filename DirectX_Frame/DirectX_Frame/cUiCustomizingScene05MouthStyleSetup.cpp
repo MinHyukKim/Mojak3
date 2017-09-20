@@ -16,7 +16,7 @@ void cUiCustomizingScene::SetupMouthStyle(void)
 	//입 창(택스쳐)
 	m_pCustomMouthImageHead = cUIImageView::Create();
 	m_pCustomMouthImageHead->SetTexture("Texture/Ui/customUiBaseHead1.png");
-	m_pCustomMouthImageHead->SetPosition(20, 20);
+	m_pCustomMouthImageHead->SetPosition(m_nX, m_nY);
 	m_pCustomMouthImageHead->m_Alpha = 0;
 	m_pCustomMouthUi = m_pCustomMouthImageHead;
 	//입 창

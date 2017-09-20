@@ -32,10 +32,13 @@ cUiCustomizingScene::cUiCustomizingScene(void)
 	, m_pCustomButtonEye(NULL)
 	, m_pCustomButtonMouth(NULL)
 	, m_pCustomUi(NULL)
+	, m_nX(20)
+	, m_nY(20)
 
 	, m_pCustomHairUi(NULL)
 	, m_pCustomEyeUi(NULL)
 	, m_pCustomMouthUi(NULL)
+	, m_pCustomColorUi(NULL)
 	, m_isLButtonDown(false)
 	, m_pHairColor(&D3DXCOLOR(0.07f, 0.07f, 0.07f, 1.0f))
 	, m_hairColor(1.0f, 0.0f, 0.0f, 1.0f)
@@ -73,8 +76,8 @@ HRESULT cUiCustomizingScene::Setup(void)
 	this->SetupTotal();
 	//헤어 스타일(매쉬 버튼)
 	this->SetupHairStyle();
-	//헤어 색상 변경 버튼
-	this->SetupHairColor();
+	//헤어, 눈 색상 변경 버튼
+	this->SetupHairEyeColor();
 	//눈 변경 버튼
 	this->SetupEyeStyle();
 	//입 변경 버튼
@@ -97,6 +100,7 @@ void cUiCustomizingScene::Reset(void)
 	SAFE_RELEASE(m_pCustomHairUi);
 	SAFE_RELEASE(m_pCustomEyeUi);
 	SAFE_RELEASE(m_pCustomMouthUi);
+	SAFE_RELEASE(m_pCustomColorUi);
 }
 
 void cUiCustomizingScene::Update(void)
@@ -113,19 +117,21 @@ void cUiCustomizingScene::Update(void)
 	{
 	case E_CUSTOM_HAIR:
 	{
-		if(m_pCustomHairUi) m_pCustomHairUi->Update();
+		if (m_pCustomHairUi) m_pCustomHairUi->Update();
+		if (m_pCustomColorUi) m_pCustomColorUi->Update();
 	//	m_pMainCamera->SetPosition(&D3DXVECTOR3(50.0f, 0.4f, -1.1f));
 	}
 	break;
 	case E_CUSTOM_EYE:
 	{
-		if(m_pCustomEyeUi) m_pCustomEyeUi->Update();
+		if (m_pCustomEyeUi) m_pCustomEyeUi->Update();
+		if (m_pCustomColorUi) m_pCustomColorUi->Update();
 	//	m_pMainCamera->SetPosition(&D3DXVECTOR3(50.0f, 0.7f, -1.1f));
 	}
 	break;
 	case E_CUSTOM_MOUTH:
 	{
-		if(m_pCustomMouthUi) m_pCustomMouthUi->Update();
+		if (m_pCustomMouthUi) m_pCustomMouthUi->Update();
 	//	m_pMainCamera->SetPosition(&D3DXVECTOR3(50.0f, 0.7f, -1.1f));
 	}
 	break;
@@ -133,10 +139,6 @@ void cUiCustomizingScene::Update(void)
 
 	this->changeButtonColorHair();
 
-	POINT ptMouse;
-	POINT ptClickMouse;
-	//GetCursorPos(&ptMouse);
-	//ScreenToClient(g_hWnd, &ptMouse);
 
 //	m_pPlayer->ChangeMeshPartColor(cPlayer::MESH_HAIR, "hair01.dds", m_pHairColor);
 }
@@ -153,11 +155,13 @@ void cUiCustomizingScene::Render(void)
 		case E_CUSTOM_HAIR:
 		{
 			if(m_pCustomHairUi) m_pCustomHairUi->Render(m_pSprite);
+			if (m_pCustomColorUi) m_pCustomColorUi->Render(m_pSprite);
 		}
 		break;
 		case E_CUSTOM_EYE:
 		{
 			if(m_pCustomEyeUi) m_pCustomEyeUi->Render(m_pSprite);
+			if (m_pCustomColorUi) m_pCustomColorUi->Render(m_pSprite);
 		}
 		break;
 		case E_CUSTOM_MOUTH:

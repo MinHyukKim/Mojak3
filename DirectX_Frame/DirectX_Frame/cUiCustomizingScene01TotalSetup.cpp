@@ -16,7 +16,7 @@ void cUiCustomizingScene::SetupTotal(void)
 	//커마 창 머리
 	m_pCustomImageHead = cUIImageView::Create();
 	m_pCustomImageHead->SetTexture("Texture/Ui/customUiBaseHead1.png");
-	m_pCustomImageHead->SetPosition(20, 20);
+	m_pCustomImageHead->SetPosition(m_nX, m_nY);
 	m_pCustomImageHead->m_Alpha = 200;
 	m_pCustomUi = m_pCustomImageHead;
 	//커마 창
