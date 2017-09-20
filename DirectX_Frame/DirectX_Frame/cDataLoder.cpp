@@ -94,7 +94,7 @@ bool cDataLoder::RegisterData(LPCSTR FullPath)
 bool cDataLoder::LoaderData(void)
 {
 	if (m_dwCount >= m_vecData.size()) return false;
-	ST_DATA* pData = &m_vecData[m_dwCount++];
+	ST_DATA* pData = &m_vecData[m_dwCount];
 	switch (pData->dwType)
 	{
 	case cDataLoder::DATA_NULL: break;
@@ -103,6 +103,7 @@ bool cDataLoder::LoaderData(void)
 	case cDataLoder::DATA_ANIMATION: g_pAnimationManager->RegisterAnimation(pData->str1.c_str(), pData->str2.c_str()); break;
 	default: break;
 	}
+	++m_dwCount;
 	return true;
 }
 

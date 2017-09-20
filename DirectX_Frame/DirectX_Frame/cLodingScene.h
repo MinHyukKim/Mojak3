@@ -4,6 +4,8 @@
 class cLodingScene : public cSceneObject
 {
 private:
+	cDataLoder* m_pData;
+
 public:
 	virtual HRESULT Setup(void) override;
 	virtual void Reset(void) override;

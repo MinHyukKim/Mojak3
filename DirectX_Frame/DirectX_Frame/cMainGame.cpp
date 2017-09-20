@@ -18,6 +18,7 @@ cMainGame::cMainGame(void)
 cMainGame::~cMainGame(void)
 {
 	DEBUG_END();
+	g_pObjectManager->Destroy();
 	g_pAnimationManager->Destroy();
 	g_pFrustum->Destroy();
 	g_pTexture->Destroy();

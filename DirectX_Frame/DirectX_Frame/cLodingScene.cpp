@@ -3,16 +3,26 @@
 
 #include "cDataLoder.h"
 
+cLodingScene::cLodingScene(void)
+	: m_pData(nullptr)
+{
+}
+
+cLodingScene::~cLodingScene(void)
+{
+}
+
 HRESULT cLodingScene::Setup(void)
 {
-	cDataLoder* pData = cDataLoder::Create();
-	pData->RegisterData("./Data/SetupData.txt");
-	SAFE_RELEASE(pData);
+	SAFE_RELEASE(m_pData);
+	m_pData = cDataLoder::Create();
+	m_pData->RegisterData("./Data/SetupData.txt");
 	return S_OK;
 }
 
 void cLodingScene::Reset(void)
 {
+	SAFE_RELEASE(m_pData);
 }
 
 void cLodingScene::Update(void)
@@ -30,11 +40,3 @@ cLodingScene* cLodingScene::Create(void)
 	return newClass;
 }
 
-cLodingScene::cLodingScene()
-{
-}
-
-
-cLodingScene::~cLodingScene()
-{
-}
