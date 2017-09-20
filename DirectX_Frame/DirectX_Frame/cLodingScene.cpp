@@ -67,13 +67,13 @@ void cLodingScene::Update(void)
 		if (m_pFont)
 		{
 			char szText[256] = {};
-			sprintf(szText, "로딩중 %2.2f %%", m_pData->GetLodingGauge() * 1000.0f);
+			sprintf(szText, "로딩중 %2.2f %%", m_pData->GetLodingGauge() * 100.0f);
 			m_pFont->DrawFont(500, 250, szText);
 		}
 	}
 	else
 	{
-		g_pSceneManager->ChangeScene("cChareterCustomScene");
+		g_pSceneManager->ChangeScene("cUiCustomizingScene");
 	}
 }
 
