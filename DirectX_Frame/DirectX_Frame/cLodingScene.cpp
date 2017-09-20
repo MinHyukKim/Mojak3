@@ -74,6 +74,7 @@ void cLodingScene::Update(void)
 	else
 	{
 		g_pSceneManager->ChangeScene("cUiCustomizingScene");
+		return;
 	}
 }
 
