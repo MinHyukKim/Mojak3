@@ -184,6 +184,10 @@ void cUiCustomizingScene::OnClick(cUIButton * pSender)
 	{
 		m_eCustomizingTab = E_CUSTOM_MOUTH;
 	}
+	else if (pSender->GetTag() == E_CUSTOM_BUTTON_FIN)
+	{
+
+	}
 
 	//머리 메뉴가 나올시
 	if (m_eCustomizingTab == E_CUSTOM_HAIR)
@@ -346,12 +350,5 @@ void cUiCustomizingScene::changeButtonColor()
 
 void cUiCustomizingScene::changeButtonColorHair()
 {
-	//if (m_eHairStyleTab == E_HAIR_01 )
-	//{
-	//	if(m_pCustomHairSulastButton->GetTag() == E_HAIR_SELECT_01)
-	//	m_pCustomHairSulastButton->SetTexture("Texture/Ui/buttonBase2Down.png",
-	//		"Texture/Ui/buttonBase2Down.png",
-	//		"Texture/Ui/buttonBase2Down.png");
-	//}
 
 }

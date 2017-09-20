@@ -53,6 +53,8 @@ enum
 	E_HAIR_COLOR_SELECT_WHITE = 233,
 	E_HAIR_COLOR_SELECT_SKY = 234,
 	E_HAIR_COLOR_SELECT_BLUE = 235,
+	//완료 후 나가기
+	E_CUSTOM_BUTTON_FIN = 236,
 };
 
 //커스텀마이징 메뉴에서의 선택(머리 or 눈 or 입)

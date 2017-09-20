@@ -70,7 +70,7 @@ void cUiCustomizingScene::SetupTotal(void)
 		"Texture/Ui/textButtonDown6024.png");
 	m_pCustomButtonFin->SetPosition(164, 370);
 	m_pCustomButtonFin->SetDelegate(this);
-	m_pCustomButtonFin->SetTag(E_SERVER_BUTTON_NEXT);
+	m_pCustomButtonFin->SetTag(E_CUSTOM_BUTTON_FIN);
 	m_pCustomUi->AddChild(m_pCustomButtonFin);
 	//±Û¾¾
 	cUITextView* TextFin = cUITextView::Create();
