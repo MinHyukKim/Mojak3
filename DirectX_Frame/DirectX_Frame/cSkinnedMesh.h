@@ -31,7 +31,7 @@ public:
 	void UpdateAndRender();
 	void UpdateAndRender(LPD3DXMATRIX pMatrix);
 	void SetAnimationIndex(int nIndex);
-	void SetBlendingAnimation(int nAnimationKey, float fTravalTime = 0.1f);
+	void SetBlendingAnimation(int nAnimationKey, float fTravelTime = 0.1f);
 
 
 	bool FrameClone(OUT LPD3DXFRAME* ppClone, IN LPD3DXFRAME pOrigin);
@@ -39,6 +39,7 @@ public:
 	void SetAnimationController(LPD3DXANIMATIONCONTROLLER pAnimationController);
 	LPD3DXANIMATIONCONTROLLER GetAnimationController(void) { return m_pAnimController; }
 	void SetRandomTrackPosition();
+
 	void UpdateSkinnedMesh(LPD3DXFRAME pFrame, D3DXMATRIX* pPMat);
 	void FrameChange(LPD3DXFRAME pFrame);
 	void SetTrack(bool ibTrack) { m_isCurrentTrack = ibTrack; }

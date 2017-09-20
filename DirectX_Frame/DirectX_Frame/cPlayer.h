@@ -43,7 +43,13 @@ private:
 	std::vector<cSkinnedMesh*> m_vecMesh;
 
 	LPD3DXANIMATIONCONTROLLER m_pAnimationController;
+	int					m_nAnimationKey;
 	bool m_bCurrentTrack;
+
+	int m_state = ANIMATION_IDLE;
+	int m_prevState = m_state;
+	DWORD prevIndex = ANIMATION_IDLE;
+
 
 public:
 	virtual HRESULT Setup(void) override;
@@ -69,6 +75,9 @@ public:
 	void SetTextureHair(LPCSTR szHairName);
 	void SetTextureHairColor(D3DMATERIAL9* pMaterial);
 	void SetTextureHairColor(LPD3DXCOLOR pColor);
+	void SetBlendingAnimation(int nAnimationKey, float fTravelTime = 0.1f);
+	void SetState(int nState) { m_prevState = m_state; m_state = nState; };
+	int GetState() { return m_state; };
 
 	cCamera* GetCamera(void) { return m_pCamera; }
 
