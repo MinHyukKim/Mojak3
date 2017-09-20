@@ -53,6 +53,7 @@ void cUiCustomizingScene::SetupPlayer(void)
 	//카메라 연결
 	m_pMainCamera = m_pPlayer->GetCamera();
 	m_pMainCamera->Setup();
+	m_pMainCamera->AddRef();
 	m_pMainCamera->UpdateProjection(0.1f);
 	//위치
 	//m_pMainCamera->SetPosition(&D3DXVECTOR3(50.0f, 0.7f, -0.4f));
