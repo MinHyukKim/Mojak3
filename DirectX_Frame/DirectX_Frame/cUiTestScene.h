@@ -36,30 +36,52 @@ private:
 	//매인의 뿌리
 	cUIImageView* m_pMainRootImageView;
 	cUiObject* m_pUiRoot;
-	cUIButton* m_pMainMainButton;
+	cUIButton* m_pMainMainButton; 	//메인
 	bool m_isMainWindowOn;
-	cUIButton* m_pInfoButton;
+	cUIButton* m_pInfoButton;		//정보
 	bool m_isInfoWindowOn;
-	cUIButton* m_pSkillButton;
+	cUIButton* m_pSkillButton;		//스킬
 	bool m_isSkillWindowOn;
-	cUIButton* m_pQuestButton;
+	cUIButton* m_pQuestButton;		//퀘스트
 	bool m_isQuestWindowOn;
-	cUIButton* m_pInventoryButton;
+	cUIButton* m_pInventoryButton;	//인벤
 	bool m_isInventoryWindowOn;
+
 	int m_nmainUiLocalY;
 
 	//메인 ui틀 위치
 	int mainUiLocalX = 300;			//메인 틀 x
 	int mainUiLocalY = 502;			//메인 틀 y
-
 	int mainButtonH = -25;			//메인 버튼들 높이
 	int mainButtoninterval = 40;	//메인 버튼들 가로 간격(크기)
 	int mainButtonSrart = 160;		//메인 버튼들 최초 시작 위치
 
+	//플레이어 정보창
+	cUIImageView* m_pInfoUiImageHead;
+	cUIImageView* m_pInfoUiImage;
+	cUIButton* m_pInfoUiButton;
+	cUiObject* m_pInfoUi;
 
-	//안씀
-	cUiObject* m_pUiTestRoot;
+	//플레이어 스킬창
+	cUIImageView* m_pSkillUiImageHead;
+	cUIImageView* m_pSkillUiImage;
+	cUIButton* m_pSkillUiButton;
+	cUiObject* m_pSkillUi;
+
+	//퀘스트 정보창
+	cUIImageView* m_pQuestUiImageHead;
+	cUIImageView* m_pQuestUiImage;
+	cUIButton* m_pQuestUiButton;
+	cUiObject* m_pQuestUi;
+
+	//플레이어 인벤창
+	cUIImageView* m_pInventoryUiImageHead;
+	cUIImageView* m_pInventoryUiImage;
+	cUIButton* m_pQInventoryUiButton;
+	cUiObject* m_pInventoryUi;
+	
 	//패널 이미지 크기 태스트용
+	cUiObject* m_pUiTestRoot;
 	cUIImageView* m_pUiTesterSize;
 
 	//클릭변수?

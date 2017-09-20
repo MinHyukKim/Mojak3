@@ -24,6 +24,11 @@ cUiTestScene::cUiTestScene(void)
 	, m_isSkillWindowOn(false)
 	, m_isQuestWindowOn(false)
 	, m_isInventoryWindowOn(false)
+	//
+	, m_pInfoUi(NULL)
+	, m_pSkillUi(NULL)
+	, m_pQuestUi(NULL)
+	, m_pInventoryUi(NULL)
 {
 }
 
@@ -48,7 +53,74 @@ HRESULT cUiTestScene::Setup(void)
 
 	//임시 태스트용
 	m_pUiTesterSize = cUIImageView::Create();
+	m_pUiTesterSize->SetTexture("Texture/Ui/inventoryBase.png");
+	m_pUiTesterSize->SetPosition(10, 10);
 	m_pUiTestRoot = m_pUiTesterSize;
+	
+//	//커마 창 머리
+//	m_pCustomImageHead = cUIImageView::Create();
+//	m_pCustomImageHead->SetTexture("Texture/Ui/customUiBaseHead1.png");
+//	m_pCustomImageHead->SetPosition(m_nX, m_nY);
+//	m_pCustomImageHead->m_Alpha = 200;
+//	m_pCustomUi = m_pCustomImageHead;
+//	//커마 창
+//	m_pCustomImage = cUIImageView::Create();
+//	m_pCustomImage->SetTexture("Texture/Ui/customUiBase2.png");
+//	m_pCustomImage->SetPosition(2, 48);
+//	m_pCustomImage->m_Alpha = 180;
+//	m_pCustomUi->AddChild(m_pCustomImage);
+
+	//정보 창 머리
+	m_pInfoUiImageHead = cUIImageView::Create();
+	m_pInfoUiImageHead->SetTexture("Texture/Ui/infoBaseHead1.png");
+	m_pInfoUiImageHead->SetPosition(354, 20);
+	m_pInfoUiImageHead->m_Alpha = 200;
+	m_pInfoUi = m_pInfoUiImageHead;
+	//정보 베이스 창
+	m_pInfoUiImage = cUIImageView::Create();
+	m_pInfoUiImage->SetTexture("Texture/Ui/Base.png");
+	m_pInfoUiImage->SetPosition(2, 48);
+	m_pInfoUiImage->m_Alpha = 180;
+	m_pInfoUi->AddChild(m_pInfoUiImage);
+
+	//스킬 머리 창
+	m_pSkillUiImageHead = cUIImageView::Create();
+	m_pSkillUiImageHead->SetTexture("Texture/Ui/skillBaseHead1.png");
+	m_pSkillUiImageHead->SetPosition(680, 20);
+	m_pSkillUiImageHead->m_Alpha = 200;
+	m_pSkillUi = m_pSkillUiImageHead;
+	//스킬 창 베이스
+	m_pSkillUiImage = cUIImageView::Create();
+	m_pSkillUiImage->SetTexture("Texture/Ui/Base.png");
+	m_pSkillUiImage->SetPosition(2, 48);
+	m_pSkillUiImage->m_Alpha = 180;
+	m_pSkillUi->AddChild(m_pSkillUiImage);
+
+	//퀘스트 창 머리
+	m_pQuestUiImageHead = cUIImageView::Create();
+	m_pQuestUiImageHead->SetTexture("Texture/Ui/questBaseHead1.png");
+	m_pQuestUiImageHead->SetPosition(500, 60);
+	m_pQuestUiImageHead->m_Alpha = 200;
+	m_pQuestUi = m_pQuestUiImageHead;
+	//퀘스트 창
+	m_pQuestUiImage = cUIImageView::Create();
+	m_pQuestUiImage->SetTexture("Texture/Ui/Base.png");
+	m_pQuestUiImage->SetPosition(2, 48);
+	m_pQuestUiImage->m_Alpha = 180;
+	m_pQuestUi->AddChild(m_pQuestUiImage);
+
+	//인벤토리 창 머리
+	m_pInventoryUiImageHead = cUIImageView::Create();
+	m_pInventoryUiImageHead->SetTexture("Texture/Ui/inventoryBaseHead1.png");
+	m_pInventoryUiImageHead->SetPosition(20, 20);
+	m_pInventoryUiImageHead->m_Alpha = 200;
+	m_pInventoryUi = m_pInventoryUiImageHead;
+	//인벤 전체 창
+	m_pInventoryUiImage = cUIImageView::Create();
+	m_pInventoryUiImage->SetTexture("Texture/Ui/inventoryBase.png");
+	m_pInventoryUiImage->SetPosition(2, 48);
+	m_pInventoryUiImage->m_Alpha = 180;
+	m_pInventoryUi->AddChild(m_pInventoryUiImage);
 
 	return D3D_OK;
 }
@@ -62,6 +134,10 @@ void cUiTestScene::Reset(void)
 //	SAFE_RELEASE(m_pMainRootImageView);
 	SAFE_RELEASE(m_pUiTestRoot);
 //	SAFE_RELEASE(m_pMainMainButton);
+	if(m_pInfoUi) SAFE_RELEASE(m_pInfoUi);
+	if(m_pSkillUi) SAFE_RELEASE(m_pSkillUi);
+	if(m_pQuestUi) SAFE_RELEASE(m_pQuestUi);
+	if(m_pInventoryUi) SAFE_RELEASE(m_pInventoryUi);
 }
 
 void cUiTestScene::Update(void)
@@ -72,12 +148,24 @@ void cUiTestScene::Update(void)
 	else m_pMainRootImageView->SetPosition(300, 502);
 
 	if (m_pUiRoot) m_pUiRoot->Update();
+	if (m_pInfoUi && m_isInfoWindowOn) m_pInfoUi->Update();
+	if (m_pSkillUi && m_isSkillWindowOn) m_pSkillUi->Update();
+	if (m_pQuestUi && m_isQuestWindowOn) m_pQuestUi->Update();
+	if (m_pInventoryUi && m_isInventoryWindowOn) m_pInventoryUi->Update();
+
+	if (m_pUiTestRoot) m_pUiTestRoot->Update();
 }
 
 void cUiTestScene::Render(void)
 {
 	g_pD3DDevice->SetTexture(0, m_pTexture);
-	if(m_pUiRoot) m_pUiRoot->Render(m_pSprite);
+	if (m_pUiRoot) m_pUiRoot->Render(m_pSprite);
+	if (m_pInfoUi && m_isInfoWindowOn) m_pInfoUi->Render(m_pSprite);
+	if (m_pSkillUi && m_isSkillWindowOn) m_pSkillUi->Render(m_pSprite);
+	if (m_pQuestUi && m_isQuestWindowOn) m_pQuestUi->Render(m_pSprite);
+	if (m_pInventoryUi && m_isInventoryWindowOn) m_pInventoryUi->Render(m_pSprite);
+	//크기 태스트용
+	//if (m_pUiTestRoot) m_pUiTestRoot->Render(m_pSprite);
 }
 
 void cUiTestScene::MsgProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)

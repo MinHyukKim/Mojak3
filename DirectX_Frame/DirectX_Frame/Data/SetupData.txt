@@ -7,7 +7,7 @@ Mesh:./Chareter/Female_Hair/,hair_female_hair02_t02.X,머리스타일;
 Mesh:./Chareter/Female_Hair/,hair_female_hair01_t01.X,머리스타일1;
 Mesh:./Chareter/Female_Hair/,hair_female_hair22_t22.X,머리스타일2;
 
-//mesh:./Chareter/DefaultPlayer/
+//mesh:./Chareter/DefaultPlayer/,
 
 Mesh:./Chareter/DefaultPlayer/,lisaAniTest.X,./Chareter/DefaultPlayer/lisaAniTest.X;
 Color:./Chareter/DefaultPlayer/lisaAniTest.X,uni_shoes01_c.dds, 1.0f, 1.0f, 0.0f, 1.0f;
