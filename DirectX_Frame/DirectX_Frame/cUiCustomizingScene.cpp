@@ -231,6 +231,7 @@ void cUiCustomizingScene::OnClick(cUIButton * pSender)
 	}
 	else if (pSender->GetTag() == E_CUSTOM_BUTTON_FIN)
 	{
+		g_pObjectManager->RegisterPlayer(m_pPlayer);
 		//완료 버튼 누르면 맵툴로
 		g_pSceneManager->ChangeScene("cMapToolScene");
 	}
