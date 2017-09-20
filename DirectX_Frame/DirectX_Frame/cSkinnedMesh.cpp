@@ -444,8 +444,39 @@ void cSkinnedMesh::SetAnimationIndex(int nIndex)
 	SAFE_RELEASE(pAnimSet);
 }
 
-void cSkinnedMesh::SetBlendingAnimation(int nAnimationKey, float fTravalTime)
+void cSkinnedMesh::SetBlendingAnimation(int nAnimationKey, float fTravelTime)
 {
+	if (m_nAnimationKey == nAnimationKey) return;
+	float fCurrentTime = m_pAnimController->GetTime();
+	if (!fCurrentTime) return;
+	LPD3DXKEYFRAMEDANIMATIONSET pKeyAniset;
+	//초기화
+	LPD3DXANIMATIONSET pAnimationSet = NULL;
+
+	m_pAnimController->UnkeyAllTrackEvents(false);
+	m_pAnimController->UnkeyAllTrackEvents(true);
+
+	//다음 애니메이션
+	m_pAnimController->GetAnimationSet(m_nAnimationKey, &pAnimationSet);
+	float fPlayTime = pAnimationSet->GetPeriod();
+	m_pAnimController->SetTrackAnimationSet(!m_isCurrentTrack, pAnimationSet);
+	m_pAnimController->KeyTrackWeight(!m_isCurrentTrack, 1.0f, 
+		fCurrentTime, fPlayTime * fTravelTime, D3DXTRANSITION_LINEAR);
+	m_pAnimController->SetTrackEnable(!m_isCurrentTrack, true);
+	SAFE_RELEASE(pAnimationSet);
+
+	//이전 애니메이션
+	m_pAnimController->GetAnimationSet(m_nAnimationKey, &pAnimationSet);
+	m_pAnimController->SetTrackAnimationSet(m_isCurrentTrack, pAnimationSet);
+	m_pAnimController->KeyTrackWeight(m_isCurrentTrack, 0.0f, 
+		fCurrentTime, fPlayTime * fTravelTime, D3DXTRANSITION_LINEAR);
+	m_pAnimController->KeyTrackEnable(m_isCurrentTrack, false, 
+		fCurrentTime + fPlayTime * fTravelTime);
+
+
+
+
+
 	//미구현
 }
 

@@ -159,7 +159,11 @@ HRESULT cAllocateHierarchy::CreateMeshContainer(LPCSTR Name, CONST D3DXMESHDATA*
 			if (dwNewFVF != dwOldFVF)
 			{
 				LPD3DXMESH pMeshSetup = nullptr;
-				pNewMeshContainer->pWorkingMesh->CloneMeshFVF(pNewMeshContainer->pWorkingMesh->GetOptions(), dwNewFVF, g_pD3DDevice, &pMeshSetup);
+				pNewMeshContainer->pWorkingMesh->CloneMeshFVF(
+					pNewMeshContainer->pWorkingMesh->GetOptions(), 
+					dwNewFVF, 
+					g_pD3DDevice, 
+					&pMeshSetup);
 				if (pMeshSetup)
 				{
 					SAFE_RELEASE(pNewMeshContainer->pWorkingMesh);
