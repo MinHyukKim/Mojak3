@@ -43,6 +43,7 @@ private:
 	std::vector<cSkinnedMesh*> m_vecMesh;
 
 	LPD3DXANIMATIONCONTROLLER m_pAnimationController;
+	int					m_nAnimationKey;
 	bool m_bCurrentTrack;
 
 public:
@@ -67,6 +68,7 @@ public:
 	void SetTextureHair(LPCSTR szHairName);
 	void SetTextureHairColor(D3DMATERIAL9* pMaterial);
 	void SetTextureHairColor(LPD3DXCOLOR pColor);
+	void SetBlendingAnimation(int nAnimationKey, float fTravelTime = 0.1f);
 
 	cCamera* GetCamera(void) { return m_pCamera; }
 
