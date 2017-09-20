@@ -191,7 +191,7 @@ void cUiCustomizingScene::OnClick(cUIButton * pSender)
 	}
 	else if (pSender->GetTag() == E_CUSTOM_BUTTON_FIN)
 	{
-	//	g_p
+	//	g_pO
 	}
 
 	//머리 메뉴가 나올시

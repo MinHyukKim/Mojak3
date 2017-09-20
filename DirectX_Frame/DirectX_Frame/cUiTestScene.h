@@ -21,6 +21,10 @@ private:
 	cUIImageView* m_pMainRootImageView;
 	cUiObject* m_pUiRoot;
 	cUIButton* m_pMainMainButton;
+	cUIButton* m_pInfoButton;
+	cUIButton* m_pSkillButton;
+	cUIButton* m_pQuestButton;
+	cUIButton* m_pInventoryButton;
 	int m_nmainUiLocalY;
 
 	//메인 ui틀 위치
