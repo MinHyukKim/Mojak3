@@ -53,14 +53,7 @@ HRESULT cUiTestScene::Setup(void)
 {
 	D3DXCreateSprite(g_pD3DDevice, &m_pSprite);
 
-	//메인 ui틀 위치
-	int mainUiLocalX = 300;			//메인 틀 x
-	int mainUiLocalY = 502;			//메인 틀 y
-	m_nmainUiLocalY = 502;
 
-	int mainButtonH = -25;			//메인 버튼들 높이
-	int mainButtoninterval = 40;	//메인 버튼들 가로 간격(크기)
-	int mainButtonSrart = 160;		//메인 버튼들 최초 시작 위치
 
 	//테스트용 메인버튼들
 	/*cUIImageView* */m_pMainRootImageView = cUIImageView::Create();
