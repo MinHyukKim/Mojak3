@@ -3,11 +3,13 @@
 
 #include "cDataLoder.h"
 #include "cImage.h"
+#include "cFont.h"
 
 cLodingScene::cLodingScene(void)
 	: m_pData(nullptr)
 	, m_pSprite(nullptr)
 	, m_pLodingImage(nullptr)
+	, m_pFont(nullptr)
 {
 	D3DXMatrixIdentity(&m_matWorldMatrix);
 }
@@ -22,7 +24,10 @@ HRESULT cLodingScene::Setup(void)
 	SAFE_RELEASE(m_pSprite);
 	D3DXCreateSprite(g_pD3DDevice, &m_pSprite);
 
-	//m_pTexture = ;
+	m_pFont = cFont::Create();
+	m_pFont->Setup();
+	m_pFont->SetColor(D3DCOLOR_XRGB(255, 255, 255));
+
 	D3DXIMAGE_INFO imageInfo;
 	LPDIRECT3DTEXTURE9 imageData;
 	RECT rc;
@@ -31,8 +36,10 @@ HRESULT cLodingScene::Setup(void)
 
 	m_pLodingImage = cImage::Create();
 	m_pLodingImage->Setup(imageInfo, imageData);
-	m_pLodingImage->SetSize(rc.right, rc.bottom);
-	//m_matWorldMatrix._41 = rc.right / 2.0f;
+	m_matWorldMatrix._41 = rc.right / 2.0f;
+	m_matWorldMatrix._42 = rc.bottom / 2.0f;
+	m_matWorldMatrix._11 = (float)rc.right / (float)imageInfo.Width;
+	m_matWorldMatrix._22 = (float)rc.bottom / (float)imageInfo.Height;
 
 	SAFE_RELEASE(m_pData);
 	m_pData = cDataLoder::Create();
@@ -46,6 +53,8 @@ HRESULT cLodingScene::Setup(void)
 
 void cLodingScene::Reset(void)
 {
+	
+	SAFE_RELEASE(m_pFont);
 	SAFE_RELEASE(m_pData);
 	SAFE_RELEASE(m_pSprite);
 	SAFE_RELEASE(m_pLodingImage);
@@ -55,7 +64,12 @@ void cLodingScene::Update(void)
 {
 	if (m_pData && m_pData->GetLodingGauge() < 1.0f)
 	{
-
+		if (m_pFont)
+		{
+			char szText[256] = {};
+			sprintf(szText, "·ÎµùÁß %2.2f %%", m_pData->GetLodingGauge() * 1000.0f);
+			m_pFont->DrawFont(500, 250, szText);
+		}
 	}
 	else
 	{
@@ -71,6 +85,7 @@ void cLodingScene::Render(void)
 	if (m_pLodingImage) m_pLodingImage->Draw(m_pSprite);
 
 	m_pSprite->End();
+	SAFE_RENDER(m_pFont);
 }
 
 cLodingScene* cLodingScene::Create(void)

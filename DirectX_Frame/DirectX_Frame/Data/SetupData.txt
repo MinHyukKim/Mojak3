@@ -11,3 +11,6 @@ Color:./Chareter/DefaultPlayer/lisaAniTest.X,bodymap01.dds, 1.0f, 0.53f, 0.53f, 
 Color:./Chareter/DefaultPlayer/lisaAniTest.X,uni_newbie03_c.dds, 0.8f, 0.2f, 0.8f, 1.0;
 Color:./Chareter/DefaultPlayer/lisaAniTest.X,uni_3rd_premium_c.dds, 0.5f, 0.0f, 0.1f, 1.0f)f;
 Color:./Chareter/DefaultPlayer/lisaAniTest.X,male_pumpkin_pants_c.dds, 0.0f, 0.0f, 0.0f, 1.0f;
+Animation:./Animation/,ani_female_attack_01.X,여성_공격01;
+Animation:./Animation/,ani_female_attack_02.X,여성_공격02;
+Animation:./Animation/,aani_female_run.X,여성_달리기;

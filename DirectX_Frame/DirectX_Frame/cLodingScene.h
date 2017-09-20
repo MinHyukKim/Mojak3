@@ -3,6 +3,7 @@
 
 class cDataLoder;
 class cImage;
+class cFont;
 class cLodingScene : public cSceneObject
 {
 private:
@@ -13,6 +14,7 @@ private:
 	cDataLoder* m_pData;
 	LPD3DXSPRITE m_pSprite;
 	cImage* m_pLodingImage;
+	cFont* m_pFont;
 
 public:
 	virtual HRESULT Setup(void) override;

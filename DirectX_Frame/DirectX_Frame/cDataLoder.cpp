@@ -120,7 +120,6 @@ bool cDataLoder::LoaderData(void)
 	case cDataLoder::DATA_ANIMATION: g_pAnimationManager->RegisterAnimation(pData->str1.c_str(), pData->str2.c_str()); break;
 
 	default: break;
-
 	}
 	++m_dwCount;
 	return true;
