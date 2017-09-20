@@ -121,6 +121,312 @@ HRESULT cUiTestScene::Setup(void)
 	m_pInventoryUiImage->SetPosition(2, 48);
 	m_pInventoryUiImage->m_Alpha = 180;
 	m_pInventoryUi->AddChild(m_pInventoryUiImage);
+	//장비 이미지
+	m_pInventoryUiImage = cUIImageView::Create();
+	m_pInventoryUiImage->SetTexture("Texture/Ui/inventory-equip.png");
+	m_pInventoryUiImage->SetPosition(10, 90);
+	m_pInventoryUiImage->m_Alpha = 200;
+	m_pInventoryUi->AddChild(m_pInventoryUiImage);
+	//인벤 임시 이미지들
+	int stratX = 160;
+	int stratY = 90;
+	int i = 24;
+	//1줄
+	m_pInventoryUiTempImage = cUIImageView::Create();
+	m_pInventoryUiTempImage->SetTexture("Texture/Ui/inventory1.png");
+	m_pInventoryUiTempImage->SetPosition(stratX + i * 0, stratY);
+	m_pInventoryUiImage->m_Alpha = 200;
+	m_pInventoryUi->AddChild(m_pInventoryUiTempImage);
+
+	m_pInventoryUiTempImage = cUIImageView::Create();
+	m_pInventoryUiTempImage->SetTexture("Texture/Ui/inventory1.png");
+	m_pInventoryUiTempImage->SetPosition(stratX + i * 1, stratY);
+	m_pInventoryUiImage->m_Alpha = 200;
+	m_pInventoryUi->AddChild(m_pInventoryUiTempImage);
+
+	m_pInventoryUiTempImage = cUIImageView::Create();
+	m_pInventoryUiTempImage->SetTexture("Texture/Ui/inventory1.png");
+	m_pInventoryUiTempImage->SetPosition(stratX + i * 2, stratY);
+	m_pInventoryUiImage->m_Alpha = 200;
+	m_pInventoryUi->AddChild(m_pInventoryUiTempImage);
+
+	m_pInventoryUiTempImage = cUIImageView::Create();
+	m_pInventoryUiTempImage->SetTexture("Texture/Ui/inventory1.png");
+	m_pInventoryUiTempImage->SetPosition(stratX + i * 3, stratY);
+	m_pInventoryUiImage->m_Alpha = 200;
+	m_pInventoryUi->AddChild(m_pInventoryUiTempImage);
+
+	m_pInventoryUiTempImage = cUIImageView::Create();
+	m_pInventoryUiTempImage->SetTexture("Texture/Ui/inventory1.png");
+	m_pInventoryUiTempImage->SetPosition(stratX + i * 4, stratY);
+	m_pInventoryUiImage->m_Alpha = 200;
+	m_pInventoryUi->AddChild(m_pInventoryUiTempImage);
+
+	m_pInventoryUiTempImage = cUIImageView::Create();
+	m_pInventoryUiTempImage->SetTexture("Texture/Ui/inventory1.png");
+	m_pInventoryUiTempImage->SetPosition(stratX + i * 5, stratY);
+	m_pInventoryUiImage->m_Alpha = 200;
+	m_pInventoryUi->AddChild(m_pInventoryUiTempImage);
+	
+	//2줄
+	m_pInventoryUiTempImage = cUIImageView::Create();
+	m_pInventoryUiTempImage->SetTexture("Texture/Ui/inventory1.png");
+	m_pInventoryUiTempImage->SetPosition(stratX + i * 0, stratY + i * 1);
+	m_pInventoryUiImage->m_Alpha = 200;
+	m_pInventoryUi->AddChild(m_pInventoryUiTempImage);
+
+	m_pInventoryUiTempImage = cUIImageView::Create();
+	m_pInventoryUiTempImage->SetTexture("Texture/Ui/inventory1.png");
+	m_pInventoryUiTempImage->SetPosition(stratX + i * 1, stratY + i * 1);
+	m_pInventoryUiImage->m_Alpha = 200;
+	m_pInventoryUi->AddChild(m_pInventoryUiTempImage);
+
+	m_pInventoryUiTempImage = cUIImageView::Create();
+	m_pInventoryUiTempImage->SetTexture("Texture/Ui/inventory1.png");
+	m_pInventoryUiTempImage->SetPosition(stratX + i * 2, stratY + i * 1);
+	m_pInventoryUiImage->m_Alpha = 200;
+	m_pInventoryUi->AddChild(m_pInventoryUiTempImage);
+
+	m_pInventoryUiTempImage = cUIImageView::Create();
+	m_pInventoryUiTempImage->SetTexture("Texture/Ui/inventory1.png");
+	m_pInventoryUiTempImage->SetPosition(stratX + i * 3, stratY + i * 1);
+	m_pInventoryUiImage->m_Alpha = 200;
+	m_pInventoryUi->AddChild(m_pInventoryUiTempImage);
+
+	m_pInventoryUiTempImage = cUIImageView::Create();
+	m_pInventoryUiTempImage->SetTexture("Texture/Ui/inventory1.png");
+	m_pInventoryUiTempImage->SetPosition(stratX + i * 4, stratY + i * 1);
+	m_pInventoryUiImage->m_Alpha = 200;
+	m_pInventoryUi->AddChild(m_pInventoryUiTempImage);
+
+	m_pInventoryUiTempImage = cUIImageView::Create();
+	m_pInventoryUiTempImage->SetTexture("Texture/Ui/inventory1.png");
+	m_pInventoryUiTempImage->SetPosition(stratX + i * 5, stratY + i * 1);
+	m_pInventoryUiImage->m_Alpha = 200;
+	m_pInventoryUi->AddChild(m_pInventoryUiTempImage);
+
+	//3줄
+	m_pInventoryUiTempImage = cUIImageView::Create();
+	m_pInventoryUiTempImage->SetTexture("Texture/Ui/inventory1.png");
+	m_pInventoryUiTempImage->SetPosition(stratX + i * 0, stratY + i * 2);
+	m_pInventoryUiImage->m_Alpha = 200;
+	m_pInventoryUi->AddChild(m_pInventoryUiTempImage);
+
+	m_pInventoryUiTempImage = cUIImageView::Create();
+	m_pInventoryUiTempImage->SetTexture("Texture/Ui/inventory1.png");
+	m_pInventoryUiTempImage->SetPosition(stratX + i * 1, stratY + i * 2);
+	m_pInventoryUiImage->m_Alpha = 200;
+	m_pInventoryUi->AddChild(m_pInventoryUiTempImage);
+
+	m_pInventoryUiTempImage = cUIImageView::Create();
+	m_pInventoryUiTempImage->SetTexture("Texture/Ui/inventory1.png");
+	m_pInventoryUiTempImage->SetPosition(stratX + i * 2, stratY + i * 2);
+	m_pInventoryUiImage->m_Alpha = 200;
+	m_pInventoryUi->AddChild(m_pInventoryUiTempImage);
+
+	m_pInventoryUiTempImage = cUIImageView::Create();
+	m_pInventoryUiTempImage->SetTexture("Texture/Ui/inventory1.png");
+	m_pInventoryUiTempImage->SetPosition(stratX + i * 3, stratY + i * 2);
+	m_pInventoryUiImage->m_Alpha = 200;
+	m_pInventoryUi->AddChild(m_pInventoryUiTempImage);
+
+	m_pInventoryUiTempImage = cUIImageView::Create();
+	m_pInventoryUiTempImage->SetTexture("Texture/Ui/inventory1.png");
+	m_pInventoryUiTempImage->SetPosition(stratX + i * 4, stratY + i * 2);
+	m_pInventoryUiImage->m_Alpha = 200;
+	m_pInventoryUi->AddChild(m_pInventoryUiTempImage);
+
+	m_pInventoryUiTempImage = cUIImageView::Create();
+	m_pInventoryUiTempImage->SetTexture("Texture/Ui/inventory1.png");
+	m_pInventoryUiTempImage->SetPosition(stratX + i * 5, stratY + i * 2);
+	m_pInventoryUiImage->m_Alpha = 200;
+	m_pInventoryUi->AddChild(m_pInventoryUiTempImage);
+
+	//4줄
+	m_pInventoryUiTempImage = cUIImageView::Create();
+	m_pInventoryUiTempImage->SetTexture("Texture/Ui/inventory1.png");
+	m_pInventoryUiTempImage->SetPosition(stratX + i * 0, stratY + i * 3);
+	m_pInventoryUiImage->m_Alpha = 200;
+	m_pInventoryUi->AddChild(m_pInventoryUiTempImage);
+
+	m_pInventoryUiTempImage = cUIImageView::Create();
+	m_pInventoryUiTempImage->SetTexture("Texture/Ui/inventory1.png");
+	m_pInventoryUiTempImage->SetPosition(stratX + i * 1, stratY + i * 3);
+	m_pInventoryUiImage->m_Alpha = 200;								  
+	m_pInventoryUi->AddChild(m_pInventoryUiTempImage);				  
+																	  
+	m_pInventoryUiTempImage = cUIImageView::Create();				  
+	m_pInventoryUiTempImage->SetTexture("Texture/Ui/inventory1.png"); 
+	m_pInventoryUiTempImage->SetPosition(stratX + i * 2, stratY + i * 3);
+	m_pInventoryUiImage->m_Alpha = 200;								  
+	m_pInventoryUi->AddChild(m_pInventoryUiTempImage);				  
+																	  
+	m_pInventoryUiTempImage = cUIImageView::Create();				  
+	m_pInventoryUiTempImage->SetTexture("Texture/Ui/inventory1.png"); 
+	m_pInventoryUiTempImage->SetPosition(stratX + i * 3, stratY + i * 3);
+	m_pInventoryUiImage->m_Alpha = 200;								  
+	m_pInventoryUi->AddChild(m_pInventoryUiTempImage);				  
+																	  
+	m_pInventoryUiTempImage = cUIImageView::Create();				  
+	m_pInventoryUiTempImage->SetTexture("Texture/Ui/inventory1.png"); 
+	m_pInventoryUiTempImage->SetPosition(stratX + i * 4, stratY + i * 3);
+	m_pInventoryUiImage->m_Alpha = 200;								  
+	m_pInventoryUi->AddChild(m_pInventoryUiTempImage);				  
+																	  
+	m_pInventoryUiTempImage = cUIImageView::Create();				  
+	m_pInventoryUiTempImage->SetTexture("Texture/Ui/inventory1.png"); 
+	m_pInventoryUiTempImage->SetPosition(stratX + i * 5, stratY + i * 3);
+	m_pInventoryUiImage->m_Alpha = 200;
+	m_pInventoryUi->AddChild(m_pInventoryUiTempImage);
+
+	//5줄
+	m_pInventoryUiTempImage = cUIImageView::Create();
+	m_pInventoryUiTempImage->SetTexture("Texture/Ui/inventory1.png");
+	m_pInventoryUiTempImage->SetPosition(stratX + i * 0, stratY + i * 4);
+	m_pInventoryUiImage->m_Alpha = 200;
+	m_pInventoryUi->AddChild(m_pInventoryUiTempImage);
+
+	m_pInventoryUiTempImage = cUIImageView::Create();
+	m_pInventoryUiTempImage->SetTexture("Texture/Ui/inventory1.png");
+	m_pInventoryUiTempImage->SetPosition(stratX + i * 1, stratY + i * 4);
+	m_pInventoryUiImage->m_Alpha = 200;
+	m_pInventoryUi->AddChild(m_pInventoryUiTempImage);
+
+	m_pInventoryUiTempImage = cUIImageView::Create();
+	m_pInventoryUiTempImage->SetTexture("Texture/Ui/inventory1.png");
+	m_pInventoryUiTempImage->SetPosition(stratX + i * 2, stratY + i * 4);
+	m_pInventoryUiImage->m_Alpha = 200;
+	m_pInventoryUi->AddChild(m_pInventoryUiTempImage);
+
+	m_pInventoryUiTempImage = cUIImageView::Create();
+	m_pInventoryUiTempImage->SetTexture("Texture/Ui/inventory1.png");
+	m_pInventoryUiTempImage->SetPosition(stratX + i * 3, stratY + i * 4);
+	m_pInventoryUiImage->m_Alpha = 200;
+	m_pInventoryUi->AddChild(m_pInventoryUiTempImage);
+
+	m_pInventoryUiTempImage = cUIImageView::Create();
+	m_pInventoryUiTempImage->SetTexture("Texture/Ui/inventory1.png");
+	m_pInventoryUiTempImage->SetPosition(stratX + i * 4, stratY + i * 4);
+	m_pInventoryUiImage->m_Alpha = 200;
+	m_pInventoryUi->AddChild(m_pInventoryUiTempImage);
+
+	m_pInventoryUiTempImage = cUIImageView::Create();
+	m_pInventoryUiTempImage->SetTexture("Texture/Ui/inventory1.png");
+	m_pInventoryUiTempImage->SetPosition(stratX + i * 5, stratY + i * 4);
+	m_pInventoryUiImage->m_Alpha = 200;
+	m_pInventoryUi->AddChild(m_pInventoryUiTempImage);
+
+	//6줄
+	m_pInventoryUiTempImage = cUIImageView::Create();
+	m_pInventoryUiTempImage->SetTexture("Texture/Ui/inventory1.png");
+	m_pInventoryUiTempImage->SetPosition(stratX + i * 0, stratY + i * 5);
+	m_pInventoryUiImage->m_Alpha = 200;
+	m_pInventoryUi->AddChild(m_pInventoryUiTempImage);
+
+	m_pInventoryUiTempImage = cUIImageView::Create();
+	m_pInventoryUiTempImage->SetTexture("Texture/Ui/inventory1.png");
+	m_pInventoryUiTempImage->SetPosition(stratX + i * 1, stratY + i * 5);
+	m_pInventoryUiImage->m_Alpha = 200;
+	m_pInventoryUi->AddChild(m_pInventoryUiTempImage);
+
+	m_pInventoryUiTempImage = cUIImageView::Create();
+	m_pInventoryUiTempImage->SetTexture("Texture/Ui/inventory1.png");
+	m_pInventoryUiTempImage->SetPosition(stratX + i * 2, stratY + i * 5);
+	m_pInventoryUiImage->m_Alpha = 200;
+	m_pInventoryUi->AddChild(m_pInventoryUiTempImage);
+
+	m_pInventoryUiTempImage = cUIImageView::Create();
+	m_pInventoryUiTempImage->SetTexture("Texture/Ui/inventory1.png");
+	m_pInventoryUiTempImage->SetPosition(stratX + i * 3, stratY + i * 5);
+	m_pInventoryUiImage->m_Alpha = 200;
+	m_pInventoryUi->AddChild(m_pInventoryUiTempImage);
+
+	m_pInventoryUiTempImage = cUIImageView::Create();
+	m_pInventoryUiTempImage->SetTexture("Texture/Ui/inventory1.png");
+	m_pInventoryUiTempImage->SetPosition(stratX + i * 4, stratY + i * 5);
+	m_pInventoryUiImage->m_Alpha = 200;
+	m_pInventoryUi->AddChild(m_pInventoryUiTempImage);
+
+	m_pInventoryUiTempImage = cUIImageView::Create();
+	m_pInventoryUiTempImage->SetTexture("Texture/Ui/inventory1.png");
+	m_pInventoryUiTempImage->SetPosition(stratX + i * 5, stratY + i * 5);
+	m_pInventoryUiImage->m_Alpha = 200;
+	m_pInventoryUi->AddChild(m_pInventoryUiTempImage);
+
+	//7줄
+	m_pInventoryUiTempImage = cUIImageView::Create();
+	m_pInventoryUiTempImage->SetTexture("Texture/Ui/inventory1.png");
+	m_pInventoryUiTempImage->SetPosition(stratX + i * 0, stratY + i * 6);
+	m_pInventoryUiImage->m_Alpha = 200;
+	m_pInventoryUi->AddChild(m_pInventoryUiTempImage);
+
+	m_pInventoryUiTempImage = cUIImageView::Create();
+	m_pInventoryUiTempImage->SetTexture("Texture/Ui/inventory1.png");
+	m_pInventoryUiTempImage->SetPosition(stratX + i * 1, stratY + i * 6);
+	m_pInventoryUiImage->m_Alpha = 200;
+	m_pInventoryUi->AddChild(m_pInventoryUiTempImage);
+
+	m_pInventoryUiTempImage = cUIImageView::Create();
+	m_pInventoryUiTempImage->SetTexture("Texture/Ui/inventory1.png");
+	m_pInventoryUiTempImage->SetPosition(stratX + i * 2, stratY + i * 6);
+	m_pInventoryUiImage->m_Alpha = 200;
+	m_pInventoryUi->AddChild(m_pInventoryUiTempImage);
+
+	m_pInventoryUiTempImage = cUIImageView::Create();
+	m_pInventoryUiTempImage->SetTexture("Texture/Ui/inventory1.png");
+	m_pInventoryUiTempImage->SetPosition(stratX + i * 3, stratY + i * 6);
+	m_pInventoryUiImage->m_Alpha = 200;
+	m_pInventoryUi->AddChild(m_pInventoryUiTempImage);
+
+	m_pInventoryUiTempImage = cUIImageView::Create();
+	m_pInventoryUiTempImage->SetTexture("Texture/Ui/inventory1.png");
+	m_pInventoryUiTempImage->SetPosition(stratX + i * 4, stratY + i * 6);
+	m_pInventoryUiImage->m_Alpha = 200;
+	m_pInventoryUi->AddChild(m_pInventoryUiTempImage);
+
+	m_pInventoryUiTempImage = cUIImageView::Create();
+	m_pInventoryUiTempImage->SetTexture("Texture/Ui/inventory1.png");
+	m_pInventoryUiTempImage->SetPosition(stratX + i * 5, stratY + i * 6);
+	m_pInventoryUiImage->m_Alpha = 200;
+	m_pInventoryUi->AddChild(m_pInventoryUiTempImage);
+
+	//8줄
+	m_pInventoryUiTempImage = cUIImageView::Create();
+	m_pInventoryUiTempImage->SetTexture("Texture/Ui/inventory1.png");
+	m_pInventoryUiTempImage->SetPosition(stratX + i * 0, stratY + i * 7);
+	m_pInventoryUiImage->m_Alpha = 200;
+	m_pInventoryUi->AddChild(m_pInventoryUiTempImage);
+
+	m_pInventoryUiTempImage = cUIImageView::Create();
+	m_pInventoryUiTempImage->SetTexture("Texture/Ui/inventory1.png");
+	m_pInventoryUiTempImage->SetPosition(stratX + i * 1, stratY + i * 7);
+	m_pInventoryUiImage->m_Alpha = 200;
+	m_pInventoryUi->AddChild(m_pInventoryUiTempImage);
+
+	m_pInventoryUiTempImage = cUIImageView::Create();
+	m_pInventoryUiTempImage->SetTexture("Texture/Ui/inventory1.png");
+	m_pInventoryUiTempImage->SetPosition(stratX + i * 2, stratY + i * 7);
+	m_pInventoryUiImage->m_Alpha = 200;
+	m_pInventoryUi->AddChild(m_pInventoryUiTempImage);
+
+	m_pInventoryUiTempImage = cUIImageView::Create();
+	m_pInventoryUiTempImage->SetTexture("Texture/Ui/inventory1.png");
+	m_pInventoryUiTempImage->SetPosition(stratX + i * 3, stratY + i * 7);
+	m_pInventoryUiImage->m_Alpha = 200;
+	m_pInventoryUi->AddChild(m_pInventoryUiTempImage);
+
+	m_pInventoryUiTempImage = cUIImageView::Create();
+	m_pInventoryUiTempImage->SetTexture("Texture/Ui/inventory1.png");
+	m_pInventoryUiTempImage->SetPosition(stratX + i * 4, stratY + i * 7);
+	m_pInventoryUiImage->m_Alpha = 200;
+	m_pInventoryUi->AddChild(m_pInventoryUiTempImage);
+
+	m_pInventoryUiTempImage = cUIImageView::Create();
+	m_pInventoryUiTempImage->SetTexture("Texture/Ui/inventory1.png");
+	m_pInventoryUiTempImage->SetPosition(stratX + i * 5, stratY + i * 7);
+	m_pInventoryUiImage->m_Alpha = 200;
+	m_pInventoryUi->AddChild(m_pInventoryUiTempImage);
+	
 
 	return D3D_OK;
 }

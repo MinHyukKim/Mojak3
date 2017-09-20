@@ -77,6 +77,7 @@ private:
 	//플레이어 인벤창
 	cUIImageView* m_pInventoryUiImageHead;
 	cUIImageView* m_pInventoryUiImage;
+	cUIImageView* m_pInventoryUiTempImage;
 	cUIButton* m_pQInventoryUiButton;
 	cUiObject* m_pInventoryUi;
 	
