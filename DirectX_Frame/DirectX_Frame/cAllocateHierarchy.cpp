@@ -417,17 +417,24 @@ HRESULT cAllocateHierarchy::CloneHierarchy(OUT LPD3DXFRAME* ppRoot, IN LPD3DXFRA
 	return S_OK;
 }
 
-void cAllocateHierarchy::GetAnimationController(OUT LPD3DXANIMATIONCONTROLLER* ppAnimationController, LPCSTR szFullPath)
+bool cAllocateHierarchy::GetAnimationController(OUT LPD3DXANIMATIONCONTROLLER* ppAnimationController, LPCSTR szFullPath)
 {
 	LPD3DXFRAME pFrame;
 	D3DXLoadMeshHierarchyFromX(szFullPath, D3DXMESH_MANAGED, g_pD3DDevice, this, NULL, &pFrame, ppAnimationController);
-	D3DXFrameDestroy(pFrame, this);
+	if (pFrame) 
+	{
+		D3DXFrameDestroy(pFrame, this);
+		return true;
+	}
+	return false;
 }
 
 void cAllocateHierarchy::GetAnimationSet(DWORD dwAnimationKey, OUT LPD3DXANIMATIONSET* ppAnimationSet, LPCSTR szFullPath)
 {
 	LPD3DXANIMATIONCONTROLLER pAnimationController;
-	this->GetAnimationController(&pAnimationController, szFullPath);
-	pAnimationController->GetAnimationSet(dwAnimationKey, ppAnimationSet);
-	SAFE_RELEASE(pAnimationController);
+	if (this->GetAnimationController(&pAnimationController, szFullPath))
+	{
+		pAnimationController->GetAnimationSet(dwAnimationKey, ppAnimationSet);
+		SAFE_RELEASE(pAnimationController);
+	}
 }

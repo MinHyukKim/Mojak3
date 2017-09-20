@@ -53,6 +53,7 @@
     <ClCompile Include="cUiCustomizingScene05MouthStyleSetup.cpp" />
     <ClCompile Include="cObjectManager.cpp" />
     <ClCompile Include="cUiCustomizingScene03ColorSetup.cpp" />
+    <ClCompile Include="cImage.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="cAllocateHierarchy.h" />
@@ -103,6 +104,7 @@
     <ClInclude Include="cAnimationManager.h" />
     <ClInclude Include="cUiCustomizingHair.h" />
     <ClInclude Include="cObjectManager.h" />
+    <ClInclude Include="cImage.h" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="DirectX_Frame.rc" />

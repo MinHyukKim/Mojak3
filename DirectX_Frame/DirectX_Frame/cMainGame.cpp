@@ -18,12 +18,14 @@ cMainGame::cMainGame(void)
 cMainGame::~cMainGame(void)
 {
 	DEBUG_END();
+	g_pObjectManager->Destroy();
 	g_pAnimationManager->Destroy();
 	g_pFrustum->Destroy();
 	g_pTexture->Destroy();
 	g_pSceneManager->Destroy();
 	g_pFontManager->Destroy();
 	g_pSkinnedMeshManager->Destroy();
+
 	g_pAutoRelasePool->Destroy();
 	g_pDeviceManager->Destroy();
 }
@@ -54,7 +56,7 @@ void cMainGame::Setup(void)
 	g_pSceneManager->AddScene("cUiCustomizingScene", cUiCustomizingScene::Create());
 	g_pSceneManager->AddScene("cLodingScene", cLodingScene::Create());
 
-	g_pSceneManager->ChangeScene("cUiCustomizingScene");
+	g_pSceneManager->ChangeScene("cLodingScene");
 
 
 	//≈∏¿Ã∏”

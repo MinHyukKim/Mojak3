@@ -28,3 +28,8 @@ void cObjectManager::LoadPlayerData(LPCSTR FullPath)
 	assert(false && "¹Ì±¸Çö");
 }
 
+void cObjectManager::Destroy(void)
+{
+	SAFE_RELEASE(m_pPlayer);
+}
+

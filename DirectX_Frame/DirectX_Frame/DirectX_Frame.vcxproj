@@ -156,6 +156,7 @@
     <ClInclude Include="cGrid.h" />
     <ClInclude Include="cHeightMapLoader.h" />
     <ClInclude Include="cHierarchyBones.h" />
+    <ClInclude Include="cImage.h" />
     <ClInclude Include="cInputManager.h" />
     <ClInclude Include="cLodingScene.h" />
     <ClInclude Include="cMapObject.h" />
@@ -206,6 +207,7 @@
     <ClCompile Include="cGrid.cpp" />
     <ClCompile Include="cHeightMapLoader.cpp" />
     <ClCompile Include="cHierarchyBones.cpp" />
+    <ClCompile Include="cImage.cpp" />
     <ClCompile Include="cInputManager.cpp" />
     <ClCompile Include="cLodingScene.cpp" />
     <ClCompile Include="cMapObject.cpp" />

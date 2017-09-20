@@ -45,6 +45,7 @@ cSkinnedMesh * cSkinnedMeshManager::RegisterSkinnedMesh(std::string & szFolder, 
 cSkinnedMesh* cSkinnedMeshManager::GetSkinnedMesh(LPCSTR szKeyName)
 {
 	if (m_mapSkinnedMesh.find(szKeyName) == m_mapSkinnedMesh.end()) return nullptr;
+
 	return m_mapSkinnedMesh[szKeyName];
 }
 
