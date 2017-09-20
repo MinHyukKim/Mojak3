@@ -386,6 +386,7 @@ void cSkinnedMesh::Destroy()
 
 	SAFE_DELETE_ARRAY(m_pmWorkingPalette);
 	SAFE_RELEASE(m_pEffect);
+	SAFE_RELEASE(m_pAnimController);
 }
 
 HRESULT cSkinnedMesh::CopyString(OUT LPSTR* ppTextCopy, IN LPCSTR pTextOrigin)
@@ -472,12 +473,13 @@ void cSkinnedMesh::SetBlendingAnimation(int nAnimationKey, float fTravelTime)
 		fCurrentTime, fPlayTime * fTravelTime, D3DXTRANSITION_LINEAR);
 	m_pAnimController->KeyTrackEnable(m_isCurrentTrack, false, 
 		fCurrentTime + fPlayTime * fTravelTime);
+	SAFE_RELEASE(pAnimationSet);
+	
+	//애니메이션 변경
+	m_isCurrentTrack = !m_isCurrentTrack;
 
+	m_nAnimationKey = nAnimationKey;
 
-
-
-
-	//미구현
 }
 
 bool cSkinnedMesh::FrameClone(OUT LPD3DXFRAME* ppClone, IN LPD3DXFRAME pOrigin)
