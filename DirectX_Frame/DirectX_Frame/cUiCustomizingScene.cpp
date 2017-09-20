@@ -51,7 +51,7 @@ cUiCustomizingScene::cUiCustomizingScene(void)
 	m_pNameImage = nullptr;
 	m_pNameButton = nullptr;
 	m_pNameUi = nullptr;
-//	m_eCustomizingTab = E_CUSTOM_NONE; //나중에 수정
+//	m_eCustomizingTab = E_CUSTOM_NONE; //나중에 수정(위에 있음)
 
 	 m_pCustomImageHead = nullptr;
 	 m_pCustomImage = nullptr;

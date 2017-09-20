@@ -7,22 +7,6 @@
 #include "cUITextView.h"
 #include "cUIButton.h"
 
-enum
-{
-	//메인 버튼들
-	E_MAIN_BUTTON_PLAYER_INFO = 213,
-	E_MAIN_BUTTON_SKILL = 214,
-	E_MAIN_BUTTON_QUEST = 215,
-	E_MAIN_BUTTON_INVENTORY = 216,
-	E_MAIN_BUTTON_ABILITY = 217,
-	E_MAIN_BUTTON_ACTION = 218,
-	E_MAIN_BUTTON_PET = 219,
-	E_MAIN_BUTTON_MESSENGER = 220,
-	E_MAIN_BUTTON_MIN = 221,
-	E_MAIN_BUTTON_MAIN = 222,
-	E_TEXT_VIEW
-};
-
 cUiTestScene::cUiTestScene(void)
 	: m_pFont(NULL)
 	, m_isClick(false)
@@ -34,6 +18,12 @@ cUiTestScene::cUiTestScene(void)
 	, m_pMainRootImageView(NULL)
 	, m_pMainMainButton(NULL)
 	, m_pUiTesterSize(NULL)
+	//열고닫힘 여부
+	, m_isMainWindowOn(false)
+	, m_isInfoWindowOn(false)
+	, m_isSkillWindowOn(false)
+	, m_isQuestWindowOn(false)
+	, m_isInventoryWindowOn(false)
 {
 }
 
@@ -53,105 +43,8 @@ HRESULT cUiTestScene::Setup(void)
 {
 	D3DXCreateSprite(g_pD3DDevice, &m_pSprite);
 
-
-
-	//테스트용 메인버튼들
-	m_pMainRootImageView = cUIImageView::Create();
-	m_pMainRootImageView->SetTexture("Texture/Ui/TestRoot2.png");
-	m_pMainRootImageView->SetPosition(mainUiLocalX, mainUiLocalY);
-	m_pMainRootImageView->m_Alpha = 200;
-	m_pUiRoot = m_pMainRootImageView;
-
-	cUITextView* pTextView = cUITextView::Create();
-	pTextView->SetText("태스트용");
-	pTextView->SetFontType(g_pFontManager->E_NORMAL);
-	pTextView->SetColor(D3DCOLOR_XRGB(0, 0, 0));
-	pTextView->SetSize(ST_SIZE(400, 500));
-	pTextView->SetPosition(0, -300);
-	pTextView->SetDrawTextFormat(DT_CENTER | DT_VCENTER | DT_WORDBREAK);
-	pTextView->SetTag(E_TEXT_VIEW);
-	m_pUiRoot->AddChild(pTextView);
-
-	m_pInfoButton = cUIButton::Create();
-	m_pInfoButton->SetTexture("Texture/Ui/player_info_button_up.png",
-		"Texture/Ui/player_info_button_over.png",
-		"Texture/Ui/player_info_button_down.png");
-	m_pInfoButton->SetPosition(mainButtonSrart, mainButtonH);
-	m_pInfoButton->SetDelegate(this);
-	m_pInfoButton->SetTag(E_MAIN_BUTTON_PLAYER_INFO);
-	m_pUiRoot->AddChild(m_pInfoButton);
-
-	m_pSkillButton =  cUIButton::Create();
-	m_pSkillButton->SetTexture("Texture/Ui/player_sikill_button_up.png",
-		"Texture/Ui/player_sikill_button_over.png",
-		"Texture/Ui/player_sikill_button_down.png");
-	m_pSkillButton->SetPosition(mainButtonSrart + mainButtoninterval, mainButtonH);
-	m_pSkillButton->SetDelegate(this);
-	m_pSkillButton->SetTag(E_MAIN_BUTTON_SKILL);
-	m_pUiRoot->AddChild(m_pSkillButton);
-
-	m_pQuestButton = cUIButton::Create();
-	m_pQuestButton->SetTexture("Texture/Ui/player_quest_button_up.png",
-		"Texture/Ui/player_quest_button_over.png",
-		"Texture/Ui/player_quest_button_down.png");
-	m_pQuestButton->SetPosition(mainButtonSrart + mainButtoninterval * 2, mainButtonH);
-	m_pQuestButton->SetDelegate(this);
-	m_pQuestButton->SetTag(E_MAIN_BUTTON_QUEST);
-	m_pUiRoot->AddChild(m_pQuestButton);
-
-	m_pInventoryButton = cUIButton::Create();
-	m_pInventoryButton->SetTexture("Texture/Ui/player_inventory_button_up.png",
-		"Texture/Ui/player_inventory_button_over.png",
-		"Texture/Ui/player_inventory_button_down.png");
-	m_pInventoryButton->SetPosition(mainButtonSrart + mainButtoninterval * 3, mainButtonH);
-	m_pInventoryButton->SetDelegate(this);
-	m_pInventoryButton->SetTag(E_MAIN_BUTTON_INVENTORY);
-	m_pUiRoot->AddChild(m_pInventoryButton);
-
-//	pButton = cUIButton::Create();
-//	pButton->SetTexture("Texture/Ui/player_ability_button_up.png", 
-//		"Texture/Ui/player_ability_button_over.png",
-//		"Texture/Ui/player_ability_button_down.png");
-//	pButton->SetPosition(mainButtonSrart + mainButtoninterval * 4, mainButtonH);
-//	pButton->SetDelegate(this);
-//	pButton->SetTag(E_MAIN_BUTTON_ABILITY);
-//	m_pUiRoot->AddChild(pButton);
-//
-//	pButton = cUIButton::Create();
-//	pButton->SetTexture("Texture/Ui/player_action_button_up.png", 
-//		"Texture/Ui/player_action_button_over.png",
-//		"Texture/Ui/player_action_button_down.png");
-//	pButton->SetPosition(mainButtonSrart + mainButtoninterval * 5, mainButtonH);
-//	pButton->SetDelegate(this);
-//	pButton->SetTag(E_MAIN_BUTTON_ACTION);
-//	m_pUiRoot->AddChild(pButton);
-//
-//	pButton = cUIButton::Create();
-//	pButton->SetTexture("Texture/Ui/player_pet_button_up.png", 
-//		"Texture/Ui/player_pet_button_over.png",
-//		"Texture/Ui/player_pet_button_down.png");
-//	pButton->SetPosition(mainButtonSrart + mainButtoninterval * 6, mainButtonH);
-//	pButton->SetDelegate(this);
-//	pButton->SetTag(E_MAIN_BUTTON_PET);
-//	m_pUiRoot->AddChild(pButton);
-
-	cUIButton* pMinButton = cUIButton::Create();
-	pMinButton->SetTexture("Texture/Ui/button_min_up.png",
-		"Texture/Ui/button_min_over.png",
-		"Texture/Ui/button_min_up.png");
-	pMinButton->SetPosition(mainButtonSrart + 190, mainButtonH + 26);
-	pMinButton->SetDelegate(this);
-	pMinButton->SetTag(E_MAIN_BUTTON_MIN);
-	m_pUiRoot->AddChild(pMinButton);
-
-	m_pMainMainButton = cUIButton::Create();
-	m_pMainMainButton->SetTexture("Texture/Ui/main_button-up.png",
-		"Texture/Ui/main_button-up.png",
-		"Texture/Ui/main_button-down.png");
-	m_pMainMainButton->SetPosition(mainButtonSrart - 150, mainButtonH + 25);
-	m_pMainMainButton->SetDelegate(this);
-	m_pMainMainButton->SetTag(E_MAIN_BUTTON_MAIN);
-	m_pUiRoot->AddChild(m_pMainMainButton);
+	//베이스 버튼(태스트 택스트 포함
+	this->SetupBaseButton();
 
 	//임시 태스트용
 	m_pUiTesterSize = cUIImageView::Create();
@@ -173,7 +66,8 @@ void cUiTestScene::Reset(void)
 
 void cUiTestScene::Update(void)
 {
-	//메인창 내리기
+	this->changeMainButtonColor();
+	//메인창 내리기 (다시 만들기)
 	if (m_isMainMin == true) m_pMainRootImageView->SetPosition(300, 520);
 	else m_pMainRootImageView->SetPosition(300, 502);
 
@@ -199,18 +93,22 @@ void cUiTestScene::OnClick(cUIButton * pSender)
 
 	if (pSender->GetTag() == E_MAIN_BUTTON_PLAYER_INFO)
 	{
+		m_isInfoWindowOn = !m_isInfoWindowOn;
 		pTextView->SetText("플레이어 정보창 구현하기");
 	}
 	else if (pSender->GetTag() == E_MAIN_BUTTON_SKILL)
 	{
+		m_isSkillWindowOn = !m_isSkillWindowOn;
 		pTextView->SetText("플레이어 스킬창 구현하기");
 	}
 	else if (pSender->GetTag() == E_MAIN_BUTTON_QUEST)
 	{
+		m_isQuestWindowOn = !m_isQuestWindowOn;
 		pTextView->SetText("퀘스트창 구현하기");
 	}
 	else if (pSender->GetTag() == E_MAIN_BUTTON_INVENTORY)
 	{
+		m_isInventoryWindowOn = !m_isInventoryWindowOn;
 		pTextView->SetText("인벤토리 창 구현하기");
 	}
 //	else if (pSender->GetTag() == E_MAIN_BUTTON_ABILITY)
@@ -230,4 +128,59 @@ void cUiTestScene::OnClick(cUIButton * pSender)
 		m_isMainMin = !m_isMainMin;
 	}
 
+}
+
+void cUiTestScene::changeMainButtonColor(void)
+{
+	if (m_isInfoWindowOn)
+	{
+		m_pInfoButton->SetTexture("Texture/Ui/on_player_info_button_up.png",
+			"Texture/Ui/on_player_info_button_over.png",
+			"Texture/Ui/on_player_info_button_down.png");
+	}
+	else if (m_isInfoWindowOn == false)
+	{
+		m_pInfoButton->SetTexture("Texture/Ui/player_info_button_up.png",
+			"Texture/Ui/player_info_button_over.png",
+			"Texture/Ui/player_info_button_down.png");
+	}
+
+	if (m_isSkillWindowOn)
+	{
+		m_pSkillButton->SetTexture("Texture/Ui/on_player_sikill_button_up.png",
+			"Texture/Ui/on_player_sikill_button_over.png",
+			"Texture/Ui/on_player_sikill_button_down.png");
+	}
+	else if (m_isSkillWindowOn == false)
+	{
+		m_pSkillButton->SetTexture("Texture/Ui/player_sikill_button_up.png",
+			"Texture/Ui/player_sikill_button_over.png",
+			"Texture/Ui/player_sikill_button_down.png");
+	}
+
+	if (m_isQuestWindowOn)
+	{
+		m_pQuestButton->SetTexture("Texture/Ui/on_player_quest_button_up.png",
+			"Texture/Ui/on_player_quest_button_over.png",
+			"Texture/Ui/on_player_quest_button_down.png");
+	}
+	else if (m_isQuestWindowOn == false)
+	{
+		m_pQuestButton->SetTexture("Texture/Ui/player_quest_button_up.png",
+			"Texture/Ui/player_quest_button_over.png",
+			"Texture/Ui/player_quest_button_down.png");
+	}
+
+	if (m_isInventoryWindowOn)
+	{
+		m_pInventoryButton->SetTexture("Texture/Ui/on_player_inventory_button_up.png",
+			"Texture/Ui/on_player_inventory_button_over.png",
+			"Texture/Ui/on_player_inventory_button_down.png");
+	}
+	else if (m_isInventoryWindowOn == false)
+	{
+		m_pInventoryButton->SetTexture("Texture/Ui/player_inventory_button_up.png",
+			"Texture/Ui/player_inventory_button_over.png",
+			"Texture/Ui/player_inventory_button_down.png");
+	}
 }

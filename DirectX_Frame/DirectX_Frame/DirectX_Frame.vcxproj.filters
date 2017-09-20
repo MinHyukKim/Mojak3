@@ -54,6 +54,7 @@
     <ClCompile Include="cObjectManager.cpp" />
     <ClCompile Include="cUiCustomizingScene03ColorSetup.cpp" />
     <ClCompile Include="cImage.cpp" />
+    <ClCompile Include="cUiTestScene00BaseSetUp.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="cAllocateHierarchy.h" />
