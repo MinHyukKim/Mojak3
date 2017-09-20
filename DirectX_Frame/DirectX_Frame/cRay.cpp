@@ -3,8 +3,6 @@
 
 cRay::cRay(void)
 {
-	D3DXMatrixIdentity(&m_matView);
-	D3DXMatrixIdentity(&m_matInverseView);
 }
 
 cRay::~cRay(void)
@@ -20,32 +18,29 @@ void cRay::RayAtViewSpace(OUT LPD3DXVECTOR3 vDir, IN LPPOINT ptScreen)
 	D3DXMATRIXA16 matProj;
 	g_pD3DDevice->GetTransform(D3DTS_PROJECTION, &matProj);
 
-	vDir->x = ((2.0f * (*ptScreen).x) / vp.Width - 1) / matProj._11;
-	vDir->y = ((-2.0f * (*ptScreen).y) / vp.Height + 1) / matProj._22;
+	vDir->x = (((2.0f * (float)ptScreen->x) / (float)vp.Width) - 1.0f) / matProj._11;
+	vDir->y = (1.0f - ((2.0f * (float)ptScreen->y) / (float)vp.Height)) / matProj._22;
 	vDir->z = 1.0f;
 }
 
 void cRay::RayAtWorldSpace(OUT LPD3DXVECTOR3 vPos, OUT LPD3DXVECTOR3 vDir, IN LPPOINT ptScreen)
 {
-	if (!vPos || !vDir) return;
 	this->RayAtViewSpace(vDir, ptScreen);
 
-	D3DXMATRIXA16 matView;
+	D3DXMATRIXA16 matView, matInverseView;
 	g_pD3DDevice->GetTransform(D3DTS_VIEW, &matView);
-	if (m_matView != matView)
-	{
-		m_matView = matView;
-		D3DXMatrixInverse(&m_matInverseView, 0, &matView);
-	}
+	D3DXMatrixInverse(&matInverseView, nullptr, &matView);
 
-	D3DXVec3TransformCoord(vPos, &D3DXVECTOR3(0.0f, 0.0f, 0.0f), &m_matInverseView);
-	D3DXVec3TransformNormal(vDir, vDir, &m_matInverseView);
+	D3DXVec3TransformCoord(vPos, &D3DXVECTOR3(0.0f, 0.0f, 0.0f), &matInverseView);
+	D3DXVec3TransformNormal(vDir, vDir, &matInverseView);
+	D3DXVec3Normalize(vDir, vDir);
 }
 
 void cRay::RayAtWorldSpace(OUT LPD3DXVECTOR3 vPos, OUT LPD3DXVECTOR3 vDir)
 {
-	POINT pt;
-	GetCursorPos(&pt);
-	ScreenToClient(g_hWnd, &pt);
-	this->RayAtWorldSpace(vPos, vDir, &pt);
+	POINT ptPoint;
+	GetCursorPos(&ptPoint);
+	ScreenToClient(g_hWnd, &ptPoint);
+
+	this->RayAtWorldSpace(vPos, vDir, &ptPoint);
 }

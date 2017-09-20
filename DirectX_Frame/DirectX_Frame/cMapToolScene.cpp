@@ -27,6 +27,7 @@ cMapToolScene::~cMapToolScene(void)
 HRESULT cMapToolScene::Setup(void)
 {
 	m_pCamera = g_pObjectManager->GetPlayer()->GetCamera();
+	m_pCamera->UpdateProjection();
 
 	SetMatrial(&m_stMtl.MatD3D);
 	m_stMtl.pTextureFilename = "./Texture/steppegrass01_only.dds";
@@ -68,15 +69,19 @@ void cMapToolScene::Update(void)
 		{
 			if (g_pInputManager->IsOnceKeyDown(VK_LBUTTON))
 			{
-				
+				D3DXVECTOR3 vPos;
+				D3DXVECTOR3 vOrg;
+				D3DXVECTOR3 vDir;
+				g_pRay->RayAtWorldSpace(&vOrg, &vDir);
+				if (m_pMapTerrain->IsCollision(&vPos, &vOrg, &vDir))
+				{
+					g_pObjectManager->GetPlayer()->SetPosition(&vPos);
+				}
 			}
-			else
-			{
-				cPlayer* pPlayer = g_pObjectManager->GetPlayer();
-				float fHeight = pPlayer->GetPosY();
-				m_pMapTerrain->GetHeight(&fHeight, pPlayer->GetPosX(), pPlayer->GetPosZ());
-				pPlayer->SetPosY(fHeight);
-			}
+			cPlayer* pPlayer = g_pObjectManager->GetPlayer();
+			float fHeight = pPlayer->GetPosY();
+			m_pMapTerrain->GetHeight(&fHeight, pPlayer->GetPosX(), pPlayer->GetPosZ());
+			pPlayer->SetPosY(fHeight);
 		}
 	}
 	SAFE_UPDATE(m_pCamera);

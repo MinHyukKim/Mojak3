@@ -8,6 +8,7 @@ cPlayer::cPlayer(void)
 	: m_pCamera(nullptr)
 	, m_pAnimationController(nullptr)
 	, m_bCurrentTrack(false)
+	, m_vPosition(0.0f, 0.0f, 0.0f)
 {
 	D3DXMatrixIdentity(&m_matWorld);
 	ZeroMemory(&m_stHairMaterial, sizeof(D3DMATERIAL9));
@@ -55,6 +56,7 @@ void cPlayer::Reset(void)
 void cPlayer::Update(void)
 {
 	if (m_pAnimationController) m_pAnimationController->AdvanceTime(g_pTimeManager->GetElapsedTime(), NULL);
+	D3DXMatrixTranslation(&m_matWorld, m_vPosition.x, m_vPosition.y, m_vPosition.z);
 
 }
 

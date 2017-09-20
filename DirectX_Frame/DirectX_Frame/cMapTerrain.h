@@ -9,7 +9,8 @@ private:
 
 	LPDIRECT3DVERTEXBUFFER9 m_pVertexBuffer;
 	LPDIRECT3DINDEXBUFFER9 m_pIndexBufer;
-	ST_PNT_VERTEX* m_pHeightMap;
+	std::vector<ST_PNT_VERTEX> m_vecPosition;
+	std::vector<DWORD> m_vecIndex;
 	cQuadTree* m_pQuadTree;
 
 	D3DXVECTOR3 m_vScale;
@@ -25,9 +26,9 @@ public:
 	void Render(void) override;
 	
 	//버텍스 포인터
-	ST_PNT_VERTEX* GetVertex(IN DWORD dwX, IN DWORD dwZ) { return &m_pHeightMap[dwX + dwZ * m_dwCol]; }
+	ST_PNT_VERTEX* GetVertex(IN DWORD dwX, IN DWORD dwZ) { return &m_vecPosition[dwX + dwZ * m_dwCol]; }
 	//버텍스 높이
-	float GetHeight(IN DWORD dwX, IN DWORD dwZ) { return m_pHeightMap[dwX + dwZ * m_dwCol].p.y; }
+	//float GetHeight(IN DWORD dwX, IN DWORD dwZ) { return m_vecPosition[dwX + dwZ * m_dwCol].p.y; }
 	bool GetHeight(OUT float* fY, IN float fX, IN float fZ);
 	//버텍스갯수 (가로)
 	DWORD GetCol(void) { return m_dwCol; }
@@ -37,6 +38,8 @@ public:
 	float GetTerrainCol(void) { return m_fMaxTerrainX; }
 	//맵크기 z
 	float GetTerrainRow(void) { return m_fMaxTerrainZ; }
+
+	bool IsCollision(OUT LPD3DXVECTOR3 pPos, IN LPD3DXVECTOR3 pOrg, IN LPD3DXVECTOR3 pDir);
 
 	static cMapTerrain* Create(void);
 protected:

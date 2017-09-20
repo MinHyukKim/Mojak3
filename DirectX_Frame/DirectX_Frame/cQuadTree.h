@@ -15,7 +15,7 @@ private:
 
 public:
 	//퀴드트리를 구축한다.
-	bool TreeBuild(ST_PNT_VERTEX* pVertex);
+	bool TreeBuild(std::vector<ST_PNT_VERTEX> pVertex);
 	//삼각형 갯수와 인덱스 반환
 	int GenerateIndex(OUT LPDWORD pIndexBuffer, ST_PNT_VERTEX* pVertex, cFrustum* pFrustum);
 

@@ -129,6 +129,7 @@ void cDataLoder::LoadCallBack(THIS_ LPVOID pDataLoder)
 {
 	cDataLoder* pThis = (cDataLoder*)pDataLoder;
 	while (pThis->LoaderData());
+	int i = 0;
 }
 
 cDataLoder* cDataLoder::Create(void)

@@ -5,8 +5,6 @@
 class cRay
 {
 private:
-	D3DXMATRIXA16 m_matView;
-	D3DXMATRIXA16 m_matInverseView;
 public:
 	void RayAtViewSpace(OUT LPD3DXVECTOR3 vDir, IN LPPOINT ptScreen);
 	void RayAtWorldSpace(OUT LPD3DXVECTOR3 vPos, OUT LPD3DXVECTOR3 vDir, IN LPPOINT ptScreen);

@@ -46,6 +46,7 @@
 #include "cAllocateHierarchy.h"
 #include "cAnimationManager.h"
 #include "cObjectManager.h"
+#include "cRay.h"
 
 //콘솔 디버깅
 #define CONSOLE_DEBUG_TEST

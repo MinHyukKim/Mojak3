@@ -30,7 +30,7 @@ cQuadTree::~cQuadTree(void)
 	this->_Destroy();
 }
 
-bool cQuadTree::TreeBuild(ST_PNT_VERTEX* pVertex)
+bool cQuadTree::TreeBuild(std::vector<ST_PNT_VERTEX> pVertex)
 {
 	if (_SubDivide())
 	{
