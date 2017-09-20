@@ -4,6 +4,7 @@
 #include "cPlayer.h"
 
 cObjectManager::cObjectManager(void)
+	: m_pPlayer(nullptr)
 {
 }
 

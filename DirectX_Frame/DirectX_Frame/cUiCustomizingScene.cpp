@@ -149,9 +149,6 @@ void cUiCustomizingScene::Update(void)
 
 	this->changeButtonColor();
 	SAFE_UPDATE(m_pPlayer);
-	if (m_pMainCamera) m_pMainCamera->Update();
-	if (m_pCustomUi) m_pCustomUi->Update();
-	if (m_mUiTest) m_mUiTest->Update();
 
 	switch (m_eCustomizingTab)
 	{
@@ -180,7 +177,15 @@ void cUiCustomizingScene::Update(void)
 	this->changeButtonColorHair();
 
 
+	if (m_pMainCamera) m_pMainCamera->Update();
+	if (m_mUiTest) m_mUiTest->Update();
+	if (m_pCustomUi) m_pCustomUi->Update();
 //	m_pPlayer->ChangeMeshPartColor(cPlayer::MESH_HAIR, "hair01.dds", m_pHairColor);
+	if (g_pObjectManager->GetPlayer())
+	{
+		g_pSceneManager->ChangeScene("cMapToolScene");
+		return;
+	}
 }
 
 void cUiCustomizingScene::Render(void)
@@ -233,7 +238,7 @@ void cUiCustomizingScene::OnClick(cUIButton * pSender)
 	{
 		g_pObjectManager->RegisterPlayer(m_pPlayer);
 		//완료 버튼 누르면 맵툴로
-		g_pSceneManager->ChangeScene("cMapToolScene");
+		g_pObjectManager->RegisterPlayer(m_pPlayer);
 	}
 
 	//머리 메뉴가 나올시
