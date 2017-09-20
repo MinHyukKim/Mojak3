@@ -56,9 +56,10 @@ HRESULT cUiTestScene::Setup(void)
 
 
 	//테스트용 메인버튼들
-	/*cUIImageView* */m_pMainRootImageView = cUIImageView::Create();
+	m_pMainRootImageView = cUIImageView::Create();
 	m_pMainRootImageView->SetTexture("Texture/Ui/TestRoot2.png");
 	m_pMainRootImageView->SetPosition(mainUiLocalX, mainUiLocalY);
+	m_pMainRootImageView->m_Alpha = 200;
 	m_pUiRoot = m_pMainRootImageView;
 
 	cUITextView* pTextView = cUITextView::Create();
@@ -71,41 +72,41 @@ HRESULT cUiTestScene::Setup(void)
 	pTextView->SetTag(E_TEXT_VIEW);
 	m_pUiRoot->AddChild(pTextView);
 
-	cUIButton* pButton = cUIButton::Create();
-	pButton->SetTexture("Texture/Ui/player_info_button_up.png", 
+	m_pInfoButton = cUIButton::Create();
+	m_pInfoButton->SetTexture("Texture/Ui/player_info_button_up.png",
 		"Texture/Ui/player_info_button_over.png",
 		"Texture/Ui/player_info_button_down.png");
-	pButton->SetPosition(mainButtonSrart, mainButtonH);
-	pButton->SetDelegate(this);
-	pButton->SetTag(E_MAIN_BUTTON_PLAYER_INFO);
-	m_pUiRoot->AddChild(pButton);
+	m_pInfoButton->SetPosition(mainButtonSrart, mainButtonH);
+	m_pInfoButton->SetDelegate(this);
+	m_pInfoButton->SetTag(E_MAIN_BUTTON_PLAYER_INFO);
+	m_pUiRoot->AddChild(m_pInfoButton);
 
-	pButton =  cUIButton::Create();
-	pButton->SetTexture("Texture/Ui/player_sikill_button_up.png", 
+	m_pSkillButton =  cUIButton::Create();
+	m_pSkillButton->SetTexture("Texture/Ui/player_sikill_button_up.png",
 		"Texture/Ui/player_sikill_button_over.png",
 		"Texture/Ui/player_sikill_button_down.png");
-	pButton->SetPosition(mainButtonSrart + mainButtoninterval, mainButtonH);
-	pButton->SetDelegate(this);
-	pButton->SetTag(E_MAIN_BUTTON_SKILL);
-	m_pUiRoot->AddChild(pButton);
+	m_pSkillButton->SetPosition(mainButtonSrart + mainButtoninterval, mainButtonH);
+	m_pSkillButton->SetDelegate(this);
+	m_pSkillButton->SetTag(E_MAIN_BUTTON_SKILL);
+	m_pUiRoot->AddChild(m_pSkillButton);
 
-	pButton = cUIButton::Create();
-	pButton->SetTexture("Texture/Ui/player_quest_button_up.png", 
+	m_pQuestButton = cUIButton::Create();
+	m_pQuestButton->SetTexture("Texture/Ui/player_quest_button_up.png",
 		"Texture/Ui/player_quest_button_over.png",
 		"Texture/Ui/player_quest_button_down.png");
-	pButton->SetPosition(mainButtonSrart + mainButtoninterval * 2, mainButtonH);
-	pButton->SetDelegate(this);
-	pButton->SetTag(E_MAIN_BUTTON_QUEST);
-	m_pUiRoot->AddChild(pButton);
+	m_pQuestButton->SetPosition(mainButtonSrart + mainButtoninterval * 2, mainButtonH);
+	m_pQuestButton->SetDelegate(this);
+	m_pQuestButton->SetTag(E_MAIN_BUTTON_QUEST);
+	m_pUiRoot->AddChild(m_pQuestButton);
 
-	pButton = cUIButton::Create();
-	pButton->SetTexture("Texture/Ui/player_inventory_button_up.png", 
+	m_pInventoryButton = cUIButton::Create();
+	m_pInventoryButton->SetTexture("Texture/Ui/player_inventory_button_up.png",
 		"Texture/Ui/player_inventory_button_over.png",
 		"Texture/Ui/player_inventory_button_down.png");
-	pButton->SetPosition(mainButtonSrart + mainButtoninterval * 3, mainButtonH);
-	pButton->SetDelegate(this);
-	pButton->SetTag(E_MAIN_BUTTON_INVENTORY);
-	m_pUiRoot->AddChild(pButton);
+	m_pInventoryButton->SetPosition(mainButtonSrart + mainButtoninterval * 3, mainButtonH);
+	m_pInventoryButton->SetDelegate(this);
+	m_pInventoryButton->SetTag(E_MAIN_BUTTON_INVENTORY);
+	m_pUiRoot->AddChild(m_pInventoryButton);
 
 //	pButton = cUIButton::Create();
 //	pButton->SetTexture("Texture/Ui/player_ability_button_up.png", 
