@@ -25,6 +25,7 @@ cMainGame::~cMainGame(void)
 	g_pSceneManager->Destroy();
 	g_pFontManager->Destroy();
 	g_pSkinnedMeshManager->Destroy();
+
 	g_pAutoRelasePool->Destroy();
 	g_pDeviceManager->Destroy();
 }
@@ -55,7 +56,7 @@ void cMainGame::Setup(void)
 	g_pSceneManager->AddScene("cUiCustomizingScene", cUiCustomizingScene::Create());
 	g_pSceneManager->AddScene("cLodingScene", cLodingScene::Create());
 
-	g_pSceneManager->ChangeScene("cUiCustomizingScene");
+	g_pSceneManager->ChangeScene("cLodingScene");
 
 
 	//≈∏¿Ã∏”

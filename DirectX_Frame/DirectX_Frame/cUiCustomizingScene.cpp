@@ -45,6 +45,46 @@ cUiCustomizingScene::cUiCustomizingScene(void)
 
 	, m_eHairStyleTab(E_HAIR_01)
 {
+	//초기화되지 않은 변수들
+	m_pFont = nullptr;
+	pSkinMesh = nullptr; // m_pSkinMesh 로 수정해
+	m_pNameImageHead = nullptr;
+	m_pNameImage = nullptr;
+	m_pNameButton = nullptr;
+	m_pNameUi = nullptr;
+	m_eCustomizingTab = E_CUSTOM_NONE;
+
+	 m_pCustomImageHead = nullptr;
+	 m_pCustomImage = nullptr;
+	 m_pCustomButtonFin = nullptr;
+	 m_pCustomButton = nullptr;
+//	//커마 창 글씨
+//	cUITextView* m_pCustomNameTest;
+//	//헤어
+//	eCustomizingHair m_eHairStyleTab;
+//	cUIImageView* m_pCustomHairImageHead;
+//	cUIImageView* m_pCustomHairImage;
+//	cUIButton* m_pCustomHairSulastButton;
+//	cUiObject* m_pCustomHairUi;
+//	//색깔(헤어, 눈)
+//	cUIImageView* m_pCustomColorImageHead;
+//	cUIImageView* m_pCustomColorImage;
+//	cUIButton* m_pCustomColorSulastButton;
+//	cUiObject* m_pCustomColorUi;
+//	LPD3DXCOLOR m_pHairColor;
+//	D3DXCOLOR m_hairColor;
+//	//눈
+//	cUIImageView* m_pCustomEyeImageHead;
+//	cUIImageView* m_pCustomEyeImage;
+//	cUIButton* m_pCustomEyeSulastButton;
+//	cUIButton* m_pCustomEyeColorSulastButton;
+//	cUiObject* m_pCustomEyeUi;
+//	//입
+//	cUIImageView* m_pCustomMouthImageHead;
+//	cUIImageView* m_pCustomMouthImage;
+//	cUIButton* m_pCustomMouthSulastButton;
+//	cUIButton* m_pCustomMouthColorSulastButton;
+//	cUiObject* m_pCustomMouthUi;
 }
 
 cUiCustomizingScene::~cUiCustomizingScene(void)

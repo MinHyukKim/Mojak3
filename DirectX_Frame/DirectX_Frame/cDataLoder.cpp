@@ -8,6 +8,8 @@ cDataLoder::cDataLoder(void)
 
 cDataLoder::~cDataLoder(void)
 {
+	m_dwCount = 0;
+	m_vecData.clear();
 }
 
 void cDataLoder::RegisterMesh(LPCSTR szFolder, LPCSTR szFilename, LPCSTR szKeyName)
@@ -22,7 +24,8 @@ void cDataLoder::RegisterAnimation(LPCSTR szFolder, LPCSTR szFilename, LPCSTR sz
 
 void cDataLoder::RegisterMeshColor(LPCSTR szMeshName, LPCSTR szTextureName, D3DMATERIAL9* pMaterial)
 {
-	m_vecData.push_back(ST_DATA(cDataLoder::DATA_MESH_COLOR, szMeshName, szTextureName, nullptr, nullptr, pMaterial));
+
+	m_vecData.push_back(ST_DATA(cDataLoder::DATA_MESH_COLOR, szMeshName, szTextureName, "", nullptr, pMaterial));
 }
 
 void cDataLoder::RegisterMeshColor(LPCSTR szMeshName, LPCSTR szTextureName, LPD3DXCOLOR color)
@@ -45,7 +48,7 @@ bool cDataLoder::RegisterData(LPCSTR FullPath)
 		char* pToken = nullptr;
 		pToken = strtok(szPathData, ":");
 
-		if (strstr(pToken, "//")) continue;
+		if (!pToken || strstr(pToken, "//")) continue;
 		else if (strstr(pToken, "Mesh") || strstr(pToken, "Çü»ó"))
 		{
 			std::string sPath = strtok(nullptr, ",");
@@ -93,15 +96,31 @@ bool cDataLoder::RegisterData(LPCSTR FullPath)
 
 bool cDataLoder::LoaderData(void)
 {
-	if (m_dwCount >= m_vecData.size()) return false;
+
+	if (m_dwCount >= m_vecData.size())
+	{
+		m_vecData.clear();
+		m_dwCount = 0;
+		return false;
+	}
 	ST_DATA* pData = &m_vecData[m_dwCount];
 	switch (pData->dwType)
 	{
 	case cDataLoder::DATA_NULL: break;
+
 	case cDataLoder::DATA_MESH: g_pSkinnedMeshManager->RegisterSkinnedMesh(pData->str1, pData->str2, pData->str3); break;
-	case cDataLoder::DATA_MESH_COLOR: g_pSkinnedMeshManager->GetSkinnedMesh(pData->str1)->SetTextureColor(pData->str2.c_str(), &pData->material); break;
+
+	case cDataLoder::DATA_MESH_COLOR:
+		if (g_pSkinnedMeshManager->GetSkinnedMesh(pData->str1))
+		{
+			g_pSkinnedMeshManager->GetSkinnedMesh(pData->str1)->SetTextureColor(pData->str2.c_str(), &pData->material);
+		}
+		break;
+
 	case cDataLoder::DATA_ANIMATION: g_pAnimationManager->RegisterAnimation(pData->str1.c_str(), pData->str2.c_str()); break;
+
 	default: break;
+
 	}
 	++m_dwCount;
 	return true;
