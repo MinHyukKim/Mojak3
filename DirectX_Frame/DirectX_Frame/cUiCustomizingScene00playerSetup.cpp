@@ -41,17 +41,19 @@ void cUiCustomizingScene::SetupPlayer(void)
 	m_pPlayer->SetTextureHair("hair01.dds");  //헤어.dds
 	m_pPlayer->SetTextureHairColor(&D3DXCOLOR(0.07f, 0.07f, 0.07f, 1.0f)); //헤어 색
 	//m_pPlayer->ChangeMeshPart(cPlayer::MESH_FACE, "./Chareter/Female_Face/", "basicFace.X");
-	//m_pPlayer->ChangeMeshPartColor(cPlayer::MESH_FACE, "mouth_0.dds", &D3DXCOLOR(0.0f, 0.0f, 0.0f, 1.0f));
-	m_pPlayer->SetTextureMouth("mouth_0.dds");
-	m_pPlayer->ChangeMeshPartColor(cPlayer::MESH_FACE, "mouth_0.dds", &D3DXCOLOR(0.0f, 0.0f, 0.0f, 1.0f));
-	m_pPlayer->SetTextureEye("eye_0.dds");
+
 	m_pPlayer->ChangeMeshPart(cPlayer::MESH_BODY, "Chareter/DefaultPlayer/", "wear_female_3rd_newbie.X");
 	m_pPlayer->ChangeMeshPart(cPlayer::MESH_HAND, "Chareter/Female_Hand/", "basicFist.X");
 	m_pPlayer->ChangeMeshPart(cPlayer::MESH_SHOES, "Chareter/Female_Shoes/", "basicShoes.X");
 	m_pPlayer->ChangeMeshPart(cPlayer::MESH_FACE, "Chareter/Female_Face/", "basicFace.X");
+	m_pPlayer->SetTextureMouth("mouth_0.dds");
+	m_pPlayer->SetTextureMouthColor(&D3DXCOLOR(0.0f, 0.0f, 0.0f, 1.0f));
+	m_pPlayer->SetTextureEye("eye_0.dds");
+	m_pPlayer->SetTextureEyeColor(&D3DXCOLOR(0.07f, 0.07f, 0.07f, 0.2f));
 	//카메라 연결
 	m_pMainCamera = m_pPlayer->GetCamera();
 	m_pMainCamera->Setup();
+	m_pMainCamera->AddRef();
 	m_pMainCamera->UpdateProjection(0.1f);
 	//위치
 	//m_pMainCamera->SetPosition(&D3DXVECTOR3(50.0f, 0.7f, -0.4f));

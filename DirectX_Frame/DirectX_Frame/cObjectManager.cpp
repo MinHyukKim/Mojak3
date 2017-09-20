@@ -4,6 +4,7 @@
 #include "cPlayer.h"
 
 cObjectManager::cObjectManager(void)
+	: m_pPlayer(nullptr)
 {
 }
 
@@ -26,5 +27,10 @@ void cObjectManager::SavePlayerData(LPCSTR FullPath)
 void cObjectManager::LoadPlayerData(LPCSTR FullPath)
 {
 	assert(false && "¹Ì±¸Çö");
+}
+
+void cObjectManager::Destroy(void)
+{
+	SAFE_RELEASE(m_pPlayer);
 }
 

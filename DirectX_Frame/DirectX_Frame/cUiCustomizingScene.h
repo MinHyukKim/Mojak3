@@ -42,7 +42,7 @@ enum
 	E_MOUTH_SELECT_01 = 222,
 	E_MOUTH_SELECT_02 = 223,
 	E_MOUTH_SELECT_03 = 224,
-	//헤어 칼라 설렉트
+	//헤어,눈 칼라 설렉트
 	E_HAIR_COLOR_SELECT_BLACK = 225,
 	E_HAIR_COLOR_SELECT_MID_BLUE = 226,
 	E_HAIR_COLOR_SELECT_RED = 227,
@@ -53,6 +53,8 @@ enum
 	E_HAIR_COLOR_SELECT_WHITE = 233,
 	E_HAIR_COLOR_SELECT_SKY = 234,
 	E_HAIR_COLOR_SELECT_BLUE = 235,
+	//완료 후 나가기
+	E_CUSTOM_BUTTON_FIN = 236,
 };
 
 //커스텀마이징 메뉴에서의 선택(머리 or 눈 or 입)
@@ -159,8 +161,12 @@ private:
 	cUIImageView* m_pCustomHairImageHead;
 	cUIImageView* m_pCustomHairImage;
 	cUIButton* m_pCustomHairSulastButton;
-	cUIButton* m_pCustomHairColorSulastButton;
 	cUiObject* m_pCustomHairUi;
+	//색깔(헤어, 눈)
+	cUIImageView* m_pCustomColorImageHead;
+	cUIImageView* m_pCustomColorImage;
+	cUIButton* m_pCustomColorSulastButton;
+	cUiObject* m_pCustomColorUi;
 	LPD3DXCOLOR m_pHairColor;
 	D3DXCOLOR m_hairColor;
 	//눈
@@ -177,6 +183,9 @@ private:
 	cUiObject* m_pCustomMouthUi;
 	//확인팝업
 
+	//초기 위치 잡이
+	int m_nX, m_nY;
+
 	//마우스
 	bool m_isLButtonDown;
 	POINT m_ptMouse;
@@ -187,7 +196,7 @@ public:
 	void SetupPlayer(void);				//셋업 플레이어 
 	void SetupTotal(void);				//셋업 커마 전제 창 
 	void SetupHairStyle(void);			//셋업 머리스타일 버튼(모양)
-	void SetupHairColor(void);			//셋업 머리 칼라 버튼
+	void SetupHairEyeColor(void);			//셋업 머리 칼라 버튼
 	void SetupEyeStyle(void);			//셋업 눈 버튼
 	void SetupMouthStyle(void);			//셋업 입 버튼
 	virtual void Reset(void) override;

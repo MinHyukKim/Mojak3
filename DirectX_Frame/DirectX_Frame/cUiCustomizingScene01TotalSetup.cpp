@@ -16,7 +16,7 @@ void cUiCustomizingScene::SetupTotal(void)
 	//커마 창 머리
 	m_pCustomImageHead = cUIImageView::Create();
 	m_pCustomImageHead->SetTexture("Texture/Ui/customUiBaseHead1.png");
-	m_pCustomImageHead->SetPosition(20, 20);
+	m_pCustomImageHead->SetPosition(m_nX, m_nY);
 	m_pCustomImageHead->m_Alpha = 200;
 	m_pCustomUi = m_pCustomImageHead;
 	//커마 창
@@ -70,7 +70,7 @@ void cUiCustomizingScene::SetupTotal(void)
 		"Texture/Ui/textButtonDown6024.png");
 	m_pCustomButtonFin->SetPosition(164, 370);
 	m_pCustomButtonFin->SetDelegate(this);
-	m_pCustomButtonFin->SetTag(E_SERVER_BUTTON_NEXT);
+	m_pCustomButtonFin->SetTag(E_CUSTOM_BUTTON_FIN);
 	m_pCustomUi->AddChild(m_pCustomButtonFin);
 	//글씨
 	cUITextView* TextFin = cUITextView::Create();

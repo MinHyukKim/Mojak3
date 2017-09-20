@@ -3,6 +3,7 @@
 
 #include "cCamera.h"
 #include "cMapTerrain.h"
+#include "cPlayer.h"
 
 //테스트용
 #include "cMapObject.h"
@@ -25,7 +26,7 @@ cMapToolScene::~cMapToolScene(void)
 
 HRESULT cMapToolScene::Setup(void)
 {
-	m_pCamera = cCamera::Create();
+	m_pCamera = g_pObjectManager->GetPlayer()->GetCamera();
 	m_pCamera->Setup();
 
 	SetMatrial(&m_stMtl.MatD3D);
@@ -38,9 +39,7 @@ HRESULT cMapToolScene::Setup(void)
 	m_pGrid = cGrid::Create();
 	m_pGrid->Setup();
 	m_pTexture = g_pTexture->GetTexture("./HeightMapData/terrain.jpg");
-//	SetMatrial(&m_stMtl);
-//	m_pMapObject = cMapObject::Create();
-//	m_pMapObject->Setup("./HeightMapData/HeightMap.raw");
+
 
 
 	return S_OK;

@@ -156,6 +156,7 @@
     <ClInclude Include="cGrid.h" />
     <ClInclude Include="cHeightMapLoader.h" />
     <ClInclude Include="cHierarchyBones.h" />
+    <ClInclude Include="cImage.h" />
     <ClInclude Include="cInputManager.h" />
     <ClInclude Include="cLodingScene.h" />
     <ClInclude Include="cMapObject.h" />
@@ -206,6 +207,7 @@
     <ClCompile Include="cGrid.cpp" />
     <ClCompile Include="cHeightMapLoader.cpp" />
     <ClCompile Include="cHierarchyBones.cpp" />
+    <ClCompile Include="cImage.cpp" />
     <ClCompile Include="cInputManager.cpp" />
     <ClCompile Include="cLodingScene.cpp" />
     <ClCompile Include="cMapObject.cpp" />
@@ -232,7 +234,7 @@
     <ClCompile Include="cUiCustomizingScene00playerSetup.cpp" />
     <ClCompile Include="cUiCustomizingScene01TotalSetup.cpp" />
     <ClCompile Include="cUiCustomizingScene02HairStyleSetup.cpp" />
-    <ClCompile Include="cUiCustomizingScene03HairColorSetup.cpp" />
+    <ClCompile Include="cUiCustomizingScene03ColorSetup.cpp" />
     <ClCompile Include="cUiCustomizingScene04EyeStyleSetup.cpp" />
     <ClCompile Include="cUiCustomizingScene05MouthStyleSetup.cpp" />
     <ClCompile Include="cUiFontManager.cpp" />

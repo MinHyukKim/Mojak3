@@ -25,7 +25,7 @@ public:
 	HRESULT CloneFrame(OUT LPD3DXFRAME* ppClone, IN LPD3DXFRAME pOrigin);
 	LPD3DXFRAME ChangeFrame(LPD3DXFRAME* ppRoot, LPD3DXFRAME pOrigin);
 	HRESULT CloneHierarchy(OUT LPD3DXFRAME * ppRoot, IN LPD3DXFRAME pOrigin);
-	void GetAnimationController(OUT LPD3DXANIMATIONCONTROLLER* ppAnimationController, LPCSTR szFullPath);
+	bool GetAnimationController(OUT LPD3DXANIMATIONCONTROLLER* ppAnimationController, LPCSTR szFullPath);
 	void GetAnimationSet(DWORD dwAnimationKey, OUT LPD3DXANIMATIONSET* ppAnimationSet, LPCSTR szFullPath);
 
 	void setDefaultPaletteSize(DWORD value) { m_dwDefaultPalette = value; };

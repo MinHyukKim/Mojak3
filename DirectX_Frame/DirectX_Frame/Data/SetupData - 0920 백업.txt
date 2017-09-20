@@ -1,0 +1,16 @@
+// 주석입니다. 색상은 (D,A,S) 순서입니다. AS 를 생략시 자동으로 들어갑니다.
+// Mesh : 경로,파일,키;
+// Color : 메시키,텍스쳐, 1.0f, 1.0f, 1.0f, 0.5f;
+// Animation : 경로, 파일, 키;
+
+Mesh:./Chareter/Female_Hair/,hair_female_hair02_t02.X,머리스타일;
+Mesh:./Chareter/DefaultPlayer/,lisaAniTest.X,./Chareter/DefaultPlayer/lisaAniTest.X;
+Color:./Chareter/DefaultPlayer/lisaAniTest.X,uni_shoes01_c.dds, 1.0f, 1.0f, 0.0f, 1.0f;
+Color:./Chareter/DefaultPlayer/lisaAniTest.X,hair09.dds, 0.0f, 0.0f, 0.0f, 0.0f;
+Color:./Chareter/DefaultPlayer/lisaAniTest.X,bodymap01.dds, 1.0f, 0.53f, 0.53f, 1.0f;
+Color:./Chareter/DefaultPlayer/lisaAniTest.X,uni_newbie03_c.dds, 0.8f, 0.2f, 0.8f, 1.0;
+Color:./Chareter/DefaultPlayer/lisaAniTest.X,uni_3rd_premium_c.dds, 0.5f, 0.0f, 0.1f, 1.0f)f;
+Color:./Chareter/DefaultPlayer/lisaAniTest.X,male_pumpkin_pants_c.dds, 0.0f, 0.0f, 0.0f, 1.0f;
+Animation:./Animation/,ani_female_attack_01.X,여성_공격01;
+Animation:./Animation/,ani_female_attack_02.X,여성_공격02;
+Animation:./Animation/,ani_female_run.X,여성_달리기;
