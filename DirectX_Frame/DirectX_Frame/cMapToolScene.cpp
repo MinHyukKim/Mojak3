@@ -27,7 +27,6 @@ cMapToolScene::~cMapToolScene(void)
 HRESULT cMapToolScene::Setup(void)
 {
 	m_pCamera = g_pObjectManager->GetPlayer()->GetCamera();
-	m_pCamera->Setup();
 
 	SetMatrial(&m_stMtl.MatD3D);
 	m_stMtl.pTextureFilename = "./Texture/steppegrass01_only.dds";
@@ -56,14 +55,30 @@ void cMapToolScene::Reset(void)
 
 void cMapToolScene::Update(void)
 {
-
+	SAFE_UPDATE(g_pObjectManager->GetPlayer());
+	
 	//테스트용
 	if (m_pCamera)
 	{
 		m_pCamera->TestController();
 	}
-
-	SAFE_UPDATE(m_pMapTerrain);
+	if (m_pMapTerrain)
+	{
+		if (g_pObjectManager->GetPlayer())
+		{
+			if (g_pInputManager->IsOnceKeyDown(VK_LBUTTON))
+			{
+				
+			}
+			else
+			{
+				cPlayer* pPlayer = g_pObjectManager->GetPlayer();
+				float fHeight = pPlayer->GetPosY();
+				m_pMapTerrain->GetHeight(&fHeight, pPlayer->GetPosX(), pPlayer->GetPosZ());
+				pPlayer->SetPosY(fHeight);
+			}
+		}
+	}
 	SAFE_UPDATE(m_pCamera);
 }
 
@@ -74,8 +89,9 @@ void cMapToolScene::Render(void)
 	g_pD3DDevice->SetMaterial(&m_stMtl.MatD3D);
 	//SAFE_RENDER(m_pMapObject);
 	SAFE_RENDER(m_pMapTerrain);
-	
+
 	SAFE_RENDER(m_pGrid);
+	SAFE_RENDER(g_pObjectManager->GetPlayer());
 }
 
 cMapToolScene* cMapToolScene::Create(void)

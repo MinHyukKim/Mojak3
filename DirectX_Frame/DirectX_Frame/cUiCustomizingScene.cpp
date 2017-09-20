@@ -181,6 +181,7 @@ void cUiCustomizingScene::Update(void)
 	if (m_mUiTest) m_mUiTest->Update();
 	if (m_pCustomUi) m_pCustomUi->Update();
 //	m_pPlayer->ChangeMeshPartColor(cPlayer::MESH_HAIR, "hair01.dds", m_pHairColor);
+
 	if (g_pObjectManager->GetPlayer())
 	{
 		g_pSceneManager->ChangeScene("cMapToolScene");

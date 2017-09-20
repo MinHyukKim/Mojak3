@@ -54,6 +54,7 @@
     <ClCompile Include="cObjectManager.cpp" />
     <ClCompile Include="cUiCustomizingScene03ColorSetup.cpp" />
     <ClCompile Include="cImage.cpp" />
+    <ClCompile Include="cRay.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="cAllocateHierarchy.h" />
@@ -105,6 +106,7 @@
     <ClInclude Include="cUiCustomizingHair.h" />
     <ClInclude Include="cObjectManager.h" />
     <ClInclude Include="cImage.h" />
+    <ClInclude Include="cRay.h" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="DirectX_Frame.rc" />

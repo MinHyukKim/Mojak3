@@ -70,6 +70,15 @@ public:
 	void SetTextureHairColor(D3DMATERIAL9* pMaterial);
 	void SetTextureHairColor(LPD3DXCOLOR pColor);
 
+	D3DXVECTOR3& GetPosition(void) { return (D3DXVECTOR3)&m_matWorld._41; }
+	void SetPosition(LPD3DXVECTOR3 pPosition) { ((D3DXVECTOR3)&m_matWorld._41) = *pPosition; }
+	void SetPosX(float fX) { m_matWorld._41 = fX; }
+	void SetPosY(float fY) { m_matWorld._42 = fY; }
+	void SetPosZ(float fZ) { m_matWorld._43 = fZ; }
+	float GetPosX(void) { return m_matWorld._41; }
+	float GetPosY(void) { return m_matWorld._42; }
+	float GetPosZ(void) { return m_matWorld._43; }
+
 	cCamera* GetCamera(void) { return m_pCamera; }
 
 	static cPlayer* Create(void);

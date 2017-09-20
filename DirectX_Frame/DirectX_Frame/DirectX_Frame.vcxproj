@@ -167,6 +167,7 @@
     <ClInclude Include="cPlayer.h" />
     <ClInclude Include="cPyramid.h" />
     <ClInclude Include="cQuadTree.h" />
+    <ClInclude Include="cRay.h" />
     <ClInclude Include="crtCtl.h" />
     <ClInclude Include="cSceneManager.h" />
     <ClInclude Include="cSceneObject.h" />
@@ -218,6 +219,7 @@
     <ClCompile Include="cPlayer.cpp" />
     <ClCompile Include="cPyramid.cpp" />
     <ClCompile Include="cQuadTree.cpp" />
+    <ClCompile Include="cRay.cpp" />
     <ClCompile Include="crtCtl.cpp" />
     <ClCompile Include="cSceneManager.cpp" />
     <ClCompile Include="cSceneObject.cpp" />
