@@ -64,6 +64,8 @@ public:
 	void SetTextureEyeColor(D3DMATERIAL9* pMaterial);
 	void SetTextureEyeColor(LPD3DXCOLOR pColor);
 	void SetTextureMouth(LPCSTR szEyeName);
+	void SetTextureMouthColor(D3DMATERIAL9* pMaterial);
+	void SetTextureMouthColor(LPD3DXCOLOR pColor);
 	void SetTextureHair(LPCSTR szHairName);
 	void SetTextureHairColor(D3DMATERIAL9* pMaterial);
 	void SetTextureHairColor(LPD3DXCOLOR pColor);

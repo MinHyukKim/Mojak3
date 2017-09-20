@@ -16,7 +16,7 @@ void cUiCustomizingScene::SetupTotal(void)
 	//커마 창 머리
 	m_pCustomImageHead = cUIImageView::Create();
 	m_pCustomImageHead->SetTexture("Texture/Ui/customUiBaseHead1.png");
-	m_pCustomImageHead->SetPosition(20, 20);
+	m_pCustomImageHead->SetPosition(m_nX, m_nY);
 	m_pCustomImageHead->m_Alpha = 200;
 	m_pCustomUi = m_pCustomImageHead;
 	//커마 창
@@ -31,7 +31,7 @@ void cUiCustomizingScene::SetupTotal(void)
 	m_pCustomNameTest->SetFontType(g_pFontManager->E_INBUTTON);
 	m_pCustomNameTest->SetColor(D3DCOLOR_XRGB(0, 0, 0));
 	m_pCustomNameTest->SetSize(ST_SIZE(200, 100));
-	m_pCustomNameTest->SetPosition(-10, -30);
+	m_pCustomNameTest->SetPosition(-20, -30);
 	m_pCustomNameTest->SetDrawTextFormat(DT_CENTER | DT_VCENTER | DT_WORDBREAK);
 	m_pCustomNameTest->SetTag(E_TEXT_CUSTOM_NAME);
 	m_pCustomUi->AddChild(m_pCustomNameTest);
@@ -63,4 +63,23 @@ void cUiCustomizingScene::SetupTotal(void)
 	m_pCustomButtonMouth->SetDelegate(this);
 	m_pCustomButtonMouth->SetTag(E_CUSTOM_BUTTON_MOUTH);
 	m_pCustomUi->AddChild(m_pCustomButtonMouth);
+	//완료 버튼 (미완)
+	m_pCustomButtonFin = cUIButton::Create();
+	m_pCustomButtonFin->SetTexture("Texture/Ui/textButtonUp6024.png",
+		"Texture/Ui/textButtonUp6024.png",
+		"Texture/Ui/textButtonDown6024.png");
+	m_pCustomButtonFin->SetPosition(164, 370);
+	m_pCustomButtonFin->SetDelegate(this);
+	m_pCustomButtonFin->SetTag(E_CUSTOM_BUTTON_FIN);
+	m_pCustomUi->AddChild(m_pCustomButtonFin);
+	//글씨
+	cUITextView* TextFin = cUITextView::Create();
+	TextFin->SetText("완료");
+	TextFin->SetFontType(g_pFontManager->E_INBUTTON);
+	TextFin->SetColor(D3DCOLOR_XRGB(255, 255, 255));
+	TextFin->SetSize(ST_SIZE(50, 40));
+	TextFin->SetPosition(169, 355);
+	TextFin->SetDrawTextFormat(DT_CENTER | DT_VCENTER | DT_WORDBREAK);
+	TextFin->SetTag(E_TEXT_CUSTOM_FIN);
+	m_pCustomUi->AddChild(TextFin);
 }

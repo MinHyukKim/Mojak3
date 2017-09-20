@@ -17,7 +17,7 @@ void cUiCustomizingScene::SetupHairStyle(void)
 	//헤어 창 머리
 	m_pCustomHairImageHead = cUIImageView::Create();
 	m_pCustomHairImageHead->SetTexture("Texture/Ui/customUiBaseHead1.png");
-	m_pCustomHairImageHead->SetPosition(20, 20);
+	m_pCustomHairImageHead->SetPosition(m_nX, m_nY);
 	m_pCustomHairImageHead->m_Alpha = 0;
 	m_pCustomHairUi = m_pCustomHairImageHead;
 	//헤어 창

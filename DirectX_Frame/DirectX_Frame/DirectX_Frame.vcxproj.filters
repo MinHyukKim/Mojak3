@@ -49,10 +49,10 @@
     <ClCompile Include="cUiCustomizingScene00playerSetup.cpp" />
     <ClCompile Include="cUiCustomizingScene01TotalSetup.cpp" />
     <ClCompile Include="cUiCustomizingScene02HairStyleSetup.cpp" />
-    <ClCompile Include="cUiCustomizingScene03HairColorSetup.cpp" />
     <ClCompile Include="cUiCustomizingScene04EyeStyleSetup.cpp" />
     <ClCompile Include="cUiCustomizingScene05MouthStyleSetup.cpp" />
     <ClCompile Include="cObjectManager.cpp" />
+    <ClCompile Include="cUiCustomizingScene03ColorSetup.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="cAllocateHierarchy.h" />

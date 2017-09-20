@@ -17,7 +17,7 @@ void cUiCustomizingScene::SetupEyeStyle(void)
 	//传 赣府
 	m_pCustomEyeImageHead = cUIImageView::Create();
 	m_pCustomEyeImageHead->SetTexture("Texture/Ui/customUiBaseHead1.png");
-	m_pCustomEyeImageHead->SetPosition(20, 20);
+	m_pCustomEyeImageHead->SetPosition(m_nX, m_nY);
 	m_pCustomEyeImageHead->m_Alpha = 0;
 	m_pCustomEyeUi = m_pCustomEyeImageHead;
 	//传 芒
@@ -28,27 +28,27 @@ void cUiCustomizingScene::SetupEyeStyle(void)
 	m_pCustomEyeUi->AddChild(m_pCustomEyeImage);
 	//传 滚瓢1
 	m_pCustomEyeSulastButton = cUIButton::Create();
-	m_pCustomEyeSulastButton->SetTexture("Texture/Ui/buttonBase2.png",
-		"Texture/Ui/buttonBase2.png",
-		"Texture/Ui/buttonBase2Down.png");
+	m_pCustomEyeSulastButton->SetTexture("Texture/Ui/buttonEye00Up.png",
+		"Texture/Ui/buttonEye00Up.png",
+		"Texture/Ui/buttonEye00Down.png");
 	m_pCustomEyeSulastButton->SetPosition(10, 120);
 	m_pCustomEyeSulastButton->SetDelegate(this);
 	m_pCustomEyeSulastButton->SetTag(E_EYE_SELECT_01);
 	m_pCustomEyeUi->AddChild(m_pCustomEyeSulastButton);
 	//2
 	m_pCustomEyeSulastButton = cUIButton::Create();
-	m_pCustomEyeSulastButton->SetTexture("Texture/Ui/buttonBase2.png",
-		"Texture/Ui/buttonBase2.png",
-		"Texture/Ui/buttonBase2Down.png");
+	m_pCustomEyeSulastButton->SetTexture("Texture/Ui/buttonEye01Up.png",
+		"Texture/Ui/buttonEye01Up.png",
+		"Texture/Ui/buttonEye01Down.png");
 	m_pCustomEyeSulastButton->SetPosition(70, 120);
 	m_pCustomEyeSulastButton->SetDelegate(this);
 	m_pCustomEyeSulastButton->SetTag(E_EYE_SELECT_02);
 	m_pCustomEyeUi->AddChild(m_pCustomEyeSulastButton);
 	//3
 	m_pCustomEyeSulastButton = cUIButton::Create();
-	m_pCustomEyeSulastButton->SetTexture("Texture/Ui/buttonBase2.png",
-		"Texture/Ui/buttonBase2.png",
-		"Texture/Ui/buttonBase2Down.png");
+	m_pCustomEyeSulastButton->SetTexture("Texture/Ui/buttonEye02Up.png",
+		"Texture/Ui/buttonEye02Up.png",
+		"Texture/Ui/buttonEye02Down.png");
 	m_pCustomEyeSulastButton->SetPosition(130, 120);
 	m_pCustomEyeSulastButton->SetDelegate(this);
 	m_pCustomEyeSulastButton->SetTag(E_EYE_SELECT_03);
