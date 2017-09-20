@@ -210,6 +210,7 @@ void cUiCustomizingScene::Render(void)
 		}
 		break;
 	}
+	//이미지 크기 태스트용
 	//if (m_mUiTest) m_mUiTest->Render(m_pSprite);
 }
 
@@ -230,7 +231,7 @@ void cUiCustomizingScene::OnClick(cUIButton * pSender)
 	}
 	else if (pSender->GetTag() == E_CUSTOM_BUTTON_FIN)
 	{
-
+	//	g_p
 	}
 
 	//머리 메뉴가 나올시

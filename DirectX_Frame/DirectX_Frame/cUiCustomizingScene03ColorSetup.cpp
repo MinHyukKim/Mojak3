@@ -13,7 +13,7 @@
 
 void cUiCustomizingScene::SetupHairEyeColor(void)
 {
-	int Y1 = 200;
+	int Y1 = 260;
 
 	//이미지 머리
 	//이미지 머리

@@ -23,6 +23,15 @@ private:
 	cUIButton* m_pMainMainButton;
 	int m_nmainUiLocalY;
 
+	//메인 ui틀 위치
+	int mainUiLocalX = 300;			//메인 틀 x
+	int mainUiLocalY = 502;			//메인 틀 y
+
+	int mainButtonH = -25;			//메인 버튼들 높이
+	int mainButtoninterval = 40;	//메인 버튼들 가로 간격(크기)
+	int mainButtonSrart = 160;		//메인 버튼들 최초 시작 위치
+
+
 	//안씀
 	cUiObject* m_pUiTestRoot;
 	//패널 이미지 크기 태스트용
