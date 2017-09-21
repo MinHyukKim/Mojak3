@@ -6,18 +6,20 @@ class cActionMove : public cAction
 private:
 	D3DXVECTOR3 m_vFrom;
 	D3DXVECTOR3 m_vTo;
+	D3DXVECTOR3 m_vDir;
 
 public:
 	virtual void Play(void) override;
+	virtual void Stop(void) override;
 	virtual void Update(void) override;
 
-	virtual void SetFrom(D3DXVECTOR3& vFrom)  final { m_vFrom = vFrom; }
-	virtual D3DXVECTOR3& GetFrom(void) final { return m_vFrom; }
-	virtual void SetTo(D3DXVECTOR3& vTo) final { m_vTo = vTo; }
-	virtual D3DXVECTOR3& GetTo(void) final { return m_vTo; }
-	virtual D3DXVECTOR3 GetDirection(void) final { return m_vTo - m_vFrom; };
+	void SetFrom(D3DXVECTOR3& vFrom) { m_vFrom = vFrom; }
+	D3DXVECTOR3& GetFrom(void) { return m_vFrom; }
+	void SetTo(D3DXVECTOR3& vTo) { m_vTo = vTo; }
+	D3DXVECTOR3& GetTo(void) { return m_vTo; }
+	D3DXVECTOR3 GetDirection(void) { return m_vDir; };
+	void SetToPlay(IN LPD3DXVECTOR3 vTo, IN float fSpeed);
 
-	virtual cActionMove* AddRef(void) override;
 	static cActionMove* Create(void);
 protected:
 	cActionMove(void);

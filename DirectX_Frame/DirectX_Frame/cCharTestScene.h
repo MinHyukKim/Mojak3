@@ -26,7 +26,6 @@ public:
 	virtual void Render(void) override;
 
 
-
 	static cCharTestScene* Create(void);
 protected:
 	cCharTestScene(void);

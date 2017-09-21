@@ -3,12 +3,13 @@
 
 #include "cSkinnedMesh.h"
 #include "cCamera.h"
+#include "cActionMove.h"
 
 cPlayer::cPlayer(void)
 	: m_pCamera(nullptr)
+	, m_pActionMove(nullptr)
 	, m_pAnimationController(nullptr)
 	, m_bCurrentTrack(false)
-	, m_vPosition(0.0f, 0.0f, 0.0f)
 {
 	D3DXMatrixIdentity(&m_matWorld);
 	ZeroMemory(&m_stHairMaterial, sizeof(D3DMATERIAL9));
@@ -21,6 +22,9 @@ cPlayer::~cPlayer(void)
 
 HRESULT cPlayer::Setup(void)
 {
+	m_pActionMove = cActionMove::Create();
+	m_pActionMove->SetTarget(this);
+
 	if (!m_pCamera) m_pCamera = cCamera::Create();
 	m_pCamera->SetupParentMatrix(&m_matWorld);
 
@@ -29,7 +33,6 @@ HRESULT cPlayer::Setup(void)
 	
 	if (!m_pAnimationController)
 	{
-	//	this->ChangeMeshPart(MESH_DUMMY, "./Chareter/DefaultPlayer/", "Female_Bone26_Dummy.X");
 		this->ChangeMeshPart(cPlayer::MESH_DUMMY, g_pSkinnedMeshManager->GetSkinnedMesh("더미"));
 		//0번 트랙 설정
 		m_pAnimationController->SetTrackEnable(0, true);
@@ -51,13 +54,14 @@ void cPlayer::Reset(void)
 	for each(auto p in m_vecMesh) SAFE_DELETE(p);
 
 	SAFE_RELEASE(m_pCamera);
+	SAFE_RELEASE(m_pActionMove);
 	SAFE_RELEASE(m_pAnimationController);
 }
 
 void cPlayer::Update(void)
 {
+	SAFE_UPDATE(m_pActionMove);
 	if (m_pAnimationController) m_pAnimationController->AdvanceTime(g_pTimeManager->GetElapsedTime(), NULL);
-	D3DXMatrixTranslation(&m_matWorld, m_vPosition.x, m_vPosition.y, m_vPosition.z);
 
 }
 
@@ -303,6 +307,12 @@ void cPlayer::SetTextureHairColor(LPD3DXCOLOR pColor)
 	{
 		m_vecMesh[cPlayer::MESH_HAIR]->SetTextureColor(m_sCurrentHairTextureName.c_str(), &m_stHairMaterial);
 	}
+}
+
+void cPlayer::MoveToPlayer(LPD3DXVECTOR3 pTo, float fSpeed)
+{
+	if (!m_pActionMove) return;
+	this->m_pActionMove->SetToPlay(pTo, fSpeed);
 }
 
 cPlayer* cPlayer::Create(void)

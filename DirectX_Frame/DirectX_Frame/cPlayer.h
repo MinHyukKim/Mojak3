@@ -2,6 +2,7 @@
 
 #define ANI_MATRIX 32
 
+class cActionMove;
 class cCamera;
 class cPlayer : public cObject
 {
@@ -11,15 +12,16 @@ public:
 		PATTE_IDEN,
 		PATTE_OFFENSIVE,
 	};
+	//È¦¼ö = OFFENSIVE, Â¦¼ö = PEACEFUL
 	enum ANIMATION_STAND
 	{
 		ANIMATION_NULL,
-		ANIMATION_IDLE_PEACEFUL,
 		ANIMATION_IDLE_OFFENSIVE,
-		ANIMATION_WALK_PEACEFUL,
+		ANIMATION_IDLE_PEACEFUL,
 		ANIMATION_WALK_OFFENSIVE,
-		ANIMATION_RUN_PEACEFUL,
+		ANIMATION_WALK_PEACEFUL,
 		ANIMATION_RUN_OFFENSIVE,
+		ANIMATION_RUN_PEACEFUL,
 		ANIMATION_TEST1,
 		ANIMATION_TEST2,
 		ANIMATION_TEST3,
@@ -38,27 +40,24 @@ public:
 		MESH_SIZE,
 	};
 private:
-	D3DXVECTOR3 m_vPosition;
 	D3DXMATRIXA16 m_matWorld;
+	D3DMATERIAL9 m_stHairMaterial;
 
 	std::string m_sCurrentEyeTextureName;
 	std::string m_sCurrentMouthTextureName;
 	std::string m_sCurrentHairTextureName;
 
-	D3DMATERIAL9 m_stHairMaterial;
-
 	cCamera* m_pCamera;
+	cActionMove* m_pActionMove;
+	LPD3DXANIMATIONCONTROLLER m_pAnimationController;
 
 	std::vector<DWORD> m_vecAnimationKey;
 	std::vector<cSkinnedMesh*> m_vecMesh;
 
-	LPD3DXANIMATIONCONTROLLER m_pAnimationController;
-
-	bool m_bCurrentTrack;
-
 	DWORD m_CurrentAnimation;
 	DWORD m_PrevAnimation;
 
+	bool m_bCurrentTrack;
 
 public:
 	virtual HRESULT Setup(void) override;
@@ -88,14 +87,16 @@ public:
 	void SetTextureHairColor(LPD3DXCOLOR pColor);
 
 
-	D3DXVECTOR3 GetPosition(void) { return m_vPosition; }
-	void SetPosition(LPD3DXVECTOR3 pPosition) { m_vPosition = *pPosition; }
-	void SetPosX(float fX) { m_vPosition.x = fX; }
-	void SetPosY(float fY) { m_vPosition.y = fY; }
-	void SetPosZ(float fZ) { m_vPosition.z = fZ; }
-	float GetPosX(void) { return m_vPosition.x; }
-	float GetPosY(void) { return m_vPosition.y; }
-	float GetPosZ(void) { return m_vPosition.z; }
+	D3DXVECTOR3 GetPosition(void) { return D3DXVECTOR3(m_matWorld._41, m_matWorld._42, m_matWorld._43); }
+	void SetPosition(LPD3DXVECTOR3 pPosition) { memcpy(&m_matWorld._41, pPosition, sizeof(D3DXVECTOR3)); }
+	void SetPosX(float fX) { m_matWorld._41 = fX; }
+	void SetPosY(float fY) { m_matWorld._42 = fY; }
+	void SetPosZ(float fZ) { m_matWorld._43 = fZ; }
+	float GetPosX(void) { return m_matWorld._41; }
+	float GetPosY(void) { return m_matWorld._42; }
+	float GetPosZ(void) { return m_matWorld._43; }
+
+	void MoveToPlayer(LPD3DXVECTOR3 pTo, float fSpeed);
 
 	cCamera* GetCamera(void) { return m_pCamera; }
 

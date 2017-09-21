@@ -61,8 +61,6 @@ void cCharTestScene::Reset(void)
 
 void cCharTestScene::Update(void)
 {
-	SAFE_UPDATE(g_pObjectManager->GetPlayer());
-
 	//테스트용
 	if (m_pCamera)
 	{
@@ -73,15 +71,16 @@ void cCharTestScene::Update(void)
 	{
 		if (g_pObjectManager->GetPlayer())
 		{
+			g_pObjectManager->GetPlayer()->Update();
 			if (g_pInputManager->IsOnceKeyDown(VK_LBUTTON))
 			{
-				D3DXVECTOR3 vPos;
+				D3DXVECTOR3 vTo;
 				D3DXVECTOR3 vOrg;
 				D3DXVECTOR3 vDir;
 				g_pRay->RayAtWorldSpace(&vOrg, &vDir);
-				if (m_pMapTerrain->IsCollision(&vPos, &vOrg, &vDir))
+				if (m_pMapTerrain->IsCollision(&vTo, &vOrg, &vDir))
 				{
-					g_pObjectManager->GetPlayer()->SetPosition(&vPos);
+					g_pObjectManager->GetPlayer()->MoveToPlayer(&vTo, 1.0f);
 				}
 			}
 			else

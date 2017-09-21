@@ -5,8 +5,8 @@
 cAction::cAction(void)
 	: m_fElapsedTime(0.0f)
 	, m_fActionTime(0.0)
-	, m_pObjectTarget(NULL)
-	, m_pDelegate(NULL)
+	, m_pTarget(nullptr)
+	, m_pDelegate(nullptr)
 {
 }
 
@@ -17,6 +17,11 @@ cAction::~cAction(void)
 void cAction::Play(void)
 {
 	m_fElapsedTime = 0.0f;
+}
+
+void cAction::Stop(void)
+{
+	this->SetMoveTo();
 }
 
 void cAction::Update(void)
