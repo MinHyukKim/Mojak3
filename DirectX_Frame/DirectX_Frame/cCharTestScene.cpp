@@ -4,16 +4,21 @@
 #include "crtCtl.h"
 
 #include "cCamera.h"
-//테스트용
-#include "cGrid.h"
 #include "cMapTerrain.h"
+#include "cPlayer.h"
+
+//테스트용
+#include "cMapObject.h"
+#include "cGrid.h"
 
 cCharTestScene::cCharTestScene(void)
 	: m_pCamera(NULL)
-	, m_pGrid(NULL)
-	, m_pCrtCtrl(NULL)
 	, m_pMapTerrain(NULL)
 {
+	//테스트용
+	//m_pMapObject = NULL;
+	m_pTexture = NULL;
+	m_pGrid = NULL;
 }
 
 cCharTestScene::~cCharTestScene(void)
@@ -23,13 +28,8 @@ cCharTestScene::~cCharTestScene(void)
 
 HRESULT cCharTestScene::Setup(void)
 {
-	m_pCamera = cCamera::Create();
-	m_pCamera->Setup();
-	m_pCamera->SetCameraType(cCamera::E_AIRCRAFT); // 뱅기모드
-
-	//테스트용
-	m_pGrid = cGrid::Create();
-	m_pGrid->Setup();
+	m_pCamera = g_pObjectManager->GetPlayer()->GetCamera();
+	m_pCamera->AddRef();
 
 	SetMatrial(&m_stMtl.MatD3D);
 	m_stMtl.pTextureFilename = "./Texture/steppegrass01_only.dds";
@@ -37,98 +37,66 @@ HRESULT cCharTestScene::Setup(void)
 	m_pMapTerrain = cMapTerrain::Create();
 	m_pMapTerrain->Setup("./HeightMapData/HeightMap.raw", &m_stMtl);
 
-	//cSkinnedMesh* pSkinnedMesh = new cSkinnedMesh("./Chareter/", "female_natural_stand_straight.X");
+	//테스트용
+	m_pGrid = cGrid::Create();
+	m_pGrid->Setup();
+	m_pTexture = g_pTexture->GetTexture("./HeightMapData/terrain.jpg");
 
-	cSkinnedMesh* pSkinnedMesh = new cSkinnedMesh("Chareter/DefaultPlayer/", "Frame.X");
-	cSkinnedMesh::SetTextureColor(pSkinnedMesh->GetRootFrame(), "bodymap01.dds", &D3DXCOLOR(1.0f, 0.53f, 0.53f, 1.0f));	//몸통
-	cSkinnedMesh::SetTextureColor(pSkinnedMesh->GetRootFrame(), "hair9.dds", &D3DXCOLOR(0.0f, 0.0f, 0.0f, 1.0f));		//머리
-	cSkinnedMesh::SetTextureColor(pSkinnedMesh->GetRootFrame(), "bodymap04.dds", &D3DXCOLOR(1.0f, 0.53f, 0.53f, 1.0f));	//얼굴
-	cSkinnedMesh::SetTextureColor(pSkinnedMesh->GetRootFrame(), "eye_0.dds", &D3DXCOLOR(1.0f, 1.0f, 1.0f, 1.0f));		//눈(블렌딩 필요)
-	cSkinnedMesh::SetTextureColor(pSkinnedMesh->GetRootFrame(), "mouth_0.dds", &D3DXCOLOR(1.0f, 1.0f, 1.0f, 1.0f));		//입(블렌딩 필요)
-	cSkinnedMesh::SetTextureColor(pSkinnedMesh->GetRootFrame(), "male_pumpkin_pants_c.dds", &D3DXCOLOR(0.0f, 0.0f, 1.0f, 1.0f));	//목걸이
-	cSkinnedMesh::SetTextureColor(pSkinnedMesh->GetRootFrame(), "uni_newbie03_c.dds", &D3DXCOLOR(0.0f, 1.0f, 0.0f, 1.0f));			// 하의
-	cSkinnedMesh::SetTextureColor(pSkinnedMesh->GetRootFrame(), "uni_3rd_premium_c.dds", &D3DXCOLOR(1.0f, 0.0f, 0.0f, 1.0f));		//상의
-	pSkinnedMesh->setPosition(D3DXVECTOR3(0, 0, 0));
-	pSkinnedMesh->SetRandomTrackPosition();
-	pSkinnedMesh->GetAnimationController()->SetTrackSpeed(0, 0.01f);
-
-	//메쉬 체인지
-	cSkinnedMesh* pSkinnedMesh3 = new cSkinnedMesh("Chareter/DefaultPlayer/", "Frame_W.X");
-	pSkinnedMesh->FrameChange(D3DXFrameFind(pSkinnedMesh3->GetRootFrame(), "Female_Body"));
-
-	SAFE_DELETE(pSkinnedMesh3);
-
-	//애니메이션
-	cSkinnedMesh* pSkinnedMesh2 = new cSkinnedMesh("Chareter/DefaultPlayer/aniTest/", "ani_female_attack_01.X");
-
-	//애니메이션 등록
-	LPD3DXANIMATIONSET pAni;
-	pSkinnedMesh2->GetAnimationController()->GetAnimationSet(0, &pAni);
-	pSkinnedMesh->AddAnimationSet(pAni);
-	
-	//애니메이션 변경
-	pSkinnedMesh->GetAnimationController()->SetTrackAnimationSet(0, pAni);
-	pSkinnedMesh->GetAnimationController()->SetTrackSpeed(0, 1.00f);
-	pSkinnedMesh->GetAnimationController()->SetTrackWeight(0, 1.00f);
-	SAFE_RELEASE(pAni);
-	SAFE_DELETE(pSkinnedMesh2);
-
-	m_pCrtCtrl = new cCrtCtrl;
-
-	m_vecSkinnedMesh.push_back(pSkinnedMesh);
 	return S_OK;
-
 }
 
 void cCharTestScene::Reset(void)
 {
 	SAFE_RELEASE(m_pCamera);
 	//테스트용
-	SAFE_RELEASE(m_pGrid);
-	for each(auto it in m_vecSkinnedMesh)
-	{
-		SAFE_DELETE(it);
-	}
+	//SAFE_RELEASE(m_pMapObject);
 	SAFE_RELEASE(m_pMapTerrain);
+	SAFE_RELEASE(m_pGrid);
 }
 
 void cCharTestScene::Update(void)
 {
+	SAFE_UPDATE(g_pObjectManager->GetPlayer());
 
 	//테스트용
-	m_pCamera->TestController();
-
-	m_pCamera->Update();
-	
-	//m_pMapTerrain->Update();
-	//m_pCrtCtrl->Update(m_pMapTerrain);
+	if (m_pCamera)
+	{
+		m_pCamera->TestController();
+	}
+	if (m_pMapTerrain)
+	{
+		if (g_pObjectManager->GetPlayer())
+		{
+			if (g_pInputManager->IsOnceKeyDown(VK_LBUTTON))
+			{
+				D3DXVECTOR3 vPos;
+				D3DXVECTOR3 vOrg;
+				D3DXVECTOR3 vDir;
+				g_pRay->RayAtWorldSpace(&vOrg, &vDir);
+				if (m_pMapTerrain->IsCollision(&vPos, &vOrg, &vDir))
+				{
+					g_pObjectManager->GetPlayer()->SetPosition(&vPos);
+				}
+			}
+			cPlayer* pPlayer = g_pObjectManager->GetPlayer();
+			float fHeight = pPlayer->GetPosY();
+			m_pMapTerrain->GetHeight(&fHeight, pPlayer->GetPosX(), pPlayer->GetPosZ());
+			pPlayer->SetPosY(fHeight);
+		}
+	}
+	SAFE_UPDATE(m_pCamera);
 }
 
 void cCharTestScene::Render(void)
 {
-
-//		D3DLIGHT9 stLight;
-//	ZeroMemory(&stLight, sizeof(D3DLIGHT9));
-//	stLight.Type = D3DLIGHT_DIRECTIONAL;
-//	D3DXVECTOR3 vDir(1, -1, 1);
-//	D3DXVec3Normalize(&vDir, &vDir);
-//	stLight.Direction = vDir;
-//	stLight.Ambient = stLight.Diffuse = stLight.Specular = D3DXCOLOR(0.75f, 0.75f, 0.75f, 1.0f);
-//	g_pD3DDevice->SetLight(0, &stLight);
-//	g_pD3DDevice->LightEnable(0, true);
-	SAFE_RENDER(m_pGrid);
-
-
+	//테스트용
+	g_pD3DDevice->SetTexture(0, m_pTexture);
 	g_pD3DDevice->SetMaterial(&m_stMtl.MatD3D);
+	//SAFE_RENDER(m_pMapObject);
+	SAFE_RENDER(m_pMapTerrain);
 
-
-	for each (auto p in m_vecSkinnedMesh)
-	{
-		if (&p->getPosition())
-			p->UpdateAndRender();
-	}
-
-	m_pMapTerrain->Render();
+	SAFE_RENDER(m_pGrid);
+	SAFE_RENDER(g_pObjectManager->GetPlayer());
 }
 
 cCharTestScene* cCharTestScene::Create(void)
