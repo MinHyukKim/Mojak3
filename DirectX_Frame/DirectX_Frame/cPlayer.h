@@ -6,15 +6,16 @@ class cCamera;
 class cPlayer : public cObject
 {
 public:
-	enum AI_STAND
+	enum PATTE_STAND
 	{
-		AI_IDLE,
+		PATTE_IDEN,
+		PATTE_OFFENSIVE,
 	};
 	enum ANIMATION_STAND
 	{
 		ANIMATION_NULL,
-		ANIMATION_IDLE,
-		ANIMATION_2,
+		ANIMATION_IDLE_LEFTHEAD,
+		ANIMATION_IDLE_OFFENSIVE,
 		ANIMATION_3,
 		ANIMATION_4,
 		ANIMATION_5,
@@ -48,7 +49,7 @@ private:
 	std::vector<cSkinnedMesh*> m_vecMesh;
 
 	LPD3DXANIMATIONCONTROLLER m_pAnimationController;
-	int					m_nAnimationKey;
+
 	bool m_bCurrentTrack;
 
 	DWORD m_CurrentAnimation;

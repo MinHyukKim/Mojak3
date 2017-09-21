@@ -85,7 +85,7 @@ bool cDataLoder::RegisterData(LPCSTR FullPath)
 		else if (strstr(pToken, "Animation") || strstr(pToken, "¾Ö´Ï"))
 		{
 			std::string FullPath = strtok(nullptr, ",");
-			std::string sAnimationKey = strtok(nullptr, ",");
+			std::string sAnimationKey = strtok(nullptr, ";");
 			this->RegisterAnimation(FullPath.c_str(), sAnimationKey.c_str());
 		}
 

@@ -10,18 +10,14 @@ class cCrtCtrl;
 class cCharTestScene : public cSceneObject
 {
 private:
-
 	cCamera* m_pCamera;
+	cMapTerrain* m_pMapTerrain;
 	//테스트용
+	//cMapObject* m_pMapObject;
 	cGrid* m_pGrid;
 	LPDIRECT3DTEXTURE9 m_pTexture;
 	D3DXMATERIAL m_stMtl;
 
-	//D3DMATERIAL9 m_stMtl;
-	vector<cSkinnedMesh*>	m_vecSkinnedMesh;
-
-	cMapTerrain* m_pMapTerrain;
-	cCrtCtrl*	m_pCrtCtrl;
 
 public:
 	virtual HRESULT Setup(void) override;

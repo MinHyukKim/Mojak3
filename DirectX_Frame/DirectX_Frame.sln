@@ -5,6 +5,11 @@ VisualStudioVersion = 15.0.26430.16
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "DirectX_Frame", "DirectX_Frame\DirectX_Frame.vcxproj", "{51D484B1-92BA-49C0-9DAC-23CF5280ACF1}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{669D6B95-1F5D-45BA-BEC6-5A6C0C8CD559}"
+	ProjectSection(SolutionItems) = preProject
+		DirectX_Frame\Data\SetupData.txt = DirectX_Frame\Data\SetupData.txt
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|x64 = Debug|x64
