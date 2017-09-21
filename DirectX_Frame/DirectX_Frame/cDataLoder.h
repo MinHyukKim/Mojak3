@@ -26,6 +26,7 @@ public:
 		DATA_MESH,
 		DATA_MESH_COLOR,
 		DATA_ANIMATION,
+		DATA_BUILDING,
 	};
 private:
 	std::vector<ST_DATA> m_vecData;
