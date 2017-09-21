@@ -94,14 +94,13 @@ bool cDataLoder::RegisterData(LPCSTR FullPath)
 	fclose(fp);
 }
 
-bool cDataLoder::LoaderData(void)
+void cDataLoder::LoaderData(void)
 {
 
 	if (m_dwCount >= m_vecData.size())
 	{
 		m_vecData.clear();
 		m_dwCount = 0;
-		return false;
 	}
 	ST_DATA* pData = &m_vecData[m_dwCount];
 	switch (pData->dwType)
@@ -122,14 +121,23 @@ bool cDataLoder::LoaderData(void)
 	default: break;
 	}
 	++m_dwCount;
-	return true;
+}
+
+void cDataLoder::LoaderDataLoop(void)
+{
+	while (1.0f > this->GetLodingGauge())
+	{
+		this->LoaderData();
+	}
 }
 
 void cDataLoder::LoadCallBack(THIS_ LPVOID pDataLoder)
 {
 	cDataLoder* pThis = (cDataLoder*)pDataLoder;
-	while (pThis->LoaderData());
-	int i = 0;
+	while (1.0f <= pThis->GetLodingGauge())
+	{
+		pThis->LoaderData();
+	}
 }
 
 cDataLoder* cDataLoder::Create(void)
