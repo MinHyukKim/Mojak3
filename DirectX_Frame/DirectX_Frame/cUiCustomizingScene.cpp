@@ -186,7 +186,7 @@ void cUiCustomizingScene::Update(void)
 
 	if (g_pObjectManager->GetPlayer())
 	{
-		g_pSceneManager->ChangeScene("cMapToolScene");
+		g_pSceneManager->ChangeScene(NEXT_SCENE);
 		return;
 	}
 }

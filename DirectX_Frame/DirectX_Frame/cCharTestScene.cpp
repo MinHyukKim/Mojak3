@@ -28,6 +28,11 @@ cCharTestScene::~cCharTestScene(void)
 
 HRESULT cCharTestScene::Setup(void)
 {
+	cPlayer* pPlater = g_pObjectManager->GetPlayer();
+	pPlater->RegisterAnimation(cPlayer::ANIMATION_IDLE_OFFENSIVE, g_pAnimationManager->GetAnimation("여성_기본02"));
+	pPlater->RegisterAnimation(cPlayer::ANIMATION_WALK_OFFENSIVE, g_pAnimationManager->GetAnimation("여성_걷기01"));
+	pPlater->RegisterAnimation(cPlayer::ANIMATION_WALK_OFFENSIVE, g_pAnimationManager->GetAnimation("여성_걷기01"));
+
 	m_pCamera = g_pObjectManager->GetPlayer()->GetCamera();
 	m_pCamera->AddRef();
 
@@ -63,6 +68,7 @@ void cCharTestScene::Update(void)
 	{
 		m_pCamera->TestController();
 	}
+
 	if (m_pMapTerrain)
 	{
 		if (g_pObjectManager->GetPlayer())
@@ -78,12 +84,17 @@ void cCharTestScene::Update(void)
 					g_pObjectManager->GetPlayer()->SetPosition(&vPos);
 				}
 			}
-			cPlayer* pPlayer = g_pObjectManager->GetPlayer();
-			float fHeight = pPlayer->GetPosY();
-			m_pMapTerrain->GetHeight(&fHeight, pPlayer->GetPosX(), pPlayer->GetPosZ());
-			pPlayer->SetPosY(fHeight);
+			else
+			{
+				cPlayer* pPlayer = g_pObjectManager->GetPlayer();
+				float fHeight = pPlayer->GetPosY();
+				m_pMapTerrain->GetHeight(&fHeight, pPlayer->GetPosX(), pPlayer->GetPosZ());
+				pPlayer->SetPosY(fHeight);
+			}
 		}
 	}
+
+
 	SAFE_UPDATE(m_pCamera);
 }
 

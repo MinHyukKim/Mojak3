@@ -2,6 +2,8 @@
 #include "cSceneObject.h"
 #include "cUIButton.h"
 
+#define NEXT_SCENE "cCharTestScene"
+
 //폰트
 class cFont;
 //Ui구성
