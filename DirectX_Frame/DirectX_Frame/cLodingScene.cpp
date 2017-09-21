@@ -10,6 +10,7 @@ cLodingScene::cLodingScene(void)
 	, m_pSprite(nullptr)
 	, m_pLodingImage(nullptr)
 	, m_pFont(nullptr)
+	, m_pThread(nullptr)
 {
 	D3DXMatrixIdentity(&m_matWorldMatrix);
 }
@@ -45,19 +46,30 @@ HRESULT cLodingScene::Setup(void)
 	m_pData = cDataLoder::Create();
 	m_pData->RegisterData("./Data/SetupData.txt");
 
-	InitializeCriticalSection(&m_cs);
-	DWORD dwThID;
-	CloseHandle(CreateThread(NULL, 0, (LPTHREAD_START_ROUTINE)m_pData->LoadCallBack, m_pData, NULL, &dwThID));
+	if (m_pThread)
+	{
+		m_pThread->join();
+		delete m_pThread;
+	}
+	m_pThread = new thread(&cDataLoder::LoaderDataLoop, m_pData);
 	return S_OK;
 }
 
 void cLodingScene::Reset(void)
 {
-	
+	//쓰레드 먼저 해제
+	if (m_pThread)
+	{
+		m_pThread->join();
+		delete m_pThread;
+		m_pThread = nullptr;
+	}
+
 	SAFE_RELEASE(m_pFont);
 	SAFE_RELEASE(m_pData);
 	SAFE_RELEASE(m_pSprite);
 	SAFE_RELEASE(m_pLodingImage);
+
 }
 
 void cLodingScene::Update(void)

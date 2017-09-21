@@ -10,6 +10,7 @@ private:
 	D3DXMATRIXA16 m_matWorldMatrix;
 
 	CRITICAL_SECTION m_cs;
+	thread* m_pThread;
 
 	cDataLoder* m_pData;
 	LPD3DXSPRITE m_pSprite;

@@ -38,7 +38,8 @@ public:
 	void RegisterMeshColor(LPCSTR szMeshName, LPCSTR szTextureName, LPD3DXCOLOR color);
 
 	bool RegisterData(LPCSTR FullPath);
-	bool LoaderData(void);
+	void LoaderData(void);
+	void LoaderDataLoop(void);
 	float GetLodingGauge(void) { if (m_vecData.empty()) return 1.0f; return (float)m_dwCount / (float)m_vecData.size(); }
 
 	static void LoadCallBack(THIS_ LPVOID pDataLoder);
