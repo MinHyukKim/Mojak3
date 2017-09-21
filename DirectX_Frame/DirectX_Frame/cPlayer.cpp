@@ -344,7 +344,7 @@ void cPlayer::SetTextureEyeColor(LPD3DXCOLOR pColor)
 
 void cPlayer::SetTextureMouth(LPCSTR szEyeName)
 {
-	//얼굴이 있으면
+	//얼굴이 있으면 
 	if (m_vecMesh[cPlayer::MESH_FACE] && m_sCurrentMouthTextureName.length())
 	{
 		m_vecMesh[cPlayer::MESH_FACE]->SetTextureChange(m_sCurrentMouthTextureName.c_str(), szEyeName);
