@@ -47,12 +47,11 @@ cUiCustomizingScene::cUiCustomizingScene(void)
 {
 	//초기화되지 않은 변수들
 	m_pFont = nullptr;
-	pSkinMesh = nullptr; // m_pSkinMesh 로 수정해
 	m_pNameImageHead = nullptr;
 	m_pNameImage = nullptr;
 	m_pNameButton = nullptr;
 	m_pNameUi = nullptr;
-	m_eCustomizingTab = E_CUSTOM_NONE;
+//	m_eCustomizingTab = E_CUSTOM_NONE; //나중에 수정(위에 있음)
 
 	 m_pCustomImageHead = nullptr;
 	 m_pCustomImage = nullptr;
@@ -141,6 +140,8 @@ void cUiCustomizingScene::Reset(void)
 	SAFE_RELEASE(m_pCustomEyeUi);
 	SAFE_RELEASE(m_pCustomMouthUi);
 	SAFE_RELEASE(m_pCustomColorUi);
+
+	SAFE_RELEASE(m_pNameUi);
 }
 
 void cUiCustomizingScene::Update(void)
@@ -237,7 +238,7 @@ void cUiCustomizingScene::OnClick(cUIButton * pSender)
 	}
 	else if (pSender->GetTag() == E_CUSTOM_BUTTON_FIN)
 	{
-		//완료 버튼 누르면 맵툴로
+	//	g_pObjectManager->RegisterPlayer(m_pPlayer);
 		g_pObjectManager->RegisterPlayer(m_pPlayer);
 	}
 
