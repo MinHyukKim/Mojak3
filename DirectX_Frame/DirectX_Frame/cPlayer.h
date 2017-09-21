@@ -6,6 +6,10 @@ class cCamera;
 class cPlayer : public cObject
 {
 public:
+	enum AI_STAND
+	{
+		AI_IDLE,
+	};
 	enum ANIMATION_STAND
 	{
 		ANIMATION_NULL,
@@ -47,9 +51,8 @@ private:
 	int					m_nAnimationKey;
 	bool m_bCurrentTrack;
 
-	int m_state = ANIMATION_IDLE;
-	int m_prevState = m_state;
-	DWORD prevIndex = ANIMATION_IDLE;
+	DWORD m_CurrentAnimation;
+	DWORD m_PrevAnimation;
 
 
 public:
@@ -66,7 +69,9 @@ public:
 	DWORD RegisterAnimation(IN DWORD dwAnimationKey, IN LPD3DXANIMATIONSET pAnimation);
 	LPD3DXANIMATIONCONTROLLER GetAnimationController(void) { return m_pAnimationController; }
 	void SetAnimation(IN DWORD dwAnimationKey);
+	void SetBlendingAnimation(int nAnimationKey, float fTravelTime = 0.1f);
 	bool ExportAnimation(OUT LPD3DXANIMATIONSET* ppAnimation, IN DWORD dwAnimationKey = 0);
+
 	void SetTextureEye(LPCSTR szEyeName);
 	void SetTextureEyeColor(D3DMATERIAL9* pMaterial);
 	void SetTextureEyeColor(LPD3DXCOLOR pColor);
@@ -76,9 +81,7 @@ public:
 	void SetTextureHair(LPCSTR szHairName);
 	void SetTextureHairColor(D3DMATERIAL9* pMaterial);
 	void SetTextureHairColor(LPD3DXCOLOR pColor);
-	void SetBlendingAnimation(int nAnimationKey, float fTravelTime = 0.1f);
-	void SetState(int nState) { m_prevState = m_state; m_state = nState; };
-	int GetState() { return m_state; };
+
 
 	D3DXVECTOR3 GetPosition(void) { return m_vPosition; }
 	void SetPosition(LPD3DXVECTOR3 pPosition) { m_vPosition = *pPosition; }

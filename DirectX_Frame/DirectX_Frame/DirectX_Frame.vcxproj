@@ -143,6 +143,7 @@
     <Text Include="ReadMe.txt" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="cAbilityParamter.h" />
     <ClInclude Include="cAllocateHierarchy.h" />
     <ClInclude Include="cAnimationManager.h" />
     <ClInclude Include="cAutoReleasePool.h" />
@@ -195,6 +196,7 @@
     <ClInclude Include="targetver.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="cAbilityParamter.cpp" />
     <ClCompile Include="cAllocateHierarchy.cpp" />
     <ClCompile Include="cAnimationManager.cpp" />
     <ClCompile Include="cAutoReleasePool.cpp" />

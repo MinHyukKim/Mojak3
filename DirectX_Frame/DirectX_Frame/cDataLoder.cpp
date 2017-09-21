@@ -17,9 +17,9 @@ void cDataLoder::RegisterMesh(LPCSTR szFolder, LPCSTR szFilename, LPCSTR szKeyNa
 	m_vecData.push_back(ST_DATA(cDataLoder::DATA_MESH, szFolder, szFilename, szKeyName));
 }
 
-void cDataLoder::RegisterAnimation(LPCSTR szFolder, LPCSTR szFilename, LPCSTR szKeyName)
+void cDataLoder::RegisterAnimation(LPCSTR szFullPath, LPCSTR szKeyName)
 {
-	m_vecData.push_back(ST_DATA(cDataLoder::DATA_ANIMATION, szFolder, szFilename, szKeyName));
+	m_vecData.push_back(ST_DATA(cDataLoder::DATA_ANIMATION, szFullPath, szKeyName));
 }
 
 void cDataLoder::RegisterMeshColor(LPCSTR szMeshName, LPCSTR szTextureName, D3DMATERIAL9* pMaterial)
@@ -84,10 +84,9 @@ bool cDataLoder::RegisterData(LPCSTR FullPath)
 		}
 		else if (strstr(pToken, "Animation") || strstr(pToken, "¾Ö´Ï"))
 		{
-			std::string sPath = strtok(nullptr, ",");
-			std::string sFile = strtok(nullptr, ",");
+			std::string FullPath = strtok(nullptr, ",");
 			std::string sAnimationKey = strtok(nullptr, ",");
-			this->RegisterAnimation(sPath.c_str(), sFile.c_str(), sAnimationKey.c_str());
+			this->RegisterAnimation(FullPath.c_str(), sAnimationKey.c_str());
 		}
 
 	}
