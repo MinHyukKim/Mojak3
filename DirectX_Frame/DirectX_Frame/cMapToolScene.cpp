@@ -27,7 +27,7 @@ cMapToolScene::~cMapToolScene(void)
 HRESULT cMapToolScene::Setup(void)
 {
 	m_pCamera = g_pObjectManager->GetPlayer()->GetCamera();
-	m_pCamera->UpdateProjection();
+	m_pCamera->AddRef();
 
 	SetMatrial(&m_stMtl.MatD3D);
 	m_stMtl.pTextureFilename = "./Texture/steppegrass01_only.dds";
