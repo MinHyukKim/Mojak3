@@ -3,22 +3,43 @@
 // Color : 메시키,텍스쳐, 1.0f, 1.0f, 1.0f, 0.5f;
 // Animation : 경로, 파일, 키;
 
+//머리
 Mesh:./Chareter/Female_Hair/,hair_female_hair02_t02.X,헤어00;
 Mesh:./Chareter/Female_Hair/,hair_female_hair01_t01.X,헤어01;
 Mesh:./Chareter/Female_Hair/,hair_female_hair22_t22.X,헤어02;
 
+//기본 바디
 Mesh:./Chareter/Female_Body/,basicBody.X,바디00;
+
+//옷 바디01
 Mesh:./Chareter/Female_Body/,wear_female_3rd_newbie.X,바디01;
+Color:바디01,bodymap01.dds, 1.0f, 0.53f, 0.53f, 1.0f;
+Color:바디01,uni_newbie03_c.dds, 0.8f, 0.2f, 0.8f, 1.0;
+Color:바디01,uni_3rd_premium_c.dds, 0.5f, 0.0f, 0.1f, 1.0f)f;
+Color:바디01,male_pumpkin_pants_c.dds, 0.0f, 0.0f, 0.0f, 1.0f;
+//옷 바디02
 Mesh:./Chareter/Female_Body/,wear_adventurer01.X,바디02;
+//옷 바디03
 Mesh:./Chareter/Female_Body/,wear_female_armor01.X,바디03;
 
-Mesh:./Chareter/DefaultPlayer/,lisaAniTest.X,./Chareter/DefaultPlayer/lisaAniTest.X;
-Color:./Chareter/DefaultPlayer/lisaAniTest.X,uni_shoes01_c.dds, 1.0f, 1.0f, 0.0f, 1.0f;
-Color:./Chareter/DefaultPlayer/lisaAniTest.X,hair09.dds, 0.0f, 0.0f, 0.0f, 0.0f;
-Color:./Chareter/DefaultPlayer/lisaAniTest.X,bodymap01.dds, 1.0f, 0.53f, 0.53f, 1.0f;
-Color:./Chareter/DefaultPlayer/lisaAniTest.X,uni_newbie03_c.dds, 0.8f, 0.2f, 0.8f, 1.0;
-Color:./Chareter/DefaultPlayer/lisaAniTest.X,uni_3rd_premium_c.dds, 0.5f, 0.0f, 0.1f, 1.0f)f;
-Color:./Chareter/DefaultPlayer/lisaAniTest.X,male_pumpkin_pants_c.dds, 0.0f, 0.0f, 0.0f, 1.0f;
+//손
+Mesh:./Chareter/Female_Hand/,basicFist.X,주먹;
+Color:주먹,bodymap01.dds, 1.0f, 0.53f, 0.53f, 1.0f;
+Mesh:./Chareter/Female_Hand/,basicPalm.X,손;
+Color:손,bodymap01.dds, 1.0f, 0.53f, 0.53f, 1.0f;
+
+//신발
+Mesh:./Chareter/Female_Shoes/,basicShoes.X,신발00;
+Color:신발00,uni_shoes01_c.dds, 0.3f, 0.3f, 0.5f, 1.0f;
+
+//Mesh:./Chareter/DefaultPlayer/,lisaAniTest.X,./Chareter/DefaultPlayer/lisaAniTest.X;
+//Color:./Chareter/DefaultPlayer/lisaAniTest.X,uni_shoes01_c.dds, 1.0f, 1.0f, 0.0f, 1.0f;
+//Color:./Chareter/DefaultPlayer/lisaAniTest.X,hair09.dds, 0.0f, 0.0f, 0.0f, 0.0f;
+//Color:./Chareter/DefaultPlayer/lisaAniTest.X,bodymap01.dds, 1.0f, 0.53f, 0.53f, 1.0f;
+//Color:./Chareter/DefaultPlayer/lisaAniTest.X,uni_newbie03_c.dds, 0.8f, 0.2f, 0.8f, 1.0;
+//Color:./Chareter/DefaultPlayer/lisaAniTest.X,uni_3rd_premium_c.dds, 0.5f, 0.0f, 0.1f, 1.0f)f;
+//Color:./Chareter/DefaultPlayer/lisaAniTest.X,male_pumpkin_pants_c.dds, 0.0f, 0.0f, 0.0f, 1.0f;
+
 Animation:./Animation/,ani_female_attack_01.X,여성_공격01;
 Animation:./Animation/,ani_female_attack_02.X,여성_공격02;
 Animation:./Animation/,ani_female_run.X,여성_달리기;

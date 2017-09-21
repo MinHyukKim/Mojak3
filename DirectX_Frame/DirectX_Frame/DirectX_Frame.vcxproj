@@ -139,6 +139,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <Text Include="Data\SetupData.txt" />
     <Text Include="ReadMe.txt" />
   </ItemGroup>
   <ItemGroup>
