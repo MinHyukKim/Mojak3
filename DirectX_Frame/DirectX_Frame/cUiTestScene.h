@@ -93,6 +93,7 @@ private:
 public:
 	virtual HRESULT Setup(void) override;
 	void SetupBaseButton(void);
+	void SetupInventoryUi(void);
 	virtual void Reset(void) override;
 	virtual void Update(void) override;
 	virtual void Render(void) override;

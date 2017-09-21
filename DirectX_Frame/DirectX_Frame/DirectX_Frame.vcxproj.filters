@@ -57,6 +57,7 @@
     <ClCompile Include="cRay.cpp" />
     <ClCompile Include="cUiTestScene00BaseSetUp.cpp" />
     <ClCompile Include="cAbilityParamter.cpp" />
+    <ClCompile Include="cUiTestScene04InventorySetup.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="cAllocateHierarchy.h" />

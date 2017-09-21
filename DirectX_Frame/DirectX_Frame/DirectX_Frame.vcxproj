@@ -248,6 +248,7 @@
     <ClCompile Include="cUiObject.cpp" />
     <ClCompile Include="cUiTestScene.cpp" />
     <ClCompile Include="cUiTestScene00BaseSetUp.cpp" />
+    <ClCompile Include="cUiTestScene04InventorySetup.cpp" />
     <ClCompile Include="cUITextView.cpp" />
     <ClCompile Include="DirectX_Frame.cpp" />
     <ClCompile Include="cObjectManager.cpp" />

@@ -3,6 +3,9 @@
 // Color : 메시키,텍스쳐, 1.0f, 1.0f, 1.0f, 0.5f;
 // Animation : 경로/파일, 키;
 
+//더미
+Mesh:./Chareter/DefaultPlayer/,Female_Bone26_Dummy.X,더미;
+
 //머리
 Mesh:./Chareter/Female_Hair/,hair_female_hair02_t02.X,헤어00;
 Mesh:./Chareter/Female_Hair/,hair_female_hair37_t37.X,헤어01;
