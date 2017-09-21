@@ -2,12 +2,6 @@
 class cAbilityParamter
 {
 private:
-	float fStr;			//체력
-	float fInt;			//지력
-	float fDex;			//솜씨
-	float fWill;			//의지
-	float fLuk;			//행운
-
 	int nMinLife;		//최소 생명력
 	int nMinMana;		//최소 마나량
 	int nMinStamina;	//최소 스테미나
@@ -26,11 +20,19 @@ private:
 	int nMagicDefence;	//마법 방어
 	int nMagicProtecte;	//마법 보호
 
+	float fStr;			//체력
+	float fInt;			//지력
+	float fDex;			//솜씨
+	float fWill;		//의지
+	float fLuk;			//행운
+
 	float fInjury;		//부상률
 	float fBalance;		//벨런스
 	float fPenetration;	//물리 관통
 
 	float fFood;		//배고픔
+
+	float fDownGauge;	//다운게이지 100, 120, 150
 
 public:
 	void SetStr(float nValue) { fStr = nValue; }

@@ -57,6 +57,9 @@
     <ClCompile Include="cRay.cpp" />
     <ClCompile Include="cUiTestScene00BaseSetUp.cpp" />
     <ClCompile Include="cAbilityParamter.cpp" />
+    <ClCompile Include="cAction.cpp" />
+    <ClCompile Include="cActionMove.cpp" />
+    <ClCompile Include="cUiTestScene04InventorySetup.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="cAllocateHierarchy.h" />
@@ -110,6 +113,8 @@
     <ClInclude Include="cImage.h" />
     <ClInclude Include="cRay.h" />
     <ClInclude Include="cAbilityParamter.h" />
+    <ClInclude Include="cAction.h" />
+    <ClInclude Include="cActionMove.h" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="DirectX_Frame.rc" />

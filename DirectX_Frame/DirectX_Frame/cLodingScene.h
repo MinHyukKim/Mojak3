@@ -1,6 +1,8 @@
 #pragma once
 #include "cSceneObject.h"
 
+#define NEXT_SCENE "cUiCustomizingScene"
+
 class cDataLoder;
 class cImage;
 class cFont;

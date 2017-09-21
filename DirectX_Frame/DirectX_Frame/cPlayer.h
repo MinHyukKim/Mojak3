@@ -6,20 +6,25 @@ class cCamera;
 class cPlayer : public cObject
 {
 public:
-	enum AI_STAND
+	enum PATTE_STAND
 	{
-		AI_IDLE,
+		PATTE_IDEN,
+		PATTE_OFFENSIVE,
 	};
 	enum ANIMATION_STAND
 	{
 		ANIMATION_NULL,
-		ANIMATION_IDLE,
-		ANIMATION_2,
-		ANIMATION_3,
-		ANIMATION_4,
-		ANIMATION_5,
-		ANIMATION_6,
-		ANIMATION_7,
+		ANIMATION_IDLE_PEACEFUL,
+		ANIMATION_IDLE_OFFENSIVE,
+		ANIMATION_WALK_PEACEFUL,
+		ANIMATION_WALK_OFFENSIVE,
+		ANIMATION_RUN_PEACEFUL,
+		ANIMATION_RUN_OFFENSIVE,
+		ANIMATION_TEST1,
+		ANIMATION_TEST2,
+		ANIMATION_TEST3,
+		ANIMATION_TEST4,
+		ANIMATION_TEST5,
 		ANIMATION_END,
 	};
 	enum MESH_PART
@@ -48,7 +53,7 @@ private:
 	std::vector<cSkinnedMesh*> m_vecMesh;
 
 	LPD3DXANIMATIONCONTROLLER m_pAnimationController;
-	int					m_nAnimationKey;
+
 	bool m_bCurrentTrack;
 
 	DWORD m_CurrentAnimation;

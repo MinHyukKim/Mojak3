@@ -3,12 +3,9 @@
 // Color : 메시키,텍스쳐, 1.0f, 1.0f, 1.0f, 0.5f;
 // Animation : 경로/파일, 키;
 
-//더미
-Mesh:./Chareter/DefaultPlayer/,Female_Bone26_Dummy.X,더미;
-
 //머리
 Mesh:./Chareter/Female_Hair/,hair_female_hair02_t02.X,헤어00;
-Mesh:./Chareter/Female_Hair/,hair_female_hair37_t37.X,헤어01;
+Mesh:./Chareter/Female_Hair/,hair_female_hair01_t01.X,헤어01;
 Mesh:./Chareter/Female_Hair/,hair_female_hair22_t22.X,헤어02;
 
 //기본 바디
@@ -18,7 +15,7 @@ Mesh:./Chareter/Female_Body/,basicBody.X,바디00;
 Mesh:./Chareter/Female_Body/,wear_female_3rd_newbie.X,바디01;
 Color:바디01,bodymap01.dds, 1.0f, 0.53f, 0.53f, 1.0f;
 Color:바디01,uni_newbie03_c.dds, 0.8f, 0.2f, 0.8f, 1.0;
-Color:바디01,uni_3rd_premium_c.dds, 0.5f, 0.0f, 0.1f, 1.0f)f; 
+Color:바디01,uni_3rd_premium_c.dds, 0.5f, 0.0f, 0.1f, 1.0f)f;
 Color:바디01,male_pumpkin_pants_c.dds, 0.0f, 0.0f, 0.0f, 1.0f;
 //옷 바디02
 Mesh:./Chareter/Female_Body/,wear_adventurer01.X,바디02;
@@ -57,13 +54,7 @@ Animation:./Animation/ani_female_stand_leftahead.X,여성_기본01;
 Animation:./Animation/ani_female_stand_offensive.X,여성_기본02;
 Animation:./Animation/ani_female_attack_01.X,여성_공격01;
 Animation:./Animation/ani_female_attack_02.X,여성_공격02;
-Animation:./Animation/ani_female_counter.X,여성_카운터;
-Animation:./Animation/ani_female_down_attack.X,여성_다운공격00;
 Animation:./Animation/ani_female_run.X,여성_달리기01;
 Animation:./Animation/ani_female_run_offensive.X,여성_달리기02;
 Animation:./Animation/ani_female_walk.X,여성_걷기01;
 Animation:./Animation/ani_female_walk_offensive.X,여성_걷기02;
-
-Animation:./Animation/ani_female_windmill_rising.X,여성_윈드밀01;
-Animation:./Animation/ani_female_windmill_standing.X,여성_윈드밀02;
-Animation:./Animation/ani_female_blow_turn.X,여성_턴00;
