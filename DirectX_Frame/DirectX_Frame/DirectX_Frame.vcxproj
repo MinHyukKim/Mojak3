@@ -144,6 +144,8 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="cAbilityParamter.h" />
+    <ClInclude Include="cAction.h" />
+    <ClInclude Include="cActionMove.h" />
     <ClInclude Include="cAllocateHierarchy.h" />
     <ClInclude Include="cAnimationManager.h" />
     <ClInclude Include="cAutoReleasePool.h" />
@@ -197,6 +199,8 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="cAbilityParamter.cpp" />
+    <ClCompile Include="cAction.cpp" />
+    <ClCompile Include="cActionMove.cpp" />
     <ClCompile Include="cAllocateHierarchy.cpp" />
     <ClCompile Include="cAnimationManager.cpp" />
     <ClCompile Include="cAutoReleasePool.cpp" />
