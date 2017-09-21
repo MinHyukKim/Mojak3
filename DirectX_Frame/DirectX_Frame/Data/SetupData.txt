@@ -8,7 +8,9 @@ Mesh:./Chareter/Female_Hair/,hair_female_hair01_t01.X,헤어01;
 Mesh:./Chareter/Female_Hair/,hair_female_hair22_t22.X,헤어02;
 
 Mesh:./Chareter/Female_Body/,basicBody.X,바디00;
-//Mesh
+Mesh:./Chareter/Female_Body/,wear_female_3rd_newbie.X,바디01;
+Mesh:./Chareter/Female_Body/,wear_adventurer01.X,바디02;
+Mesh:./Chareter/Female_Body/,wear_female_armor01.X,바디03;
 
 Mesh:./Chareter/DefaultPlayer/,lisaAniTest.X,./Chareter/DefaultPlayer/lisaAniTest.X;
 Color:./Chareter/DefaultPlayer/lisaAniTest.X,uni_shoes01_c.dds, 1.0f, 1.0f, 0.0f, 1.0f;
