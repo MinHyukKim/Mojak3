@@ -3,11 +3,12 @@
 // Color : 메시키,텍스쳐, 1.0f, 1.0f, 1.0f, 0.5f;
 // Animation : 경로, 파일, 키;
 
-Mesh:./Chareter/Female_Hair/,hair_female_hair02_t02.X,머리스타일;
-Mesh:./Chareter/Female_Hair/,hair_female_hair01_t01.X,머리스타일1;
-Mesh:./Chareter/Female_Hair/,hair_female_hair22_t22.X,머리스타일2;
+Mesh:./Chareter/Female_Hair/,hair_female_hair02_t02.X,헤어00;
+Mesh:./Chareter/Female_Hair/,hair_female_hair01_t01.X,헤어01;
+Mesh:./Chareter/Female_Hair/,hair_female_hair22_t22.X,헤어02;
 
-//mesh:./Chareter/DefaultPlayer/,
+Mesh:./Chareter/Female_Body/,basicBody.X,바디00;
+//Mesh
 
 Mesh:./Chareter/DefaultPlayer/,lisaAniTest.X,./Chareter/DefaultPlayer/lisaAniTest.X;
 Color:./Chareter/DefaultPlayer/lisaAniTest.X,uni_shoes01_c.dds, 1.0f, 1.0f, 0.0f, 1.0f;

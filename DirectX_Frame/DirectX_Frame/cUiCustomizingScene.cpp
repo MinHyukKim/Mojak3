@@ -32,6 +32,7 @@ cUiCustomizingScene::cUiCustomizingScene(void)
 	, m_pCustomButtonEye(NULL)
 	, m_pCustomButtonMouth(NULL)
 	, m_pCustomUi(NULL)
+	, m_pNameUi(NULL)
 	, m_nX(20)
 	, m_nY(20)
 
@@ -46,17 +47,16 @@ cUiCustomizingScene::cUiCustomizingScene(void)
 	, m_eHairStyleTab(E_HAIR_01)
 {
 	//초기화되지 않은 변수들
-	m_pFont = nullptr;
-	m_pNameImageHead = nullptr;
-	m_pNameImage = nullptr;
-	m_pNameButton = nullptr;
-	m_pNameUi = nullptr;
-//	m_eCustomizingTab = E_CUSTOM_NONE; //나중에 수정(위에 있음)
-
-	 m_pCustomImageHead = nullptr;
-	 m_pCustomImage = nullptr;
-	 m_pCustomButtonFin = nullptr;
-	 m_pCustomButton = nullptr;
+//	m_pFont = nullptr;
+//	m_pNameImageHead = nullptr;
+//	m_pNameImage = nullptr;
+//	m_pNameButton = nullptr;
+//	m_pNameUi = nullptr;
+//
+//	 m_pCustomImageHead = nullptr;
+//	 m_pCustomImage = nullptr;
+//	 m_pCustomButtonFin = nullptr;
+//	 m_pCustomButton = nullptr;
 //	//커마 창 글씨
 //	cUITextView* m_pCustomNameTest;
 //	//헤어
@@ -128,6 +128,7 @@ HRESULT cUiCustomizingScene::Setup(void)
 void cUiCustomizingScene::Reset(void)
 {
 	SAFE_RELEASE(m_pPlayer);
+	SAFE_RELEASE(m_pMainCamera);
 	SAFE_RELEASE(m_mUiTest);
 
 	SAFE_RELEASE(m_pSprite);
