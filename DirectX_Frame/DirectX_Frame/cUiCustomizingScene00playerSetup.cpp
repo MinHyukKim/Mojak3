@@ -66,7 +66,7 @@ void cUiCustomizingScene::SetupPlayer(void)
 	//SAFE_RELEASE(pAnimationSet);
 
 	//g_pAnimationManager->RegisterAnimation("./Animation/ani_female_stand_leftahead.X","여성_기본01");
-	m_pPlayer->RegisterAnimation(cPlayer::ANIMATION_5, g_pAnimationManager->GetAnimation("여성_기본02") );
+	m_pPlayer->RegisterAnimation(cPlayer::ANIMATION_5, g_pAnimationManager->GetAnimation("여성_기본01") );
 	//애니메이션 변형
 	m_pPlayer->SetAnimation(cPlayer::ANIMATION_5);
 }
