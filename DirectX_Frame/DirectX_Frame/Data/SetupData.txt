@@ -50,11 +50,11 @@ Color:얼굴,bodymap01.dds, 1.0f, 0.53f, 0.53f, 1.0f;
 //Color:./Chareter/DefaultPlayer/lisaAniTest.X,male_pumpkin_pants_c.dds, 0.0f, 0.0f, 0.0f, 1.0f;
 
 //애니메이션
-Animation:./Animation/,ani_female_stand_leftahead.X,여성_기본01;
-Animation:./Animation/,ani_female_stand_offensive.X,여성_기본02;
-Animation:./Animation/,ani_female_attack_01.X,여성_공격01;
-Animation:./Animation/,ani_female_attack_02.X,여성_공격02;
-Animation:./Animation/,ani_female_run.X,여성_달리기01;
-Animation:./Animation/,ani_female_run_offensive.X,여성_달리기02;
-Animation:./Animation/,ani_female_walk.X,여성_걷기01;
-Animation:./Animation/,ani_female_walk_offensive.X,여성_걷기02;
+Animation:./Animation/ani_female_stand_leftahead.X,여성_기본01;
+Animation:./Animation/ani_female_stand_offensive.X,여성_기본02;
+Animation:./Animation/ani_female_attack_01.X,여성_공격01;
+Animation:./Animation/ani_female_attack_02.X,여성_공격02;
+Animation:./Animation/ani_female_run.X,여성_달리기01;
+Animation:./Animation/ani_female_run_offensive.X,여성_달리기02;
+Animation:./Animation/ani_female_walk.X,여성_걷기01;
+Animation:./Animation/ani_female_walk_offensive.X,여성_걷기02;

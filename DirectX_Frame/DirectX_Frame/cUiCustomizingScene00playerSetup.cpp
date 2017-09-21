@@ -60,12 +60,13 @@ void cUiCustomizingScene::SetupPlayer(void)
 	m_pMainCamera->MovePositionZ(4.5f);
 	//	m_pMainCamera->AxisDirectionY(D3DX_PI / 2);
 	//애니메이션 등록
-	LPD3DXANIMATIONSET pAnimationSet;
-	g_pAllocateHierarchy->GetAnimationSet(0, &pAnimationSet, "./Chareter/DefaultPlayer/aniTest/ani_female_stand_leftahead.X");
-	m_pPlayer->RegisterAnimation(cPlayer::ANIMATION_5, pAnimationSet);
-	SAFE_RELEASE(pAnimationSet);
+	//LPD3DXANIMATIONSET pAnimationSet;
+	//g_pAllocateHierarchy->GetAnimationSet(0, &pAnimationSet, "./Chareter/DefaultPlayer/aniTest/ani_female_stand_leftahead.X");
+	//m_pPlayer->RegisterAnimation(cPlayer::ANIMATION_5, pAnimationSet);
+	//SAFE_RELEASE(pAnimationSet);
+
 	//g_pAnimationManager->RegisterAnimation("./Animation/ani_female_stand_leftahead.X","여성_기본01");
-	//m_pPlayer->RegisterAnimation(cPlayer::ANIMATION_5,g_p );
+	m_pPlayer->RegisterAnimation(cPlayer::ANIMATION_5, g_pAnimationManager->GetAnimation("여성_기본02") );
 	//애니메이션 변형
 	m_pPlayer->SetAnimation(cPlayer::ANIMATION_5);
 }
