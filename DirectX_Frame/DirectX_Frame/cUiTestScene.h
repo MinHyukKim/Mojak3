@@ -23,7 +23,16 @@ enum
 	E_MAIN_BUTTON_MESSENGER = 220,
 	E_MAIN_BUTTON_MIN = 221,
 	E_MAIN_BUTTON_MAIN = 222,
+	//드래그 태스트
+	E_INVENTORY_MOVE = 224,
 	E_TEXT_VIEW
+	
+};
+enum eMoveUi
+{
+//	EMNONE,
+//	E_INVENTORY_MOVE,
+
 };
 
 class cUiTestScene : public cSceneObject, iButtonDelegate
@@ -75,7 +84,11 @@ private:
 	cUiObject* m_pQuestUi;
 
 	//플레이어 인벤창
+	int invX;
+	int invY;
 	cUIImageView* m_pInventoryUiImageHead;
+	cUIButton* m_pInventoryUiMoveing;
+	bool m_isInventoryUiMove;
 	cUIImageView* m_pInventoryUiImage;
 	cUIImageView* m_pInventoryUiTempImage;
 	cUIButton* m_pQInventoryUiButton;
@@ -85,10 +98,12 @@ private:
 	cUiObject* m_pUiTestRoot;
 	cUIImageView* m_pUiTesterSize;
 
-	//클릭변수?
-	bool m_isClick;
+	//왼쪽 버튼 다운 여부
+	bool m_isLbuttonDown;
 	//메인 창 최소화 변수
 	bool m_isMainMin;
+
+	POINT m_ptMouse;
 
 public:
 	virtual HRESULT Setup(void) override;
@@ -100,6 +115,7 @@ public:
 
 	void MsgProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam);
 	virtual void OnClick(cUIButton* pSender) override;
+	virtual void OnMouseOver(cUIButton* pSender) override;
 	//버튼 이미지 변경함수
 	void changeMainButtonColor(void);
 

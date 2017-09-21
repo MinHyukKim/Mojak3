@@ -17,7 +17,7 @@ void cActionMove::Play(void)
 	cObject* pTarget = this->GetObjectTarget();
 	if (pTarget)
 	{
-		pTarget->SetPosition(m_vFrom);
+		//pTarget->SetPosition(m_vFrom);
 	}
 	this->cAction::Play();
 }
@@ -33,11 +33,11 @@ void cActionMove::Update(void)
 
 		D3DXVECTOR3 vPosition;
 		D3DXVec3Lerp(&vPosition, &m_vFrom, &m_vTo, this->GetTravelTime());
-		pTarget->SetPosition(vPosition);
+		//pTarget->SetPosition(vPosition);
 	}
 	else
 	{
-		pTarget->SetPosition(m_vTo);
+		//pTarget->SetPosition(m_vTo);
 
 		iActionDelegate* pDelegate = this->GetDelegate();
 		if (pDelegate)
@@ -47,10 +47,10 @@ void cActionMove::Update(void)
 	}
 }
 
-cActionMove* cActionMove::AddRef(void)
-{
-	return (cActionMove*) this->cNode::AddRef();
-}
+//cActionMove* cActionMove::AddRef(void)
+//{
+//	//return (cActionMove*) this->cNode::AddRef();
+//}
 
 cActionMove* cActionMove::Create(void)
 {

@@ -9,7 +9,7 @@
 
 cUiTestScene::cUiTestScene(void)
 	: m_pFont(NULL)
-	, m_isClick(false)
+	, m_isLbuttonDown(false)
 	, m_pSprite(NULL)
 	, m_pTexture(NULL)
 	, m_pUiRoot(NULL)
@@ -29,6 +29,9 @@ cUiTestScene::cUiTestScene(void)
 	, m_pSkillUi(NULL)
 	, m_pQuestUi(NULL)
 	, m_pInventoryUi(NULL)
+	, invX(20)
+	, invY(20)
+	, m_isInventoryUiMove(false)
 {
 }
 
@@ -143,6 +146,30 @@ void cUiTestScene::Update(void)
 	if (m_pQuestUi && m_isQuestWindowOn) m_pQuestUi->Update();
 	if (m_pInventoryUi && m_isInventoryWindowOn) m_pInventoryUi->Update();
 
+	POINT ptMouse;
+	GetCursorPos(&ptMouse);
+	ScreenToClient(g_hWnd, &ptMouse);
+
+	if (m_pInventoryUiMoveing->isOver)
+	{
+		m_isInventoryUiMove = true;
+	}
+	else if (m_pInventoryUiMoveing->isOver == false)
+	{
+		m_isInventoryUiMove = false;
+	}
+	if (m_isInventoryUiMove)
+	{
+		if (g_pInputManager->IsStayKeyDown(VK_LBUTTON))
+		{
+			m_pInventoryUiImageHead->SetPosition(ptMouse.x, ptMouse.y);
+		}
+	}
+
+	GetCursorPos(&m_ptMouse);
+	ScreenToClient(g_hWnd, &m_ptMouse);
+
+	
 	if (m_pUiTestRoot) m_pUiTestRoot->Update();
 }
 
@@ -156,10 +183,6 @@ void cUiTestScene::Render(void)
 	if (m_pInventoryUi && m_isInventoryWindowOn) m_pInventoryUi->Render(m_pSprite);
 	//크기 태스트용
 	//if (m_pUiTestRoot) m_pUiTestRoot->Render(m_pSprite);
-}
-
-void cUiTestScene::MsgProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
-{
 }
 
 //딜리게이트(클릭)
@@ -204,6 +227,15 @@ void cUiTestScene::OnClick(cUIButton * pSender)
 	else if (pSender->GetTag() == E_MAIN_BUTTON_MIN)
 	{
 		m_isMainMin = !m_isMainMin;
+	}
+
+}
+
+void cUiTestScene::OnMouseOver(cUIButton * pSender)
+{
+	if (pSender->GetTag() == E_INVENTORY_MOVE)
+	{
+		//m_isInventoryUiMove = true;
 	}
 
 }
@@ -261,4 +293,9 @@ void cUiTestScene::changeMainButtonColor(void)
 			"Texture/Ui/player_inventory_button_over.png",
 			"Texture/Ui/player_inventory_button_down.png");
 	}
+}
+
+void cUiTestScene::MsgProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
+{
+
 }

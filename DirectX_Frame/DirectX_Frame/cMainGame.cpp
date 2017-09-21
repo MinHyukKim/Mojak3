@@ -82,3 +82,9 @@ void cMainGame::Render(void)
 	g_pD3DDevice->Present(NULL, NULL, NULL, NULL);
 }
 
+void cMainGame::MsgProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
+{
+	g_pSceneManager->MsgProc(hWnd, message, wParam, lParam);
+//	cUiTestScene::MsgProc(hWnd, message, wParam, lParam);
+}
+

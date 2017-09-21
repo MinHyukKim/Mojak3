@@ -17,7 +17,7 @@ public:
 	virtual D3DXVECTOR3& GetTo(void) final { return m_vTo; }
 	virtual D3DXVECTOR3 GetDirection(void) final { return m_vTo - m_vFrom; };
 
-	virtual cActionMove* AddRef(void) override;
+//	virtual cActionMove* AddRef(void) override;
 	static cActionMove* Create(void);
 protected:
 	cActionMove(void);

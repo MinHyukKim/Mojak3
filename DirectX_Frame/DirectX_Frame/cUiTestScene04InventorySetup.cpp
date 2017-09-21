@@ -12,9 +12,19 @@ void cUiTestScene::SetupInventoryUi(void)
 	//인벤토리 창 머리
 	m_pInventoryUiImageHead = cUIImageView::Create();
 	m_pInventoryUiImageHead->SetTexture("Texture/Ui/inventoryBaseHead1.png");
-	m_pInventoryUiImageHead->SetPosition(20, 20);
+	m_pInventoryUiImageHead->SetPosition(invX, invY);
 	m_pInventoryUiImageHead->m_Alpha = 200;
 	m_pInventoryUi = m_pInventoryUiImageHead;
+	//드래그 버튼
+	m_pInventoryUiMoveing = cUIButton::Create();
+	m_pInventoryUiMoveing->SetTexture("Texture/Ui/inventoryBaseHead1.png",
+		"Texture/Ui/inventoryBaseHead1.png",
+		"Texture/Ui/inventoryBaseHead1.png");
+	m_pInventoryUiMoveing->SetPosition(0, 0);
+	m_pInventoryUiMoveing->SetDelegate(this);
+	m_pInventoryUiMoveing->m_Alpha = 200;
+	m_pInventoryUiMoveing->SetTag(E_INVENTORY_MOVE);
+	m_pInventoryUi->AddChild(m_pInventoryUiMoveing);
 	//인벤 전체 창
 	m_pInventoryUiImage = cUIImageView::Create();
 	m_pInventoryUiImage->SetTexture("Texture/Ui/inventoryBase.png");

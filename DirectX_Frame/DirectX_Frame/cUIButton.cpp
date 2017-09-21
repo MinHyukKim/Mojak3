@@ -6,6 +6,7 @@ cUIButton::cUIButton(void)
 	: m_eButtonStatus(E_NORMAL)
 	, m_pDelegate(NULL)
 	, isOver(false)
+	, m_Alpha(255)
 {
 }
 
@@ -34,7 +35,7 @@ void cUIButton::SetTexture(std::string sNor, std::string sOvr, std::string sSel)
 
 void cUIButton::Update()
 {
-	RECT rc;
+//	RECT rc;
 	GetRect(&rc);
 
 	POINT ptMouse;
@@ -46,7 +47,6 @@ void cUIButton::Update()
 		isOver = true;
 		if (GetKeyState(VK_LBUTTON) & 0x8000)
 		{
-			//마우스 오버
 			if (m_eButtonStatus == E_MOUSEOVER)
 			{
 				m_eButtonStatus = E_SELECTED;
@@ -57,6 +57,10 @@ void cUIButton::Update()
 			if (m_eButtonStatus == E_SELECTED)
 			{
 				if (m_pDelegate) m_pDelegate->OnClick(this);
+			}
+			else if (m_eButtonStatus == E_MOUSEOVER)
+			{
+				if (m_pDelegate) m_pDelegate->OnMouseOver(this);
 			}
 			m_eButtonStatus = E_MOUSEOVER;
 		}
@@ -80,7 +84,7 @@ void cUIButton::Render(LPD3DXSPRITE pSprite)
 	RECT rc;
 	SetRect(&rc, 0, 0, stImageInfo.Width, stImageInfo.Height);
 	pSprite->Draw(pTexture, &rc, &D3DXVECTOR3(0, 0, 0), &D3DXVECTOR3(0, 0, 0),
-		D3DCOLOR_ARGB(255, 255, 255, 255));
+		D3DCOLOR_ARGB(m_Alpha, 255, 255, 255));
 
 	pSprite->End();
 
