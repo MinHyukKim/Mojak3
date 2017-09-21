@@ -1,7 +1,7 @@
 // 주석입니다. 색상은 (D,A,S) 순서입니다. AS 를 생략시 자동으로 들어갑니다.
 // Mesh : 경로,파일,키;
 // Color : 메시키,텍스쳐, 1.0f, 1.0f, 1.0f, 0.5f;
-// Animation : 경로, 파일, 키;
+// Animation : 경로/파일, 키;
 
 //머리
 Mesh:./Chareter/Female_Hair/,hair_female_hair02_t02.X,헤어00;
@@ -24,7 +24,7 @@ Color:바디02,male_adventurer01_c.dds, 0.1f, 0.1f, 0.3f, 1.0f;
 //옷 바디03
 Mesh:./Chareter/Female_Body/,wear_female_armor01.X,바디03;
 Color:바디03,bodymap01.dds, 1.0f, 0.53f, 0.53f, 1.0f;
-Color:바디03,male_doublet01_l.dds, 0.0f, 0.0f, 0.3f, 1.0f;
+Color:바디03,male_doublet01_l.dds, 0.07f, 0.07f, 0.07f, 1.0f;
 Color:바디03,male_armor01_m.dds, 0.0f, 0.08f, 0.2f, 1.0f;
 
 //손
@@ -49,6 +49,12 @@ Color:얼굴,bodymap01.dds, 1.0f, 0.53f, 0.53f, 1.0f;
 //Color:./Chareter/DefaultPlayer/lisaAniTest.X,uni_3rd_premium_c.dds, 0.5f, 0.0f, 0.1f, 1.0f)f;
 //Color:./Chareter/DefaultPlayer/lisaAniTest.X,male_pumpkin_pants_c.dds, 0.0f, 0.0f, 0.0f, 1.0f;
 
+//애니메이션
+Animation:./Animation/,ani_female_stand_leftahead.X,여성_기본01;
+Animation:./Animation/,ani_female_stand_offensive.X,여성_기본02;
 Animation:./Animation/,ani_female_attack_01.X,여성_공격01;
 Animation:./Animation/,ani_female_attack_02.X,여성_공격02;
-Animation:./Animation/,ani_female_run.X,여성_달리기;
+Animation:./Animation/,ani_female_run.X,여성_달리기01;
+Animation:./Animation/,ani_female_run_offensive.X,여성_달리기02;
+Animation:./Animation/,ani_female_walk.X,여성_걷기01;
+Animation:./Animation/,ani_female_walk_offensive.X,여성_걷기02;
