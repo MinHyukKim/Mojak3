@@ -40,7 +40,7 @@ void cUiCustomizingScene::SetupPlayer(void)
 	m_pPlayer->SetTextureHair("hair01.dds");  //헤어.dds
 	m_pPlayer->SetTextureHairColor(&D3DXCOLOR(0.07f, 0.07f, 0.07f, 1.0f)); //헤어 색
 	//m_pPlayer->ChangeMeshPart(cPlayer::MESH_BODY, "Chareter/DefaultPlayer/", "wear_female_3rd_newbie.X");
-	m_pPlayer->ChangeMeshPart(cPlayer::MESH_BODY, g_pSkinnedMeshManager->GetSkinnedMesh("바디01"));
+	m_pPlayer->ChangeMeshPart(cPlayer::MESH_BODY, g_pSkinnedMeshManager->GetSkinnedMesh("바디02"));
 	//m_pPlayer->ChangeMeshPart(cPlayer::MESH_HAND, "Chareter/Female_Hand/", "basicFist.X");
 	m_pPlayer->ChangeMeshPart(cPlayer::MESH_HAND, g_pSkinnedMeshManager->GetSkinnedMesh("주먹"));
 	//m_pPlayer->ChangeMeshPart(cPlayer::MESH_SHOES, "Chareter/Female_Shoes/", "basicShoes.X");
@@ -60,12 +60,13 @@ void cUiCustomizingScene::SetupPlayer(void)
 	m_pMainCamera->MovePositionZ(4.5f);
 	//	m_pMainCamera->AxisDirectionY(D3DX_PI / 2);
 	//애니메이션 등록
-	LPD3DXANIMATIONSET pAnimationSet;
-	g_pAllocateHierarchy->GetAnimationSet(0, &pAnimationSet, "./Chareter/DefaultPlayer/aniTest/ani_female_stand_leftahead.X");
-	m_pPlayer->RegisterAnimation(cPlayer::ANIMATION_5, pAnimationSet);
-	SAFE_RELEASE(pAnimationSet);
+	//LPD3DXANIMATIONSET pAnimationSet;
+	//g_pAllocateHierarchy->GetAnimationSet(0, &pAnimationSet, "./Chareter/DefaultPlayer/aniTest/ani_female_stand_leftahead.X");
+	//m_pPlayer->RegisterAnimation(cPlayer::ANIMATION_5, pAnimationSet);
+	//SAFE_RELEASE(pAnimationSet);
+
 	//g_pAnimationManager->RegisterAnimation("./Animation/ani_female_stand_leftahead.X","여성_기본01");
-	//m_pPlayer->RegisterAnimation(cPlayer::ANIMATION_5,g_p );
+	m_pPlayer->RegisterAnimation(cPlayer::ANIMATION_5, g_pAnimationManager->GetAnimation("여성_기본01") );
 	//애니메이션 변형
 	m_pPlayer->SetAnimation(cPlayer::ANIMATION_5);
 }
