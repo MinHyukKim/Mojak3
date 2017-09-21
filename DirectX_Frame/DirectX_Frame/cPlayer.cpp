@@ -62,14 +62,10 @@ void cPlayer::Update(void)
 
 void cPlayer::Render(void)
 {
-	for each(auto p in m_vecMesh)
+	for (DWORD i = 0; i < MESH_SIZE; i++)
 	{
-		if (p)
-		{
-			p->UpdateAndRender(&m_matWorld);
-		}
+		m_vecMesh[i]->UpdateAndRender(&m_matWorld);
 	}
-
 
 }
 
@@ -172,6 +168,42 @@ void cPlayer::SetAnimation(IN DWORD dwAnimationKey)
 	m_pAnimationController->SetTrackWeight(m_bCurrentTrack, 1.0f);
 	m_pAnimationController->SetTrackPosition(0, 0.0);
 	SAFE_RELEASE(pAnimationSet);
+}
+
+void cPlayer::SetBlendingAnimation(int nAnimationKey, float fTravelTime)
+{
+	if (m_nAnimationKey == nAnimationKey) return;
+	float fCurrentTime = m_pAnimationController->GetTime();
+	if (!fCurrentTime) return;
+	LPD3DXKEYFRAMEDANIMATIONSET pKeyAniset;
+	//초기화
+	LPD3DXANIMATIONSET pAnimationSet = NULL;
+
+	m_pAnimationController->UnkeyAllTrackEvents(false);
+	m_pAnimationController->UnkeyAllTrackEvents(true);
+
+	//다음 애니메이션
+	m_pAnimationController->GetAnimationSet(m_nAnimationKey, &pAnimationSet);
+	float fPlayTime = pAnimationSet->GetPeriod();
+	m_pAnimationController->SetTrackAnimationSet(!m_bCurrentTrack, pAnimationSet);
+	m_pAnimationController->KeyTrackWeight(!m_bCurrentTrack, 1.0f,
+		fCurrentTime, fPlayTime * fTravelTime, D3DXTRANSITION_LINEAR);
+	m_pAnimationController->SetTrackEnable(!m_bCurrentTrack, true);
+	SAFE_RELEASE(pAnimationSet);
+
+	//이전 애니메이션
+	m_pAnimationController->GetAnimationSet(m_nAnimationKey, &pAnimationSet);
+	m_pAnimationController->SetTrackAnimationSet(m_bCurrentTrack, pAnimationSet);
+	m_pAnimationController->KeyTrackWeight(m_bCurrentTrack, 0.0f,
+		fCurrentTime, fPlayTime * fTravelTime, D3DXTRANSITION_LINEAR);
+	m_pAnimationController->KeyTrackEnable(m_bCurrentTrack, false,
+		fCurrentTime + fPlayTime * fTravelTime);
+	SAFE_RELEASE(pAnimationSet);
+
+	//애니메이션 변경
+	m_bCurrentTrack = !m_bCurrentTrack;
+
+	m_nAnimationKey = nAnimationKey;
 }
 
 
@@ -277,41 +309,4 @@ cPlayer* cPlayer::Create(void)
 	cPlayer* newClass = new cPlayer;
 	newClass->AddRef();
 	return newClass;
-}
-
-void cPlayer::SetBlendingAnimation(int nAnimationKey, float fTravelTime)
-{
-	if (m_nAnimationKey == nAnimationKey) return;
-	float fCurrentTime = m_pAnimationController->GetTime();
-	if (!fCurrentTime) return;
-	LPD3DXKEYFRAMEDANIMATIONSET pKeyAniset;
-	//초기화
-	LPD3DXANIMATIONSET pAnimationSet = NULL;
-
-	m_pAnimationController->UnkeyAllTrackEvents(false);
-	m_pAnimationController->UnkeyAllTrackEvents(true);
-
-	//다음 애니메이션
-	m_pAnimationController->GetAnimationSet(m_nAnimationKey, &pAnimationSet);
-	float fPlayTime = pAnimationSet->GetPeriod();
-	m_pAnimationController->SetTrackAnimationSet(!m_bCurrentTrack, pAnimationSet);
-	m_pAnimationController->KeyTrackWeight(!m_bCurrentTrack, 1.0f,
-		fCurrentTime, fPlayTime * fTravelTime, D3DXTRANSITION_LINEAR);
-	m_pAnimationController->SetTrackEnable(!m_bCurrentTrack, true);
-	SAFE_RELEASE(pAnimationSet);
-
-	//이전 애니메이션
-	m_pAnimationController->GetAnimationSet(m_nAnimationKey, &pAnimationSet);
-	m_pAnimationController->SetTrackAnimationSet(m_bCurrentTrack, pAnimationSet);
-	m_pAnimationController->KeyTrackWeight(m_bCurrentTrack, 0.0f,
-		fCurrentTime, fPlayTime * fTravelTime, D3DXTRANSITION_LINEAR);
-	m_pAnimationController->KeyTrackEnable(m_bCurrentTrack, false,
-		fCurrentTime + fPlayTime * fTravelTime);
-	SAFE_RELEASE(pAnimationSet);
-
-	//애니메이션 변경
-	m_bCurrentTrack = !m_bCurrentTrack;
-
-	m_nAnimationKey = nAnimationKey;
-
 }
