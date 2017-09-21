@@ -17,8 +17,8 @@ public:
 	D3DXVECTOR3& GetFrom(void) { return m_vFrom; }
 	void SetTo(D3DXVECTOR3& vTo) { m_vTo = vTo; }
 	D3DXVECTOR3& GetTo(void) { return m_vTo; }
-	D3DXVECTOR3 GetDirection(void) { return m_vDir; };
 	void SetToPlay(IN LPD3DXVECTOR3 vTo, IN float fSpeed);
+	D3DXVECTOR3& GetDirection(void) { return m_vDir; };
 
 	static cActionMove* Create(void);
 protected:

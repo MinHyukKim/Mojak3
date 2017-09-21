@@ -30,8 +30,10 @@ HRESULT cCharTestScene::Setup(void)
 {
 	cPlayer* pPlater = g_pObjectManager->GetPlayer();
 	pPlater->RegisterAnimation(cPlayer::ANIMATION_IDLE_OFFENSIVE, g_pAnimationManager->GetAnimation("여성_기본02"));
-	pPlater->RegisterAnimation(cPlayer::ANIMATION_WALK_OFFENSIVE, g_pAnimationManager->GetAnimation("여성_걷기01"));
-	pPlater->RegisterAnimation(cPlayer::ANIMATION_WALK_OFFENSIVE, g_pAnimationManager->GetAnimation("여성_걷기01"));
+	pPlater->RegisterAnimation(cPlayer::ANIMATION_WALK_PEACEFUL, g_pAnimationManager->GetAnimation("여성_걷기01"));
+	pPlater->RegisterAnimation(cPlayer::ANIMATION_WALK_OFFENSIVE, g_pAnimationManager->GetAnimation("여성_걷기02"));
+	pPlater->RegisterAnimation(cPlayer::ANIMATION_RUN_PEACEFUL, g_pAnimationManager->GetAnimation("여성_달리기01"));
+	pPlater->RegisterAnimation(cPlayer::ANIMATION_RUN_OFFENSIVE, g_pAnimationManager->GetAnimation("여성_달리기02"));
 
 	m_pCamera = g_pObjectManager->GetPlayer()->GetCamera();
 	m_pCamera->AddRef();
@@ -81,6 +83,7 @@ void cCharTestScene::Update(void)
 				if (m_pMapTerrain->IsCollision(&vTo, &vOrg, &vDir))
 				{
 					g_pObjectManager->GetPlayer()->MoveToPlayer(&vTo, 1.0f);
+					g_pObjectManager->GetPlayer()->SetPatternState(cPlayer::PATTERN_RUN_PEACEFUL);
 				}
 			}
 			else

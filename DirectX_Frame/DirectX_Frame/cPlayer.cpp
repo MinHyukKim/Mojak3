@@ -9,8 +9,11 @@ cPlayer::cPlayer(void)
 	: m_pCamera(nullptr)
 	, m_pActionMove(nullptr)
 	, m_pAnimationController(nullptr)
+	, m_dwNumMainAnimation(cPlayer::ANIMATION_NULL)
+	, m_dwNumSubAnimation(cPlayer::ANIMATION_NULL)
+	, m_dwNumPattern(PATTERN_IDEN_PEACEFUL)
 	, m_bCurrentTrack(false)
-{
+{ 
 	D3DXMatrixIdentity(&m_matWorld);
 	ZeroMemory(&m_stHairMaterial, sizeof(D3DMATERIAL9));
 }
@@ -60,8 +63,20 @@ void cPlayer::Reset(void)
 
 void cPlayer::Update(void)
 {
-	SAFE_UPDATE(m_pActionMove);
 	if (m_pAnimationController) m_pAnimationController->AdvanceTime(g_pTimeManager->GetElapsedTime(), NULL);
+	SAFE_UPDATE(m_pActionMove);
+
+	// 자세한 이론은 인터넷 검색(검색어) : 유한상태기계(FSM) FlyingSpaghettiMonster 아님
+	switch (m_dwNumPattern)
+	{
+	case cPlayer::PATTERN_NULL: break;
+	case cPlayer::PATTERN_IDEN_OFFENSIVE: this->PatternIdenOffensive(); break;
+	case cPlayer::PATTERN_IDEN_PEACEFUL: this->PatternIdenPeaceful(); break;
+	case cPlayer::PATTERN_RUN_OFFENSIVE: this->PatternRuningOffensive(); break;
+	case cPlayer::PATTERN_RUN_PEACEFUL: this->PatternRuningPeaceful(); break;
+
+	default: break;
+	}
 
 }
 
@@ -73,6 +88,82 @@ void cPlayer::Render(void)
 	}
 
 }
+
+//전투 준비 설정
+void cPlayer::SetIdenOffensive(void)
+{
+}
+//일반 준비 설정
+void cPlayer::SetIdenPeaceful(void)
+{
+	this->SetBlendingAnimation(cPlayer::ANIMATION_IDLE_PEACEFUL);
+}
+//전투 달리기 설정
+void cPlayer::SetRuningOffensive(void)
+{
+}
+//일반 달리기 설정
+void cPlayer::SetRuningPeaceful(void)
+{
+	this->SetBlendingAnimation(cPlayer::ANIMATION_RUN_PEACEFUL);
+}
+
+//전투 준비 상태
+void cPlayer::PatternIdenOffensive(void)
+{
+}
+//알반 준비 상태
+void cPlayer::PatternIdenPeaceful(void)
+{
+}
+//전투 달리기 상태
+void cPlayer::PatternRuningOffensive(void)
+{
+}
+//일반 달리기 상태
+void cPlayer::PatternRuningPeaceful(void)
+{
+	if (m_pActionMove)
+	{
+		if (m_pActionMove->IsPlay())
+		{
+			//이동 액션중일 경우	캐릭터 방향을 돌린다.(미구현)
+
+			D3DXMATRIXA16 mat;
+			D3DXVECTOR3 v;
+
+			D3DXVec3Cross(&v, &m_pActionMove->GetDirection(), &D3DXVECTOR3(0.0f, 1.0f, 0.0f));
+			m_matWorld._11 = v.x, m_matWorld._12 = v.y, m_matWorld._13 = v.z;
+
+			D3DXVec3Cross(&v, &v, &D3DXVECTOR3(0.0f, 1.0f, 0.0f));
+			m_matWorld._31 = v.x, m_matWorld._32 = v.y, m_matWorld._33 = v.z;
+		}
+		else
+		{
+			//이동 액션이 끝나면	iden 상태가 된다.
+			this->SetPatternState(cPlayer::PATTERN_IDEN_PEACEFUL);
+		}
+	}
+}
+
+
+void cPlayer::SetPatternState(DWORD dwPattern)
+{
+	//패턴 전환시 초기화
+	switch (dwPattern)
+	{
+	case cPlayer::PATTERN_NULL: break;
+	case cPlayer::PATTERN_IDEN_OFFENSIVE: this->SetIdenOffensive(); break;
+	case cPlayer::PATTERN_IDEN_PEACEFUL:  this->SetIdenPeaceful(); break;
+
+
+	case cPlayer::PATTERN_RUN_OFFENSIVE: this->SetRuningOffensive(); break;
+	case cPlayer::PATTERN_RUN_PEACEFUL:  this->SetRuningPeaceful(); break;
+	default: return; // 설정되어 있지 않은 패턴 번호는 무시함
+	}
+	m_dwNumPattern = dwPattern; // 새로운 패턴으로 전환
+}
+
 
 void cPlayer::ChangeMeshPart(IN DWORD dwPart, IN LPCSTR szFolder, IN LPCSTR szFilename)
 {
@@ -163,52 +254,52 @@ DWORD cPlayer::RegisterAnimation(IN DWORD dwAnimationKey, IN LPD3DXANIMATIONSET 
 
 void cPlayer::SetAnimation(IN DWORD dwAnimationKey)
 {
+	DWORD dwNumNextAnimation = m_vecAnimationKey[dwAnimationKey];
+	if (m_dwNumMainAnimation == dwNumNextAnimation) return;
+
+	if (!m_pAnimationController) return;
+
 	LPD3DXANIMATIONSET pAnimationSet;
-	m_pAnimationController->GetAnimationSet(m_vecAnimationKey[dwAnimationKey], &pAnimationSet);
+	m_pAnimationController->GetAnimationSet(m_dwNumMainAnimation, &pAnimationSet);
 	m_pAnimationController->SetTrackAnimationSet(m_bCurrentTrack, pAnimationSet);
-	m_pAnimationController->UnkeyAllTrackEvents(0);
-	m_pAnimationController->UnkeyAllTrackEvents(1);
+	m_pAnimationController->UnkeyAllTrackEvents(false);
+	m_pAnimationController->UnkeyAllTrackEvents(true);
 	m_pAnimationController->SetTrackEnable(m_bCurrentTrack, true);
 	m_pAnimationController->SetTrackSpeed(m_bCurrentTrack, 1.0f);
 	m_pAnimationController->SetTrackWeight(m_bCurrentTrack, 1.0f);
 	m_pAnimationController->SetTrackPosition(0, 0.0);
 	SAFE_RELEASE(pAnimationSet);
+
+	m_dwNumMainAnimation = m_vecAnimationKey[dwAnimationKey];
 }
 
-void cPlayer::SetBlendingAnimation(int nAnimationKey, float fTravelTime)
+void cPlayer::SetBlendingAnimation(IN DWORD dwAnimationKey, IN float fTravelTime)
 {
-//	if (m_nAnimationKey == nAnimationKey) return;
-//	float fCurrentTime = m_pAnimationController->GetTime();
-//	if (!fCurrentTime) return;
-//	LPD3DXKEYFRAMEDANIMATIONSET pKeyAniset;
-//	//초기화
-//	LPD3DXANIMATIONSET pAnimationSet = NULL;
-//
-//	m_pAnimationController->UnkeyAllTrackEvents(false);
-//	m_pAnimationController->UnkeyAllTrackEvents(true);
-//
-//	//다음 애니메이션
-//	m_pAnimationController->GetAnimationSet(m_nAnimationKey, &pAnimationSet);
-//	float fPlayTime = pAnimationSet->GetPeriod();
-//	m_pAnimationController->SetTrackAnimationSet(!m_bCurrentTrack, pAnimationSet);
-//	m_pAnimationController->KeyTrackWeight(!m_bCurrentTrack, 1.0f,
-//		fCurrentTime, fPlayTime * fTravelTime, D3DXTRANSITION_LINEAR);
-//	m_pAnimationController->SetTrackEnable(!m_bCurrentTrack, true);
-//	SAFE_RELEASE(pAnimationSet);
-//
-//	//이전 애니메이션
-//	m_pAnimationController->GetAnimationSet(m_nAnimationKey, &pAnimationSet);
-//	m_pAnimationController->SetTrackAnimationSet(m_bCurrentTrack, pAnimationSet);
-//	m_pAnimationController->KeyTrackWeight(m_bCurrentTrack, 0.0f,
-//		fCurrentTime, fPlayTime * fTravelTime, D3DXTRANSITION_LINEAR);
-//	m_pAnimationController->KeyTrackEnable(m_bCurrentTrack, false,
-//		fCurrentTime + fPlayTime * fTravelTime);
-//	SAFE_RELEASE(pAnimationSet);
-//
-//	//애니메이션 변경
-//	m_bCurrentTrack = !m_bCurrentTrack;
-//
-//	m_nAnimationKey = nAnimationKey;
+	DWORD dwNumNextAnimation = m_vecAnimationKey[dwAnimationKey];
+	if (m_dwNumMainAnimation == dwNumNextAnimation) return;
+
+	//초기화 (자세한 내용은 -> 참고.)
+	float fCurrentTime = m_pAnimationController->GetTime();																			//애니메이션 컨트롤러의 현재시간
+	LPD3DXANIMATIONSET pAnimationSet = nullptr;																						//애니메이션 세트 (빈 공간)
+	m_pAnimationController->UnkeyAllTrackEvents(false);																				//0번 트랙의 애니메이션 키 (예비동작) 제거
+	m_pAnimationController->UnkeyAllTrackEvents(true);																				//1번 트랙의 애니메이션 키 (예비동작) 제거
+
+	//다음 애니메이션 (자세한 내용은 -> 참고.)
+	m_pAnimationController->GetAnimationSet(dwNumNextAnimation, &pAnimationSet);													//다음 애니메이션 세트 생성
+	float fPlayTime = pAnimationSet->GetPeriod();																					//다음 애니메이션의 길이 (단위 : 초)
+	m_pAnimationController->SetTrackAnimationSet(!m_bCurrentTrack, pAnimationSet);													//보조 트랙에 다음 애니메이션 세트 등록
+	m_pAnimationController->KeyTrackWeight(!m_bCurrentTrack, 1.0f, fCurrentTime, fPlayTime * fTravelTime, D3DXTRANSITION_LINEAR);	//보조 트랙에 가중치를 서서히 늘려줌 (예비동작)
+	m_pAnimationController->SetTrackEnable(!m_bCurrentTrack, true);																	//보조 트랙을 사용함
+	SAFE_RELEASE(pAnimationSet);																									//다음 애니메이션 세트 제거 (등록 후 제거)
+
+	//이전 애니메이션 (자세한 내용은 -> 참고.)
+	m_pAnimationController->KeyTrackWeight(m_bCurrentTrack, 0.0f, fCurrentTime, fPlayTime * fTravelTime, D3DXTRANSITION_LINEAR);	//주 트랙에 가중치를 서서히 줄임 (예비동작)
+	m_pAnimationController->KeyTrackEnable(m_bCurrentTrack, false, fCurrentTime + fPlayTime * fTravelTime);							//주 트랙을 특정시간 경과후 사용안함 (예비동작)
+
+	//애니메이션 변경 (자세한 내용은 -> 참고.)
+	m_bCurrentTrack = !m_bCurrentTrack;																								//주 트랙의 번호를 바꿈 (0 또는 1 트랙을 2개만 사용)
+	m_dwNumSubAnimation = m_dwNumMainAnimation;																						//주 트랙의 번호를 보조 트랙의 번호로 저장
+	m_dwNumMainAnimation = dwNumNextAnimation;																						//다음 트랙의 번호를 주 트랙의 번호로 저장
 }
 
 
