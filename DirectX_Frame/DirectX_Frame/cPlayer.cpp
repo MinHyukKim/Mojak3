@@ -170,9 +170,9 @@ void cPlayer::SetAnimation(IN DWORD dwAnimationKey)
 	SAFE_RELEASE(pAnimationSet);
 }
 
-void cPlayer::SetBlendingAnimation(int nAnimationKey, float fTravelTime)
+void cPlayer::SetBlendingAnimation(IN DWORD dwAnimationKey, float fTravelTime)
 {
-	if (m_nAnimationKey == nAnimationKey) return;
+	if (m_nAnimationKey == dwAnimationKey) return;
 	float fCurrentTime = m_pAnimationController->GetTime();
 	if (!fCurrentTime) return;
 	LPD3DXKEYFRAMEDANIMATIONSET pKeyAniset;
@@ -203,7 +203,14 @@ void cPlayer::SetBlendingAnimation(int nAnimationKey, float fTravelTime)
 	//애니메이션 변경
 	m_bCurrentTrack = !m_bCurrentTrack;
 
-	m_nAnimationKey = nAnimationKey;
+	m_nAnimationKey = dwAnimationKey;
+}
+
+void cPlayer::SetBlendingAnimation(IN DWORD dwAnimationKey, int nRepeat, float fTravelTime)
+{
+
+
+
 }
 
 

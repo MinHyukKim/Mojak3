@@ -69,7 +69,8 @@ public:
 	DWORD RegisterAnimation(IN DWORD dwAnimationKey, IN LPD3DXANIMATIONSET pAnimation);
 	LPD3DXANIMATIONCONTROLLER GetAnimationController(void) { return m_pAnimationController; }
 	void SetAnimation(IN DWORD dwAnimationKey);
-	void SetBlendingAnimation(int nAnimationKey, float fTravelTime = 0.1f);
+	void SetBlendingAnimation(IN DWORD dwAnimationKey, float fTravelTime = 0.1f);
+	void SetBlendingAnimation(IN DWORD dwAnimationKey, int nRepeat, float fTravelTime);
 	bool ExportAnimation(OUT LPD3DXANIMATIONSET* ppAnimation, IN DWORD dwAnimationKey = 0);
 
 	void SetTextureEye(LPCSTR szEyeName);
