@@ -19,8 +19,13 @@ Color:바디01,uni_3rd_premium_c.dds, 0.5f, 0.0f, 0.1f, 1.0f)f;
 Color:바디01,male_pumpkin_pants_c.dds, 0.0f, 0.0f, 0.0f, 1.0f;
 //옷 바디02
 Mesh:./Chareter/Female_Body/,wear_adventurer01.X,바디02;
+Color:바디02,bodymap01.dds, 1.0f, 0.53f, 0.53f, 1.0f;
+Color:바디02,male_adventurer01_c.dds, 0.1f, 0.1f, 0.3f, 1.0f;
 //옷 바디03
 Mesh:./Chareter/Female_Body/,wear_female_armor01.X,바디03;
+Color:바디03,bodymap01.dds, 1.0f, 0.53f, 0.53f, 1.0f;
+Color:바디03,male_doublet01_l.dds, 0.0f, 0.0f, 0.3f, 1.0f;
+Color:바디03,male_armor01_m.dds, 0.0f, 0.08f, 0.2f, 1.0f;
 
 //손
 Mesh:./Chareter/Female_Hand/,basicFist.X,주먹;
@@ -31,6 +36,10 @@ Color:손,bodymap01.dds, 1.0f, 0.53f, 0.53f, 1.0f;
 //신발
 Mesh:./Chareter/Female_Shoes/,basicShoes.X,신발00;
 Color:신발00,uni_shoes01_c.dds, 0.3f, 0.3f, 0.5f, 1.0f;
+
+//얼굴
+Mesh:./Chareter/Female_Face/,basicFace.X,얼굴;
+Color:얼굴,bodymap01.dds, 1.0f, 0.53f, 0.53f, 1.0f;
 
 //Mesh:./Chareter/DefaultPlayer/,lisaAniTest.X,./Chareter/DefaultPlayer/lisaAniTest.X;
 //Color:./Chareter/DefaultPlayer/lisaAniTest.X,uni_shoes01_c.dds, 1.0f, 1.0f, 0.0f, 1.0f;
