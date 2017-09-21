@@ -80,7 +80,11 @@ void cLodingScene::Update(void)
 		sprintf(szText, "·ÎµùÁß %2.2f %%", m_pData->GetLodingGauge() * 100.0f);
 		m_pFont->DrawFont(500, 250, szText);
 	}
-	if (m_pData && m_pData->GetLodingGauge() >= 1.0f) g_pSceneManager->ChangeScene("cUiCustomizingScene");
+	if (m_pData && m_pData->GetLodingGauge() > 1.0f - FLT_EPSILON)
+	{
+		this->Render();
+		g_pSceneManager->ChangeScene("cUiCustomizingScene");
+	}
 }
 
 void cLodingScene::Render(void)

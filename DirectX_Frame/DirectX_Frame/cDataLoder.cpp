@@ -127,6 +127,7 @@ void cDataLoder::LoaderDataLoop(void)
 {
 	while (1.0f > this->GetLodingGauge())
 	{
+		DEBUG_TEXT(this->GetLodingGauge());
 		this->LoaderData();
 	}
 }
