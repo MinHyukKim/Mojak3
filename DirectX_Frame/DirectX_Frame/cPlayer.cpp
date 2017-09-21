@@ -62,14 +62,10 @@ void cPlayer::Update(void)
 
 void cPlayer::Render(void)
 {
-	for each(auto p in m_vecMesh)
+	for (DWORD i = 0; i < MESH_SIZE; i++)
 	{
-		if (p)
-		{
-			p->UpdateAndRender(&m_matWorld);
-		}
+		m_vecMesh[i]->UpdateAndRender(&m_matWorld);
 	}
-
 
 }
 
