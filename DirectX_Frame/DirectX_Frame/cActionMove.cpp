@@ -2,9 +2,12 @@
 #include "cActionMove.h"
 #include "cObject.h"
 
+#include "cPlayer.h"
+
 cActionMove::cActionMove(void)
 	: m_vFrom(D3DXVECTOR3(0.0f, 0.0f, 0.0f))
 	, m_vTo(D3DXVECTOR3(0.0f, 0.0f, 0.0f))
+	, m_vDir(D3DXVECTOR3(0.0f, 1.0f, 0.0f))
 {
 }
 
@@ -14,18 +17,29 @@ cActionMove::~cActionMove(void)
 
 void cActionMove::Play(void)
 {
-	cObject* pTarget = this->GetObjectTarget();
+	cPlayer* pTarget = this->GetTarget();
 	if (pTarget)
 	{
-		//pTarget->SetPosition(m_vFrom);
+		pTarget->SetPosition(&m_vFrom);
 	}
 	this->cAction::Play();
 }
 
+void cActionMove::Stop(void)
+{
+	cPlayer* pTarget = this->GetTarget();
+	if (!pTarget) return;
+
+	if (m_vTo != m_vFrom) D3DXVec3Normalize(&m_vDir, &(m_vTo - m_vFrom));	//각도를 계산함(필요 없을 수도 있음)
+	m_vTo = m_vFrom = pTarget->GetPosition();
+	this->cAction::Stop();
+}
+
 void cActionMove::Update(void)
 {
-	cObject* pTarget = this->GetObjectTarget();
+	cPlayer* pTarget = this->GetTarget();
 	if (!pTarget) return;
+
 	this->cAction::Update();
 	if (this->GetElapseTime() < this->GetActionTime())
 	{
@@ -33,28 +47,42 @@ void cActionMove::Update(void)
 
 		D3DXVECTOR3 vPosition;
 		D3DXVec3Lerp(&vPosition, &m_vFrom, &m_vTo, this->GetTravelTime());
-		//pTarget->SetPosition(vPosition);
+		pTarget->SetPosition(&vPosition);
 	}
-	else
+	else if (this->cAction::GetActionTime())
 	{
-		//pTarget->SetPosition(m_vTo);
+		pTarget->SetPosition(&m_vTo);
 
 		iActionDelegate* pDelegate = this->GetDelegate();
 		if (pDelegate)
 		{
 			pDelegate->OnFinish(this);
 		}
+
+		this->cAction::SetActionTime(0.0f);
 	}
 }
 
-//cActionMove* cActionMove::AddRef(void)
-//{
-//	//return (cActionMove*) this->cNode::AddRef();
-//}
+
+void cActionMove::SetToPlay(IN LPD3DXVECTOR3 vTo, IN float fSpeed)
+{
+	cPlayer* pTarget = this->GetTarget();
+	if (!pTarget) return;
+
+	m_vFrom = pTarget->GetPosition();
+	m_vTo = *vTo;
+	if (m_vTo != m_vFrom)
+	{
+		D3DXVec3Normalize(&m_vDir, &(m_vTo - m_vFrom));	//각도를 계산함(필요 없을 수도 있음)
+		this->cAction::SetActionTime(D3DXVec3Length(&(m_vTo - m_vFrom)) / fSpeed);
+		this->cAction::Play();
+	}
+}
 
 cActionMove* cActionMove::Create(void)
 {
 	cActionMove* newAction = new cActionMove;
-	return (cActionMove*)newAction->AutoRelease();
+	newAction->AddRef();
+	return newAction;
 }
 

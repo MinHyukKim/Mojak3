@@ -30,8 +30,10 @@ HRESULT cCharTestScene::Setup(void)
 {
 	cPlayer* pPlater = g_pObjectManager->GetPlayer();
 	pPlater->RegisterAnimation(cPlayer::ANIMATION_IDLE_OFFENSIVE, g_pAnimationManager->GetAnimation("여성_기본02"));
-	pPlater->RegisterAnimation(cPlayer::ANIMATION_WALK_OFFENSIVE, g_pAnimationManager->GetAnimation("여성_걷기01"));
-	pPlater->RegisterAnimation(cPlayer::ANIMATION_WALK_OFFENSIVE, g_pAnimationManager->GetAnimation("여성_걷기01"));
+	pPlater->RegisterAnimation(cPlayer::ANIMATION_WALK_PEACEFUL, g_pAnimationManager->GetAnimation("여성_걷기01"));
+	pPlater->RegisterAnimation(cPlayer::ANIMATION_WALK_OFFENSIVE, g_pAnimationManager->GetAnimation("여성_걷기02"));
+	pPlater->RegisterAnimation(cPlayer::ANIMATION_RUN_PEACEFUL, g_pAnimationManager->GetAnimation("여성_달리기01"));
+	pPlater->RegisterAnimation(cPlayer::ANIMATION_RUN_OFFENSIVE, g_pAnimationManager->GetAnimation("여성_달리기02"));
 
 	m_pCamera = g_pObjectManager->GetPlayer()->GetCamera();
 	m_pCamera->AddRef();
@@ -61,8 +63,6 @@ void cCharTestScene::Reset(void)
 
 void cCharTestScene::Update(void)
 {
-	SAFE_UPDATE(g_pObjectManager->GetPlayer());
-
 	//테스트용
 	if (m_pCamera)
 	{
@@ -73,15 +73,17 @@ void cCharTestScene::Update(void)
 	{
 		if (g_pObjectManager->GetPlayer())
 		{
+			g_pObjectManager->GetPlayer()->Update();
 			if (g_pInputManager->IsOnceKeyDown(VK_LBUTTON))
 			{
-				D3DXVECTOR3 vPos;
+				D3DXVECTOR3 vTo;
 				D3DXVECTOR3 vOrg;
 				D3DXVECTOR3 vDir;
 				g_pRay->RayAtWorldSpace(&vOrg, &vDir);
-				if (m_pMapTerrain->IsCollision(&vPos, &vOrg, &vDir))
+				if (m_pMapTerrain->IsCollision(&vTo, &vOrg, &vDir))
 				{
-					g_pObjectManager->GetPlayer()->SetPosition(&vPos);
+					g_pObjectManager->GetPlayer()->MoveToPlayer(&vTo, 1.0f);
+					g_pObjectManager->GetPlayer()->SetPatternState(cPlayer::PATTERN_RUN_PEACEFUL);
 				}
 			}
 			else
