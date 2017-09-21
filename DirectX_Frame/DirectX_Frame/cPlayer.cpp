@@ -29,7 +29,8 @@ HRESULT cPlayer::Setup(void)
 	
 	if (!m_pAnimationController)
 	{
-		this->ChangeMeshPart(MESH_DUMMY, "./Chareter/DefaultPlayer/", "Female_Bone26_Dummy.X");
+	//	this->ChangeMeshPart(MESH_DUMMY, "./Chareter/DefaultPlayer/", "Female_Bone26_Dummy.X");
+		this->ChangeMeshPart(cPlayer::MESH_DUMMY, g_pSkinnedMeshManager->GetSkinnedMesh("더미"));
 		//0번 트랙 설정
 		m_pAnimationController->SetTrackEnable(0, true);
 		m_pAnimationController->SetTrackPosition(0, 0.0);
