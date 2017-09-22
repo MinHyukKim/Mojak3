@@ -14,6 +14,7 @@ cMapTerrain::cMapTerrain(void)
 	, m_dwCol(0)
 	, m_dwRow(0)
 	, m_dwTriangles(0)
+	, m_dwIndexBuffer(0) // 임시 버퍼용
 {
 }
 
@@ -39,10 +40,13 @@ HRESULT cMapTerrain::Setup(IN LPCSTR szHeightMapName, IN D3DXMATERIAL* pMaterial
 
 void cMapTerrain::Update(void)
 {
-//	LPDWORD pIndex;
-//	if (FAILED(m_pIndexBufer->Lock(0, (m_dwCol - 1) * (m_dwRow - 1) * 6 * sizeof(DWORD), (LPVOID*)&pIndex, 0))) return;
-//	m_dwTriangles = m_pQuadTree->GenerateIndex(pIndex, &m_pHeightMap, m_pFrustum);
-//	m_pIndexBufer->Unlock();
+//	if (!g_pInputManager->IsStayKeyDown(VK_SPACE))
+//	{
+//		LPDWORD pIndex;
+//		if (FAILED(m_pIndexBufer->Lock(0, (m_dwCol - 1) * (m_dwRow - 1) * 6 * sizeof(DWORD), (LPVOID*)&pIndex, 0))) return;
+//		m_dwTriangles = m_pQuadTree->GenerateIndex(pIndex, &m_vecPosition, g_pFrustum);
+//		m_pIndexBufer->Unlock();
+//	}
 }
 
 void cMapTerrain::Render(void)
@@ -294,6 +298,8 @@ inline HRESULT cMapTerrain::_CreateIndexBuffer(void)
 	}
 	m_pIndexBufer->Unlock();
 	m_dwTriangles = dwNumIndex / 3;
+
+	m_dwIndexBuffer = dwNumIndex; //맵 랜더용
 
 	return S_OK;
 }

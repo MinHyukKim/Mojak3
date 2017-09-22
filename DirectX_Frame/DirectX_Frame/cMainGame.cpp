@@ -66,6 +66,7 @@ void cMainGame::Setup(void)
 void cMainGame::Update(void)
 {
 	g_pAutoRelasePool->AutoReleaseCheck();	//제거가 필요한 객체 릴리즈
+	g_pFrustum->Update();
 	g_pTimeManager->Update();
 	g_pSceneManager->Update();
 }

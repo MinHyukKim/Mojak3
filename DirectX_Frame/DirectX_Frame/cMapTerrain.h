@@ -16,6 +16,7 @@ private:
 	D3DXVECTOR3 m_vScale;
 	DWORD m_dwCol, m_dwRow;
 	DWORD m_dwTriangles;
+	DWORD m_dwIndexBuffer;
 	float m_fMaxTerrainX;
 	float m_fMaxTerrainZ;
 

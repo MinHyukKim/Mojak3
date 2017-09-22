@@ -71,6 +71,7 @@ void cCharTestScene::Update(void)
 
 	if (m_pMapTerrain)
 	{
+		m_pMapTerrain->Update();
 		if (g_pObjectManager->GetPlayer())
 		{
 			g_pObjectManager->GetPlayer()->Update();

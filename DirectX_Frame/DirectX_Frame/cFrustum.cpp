@@ -5,6 +5,7 @@ cFrustum::cFrustum(void)
 	: m_pPosition(nullptr)
 {
 	D3DXMatrixIdentity(&m_matFrustum);
+	this->Setup();
 }
 
 cFrustum::~cFrustum(void)

@@ -6,9 +6,10 @@
 cQuadTree::cQuadTree(IN int nX, IN int nY)
 	: m_dwCenter(0)
 	, m_fRadius(0.0f)
+	, m_bCulled(false)
 {
-	ZeroMemory(m_pChild, 4 * sizeof(cQuadTree));
-	ZeroMemory(m_dwCorner, 4 * sizeof(int));
+	ZeroMemory(m_pChild, 4 * sizeof(cQuadTree*));	//	m_pChild[0] = nullptr, m_pChild[1] = nullptr, m_pChild[2] = nullptr, m_pChild[3] = nullptr;
+	ZeroMemory(m_dwCorner, 4 * sizeof(DWORD));		//	m_dwCorner[0] = 0, m_dwCorner[1] = 0, m_dwCorner[2] = 0, m_dwCorner[3] = 0;
 	m_dwCorner[cQuadTree::CORNER_LEFT_TOP] = 0;
 	m_dwCorner[cQuadTree::CORNER_RIGHT_TOP] = nX -1;
 	m_dwCorner[cQuadTree::CORNER_LEFT_BOTTOM] = nX * (nY - 1);
@@ -20,9 +21,10 @@ cQuadTree::cQuadTree(IN int nX, IN int nY)
 cQuadTree::cQuadTree(cQuadTree* pParent)
 	: m_dwCenter(0)
 	, m_fRadius(0.0f)
+	, m_bCulled(false)
 {
-	ZeroMemory(m_pChild, 4 * sizeof(cQuadTree));
-	ZeroMemory(m_dwCorner, 4 * sizeof(int));
+	ZeroMemory(m_pChild, 4 * sizeof(cQuadTree*));	//	m_pChild[0] = nullptr, m_pChild[1] = nullptr, m_pChild[2] = nullptr, m_pChild[3] = nullptr;
+	ZeroMemory(m_dwCorner, 4 * sizeof(DWORD));		//	m_dwCorner[0] = 0, m_dwCorner[1] = 0, m_dwCorner[2] = 0, m_dwCorner[3] = 0;
 }
 
 cQuadTree::~cQuadTree(void)
@@ -32,9 +34,11 @@ cQuadTree::~cQuadTree(void)
 
 bool cQuadTree::TreeBuild(std::vector<ST_PNT_VERTEX> pVertex)
 {
+	//자식 생성후
 	if (_SubDivide())
 	{
-		D3DXVECTOR3 v = pVertex[m_dwCorner[cQuadTree::CORNER_RIGHT_BOTTOM]].p - pVertex[m_dwCorner[cQuadTree::CORNER_LEFT_TOP]].p;
+		//자식 빌드
+		D3DXVECTOR3 v = pVertex[m_dwCorner[cQuadTree::CORNER_LEFT_TOP]].p - pVertex[m_dwCorner[cQuadTree::CORNER_RIGHT_BOTTOM]].p;
 		m_fRadius = D3DXVec3Length(&v) / 2.0f;
 		m_pChild[cQuadTree::CORNER_LEFT_TOP]->TreeBuild(pVertex);
 		m_pChild[cQuadTree::CORNER_RIGHT_TOP]->TreeBuild(pVertex);
@@ -44,7 +48,7 @@ bool cQuadTree::TreeBuild(std::vector<ST_PNT_VERTEX> pVertex)
 	return true;
 }
 
-int cQuadTree::GenerateIndex(OUT LPDWORD pIndexBuffer, ST_PNT_VERTEX* pVertex, cFrustum* pFrustum)
+int cQuadTree::GenerateIndex(OUT LPDWORD pIndexBuffer, std::vector<ST_PNT_VERTEX>* pVertex, cFrustum* pFrustum)
 {
 	this->_FrustumCull(pVertex, pFrustum);
 	return this->_GenTriIndex(pIndexBuffer, 0);
@@ -54,6 +58,7 @@ inline cQuadTree* cQuadTree::_AddChild(IN int nCornerLT, IN int nCornerRT, IN in
 {
 	cQuadTree* pChild = new cQuadTree(this);
 	pChild->_SetCorners(nCornerLT, nCornerRT, nCornerLB, nCornerRB);
+	DEBUG_TEXT(nCornerRT<< ", "<< nCornerLT << ", "<< nCornerLB << ", "<< nCornerLT << "X : " << nCornerRT - nCornerLT << " Y : " << (nCornerLB - nCornerLT) / 257);
 	return pChild;
 }
 
@@ -71,13 +76,13 @@ inline bool cQuadTree::_SetCorners(IN int nCornerLT, IN int nCornerRT, IN int nC
 inline bool cQuadTree::_SubDivide(void)
 {
 	//분해불가
-	if (this->_IsVisible()) return false;
+	if (1 >= m_dwCorner[cQuadTree::CORNER_RIGHT_TOP] - m_dwCorner[cQuadTree::CORNER_LEFT_TOP]) return false;
 
 	//분할점
-	DWORD dwLeftCenter = ( m_dwCorner[cQuadTree::CORNER_LEFT_TOP] + m_dwCorner[cQuadTree::CORNER_LEFT_BOTTOM]) / 2;
 	DWORD dwTopCenter = (m_dwCorner[cQuadTree::CORNER_LEFT_TOP] + m_dwCorner[cQuadTree::CORNER_RIGHT_TOP]) / 2;
-	DWORD dwRightCenter = (m_dwCorner[cQuadTree::CORNER_RIGHT_TOP] + m_dwCorner[cQuadTree::CORNER_RIGHT_BOTTOM]) / 2;
 	DWORD dwBottomCenter = (m_dwCorner[cQuadTree::CORNER_LEFT_BOTTOM] + m_dwCorner[cQuadTree::CORNER_RIGHT_BOTTOM]) / 2;
+	DWORD dwLeftCenter = ( m_dwCorner[cQuadTree::CORNER_LEFT_TOP] + m_dwCorner[cQuadTree::CORNER_LEFT_BOTTOM]) / 2;
+	DWORD dwRightCenter = (m_dwCorner[cQuadTree::CORNER_RIGHT_TOP] + m_dwCorner[cQuadTree::CORNER_RIGHT_BOTTOM]) / 2;
 
 	//자식들
 	m_pChild[cQuadTree::CORNER_LEFT_TOP] = this->_AddChild(m_dwCorner[cQuadTree::CORNER_LEFT_TOP], dwTopCenter, dwLeftCenter, m_dwCenter);
@@ -90,6 +95,12 @@ inline bool cQuadTree::_SubDivide(void)
 
 inline int cQuadTree::_GenTriIndex(OUT LPDWORD pIndex, IN DWORD dwTriangles)
 {
+	if (m_bCulled)
+	{
+		m_bCulled = false;
+		return dwTriangles;
+	}
+
 	if (this->_IsVisible())
 	{
 		LPDWORD pointer = pIndex += dwTriangles * 3;
@@ -119,23 +130,24 @@ inline void cQuadTree::_Destroy(void)
 	SAFE_DELETE(m_pChild[3]);
 }
 
-int cQuadTree::_IsInFrustum(ST_PNT_VERTEX* pVertex, cFrustum* pFrustum)
+int cQuadTree::_IsInFrustum(std::vector<ST_PNT_VERTEX>* pVertex, cFrustum* pFrustum)
 {
+	std::vector<ST_PNT_VERTEX>& pVecVertex = *pVertex; // 형변환
 	//충돌검사
-	bool bInSphere = pFrustum->IsCollision(&pVertex[m_dwCenter].p, m_fRadius);
+	bool bInSphere = pFrustum->IsCollision(&pVecVertex[m_dwCenter].p, m_fRadius);
 	if (!bInSphere) return cQuadTree::LOCATION_OUT;
 	//모서리 충돌검사
 	bool bChild[4] = {};
-	bChild[0] = pFrustum->IsCollision(&pVertex[m_dwCorner[0]].p);
-	bChild[1] = pFrustum->IsCollision(&pVertex[m_dwCorner[1]].p);
-	bChild[2] = pFrustum->IsCollision(&pVertex[m_dwCorner[2]].p);
-	bChild[3] = pFrustum->IsCollision(&pVertex[m_dwCorner[3]].p);
+	bChild[0] = pFrustum->IsCollision(&pVecVertex[m_dwCorner[0]].p);
+	bChild[1] = pFrustum->IsCollision(&pVecVertex[m_dwCorner[1]].p);
+	bChild[2] = pFrustum->IsCollision(&pVecVertex[m_dwCorner[2]].p);
+	bChild[3] = pFrustum->IsCollision(&pVecVertex[m_dwCorner[3]].p);
 	if (4 == bChild[0] + bChild[1] + bChild[2] + bChild[3]) return cQuadTree::LOCATION_IN;
 	//일부 충돌
 	return cQuadTree::LOCATION_HALF;
 }
 
-void cQuadTree::_FrustumCull(ST_PNT_VERTEX* pVertex, cFrustum* pFrustum)
+void cQuadTree::_FrustumCull(std::vector<ST_PNT_VERTEX>* pVertex, cFrustum* pFrustum)
 {
 	switch (_IsInFrustum(pVertex, pFrustum))
 	{
@@ -147,7 +159,7 @@ void cQuadTree::_FrustumCull(ST_PNT_VERTEX* pVertex, cFrustum* pFrustum)
 
 	default: return;
 	}
-
+	
 	if (m_pChild[0]) m_pChild[0]->_FrustumCull(pVertex, pFrustum);
 	if (m_pChild[1]) m_pChild[1]->_FrustumCull(pVertex, pFrustum);
 	if (m_pChild[2]) m_pChild[2]->_FrustumCull(pVertex, pFrustum);

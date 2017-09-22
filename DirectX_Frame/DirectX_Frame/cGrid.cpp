@@ -27,6 +27,7 @@ void cGrid::Setup( int nNumLine, float fInterval )
 			c = D3DCOLOR_XRGB(255, 255, 255);
 		else 
 			c = D3DCOLOR_XRGB(155, 155, 155);
+		m_vecVertex.reserve(16);
 
 		m_vecVertex.push_back(ST_PC_VERTEX(D3DXVECTOR3(-fMax, 0,  i * fInterval), c));
 		m_vecVertex.push_back(ST_PC_VERTEX(D3DXVECTOR3( fMax, 0,  i * fInterval), c));
