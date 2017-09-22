@@ -10,8 +10,7 @@ cFrustum::cFrustum(void)
 
 cFrustum::~cFrustum(void)
 {
-	SAFE_DELETE_ARRAY(m_pLocalPos);
-	SAFE_DELETE_ARRAY(m_pPosition);
+	this->Destroy();
 }
 
 void cFrustum::Setup(void)
@@ -22,22 +21,30 @@ void cFrustum::Setup(void)
 		m_pPosition = new D3DXVECTOR3[FRUSTUM_INDEXS];
 		D3DXVECTOR3 cube[FRUSTUM_VERTEXS] =
 		{
-			{ -1, 1, 0 },{ 1, 1, 0 },{ 1, -1, 0 },{ -1, -1,0 },
-			{ -1,1,1 },{ 1,1,1 },{ 1,-1,1 },{ -1,-1,1 },
+//			{ -1, 1, 0 },{ 1, 1, 0 },{ 1, -1, 0 },{ -1, -1,0 },
+//			{ -1,1,1 },{ 1,1,1 },{ 1,-1,1 },{ -1,-1,1 },
+			{ -1, -1, 0 },{ -1, 1, 0 },{ 1, 1, 0 },{ 1, -1,0 },
+			{ -1, -1, 1 },{ -1, 1, 1 },{ 1, 1, 1 },{ 1, -1,1 },
 		};
-		int indices[] = { 0,1,2,0,4,5,1,5,6,3,2,6,3,7,4,4,7,6 };
+//		int indices[] = { 0,1,2,0,4,5,1,5,6,3,2,6,3,7,4,4,7,6, };
+		int indices[] = { 0,1,2,3,2,6,4,5,1,1,5,6,4,0,3,5,6,5 };
 		for (size_t i = 0; i < FRUSTUM_INDEXS; ++i) m_pLocalPos[i] = cube[indices[i]];
 	}
 }
 
 void cFrustum::Update(void)
 {
+//	if (g_pInputManager->IsStayKeyDown(VK_SPACE)) return;
+
 	//컬링 매트릭스 설정
 	D3DXMATRIXA16 matProj, matProjInverse, matView, matViewInverse;
+
 	g_pD3DDevice->GetTransform(D3DTS_PROJECTION, &matProj);
 	D3DXMatrixInverse(&matProjInverse, nullptr, &matProj);
+
 	g_pD3DDevice->GetTransform(D3DTS_VIEW, &matView);
 	D3DXMatrixInverse(&matViewInverse, nullptr, &matView);
+
 	m_matFrustum = matProjInverse * matViewInverse;
 
 	//컬링 좌표 설정
@@ -53,10 +60,10 @@ void cFrustum::Update(void)
 
 bool cFrustum::IsCollision(IN LPD3DXVECTOR3 pPosition, IN float fRadius)
 {
-	for (size_t i = 0; i < 18; i += 3)
+	for (size_t i = 0; i < FRUSTUM_INDEXS; i += 3)
 	{
 		//폴리곤 생성
-		D3DXPLANE stPlane;
+	 	D3DXPLANE stPlane;
 		D3DXPlaneFromPoints(&stPlane, &m_pPosition[i], &m_pPosition[i + 1], &m_pPosition[i + 2]);
 		//구체비교
 		float fDistance = D3DXPlaneDotCoord(&stPlane, pPosition);

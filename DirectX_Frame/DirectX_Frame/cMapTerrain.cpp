@@ -31,22 +31,23 @@ HRESULT cMapTerrain::Setup(IN LPCSTR szHeightMapName, IN D3DXMATERIAL* pMaterial
 	this->_LoadTexture(pMaterial);
 	this->_CreateVertexBuffer();
 	this->_CreateIndexBuffer();
-//	SAFE_DELETE(m_pQuadTree);
-//	m_pQuadTree = new cQuadTree(m_dwCol, m_dwRow);
-//	this->_BuilldQuadTree();
+	SAFE_DELETE(m_pQuadTree);
+	m_pQuadTree = new cQuadTree(m_dwCol, m_dwRow);
+	this->_BuilldQuadTree(16);
 
 	return S_OK;
 }
 
 void cMapTerrain::Update(void)
 {
-//	if (!g_pInputManager->IsStayKeyDown(VK_SPACE))
-//	{
-//		LPDWORD pIndex;
-//		if (FAILED(m_pIndexBufer->Lock(0, (m_dwCol - 1) * (m_dwRow - 1) * 6 * sizeof(DWORD), (LPVOID*)&pIndex, 0))) return;
-//		m_dwTriangles = m_pQuadTree->GenerateIndex(pIndex, &m_vecPosition, g_pFrustum);
-//		m_pIndexBufer->Unlock();
-//	}
+	if (g_pInputManager->IsOnceKeyDown(VK_SPACE))
+	{
+		g_pFrustum->Update();
+		LPDWORD pIndex;
+		if (FAILED(m_pIndexBufer->Lock(0, (m_dwCol - 1) * (m_dwRow - 1) * 6 * sizeof(DWORD), (LPVOID*)&pIndex, 0))) return;
+		m_dwTriangles = m_pQuadTree->GenerateIndex(pIndex, &m_vecPosition, g_pFrustum, 16);
+		m_pIndexBufer->Unlock();
+	}
 }
 
 void cMapTerrain::Render(void)
@@ -62,11 +63,11 @@ bool cMapTerrain::GetHeight(OUT float* fY, IN float fX, IN float fZ)
 
 	if (fY)
 	{
-		DWORD dwX = (DWORD)(fX + fColHalf);
-		DWORD dwZ = (DWORD)(fRowHalf - fZ);
+		DWORD dwX = (DWORD)(fX + fColHalf) / m_vScale.x;
+		DWORD dwZ = (DWORD)(fRowHalf - fZ) / m_vScale.z;
 
-		float fDeltaX = (fX + fColHalf) - (float)dwX;
-		float fDeltaZ = (fRowHalf - fZ) - (float)dwZ;
+		float fDeltaX = (fX + fColHalf) / m_vScale.x - (float)dwX;
+		float fDeltaZ = (fRowHalf - fZ) / m_vScale.z - (float)dwZ;
 
 		DWORD _dw0 = ((dwX + 0) + (dwZ + 0) * m_dwCol);
 		DWORD _dw1 = ((dwX + 1) + (dwZ + 0) * m_dwCol);
@@ -239,11 +240,11 @@ inline HRESULT cMapTerrain::_BuildHeightMap(DWORD dwCol, DWORD dwRow)
 	return S_OK;
 }
 
-inline HRESULT cMapTerrain::_BuilldQuadTree(void)
+inline HRESULT cMapTerrain::_BuilldQuadTree(DWORD dwUnit)
 {
 	if (m_pQuadTree)
 	{
-		m_pQuadTree->TreeBuild(m_vecPosition);
+		m_pQuadTree->TreeBuild(m_vecPosition, dwUnit);
 		return S_OK;
 	}
 	return E_FAIL;
