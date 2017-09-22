@@ -147,8 +147,6 @@ void cUiCustomizingScene::Reset(void)
 
 void cUiCustomizingScene::Update(void)
 {
-//	if (m_pServerSulastUi) m_pServerSulastUi->Update();
-
 	this->changeButtonColor();
 	SAFE_UPDATE(m_pPlayer);
 
@@ -178,12 +176,26 @@ void cUiCustomizingScene::Update(void)
 
 	this->changeButtonColorHair();
 
-
 	if (m_pMainCamera) m_pMainCamera->Update();
 	if (m_mUiTest) m_mUiTest->Update();
 	if (m_pCustomUi) m_pCustomUi->Update();
 //	m_pPlayer->ChangeMeshPartColor(cPlayer::MESH_HAIR, "hair01.dds", m_pHairColor);
+	
+	//마우스 
+	POINT ptMouse = m_ptMouse;				//이전 좌표 저장
 
+	GetCursorPos(&m_ptMouse);				//마우스 좌표(맴버변수 포인터)
+	ScreenToClient(g_hWnd, &m_ptMouse);		//마우스 좌표(맴버변수 포인터)
+
+	float rotX = (m_ptMouse.x - ptMouse.x); //현재 좌표 - 이전 좌표 (음직인 양)
+
+	if (g_pInputManager->IsStayKeyDown(VK_LBUTTON))
+	{
+		m_pMainCamera->AxisDirectionY(rotX * g_pTimeManager->GetElapsedTime());
+	}
+	
+
+//	m_pPlayer
 	if (g_pObjectManager->GetPlayer())
 	{
 		g_pSceneManager->ChangeScene(NEXT_SCENE);

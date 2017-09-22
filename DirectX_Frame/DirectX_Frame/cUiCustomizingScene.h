@@ -191,7 +191,6 @@ private:
 	//¸¶¿ì½º
 	bool m_isLButtonDown;
 	POINT m_ptMouse;
-	POINT m_ptPrevMouse;
 
 public:
 	virtual HRESULT Setup(void) override;	
