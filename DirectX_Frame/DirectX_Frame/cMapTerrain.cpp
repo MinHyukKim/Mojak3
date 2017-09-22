@@ -40,14 +40,15 @@ HRESULT cMapTerrain::Setup(IN LPCSTR szHeightMapName, IN D3DXMATERIAL* pMaterial
 
 void cMapTerrain::Update(void)
 {
-	if (g_pInputManager->IsOnceKeyDown(VK_SPACE))
-	{
-		g_pFrustum->Update();
-		LPDWORD pIndex;
-		if (FAILED(m_pIndexBufer->Lock(0, (m_dwCol - 1) * (m_dwRow - 1) * 6 * sizeof(DWORD), (LPVOID*)&pIndex, 0))) return;
-		m_dwTriangles = m_pQuadTree->GenerateIndex(pIndex, &m_vecPosition, g_pFrustum, 16);
-		m_pIndexBufer->Unlock();
-	}
+	//서핑보드만 컬링조절
+	m_dwTriangles = m_pQuadTree->GenerateIndex(&m_vecIndex[0], &m_vecPosition, g_pFrustum, 16);
+//	if (g_pInputManager->IsOnceKeyDown(VK_SPACE))
+//	{
+//		LPDWORD pIndex;
+//		if (FAILED(m_pIndexBufer->Lock(0, (m_dwCol - 1) * (m_dwRow - 1) * 6 * sizeof(DWORD), (LPVOID*)&pIndex, 0))) return;
+//		m_dwTriangles = m_pQuadTree->GenerateIndex(pIndex, &m_vecPosition, g_pFrustum, 16);
+//		m_pIndexBufer->Unlock();
+//	}
 }
 
 void cMapTerrain::Render(void)
@@ -98,11 +99,12 @@ bool cMapTerrain::IsCollision(OUT LPD3DXVECTOR3 pPos, IN LPD3DXVECTOR3 pOrg, IN 
 	float fDist = 1000.0f;
 	bool bCheck = false;
 
-	for (DWORD i = 0; i < m_vecIndex.size(); i+=3)
+	for (DWORD i = 0; i < m_dwTriangles; i++)
 	{
-		D3DXVECTOR3 vPos1 = m_vecPosition[m_vecIndex[i + 0]].p;
-		D3DXVECTOR3 vPos2 = m_vecPosition[m_vecIndex[i + 1]].p;
-		D3DXVECTOR3 vPos3 = m_vecPosition[m_vecIndex[i + 2]].p;
+		DWORD dwIndex = i * 3;
+		D3DXVECTOR3 vPos1 = m_vecPosition[m_vecIndex[dwIndex + 0]].p;
+		D3DXVECTOR3 vPos2 = m_vecPosition[m_vecIndex[dwIndex + 1]].p;
+		D3DXVECTOR3 vPos3 = m_vecPosition[m_vecIndex[dwIndex + 2]].p;
 
 		float fTemp = 0.0f;
 
@@ -314,7 +316,7 @@ inline HRESULT cMapTerrain::_Draw(void)
 	g_pD3DDevice->SetTexture(0, m_vecTextures[0]);
 	g_pD3DDevice->SetFVF(ST_PNT_VERTEX::FVF);
 	g_pD3DDevice->SetIndices(m_pIndexBufer);
-	g_pD3DDevice->DrawIndexedPrimitive(D3DPT_TRIANGLELIST, 0, 0, m_dwCol * m_dwRow, 0, m_dwTriangles * 3);
+	g_pD3DDevice->DrawIndexedPrimitive(D3DPT_TRIANGLELIST, 0, 0, m_dwCol * m_dwRow, 0, m_dwIndexBuffer);
 
 	return S_OK;
 }
