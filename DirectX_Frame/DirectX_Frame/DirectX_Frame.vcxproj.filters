@@ -60,6 +60,7 @@
     <ClCompile Include="cAction.cpp" />
     <ClCompile Include="cActionMove.cpp" />
     <ClCompile Include="cUiTestScene04InventorySetup.cpp" />
+    <ClCompile Include="cBuilding.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="cAllocateHierarchy.h" />
@@ -115,6 +116,7 @@
     <ClInclude Include="cAbilityParamter.h" />
     <ClInclude Include="cAction.h" />
     <ClInclude Include="cActionMove.h" />
+    <ClInclude Include="cBuilding.h" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="DirectX_Frame.rc" />
