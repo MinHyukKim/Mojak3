@@ -58,7 +58,7 @@ void cUiCustomizingScene::SetupPlayer(void)
 	m_pMainCamera->UpdateProjection(0.1f);
 	//위치
 	m_pMainCamera->MovePositionZ(4.5f);
-	//	m_pMainCamera->AxisDirectionY(D3DX_PI / 2);
+	m_pMainCamera->AxisDirectionY(0);
 	//애니메이션 등록
 	//LPD3DXANIMATIONSET pAnimationSet;
 	//g_pAllocateHierarchy->GetAnimationSet(0, &pAnimationSet, "./Chareter/DefaultPlayer/aniTest/ani_female_stand_leftahead.X");
