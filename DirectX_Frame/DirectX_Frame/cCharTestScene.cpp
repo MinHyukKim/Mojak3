@@ -6,6 +6,7 @@
 #include "cCamera.h"
 #include "cMapTerrain.h"
 #include "cPlayer.h"
+#include "cBuilding.h"
 
 //테스트용
 #include "cMapObject.h"
