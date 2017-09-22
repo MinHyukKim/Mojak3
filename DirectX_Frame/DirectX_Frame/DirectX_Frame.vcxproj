@@ -149,6 +149,7 @@
     <ClInclude Include="cAllocateHierarchy.h" />
     <ClInclude Include="cAnimationManager.h" />
     <ClInclude Include="cAutoReleasePool.h" />
+    <ClInclude Include="cBuilding.h" />
     <ClInclude Include="cCamera.h" />
     <ClInclude Include="cChareterCustomScene.h" />
     <ClInclude Include="cCharTestScene.h" />
@@ -204,6 +205,7 @@
     <ClCompile Include="cAllocateHierarchy.cpp" />
     <ClCompile Include="cAnimationManager.cpp" />
     <ClCompile Include="cAutoReleasePool.cpp" />
+    <ClCompile Include="cBuilding.cpp" />
     <ClCompile Include="cCamera.cpp" />
     <ClCompile Include="cChareterCustomScene.cpp" />
     <ClCompile Include="cCharTestScene.cpp" />

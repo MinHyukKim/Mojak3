@@ -63,6 +63,7 @@
     <ClCompile Include="cUiTestScene03QuestSetup.cpp" />
     <ClCompile Include="cUiTestScene02SkillSetup.cpp" />
     <ClCompile Include="cUiTestScene00BaseSetUpUiMove.cpp" />
+    <ClCompile Include="cBuilding.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="cAllocateHierarchy.h" />
@@ -118,6 +119,7 @@
     <ClInclude Include="cAbilityParamter.h" />
     <ClInclude Include="cAction.h" />
     <ClInclude Include="cActionMove.h" />
+    <ClInclude Include="cBuilding.h" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="DirectX_Frame.rc" />
