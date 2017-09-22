@@ -253,7 +253,10 @@
     <ClCompile Include="cUIManager.cpp" />
     <ClCompile Include="cUiObject.cpp" />
     <ClCompile Include="cUiTestScene.cpp" />
-    <ClCompile Include="cUiTestScene00BaseSetUp.cpp" />
+    <ClCompile Include="cUiTestScene00BaseSetUpUiMove.cpp" />
+    <ClCompile Include="cUiTestScene01infoSetup.cpp" />
+    <ClCompile Include="cUiTestScene02SkillSetup.cpp" />
+    <ClCompile Include="cUiTestScene03QuestSetup.cpp" />
     <ClCompile Include="cUiTestScene04InventorySetup.cpp" />
     <ClCompile Include="cUITextView.cpp" />
     <ClCompile Include="DirectX_Frame.cpp" />

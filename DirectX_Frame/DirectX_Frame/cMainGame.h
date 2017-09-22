@@ -12,6 +12,8 @@ public:
 	void Update();
 	void Render();
 
+	void MsgProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam);
+
 	cMainGame();
 	~cMainGame();
 };

@@ -55,11 +55,14 @@
     <ClCompile Include="cUiCustomizingScene03ColorSetup.cpp" />
     <ClCompile Include="cImage.cpp" />
     <ClCompile Include="cRay.cpp" />
-    <ClCompile Include="cUiTestScene00BaseSetUp.cpp" />
     <ClCompile Include="cAbilityParamter.cpp" />
     <ClCompile Include="cAction.cpp" />
     <ClCompile Include="cActionMove.cpp" />
     <ClCompile Include="cUiTestScene04InventorySetup.cpp" />
+    <ClCompile Include="cUiTestScene01infoSetup.cpp" />
+    <ClCompile Include="cUiTestScene03QuestSetup.cpp" />
+    <ClCompile Include="cUiTestScene02SkillSetup.cpp" />
+    <ClCompile Include="cUiTestScene00BaseSetUpUiMove.cpp" />
     <ClCompile Include="cBuilding.cpp" />
   </ItemGroup>
   <ItemGroup>

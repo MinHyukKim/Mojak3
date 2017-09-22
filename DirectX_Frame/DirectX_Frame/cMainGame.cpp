@@ -56,7 +56,7 @@ void cMainGame::Setup(void)
 	g_pSceneManager->AddScene("cUiCustomizingScene", cUiCustomizingScene::Create());
 	g_pSceneManager->AddScene("cLodingScene", cLodingScene::Create());
 
-	g_pSceneManager->ChangeScene("cLodingScene");
+	g_pSceneManager->ChangeScene("cUiTestScene");
 
 
 	//Å¸ÀÌ¸Ó
@@ -80,5 +80,10 @@ void cMainGame::Render(void)
 	
 	g_pD3DDevice->EndScene();
 	g_pD3DDevice->Present(NULL, NULL, NULL, NULL);
+}
+
+void cMainGame::MsgProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
+{
+	g_pSceneManager->MsgProc(hWnd, message, wParam, lParam);
 }
 
