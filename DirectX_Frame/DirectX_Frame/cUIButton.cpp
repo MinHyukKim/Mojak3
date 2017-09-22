@@ -35,6 +35,7 @@ void cUIButton::SetTexture(std::string sNor, std::string sOvr, std::string sSel)
 
 void cUIButton::Update()
 {
+	SetRect(&rc, 0, 0, stImageInfo.Width, stImageInfo.Height);
 //	RECT rc;
 	GetRect(&rc);
 
@@ -76,12 +77,12 @@ void cUIButton::Update()
 
 void cUIButton::Render(LPD3DXSPRITE pSprite)
 {
-	D3DXIMAGE_INFO stImageInfo;
+	/*D3DXIMAGE_INFO stImageInfo;*/
 	LPDIRECT3DTEXTURE9 pTexture = g_pTexture->GetTextureEx(m_aTexture[m_eButtonStatus], &stImageInfo);
 	pSprite->Begin(D3DXSPRITE_ALPHABLEND | D3DXSPRITE_SORT_TEXTURE);
 
 	pSprite->SetTransform(&m_matWorld);
-	RECT rc;
+//	RECT rc;
 	SetRect(&rc, 0, 0, stImageInfo.Width, stImageInfo.Height);
 	pSprite->Draw(pTexture, &rc, &D3DXVECTOR3(0, 0, 0), &D3DXVECTOR3(0, 0, 0),
 		D3DCOLOR_ARGB(m_Alpha, 255, 255, 255));

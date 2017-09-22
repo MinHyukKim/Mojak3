@@ -30,9 +30,9 @@ enum
 };
 enum eMoveUi
 {
-//	EMNONE,
-//	E_INVENTORY_MOVE,
-
+	E_MOVE_NONE,
+	E_MOVE_INVENTORY,
+	E_MOVE_END
 };
 
 class cUiTestScene : public cSceneObject, iButtonDelegate
@@ -88,7 +88,6 @@ private:
 	int invY;
 	cUIImageView* m_pInventoryUiImageHead;
 	cUIButton* m_pInventoryUiMoveing;
-	bool m_isInventoryUiMove;
 	cUIImageView* m_pInventoryUiImage;
 	cUIImageView* m_pInventoryUiTempImage;
 	cUIButton* m_pQInventoryUiButton;
@@ -104,6 +103,7 @@ private:
 	bool m_isMainMin;
 
 	POINT m_ptMouse;
+	eMoveUi e_move;
 
 public:
 	virtual HRESULT Setup(void) override;
