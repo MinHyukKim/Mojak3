@@ -31,6 +31,12 @@ cUiTestScene::cUiTestScene(void)
 	, m_pInventoryUi(NULL)
 	, invX(20)
 	, invY(20)
+	, skillX(680)
+	, skillY(20)
+	, infoX(354)
+	, infoY(20)
+	, queX(500)
+	, queY(60)
 {
 }
 
@@ -57,60 +63,14 @@ HRESULT cUiTestScene::Setup(void)
 	m_pUiTesterSize = cUIImageView::Create();
 	m_pUiTesterSize->SetTexture("Texture/Ui/inventoryBase.png");
 	m_pUiTesterSize->SetPosition(10, 10);
-	m_pUiTestRoot = m_pUiTesterSize;
-	
-//	//커마 창 머리
-//	m_pCustomImageHead = cUIImageView::Create();
-//	m_pCustomImageHead->SetTexture("Texture/Ui/customUiBaseHead1.png");
-//	m_pCustomImageHead->SetPosition(m_nX, m_nY);
-//	m_pCustomImageHead->m_Alpha = 200;
-//	m_pCustomUi = m_pCustomImageHead;
-//	//커마 창
-//	m_pCustomImage = cUIImageView::Create();
-//	m_pCustomImage->SetTexture("Texture/Ui/customUiBase2.png");
-//	m_pCustomImage->SetPosition(2, 48);
-//	m_pCustomImage->m_Alpha = 180;
-//	m_pCustomUi->AddChild(m_pCustomImage);
+	m_pUiTestRoot = m_pUiTesterSize;	
 
-	//정보 창 머리
-	m_pInfoUiImageHead = cUIImageView::Create();
-	m_pInfoUiImageHead->SetTexture("Texture/Ui/infoBaseHead1.png");
-	m_pInfoUiImageHead->SetPosition(354, 20);
-	m_pInfoUiImageHead->m_Alpha = 200;
-	m_pInfoUi = m_pInfoUiImageHead;
-	//정보 베이스 창
-	m_pInfoUiImage = cUIImageView::Create();
-	m_pInfoUiImage->SetTexture("Texture/Ui/Base.png");
-	m_pInfoUiImage->SetPosition(2, 48);
-	m_pInfoUiImage->m_Alpha = 180;
-	m_pInfoUi->AddChild(m_pInfoUiImage);
-
-	//스킬 머리 창
-	m_pSkillUiImageHead = cUIImageView::Create();
-	m_pSkillUiImageHead->SetTexture("Texture/Ui/skillBaseHead1.png");
-	m_pSkillUiImageHead->SetPosition(680, 20);
-	m_pSkillUiImageHead->m_Alpha = 200;
-	m_pSkillUi = m_pSkillUiImageHead;
-	//스킬 창 베이스
-	m_pSkillUiImage = cUIImageView::Create();
-	m_pSkillUiImage->SetTexture("Texture/Ui/Base.png");
-	m_pSkillUiImage->SetPosition(2, 48);
-	m_pSkillUiImage->m_Alpha = 180;
-	m_pSkillUi->AddChild(m_pSkillUiImage);
-
-	//퀘스트 창 머리
-	m_pQuestUiImageHead = cUIImageView::Create();
-	m_pQuestUiImageHead->SetTexture("Texture/Ui/questBaseHead1.png");
-	m_pQuestUiImageHead->SetPosition(500, 60);
-	m_pQuestUiImageHead->m_Alpha = 200;
-	m_pQuestUi = m_pQuestUiImageHead;
-	//퀘스트 창
-	m_pQuestUiImage = cUIImageView::Create();
-	m_pQuestUiImage->SetTexture("Texture/Ui/Base.png");
-	m_pQuestUiImage->SetPosition(2, 48);
-	m_pQuestUiImage->m_Alpha = 180;
-	m_pQuestUi->AddChild(m_pQuestUiImage);
-
+	//플레이어 정보 창 셋업
+	this->SetupInfoUi();
+	//스킬 창 셋업
+	this->SetupSkillUi();
+	//퀘스트 창 셋업
+	this->SetupQuestUi();
 	//인벤토리 창 셋업
 	this->SetupInventoryUi();
 
@@ -144,26 +104,8 @@ void cUiTestScene::Update(void)
 	if (m_pSkillUi && m_isSkillWindowOn) m_pSkillUi->Update();
 	if (m_pQuestUi && m_isQuestWindowOn) m_pQuestUi->Update();
 	if (m_pInventoryUi && m_isInventoryWindowOn) m_pInventoryUi->Update();
-
-	//무빙 관련
-	POINT ptMouse = m_ptMouse;				//이전 좌표 저장
-	
-	GetCursorPos(&m_ptMouse);				//마우스 좌표(맴버변수 포인터)
-	ScreenToClient(g_hWnd, &m_ptMouse);		//마우스 좌표(맴버변수 포인터)
-
-	int nDeltaX = (m_ptMouse.x - ptMouse.x); //현재 좌표 - 이전 좌표 (음직인 양)
-	int nDeltaY = (m_ptMouse.y - ptMouse.y); //현재 좌표 - 이전 좌표 (음직인 양)
-
-	if (m_pInventoryUiMoveing->isOver)
-	{
-		if (g_pInputManager->IsStayKeyDown(VK_LBUTTON))
-		{
-			invX = m_pInventoryUiImageHead->GetPosition().x + nDeltaX; //잡은 윈도우 창에서 음직인 양만큼 더해준다
-			invY = m_pInventoryUiImageHead->GetPosition().y + nDeltaY;
-
-			m_pInventoryUiImageHead->SetPosition(invX, invY);
-		}
-	}
+	//이동
+	MoveUiWindow();
 
 	
 	if (m_pUiTestRoot) m_pUiTestRoot->Update();
@@ -224,11 +166,6 @@ void cUiTestScene::OnClick(cUIButton * pSender)
 	{
 		m_isMainMin = !m_isMainMin;
 	}
-
-}
-
-void cUiTestScene::OnMouseOver(cUIButton * pSender)
-{
 
 }
 

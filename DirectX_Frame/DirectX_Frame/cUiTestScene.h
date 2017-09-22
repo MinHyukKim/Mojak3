@@ -23,16 +23,13 @@ enum
 	E_MAIN_BUTTON_MESSENGER = 220,
 	E_MAIN_BUTTON_MIN = 221,
 	E_MAIN_BUTTON_MAIN = 222,
-	//드래그 태스트
-	E_INVENTORY_MOVE = 224,
+	//드래그 태스트(x)
+	E_INFO_MOVE = 223,
+	E_SKILL_MOVE = 224,
+	E_QUEST_MOVE = 225,
+	E_INVENTORY_MOVE = 226,
 	E_TEXT_VIEW
 	
-};
-enum eMoveUi
-{
-	E_MOVE_NONE,
-	E_MOVE_INVENTORY,
-	E_MOVE_END
 };
 
 class cUiTestScene : public cSceneObject, iButtonDelegate
@@ -66,19 +63,28 @@ private:
 	int mainButtonSrart = 160;		//메인 버튼들 최초 시작 위치
 
 	//플레이어 정보창
+	int infoX;
+	int infoY;
 	cUIImageView* m_pInfoUiImageHead;
+	cUIButton* m_pInfoUiMoveing;
 	cUIImageView* m_pInfoUiImage;
 	cUIButton* m_pInfoUiButton;
 	cUiObject* m_pInfoUi;
 
 	//플레이어 스킬창
+	int skillX;
+	int skillY;
 	cUIImageView* m_pSkillUiImageHead;
+	cUIButton* m_pSkillUiMoveing;
 	cUIImageView* m_pSkillUiImage;
 	cUIButton* m_pSkillUiButton;
 	cUiObject* m_pSkillUi;
 
 	//퀘스트 정보창
+	int queX;
+	int queY;
 	cUIImageView* m_pQuestUiImageHead;
+	cUIButton* m_pQuestUiMoveing;
 	cUIImageView* m_pQuestUiImage;
 	cUIButton* m_pQuestUiButton;
 	cUiObject* m_pQuestUi;
@@ -101,21 +107,23 @@ private:
 	bool m_isLbuttonDown;
 	//메인 창 최소화 변수
 	bool m_isMainMin;
-
+	//마우스 음직임 받기용
 	POINT m_ptMouse;
-	eMoveUi e_move;
 
 public:
 	virtual HRESULT Setup(void) override;
 	void SetupBaseButton(void);
+	void SetupInfoUi(void);
+	void SetupSkillUi(void);
+	void SetupQuestUi(void);
 	void SetupInventoryUi(void);
 	virtual void Reset(void) override;
 	virtual void Update(void) override;
+	void MoveUiWindow(void);
 	virtual void Render(void) override;
 
 	void MsgProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam);
 	virtual void OnClick(cUIButton* pSender) override;
-	virtual void OnMouseOver(cUIButton* pSender) override;
 	//버튼 이미지 변경함수
 	void changeMainButtonColor(void);
 
