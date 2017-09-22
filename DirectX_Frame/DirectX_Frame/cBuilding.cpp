@@ -26,5 +26,11 @@ cBuilding::cBuilding(void)
 cBuilding::~cBuilding(void)
 {
 	this->Reset();
+}
 
+cBuilding* cBuilding::Create(void)
+{
+	cBuilding* newClass = new cBuilding;
+	newClass->AddRef();
+	return newClass;
 }

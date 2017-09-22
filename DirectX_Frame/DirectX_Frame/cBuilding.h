@@ -23,6 +23,9 @@ public:
 	float GetPosX(void) { return m_matWorld._41; }
 	float GetPosY(void) { return m_matWorld._42; }
 	float GetPosZ(void) { return m_matWorld._43; }
+
+	static cBuilding* Create(void);
+
 protected:
 	cBuilding(void);
 	virtual ~cBuilding(void);
