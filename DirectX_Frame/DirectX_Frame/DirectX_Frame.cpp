@@ -15,6 +15,10 @@ WCHAR szWindowClass[MAX_LOADSTRING];            // 기본 창 클래스 이름입니다.
 HWND		g_hWnd;
 cMainGame*  g_pMainGame;
 
+UINT		g_message;
+WPARAM		g_wParam;
+LPARAM		lParam;
+
 // 이 코드 모듈에 들어 있는 함수의 정방향 선언입니다.
 ATOM                MyRegisterClass(HINSTANCE hInstance);
 BOOL                InitInstance(HINSTANCE, int);
@@ -140,11 +144,21 @@ BOOL InitInstance(HINSTANCE hInstance, int nCmdShow)
 //
 LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 {
+	if (g_pMainGame)
+	{
+		g_pMainGame->MsgProc(hWnd, message, wParam, lParam);
+	}
+	//0922
+	int wmId, wmEvent;
+	PAINTSTRUCT ps;
+	HDC hdc;
+
     switch (message)
     {
     case WM_COMMAND:
         {
-            int wmId = LOWORD(wParam);
+           /* int */wmId = LOWORD(wParam);
+		   wmEvent = HIWORD(wParam);
             // 메뉴 선택을 구문 분석합니다.
             switch (wmId)
             {
@@ -161,8 +175,8 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
         break;
     case WM_PAINT:
         {
-            PAINTSTRUCT ps;
-            HDC hdc = BeginPaint(hWnd, &ps);
+            //PAINTSTRUCT ps;
+            /*HDC */hdc = BeginPaint(hWnd, &ps);
             // TODO: 여기에 hdc를 사용하는 그리기 코드를 추가합니다.
             EndPaint(hWnd, &ps);
         }

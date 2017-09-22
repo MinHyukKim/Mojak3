@@ -37,6 +37,10 @@ cObject* cObject::AutoRelease(void)
 	return this;
 }
 
+void cObject::MsgProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
+{
+}
+
 //생성자와 얕은복사
 cObject* cObject::Create(void)
 {

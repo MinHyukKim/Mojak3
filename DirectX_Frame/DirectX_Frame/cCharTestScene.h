@@ -5,7 +5,7 @@ class cCamera;
 class cGrid;
 class cMapTerrain;
 class cCrtCtrl;
-
+class cBuilding;
 
 class cCharTestScene : public cSceneObject
 {

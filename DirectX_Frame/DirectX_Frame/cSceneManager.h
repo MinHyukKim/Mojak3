@@ -34,6 +34,8 @@ public:
 
 	void Destroy(void);
 
+	void MsgProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam);
+
 	//½Ì±ÛÅæ »ý¼º
 	static cSceneManager* GetInstance() { static cSceneManager instance; return &instance; }
 private:

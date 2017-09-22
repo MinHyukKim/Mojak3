@@ -79,6 +79,11 @@ void cSceneManager::Destroy(void)
 	m_pReadyScene = NULL;
 }
 
+void cSceneManager::MsgProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
+{
+	m_pCurrentScene->MsgProc(hWnd, message, wParam, lParam);
+}
+
 DWORD CALLBACK LoadingThread(LPVOID prc)
 {
 	cSceneManager::m_pReadyScene->Setup();

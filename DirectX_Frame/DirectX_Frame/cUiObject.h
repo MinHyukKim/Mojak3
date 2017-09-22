@@ -15,10 +15,10 @@ protected:
 
 public:
 	virtual void Update(void) override;
-
 	virtual void AddChild(cUiObject* pChild);
 	virtual void Render(LPD3DXSPRITE pSprite);
 	virtual void SetPosition(float x, float y);
+	virtual D3DXVECTOR3 GetPosition() { return m_vPosition; }
 	virtual void GetRect(RECT* pRect);
 	virtual cUiObject* GetChildByTag(int nTag);
 

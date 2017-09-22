@@ -107,3 +107,56 @@ void cUiTestScene::SetupBaseButton(void)
 	m_pMainMainButton->SetTag(E_MAIN_BUTTON_MAIN);
 	m_pUiRoot->AddChild(m_pMainMainButton);
 }
+
+void cUiTestScene::MoveUiWindow(void)
+{
+	//무빙 관련
+	POINT ptMouse = m_ptMouse;				//이전 좌표 저장
+
+	GetCursorPos(&m_ptMouse);				//마우스 좌표(맴버변수 포인터)
+	ScreenToClient(g_hWnd, &m_ptMouse);		//마우스 좌표(맴버변수 포인터)
+
+	float nDeltaX = (m_ptMouse.x - ptMouse.x); //현재 좌표 - 이전 좌표 (음직인 양)
+	float nDeltaY = (m_ptMouse.y - ptMouse.y); //현재 좌표 - 이전 좌표 (음직인 양)
+
+	if (m_pInventoryUiMoveing->isOver)
+	{
+		if (g_pInputManager->IsStayKeyDown(VK_LBUTTON))
+		{
+			invX = m_pInventoryUiImageHead->GetPosition().x + nDeltaX; //잡은 윈도우 창에서 음직인 양만큼 더해준다
+			invY = m_pInventoryUiImageHead->GetPosition().y + nDeltaY;
+
+			m_pInventoryUiImageHead->SetPosition(invX, invY);
+		}
+	}
+	else if (m_pInfoUiMoveing->isOver)
+	{
+		if (g_pInputManager->IsStayKeyDown(VK_LBUTTON))
+		{
+			infoX = m_pInfoUiImageHead->GetPosition().x + nDeltaX;
+			infoY = m_pInfoUiImageHead->GetPosition().y + nDeltaY;
+
+			m_pInfoUiImageHead->SetPosition(infoX, infoY);
+		}
+	}
+	else if (m_pSkillUiMoveing->isOver)
+	{
+		if (g_pInputManager->IsStayKeyDown(VK_LBUTTON))
+		{
+			skillX = m_pSkillUiImageHead->GetPosition().x + nDeltaX;
+			skillY = m_pSkillUiImageHead->GetPosition().y + nDeltaY;
+
+			m_pSkillUiImageHead->SetPosition(skillX, skillY);
+		}
+	}
+	else if (m_pQuestUiMoveing->isOver)
+	{
+		if (g_pInputManager->IsStayKeyDown(VK_LBUTTON))
+		{
+			queX = m_pQuestUiImageHead->GetPosition().x + nDeltaX;
+			queY = m_pQuestUiImageHead->GetPosition().y + nDeltaY;
+
+			m_pQuestUiImageHead->SetPosition(queX, queY);
+		}
+	}
+}
