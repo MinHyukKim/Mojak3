@@ -65,8 +65,8 @@ void cMainGame::Setup(void)
 
 void cMainGame::Update(void)
 {
-	g_pAutoRelasePool->AutoReleaseCheck();	//제거가 필요한 객체 릴리즈
-	g_pFrustum->Update();
+	g_pAutoRelasePool->AutoReleaseCheck();	// 제거가 필요한 객체 릴리즈
+	g_pFrustum->Update();					// 컬링 매트릭스 준비
 	g_pTimeManager->Update();
 	g_pSceneManager->Update();
 }

@@ -17,6 +17,7 @@ private:
 	DWORD m_dwCol, m_dwRow;
 	DWORD m_dwTriangles;
 	DWORD m_dwIndexBuffer;
+	DWORD m_dwUnit;
 	float m_fMaxTerrainX;
 	float m_fMaxTerrainZ;
 
@@ -29,7 +30,7 @@ public:
 	//버텍스 포인터
 	ST_PNT_VERTEX* GetVertex(IN DWORD dwX, IN DWORD dwZ) { return &m_vecPosition[dwX + dwZ * m_dwCol]; }
 	//버텍스 높이
-	//float GetHeight(IN DWORD dwX, IN DWORD dwZ) { return m_vecPosition[dwX + dwZ * m_dwCol].p.y; }
+	float GetHeight(IN DWORD dwX, IN DWORD dwZ) { return m_vecPosition[dwX + dwZ * m_dwCol].p.y; }
 	bool GetHeight(OUT float* fY, IN float fX, IN float fZ);
 	//버텍스갯수 (가로)
 	DWORD GetCol(void) { return m_dwCol; }
@@ -57,7 +58,7 @@ private:
 	//평지맵 생성
 	inline HRESULT _BuildHeightMap(DWORD dwCol, DWORD dwRow);
 	//쿼드트리 생성
-	inline HRESULT _BuilldQuadTree(void);
+	inline HRESULT _BuilldQuadTree(DWORD dwUnit = 1);
 	//버텍스 버퍼 생성
 	inline HRESULT _CreateVertexBuffer(void);
 	//인덱스 버퍼 생성

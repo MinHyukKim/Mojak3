@@ -1,4 +1,5 @@
 #pragma once
+#include "cAbilityParamter.h"
 
 #define ANI_MATRIX 32
 
@@ -12,8 +13,12 @@ public:
 		PATTERN_NULL,
 		PATTERN_IDEN_OFFENSIVE,
 		PATTERN_IDEN_PEACEFUL,
+		PATTERN_WALK_OFFENSIVE,
+		PATTERN_WALK_PEACEFUL,
 		PATTERN_RUN_OFFENSIVE,
 		PATTERN_RUN_PEACEFUL,
+		PATTERN_ATTACK_OFFENSIVE,
+		PATTERN_ATTACK_PEACEFUL,
 	};
 	//홀수 = OFFENSIVE, 짝수 = PEACEFUL
 	enum ANIMATION_STAND
@@ -43,6 +48,8 @@ public:
 		MESH_SIZE,
 	};
 private:
+	cAbilityParamter m_AbilityParamter;
+
 	//월드의 위치와 회전 값
 	D3DXMATRIXA16 m_matWorld;
 	//캐릭터의 헤어 색상
@@ -53,6 +60,8 @@ private:
 	std::string m_sCurrentHairTextureName;
 	//캐릭터에 붙여있는 카메라
 	cCamera* m_pCamera;
+	//캐릭터가 경계중인 캐릭터
+	cPlayer* m_pTarget;
 	//캐릭터에 좌표를 이동시킬 액션
 	cActionMove* m_pActionMove;
 	LPD3DXANIMATIONCONTROLLER m_pAnimationController;
@@ -91,8 +100,10 @@ public:
 	DWORD RegisterAnimation(IN DWORD dwAnimationKey, IN LPD3DXANIMATIONSET pAnimation);
 	LPD3DXANIMATIONCONTROLLER GetAnimationController(void) { return m_pAnimationController; }
 	void SetAnimation(IN DWORD dwAnimationKey);
-	void SetBlendingAnimation(IN DWORD dwAnimationKey, IN float fTravelTime = 0.1f);
+	void SetBlendingAnimation(IN DWORD dwAnimationKey, IN float fTravel = 0.1f);
 	bool ExportAnimation(OUT LPD3DXANIMATIONSET* ppAnimation, IN DWORD dwAnimationKey = 0);
+	void SetMainTrackSpeed(float fSpeed) { m_pAnimationController->SetTrackSpeed(m_bCurrentTrack, fSpeed); }
+	void SetSubTrackSpeed(float fSpeed) { m_pAnimationController->SetTrackSpeed(!m_bCurrentTrack, fSpeed); }
 
 	//형상 함수
 	void ChangeMeshPart(IN DWORD dwPart, IN LPCSTR szFolder, IN LPCSTR szFilename);
@@ -120,9 +131,25 @@ public:
 	float GetPosX(void) { return m_matWorld._41; }
 	float GetPosY(void) { return m_matWorld._42; }
 	float GetPosZ(void) { return m_matWorld._43; }
+	void SetDirection(LPD3DXVECTOR3 pDir);
 	//이동 함수
 	void MoveToPlayer(LPD3DXVECTOR3 pTo, float fSpeed);
+	void MoveToPlayer(LPD3DXVECTOR3 pTo);
 
+	//인공지능 함수
+	void PlayerToTarget(float fRange);	//타겟변경
+	void TargetView(void) { this->SetDirection(&(m_pTarget->GetPosition() - this->GetPosition()));}
+	void AutoTarget(float fRange);	//타겟변경
+	void GoToTarget(void);
+	void GoToTarget(float fSpeed); //타겟에게 이동
+	void KeepToTarget(float fRange); //타겟과 일정거리 유지
+	void KeepToTarget(float fRange, float fSpeed);
+	void RotationToTarget(float fAngle);	//타겟을 해당각도방향으로 직선이동합니다. (범위 : -D3DX_PI ~ D3DX_PI)
+	void RotationToTarget(float fAngle, float fSpeed);
+	float LengthSqTarget(void);	//타겟과 거리
+	float LengthTarget(void);
+
+	cAbilityParamter* GetAbilityParamter(void) { return &m_AbilityParamter; }
 	cCamera* GetCamera(void) { return m_pCamera; }
 
 	static cPlayer* Create(void);
