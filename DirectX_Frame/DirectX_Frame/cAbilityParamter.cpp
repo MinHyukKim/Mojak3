@@ -1,7 +1,6 @@
 #include "stdafx.h"
 #include "cAbilityParamter.h"
 
-
 cAbilityParamter::cAbilityParamter(void)
 	: m_dwUnitID(0) , m_dwPlayerID(0)
 	, m_nMinLife(0) , m_nMinMana(0) , m_nMinStamina(0)
@@ -19,4 +18,9 @@ cAbilityParamter::cAbilityParamter(void)
 
 cAbilityParamter::~cAbilityParamter(void)
 {
+}
+
+void cAbilityParamter::Update(void)
+{
+	if (m_fAIElapsedTime > 0.0f) m_fAIElapsedTime -= g_pTimeManager->GetElapsedTime();
 }

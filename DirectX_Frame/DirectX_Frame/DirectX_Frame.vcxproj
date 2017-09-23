@@ -167,6 +167,7 @@
     <ClInclude Include="cMapObject.h" />
     <ClInclude Include="cMapTerrain.h" />
     <ClInclude Include="cMapToolScene.h" />
+    <ClInclude Include="cMath.h" />
     <ClInclude Include="cObject.h" />
     <ClInclude Include="cMainGame.h" />
     <ClInclude Include="cPlayer.h" />
@@ -224,6 +225,7 @@
     <ClCompile Include="cMapObject.cpp" />
     <ClCompile Include="cMapTerrain.cpp" />
     <ClCompile Include="cMapToolScene.cpp" />
+    <ClCompile Include="cMath.cpp" />
     <ClCompile Include="cObject.cpp" />
     <ClCompile Include="cMainGame.cpp" />
     <ClCompile Include="cPlayer.cpp" />

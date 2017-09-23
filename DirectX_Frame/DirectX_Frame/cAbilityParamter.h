@@ -41,6 +41,8 @@ private:
 	bool m_bEffective;		//캐릭터 생존여부
 
 public:
+	void Update(void);
+
 	void SetUnitID(DWORD dwValue) { m_dwUnitID = dwValue; }
 	DWORD GetUnitID(void) { return m_dwUnitID; }
 	void SetPlayerID(DWORD dwValue) { m_dwPlayerID = dwValue; }
@@ -59,7 +61,9 @@ public:
 
 	void SetMoveSpeed(float fValue) { m_fMoveSpeed = fValue; }
 	float GetMoveSpeed(void) { return m_fMoveSpeed; }
-
+	void SetElapsedTime(float fValue) { m_fAIElapsedTime = fValue; }
+	float GetElapsedTime(void) { return m_fAIElapsedTime; }
+	bool IsElapsedTime(void) { return m_fAIElapsedTime <= 0.0f; }
 	void SetEffective(bool nValue) { m_bEffective = nValue; }
 	bool IsEffective(void) { return m_bEffective; }
 

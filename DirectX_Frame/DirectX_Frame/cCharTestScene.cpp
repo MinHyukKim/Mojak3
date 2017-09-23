@@ -90,7 +90,6 @@ void cCharTestScene::Update(void)
 	m_pMapTerrain->GetHeight(&fHeight, pPlayer->GetPosX(), pPlayer->GetPosZ());
 	pPlayer->SetPosY(fHeight);
 
-
 	SAFE_UPDATE(m_pCamera);
 }
 

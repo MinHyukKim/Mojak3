@@ -65,6 +65,7 @@ void cPlayer::Reset(void)
 
 void cPlayer::Update(void)
 {
+	m_AbilityParamter.Update();
 	SAFE_UPDATE(m_pActionMove);
 
 	//타겟 상태 확인후 유효하지 않으면 해제
@@ -130,6 +131,10 @@ void cPlayer::PatternIdenOffensive(void)
 		if (m_pTarget && 9.0f > this->LengthSqTarget())
 		{
 			this->TargetView();
+			if (m_AbilityParamter.IsElapsedTime())
+			{
+				this->RotationToTarget(3.0f);
+			}
 		}
 		else
 		{
