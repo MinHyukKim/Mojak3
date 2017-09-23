@@ -16,15 +16,15 @@ void cUiTestScene::SetupBaseButton(void)
 	m_pMainRootImageView->m_Alpha = 200;
 	m_pUiRoot = m_pMainRootImageView;
 
-	cUITextView* pTextView = cUITextView::Create();
-	pTextView->SetText("태스트용");
-	pTextView->SetFontType(g_pFontManager->E_NORMAL);
-	pTextView->SetColor(D3DCOLOR_XRGB(0, 0, 0));
-	pTextView->SetSize(ST_SIZE(400, 500));
-	pTextView->SetPosition(0, -300);
-	pTextView->SetDrawTextFormat(DT_CENTER | DT_VCENTER | DT_WORDBREAK);
-	pTextView->SetTag(E_TEXT_VIEW);
-	m_pUiRoot->AddChild(pTextView);
+//	cUITextView* pTextView = cUITextView::Create();
+//	pTextView->SetText("태스트용");
+//	pTextView->SetFontType(g_pFontManager->E_NORMAL);
+//	pTextView->SetColor(D3DCOLOR_XRGB(0, 0, 0));
+//	pTextView->SetSize(ST_SIZE(400, 500));
+//	pTextView->SetPosition(0, -300);
+//	pTextView->SetDrawTextFormat(DT_CENTER | DT_VCENTER | DT_WORDBREAK);
+//	pTextView->SetTag(E_TEXT_VIEW);
+//	m_pUiRoot->AddChild(pTextView);
 
 	m_pInfoButton = cUIButton::Create();
 	m_pInfoButton->SetTexture("Texture/Ui/player_info_button_up.png",
@@ -149,14 +149,42 @@ void cUiTestScene::MoveUiWindow(void)
 			m_pSkillUiImageHead->SetPosition(skillX, skillY);
 		}
 	}
+
 	else if (m_pQuestUiMoveing->isOver)
 	{
-		if (g_pInputManager->IsStayKeyDown(VK_LBUTTON))
+		if (/*g_pInputManager->IsStayKeyDown(VK_LBUTTON)*/isPickUpItem)
 		{
 			queX = m_pQuestUiImageHead->GetPosition().x + nDeltaX;
 			queY = m_pQuestUiImageHead->GetPosition().y + nDeltaY;
 
 			m_pQuestUiImageHead->SetPosition(queX, queY);
+		}
+	}
+	//탬무빙 태스트
+	else if (m_pTempItem->isOver)
+	{
+		if (g_pInputManager->IsOnceKeyDown(VK_LBUTTON))
+		{
+			isPickUpItem = !isPickUpItem;
+		}
+		if (isPickUpItem == true)
+		{
+			float temX = m_pTempItem->GetPosition().x + nDeltaX;
+			float temY = m_pTempItem->GetPosition().y + nDeltaY;
+
+			m_pTempItem->SetPosition(temX, temY);
+		}
+		else if (isPickUpItem == false)
+		{
+			RECT rc;
+			if (IntersectRect(&rc, &(m_pTempItem->rc), &(m_pInventoryUiEquipTorso->rc)))
+			{
+				m_pTempItem->SetPosition(60, 147);
+			}
+			else if (IntersectRect(&rc, &(m_pTempItem->rc), &(m_pInventoryUiImage->rc)))
+			{
+				m_pTempItem->SetPosition(00, 0);
+			}
 		}
 	}
 }

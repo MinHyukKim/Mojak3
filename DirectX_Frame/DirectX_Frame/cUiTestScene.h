@@ -12,6 +12,7 @@ class iButtonDelegate;
 
 enum
 {
+	E_BUTTON_NONE,
 	//메인 버튼들
 	E_MAIN_BUTTON_PLAYER_INFO = 213,
 	E_MAIN_BUTTON_SKILL = 214,
@@ -28,6 +29,8 @@ enum
 	E_SKILL_MOVE = 224,
 	E_QUEST_MOVE = 225,
 	E_INVENTORY_MOVE = 226,
+	//태스트용
+	E_BUTTON_TEST1 = 227,
 	E_TEXT_VIEW
 	
 };
@@ -94,11 +97,21 @@ private:
 	int invY;
 	cUIImageView* m_pInventoryUiImageHead;
 	cUIButton* m_pInventoryUiMoveing;
-	cUIImageView* m_pInventoryUiImage;
+	cUIButton* m_pInventoryUiImage;
+	//임시 칸수 표시
 	cUIImageView* m_pInventoryUiTempImage;
+	//칸 수
+	vector<cUIButton*> m_vecInventoryUiBlock;
+	cUIButton* m_pInventoryUiBlock[60];
 	cUIButton* m_pQInventoryUiButton;
 	cUiObject* m_pInventoryUi;
-	
+	//장비 자리 표시
+	cUIButton* m_pInventoryUiEquipTorso;
+	cUIButton* m_pInventoryUiEquipWeaponHand;
+	cUIButton* m_pInventoryUiEquipSubHand;
+	cUIButton* m_pInventoryUiEquipShoes;
+	//아이탬 픽업 여부
+	bool isPickUpItem;
 	//패널 이미지 크기 태스트용
 	cUiObject* m_pUiTestRoot;
 	cUIImageView* m_pUiTesterSize;
@@ -109,6 +122,9 @@ private:
 	bool m_isMainMin;
 	//마우스 음직임 받기용
 	POINT m_ptMouse;
+
+	//임시용 (나중에 뭔가로 다시 받기)
+	cUIButton* m_pTempItem;
 
 public:
 	virtual HRESULT Setup(void) override;

@@ -37,6 +37,7 @@ cUiTestScene::cUiTestScene(void)
 	, infoY(20)
 	, queX(500)
 	, queY(60)
+	, isPickUpItem(false)
 {
 }
 
@@ -104,9 +105,28 @@ void cUiTestScene::Update(void)
 	if (m_pSkillUi && m_isSkillWindowOn) m_pSkillUi->Update();
 	if (m_pQuestUi && m_isQuestWindowOn) m_pQuestUi->Update();
 	if (m_pInventoryUi && m_isInventoryWindowOn) m_pInventoryUi->Update();
+
+	if (m_pTempItem->isOver)
+	{
+		if (GetKeyState(VK_LBUTTON) & 0x8000)
+		{
+
+		}
+	}
+//	if(GetKeyState(VK_LBUTTON) & 0x8000)
 	//이동
 	MoveUiWindow();
 
+	//태스트
+	//무빙 관련
+	
+	//POINT ptMouse = m_ptMouse;				//이전 좌표 저장
+
+	//GetCursorPos(&m_ptMouse);				//마우스 좌표(맴버변수 포인터)
+	//ScreenToClient(g_hWnd, &m_ptMouse);		//마우스 좌표(맴버변수 포인터)
+
+	//float nDeltaX = (m_ptMouse.x - ptMouse.x); //현재 좌표 - 이전 좌표 (음직인 양)
+	//float nDeltaY = (m_ptMouse.y - ptMouse.y); //현재 좌표 - 이전 좌표 (음직인 양)
 	
 	if (m_pUiTestRoot) m_pUiTestRoot->Update();
 }
@@ -126,45 +146,46 @@ void cUiTestScene::Render(void)
 //딜리게이트(클릭)
 void cUiTestScene::OnClick(cUIButton * pSender)
 {
-	cUITextView* pTextView = (cUITextView*)m_pUiRoot->GetChildByTag(E_TEXT_VIEW);
-	pTextView->SetColor(D3DCOLOR_XRGB(0, 0, 0));
-	if (pTextView == NULL) return;
+//	cUITextView* pTextView = (cUITextView*)m_pUiRoot->GetChildByTag(E_TEXT_VIEW);
+//	pTextView->SetColor(D3DCOLOR_XRGB(0, 0, 0));
+//	if (pTextView == NULL) return;
 
 	if (pSender->GetTag() == E_MAIN_BUTTON_PLAYER_INFO)
 	{
 		m_isInfoWindowOn = !m_isInfoWindowOn;
-		pTextView->SetText("플레이어 정보창 구현하기");
+	//	pTextView->SetText("플레이어 정보창 구현하기");
 	}
 	else if (pSender->GetTag() == E_MAIN_BUTTON_SKILL)
 	{
 		m_isSkillWindowOn = !m_isSkillWindowOn;
-		pTextView->SetText("플레이어 스킬창 구현하기");
+	//	pTextView->SetText("플레이어 스킬창 구현하기");
 	}
 	else if (pSender->GetTag() == E_MAIN_BUTTON_QUEST)
 	{
 		m_isQuestWindowOn = !m_isQuestWindowOn;
-		pTextView->SetText("퀘스트창 구현하기");
+	//	pTextView->SetText("퀘스트창 구현하기");
 	}
 	else if (pSender->GetTag() == E_MAIN_BUTTON_INVENTORY)
 	{
 		m_isInventoryWindowOn = !m_isInventoryWindowOn;
-		pTextView->SetText("인벤토리 창 구현하기");
+	//	pTextView->SetText("인벤토리 창 구현하기");
 	}
 //	else if (pSender->GetTag() == E_MAIN_BUTTON_ABILITY)
 //	{
-//		pTextView->SetText("재능창 구현하기(추가구성)");
 //	}
 //	else if (pSender->GetTag() == E_MAIN_BUTTON_ACTION)
 //	{
-//		pTextView->SetText("액션 창 구현하기(추가구성)");
 //	}
 //	else if (pSender->GetTag() == E_MAIN_BUTTON_PET)
 //	{
-//		pTextView->SetText("펫 창 구현하기(추가 구성)");
 //	}
 	else if (pSender->GetTag() == E_MAIN_BUTTON_MIN)
 	{
 		m_isMainMin = !m_isMainMin;
+	}
+	else if (pSender->GetTag() == E_BUTTON_TEST1)
+	{
+		isPickUpItem = !isPickUpItem;
 	}
 
 }
