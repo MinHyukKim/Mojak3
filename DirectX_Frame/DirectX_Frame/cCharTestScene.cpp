@@ -44,11 +44,15 @@ HRESULT cCharTestScene::Setup(void)
 
 	m_pMapTerrain = cMapTerrain::Create();
 	m_pMapTerrain->Setup("./HeightMapData/HeightMap.raw", &m_stMtl);
+	g_pObjectManager->SetTerrain(m_pMapTerrain);
 
 	//테스트용
 	m_pGrid = cGrid::Create();
 	m_pGrid->Setup();
 	m_pTexture = g_pTexture->GetTexture("./HeightMapData/terrain.jpg");
+
+	g_pObjectManager->CreateMonster(cObjectManager::MONSTER_TEXTER, &D3DXVECTOR3(5.0f, 0.0f, 0.0f));
+	g_pObjectManager->CreateMonster(cObjectManager::MONSTER_TEXTER, &D3DXVECTOR3(0.0f, 0.0f, 5.0f));
 
 	return S_OK;
 }
@@ -70,30 +74,21 @@ void cCharTestScene::Update(void)
 		m_pCamera->TestController();
 	}
 
-	if (m_pMapTerrain)
+	if (g_pInputManager->IsOnceKeyDown(VK_LBUTTON))
 	{
-		m_pMapTerrain->Update();
-		if (g_pObjectManager->GetPlayer())
+		D3DXVECTOR3 vTo, vOrg, vDir;
+		g_pRay->RayAtWorldSpace(&vOrg, &vDir);
+		if (m_pMapTerrain->IsCollision(&vTo, &vOrg, &vDir))
 		{
-			g_pObjectManager->GetPlayer()->Update();
-			if (g_pInputManager->IsOnceKeyDown(VK_LBUTTON))
-			{
-				D3DXVECTOR3 vTo;
-				D3DXVECTOR3 vOrg;
-				D3DXVECTOR3 vDir;
-				g_pRay->RayAtWorldSpace(&vOrg, &vDir);
-				if (m_pMapTerrain->IsCollision(&vTo, &vOrg, &vDir))
-				{
-					g_pObjectManager->GetPlayer()->SetPatternState(cPlayer::PATTERN_RUN_PEACEFUL);
-					g_pObjectManager->GetPlayer()->MoveToPlayer(&vTo, 5.0f);
-				}
-			}
-			cPlayer* pPlayer = g_pObjectManager->GetPlayer();
-			float fHeight = pPlayer->GetPosY();
-			m_pMapTerrain->GetHeight(&fHeight, pPlayer->GetPosX(), pPlayer->GetPosZ());
-			pPlayer->SetPosY(fHeight);
+			g_pObjectManager->GetPlayer()->MoveToPlayer(&vTo, 1.0f);
+			g_pObjectManager->GetPlayer()->SetPatternState(cPlayer::PATTERN_RUN_PEACEFUL);
 		}
 	}
+	g_pObjectManager->Update();
+	cPlayer* pPlayer = g_pObjectManager->GetPlayer();
+	float fHeight = pPlayer->GetPosY();
+	m_pMapTerrain->GetHeight(&fHeight, pPlayer->GetPosX(), pPlayer->GetPosZ());
+	pPlayer->SetPosY(fHeight);
 
 
 	SAFE_UPDATE(m_pCamera);
@@ -108,7 +103,7 @@ void cCharTestScene::Render(void)
 	SAFE_RENDER(m_pMapTerrain);
 
 	SAFE_RENDER(m_pGrid);
-	SAFE_RENDER(g_pObjectManager->GetPlayer());
+	SAFE_RENDER(g_pObjectManager);
 }
 
 cCharTestScene* cCharTestScene::Create(void)
