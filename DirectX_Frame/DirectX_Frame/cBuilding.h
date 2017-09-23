@@ -6,7 +6,12 @@ class cBuilding : public cObject
 private:
 	//월드의 위치와 회전 값
 	D3DXMATRIXA16 m_matWorld;
+	LPD3DXMESH m_pBuild;
 
+	//LPD3DXMESH m_pMesh;
+	D3DMATERIAL9*       m_pMeshMaterials;
+	LPDIRECT3DTEXTURE9* m_pMeshTextures;
+	DWORD               m_dwNumMaterials;
 
 public:
 	virtual HRESULT Setup(void) override;

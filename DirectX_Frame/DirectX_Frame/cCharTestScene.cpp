@@ -54,6 +54,10 @@ HRESULT cCharTestScene::Setup(void)
 	g_pObjectManager->CreateMonster(cObjectManager::MONSTER_TEXTER, &D3DXVECTOR3(5.0f, 0.0f, 0.0f));
 	g_pObjectManager->CreateMonster(cObjectManager::MONSTER_TEXTER, &D3DXVECTOR3(0.0f, 0.0f, 5.0f));
 
+	m_pBuild = cBuilding::Create();
+	m_pBuild->Setup();
+	m_pBuild->LoadModel("scene_building_tirchonaill_church.x");
+
 	return S_OK;
 }
 
@@ -102,6 +106,8 @@ void cCharTestScene::Render(void)
 	SAFE_RENDER(m_pMapTerrain);
 
 	SAFE_RENDER(m_pGrid);
+
+	SAFE_RENDER(m_pBuild);
 	SAFE_RENDER(g_pObjectManager);
 }
 

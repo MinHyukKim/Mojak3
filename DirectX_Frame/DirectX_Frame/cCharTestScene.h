@@ -17,6 +17,8 @@ private:
 	LPDIRECT3DTEXTURE9 m_pTexture;
 	D3DXMATERIAL m_stMtl;
 
+	cBuilding* m_pBuild;
+
 public:
 	virtual HRESULT Setup(void) override;
 	virtual void Reset(void) override;
