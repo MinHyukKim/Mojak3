@@ -70,8 +70,9 @@ private:
 	int infoY;							//y
 	cUIImageView* m_pInfoUiImageHead;	//정보창 머리줄
 	cUIButton* m_pInfoUiMoveing;		//머리줄과 동일크기의 이동용 창
-	cUIImageView* m_pInfoUiImage;		//정보창(추후 버튼으로 수정)
+	cUIButton* m_pInfoUiImage;			//정보창(추후 버튼으로 수정)
 	cUIButton* m_pInfoUiButton;			//버튼
+	cUITextView* m_pInfoUiText;			//불변 택스트
 	cUiObject* m_pInfoUi;
 
 	//플레이어 스킬창
@@ -79,7 +80,7 @@ private:
 	int skillY;
 	cUIImageView* m_pSkillUiImageHead;	//스킬창 머리줄	
 	cUIButton* m_pSkillUiMoveing;		//머리줄 이동용 
-	cUIImageView* m_pSkillUiImage;		//스킬창 이미지
+	cUIButton* m_pSkillUiImage;		//스킬창 이미지
 	cUIButton* m_pSkillUiButton;		//스킬창 버튼
 	cUiObject* m_pSkillUi;
 
@@ -88,7 +89,7 @@ private:
 	int queY;
 	cUIImageView* m_pQuestUiImageHead;	//스킬창 머리줄	
 	cUIButton* m_pQuestUiMoveing;		//머리줄 이동용 
-	cUIImageView* m_pQuestUiImage;		//스킬창 이미지
+	cUIButton* m_pQuestUiImage;		//스킬창 이미지
 	cUIButton* m_pQuestUiButton;		//스킬창 버튼
 	cUiObject* m_pQuestUi;
 
@@ -148,6 +149,22 @@ public:
 	void changeMainButtonColor(void);
 	//인벤토리 이미지 변경 함수
 	void changeInventoryImage(void);
+
+	//ui 열림 주고 받기용
+	bool GetInfoOnOff(void) { return m_isInfoWindowOn; }
+	void SetInfoOnOff(bool is) { m_isInfoWindowOn = is; }
+
+	bool GetSkillOnOff(void) { return m_isSkillWindowOn; }
+	void SetSkillOnOff(bool is) { m_isSkillWindowOn = is; }
+
+	bool GetQuestOnOff(void) { return m_isQuestWindowOn; }
+	void SetQuestOnOff(bool is) { m_isQuestWindowOn = is; }
+
+	bool GetInventoryOnOff(void) { return m_isInventoryWindowOn; }
+	void SetInventoryOnOff(bool is) { m_isInventoryWindowOn = is; }
+
+
+
 
 	static cUiTestScene* Create(void);
 protected:

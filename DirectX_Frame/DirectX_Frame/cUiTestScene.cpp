@@ -86,12 +86,12 @@ HRESULT cUiTestScene::Setup(void)
 
 void cUiTestScene::Reset(void)
 {
-	SAFE_RELEASE(m_pFont);
-	SAFE_RELEASE(m_pSprite);
-	SAFE_RELEASE(m_pTexture);
-	SAFE_RELEASE(m_pUiRoot);
+	if(m_pFont) SAFE_RELEASE(m_pFont);
+	if(m_pSprite) SAFE_RELEASE(m_pSprite);
+	if(m_pTexture) SAFE_RELEASE(m_pTexture);
+	if(m_pUiRoot) SAFE_RELEASE(m_pUiRoot);
 //	SAFE_RELEASE(m_pMainRootImageView);
-	SAFE_RELEASE(m_pUiTestRoot);
+	if(m_pUiTestRoot) SAFE_RELEASE(m_pUiTestRoot);
 //	SAFE_RELEASE(m_pMainMainButton);
 	if(m_pInfoUi) SAFE_RELEASE(m_pInfoUi);
 	if(m_pSkillUi) SAFE_RELEASE(m_pSkillUi);
@@ -112,29 +112,11 @@ void cUiTestScene::Update(void)
 	if (m_pQuestUi && m_isQuestWindowOn) m_pQuestUi->Update();
 	if (m_pInventoryUi && m_isInventoryWindowOn) m_pInventoryUi->Update();
 
-	if (m_pTempItem->isOver)
-	{
-		if (GetKeyState(VK_LBUTTON) & 0x8000)
-		{
 
-		}
-	}
-//	if(GetKeyState(VK_LBUTTON) & 0x8000)
 	//이동
 	this->MoveUiWindow();
 	//인벤 색 변경
 	this->changeInventoryImage();
-
-	//태스트
-	//무빙 관련
-	
-	//POINT ptMouse = m_ptMouse;				//이전 좌표 저장
-
-	//GetCursorPos(&m_ptMouse);				//마우스 좌표(맴버변수 포인터)
-	//ScreenToClient(g_hWnd, &m_ptMouse);		//마우스 좌표(맴버변수 포인터)
-
-	//float nDeltaX = (m_ptMouse.x - ptMouse.x); //현재 좌표 - 이전 좌표 (음직인 양)
-	//float nDeltaY = (m_ptMouse.y - ptMouse.y); //현재 좌표 - 이전 좌표 (음직인 양)
 	
 	if (m_pUiTestRoot) m_pUiTestRoot->Update();
 }
