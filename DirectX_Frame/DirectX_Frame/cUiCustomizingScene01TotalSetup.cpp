@@ -75,10 +75,11 @@ void cUiCustomizingScene::SetupTotal(void)
 	//±Û¾¾
 	cUITextView* TextFin = cUITextView::Create();
 	TextFin->SetText("¿Ï·á");
-	TextFin->SetFontType(g_pFontManager->E_INBUTTON);
+	TextFin->SetFontType(g_pFontManager->E_TEMP_INBUTTON);
 	TextFin->SetColor(D3DCOLOR_XRGB(255, 255, 255));
 	TextFin->SetSize(ST_SIZE(50, 40));
-	TextFin->SetPosition(169, 355);
+	//TextFin->SetPosition(169, 355); //¸¶ºñÃ¼
+	TextFin->SetPosition(169, 362);   //³ª´®°íµñ
 	TextFin->SetDrawTextFormat(DT_CENTER | DT_VCENTER | DT_WORDBREAK);
 	TextFin->SetTag(E_TEXT_CUSTOM_FIN);
 	m_pCustomUi->AddChild(TextFin);

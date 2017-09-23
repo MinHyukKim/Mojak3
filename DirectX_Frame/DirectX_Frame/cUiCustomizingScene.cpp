@@ -263,7 +263,6 @@ void cUiCustomizingScene::OnClick(cUIButton * pSender)
 	}
 	else if (pSender->GetTag() == E_CUSTOM_BUTTON_FIN)
 	{
-	//	g_pObjectManager->RegisterPlayer(m_pPlayer);
 		g_pObjectManager->RegisterPlayer(m_pPlayer);
 	}
 

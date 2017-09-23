@@ -460,7 +460,7 @@ void cUiTestScene::SetupInventoryUi(void)
 			m_pInventoryUiBlock[i * 6 + j]->SetTexture("Texture/Ui/inventory1.png"
 				, "Texture/Ui/inventory1.png"
 				, "Texture/Ui/inventory1.png");
-			m_pInventoryUiBlock[i * 6 + j]->SetPosition(j* 24 + stratX, i * 24 + stratY);
+			m_pInventoryUiBlock[i * 6 + j]->SetPosition(j * 24 + stratX, i * 24 + stratY);
 			m_pInventoryUiBlock[i * 6 + j]->SetTag(E_BUTTON_NONE);
 			m_pInventoryUi->AddChild(m_pInventoryUiBlock[i * 6 + j]);
 		}
