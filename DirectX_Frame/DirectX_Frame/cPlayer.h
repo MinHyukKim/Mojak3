@@ -1,4 +1,5 @@
 #pragma once
+#include "cAbilityParamter.h"
 
 #define ANI_MATRIX 32
 
@@ -43,6 +44,8 @@ public:
 		MESH_SIZE,
 	};
 private:
+	cAbilityParamter m_AbilityParamter;
+
 	//월드의 위치와 회전 값
 	D3DXMATRIXA16 m_matWorld;
 	//캐릭터의 헤어 색상
@@ -91,8 +94,10 @@ public:
 	DWORD RegisterAnimation(IN DWORD dwAnimationKey, IN LPD3DXANIMATIONSET pAnimation);
 	LPD3DXANIMATIONCONTROLLER GetAnimationController(void) { return m_pAnimationController; }
 	void SetAnimation(IN DWORD dwAnimationKey);
-	void SetBlendingAnimation(IN DWORD dwAnimationKey, IN float fTravelTime = 0.1f);
+	void SetBlendingAnimation(IN DWORD dwAnimationKey, IN float fTravel = 0.1f);
 	bool ExportAnimation(OUT LPD3DXANIMATIONSET* ppAnimation, IN DWORD dwAnimationKey = 0);
+	void SetMainTrackSpeed(float fSpeed) { m_pAnimationController->SetTrackSpeed(m_bCurrentTrack, fSpeed); }
+	void SetSubTrackSpeed(float fSpeed) { m_pAnimationController->SetTrackSpeed(!m_bCurrentTrack, fSpeed); }
 
 	//형상 함수
 	void ChangeMeshPart(IN DWORD dwPart, IN LPCSTR szFolder, IN LPCSTR szFilename);
@@ -122,7 +127,9 @@ public:
 	float GetPosZ(void) { return m_matWorld._43; }
 	//이동 함수
 	void MoveToPlayer(LPD3DXVECTOR3 pTo, float fSpeed);
+	void MoveToPlayer(LPD3DXVECTOR3 pTo);
 
+	cAbilityParamter* GetAbilityParamter(void) { return &m_AbilityParamter; }
 	cCamera* GetCamera(void) { return m_pCamera; }
 
 	static cPlayer* Create(void);

@@ -96,6 +96,7 @@ void cPlayer::SetIdenOffensive(void)
 //일반 준비 설정
 void cPlayer::SetIdenPeaceful(void)
 {
+	this->SetSubTrackSpeed(1.0f);
 	this->SetBlendingAnimation(cPlayer::ANIMATION_IDLE_PEACEFUL);
 }
 //전투 달리기 설정
@@ -105,6 +106,7 @@ void cPlayer::SetRuningOffensive(void)
 //일반 달리기 설정
 void cPlayer::SetRuningPeaceful(void)
 {
+	this->SetSubTrackSpeed(m_AbilityParamter.GetMoveSpeed() * 2.0f);
 	this->SetBlendingAnimation(cPlayer::ANIMATION_RUN_PEACEFUL);
 }
 
@@ -127,13 +129,15 @@ void cPlayer::PatternRuningPeaceful(void)
 	{
 		if (m_pActionMove->IsPlay())
 		{
-			//이동 액션중일 경우	캐릭터 방향을 돌린다.(미구현)
+			//이동 액션중일 경우	캐릭터 방향을 돌린다.( 스무스하게 돌리기 미구현)
 
 			D3DXMATRIXA16 mat;
 			D3DXVECTOR3 v;
 
 			D3DXVec3Cross(&v, &m_pActionMove->GetDirection(), &D3DXVECTOR3(0.0f, 1.0f, 0.0f));
 			m_matWorld._11 = v.x, m_matWorld._12 = v.y, m_matWorld._13 = v.z;
+
+			m_matWorld._21 = 0.0f, m_matWorld._22 = 1.0f, m_matWorld._33 = 0.0f;
 
 			D3DXVec3Cross(&v, &v, &D3DXVECTOR3(0.0f, 1.0f, 0.0f));
 			m_matWorld._31 = v.x, m_matWorld._32 = v.y, m_matWorld._33 = v.z;
@@ -273,7 +277,7 @@ void cPlayer::SetAnimation(IN DWORD dwAnimationKey)
 	m_dwNumMainAnimation = m_vecAnimationKey[dwAnimationKey];
 }
 
-void cPlayer::SetBlendingAnimation(IN DWORD dwAnimationKey, IN float fTravelTime)
+void cPlayer::SetBlendingAnimation(IN DWORD dwAnimationKey, IN float fTravel)
 {
 	DWORD dwNumNextAnimation = m_vecAnimationKey[dwAnimationKey];
 	if (m_dwNumMainAnimation == dwNumNextAnimation) return;
@@ -284,17 +288,22 @@ void cPlayer::SetBlendingAnimation(IN DWORD dwAnimationKey, IN float fTravelTime
 	m_pAnimationController->UnkeyAllTrackEvents(false);																				//0번 트랙의 애니메이션 키 (예비동작) 제거
 	m_pAnimationController->UnkeyAllTrackEvents(true);																				//1번 트랙의 애니메이션 키 (예비동작) 제거
 
+	//애니메이션 속도가 다른 두 애니메이션을 블렌딩할때 문제가 생겨서 해당 기능 비활성화 시킴
+//	D3DXTRACK_DESC pDesc;																											//빈 트랙의 정보 (2017-09-23 기능추가)
+//	m_pAnimationController->GetTrackDesc(m_bCurrentTrack, &pDesc);																	//주 트랙의 정보 (2017-09-23 기능추가)
+//	float fPlayTime = fTravel;																										//다음 애니메이션의 길이 (단위 : 초, 2017-09-23 수정 : 애니메이션의 길이 / 보조 트랙의 속도)
+	
+	//이전 애니메이션 (자세한 내용은 -> 참고.)
+	m_pAnimationController->KeyTrackWeight(m_bCurrentTrack, 0.0f, fCurrentTime, /*fPlayTime **/ fTravel, D3DXTRANSITION_LINEAR);	//주 트랙에 가중치를 서서히 줄임 (예비동작 등록)
+	m_pAnimationController->KeyTrackEnable(m_bCurrentTrack, false, fCurrentTime + /*fPlayTime **/ fTravel);							//주 트랙을 특정시간 경과후 사용안함 (예비동작 등록)
+
 	//다음 애니메이션 (자세한 내용은 -> 참고.)
 	m_pAnimationController->GetAnimationSet(dwNumNextAnimation, &pAnimationSet);													//다음 애니메이션 세트 생성
-	float fPlayTime = pAnimationSet->GetPeriod();																					//다음 애니메이션의 길이 (단위 : 초)
 	m_pAnimationController->SetTrackAnimationSet(!m_bCurrentTrack, pAnimationSet);													//보조 트랙에 다음 애니메이션 세트 등록
-	m_pAnimationController->KeyTrackWeight(!m_bCurrentTrack, 1.0f, fCurrentTime, fPlayTime * fTravelTime, D3DXTRANSITION_LINEAR);	//보조 트랙에 가중치를 서서히 늘려줌 (예비동작)
+	m_pAnimationController->KeyTrackWeight(!m_bCurrentTrack, 1.0f, fCurrentTime, /*fPlayTime **/ fTravel, D3DXTRANSITION_LINEAR);	//보조 트랙에 가중치를 서서히 늘려줌 (예비동작 등록)
 	m_pAnimationController->SetTrackEnable(!m_bCurrentTrack, true);																	//보조 트랙을 사용함
 	SAFE_RELEASE(pAnimationSet);																									//다음 애니메이션 세트 제거 (등록 후 제거)
 
-	//이전 애니메이션 (자세한 내용은 -> 참고.)
-	m_pAnimationController->KeyTrackWeight(m_bCurrentTrack, 0.0f, fCurrentTime, fPlayTime * fTravelTime, D3DXTRANSITION_LINEAR);	//주 트랙에 가중치를 서서히 줄임 (예비동작)
-	m_pAnimationController->KeyTrackEnable(m_bCurrentTrack, false, fCurrentTime + fPlayTime * fTravelTime);							//주 트랙을 특정시간 경과후 사용안함 (예비동작)
 
 	//애니메이션 변경 (자세한 내용은 -> 참고.)
 	m_bCurrentTrack = !m_bCurrentTrack;																								//주 트랙의 번호를 바꿈 (0 또는 1 트랙을 2개만 사용)
@@ -402,8 +411,15 @@ void cPlayer::SetTextureHairColor(LPD3DXCOLOR pColor)
 
 void cPlayer::MoveToPlayer(LPD3DXVECTOR3 pTo, float fSpeed)
 {
+	m_AbilityParamter.SetMoveSpeed(fSpeed);
 	if (!m_pActionMove) return;
 	this->m_pActionMove->SetToPlay(pTo, fSpeed);
+}
+
+void cPlayer::MoveToPlayer(LPD3DXVECTOR3 pTo)
+{
+	if (!m_pActionMove) return;
+	this->m_pActionMove->SetToPlay(pTo, m_AbilityParamter.GetMoveSpeed());
 }
 
 cPlayer* cPlayer::Create(void)

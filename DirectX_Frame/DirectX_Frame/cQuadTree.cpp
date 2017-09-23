@@ -111,7 +111,6 @@ inline int cQuadTree::_GenTriIndex(OUT LPDWORD pIndex, IN DWORD dwTriangles, DWO
 		pointer[3] = m_dwCorner[2];
 		pointer[4] = m_dwCorner[1];
 		pointer[5] = m_dwCorner[3];
-//		DEBUG_TEXT("출력될 타일 : "<< m_dwCenter);
 		return (dwTriangles + 2);
 	}
 

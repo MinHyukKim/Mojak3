@@ -44,13 +44,14 @@ Color:신발00,uni_shoes01_c.dds, 0.3f, 0.3f, 0.5f, 1.0f;
 Mesh:./Chareter/Female_Face/,basicFace.X,얼굴;
 Color:얼굴,bodymap01.dds, 1.0f, 0.53f, 0.53f, 1.0f;
 
-//Mesh:./Chareter/DefaultPlayer/,lisaAniTest.X,./Chareter/DefaultPlayer/lisaAniTest.X;
-//Color:./Chareter/DefaultPlayer/lisaAniTest.X,uni_shoes01_c.dds, 1.0f, 1.0f, 0.0f, 1.0f;
-//Color:./Chareter/DefaultPlayer/lisaAniTest.X,hair09.dds, 0.0f, 0.0f, 0.0f, 0.0f;
-//Color:./Chareter/DefaultPlayer/lisaAniTest.X,bodymap01.dds, 1.0f, 0.53f, 0.53f, 1.0f;
-//Color:./Chareter/DefaultPlayer/lisaAniTest.X,uni_newbie03_c.dds, 0.8f, 0.2f, 0.8f, 1.0;
-//Color:./Chareter/DefaultPlayer/lisaAniTest.X,uni_3rd_premium_c.dds, 0.5f, 0.0f, 0.1f, 1.0f)f;
-//Color:./Chareter/DefaultPlayer/lisaAniTest.X,male_pumpkin_pants_c.dds, 0.0f, 0.0f, 0.0f, 1.0f;
+//몬스터
+Mesh:./Chareter/DefaultPlayer/,lisaAniTest.X,임시몬스터;
+Color:임시몬스터,uni_shoes01_c.dds, 1.0f, 1.0f, 0.0f, 1.0f;
+Color:임시몬스터,hair09.dds, 0.0f, 0.0f, 0.0f, 0.0f;
+Color:임시몬스터,bodymap01.dds, 1.0f, 0.53f, 0.53f, 1.0f;
+Color:임시몬스터,uni_newbie03_c.dds, 0.8f, 0.2f, 0.8f, 1.0;
+Color:임시몬스터,uni_3rd_premium_c.dds, 0.5f, 0.0f, 0.1f, 1.0f)f;
+Color:임시몬스터,male_pumpkin_pants_c.dds, 0.0f, 0.0f, 0.0f, 1.0f;
 
 //애니메이션
 Animation:./Animation/ani_female_stand_leftahead.X,여성_기본01;

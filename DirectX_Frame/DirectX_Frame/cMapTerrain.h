@@ -17,6 +17,7 @@ private:
 	DWORD m_dwCol, m_dwRow;
 	DWORD m_dwTriangles;
 	DWORD m_dwIndexBuffer;
+	DWORD m_dwUnit;
 	float m_fMaxTerrainX;
 	float m_fMaxTerrainZ;
 

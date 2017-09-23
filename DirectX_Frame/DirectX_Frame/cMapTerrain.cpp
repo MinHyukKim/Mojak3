@@ -14,7 +14,8 @@ cMapTerrain::cMapTerrain(void)
 	, m_dwCol(0)
 	, m_dwRow(0)
 	, m_dwTriangles(0)
-	, m_dwIndexBuffer(0) // 임시 버퍼용
+	, m_dwIndexBuffer(0)
+	, m_dwUnit(16)
 {
 }
 
@@ -33,7 +34,7 @@ HRESULT cMapTerrain::Setup(IN LPCSTR szHeightMapName, IN D3DXMATERIAL* pMaterial
 	this->_CreateIndexBuffer();
 	SAFE_DELETE(m_pQuadTree);
 	m_pQuadTree = new cQuadTree(m_dwCol, m_dwRow);
-	this->_BuilldQuadTree(16);
+	this->_BuilldQuadTree(m_dwUnit);
 
 	return S_OK;
 }
@@ -41,12 +42,12 @@ HRESULT cMapTerrain::Setup(IN LPCSTR szHeightMapName, IN D3DXMATERIAL* pMaterial
 void cMapTerrain::Update(void)
 {
 	//서핑보드만 컬링조절
-	m_dwTriangles = m_pQuadTree->GenerateIndex(&m_vecIndex[0], &m_vecPosition, g_pFrustum, 16);
+	m_dwTriangles = m_pQuadTree->GenerateIndex(&m_vecIndex[0], &m_vecPosition, g_pFrustum, m_dwUnit);
 //	if (g_pInputManager->IsOnceKeyDown(VK_SPACE))
 //	{
 //		LPDWORD pIndex;
 //		if (FAILED(m_pIndexBufer->Lock(0, (m_dwCol - 1) * (m_dwRow - 1) * 6 * sizeof(DWORD), (LPVOID*)&pIndex, 0))) return;
-//		m_dwTriangles = m_pQuadTree->GenerateIndex(pIndex, &m_vecPosition, g_pFrustum, 16);
+//		m_dwTriangles = m_pQuadTree->GenerateIndex(pIndex, &m_vecPosition, g_pFrustum, m_dwUnit);
 //		m_pIndexBufer->Unlock();
 //	}
 }

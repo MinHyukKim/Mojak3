@@ -84,17 +84,14 @@ void cCharTestScene::Update(void)
 				g_pRay->RayAtWorldSpace(&vOrg, &vDir);
 				if (m_pMapTerrain->IsCollision(&vTo, &vOrg, &vDir))
 				{
-					g_pObjectManager->GetPlayer()->MoveToPlayer(&vTo, 1.0f);
 					g_pObjectManager->GetPlayer()->SetPatternState(cPlayer::PATTERN_RUN_PEACEFUL);
+					g_pObjectManager->GetPlayer()->MoveToPlayer(&vTo, 5.0f);
 				}
 			}
-			else
-			{
-				cPlayer* pPlayer = g_pObjectManager->GetPlayer();
-				float fHeight = pPlayer->GetPosY();
-				m_pMapTerrain->GetHeight(&fHeight, pPlayer->GetPosX(), pPlayer->GetPosZ());
-				pPlayer->SetPosY(fHeight);
-			}
+			cPlayer* pPlayer = g_pObjectManager->GetPlayer();
+			float fHeight = pPlayer->GetPosY();
+			m_pMapTerrain->GetHeight(&fHeight, pPlayer->GetPosX(), pPlayer->GetPosZ());
+			pPlayer->SetPosY(fHeight);
 		}
 	}
 
