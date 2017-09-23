@@ -1,6 +1,6 @@
 #pragma once
 
-#define g_pMath cMath::GetInstance();
+#define g_pMath cMath::GetInstance()
 
 class cMath
 {

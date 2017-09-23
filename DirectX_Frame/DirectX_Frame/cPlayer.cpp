@@ -133,7 +133,17 @@ void cPlayer::PatternIdenOffensive(void)
 			this->TargetView();
 			if (m_AbilityParamter.IsElapsedTime())
 			{
-				this->RotationToTarget(3.0f);
+				m_AbilityParamter.SetElapsedTime(g_pMath->Random(3.0f));
+				if (g_pMath->Random(2))
+				{
+					this->RotationToTarget(g_pMath->Random(-0.5f, 0.5f));
+					this->SetPatternState(cPlayer::PATTERN_RUN_OFFENSIVE);
+				}
+				else
+				{
+					this->KeepToTarget(g_pMath->Random(1.0f, 3.0f));
+					this->SetPatternState(cPlayer::PATTERN_RUN_OFFENSIVE);
+				}
 			}
 		}
 		else
@@ -163,6 +173,18 @@ void cPlayer::PatternIdenPeaceful(void)
 //전투 달리기 상태
 void cPlayer::PatternRuningOffensive(void)
 {
+	if (m_pActionMove)
+	{
+		if (m_pActionMove->IsPlay())
+		{
+			this->SetDirection(&m_pActionMove->GetDirection());
+		}
+		else
+		{
+			//이동 액션이 끝나면	iden 상태가 된다.
+			this->SetPatternState(cPlayer::PATTERN_IDEN_OFFENSIVE);
+		}
+	}
 }
 //일반 달리기 상태
 void cPlayer::PatternRuningPeaceful(void)
@@ -518,7 +540,7 @@ void cPlayer::KeepToTarget(float fRange)
 	D3DXVec3Normalize(&vDir, &(this->GetPosition() - m_pTarget->GetPosition()));
 	if (vDir == D3DXVECTOR3(0.0f, 0.0f, 0.0f)) vDir = m_pActionMove->GetDirection();
 	vDir = vDir * fRange;
-	this->m_pActionMove->SetToPlay(&vDir, m_AbilityParamter.GetMoveSpeed());
+	this->m_pActionMove->SetToPlay(&(m_pTarget->GetPosition() + vDir), m_AbilityParamter.GetMoveSpeed());
 }
 
 void cPlayer::KeepToTarget(float fRange, float fSpeed)
@@ -529,7 +551,7 @@ void cPlayer::KeepToTarget(float fRange, float fSpeed)
 	D3DXVec3Normalize(&vDir, &(this->GetPosition() - m_pTarget->GetPosition()));
 	if (vDir == D3DXVECTOR3(0.0f, 0.0f, 0.0f)) vDir = m_pActionMove->GetDirection();
 	vDir = vDir * fRange;
-	this->m_pActionMove->SetToPlay(&vDir, fSpeed);
+	this->m_pActionMove->SetToPlay(&(m_pTarget->GetPosition() + vDir), fSpeed);
 }
 
 void cPlayer::RotationToTarget(float fAngle)
