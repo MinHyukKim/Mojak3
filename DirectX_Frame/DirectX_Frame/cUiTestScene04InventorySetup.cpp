@@ -42,8 +42,8 @@ void cUiTestScene::SetupInventoryUi(void)
 	//Àåºñ ÀåÂø Ä­ (¸öÅë) x = 48 + 10 + 2, y = 57 + 90
 	m_pInventoryUiEquipTorso = cUIButton::Create();
 	m_pInventoryUiEquipTorso->SetTexture("Texture/Ui/inventoryTorso.png",
-		"Texture/Ui/inventoryTorsoOver.png",
-		"Texture/Ui/inventoryTorsoIn.png");
+		"Texture/Ui/inventoryTorso.png",
+		"Texture/Ui/inventoryTorso.png");
 	m_pInventoryUiEquipTorso->SetPosition(60, 147);
 	m_pInventoryUiEquipTorso->SetDelegate(this);
 //	m_pInventoryUiMoveing->m_Alpha = 0;

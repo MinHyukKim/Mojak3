@@ -119,6 +119,7 @@ void cUiTestScene::MoveUiWindow(void)
 	float nDeltaX = (m_ptMouse.x - ptMouse.x); //현재 좌표 - 이전 좌표 (음직인 양)
 	float nDeltaY = (m_ptMouse.y - ptMouse.y); //현재 좌표 - 이전 좌표 (음직인 양)
 
+	//인벤 창 무빙
 	if (m_pInventoryUiMoveing->isOver)
 	{
 		if (g_pInputManager->IsStayKeyDown(VK_LBUTTON))
@@ -129,6 +130,7 @@ void cUiTestScene::MoveUiWindow(void)
 			m_pInventoryUiImageHead->SetPosition(invX, invY);
 		}
 	}
+	//정보 창 무빙
 	else if (m_pInfoUiMoveing->isOver)
 	{
 		if (g_pInputManager->IsStayKeyDown(VK_LBUTTON))
@@ -139,6 +141,7 @@ void cUiTestScene::MoveUiWindow(void)
 			m_pInfoUiImageHead->SetPosition(infoX, infoY);
 		}
 	}
+	//스킬 창 무빙
 	else if (m_pSkillUiMoveing->isOver)
 	{
 		if (g_pInputManager->IsStayKeyDown(VK_LBUTTON))
@@ -149,10 +152,10 @@ void cUiTestScene::MoveUiWindow(void)
 			m_pSkillUiImageHead->SetPosition(skillX, skillY);
 		}
 	}
-
+	//퀘 창 무빙
 	else if (m_pQuestUiMoveing->isOver)
 	{
-		if (/*g_pInputManager->IsStayKeyDown(VK_LBUTTON)*/isPickUpItem)
+		if (g_pInputManager->IsStayKeyDown(VK_LBUTTON))
 		{
 			queX = m_pQuestUiImageHead->GetPosition().x + nDeltaX;
 			queY = m_pQuestUiImageHead->GetPosition().y + nDeltaY;
@@ -160,6 +163,7 @@ void cUiTestScene::MoveUiWindow(void)
 			m_pQuestUiImageHead->SetPosition(queX, queY);
 		}
 	}
+
 	//탬무빙 태스트
 	else if (m_pTempItem->isOver)
 	{
@@ -177,13 +181,27 @@ void cUiTestScene::MoveUiWindow(void)
 		else if (isPickUpItem == false)
 		{
 			RECT rc;
+			//몸통 장착시
 			if (IntersectRect(&rc, &(m_pTempItem->rc), &(m_pInventoryUiEquipTorso->rc)))
 			{
 				m_pTempItem->SetPosition(60, 147);
+				m_isTorsoMount = true;
 			}
+			//인벤토리 칸의 나머지 클릭하면 재자리로(미완)
 			else if (IntersectRect(&rc, &(m_pTempItem->rc), &(m_pInventoryUiImage->rc)))
 			{
-				m_pTempItem->SetPosition(00, 0);
+				m_pTempItem->SetPosition(160, 90);
+				m_isTorsoMount = false;
+			}
+			for (int i = 0; i < 60; i++)
+			{
+				if (IntersectRect(&rc, &(m_pInventoryUiBlock[i]->rc), &(m_pTempItem->rc)))
+				{
+					//인벤토리 칸의 나머지 클릭하면 재자리로
+					//임시용 자리 잡기
+					m_pTempItem->SetPosition(160, 90);
+					m_isTorsoMount = false;
+				}
 			}
 		}
 	}

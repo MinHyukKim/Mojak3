@@ -64,6 +64,7 @@
     <ClCompile Include="cUiTestScene02SkillSetup.cpp" />
     <ClCompile Include="cUiTestScene00BaseSetUpUiMove.cpp" />
     <ClCompile Include="cBuilding.cpp" />
+    <ClCompile Include="cUiTestScene05InventoryImage.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="cAllocateHierarchy.h" />

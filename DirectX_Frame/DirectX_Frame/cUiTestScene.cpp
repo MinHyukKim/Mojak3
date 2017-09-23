@@ -37,7 +37,13 @@ cUiTestScene::cUiTestScene(void)
 	, infoY(20)
 	, queX(500)
 	, queY(60)
+	//아이탬 픽킹
 	, isPickUpItem(false)
+	//착용 여부
+	, m_isTorsoMount(false) //초기에 장착시 true로 변경
+	, m_isWeaponHandMount(false)
+	, m_isSubHandMount(false)
+	, m_isShoesMount(false)
 {
 }
 
@@ -115,7 +121,9 @@ void cUiTestScene::Update(void)
 	}
 //	if(GetKeyState(VK_LBUTTON) & 0x8000)
 	//이동
-	MoveUiWindow();
+	this->MoveUiWindow();
+	//인벤 색 변경
+	this->changeInventoryImage();
 
 	//태스트
 	//무빙 관련
