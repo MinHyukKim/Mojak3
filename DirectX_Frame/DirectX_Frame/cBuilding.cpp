@@ -59,9 +59,9 @@ void cBuilding::Update(void)
 
 void cBuilding::Render(void)
 {
-	D3DXMATRIXA16 matWorld;
-	D3DXMatrixIdentity(&matWorld);
-	g_pD3DDevice->SetTransform(D3DTS_WORLD, &matWorld);
+	//D3DXMATRIXA16 matWorld;
+	//D3DXMatrixIdentity(&matWorld);
+	g_pD3DDevice->SetTransform(D3DTS_WORLD, &m_matWorld);
 	D3DXMATRIXA16 matView, matProjection, matViewProj, matWorldViewProjection;
 
 	g_pD3DDevice->GetTransform(D3DTS_VIEW, &matView);
@@ -84,6 +84,7 @@ cBuilding::cBuilding(void)
 cBuilding::~cBuilding(void)
 {
 	this->Reset();
+	m_pBuild->Release();
 }
 
 cBuilding* cBuilding::Create(void)

@@ -75,6 +75,7 @@ void cCharTestScene::Reset(void)
 	//SAFE_RELEASE(m_pMapObject);
 	SAFE_RELEASE(m_pMapTerrain);
 	SAFE_RELEASE(m_pGrid);
+	SAFE_RELEASE(m_pBuild);
 	if (m_pUiTest) SAFE_RELEASE(m_pUiTest);
 }
 
@@ -99,8 +100,11 @@ void cCharTestScene::Update(void)
 	g_pObjectManager->Update();
 	cPlayer* pPlayer = g_pObjectManager->GetPlayer();
 	float fHeight = pPlayer->GetPosY();
+	float test_build_height = m_pBuild->GetPosY();
 	m_pMapTerrain->GetHeight(&fHeight, pPlayer->GetPosX(), pPlayer->GetPosZ());
+	m_pMapTerrain->GetHeight(&test_build_height, m_pBuild->GetPosX(), m_pBuild->GetPosZ());
 	pPlayer->SetPosY(fHeight);
+	m_pBuild->SetPosY(test_build_height);
 
 	SAFE_UPDATE(m_pCamera);
 
