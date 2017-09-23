@@ -41,13 +41,14 @@
 #include "cUIManager.h"
 #include "cSoundManager.h"
 #include "cUiFontManager.h"
-#include "cSkinnedMeshManager.h"
-#include "cTimer.h"
-#include "cFrustum.h"
-#include "cAllocateHierarchy.h"
-#include "cAnimationManager.h"
-#include "cObjectManager.h"
-#include "cRay.h"
+#include "cSkinnedMeshManager.h"	//메시
+#include "cTimer.h"	//타이머
+#include "cFrustum.h"	//절두체 컬링
+#include "cAllocateHierarchy.h"	//계층구조
+#include "cAnimationManager.h"	//애니메이션
+#include "cObjectManager.h"	//오브젝트
+#include "cRay.h"	//마우스 피킹
+#include "cMath.h"	//간단한 랜덤함수
 
 //콘솔 디버깅
 #define CONSOLE_DEBUG_TEST

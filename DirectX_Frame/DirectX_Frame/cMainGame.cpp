@@ -56,7 +56,7 @@ void cMainGame::Setup(void)
 	g_pSceneManager->AddScene("cUiCustomizingScene", cUiCustomizingScene::Create());
 	g_pSceneManager->AddScene("cLodingScene", cLodingScene::Create());
 
-	g_pSceneManager->ChangeScene("cLodingScene");
+	g_pSceneManager->ChangeScene("cUiTestScene");
 
 
 	//타이머
@@ -65,7 +65,8 @@ void cMainGame::Setup(void)
 
 void cMainGame::Update(void)
 {
-	g_pAutoRelasePool->AutoReleaseCheck();	//제거가 필요한 객체 릴리즈
+	g_pAutoRelasePool->AutoReleaseCheck();	// 제거가 필요한 객체 릴리즈
+	g_pFrustum->Update();					// 컬링 매트릭스 준비
 	g_pTimeManager->Update();
 	g_pSceneManager->Update();
 }

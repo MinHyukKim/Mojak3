@@ -6,7 +6,7 @@ private:
 	D3DXIMAGE_INFO m_stImageInfo;
 	LPDIRECT3DTEXTURE9 m_pTexture;
 	D3DCOLOR m_dwColor;
-	RECT	m_rc;
+	RECT m_rc;
 
 public:
 	virtual void Setup(const D3DXIMAGE_INFO& _stImageInfo, const LPDIRECT3DTEXTURE9 _pTexture);

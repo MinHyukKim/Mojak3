@@ -16,15 +16,15 @@ void cUiTestScene::SetupBaseButton(void)
 	m_pMainRootImageView->m_Alpha = 200;
 	m_pUiRoot = m_pMainRootImageView;
 
-	cUITextView* pTextView = cUITextView::Create();
-	pTextView->SetText("태스트용");
-	pTextView->SetFontType(g_pFontManager->E_NORMAL);
-	pTextView->SetColor(D3DCOLOR_XRGB(0, 0, 0));
-	pTextView->SetSize(ST_SIZE(400, 500));
-	pTextView->SetPosition(0, -300);
-	pTextView->SetDrawTextFormat(DT_CENTER | DT_VCENTER | DT_WORDBREAK);
-	pTextView->SetTag(E_TEXT_VIEW);
-	m_pUiRoot->AddChild(pTextView);
+//	cUITextView* pTextView = cUITextView::Create();
+//	pTextView->SetText("태스트용");
+//	pTextView->SetFontType(g_pFontManager->E_NORMAL);
+//	pTextView->SetColor(D3DCOLOR_XRGB(0, 0, 0));
+//	pTextView->SetSize(ST_SIZE(400, 500));
+//	pTextView->SetPosition(0, -300);
+//	pTextView->SetDrawTextFormat(DT_CENTER | DT_VCENTER | DT_WORDBREAK);
+//	pTextView->SetTag(E_TEXT_VIEW);
+//	m_pUiRoot->AddChild(pTextView);
 
 	m_pInfoButton = cUIButton::Create();
 	m_pInfoButton->SetTexture("Texture/Ui/player_info_button_up.png",
@@ -119,6 +119,7 @@ void cUiTestScene::MoveUiWindow(void)
 	float nDeltaX = (m_ptMouse.x - ptMouse.x); //현재 좌표 - 이전 좌표 (음직인 양)
 	float nDeltaY = (m_ptMouse.y - ptMouse.y); //현재 좌표 - 이전 좌표 (음직인 양)
 
+	//인벤 창 무빙
 	if (m_pInventoryUiMoveing->isOver)
 	{
 		if (g_pInputManager->IsStayKeyDown(VK_LBUTTON))
@@ -129,6 +130,7 @@ void cUiTestScene::MoveUiWindow(void)
 			m_pInventoryUiImageHead->SetPosition(invX, invY);
 		}
 	}
+	//정보 창 무빙
 	else if (m_pInfoUiMoveing->isOver)
 	{
 		if (g_pInputManager->IsStayKeyDown(VK_LBUTTON))
@@ -139,6 +141,7 @@ void cUiTestScene::MoveUiWindow(void)
 			m_pInfoUiImageHead->SetPosition(infoX, infoY);
 		}
 	}
+	//스킬 창 무빙
 	else if (m_pSkillUiMoveing->isOver)
 	{
 		if (g_pInputManager->IsStayKeyDown(VK_LBUTTON))
@@ -149,6 +152,7 @@ void cUiTestScene::MoveUiWindow(void)
 			m_pSkillUiImageHead->SetPosition(skillX, skillY);
 		}
 	}
+	//퀘 창 무빙
 	else if (m_pQuestUiMoveing->isOver)
 	{
 		if (g_pInputManager->IsStayKeyDown(VK_LBUTTON))
@@ -157,6 +161,48 @@ void cUiTestScene::MoveUiWindow(void)
 			queY = m_pQuestUiImageHead->GetPosition().y + nDeltaY;
 
 			m_pQuestUiImageHead->SetPosition(queX, queY);
+		}
+	}
+
+	//탬무빙 태스트
+	else if (m_pTempItem->isOver)
+	{
+		if (g_pInputManager->IsOnceKeyDown(VK_LBUTTON))
+		{
+			isPickUpItem = !isPickUpItem;
+		}
+		if (isPickUpItem == true)
+		{
+			float temX = m_pTempItem->GetPosition().x + nDeltaX;
+			float temY = m_pTempItem->GetPosition().y + nDeltaY;
+
+			m_pTempItem->SetPosition(temX, temY);
+		}
+		else if (isPickUpItem == false)
+		{
+			RECT rc;
+			//몸통 장착시
+			if (IntersectRect(&rc, &(m_pTempItem->rc), &(m_pInventoryUiEquipTorso->rc)))
+			{
+				m_pTempItem->SetPosition(60, 147);
+				m_isTorsoMount = true;
+			}
+			//인벤토리 칸의 나머지 클릭하면 재자리로(미완)
+			else if (IntersectRect(&rc, &(m_pTempItem->rc), &(m_pInventoryUiImage->rc)))
+			{
+				m_pTempItem->SetPosition(160, 90);
+				m_isTorsoMount = false;
+			}
+			for (int i = 0; i < 60; i++)
+			{
+				if (IntersectRect(&rc, &(m_pInventoryUiBlock[i]->rc), &(m_pTempItem->rc)))
+				{
+					//인벤토리 칸의 나머지 클릭하면 재자리로
+					//임시용 자리 잡기
+					m_pTempItem->SetPosition(160, 90);
+					m_isTorsoMount = false;
+				}
+			}
 		}
 	}
 }

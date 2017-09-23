@@ -14,6 +14,8 @@ cMapTerrain::cMapTerrain(void)
 	, m_dwCol(0)
 	, m_dwRow(0)
 	, m_dwTriangles(0)
+	, m_dwIndexBuffer(0)
+	, m_dwUnit(16)
 {
 }
 
@@ -30,19 +32,24 @@ HRESULT cMapTerrain::Setup(IN LPCSTR szHeightMapName, IN D3DXMATERIAL* pMaterial
 	this->_LoadTexture(pMaterial);
 	this->_CreateVertexBuffer();
 	this->_CreateIndexBuffer();
-//	SAFE_DELETE(m_pQuadTree);
-//	m_pQuadTree = new cQuadTree(m_dwCol, m_dwRow);
-//	this->_BuilldQuadTree();
+	SAFE_DELETE(m_pQuadTree);
+	m_pQuadTree = new cQuadTree(m_dwCol, m_dwRow);
+	this->_BuilldQuadTree(m_dwUnit);
 
 	return S_OK;
 }
 
 void cMapTerrain::Update(void)
 {
-//	LPDWORD pIndex;
-//	if (FAILED(m_pIndexBufer->Lock(0, (m_dwCol - 1) * (m_dwRow - 1) * 6 * sizeof(DWORD), (LPVOID*)&pIndex, 0))) return;
-//	m_dwTriangles = m_pQuadTree->GenerateIndex(pIndex, &m_pHeightMap, m_pFrustum);
-//	m_pIndexBufer->Unlock();
+	//서핑보드만 컬링조절
+	m_dwTriangles = m_pQuadTree->GenerateIndex(&m_vecIndex[0], &m_vecPosition, g_pFrustum, m_dwUnit);
+//	if (g_pInputManager->IsOnceKeyDown(VK_SPACE))
+//	{
+//		LPDWORD pIndex;
+//		if (FAILED(m_pIndexBufer->Lock(0, (m_dwCol - 1) * (m_dwRow - 1) * 6 * sizeof(DWORD), (LPVOID*)&pIndex, 0))) return;
+//		m_dwTriangles = m_pQuadTree->GenerateIndex(pIndex, &m_vecPosition, g_pFrustum, m_dwUnit);
+//		m_pIndexBufer->Unlock();
+//	}
 }
 
 void cMapTerrain::Render(void)
@@ -58,11 +65,11 @@ bool cMapTerrain::GetHeight(OUT float* fY, IN float fX, IN float fZ)
 
 	if (fY)
 	{
-		DWORD dwX = (DWORD)(fX + fColHalf);
-		DWORD dwZ = (DWORD)(fRowHalf - fZ);
+		DWORD dwX = (DWORD)(fX + fColHalf) / m_vScale.x;
+		DWORD dwZ = (DWORD)(fRowHalf - fZ) / m_vScale.z;
 
-		float fDeltaX = (fX + fColHalf) - (float)dwX;
-		float fDeltaZ = (fRowHalf - fZ) - (float)dwZ;
+		float fDeltaX = (fX + fColHalf) / m_vScale.x - (float)dwX;
+		float fDeltaZ = (fRowHalf - fZ) / m_vScale.z - (float)dwZ;
 
 		DWORD _dw0 = ((dwX + 0) + (dwZ + 0) * m_dwCol);
 		DWORD _dw1 = ((dwX + 1) + (dwZ + 0) * m_dwCol);
@@ -93,11 +100,12 @@ bool cMapTerrain::IsCollision(OUT LPD3DXVECTOR3 pPos, IN LPD3DXVECTOR3 pOrg, IN 
 	float fDist = 1000.0f;
 	bool bCheck = false;
 
-	for (DWORD i = 0; i < m_vecIndex.size(); i+=3)
+	for (DWORD i = 0; i < m_dwTriangles; i++)
 	{
-		D3DXVECTOR3 vPos1 = m_vecPosition[m_vecIndex[i + 0]].p;
-		D3DXVECTOR3 vPos2 = m_vecPosition[m_vecIndex[i + 1]].p;
-		D3DXVECTOR3 vPos3 = m_vecPosition[m_vecIndex[i + 2]].p;
+		DWORD dwIndex = i * 3;
+		D3DXVECTOR3 vPos1 = m_vecPosition[m_vecIndex[dwIndex + 0]].p;
+		D3DXVECTOR3 vPos2 = m_vecPosition[m_vecIndex[dwIndex + 1]].p;
+		D3DXVECTOR3 vPos3 = m_vecPosition[m_vecIndex[dwIndex + 2]].p;
 
 		float fTemp = 0.0f;
 
@@ -235,11 +243,11 @@ inline HRESULT cMapTerrain::_BuildHeightMap(DWORD dwCol, DWORD dwRow)
 	return S_OK;
 }
 
-inline HRESULT cMapTerrain::_BuilldQuadTree(void)
+inline HRESULT cMapTerrain::_BuilldQuadTree(DWORD dwUnit)
 {
 	if (m_pQuadTree)
 	{
-		m_pQuadTree->TreeBuild(m_vecPosition);
+		m_pQuadTree->TreeBuild(m_vecPosition, dwUnit);
 		return S_OK;
 	}
 	return E_FAIL;
@@ -295,6 +303,8 @@ inline HRESULT cMapTerrain::_CreateIndexBuffer(void)
 	m_pIndexBufer->Unlock();
 	m_dwTriangles = dwNumIndex / 3;
 
+	m_dwIndexBuffer = dwNumIndex; //맵 랜더용
+
 	return S_OK;
 }
 
@@ -307,7 +317,7 @@ inline HRESULT cMapTerrain::_Draw(void)
 	g_pD3DDevice->SetTexture(0, m_vecTextures[0]);
 	g_pD3DDevice->SetFVF(ST_PNT_VERTEX::FVF);
 	g_pD3DDevice->SetIndices(m_pIndexBufer);
-	g_pD3DDevice->DrawIndexedPrimitive(D3DPT_TRIANGLELIST, 0, 0, m_dwCol * m_dwRow, 0, m_dwTriangles * 3);
+	g_pD3DDevice->DrawIndexedPrimitive(D3DPT_TRIANGLELIST, 0, 0, m_dwCol * m_dwRow, 0, m_dwIndexBuffer);
 
 	return S_OK;
 }
