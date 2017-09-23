@@ -10,6 +10,7 @@ private:
 
 public:
 	virtual HRESULT Setup(void) override;
+	LPD3DXMESH LoadModel(const char * filename);
 	void Reset(void);
 	virtual void Update(void) override;
 	virtual void Render(void) override;
