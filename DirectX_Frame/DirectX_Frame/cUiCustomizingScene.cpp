@@ -45,6 +45,7 @@ cUiCustomizingScene::cUiCustomizingScene(void)
 	, m_hairColor(1.0f, 0.0f, 0.0f, 1.0f)
 
 	, m_eHairStyleTab(E_HAIR_01)
+	, m_pBackImage(NULL)
 {
 	//초기화되지 않은 변수들
 //	m_pFont = nullptr;
@@ -103,6 +104,14 @@ HRESULT cUiCustomizingScene::Setup(void)
 {
 	D3DXCreateSprite(g_pD3DDevice, &m_pSprite);
 
+	D3DXIMAGE_INFO imageInfo;
+	LPDIRECT3DTEXTURE9 imageData;
+	RECT rc;
+	GetClientRect(g_hWnd, &rc);
+	imageData = g_pTexture->GetTextureEx("./Texture/Title.jpg", &imageInfo);
+	m_pBackImage = cImage::Create();
+	m_pBackImage->Setup(imageInfo, imageData);
+
 	//이미지 크기 태스트
 	m_pUiTesterSize = cUIImageView::Create();
 	m_pUiTesterSize->SetTexture("Texture/Ui/buttonBase.png");
@@ -143,6 +152,7 @@ void cUiCustomizingScene::Reset(void)
 	SAFE_RELEASE(m_pCustomColorUi);
 
 	SAFE_RELEASE(m_pNameUi);
+	if (m_pBackImage) SAFE_RELEASE(m_pBackImage);
 }
 
 void cUiCustomizingScene::Update(void)
@@ -206,6 +216,8 @@ void cUiCustomizingScene::Update(void)
 void cUiCustomizingScene::Render(void)
 {
 	g_pD3DDevice->SetTexture(0, m_pTexture);
+
+	if (m_pBackImage) m_pBackImage->Draw(m_pSprite);
 	SAFE_RENDER(m_pPlayer);
 //	if (m_pServerSulastUi) m_pServerSulastUi->Render(m_pSprite);
 	if (m_pCustomUi) m_pCustomUi->Render(m_pSprite);
@@ -251,7 +263,6 @@ void cUiCustomizingScene::OnClick(cUIButton * pSender)
 	}
 	else if (pSender->GetTag() == E_CUSTOM_BUTTON_FIN)
 	{
-	//	g_pObjectManager->RegisterPlayer(m_pPlayer);
 		g_pObjectManager->RegisterPlayer(m_pPlayer);
 	}
 

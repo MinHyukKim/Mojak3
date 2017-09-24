@@ -26,10 +26,13 @@ void cUiTestScene::SetupSkillUi(void)
 	m_pSkillUiMoveing->SetTag(E_SKILL_MOVE);
 	m_pSkillUi->AddChild(m_pSkillUiMoveing);
 	//스킬 창 베이스
-	m_pSkillUiImage = cUIImageView::Create();
-	m_pSkillUiImage->SetTexture("Texture/Ui/Base.png");
+	m_pSkillUiImage = cUIButton::Create();
+	m_pSkillUiImage->SetTexture("Texture/Ui/Base.png"
+	, "Texture/Ui/Base.png", "Texture/Ui/Base.png");
 	m_pSkillUiImage->SetPosition(2, 47);
+	m_pSkillUiImage->SetDelegate(this);
 	m_pSkillUiImage->m_Alpha = 180;
+	m_pSkillUiImage->SetTag(E_BUTTON_NONE);
 	m_pSkillUi->AddChild(m_pSkillUiImage);
 
 }

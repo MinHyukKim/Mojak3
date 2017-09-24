@@ -12,6 +12,7 @@ class iButtonDelegate;
 
 enum
 {
+	E_BUTTON_NONE,
 	//메인 버튼들
 	E_MAIN_BUTTON_PLAYER_INFO = 213,
 	E_MAIN_BUTTON_SKILL = 214,
@@ -28,6 +29,8 @@ enum
 	E_SKILL_MOVE = 224,
 	E_QUEST_MOVE = 225,
 	E_INVENTORY_MOVE = 226,
+	//인벤토리 태스트용
+	E_BUTTON_TEST1 = 227,
 	E_TEXT_VIEW
 	
 };
@@ -63,45 +66,60 @@ private:
 	int mainButtonSrart = 160;		//메인 버튼들 최초 시작 위치
 
 	//플레이어 정보창
-	int infoX;
-	int infoY;
-	cUIImageView* m_pInfoUiImageHead;
-	cUIButton* m_pInfoUiMoveing;
-	cUIImageView* m_pInfoUiImage;
-	cUIButton* m_pInfoUiButton;
+	int infoX;							//최초 윈도우 위치x
+	int infoY;							//y
+	cUIImageView* m_pInfoUiImageHead;	//정보창 머리줄
+	cUIButton* m_pInfoUiMoveing;		//머리줄과 동일크기의 이동용 창
+	cUIButton* m_pInfoUiImage;			//정보창(추후 버튼으로 수정)
+	cUIButton* m_pInfoUiButton;			//버튼
+	cUITextView* m_pInfoUiText;			//불변 택스트
 	cUiObject* m_pInfoUi;
 
 	//플레이어 스킬창
 	int skillX;
 	int skillY;
-	cUIImageView* m_pSkillUiImageHead;
-	cUIButton* m_pSkillUiMoveing;
-	cUIImageView* m_pSkillUiImage;
-	cUIButton* m_pSkillUiButton;
+	cUIImageView* m_pSkillUiImageHead;	//스킬창 머리줄	
+	cUIButton* m_pSkillUiMoveing;		//머리줄 이동용 
+	cUIButton* m_pSkillUiImage;		//스킬창 이미지
+	cUIButton* m_pSkillUiButton;		//스킬창 버튼
 	cUiObject* m_pSkillUi;
 
 	//퀘스트 정보창
 	int queX;
 	int queY;
-	cUIImageView* m_pQuestUiImageHead;
-	cUIButton* m_pQuestUiMoveing;
-	cUIImageView* m_pQuestUiImage;
-	cUIButton* m_pQuestUiButton;
+	cUIImageView* m_pQuestUiImageHead;	//스킬창 머리줄	
+	cUIButton* m_pQuestUiMoveing;		//머리줄 이동용 
+	cUIButton* m_pQuestUiImage;		//스킬창 이미지
+	cUIButton* m_pQuestUiButton;		//스킬창 버튼
 	cUiObject* m_pQuestUi;
 
 	//플레이어 인벤창
 	int invX;
 	int invY;
-	cUIImageView* m_pInventoryUiImageHead;
-	cUIButton* m_pInventoryUiMoveing;
-	cUIImageView* m_pInventoryUiImage;
-	cUIImageView* m_pInventoryUiTempImage;
-	cUIButton* m_pQInventoryUiButton;
+	cUIImageView* m_pInventoryUiImageHead;	//인벤창 머리줄
+	cUIButton* m_pInventoryUiMoveing;		//이동용 머리줄
+	cUIButton* m_pInventoryUiImage;			//인벤 창
+	//임시 칸수 표시
+	cUIImageView* m_pInventoryUiTempImage;	//임시(안씀)
+	//칸 수
+	vector<cUIButton*> m_vecInventoryUiBlock;	//안씀
+	cUIButton* m_pInventoryUiBlock[60];			//인벤토리 칸(소지품)
+	cUIButton* m_pQInventoryUiButton;			//인벤 버튼
 	cUiObject* m_pInventoryUi;
-	
+	//장비 자리 표시
+	cUIButton* m_pInventoryUiEquipTorso;			//몸통 칸
+	bool m_isTorsoMount;							//몸통 장착 여부
+	cUIButton* m_pInventoryUiEquipWeaponHand;		//무기 손 칸
+	bool m_isWeaponHandMount;						//무기 손 장착 여부
+	cUIButton* m_pInventoryUiEquipSubHand;			//서브 손 칸
+	bool m_isSubHandMount;							//서브 손 장착 여부
+	cUIButton* m_pInventoryUiEquipShoes;			//신발 손 칸
+	bool m_isShoesMount;							//신발 장착여부
+	//아이탬 픽업 여부
+	bool isPickUpItem;				//아이탬 픽업 여부(찍고 올리기)
 	//패널 이미지 크기 태스트용
 	cUiObject* m_pUiTestRoot;
-	cUIImageView* m_pUiTesterSize;
+	cUIImageView* m_pUiTesterSize;	
 
 	//왼쪽 버튼 다운 여부
 	bool m_isLbuttonDown;
@@ -109,6 +127,9 @@ private:
 	bool m_isMainMin;
 	//마우스 음직임 받기용
 	POINT m_ptMouse;
+
+	//임시용 (나중에 뭔가로 다시 받기)
+	cUIButton* m_pTempItem;
 
 public:
 	virtual HRESULT Setup(void) override;
@@ -126,6 +147,24 @@ public:
 	virtual void OnClick(cUIButton* pSender) override;
 	//버튼 이미지 변경함수
 	void changeMainButtonColor(void);
+	//인벤토리 이미지 변경 함수
+	void changeInventoryImage(void);
+
+	//ui 열림 주고 받기용
+	bool GetInfoOnOff(void) { return m_isInfoWindowOn; }
+	void SetInfoOnOff(bool is) { m_isInfoWindowOn = is; }
+
+	bool GetSkillOnOff(void) { return m_isSkillWindowOn; }
+	void SetSkillOnOff(bool is) { m_isSkillWindowOn = is; }
+
+	bool GetQuestOnOff(void) { return m_isQuestWindowOn; }
+	void SetQuestOnOff(bool is) { m_isQuestWindowOn = is; }
+
+	bool GetInventoryOnOff(void) { return m_isInventoryWindowOn; }
+	void SetInventoryOnOff(bool is) { m_isInventoryWindowOn = is; }
+
+
+
 
 	static cUiTestScene* Create(void);
 protected:

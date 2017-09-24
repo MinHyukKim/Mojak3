@@ -26,9 +26,12 @@ void cUiTestScene::SetupQuestUi(void)
 	m_pQuestUiMoveing->SetTag(E_QUEST_MOVE);
 	m_pQuestUi->AddChild(m_pQuestUiMoveing);
 	//Äù½ºÆ® Ã¢
-	m_pQuestUiImage = cUIImageView::Create();
-	m_pQuestUiImage->SetTexture("Texture/Ui/Base.png");
+	m_pQuestUiImage = cUIButton::Create();
+	m_pQuestUiImage->SetTexture("Texture/Ui/Base.png"
+	, "Texture/Ui/Base.png", "Texture/Ui/Base.png");
 	m_pQuestUiImage->SetPosition(2, 48);
+	m_pQuestUiImage->SetDelegate(this);
 	m_pQuestUiImage->m_Alpha = 180;
+	m_pQuestUiImage->SetTag(E_BUTTON_NONE);
 	m_pQuestUi->AddChild(m_pQuestUiImage);
 }

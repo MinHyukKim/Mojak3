@@ -66,6 +66,7 @@
     <ClCompile Include="cBuilding.cpp" />
     <ClCompile Include="cMapManager.cpp" />
     <ClCompile Include="cMath.cpp" />
+    <ClCompile Include="cUiTestScene05InventoryImage.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="cAllocateHierarchy.h" />

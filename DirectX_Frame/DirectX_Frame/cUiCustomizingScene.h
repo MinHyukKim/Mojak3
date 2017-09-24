@@ -1,6 +1,7 @@
 #pragma once
 #include "cSceneObject.h"
 #include "cUIButton.h"
+#include "cImage.h"
 
 #define NEXT_SCENE "cCharTestScene"
 
@@ -14,6 +15,8 @@ class iButtonDelegate;
 //플레이어 띄우기
 class cPlayer;
 class cCamera;
+//이미지
+class cImage;
 
 //버튼 딜리게이트 이넘문
 enum
@@ -184,6 +187,10 @@ private:
 	cUIButton* m_pCustomMouthColorSulastButton;
 	cUiObject* m_pCustomMouthUi;
 	//확인팝업
+
+	//백그라운드
+//	cUIImageView* m_pBackImage;
+	cImage* m_pBackImage;
 
 	//초기 위치 잡이
 	int m_nX, m_nY;
