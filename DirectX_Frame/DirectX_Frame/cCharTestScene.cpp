@@ -76,7 +76,7 @@ void cCharTestScene::Reset(void)
 	SAFE_RELEASE(m_pMapTerrain);
 	SAFE_RELEASE(m_pGrid);
 	SAFE_RELEASE(m_pBuild);
-	if (m_pUiTest) SAFE_RELEASE(m_pUiTest);
+	SAFE_RELEASE(m_pUiTest);
 }
 
 void cCharTestScene::Update(void)

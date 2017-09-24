@@ -120,52 +120,104 @@ void cUiTestScene::MoveUiWindow(void)
 	float nDeltaY = (m_ptMouse.y - ptMouse.y); //현재 좌표 - 이전 좌표 (음직인 양)
 
 	//인벤 창 무빙
+//	if(m_pInventoryUiMoveing->GetButtonStatus() == 1)
 	if (m_pInventoryUiMoveing->isOver)
 	{
-		if (g_pInputManager->IsStayKeyDown(VK_LBUTTON))
+		if (g_pInputManager->IsStayKeyDown(VK_LBUTTON) 
+			&& m_pInfoUiMoveing->isClick == false
+			&& m_pSkillUiMoveing->isClick == false
+			&& m_pQuestUiMoveing->isClick == false)
 		{
-			invX = m_pInventoryUiImageHead->GetPosition().x + nDeltaX; //잡은 윈도우 창에서 음직인 양만큼 더해준다
-			invY = m_pInventoryUiImageHead->GetPosition().y + nDeltaY;
+			m_pInventoryUiMoveing->isClick = true;
+			//invX = m_pInventoryUiImageHead->GetPosition().x + nDeltaX; //잡은 윈도우 창에서 음직인 양만큼 더해준다
+			//invY = m_pInventoryUiImageHead->GetPosition().y + nDeltaY;
 
-			m_pInventoryUiImageHead->SetPosition(invX, invY);
+			//m_pInventoryUiImageHead->SetPosition(invX, invY);
 		}
+		else m_pInventoryUiMoveing->isClick = false;
 	}
+	else if (m_pInventoryUiMoveing->isClick == true)		//클릭 상태에서 음직임
+	{
+		invX = m_pInventoryUiImageHead->GetPosition().x + nDeltaX; //잡은 윈도우 창에서 음직인 양만큼 더해준다
+		invY = m_pInventoryUiImageHead->GetPosition().y + nDeltaY;
+
+		m_pInventoryUiImageHead->SetPosition(invX, invY);
+	}
+	
 	//정보 창 무빙
-	else if (m_pInfoUiMoveing->isOver)
+	if (m_pInfoUiMoveing->isOver)
 	{
-		if (g_pInputManager->IsStayKeyDown(VK_LBUTTON))
+		if (g_pInputManager->IsStayKeyDown(VK_LBUTTON)
+			&& m_pInventoryUiMoveing->isClick == false
+			&& m_pSkillUiMoveing->isClick == false
+			&& m_pQuestUiMoveing->isClick == false)
 		{
-			infoX = m_pInfoUiImageHead->GetPosition().x + nDeltaX;
-			infoY = m_pInfoUiImageHead->GetPosition().y + nDeltaY;
-
-			m_pInfoUiImageHead->SetPosition(infoX, infoY);
+			m_pInfoUiMoveing->isClick = true;
+		//	infoX = m_pInfoUiImageHead->GetPosition().x + nDeltaX;
+		//	infoY = m_pInfoUiImageHead->GetPosition().y + nDeltaY;
+		//
+		//	m_pInfoUiImageHead->SetPosition(infoX, infoY);
 		}
+		else m_pInfoUiMoveing->isClick = false;	
 	}
-	//스킬 창 무빙
-	else if (m_pSkillUiMoveing->isOver)
+	else if (m_pInfoUiMoveing->isClick)
 	{
-		if (g_pInputManager->IsStayKeyDown(VK_LBUTTON))
+		infoX = m_pInfoUiImageHead->GetPosition().x + nDeltaX;
+		infoY = m_pInfoUiImageHead->GetPosition().y + nDeltaY;
+
+		m_pInfoUiImageHead->SetPosition(infoX, infoY);
+	}
+
+	//스킬 창 무빙
+	if (m_pSkillUiMoveing->isOver)
+	{
+		if (g_pInputManager->IsStayKeyDown(VK_LBUTTON)
+			&& m_pInventoryUiMoveing->isClick == false
+			&& m_pInfoUiMoveing->isClick == false
+			&& m_pQuestUiMoveing->isClick == false)
 		{
-			skillX = m_pSkillUiImageHead->GetPosition().x + nDeltaX;
+			m_pSkillUiMoveing->isClick = true;
+			/*skillX = m_pSkillUiImageHead->GetPosition().x + nDeltaX;
 			skillY = m_pSkillUiImageHead->GetPosition().y + nDeltaY;
 
-			m_pSkillUiImageHead->SetPosition(skillX, skillY);
+			m_pSkillUiImageHead->SetPosition(skillX, skillY);*/
 		}
+		else m_pSkillUiMoveing->isClick = false;
+	}
+	else if (m_pSkillUiMoveing->isClick)
+	{
+		skillX = m_pSkillUiImageHead->GetPosition().x + nDeltaX;
+		skillY = m_pSkillUiImageHead->GetPosition().y + nDeltaY;
+
+		m_pSkillUiImageHead->SetPosition(skillX, skillY);
 	}
 	//퀘 창 무빙
-	else if (m_pQuestUiMoveing->isOver)
+	if (m_pQuestUiMoveing->isOver)
 	{
-		if (g_pInputManager->IsStayKeyDown(VK_LBUTTON))
+		if (g_pInputManager->IsStayKeyDown(VK_LBUTTON)
+			&& m_pInventoryUiMoveing->isClick == false
+			&& m_pSkillUiMoveing->isClick == false
+			&& m_pInfoUiMoveing->isClick == false)
 		{
-			queX = m_pQuestUiImageHead->GetPosition().x + nDeltaX;
-			queY = m_pQuestUiImageHead->GetPosition().y + nDeltaY;
+			m_pQuestUiMoveing->isClick = true;
+			//queX = m_pQuestUiImageHead->GetPosition().x + nDeltaX;
+			//queY = m_pQuestUiImageHead->GetPosition().y + nDeltaY;
 
-			m_pQuestUiImageHead->SetPosition(queX, queY);
+			//m_pQuestUiImageHead->SetPosition(queX, queY);
 		}
+		else m_pQuestUiMoveing->isClick = false;
+	}
+	else if (m_pQuestUiMoveing->isClick)
+	{
+		m_pQuestUiMoveing->isClick = true;
+		queX = m_pQuestUiImageHead->GetPosition().x + nDeltaX;
+		queY = m_pQuestUiImageHead->GetPosition().y + nDeltaY;
+
+		m_pQuestUiImageHead->SetPosition(queX, queY);
 	}
 
 	//탬무빙 태스트
-	else if (m_pTempItem->isOver)
+	if (m_pTempItem->isOver)
 	{
 		if (g_pInputManager->IsOnceKeyDown(VK_LBUTTON))
 		{
@@ -173,13 +225,25 @@ void cUiTestScene::MoveUiWindow(void)
 		}
 		if (isPickUpItem == true)
 		{
+			m_pTempItem->isClick = true;
+		//	float temX = m_pTempItem->GetPosition().x + nDeltaX;
+		//	float temY = m_pTempItem->GetPosition().y + nDeltaY;
+		//
+		//	m_pTempItem->SetPosition(temX, temY);
+		}
+		//else m_pTempItem->isClick = false;
+
+		else if (m_pTempItem->isClick)
+		{
 			float temX = m_pTempItem->GetPosition().x + nDeltaX;
 			float temY = m_pTempItem->GetPosition().y + nDeltaY;
 
 			m_pTempItem->SetPosition(temX, temY);
 		}
-		else if (isPickUpItem == false)
+
+		if (isPickUpItem == false)
 		{
+			m_pTempItem->isClick = false;
 			RECT rc;
 			//몸통 장착시
 			if (IntersectRect(&rc, &(m_pTempItem->rc), &(m_pInventoryUiEquipTorso->rc)))
