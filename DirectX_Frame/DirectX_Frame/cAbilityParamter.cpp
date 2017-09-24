@@ -10,8 +10,8 @@ cAbilityParamter::cAbilityParamter(void)
 	, m_nMagicDefence(0) , m_nMagicProtecte(0)
 	, m_fStr(0.0f) , m_fInt(0.0f) , m_fDex(0.0f) , m_fWill(0.0f) , m_fLuk(0.0f)
 	, m_fInjury(0.0f) , m_fBalance(0.0f) , m_fPenetration(0.0f)
-	, m_fFood(0.0f) , m_fDownGauge(0.0f) , m_fMoveSpeed(1.0f)
-	, m_fAIElapsedTime(0.0f)
+	, m_fRange(1.0f), m_fFood(0.0f) , m_fDownGauge(0.0f) , m_fMoveSpeed(1.0f)
+	, m_fAIDelayTime(0.0f)
 	, m_bEffective(true)
 {
 }
@@ -22,5 +22,5 @@ cAbilityParamter::~cAbilityParamter(void)
 
 void cAbilityParamter::Update(void)
 {
-	if (m_fAIElapsedTime > 0.0f) m_fAIElapsedTime -= g_pTimeManager->GetElapsedTime();
+	if (m_fAIDelayTime > 0.0f) m_fAIDelayTime -= g_pTimeManager->GetElapsedTime();
 }

@@ -83,16 +83,26 @@ public:
 	virtual void Update(void) override;
 	virtual void Render(void) override;
 
+	void SetupAnimationController(LPCSTR szBoneKey = "더미");
+
 	//상태 변환시 1회만 적용
 	void SetIdenOffensive(void);
 	void SetIdenPeaceful(void);
+	void SetWalkingOffensive(void);
+	void SetWalkingPeaceful(void);
 	void SetRuningOffensive(void);
 	void SetRuningPeaceful(void);
+	void SetAttackOffensive(void);
+	void SetAttackPeaceful(void);
 	//상태 변환시 행동을 반복함
 	void PatternIdenOffensive(void);
 	void PatternIdenPeaceful(void);
+	void PatternWalkingOffensive(void);
+	void PatternWalkingPeaceful(void);
 	void PatternRuningOffensive(void);
 	void PatternRuningPeaceful(void);
+	void PatternAttackOffensive(void);
+	void PatternAttackPeaceful(void);
 	//상태 변화
 	void SetPatternState(DWORD dwPattern);
 
