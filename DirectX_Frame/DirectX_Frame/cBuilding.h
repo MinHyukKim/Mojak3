@@ -34,10 +34,9 @@ public:
 	float GetPosZ(void) { return m_matWorld._43; }
 
 	//static cBuilding* Create(void);
+	void Destroy();
 
 	LPD3DXEFFECT LoadEffect(char * szFilename);
-
-protected:
 	cBuilding(void);
 	virtual ~cBuilding(void);
 

@@ -30,32 +30,32 @@ cBuilding* cMapObjectManager::RegisterMapObject(LPCSTR szFolder, LPCSTR szFilena
 	if (m_mapBuilding.find(szKeyName) == m_mapBuilding.end())
 	{
 		cBuilding* pBuilding = new cBuilding();
-		pSkinnedMesh->Load((LPSTR)szFolder, (LPSTR)szFilename);
-		m_mapSkinnedMesh[szKeyName] = pSkinnedMesh;
+		pBuilding->LoadModel((LPSTR)szFolder, (LPSTR)szFilename);
+		m_mapBuilding[szKeyName] = pBuilding;
 	}
-	return m_mapSkinnedMesh[szKeyName];
+	return m_mapBuilding[szKeyName];
 }
 
 cBuilding * cMapObjectManager::RegisterMapObject(std::string & szFolder, std::string & szFilename, std::string & szKeyName)
 {
-	return this->RegisterSkinnedMesh(szFolder.c_str(), szFilename.c_str(), szKeyName.c_str());
+	return this->RegisterMapObject(szFolder.c_str(), szFilename.c_str(), szKeyName.c_str());
 }
 
 cBuilding* cMapObjectManager::GetMapObject(LPCSTR szKeyName)
 {
-	if (m_mapSkinnedMesh.find(szKeyName) == m_mapSkinnedMesh.end()) return nullptr;
+	if (m_mapBuilding.find(szKeyName) == m_mapBuilding.end()) return nullptr;
 
-	return m_mapSkinnedMesh[szKeyName];
+	return m_mapBuilding[szKeyName];
 }
 
 cBuilding * cMapObjectManager::GetMapObject(std::string & szKeyName)
 {
-	return this->GetSkinnedMesh(szKeyName.c_str());
+	return this->GetMapObject(szKeyName.c_str());
 }
 
 void cMapObjectManager::Destroy()
 {
-	for each(auto it in m_mapSkinnedMesh)
+	for each(auto it in m_mapBuilding)
 	{
 		it.second->Destroy();
 		SAFE_DELETE(it.second);

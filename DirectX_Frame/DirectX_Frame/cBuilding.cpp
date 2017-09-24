@@ -138,15 +138,7 @@ cBuilding::cBuilding(void)
 
 cBuilding::~cBuilding(void)
 {
-	this->Reset();
-	for (int i = 0; i < m_dwNumMaterials; i++)
-	{
-		SAFE_RELEASE(m_pMeshTextures[i]);
-	}
-	SAFE_DELETE_ARRAY(m_pMeshMaterials);
-	SAFE_DELETE_ARRAY(m_pMeshTextures);
-	
-	m_pBuild->Release();
+
 }
 
 //cBuilding* cBuilding::Create(void)
@@ -156,6 +148,21 @@ cBuilding::~cBuilding(void)
 //	return newClass;
 //}
 
+
+void cBuilding::Destroy()
+{
+	//계별적으로 관리함
+	this->Reset();
+	for (int i = 0; i < m_dwNumMaterials; i++)
+	{
+		SAFE_RELEASE(m_pMeshTextures[i]);
+	}
+	SAFE_DELETE_ARRAY(m_pMeshMaterials);
+	SAFE_DELETE_ARRAY(m_pMeshTextures);
+
+	m_pBuild->Release();
+	SAFE_RELEASE(m_pEffect);
+}
 
 LPD3DXEFFECT cBuilding::LoadEffect(char * szFilename)
 {
