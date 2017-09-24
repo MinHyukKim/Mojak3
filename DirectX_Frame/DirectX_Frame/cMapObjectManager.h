@@ -7,6 +7,7 @@ class cMapObjectManager
 {
 private:
 	std::map<std::string, cBuilding*> m_mapBuilding;
+	vector<cBuilding*> m_vecBuilding;
 	cMapObjectManager(void);
 	~cMapObjectManager(void);
 
@@ -19,6 +20,9 @@ public:
 	cBuilding* RegisterMapObject(std::string& szFolder, std::string& szFilename, std::string& szKeyName);
 	cBuilding* GetMapObject(LPCSTR szKeyName);
 	cBuilding* GetMapObject(std::string& szKeyName);
+
+	void Update();
+	void Render();
 
 
 	void Destroy();

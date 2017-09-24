@@ -83,7 +83,7 @@ void cMapToolScene::Update(void)
 	//}
 	if (g_pInputManager->IsOnceKeyDown(VK_RBUTTON))
 	{
-		m_pBuild->SetRotationX(g_pTimeManager->GetElapsedTime());
+		m_pBuild->SetAngleX(g_pTimeManager->GetElapsedTime());
 
 	}
 
