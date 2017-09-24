@@ -46,7 +46,7 @@ public:
 	virtual void Update() override;
 	virtual void Render(LPD3DXSPRITE pSprite) override;
 
-	eButtonStatus GetButtonStatus(void) { return m_eButtonStatus; }
+//	eButtonStatus GetButtonStatus(void) { return m_eButtonStatus; }
 
 
 	D3DXIMAGE_INFO stImageInfo;

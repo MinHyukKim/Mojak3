@@ -34,6 +34,9 @@ enum
 	E_INVENTORY_MOVE = 226,
 	//인벤토리 태스트용
 	E_BUTTON_TEST1 = 227,
+	E_ITEM_WEAR = 228,
+	E_ITEM_WEAPON = 229,
+	E_ITEM_SHOES = 230,
 	E_TEXT_VIEW
 	
 };
@@ -133,6 +136,11 @@ private:
 
 	//임시용 아이탬1 (나중에 뭔가로 다시 받기)
 	cUIButton* m_pTempItem;
+	cUIButton* m_pTempItem2;
+	cUIButton* m_pTempItemArr[5];
+	cUIButton* m_pTempWeapon[2];
+	cUIButton* m_pTempWear[3];
+	cUIButton* m_pTempShoes[2];
 
 	//임시 플레이어
 	//플레이어 보여주기
