@@ -20,7 +20,6 @@ private:
 	//ui테스트용
 	cUiTestScene* m_pUiTest;
 
-	cBuilding* m_pBuild;
 
 public:
 	virtual HRESULT Setup(void) override;

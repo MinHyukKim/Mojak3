@@ -6,6 +6,7 @@ class cMapTerrain;
 
 //테스트용
 class cGrid;
+class cBuilding;
 //class cMapObject;
 
 class cMapToolScene : public cSceneObject
@@ -18,6 +19,8 @@ private:
 	cGrid* m_pGrid;
 	LPDIRECT3DTEXTURE9 m_pTexture;
 	D3DXMATERIAL m_stMtl;
+
+	cBuilding* m_pBuild;
 
 public:
 	virtual HRESULT Setup(void) override;

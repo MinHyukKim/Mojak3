@@ -18,7 +18,6 @@ cCharTestScene::cCharTestScene(void)
 	: m_pCamera(NULL)
 	, m_pMapTerrain(NULL)
 	, m_pUiTest(NULL)
-	, m_pBuild(NULL)
 {
 	//테스트용
 	//m_pMapObject = NULL;
@@ -62,10 +61,6 @@ HRESULT cCharTestScene::Setup(void)
 	m_pUiTest = cUiTestScene::Create();
 	m_pUiTest->Setup();
 
-	m_pBuild = cBuilding::Create();
-	m_pBuild->Setup();
-	m_pBuild->LoadModel("inn.X");
-
 	return S_OK;
 }
 
@@ -76,7 +71,6 @@ void cCharTestScene::Reset(void)
 	//SAFE_RELEASE(m_pMapObject);
 	SAFE_RELEASE(m_pMapTerrain);
 	SAFE_RELEASE(m_pGrid);
-	SAFE_RELEASE(m_pBuild);
 	if (m_pUiTest) SAFE_RELEASE(m_pUiTest);
 }
 
@@ -96,25 +90,16 @@ void cCharTestScene::Update(void)
 		{
 			g_pObjectManager->GetPlayer()->MoveToPlayer(&vTo, 1.0f);
 			g_pObjectManager->GetPlayer()->SetPatternState(cPlayer::PATTERN_RUN_PEACEFUL);
-			
-			//건물위치 테스트용
-			m_pBuild->SetPosition(&vTo);
 
 		}
 	}
 	g_pObjectManager->Update();
 	cPlayer* pPlayer = g_pObjectManager->GetPlayer();
 	float fHeight = pPlayer->GetPosY();
-	float test_build_height = m_pBuild->GetPosY();
 	m_pMapTerrain->GetHeight(&fHeight, pPlayer->GetPosX(), pPlayer->GetPosZ());
-	m_pMapTerrain->GetHeight(&test_build_height, m_pBuild->GetPosX(), m_pBuild->GetPosZ());
 	pPlayer->SetPosY(fHeight);
-	m_pBuild->SetPosY(test_build_height);
-
 	SAFE_UPDATE(m_pCamera);
-
 	if (m_pUiTest) m_pUiTest->Update();
-
 }
 
 void cCharTestScene::Render(void)
@@ -127,7 +112,6 @@ void cCharTestScene::Render(void)
 
 	SAFE_RENDER(m_pGrid);
 
-	SAFE_RENDER(m_pBuild);
 	SAFE_RENDER(g_pObjectManager);
 	if (m_pUiTest) SAFE_RENDER(m_pUiTest);
 }

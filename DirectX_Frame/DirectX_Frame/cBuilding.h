@@ -1,7 +1,7 @@
 /*빌딩 모델을 불러와 렌더하는 클래스*/
 #pragma once
 
-class cBuilding : public cObject
+class cBuilding
 {
 private:
 	//월드의 위치와 회전 값
@@ -15,13 +15,13 @@ private:
 	DWORD               m_dwNumMaterials;
 
 public:
-	virtual HRESULT Setup(void) override;
+	virtual HRESULT Setup(void);
 	LPD3DXMESH LoadModel(const char * filename);
 	LPD3DXMESH LoadModel(char * szFolder, char * szFilename);
 
 	void Reset(void);
-	virtual void Update(void) override;
-	virtual void Render(void) override;
+	virtual void Update(void);
+	virtual void Render(void);
 
 	//좌표 함수
 	D3DXVECTOR3 GetPosition(void) { return D3DXVECTOR3(m_matWorld._41, m_matWorld._42, m_matWorld._43); }

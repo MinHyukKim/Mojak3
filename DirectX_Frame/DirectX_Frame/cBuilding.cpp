@@ -16,7 +16,7 @@ LPD3DXMESH cBuilding::LoadModel(const char * filename)
 
 	LPD3DXBUFFER pD3DXMtrlBuffer;
 
-	LPD3DXMESH ret = NULL;
+	//LPD3DXMESH ret = NULL;
 	if (FAILED(D3DXLoadMeshFromX(filename, D3DXMESH_SYSTEMMEM, g_pD3DDevice, NULL, &pD3DXMtrlBuffer, NULL, &m_dwNumMaterials, &m_pBuild)));
 	{
 		OutputDebugString("¸ðµ¨ ·Îµù ½ÇÆÐ");
@@ -50,7 +50,7 @@ LPD3DXMESH cBuilding::LoadModel(const char * filename)
 	g_pD3DDevice->SetRenderState(D3DRS_AMBIENT, 0xffffffff); // Èò»ö ÁÖº¯±¤
 	g_pD3DDevice->SetRenderState(D3DRS_ZENABLE, TRUE);
 
-	return nullptr;
+	return m_pBuild;
 }
 
 LPD3DXMESH cBuilding::LoadModel(char * szFolder, char * szFilename)
@@ -65,7 +65,7 @@ LPD3DXMESH cBuilding::LoadModel(char * szFolder, char * szFilename)
 
 	LPD3DXBUFFER pD3DXMtrlBuffer;
 
-	LPD3DXMESH ret = NULL;
+	//LPD3DXMESH ret = NULL;
 	if (FAILED(D3DXLoadMeshFromX(sFullPath.c_str(), D3DXMESH_SYSTEMMEM, g_pD3DDevice, NULL, &pD3DXMtrlBuffer, NULL, &m_dwNumMaterials, &m_pBuild)));
 	{
 		OutputDebugString("¸ðµ¨ ·Îµù ½ÇÆÐ");
@@ -132,6 +132,10 @@ void cBuilding::Render(void)
 
 cBuilding::cBuilding(void)
 	:m_pBuild(NULL)
+	, m_pEffect(NULL)
+	, m_pMeshMaterials(NULL)
+	, m_pMeshTextures(NULL)
+	, m_dwNumMaterials(NULL)
 {
 	D3DXMatrixIdentity(&m_matWorld);
 }
