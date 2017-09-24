@@ -5,7 +5,7 @@ class cBuilding
 {
 private:
 	//월드의 위치와 회전 값
-	D3DXMATRIXA16 m_matWorld;
+	D3DXMATRIXA16 m_matWorld, m_matRot;
 	LPD3DXMESH m_pBuild;
 	LPD3DXEFFECT m_pEffect;
 
@@ -33,9 +33,9 @@ public:
 	void SetPosX(float fX) { m_matWorld._41 = fX; }
 	void SetPosY(float fY) { m_matWorld._42 = fY; }
 	void SetPosZ(float fZ) { m_matWorld._43 = fZ; }
-	void SetAngleX(float fX) { angleX += fX; D3DXMatrixRotationX(&m_matWorld, angleX); }
-	void SetAngleY(float fY) { angleY += fY; D3DXMatrixRotationX(&m_matWorld, angleY); }
-	void SetAngleZ(float fZ) { angleZ += fZ; D3DXMatrixRotationX(&m_matWorld, angleZ); }
+	void SetAngleX(float fX) { D3DXMatrixRotationX(&m_matRot, fX); m_matWorld = m_matRot*m_matWorld; }
+	void SetAngleY(float fY) { D3DXMatrixRotationY(&m_matRot, fY); m_matWorld = m_matRot*m_matWorld; }
+	void SetAngleZ(float fZ) { D3DXMatrixRotationZ(&m_matRot, fZ); m_matWorld = m_matRot*m_matWorld; }
 	float GetAngleX() { return angleX; }
 	float GetAngleY() { return angleY; }
 	float GetAngleZ() { return angleZ; }

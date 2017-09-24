@@ -43,11 +43,25 @@ HRESULT cMapToolScene::Setup(void)
 	m_pGrid = cGrid::Create();
 	m_pGrid->Setup();
 	m_pTexture = g_pTexture->GetTexture("./HeightMapData/terrain.jpg");
-
+	
+	//건물 등록
+	g_pMapObjectManager->RegisterMapObject("", "scene_building_tirchonaill_church.x", "church");
+	g_pMapObjectManager->RegisterMapObject("", "inn.x", "inn");
 
 	m_pBuild = new cBuilding();
 	m_pBuild->Setup();
 	m_pBuild->LoadModel("inn.X");
+	m_pBuild->SetPosition(&D3DXVECTOR3(-5, 0, -5));
+
+	g_pMapObjectManager->AppendBuilding(m_pBuild);
+
+	m_pBuild = new cBuilding();
+	m_pBuild->Setup();
+	m_pBuild->LoadModel("inn.X");
+	m_pBuild->SetPosition(&D3DXVECTOR3(0, 0, 0));
+
+	g_pMapObjectManager->AppendBuilding(m_pBuild);
+	g_pMapObjectManager->AppendBuilding(g_pMapObjectManager->GetMapObject("church"));
 
 	return S_OK;
 }
@@ -58,8 +72,11 @@ void cMapToolScene::Reset(void)
 	//테스트용
 	SAFE_RELEASE(m_pMapTerrain);
 	SAFE_RELEASE(m_pGrid);
-	if (m_pBuild) m_pBuild->Destroy();
-	SAFE_DELETE(m_pBuild);
+	//if (m_pBuild) m_pBuild->Destroy();
+	//SAFE_DELETE(m_pBuild);
+	g_pMapObjectManager->Destroy();
+
+
 }
 
 void cMapToolScene::Update(void)
@@ -71,24 +88,48 @@ void cMapToolScene::Update(void)
 	//m_pMapTerrain->GetHeight(&test_build_height, m_pBuild->GetPosX(), m_pBuild->GetPosZ());
 	//m_pBuild->SetPosY(test_build_height);
 
-	//if (g_pInputManager->IsOnceKeyDown(VK_LBUTTON))
-	//{
-	//	D3DXVECTOR3 vTo, vOrg, vDir;
-	//	g_pRay->RayAtWorldSpace(&vOrg, &vDir);
-	//	if (m_pMapTerrain->IsCollision(&vTo, &vOrg, &vDir))
-	//	{
-	//		//건물위치 테스트용
-	//		m_pBuild->SetPosY(vTo.y);
-	//	}
-	//}
-	if (g_pInputManager->IsOnceKeyDown(VK_RBUTTON))
+	if (g_pInputManager->IsOnceKeyDown(VK_LBUTTON))
 	{
-//		m_pBuild->SetRotationX(g_pTimeManager->GetElapsedTime());
+		D3DXVECTOR3 vTo, vOrg, vDir;
+		g_pRay->RayAtWorldSpace(&vOrg, &vDir);
+		if (m_pMapTerrain->IsCollision(&vTo, &vOrg, &vDir))
+		{
+			//건물위치 테스트용
+			g_pMapObjectManager->GetLastMapObject()->SetPosZ(vTo.z);
+			g_pMapObjectManager->GetLastMapObject()->SetPosX(vTo.x);
+		}
+	}
+	
+	if (g_pInputManager->IsStayKeyDown(VK_RBUTTON))
+	{
+		g_pMapObjectManager->GetLastMapObject()->SetAngleY(g_pTimeManager->GetElapsedTime());
 
 	}
 
-}
+	if (g_pInputManager->IsStayKeyDown('1'))
+	{
+		m_pBuild = new cBuilding();
+		m_pBuild->Setup();
+		m_pBuild->LoadModel("inn.X");
+		m_pBuild->SetPosition(&D3DXVECTOR3(0, 0, 0));
+		g_pMapObjectManager->AppendBuilding(m_pBuild);
 
+	}
+
+	if (g_pInputManager->IsStayKeyDown('2'))
+	{
+		m_pBuild = new cBuilding();
+		m_pBuild->Setup();
+		m_pBuild->LoadModel("scene_building_tirchonaill_church.x");
+		m_pBuild->SetPosition(&D3DXVECTOR3(0, 0, 0));
+		g_pMapObjectManager->AppendBuilding(m_pBuild);
+
+	}
+
+	g_pMapObjectManager->Update(m_pMapTerrain);
+
+}
+     
 void cMapToolScene::Render(void)
 {
 	//테스트용
@@ -97,7 +138,8 @@ void cMapToolScene::Render(void)
 	SAFE_RENDER(m_pMapTerrain);
 	SAFE_RENDER(m_pGrid);
 
-	SAFE_RENDER(m_pBuild);
+	//SAFE_RENDER(m_pBuild);
+	g_pMapObjectManager->Render();
 
 }
 

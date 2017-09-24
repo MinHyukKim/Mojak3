@@ -49,6 +49,7 @@
 #include "cObjectManager.h"	//오브젝트
 #include "cRay.h"	//마우스 피킹
 #include "cMath.h"	//간단한 랜덤함수
+#include "cMapObjectManager.h" //맵에 올라갈 오브젝트 관련 함수
 
 //콘솔 디버깅
 #define CONSOLE_DEBUG_TEST
