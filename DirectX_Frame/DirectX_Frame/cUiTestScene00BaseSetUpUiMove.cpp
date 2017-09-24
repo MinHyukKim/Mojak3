@@ -229,20 +229,20 @@ void cUiTestScene::MoveUiWindow(void)
 		if (isPickUpItem == true)
 		{
 			m_pTempItem->isClick = true;
-		//	float temX = m_pTempItem->GetPosition().x + nDeltaX;
-		//	float temY = m_pTempItem->GetPosition().y + nDeltaY;
-		//
-		//	m_pTempItem->SetPosition(temX, temY);
+			float temX = m_pTempItem->GetPosition().x + nDeltaX;
+			float temY = m_pTempItem->GetPosition().y + nDeltaY;
+		
+			m_pTempItem->SetPosition(temX, temY);
 		}
 		//else m_pTempItem->isClick = false;
 
-		else if (m_pTempItem->isClick)
-		{
-			float temX = m_pTempItem->GetPosition().x + nDeltaX;
-			float temY = m_pTempItem->GetPosition().y + nDeltaY;
-
-			m_pTempItem->SetPosition(temX, temY);
-		}
+	//	else if (m_pTempItem->isClick)
+	//	{
+	//		float temX = m_pTempItem->GetPosition().x + nDeltaX;
+	//		float temY = m_pTempItem->GetPosition().y + nDeltaY;
+	//
+	//		m_pTempItem->SetPosition(temX, temY);
+	//	}
 
 		if (isPickUpItem == false)
 		{
@@ -251,6 +251,7 @@ void cUiTestScene::MoveUiWindow(void)
 			//¸öÅë ÀåÂø½Ã
 			if (IntersectRect(&rc, &(m_pTempItem->rc), &(m_pInventoryUiEquipTorso->rc)))
 			{
+				m_pPlayer->ChangeMeshPart(cPlayer::MESH_BODY, g_pSkinnedMeshManager->GetSkinnedMesh("¹Ùµð02"));
 				m_pTempItem->SetPosition(60, 147);
 				m_isTorsoMount = true;
 			}

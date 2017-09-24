@@ -152,7 +152,7 @@ void cUiCustomizingScene::Reset(void)
 	SAFE_RELEASE(m_pCustomColorUi);
 
 	SAFE_RELEASE(m_pNameUi);
-	if (m_pBackImage) SAFE_RELEASE(m_pBackImage);
+	SAFE_RELEASE(m_pBackImage);
 }
 
 void cUiCustomizingScene::Update(void)
