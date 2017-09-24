@@ -87,6 +87,9 @@ HRESULT cUiTestScene::Setup(void)
 	//인벤토리 창 셋업
 	this->SetupInventoryUi();
 
+	//임시 플레이어 셋업
+	this->SetUpTempPlayer();
+
 	return D3D_OK;
 }
 
@@ -121,6 +124,8 @@ void cUiTestScene::Update(void)
 	if (m_pQuestUi && m_isQuestWindowOn) m_pQuestUi->Update();
 	if (m_pInventoryUi && m_isInventoryWindowOn) m_pInventoryUi->Update();
 
+	//임시 플레이어
+	SAFE_UPDATE(m_pPlayer);
 
 	//이동
 	this->MoveUiWindow();
@@ -133,6 +138,7 @@ void cUiTestScene::Update(void)
 void cUiTestScene::Render(void)
 {
 	g_pD3DDevice->SetTexture(0, m_pTexture);
+	SAFE_RENDER(m_pPlayer);
 	if (m_pUiRoot) m_pUiRoot->Render(m_pSprite);
 	if (m_pInfoUi && m_isInfoWindowOn) m_pInfoUi->Render(m_pSprite);
 	if (m_pSkillUi && m_isSkillWindowOn) m_pSkillUi->Render(m_pSprite);

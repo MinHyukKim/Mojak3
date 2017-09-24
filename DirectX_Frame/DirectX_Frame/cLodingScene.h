@@ -2,6 +2,7 @@
 #include "cSceneObject.h"
 
 #define NEXT_SCENE "cUiCustomizingScene"
+#define NEXT_SCENE1 "cUiTestScene"
 
 class cDataLoder;
 class cImage;
