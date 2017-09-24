@@ -135,7 +135,7 @@ cBuilding::cBuilding(void)
 	, m_pEffect(NULL)
 	, m_pMeshMaterials(NULL)
 	, m_pMeshTextures(NULL)
-	, m_dwNumMaterials(NULL)
+	, m_dwNumMaterials(0)
 {
 	D3DXMatrixIdentity(&m_matWorld);
 }
@@ -156,7 +156,6 @@ cBuilding::~cBuilding(void)
 void cBuilding::Destroy()
 {
 	//계별적으로 관리함
-	this->Reset();
 	for (int i = 0; i < m_dwNumMaterials; i++)
 	{
 		SAFE_RELEASE(m_pMeshTextures[i]);

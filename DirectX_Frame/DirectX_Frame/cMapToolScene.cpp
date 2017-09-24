@@ -58,7 +58,7 @@ void cMapToolScene::Reset(void)
 	//테스트용
 	SAFE_RELEASE(m_pMapTerrain);
 	SAFE_RELEASE(m_pGrid);
-	m_pBuild->Destroy();
+	if (m_pBuild) m_pBuild->Destroy();
 }
 
 void cMapToolScene::Update(void)
