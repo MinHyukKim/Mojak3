@@ -30,6 +30,8 @@ public:
 		ANIMATION_WALK_PEACEFUL,
 		ANIMATION_RUN_OFFENSIVE,
 		ANIMATION_RUN_PEACEFUL,
+		ANIMATION_ATTACK_OFFENSIVE,
+		ANIMATION_ATTACK_PEACEFUL,
 		ANIMATION_TEST1,
 		ANIMATION_TEST2,
 		ANIMATION_TEST3,
@@ -110,7 +112,7 @@ public:
 	DWORD RegisterAnimation(IN DWORD dwAnimationKey, IN LPD3DXANIMATIONSET pAnimation);
 	LPD3DXANIMATIONCONTROLLER GetAnimationController(void) { return m_pAnimationController; }
 	void SetAnimation(IN DWORD dwAnimationKey);
-	void SetBlendingAnimation(IN DWORD dwAnimationKey, IN float fTravel = 0.1f);
+	float SetBlendingAnimation(IN DWORD dwAnimationKey, IN float fTravel = 0.1f);
 	bool ExportAnimation(OUT LPD3DXANIMATIONSET* ppAnimation, IN DWORD dwAnimationKey = 0);
 	void SetMainTrackSpeed(float fSpeed) { m_pAnimationController->SetTrackSpeed(m_bCurrentTrack, fSpeed); }
 	void SetSubTrackSpeed(float fSpeed) { m_pAnimationController->SetTrackSpeed(!m_bCurrentTrack, fSpeed); }
@@ -145,6 +147,7 @@ public:
 	//이동 함수
 	void MoveToPlayer(LPD3DXVECTOR3 pTo, float fSpeed);
 	void MoveToPlayer(LPD3DXVECTOR3 pTo);
+	void MoveToStop(void);
 
 	//액션 인공지능 함수
 	void PlayerToTarget(float fRange);	//타겟변경

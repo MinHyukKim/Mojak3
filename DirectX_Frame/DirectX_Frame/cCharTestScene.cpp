@@ -32,6 +32,8 @@ HRESULT cCharTestScene::Setup(void)
 	pPlater->RegisterAnimation(cPlayer::ANIMATION_WALK_OFFENSIVE, g_pAnimationManager->GetAnimation("여성_걷기02"));
 	pPlater->RegisterAnimation(cPlayer::ANIMATION_RUN_PEACEFUL, g_pAnimationManager->GetAnimation("여성_달리기01"));
 	pPlater->RegisterAnimation(cPlayer::ANIMATION_RUN_OFFENSIVE, g_pAnimationManager->GetAnimation("여성_달리기02"));
+	pPlater->RegisterAnimation(cPlayer::ANIMATION_ATTACK_PEACEFUL, g_pAnimationManager->GetAnimation("여성_공격01"));
+	pPlater->RegisterAnimation(cPlayer::ANIMATION_ATTACK_OFFENSIVE, g_pAnimationManager->GetAnimation("여성_공격02"));
 
 	m_pCamera = g_pObjectManager->GetPlayer()->GetCamera();
 	m_pCamera->AddRef();
@@ -49,7 +51,11 @@ HRESULT cCharTestScene::Setup(void)
 	m_pTexture = g_pTexture->GetTexture("./HeightMapData/terrain.jpg");
 
 	g_pObjectManager->CreateMonster(cObjectManager::MONSTER_TEXTER, &D3DXVECTOR3(5.0f, 0.0f, 0.0f));
-	g_pObjectManager->CreateMonster(cObjectManager::MONSTER_TEXTER, &D3DXVECTOR3(0.0f, 0.0f, 5.0f));
+	g_pObjectManager->CreateMonster(cObjectManager::MONSTER_TEXTER, &D3DXVECTOR3(0.0f, 0.0f, 10.0f));
+	g_pObjectManager->CreateMonster(cObjectManager::MONSTER_TEXTER, &D3DXVECTOR3(5.0f, 0.0f, 5.0f));
+	g_pObjectManager->CreateMonster(cObjectManager::MONSTER_TEXTER, &D3DXVECTOR3(1.0f, 0.0f, 5.0f));
+	g_pObjectManager->CreateMonster(cObjectManager::MONSTER_TEXTER, &D3DXVECTOR3(-5.0f, 0.0f, -5.0f));
+	g_pObjectManager->CreateMonster(cObjectManager::MONSTER_TEXTER, &D3DXVECTOR3(0.0f, 0.0f, -10.0f));
 
 	return S_OK;
 }
