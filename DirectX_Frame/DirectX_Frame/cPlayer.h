@@ -136,7 +136,7 @@ public:
 	void MoveToPlayer(LPD3DXVECTOR3 pTo, float fSpeed);
 	void MoveToPlayer(LPD3DXVECTOR3 pTo);
 
-	//인공지능 함수
+	//액션 인공지능 함수
 	void PlayerToTarget(float fRange);	//타겟변경
 	void TargetView(void) { this->SetDirection(&(m_pTarget->GetPosition() - this->GetPosition()));}
 	void AutoTarget(float fRange);	//타겟변경
@@ -146,8 +146,9 @@ public:
 	void KeepToTarget(float fRange, float fSpeed);
 	void RotationToTarget(float fAngle);	//타겟을 해당각도방향으로 직선이동합니다. (범위 : -D3DX_PI ~ D3DX_PI)
 	void RotationToTarget(float fAngle, float fSpeed);
-	float LengthSqTarget(void);	//타겟과 거리
-	float LengthTarget(void);
+	//조건 함수
+	bool DistSqTarget(OUT float* pDist); //타겟과 거리
+	bool DistTarget(OUT float* pDist);
 
 	cAbilityParamter* GetAbilityParamter(void) { return &m_AbilityParamter; }
 	cCamera* GetCamera(void) { return m_pCamera; }

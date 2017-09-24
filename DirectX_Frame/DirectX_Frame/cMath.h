@@ -18,6 +18,8 @@ public:
 	const float Random(float fNum) { return ((float)rand() / (float)RAND_MAX * fNum); }
 	const float Random(float fFrom, float fTo) { return ((float)rand() / (float)RAND_MAX * (fTo - fFrom) + fFrom); }
 
+	const bool Probability(float fPercent) { return Random(100.0f) <= fPercent; }
+
 	static cMath* GetInstance(void) { static cMath instance; return &instance; }
 private:
 	cMath(void);

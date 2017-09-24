@@ -128,7 +128,8 @@ void cPlayer::PatternIdenOffensive(void)
 {
 	if (2 == m_AbilityParamter.GetPlayerID()) //컴퓨터 일때
 	{
-		if (m_pTarget && 9.0f > this->LengthSqTarget())
+		float fDistSq;
+		if (this->DistSqTarget(&fDistSq) && 9.0f > fDistSq)
 		{
 			this->TargetView();
 			if (m_AbilityParamter.IsElapsedTime())
@@ -157,9 +158,10 @@ void cPlayer::PatternIdenPeaceful(void)
 {
 	if (2 == m_AbilityParamter.GetPlayerID()) //컴퓨터 일때
 	{
-		if (m_pTarget)
+		float fDistSq;
+		if (this->DistSqTarget(&fDistSq))
 		{
-			if (9.0f > this->LengthSqTarget())
+			if (9.0f > fDistSq)
 			{
 				this->SetPatternState(cPlayer::PATTERN_IDEN_OFFENSIVE);
 			}
@@ -575,17 +577,18 @@ void cPlayer::RotationToTarget(float fAngle, float fSpeed)
 	this->m_pActionMove->SetToPlay(&(m_pTarget->GetPosition() + vDir), fSpeed);
 }
 
-float cPlayer::LengthSqTarget(void)
+bool cPlayer::DistSqTarget(OUT float * pDist)
 {
-	if (!m_pTarget) return -1.0f;
-	return D3DXVec3LengthSq(&(m_pTarget->GetPosition() - this->GetPosition()));
-
+	if (!m_pTarget) return false;
+	(*pDist) = D3DXVec3LengthSq(&(m_pTarget->GetPosition() - this->GetPosition()));
+	return true;
 }
 
-float cPlayer::LengthTarget(void)
+bool cPlayer::DistTarget(OUT float * pDist)
 {
-	if (!m_pTarget) return -1.0f;
-	return D3DXVec3Length(&(m_pTarget->GetPosition() - this->GetPosition()));
+	if (!m_pTarget) return false;
+	(*pDist) = D3DXVec3Length(&(m_pTarget->GetPosition() - this->GetPosition()));
+	return true;
 }
 
 cPlayer* cPlayer::Create(void)
