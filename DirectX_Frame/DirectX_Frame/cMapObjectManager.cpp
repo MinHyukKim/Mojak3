@@ -53,12 +53,54 @@ cBuilding * cMapObjectManager::GetMapObject(std::string & szKeyName)
 	return this->GetMapObject(szKeyName.c_str());
 }
 
+void cMapObjectManager::AppendBuilding(cBuilding * build)
+{
+	m_vecBuilding.push_back(build);
+}
+
+cBuilding * cMapObjectManager::GetLastMapObject()
+{
+	if (m_vecBuilding.size() > 0)
+	{
+		return m_vecBuilding[m_vecBuilding.size() - 1];
+	}
+	else return nullptr;
+}
+
+void cMapObjectManager::Update()
+{
+	if (m_vecBuilding.size() > 0)
+	{
+		for (int i = 0; i < m_vecBuilding.size(); i++)
+		{
+			m_vecBuilding[i]->Update();
+		}
+	}
+}
+
+void cMapObjectManager::Render()
+{
+	if (m_vecBuilding.size() > 0)
+	{
+		for (int i = 0; i < m_vecBuilding.size(); i++)
+		{
+			m_vecBuilding[i]->Render();
+		}
+	}
+}
+
 void cMapObjectManager::Destroy()
 {
 	for each(auto it in m_mapBuilding)
 	{
 		it.second->Destroy();
 		SAFE_DELETE(it.second);
+	}
+
+	for each(auto it in m_vecBuilding)
+	{
+		it->Destroy();
+		SAFE_DELETE(it);
 	}
 
 }

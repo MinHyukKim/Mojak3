@@ -141,6 +141,8 @@ cBuilding::cBuilding(void)
 	, angleZ(0.0f)
 {
 	D3DXMatrixIdentity(&m_matWorld);
+	D3DXMatrixIdentity(&m_matRot);
+
 }
 
 cBuilding::~cBuilding(void)

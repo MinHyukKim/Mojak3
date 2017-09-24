@@ -7,7 +7,7 @@ class cMapObjectManager
 {
 private:
 	std::map<std::string, cBuilding*> m_mapBuilding;
-	vector<cBuilding*> m_vecBuilding;
+	std::vector<cBuilding*> m_vecBuilding;
 	cMapObjectManager(void);
 	~cMapObjectManager(void);
 
@@ -20,6 +20,11 @@ public:
 	cBuilding* RegisterMapObject(std::string& szFolder, std::string& szFilename, std::string& szKeyName);
 	cBuilding* GetMapObject(LPCSTR szKeyName);
 	cBuilding* GetMapObject(std::string& szKeyName);
+
+	//백터에 건물 클래스 추가하는 함수
+	void AppendBuilding(cBuilding* build);
+	//마지막으로 추가된 맵 오브젝트를 반환하는 함수(임시)
+	cBuilding* GetLastMapObject();
 
 	void Update();
 	void Render();

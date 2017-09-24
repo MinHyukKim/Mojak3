@@ -48,6 +48,19 @@ HRESULT cMapToolScene::Setup(void)
 	m_pBuild = new cBuilding();
 	m_pBuild->Setup();
 	m_pBuild->LoadModel("inn.X");
+	m_pBuild->SetPosition(&D3DXVECTOR3(-5, 0, -5));
+
+	g_pMapObjectManager->AppendBuilding(m_pBuild);
+
+	m_pBuild = new cBuilding();
+	m_pBuild->Setup();
+	m_pBuild->LoadModel("inn.X");
+	m_pBuild->SetPosition(&D3DXVECTOR3(0, 0, 0));
+
+	g_pMapObjectManager->AppendBuilding(m_pBuild);
+	g_pMapObjectManager->RegisterMapObject("", "inn.X", "inn");
+
+	g_pMapObjectManager->AppendBuilding(g_pMapObjectManager->GetMapObject("inn"));
 
 	return S_OK;
 }
@@ -58,8 +71,11 @@ void cMapToolScene::Reset(void)
 	//테스트용
 	SAFE_RELEASE(m_pMapTerrain);
 	SAFE_RELEASE(m_pGrid);
-	if (m_pBuild) m_pBuild->Destroy();
-	SAFE_DELETE(m_pBuild);
+	//if (m_pBuild) m_pBuild->Destroy();
+	//SAFE_DELETE(m_pBuild);
+	g_pMapObjectManager->Destroy();
+
+
 }
 
 void cMapToolScene::Update(void)
@@ -81,14 +97,20 @@ void cMapToolScene::Update(void)
 	//		m_pBuild->SetPosY(vTo.y);
 	//	}
 	//}
-	if (g_pInputManager->IsOnceKeyDown(VK_RBUTTON))
+	if (g_pInputManager->IsStayKeyDown(VK_RBUTTON))
 	{
-		m_pBuild->SetAngleX(g_pTimeManager->GetElapsedTime());
+		m_pBuild->SetAngleY(g_pTimeManager->GetElapsedTime());
 
 	}
+	if (g_pInputManager->IsOnceKeyDown(VK_LBUTTON))
+	{
+		m_pBuild->SetPosition(&D3DXVECTOR3(-5, 0, -5));
+
+	}
+	g_pMapObjectManager->Update();
 
 }
-
+     
 void cMapToolScene::Render(void)
 {
 	//테스트용
@@ -97,7 +119,8 @@ void cMapToolScene::Render(void)
 	SAFE_RENDER(m_pMapTerrain);
 	SAFE_RENDER(m_pGrid);
 
-	SAFE_RENDER(m_pBuild);
+	//SAFE_RENDER(m_pBuild);
+	g_pMapObjectManager->Render();
 
 }
 
