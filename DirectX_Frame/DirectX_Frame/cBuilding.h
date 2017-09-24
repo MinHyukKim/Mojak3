@@ -7,6 +7,7 @@ private:
 	//월드의 위치와 회전 값
 	D3DXMATRIXA16 m_matWorld;
 	LPD3DXMESH m_pBuild;
+	LPD3DXEFFECT m_pEffect;
 
 	//LPD3DXMESH m_pMesh;
 	D3DMATERIAL9*       m_pMeshMaterials;
@@ -16,6 +17,8 @@ private:
 public:
 	virtual HRESULT Setup(void) override;
 	LPD3DXMESH LoadModel(const char * filename);
+	LPD3DXMESH LoadModel(char * szFolder, char * szFilename);
+
 	void Reset(void);
 	virtual void Update(void) override;
 	virtual void Render(void) override;
@@ -30,7 +33,9 @@ public:
 	float GetPosY(void) { return m_matWorld._42; }
 	float GetPosZ(void) { return m_matWorld._43; }
 
-	static cBuilding* Create(void);
+	//static cBuilding* Create(void);
+
+	LPD3DXEFFECT LoadEffect(char * szFilename);
 
 protected:
 	cBuilding(void);
