@@ -9,6 +9,9 @@ class cUIImageView;
 class cUIButton;
 class cUITextView;
 class iButtonDelegate;
+//임시 플레이어
+class cPlayer;
+class cCamera;
 
 enum
 {
@@ -128,8 +131,15 @@ private:
 	//마우스 음직임 받기용
 	POINT m_ptMouse;
 
-	//임시용 (나중에 뭔가로 다시 받기)
+	//임시용 아이탬1 (나중에 뭔가로 다시 받기)
 	cUIButton* m_pTempItem;
+
+	//임시 플레이어
+	//플레이어 보여주기
+	cPlayer* m_pPlayer;
+	cSkinnedMesh* pSkinMesh;
+	//임시 캐매라
+	cCamera* m_pMainCamera;
 
 public:
 	virtual HRESULT Setup(void) override;
@@ -138,6 +148,7 @@ public:
 	void SetupSkillUi(void);
 	void SetupQuestUi(void);
 	void SetupInventoryUi(void);
+	void SetUpTempPlayer(void);
 	virtual void Reset(void) override;
 	virtual void Update(void) override;
 	void MoveUiWindow(void);

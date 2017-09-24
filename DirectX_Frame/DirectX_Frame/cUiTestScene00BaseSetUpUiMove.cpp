@@ -6,6 +6,9 @@
 #include "cUIImageView.h"
 #include "cUITextView.h"
 #include "cUIButton.h"
+//플레이어
+#include "cPlayer.h"
+#include "cCamera.h"
 
 void cUiTestScene::SetupBaseButton(void)
 {
@@ -129,10 +132,10 @@ void cUiTestScene::MoveUiWindow(void)
 			&& m_pQuestUiMoveing->isClick == false)
 		{
 			m_pInventoryUiMoveing->isClick = true;
-			//invX = m_pInventoryUiImageHead->GetPosition().x + nDeltaX; //잡은 윈도우 창에서 음직인 양만큼 더해준다
-			//invY = m_pInventoryUiImageHead->GetPosition().y + nDeltaY;
+			invX = m_pInventoryUiImageHead->GetPosition().x + nDeltaX; //잡은 윈도우 창에서 음직인 양만큼 더해준다
+			invY = m_pInventoryUiImageHead->GetPosition().y + nDeltaY;
 
-			//m_pInventoryUiImageHead->SetPosition(invX, invY);
+			m_pInventoryUiImageHead->SetPosition(invX, invY);
 		}
 		else m_pInventoryUiMoveing->isClick = false;
 	}

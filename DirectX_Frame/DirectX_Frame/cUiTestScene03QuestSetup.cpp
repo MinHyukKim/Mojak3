@@ -6,6 +6,9 @@
 #include "cUIImageView.h"
 #include "cUITextView.h"
 #include "cUIButton.h"
+//플레이어
+#include "cPlayer.h"
+#include "cCamera.h"
 
 void cUiTestScene::SetupQuestUi(void)
 {

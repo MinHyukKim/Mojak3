@@ -17,6 +17,8 @@ private:
 	cDataLoder* m_pData;
 	LPD3DXSPRITE m_pSprite;
 	cImage* m_pLodingImage;
+	cImage* m_pLoadingBarImage; //로딩바 이미지
+	cImage* m_pLoadingGaugeImage; //로딩바 게이지
 	cFont* m_pFont;
 
 public:

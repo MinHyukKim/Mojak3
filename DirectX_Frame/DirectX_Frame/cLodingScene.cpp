@@ -11,6 +11,8 @@ cLodingScene::cLodingScene(void)
 	, m_pLodingImage(nullptr)
 	, m_pFont(nullptr)
 	, m_pThread(nullptr)
+	, m_pLoadingGaugeImage(nullptr)
+	, m_pLoadingBarImage(nullptr)
 {
 	D3DXMatrixIdentity(&m_matWorldMatrix);
 }
@@ -33,14 +35,24 @@ HRESULT cLodingScene::Setup(void)
 	LPDIRECT3DTEXTURE9 imageData;
 	RECT rc;
 	GetClientRect(g_hWnd, &rc);
-	imageData = g_pTexture->GetTextureEx("./Texture/Title.jpg",&imageInfo);
 
+	imageData = g_pTexture->GetTextureEx("./Texture/Title.jpg",&imageInfo);
 	m_pLodingImage = cImage::Create();
 	m_pLodingImage->Setup(imageInfo, imageData);
 	m_matWorldMatrix._41 = rc.right / 2.0f;
 	m_matWorldMatrix._42 = rc.bottom / 2.0f;
 	m_matWorldMatrix._11 = (float)rc.right / (float)imageInfo.Width;
 	m_matWorldMatrix._22 = (float)rc.bottom / (float)imageInfo.Height;
+	m_pLodingImage->SetWorldMatrix(&m_matWorldMatrix);
+
+	//·Îµù
+	D3DXMatrixIdentity(&m_matWorldMatrix);
+	imageData = g_pTexture->GetTextureEx("./Texture/loading_bar.dds", &imageInfo);
+	m_pLoadingGaugeImage = cImage::Create();
+	m_pLoadingGaugeImage->Setup(imageInfo, imageData);
+	m_matWorldMatrix._41 = rc.right / 2.0f;
+	m_matWorldMatrix._42 = rc.bottom / 2.0f;
+	m_pLoadingGaugeImage->SetWorldMatrix(&m_matWorldMatrix);
 
 	SAFE_RELEASE(m_pData);
 	m_pData = cDataLoder::Create();
@@ -69,7 +81,8 @@ void cLodingScene::Reset(void)
 	SAFE_RELEASE(m_pData);
 	SAFE_RELEASE(m_pSprite);
 	SAFE_RELEASE(m_pLodingImage);
-
+	SAFE_RELEASE(m_pLoadingGaugeImage);
+	SAFE_RELEASE(m_pLoadingBarImage);
 }
 
 void cLodingScene::Update(void)
@@ -89,12 +102,14 @@ void cLodingScene::Update(void)
 
 void cLodingScene::Render(void)
 {
-	m_pSprite->SetTransform(&m_matWorldMatrix);
 	m_pSprite->Begin(D3DXSPRITE_ALPHABLEND | D3DXSPRITE_SORT_TEXTURE);
 
-	if (m_pLodingImage) m_pLodingImage->Draw(m_pSprite);
+	if (m_pLoadingGaugeImage) m_pLoadingGaugeImage->Draw(m_pSprite);
 
+	//if (m_pLodingImage) m_pLodingImage->Draw(m_pSprite);
 	m_pSprite->End();
+	
+
 	SAFE_RENDER(m_pFont);
 }
 
