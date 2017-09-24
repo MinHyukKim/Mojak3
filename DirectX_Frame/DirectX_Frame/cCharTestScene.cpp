@@ -63,7 +63,7 @@ HRESULT cCharTestScene::Setup(void)
 
 	m_pBuild = cBuilding::Create();
 	m_pBuild->Setup();
-	m_pBuild->LoadModel("scene_building_tirchonaill_church.x");
+	m_pBuild->LoadModel("inn.X");
 
 	return S_OK;
 }
@@ -95,6 +95,10 @@ void cCharTestScene::Update(void)
 		{
 			g_pObjectManager->GetPlayer()->MoveToPlayer(&vTo, 1.0f);
 			g_pObjectManager->GetPlayer()->SetPatternState(cPlayer::PATTERN_RUN_PEACEFUL);
+			
+			//건물위치 테스트용
+			m_pBuild->SetPosition(&vTo);
+
 		}
 	}
 	g_pObjectManager->Update();
