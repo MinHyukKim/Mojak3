@@ -104,11 +104,35 @@ void cUiTestScene::SetupInventoryUi(void)
 //	m_pInventoryUiEquipShoes->SetTag(E_BUTTON_NONE);
 //	m_pInventoryUi->AddChild(m_pInventoryUiEquipShoes);
 
-	m_pTempItem = cUIButton::Create();
-	m_pTempItem->SetTexture("Texture/Ui/testItem1-1.png",
-		"Texture/Ui/testItem1-1.png",
-		"Texture/Ui/testItem1-1.png");
-	m_pTempItem->SetPosition(160, 90);
-	m_pTempItem->SetTag(E_BUTTON_TEST1);
-	m_pInventoryUi->AddChild(m_pTempItem);
+	//임시
+//	m_pTempItem = cUIButton::Create();
+//	m_pTempItem->SetTexture("Texture/Ui/testItem1-1.png",
+//		"Texture/Ui/testItem1-1.png",
+//		"Texture/Ui/testItem1-1.png");
+//	m_pTempItem->SetPosition(160, 90);
+//	m_pTempItem->SetTag(E_BUTTON_TEST1);
+//	m_pInventoryUi->AddChild(m_pTempItem);
+	//임시2
+	//m_pTempItemArr
+//	for (int i = 0; i < 5; i++)
+//	{
+		m_pTempItemArr[0] = cUIButton::Create();
+		m_pTempItemArr[0]->SetTexture("Texture/Ui/testItem1-2.png"
+			, "Texture/Ui/testItem1-2.png"
+			, "Texture/Ui/testItem1-2.png");
+		m_pTempItemArr[0]->SetPosition(160, 90);
+		m_pTempItemArr[0]->SetDelegate(this);
+		m_pTempItemArr[0]->SetTag(E_ITEM_WEAR1);
+		m_pInventoryUi->AddChild(m_pTempItemArr[0]);
+
+//		m_pTempItemArr[1] = cUIButton::Create();
+//		m_pTempItemArr[1]->SetTexture("Texture/Ui/testItem2-1.png"
+//			, "Texture/Ui/testItem2-1.png"
+//			, "Texture/Ui/testItem2-1.png"); //60, 147
+//	//	m_pTempItemArr[1]->SetPosition(160 + 48, 90);
+//		m_pTempItemArr[1]->SetPosition(60, 147);
+//		m_pTempItemArr[1]->SetDelegate(this);
+//		m_pTempItemArr[1]->SetTag(E_ITEM_WEAR1);
+//		m_pInventoryUi->AddChild(m_pTempItemArr[1]);
+//	}
 }

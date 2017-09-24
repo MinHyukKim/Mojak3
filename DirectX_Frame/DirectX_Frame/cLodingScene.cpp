@@ -118,7 +118,7 @@ void cLodingScene::Update(void)
 	if (m_pData && m_pData->GetLodingGauge() > 1.0f - FLT_EPSILON)
 	{
 		this->Render();
-		g_pSceneManager->ChangeScene(NEXT_SCENE);
+		g_pSceneManager->ChangeScene(NEXT_SCENE1);
 	}
 }
 

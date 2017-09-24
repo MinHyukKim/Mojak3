@@ -12,10 +12,12 @@
 
 void cUiTestScene::changeInventoryImage(void)
 {
+	//ÀÎº¥ Ä­
 	for (int i = 0; i < 60; i++)
 	{
 		RECT rc;
-		if (IntersectRect(&rc, &(m_pInventoryUiBlock[i]->rc), &(m_pTempItem->rc)))
+		if ((IntersectRect(&rc, &(m_pInventoryUiBlock[i]->rc), &(m_pTempItemArr[0]->rc)))
+			/*|| (IntersectRect(&rc, &(m_pInventoryUiBlock[i]->rc), &(m_pTempItemArr[1]->rc)))*/)
 		{
 			m_pInventoryUiBlock[i]->SetTexture("Texture/Ui/inventory2.png"
 				, "Texture/Ui/inventory2.png"
@@ -27,7 +29,7 @@ void cUiTestScene::changeInventoryImage(void)
 				, "Texture/Ui/inventory1.png"
 				, "Texture/Ui/inventory1.png");
 		}
-	}
+	}	
 
 	if (m_isTorsoMount)
 	{

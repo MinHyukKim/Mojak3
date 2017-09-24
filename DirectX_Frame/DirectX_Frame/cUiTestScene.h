@@ -16,6 +16,7 @@ class cCamera;
 enum
 {
 	E_BUTTON_NONE,
+//	E_TORSO
 	//메인 버튼들
 	E_MAIN_BUTTON_PLAYER_INFO = 213,
 	E_MAIN_BUTTON_SKILL = 214,
@@ -35,10 +36,25 @@ enum
 	//인벤토리 태스트용
 	E_BUTTON_TEST1 = 227,
 	E_ITEM_WEAR = 228,
-	E_ITEM_WEAPON = 229,
-	E_ITEM_SHOES = 230,
+	E_ITEM_WEAR1 = 229,
+	E_ITEM_WEAR2 = 230,
+	E_ITEM_WEAR3 = 231,
+	E_ITEM_WEAPON = 232,
+	E_ITEM_WEAPON1 = 233,
+	E_ITEM_WEAPON2 = 234,
+	E_ITEM_SHOES = 235,
 	E_TEXT_VIEW
-	
+};
+
+enum eTorsoSt
+{
+	E_TORSO_NONE,
+	E_TORSO_EMPTY,
+	E_TORSO_0,
+	E_TORSO_1,
+	E_TORSO_2,
+	E_TORSO_3,
+	E_TORSO_END
 };
 
 class cUiTestScene : public cSceneObject, iButtonDelegate
@@ -148,6 +164,8 @@ private:
 	cSkinnedMesh* pSkinMesh;
 	//임시 캐매라
 	cCamera* m_pMainCamera;
+
+	eTorsoSt m_eTorsoSt;
 
 public:
 	virtual HRESULT Setup(void) override;

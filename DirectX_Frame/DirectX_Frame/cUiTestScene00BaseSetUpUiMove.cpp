@@ -126,7 +126,7 @@ void cUiTestScene::MoveUiWindow(void)
 //	if(m_pInventoryUiMoveing->GetButtonStatus() == 1)
 	if (m_pInventoryUiMoveing->isOver)
 	{
-		if (g_pInputManager->IsStayKeyDown(VK_LBUTTON) 
+		if (g_pInputManager->IsStayKeyDown(VK_LBUTTON)
 			&& m_pInfoUiMoveing->isClick == false
 			&& m_pSkillUiMoveing->isClick == false
 			&& m_pQuestUiMoveing->isClick == false)
@@ -146,7 +146,7 @@ void cUiTestScene::MoveUiWindow(void)
 
 		m_pInventoryUiImageHead->SetPosition(invX, invY);
 	}
-	
+
 	//정보 창 무빙
 	if (m_pInfoUiMoveing->isOver)
 	{
@@ -156,12 +156,12 @@ void cUiTestScene::MoveUiWindow(void)
 			&& m_pQuestUiMoveing->isClick == false)
 		{
 			m_pInfoUiMoveing->isClick = true;
-		//	infoX = m_pInfoUiImageHead->GetPosition().x + nDeltaX;
-		//	infoY = m_pInfoUiImageHead->GetPosition().y + nDeltaY;
-		//
-		//	m_pInfoUiImageHead->SetPosition(infoX, infoY);
+			//	infoX = m_pInfoUiImageHead->GetPosition().x + nDeltaX;
+			//	infoY = m_pInfoUiImageHead->GetPosition().y + nDeltaY;
+			//
+			//	m_pInfoUiImageHead->SetPosition(infoX, infoY);
 		}
-		else m_pInfoUiMoveing->isClick = false;	
+		else m_pInfoUiMoveing->isClick = false;
 	}
 	else if (m_pInfoUiMoveing->isClick)
 	{
@@ -212,7 +212,7 @@ void cUiTestScene::MoveUiWindow(void)
 	}
 	else if (m_pQuestUiMoveing->isClick)
 	{
-		m_pQuestUiMoveing->isClick = true;
+	//	m_pQuestUiMoveing->isClick = true;
 		queX = m_pQuestUiImageHead->GetPosition().x + nDeltaX;
 		queY = m_pQuestUiImageHead->GetPosition().y + nDeltaY;
 
@@ -220,57 +220,152 @@ void cUiTestScene::MoveUiWindow(void)
 	}
 
 	//탬무빙 태스트
-	if (m_pTempItem->isOver)
+//	if (m_pTempItem->isOver)
+//	{
+//		if (g_pInputManager->IsOnceKeyDown(VK_LBUTTON))
+//		{
+//			isPickUpItem = !isPickUpItem;
+//		}
+//		if (isPickUpItem == true)
+//		{
+//			m_pTempItem->isClick = true;
+//			float temX = m_pTempItem->GetPosition().x + nDeltaX;
+//			float temY = m_pTempItem->GetPosition().y + nDeltaY;
+//
+//			m_pTempItem->SetPosition(temX, temY);
+//		}
+//
+//		if (isPickUpItem == false)
+//		{
+//			m_pTempItem->isClick = false;
+//			RECT rc;
+//			//몸통 장착시
+//			if (IntersectRect(&rc, &(m_pTempItem->rc), &(m_pInventoryUiEquipTorso->rc)))
+//			{
+//				//	m_pPlayer->ChangeMeshPart(cPlayer::MESH_BODY, g_pSkinnedMeshManager->GetSkinnedMesh("바디02"));
+//				m_pTempItem->SetPosition(60, 147);
+//				m_isTorsoMount = true;
+//			}
+//			//인벤토리 칸의 나머지 클릭하면 재자리로(미완)
+//			else if (IntersectRect(&rc, &(m_pTempItem->rc), &(m_pInventoryUiImage->rc)))
+//			{
+//				m_pTempItem->SetPosition(160, 90);
+//				m_isTorsoMount = false;
+//			}
+//			for (int i = 0; i < 60; i++)
+//			{
+//				if (IntersectRect(&rc, &(m_pInventoryUiBlock[i]->rc), &(m_pTempItem->rc)))
+//				{
+//					//인벤토리 칸의 나머지 클릭하면 재자리로
+//					//임시용 자리 잡기
+//					m_pTempItem->SetPosition(160, 90);
+//					m_isTorsoMount = false;
+//				}
+//			}
+//		}
+//	}
+
+	//무빙 태스트(드래그)
+
+	//임시0탬
+	if (m_pTempItemArr[0]->isOver)
 	{
-		if (g_pInputManager->IsOnceKeyDown(VK_LBUTTON))
+		if (g_pInputManager->IsStayKeyDown(VK_LBUTTON)
+			&& m_pInfoUiMoveing->isClick == false
+			&& m_pSkillUiMoveing->isClick == false
+			&& m_pQuestUiMoveing->isClick == false
+			/*&& m_pTempItemArr[1]->isClick == false*/)
 		{
-			isPickUpItem = !isPickUpItem;
+			m_pTempItemArr[0]->isClick = true;
 		}
-		if (isPickUpItem == true)
-		{
-			m_pTempItem->isClick = true;
-			float temX = m_pTempItem->GetPosition().x + nDeltaX;
-			float temY = m_pTempItem->GetPosition().y + nDeltaY;
-		
-			m_pTempItem->SetPosition(temX, temY);
-		}
-		//else m_pTempItem->isClick = false;
+		else m_pTempItemArr[0]->isClick = false;
+	}
+	else if (m_pTempItemArr[0]->isClick)
+	{
+		float TestX = m_pTempItemArr[0]->GetPosition().x + nDeltaX;
+		float TestY = m_pTempItemArr[0]->GetPosition().y + nDeltaY;
 
-	//	else if (m_pTempItem->isClick)
-	//	{
-	//		float temX = m_pTempItem->GetPosition().x + nDeltaX;
-	//		float temY = m_pTempItem->GetPosition().y + nDeltaY;
-	//
-	//		m_pTempItem->SetPosition(temX, temY);
-	//	}
+		m_pTempItemArr[0]->SetPosition(TestX, TestY);
+	}
+	if (m_pTempItemArr[0]->isClick == false) //마우스 놓을시
+	{
+		RECT rc;
 
-		if (isPickUpItem == false)
+		for (int i = 0; i < 60; i++)
 		{
-			m_pTempItem->isClick = false;
-			RECT rc;
-			//몸통 장착시
-			if (IntersectRect(&rc, &(m_pTempItem->rc), &(m_pInventoryUiEquipTorso->rc)))
+			//인벤칸
+			if (IntersectRect(&rc, &(m_pTempItemArr[0]->rc), &(m_pInventoryUiBlock[i]->rc)))
 			{
-				m_pPlayer->ChangeMeshPart(cPlayer::MESH_BODY, g_pSkinnedMeshManager->GetSkinnedMesh("바디02"));
-				m_pTempItem->SetPosition(60, 147);
-				m_isTorsoMount = true;
-			}
-			//인벤토리 칸의 나머지 클릭하면 재자리로(미완)
-			else if (IntersectRect(&rc, &(m_pTempItem->rc), &(m_pInventoryUiImage->rc)))
-			{
-				m_pTempItem->SetPosition(160, 90);
+				m_pTempItemArr[0]->SetPosition(160, 90);
 				m_isTorsoMount = false;
 			}
-			for (int i = 0; i < 60; i++)
+			//몸통 장착시
+			else if (IntersectRect(&rc, &(m_pTempItemArr[0]->rc), &(m_pInventoryUiEquipTorso->rc)))
 			{
-				if (IntersectRect(&rc, &(m_pInventoryUiBlock[i]->rc), &(m_pTempItem->rc)))
-				{
-					//인벤토리 칸의 나머지 클릭하면 재자리로
-					//임시용 자리 잡기
-					m_pTempItem->SetPosition(160, 90);
-					m_isTorsoMount = false;
-				}
+				m_pTempItemArr[0]->SetPosition(60, 147);
+				m_isTorsoMount = true;
+			}
+			//인벤의 다른칸
+			else if (IntersectRect(&rc, &(m_pTempItemArr[0]->rc), &(m_pInventoryUiImage->rc)))
+			{
+				m_pTempItemArr[0]->SetPosition(160 , 90);
+			//	m_isTorsoMount = false;
 			}
 		}
 	}
+
+	//임시1탬
+//	if (m_pTempItemArr[1]->isOver)
+//	{
+//		if (g_pInputManager->IsStayKeyDown(VK_LBUTTON)
+//			&& m_pInfoUiMoveing->isClick == false
+//			&& m_pSkillUiMoveing->isClick == false
+//			&& m_pQuestUiMoveing->isClick == false
+//			&& m_pTempItemArr[0]->isClick == false)
+//		{
+//			m_pTempItemArr[1]->isClick = true;
+//		}
+//		else m_pTempItemArr[1]->isClick = false;
+//	}
+//	else if (m_pTempItemArr[1]->isClick)
+//	{
+//		float TestX = m_pTempItemArr[1]->GetPosition().x + nDeltaX;
+//		float TestY = m_pTempItemArr[1]->GetPosition().y + nDeltaY;
+//
+//		m_pTempItemArr[1]->SetPosition(TestX, TestY);
+//	}
+//	if (m_pTempItemArr[1]->isClick == false) //마우스 놓을시
+//	{
+//		RECT rc;
+//		for (int i = 0; i < 60; i++)
+//		{
+//			//인벤칸
+//			if (IntersectRect(&rc, &(m_pTempItemArr[1]->rc), &(m_pInventoryUiBlock[i]->rc)))
+//			{
+//				m_pTempItemArr[1]->SetPosition(160 + 48, 90);
+//				m_isTorsoMount = false;
+//			}
+//			//몸통 장착시
+//			if (IntersectRect(&rc, &(m_pTempItemArr[1]->rc), &(m_pInventoryUiEquipTorso->rc)))
+//			{
+//				m_pTempItemArr[1]->SetPosition(60, 147);
+//				m_isTorsoMount = true;
+//			}
+//
+//			//인벤의 다른칸
+//			else if (IntersectRect(&rc, &(m_pTempItemArr[1]->rc), &(m_pInventoryUiImage->rc)))
+//			{
+//				m_pTempItemArr[1]->SetPosition(160 + 48, 90);
+//				m_isTorsoMount = false;
+//			}
+//		}
+//	}
+//	//임시
+//	RECT rc;
+//	if (IntersectRect(&rc, &(m_pTempItemArr[1]->rc), &(m_pInventoryUiEquipTorso->rc))
+//		|| IntersectRect(&rc, &(m_pTempItemArr[0]->rc), &(m_pInventoryUiEquipTorso->rc)))
+//	{
+//		m_isTorsoMount = true;
+//	}
+
 }
