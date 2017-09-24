@@ -1,23 +1,17 @@
 #include "stdafx.h"
 #include "cCharTestScene.h"
-#include "cSkinnedMesh.h"
-#include "crtCtl.h"
 
 #include "cCamera.h"
 #include "cMapTerrain.h"
 #include "cPlayer.h"
-#include "cBuilding.h"
 
 //테스트용
 #include "cMapObject.h"
 #include "cGrid.h"
-//ui태스트용
-#include "cUiTestScene.h"
 
 cCharTestScene::cCharTestScene(void)
 	: m_pCamera(NULL)
 	, m_pMapTerrain(NULL)
-	, m_pUiTest(NULL)
 {
 	//테스트용
 	//m_pMapObject = NULL;
@@ -57,30 +51,23 @@ HRESULT cCharTestScene::Setup(void)
 	g_pObjectManager->CreateMonster(cObjectManager::MONSTER_TEXTER, &D3DXVECTOR3(5.0f, 0.0f, 0.0f));
 	g_pObjectManager->CreateMonster(cObjectManager::MONSTER_TEXTER, &D3DXVECTOR3(0.0f, 0.0f, 5.0f));
 
-	//ui태스트용
-	m_pUiTest = cUiTestScene::Create();
-	m_pUiTest->Setup();
-
 	return S_OK;
 }
 
 void cCharTestScene::Reset(void)
 {
 	SAFE_RELEASE(m_pCamera);
+	SAFE_RELEASE(m_pMapTerrain);
+
 	//테스트용
 	//SAFE_RELEASE(m_pMapObject);
-	SAFE_RELEASE(m_pMapTerrain);
 	SAFE_RELEASE(m_pGrid);
-	if (m_pUiTest) SAFE_RELEASE(m_pUiTest);
 }
 
 void cCharTestScene::Update(void)
 {
 	//테스트용
-	if (m_pCamera)
-	{
-		m_pCamera->TestController();
-	}
+	if (m_pCamera) m_pCamera->TestController();
 
 	if (g_pInputManager->IsOnceKeyDown(VK_LBUTTON))
 	{
@@ -90,16 +77,17 @@ void cCharTestScene::Update(void)
 		{
 			g_pObjectManager->GetPlayer()->MoveToPlayer(&vTo, 1.0f);
 			g_pObjectManager->GetPlayer()->SetPatternState(cPlayer::PATTERN_RUN_PEACEFUL);
-
 		}
 	}
-	g_pObjectManager->Update();
+
+	SAFE_UPDATE(g_pObjectManager);
 	cPlayer* pPlayer = g_pObjectManager->GetPlayer();
 	float fHeight = pPlayer->GetPosY();
 	m_pMapTerrain->GetHeight(&fHeight, pPlayer->GetPosX(), pPlayer->GetPosZ());
 	pPlayer->SetPosY(fHeight);
+
 	SAFE_UPDATE(m_pCamera);
-	if (m_pUiTest) m_pUiTest->Update();
+
 }
 
 void cCharTestScene::Render(void)
@@ -113,7 +101,6 @@ void cCharTestScene::Render(void)
 	SAFE_RENDER(m_pGrid);
 
 	SAFE_RENDER(g_pObjectManager);
-	if (m_pUiTest) SAFE_RENDER(m_pUiTest);
 }
 
 cCharTestScene* cCharTestScene::Create(void)

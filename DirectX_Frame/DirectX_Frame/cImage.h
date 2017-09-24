@@ -3,6 +3,7 @@
 class cImage : public cObject
 {
 private:
+	D3DXMATRIXA16 m_matWorld;
 	D3DXIMAGE_INFO m_stImageInfo;
 	LPDIRECT3DTEXTURE9 m_pTexture;
 	D3DCOLOR m_dwColor;
@@ -21,6 +22,8 @@ public:
 	virtual void Draw(LPD3DXSPRITE pSprite);
 	virtual void Draw(LPD3DXSPRITE pSprite, D3DCOLOR dwColor, LPD3DXVECTOR3 pPostion = &D3DXVECTOR3(0.0f, 0.0f, 0.0f), LPD3DXVECTOR2 pAnchor = &D3DXVECTOR2(0.5f, 0.5f));
 
+	void SetWorldMatrix(LPD3DXMATRIX pWorld) { m_matWorld = *pWorld; }
+	LPD3DXMATRIX GetWorldMatrix(void) { return &m_matWorld; }
 
 	static cImage* Create(void);
 private:

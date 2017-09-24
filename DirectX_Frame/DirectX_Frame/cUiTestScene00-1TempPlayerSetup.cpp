@@ -1,9 +1,8 @@
-
 #include "stdafx.h"
-#include "cUiCustomizingScene.h"
-//폰트 용
+#include "cUiTestScene.h"
+//테스트용
 #include "cFont.h"
-//ui
+//ui태스트용
 #include "cUIImageView.h"
 #include "cUITextView.h"
 #include "cUIButton.h"
@@ -11,7 +10,7 @@
 #include "cPlayer.h"
 #include "cCamera.h"
 
-void cUiCustomizingScene::SetupPlayer(void)
+void cUiTestScene::SetUpTempPlayer(void)
 {
 	//플레이어 설정
 	//메시 로드 및 색상 편집pSkinMesh = g_pSkinnedMeshManager->RegisterSkinnedMesh("Chareter/Female_Hair/", "hair_female_hair02_t02.X", "머리스타일");
@@ -35,13 +34,12 @@ void cUiCustomizingScene::SetupPlayer(void)
 	//플레이어 생성
 	m_pPlayer = cPlayer::Create();
 	m_pPlayer->Setup();
-	m_pPlayer->SetupAnimationController();
 	//m_pPlayer->ChangeMeshPartColor(cPlayer::MESH_HAIR, "hair01.dds", &D3DXCOLOR(1.0f, 0.0f, 0.0f, 1.0f));
 	m_pPlayer->ChangeMeshPart(cPlayer::MESH_HAIR, g_pSkinnedMeshManager->GetSkinnedMesh("헤어00"));
 	m_pPlayer->SetTextureHair("hair01.dds");  //헤어.dds
 	m_pPlayer->SetTextureHairColor(&D3DXCOLOR(0.07f, 0.07f, 0.07f, 1.0f)); //헤어 색
-	//m_pPlayer->ChangeMeshPart(cPlayer::MESH_BODY, "Chareter/DefaultPlayer/", "wear_female_3rd_newbie.X");
-	m_pPlayer->ChangeMeshPart(cPlayer::MESH_BODY, g_pSkinnedMeshManager->GetSkinnedMesh("바디02"));
+																		   //m_pPlayer->ChangeMeshPart(cPlayer::MESH_BODY, "Chareter/DefaultPlayer/", "wear_female_3rd_newbie.X");
+	m_pPlayer->ChangeMeshPart(cPlayer::MESH_BODY, g_pSkinnedMeshManager->GetSkinnedMesh("바디01"));
 	//m_pPlayer->ChangeMeshPart(cPlayer::MESH_HAND, "Chareter/Female_Hand/", "basicFist.X");
 	m_pPlayer->ChangeMeshPart(cPlayer::MESH_HAND, g_pSkinnedMeshManager->GetSkinnedMesh("주먹"));
 	//m_pPlayer->ChangeMeshPart(cPlayer::MESH_SHOES, "Chareter/Female_Shoes/", "basicShoes.X");
@@ -60,6 +58,7 @@ void cUiCustomizingScene::SetupPlayer(void)
 	//위치
 	m_pMainCamera->MovePositionZ(4.5f);
 	m_pMainCamera->AxisDirectionY(0);
+//	m_pMainCamera->MovePositionZ
 	//애니메이션 등록
 	//LPD3DXANIMATIONSET pAnimationSet;
 	//g_pAllocateHierarchy->GetAnimationSet(0, &pAnimationSet, "./Chareter/DefaultPlayer/aniTest/ani_female_stand_leftahead.X");
@@ -67,8 +66,8 @@ void cUiCustomizingScene::SetupPlayer(void)
 	//SAFE_RELEASE(pAnimationSet);
 
 	//g_pAnimationManager->RegisterAnimation("./Animation/ani_female_stand_leftahead.X","여성_기본01");
-	m_pPlayer->RegisterAnimation(cPlayer::ANIMATION_IDLE_PEACEFUL, g_pAnimationManager->GetAnimation("여성_기본01") );
+	m_pPlayer->RegisterAnimation(cPlayer::ANIMATION_IDLE_PEACEFUL, g_pAnimationManager->GetAnimation("여성_기본01"));
 	//애니메이션 변형
 	m_pPlayer->SetPatternState(cPlayer::PATTERN_IDEN_PEACEFUL);
-//	m_pPlayer->SetAnimation(cPlayer::ANIMATION_IDLE_PEACEFUL);
+	//	m_pPlayer->SetAnimation(cPlayer::ANIMATION_IDLE_PEACEFUL);
 }
