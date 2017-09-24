@@ -59,6 +59,7 @@ void cMapToolScene::Reset(void)
 	SAFE_RELEASE(m_pMapTerrain);
 	SAFE_RELEASE(m_pGrid);
 	if (m_pBuild) m_pBuild->Destroy();
+	SAFE_DELETE(m_pBuild);
 }
 
 void cMapToolScene::Update(void)
