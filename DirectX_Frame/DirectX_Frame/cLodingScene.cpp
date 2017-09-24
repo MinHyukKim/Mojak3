@@ -8,7 +8,7 @@
 cLodingScene::cLodingScene(void)
 	: m_pData(nullptr)
 	, m_pSprite(nullptr)
-	, m_pLodingImage(nullptr)
+	, m_pLoadingImage(nullptr)
 	, m_pFont(nullptr)
 	, m_pThread(nullptr)
 	, m_pLoadingGaugeImage(nullptr)
@@ -31,28 +31,39 @@ HRESULT cLodingScene::Setup(void)
 	m_pFont->Setup();
 	m_pFont->SetColor(D3DCOLOR_XRGB(255, 255, 255));
 
-	D3DXIMAGE_INFO imageInfo;
 	LPDIRECT3DTEXTURE9 imageData;
 	RECT rc;
 	GetClientRect(g_hWnd, &rc);
 
-	imageData = g_pTexture->GetTextureEx("./Texture/Title.jpg",&imageInfo);
-	m_pLodingImage = cImage::Create();
-	m_pLodingImage->Setup(imageInfo, imageData);
+	//타이틀 그림
+	imageData = g_pTexture->GetTextureEx("./Texture/Title.jpg",&m_stLoadingBar);
+	m_pLoadingImage = cImage::Create();
+	m_pLoadingImage->Setup(m_stLoadingBar, imageData);
 	m_matWorldMatrix._41 = rc.right / 2.0f;
 	m_matWorldMatrix._42 = rc.bottom / 2.0f;
-	m_matWorldMatrix._11 = (float)rc.right / (float)imageInfo.Width;
-	m_matWorldMatrix._22 = (float)rc.bottom / (float)imageInfo.Height;
-	m_pLodingImage->SetWorldMatrix(&m_matWorldMatrix);
+	m_matWorldMatrix._43 = 1.0f;
+	m_matWorldMatrix._11 = (float)rc.right / (float)m_stLoadingBar.Width;
+	m_matWorldMatrix._22 = (float)rc.bottom / (float)m_stLoadingBar.Height;
+	m_pLoadingImage->SetWorldMatrix(&m_matWorldMatrix);
 
-	//로딩
+	//로딩 게이지
 	D3DXMatrixIdentity(&m_matWorldMatrix);
-	imageData = g_pTexture->GetTextureEx("./Texture/loading_bar.dds", &imageInfo);
+	imageData = g_pTexture->GetTextureEx("./Texture/loading_bar.dds", &m_stLoadingBar);
 	m_pLoadingGaugeImage = cImage::Create();
-	m_pLoadingGaugeImage->Setup(imageInfo, imageData);
+	m_pLoadingGaugeImage->Setup(m_stLoadingBar, imageData);
 	m_matWorldMatrix._41 = rc.right / 2.0f;
-	m_matWorldMatrix._42 = rc.bottom / 2.0f;
+	m_matWorldMatrix._42 = rc.bottom / 2.0f * 1.5f;
+	m_matWorldMatrix._43 = 0.5f;
 	m_pLoadingGaugeImage->SetWorldMatrix(&m_matWorldMatrix);
+
+	//로딩 바
+	imageData = g_pTexture->GetTextureEx("./Texture/loading_bar_color.dds", &m_stLoadingBar);
+	m_pLoadingBarImage = cImage::Create();
+	m_pLoadingBarImage->Setup(m_stLoadingBar, imageData);
+	m_matWorldMatrix._41 = rc.right / 2.0f;
+	m_matWorldMatrix._42 = rc.bottom / 2.0f * 1.5f;
+	m_matWorldMatrix._43 = 0.0f;
+	m_pLoadingBarImage->SetWorldMatrix(&m_matWorldMatrix);
 
 	SAFE_RELEASE(m_pData);
 	m_pData = cDataLoder::Create();
@@ -80,7 +91,7 @@ void cLodingScene::Reset(void)
 	SAFE_RELEASE(m_pFont);
 	SAFE_RELEASE(m_pData);
 	SAFE_RELEASE(m_pSprite);
-	SAFE_RELEASE(m_pLodingImage);
+	SAFE_RELEASE(m_pLoadingImage);
 	SAFE_RELEASE(m_pLoadingGaugeImage);
 	SAFE_RELEASE(m_pLoadingBarImage);
 }
@@ -89,9 +100,20 @@ void cLodingScene::Update(void)
 {
 	if (m_pFont)
 	{
+		//로딩 게이지
+		RECT rc;
+		GetClientRect(g_hWnd, &rc);
+		D3DXMatrixIdentity(&m_matWorldMatrix);
+		m_matWorldMatrix._41 = rc.right / 2.0f - m_stLoadingBar.Width * (1.0f - m_pData->GetLodingGauge()) / 2.0f;
+		m_matWorldMatrix._42 = rc.bottom / 2.0f * 1.5f;
+		m_matWorldMatrix._43 = 0.0f;
+		m_pLoadingBarImage->SetWorldMatrix(&m_matWorldMatrix);
+		m_pLoadingBarImage->SetSize(m_stLoadingBar.Width * m_pData->GetLodingGauge(), m_stLoadingBar.Height);
+
+		//로딩 메세지
 		char szText[256] = {};
 		sprintf(szText, "로딩중 %2.2f %%", m_pData->GetLodingGauge() * 100.0f);
-		m_pFont->DrawFont(500, 250, szText);
+		m_pFont->DrawFont(500, 400, szText);
 	}
 	if (m_pData && m_pData->GetLodingGauge() > 1.0f - FLT_EPSILON)
 	{
@@ -104,9 +126,9 @@ void cLodingScene::Render(void)
 {
 	m_pSprite->Begin(D3DXSPRITE_ALPHABLEND | D3DXSPRITE_SORT_TEXTURE);
 
+	if (m_pLoadingImage) m_pLoadingImage->Draw(m_pSprite);
 	if (m_pLoadingGaugeImage) m_pLoadingGaugeImage->Draw(m_pSprite);
-
-	//if (m_pLodingImage) m_pLodingImage->Draw(m_pSprite);
+	if (m_pLoadingBarImage) m_pLoadingBarImage->Draw(m_pSprite);
 	m_pSprite->End();
 	
 

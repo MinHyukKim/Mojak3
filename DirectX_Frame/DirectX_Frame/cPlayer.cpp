@@ -65,8 +65,8 @@ void cPlayer::Update(void)
 	case cPlayer::PATTERN_WALK_PEACEFUL:  break;
 	case cPlayer::PATTERN_RUN_OFFENSIVE: this->PatternRuningOffensive(); break;
 	case cPlayer::PATTERN_RUN_PEACEFUL: this->PatternRuningPeaceful(); break;
-	case cPlayer::PATTERN_ATTACK_OFFENSIVE:  break;
-	case cPlayer::PATTERN_ATTACK_PEACEFUL:  break;
+	case cPlayer::PATTERN_ATTACK_OFFENSIVE: this->PatternAttackOffensive(); break;
+	case cPlayer::PATTERN_ATTACK_PEACEFUL: this->PatternAttackPeaceful(); break;
 	default: break;
 	}
 
@@ -134,14 +134,14 @@ void cPlayer::SetRuningPeaceful(void)
 
 void cPlayer::SetAttackOffensive(void)
 {
-	this->SetSubTrackSpeed(m_AbilityParamter.GetMoveSpeed() * 2.0f);
-	this->SetBlendingAnimation(cPlayer::ANIMATION_RUN_OFFENSIVE);
+	this->SetSubTrackSpeed(5.0f);
+	m_AbilityParamter.SetDelayTime(this->SetBlendingAnimation(cPlayer::ANIMATION_ATTACK_OFFENSIVE));
 }
 
 void cPlayer::SetAttackPeaceful(void)
 {
-	this->SetSubTrackSpeed(m_AbilityParamter.GetMoveSpeed() * 2.0f);
-	this->SetBlendingAnimation(cPlayer::ANIMATION_RUN_PEACEFUL);
+	this->SetSubTrackSpeed(1.0f);
+	this->SetBlendingAnimation(cPlayer::ANIMATION_ATTACK_PEACEFUL);
 }
 
 //전투 준비 상태
@@ -156,7 +156,7 @@ void cPlayer::PatternIdenOffensive(void)
 			if (m_AbilityParamter.IsDelayTime())
 			{
 				m_AbilityParamter.SetDelayTime(g_pMath->Random(3.0f));
-				switch (g_pMath->Random(2))
+				switch (g_pMath->Random(3))
 				{
 				case 0:
 					this->RotationToTarget(g_pMath->Random(-1.0f, 1.0f));
@@ -170,7 +170,7 @@ void cPlayer::PatternIdenOffensive(void)
 
 				case 2:
 					this->GoToTarget();
-					this->SetPatternState(cPlayer::PATTERN_ATTACK_OFFENSIVE);
+					this->SetPatternState(cPlayer::PATTERN_RUN_OFFENSIVE);
 					break;
 
 				default:
@@ -192,7 +192,12 @@ void cPlayer::PatternIdenPeaceful(void)
 		float fDistSq;
 		if (this->DistSqTarget(&fDistSq))
 		{
-			if (9.0f > fDistSq)
+			if (0.5f > fDistSq)
+			{
+				this->MoveToStop();
+				this->SetPatternState(cPlayer::PATTERN_ATTACK_OFFENSIVE);
+			}
+			else if (9.0f > fDistSq)
 			{
 				m_AbilityParamter.SetDelayTime(g_pMath->Random(3.0f));
 				this->SetPatternState(cPlayer::PATTERN_IDEN_OFFENSIVE);
@@ -217,7 +222,16 @@ void cPlayer::PatternRuningOffensive(void)
 	{
 		if (m_pActionMove->IsPlay())
 		{
-			this->SetDirection(&m_pActionMove->GetDirection());
+			float fDist;
+			if (this->DistSqTarget(&fDist) && fDist < 0.5f)
+			{
+				this->MoveToStop();
+				this->SetPatternState(cPlayer::PATTERN_ATTACK_OFFENSIVE);
+			}
+			else
+			{
+				this->SetDirection(&m_pActionMove->GetDirection());
+			}
 		}
 		else
 		{
@@ -248,7 +262,15 @@ void cPlayer::PatternAttackOffensive(void)
 {
 	if (2 == m_AbilityParamter.GetPlayerID()) //컴퓨터 일때
 	{
+		if (m_AbilityParamter.IsDelayTime())
+		{
 
+			m_AbilityParamter.SetDelayTime(g_pMath->Random(3.0f));
+			this->SetPatternState(cPlayer::PATTERN_IDEN_OFFENSIVE);
+		}
+		else
+		{
+		}
 	}
 }
 
@@ -269,8 +291,8 @@ void cPlayer::SetPatternState(DWORD dwPattern)
 	case cPlayer::PATTERN_WALK_PEACEFUL:  break;
 	case cPlayer::PATTERN_RUN_OFFENSIVE: this->SetRuningOffensive(); break;
 	case cPlayer::PATTERN_RUN_PEACEFUL:  this->SetRuningPeaceful(); break;
-	case cPlayer::PATTERN_ATTACK_OFFENSIVE:  break;
-	case cPlayer::PATTERN_ATTACK_PEACEFUL:  break;
+	case cPlayer::PATTERN_ATTACK_OFFENSIVE: this->SetAttackOffensive();  break;
+	case cPlayer::PATTERN_ATTACK_PEACEFUL:  this->SetAttackPeaceful(); break;
 	default: return; // 설정되어 있지 않은 패턴 번호는 무시함
 	}
 	m_dwNumPattern = dwPattern; // 새로운 패턴으로 전환
@@ -385,39 +407,39 @@ void cPlayer::SetAnimation(IN DWORD dwAnimationKey)
 	m_dwNumMainAnimation = m_vecAnimationKey[dwAnimationKey];
 }
 
-void cPlayer::SetBlendingAnimation(IN DWORD dwAnimationKey, IN float fTravel)
+float cPlayer::SetBlendingAnimation(IN DWORD dwAnimationKey, IN float fTravel)
 {
 	DWORD dwNumNextAnimation = m_vecAnimationKey[dwAnimationKey];
-	if (m_dwNumMainAnimation == dwNumNextAnimation) return;
+	if (m_dwNumMainAnimation == dwNumNextAnimation) return -1.0f;
 
 	//초기화 (자세한 내용은 -> 참고.)
 	float fCurrentTime = m_pAnimationController->GetTime();																			//애니메이션 컨트롤러의 현재시간
 	LPD3DXANIMATIONSET pAnimationSet = nullptr;																						//애니메이션 세트 (빈 공간)
 	m_pAnimationController->UnkeyAllTrackEvents(false);																				//0번 트랙의 애니메이션 키 (예비동작) 제거
 	m_pAnimationController->UnkeyAllTrackEvents(true);																				//1번 트랙의 애니메이션 키 (예비동작) 제거
-
-	//애니메이션 속도가 다른 두 애니메이션을 블렌딩할때 문제가 생겨서 해당 기능 비활성화 시킴
-//	D3DXTRACK_DESC pDesc;																											//빈 트랙의 정보 (2017-09-23 기능추가)
-//	m_pAnimationController->GetTrackDesc(m_bCurrentTrack, &pDesc);																	//주 트랙의 정보 (2017-09-23 기능추가)
-//	float fPlayTime = fTravel;																										//다음 애니메이션의 길이 (단위 : 초, 2017-09-23 수정 : 애니메이션의 길이 / 보조 트랙의 속도)
-							//주 트랙을 특정시간 경과후 사용안함 (예비동작 등록)
+	D3DXTRACK_DESC TrackDesc;																										//빈 트랙정보
 
 	//다음 애니메이션 (자세한 내용은 -> 참고.)
 	m_pAnimationController->GetAnimationSet(dwNumNextAnimation, &pAnimationSet);													//다음 애니메이션 세트 생성
 	m_pAnimationController->SetTrackAnimationSet(!m_bCurrentTrack, pAnimationSet);													//보조 트랙에 다음 애니메이션 세트 등록
 	m_pAnimationController->KeyTrackWeight(!m_bCurrentTrack, 1.0f, fCurrentTime, /*fPlayTime **/ fTravel, D3DXTRANSITION_LINEAR);	//보조 트랙에 가중치를 서서히 늘려줌 (예비동작 등록)
 	m_pAnimationController->SetTrackEnable(!m_bCurrentTrack, true);																	//보조 트랙을 사용함
-	SAFE_RELEASE(pAnimationSet);
+	m_pAnimationController->GetTrackDesc(!m_bCurrentTrack, &TrackDesc);																//보조 트랙정보 저장
+	m_pAnimationController->SetTrackPosition(!m_bCurrentTrack, 0.0f);																//보조 트랙 초기화
+	float fPlayTime = pAnimationSet->GetPeriod() / TrackDesc.Speed;																				//다음 애니메이션의 길이 (단위 : 초)
+	SAFE_RELEASE(pAnimationSet);																									//다음 애니메이션 세트 제거 (등록 후 제거)
 
 	//이전 애니메이션 (자세한 내용은 -> 참고.)
 	m_pAnimationController->KeyTrackWeight(m_bCurrentTrack, 0.0f, fCurrentTime, /*fPlayTime **/ fTravel, D3DXTRANSITION_LINEAR);	//주 트랙에 가중치를 서서히 줄임 (예비동작 등록)
-	m_pAnimationController->KeyTrackEnable(m_bCurrentTrack, false, fCurrentTime + /*fPlayTime **/ fTravel);																						//다음 애니메이션 세트 제거 (등록 후 제거)
+	m_pAnimationController->KeyTrackEnable(m_bCurrentTrack, false, fCurrentTime + /*fPlayTime **/ fTravel);							//주 트랙을 일정시간 경과후 사용안함 (예비동작 등록)
 
 
 	//애니메이션 변경 (자세한 내용은 -> 참고.)
 	m_bCurrentTrack = !m_bCurrentTrack;																								//주 트랙의 번호를 바꿈 (0 또는 1 트랙을 2개만 사용)
 	m_dwNumSubAnimation = m_dwNumMainAnimation;																						//주 트랙의 번호를 보조 트랙의 번호로 저장
 	m_dwNumMainAnimation = dwNumNextAnimation;																						//다음 트랙의 번호를 주 트랙의 번호로 저장
+	
+	return fPlayTime;
 }
 
 
@@ -525,11 +547,13 @@ void cPlayer::SetDirection(LPD3DXVECTOR3 pDir)
 	else return;
 
 	D3DXVec3Cross(&vDir, &vDir, &D3DXVECTOR3(0.0f, 1.0f, 0.0f));
+	D3DXVec3Normalize(&vDir, &vDir);
 	m_matWorld._11 = vDir.x, m_matWorld._12 = vDir.y, m_matWorld._13 = vDir.z;
 
 	m_matWorld._21 = 0.0f, m_matWorld._22 = 1.0f, m_matWorld._33 = 0.0f;
 
 	D3DXVec3Cross(&vDir, &vDir, &D3DXVECTOR3(0.0f, 1.0f, 0.0f));
+	D3DXVec3Normalize(&vDir, &vDir);
 	m_matWorld._31 = vDir.x, m_matWorld._32 = vDir.y, m_matWorld._33 = vDir.z;
 }
 
@@ -544,6 +568,12 @@ void cPlayer::MoveToPlayer(LPD3DXVECTOR3 pTo)
 {
 	if (!m_pActionMove) return;
 	this->m_pActionMove->SetToPlay(pTo, m_AbilityParamter.GetMoveSpeed());
+}
+
+void cPlayer::MoveToStop(void)
+{
+	if (!m_pActionMove) return;
+	this->m_pActionMove->Stop();
 }
 
 void cPlayer::PlayerToTarget(float fRange)
