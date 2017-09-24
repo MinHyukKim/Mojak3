@@ -1,6 +1,8 @@
 #include "StdAfx.h"
 #include "cMapObjectManager.h"
 #include "cBuilding.h"
+#include "cMapTerrain.h"
+
 
 cMapObjectManager::cMapObjectManager(void)
 {
@@ -76,6 +78,23 @@ void cMapObjectManager::Update()
 			m_vecBuilding[i]->Update();
 		}
 	}
+}
+
+void cMapObjectManager::Update(cMapTerrain * map)
+{
+	if (m_vecBuilding.size() > 0)
+	{
+		for (int i = 0; i < m_vecBuilding.size(); i++)
+		{
+			//건물 바닥 높이 결정
+			float test_build_height = m_vecBuilding[i]->GetPosY();
+			map->GetHeight(&test_build_height, m_vecBuilding[i]->GetPosX(), m_vecBuilding[i]->GetPosZ());
+			m_vecBuilding[i]->SetPosY(test_build_height);
+
+			m_vecBuilding[i]->Update();
+		}
+	}
+
 }
 
 void cMapObjectManager::Render()

@@ -3,6 +3,9 @@
 
 #define g_pMapObjectManager cMapObjectManager::GetInstance()
 
+
+class cMapTerrain;
+
 class cMapObjectManager
 {
 private:
@@ -10,6 +13,9 @@ private:
 	std::vector<cBuilding*> m_vecBuilding;
 	cMapObjectManager(void);
 	~cMapObjectManager(void);
+
+	cMapTerrain* m_pMapTerrain;
+
 
 public:
 	//½Ì±ÛÅæ »ý¼º
@@ -27,6 +33,8 @@ public:
 	cBuilding* GetLastMapObject();
 
 	void Update();
+	void Update(cMapTerrain* map);
+
 	void Render();
 
 
