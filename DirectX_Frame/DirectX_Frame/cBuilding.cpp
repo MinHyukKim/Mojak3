@@ -136,6 +136,9 @@ cBuilding::cBuilding(void)
 	, m_pMeshMaterials(NULL)
 	, m_pMeshTextures(NULL)
 	, m_dwNumMaterials(0)
+	, angleX(0.0f)
+	, angleY(0.0f)
+	, angleZ(0.0f)
 {
 	D3DXMatrixIdentity(&m_matWorld);
 }

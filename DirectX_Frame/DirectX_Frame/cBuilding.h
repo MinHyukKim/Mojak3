@@ -14,6 +14,10 @@ private:
 	LPDIRECT3DTEXTURE9* m_pMeshTextures;
 	DWORD               m_dwNumMaterials;
 
+	float angleX;
+	float angleY;
+	float angleZ;
+
 public:
 	virtual HRESULT Setup(void);
 	LPD3DXMESH LoadModel(const char * filename);
@@ -29,6 +33,12 @@ public:
 	void SetPosX(float fX) { m_matWorld._41 = fX; }
 	void SetPosY(float fY) { m_matWorld._42 = fY; }
 	void SetPosZ(float fZ) { m_matWorld._43 = fZ; }
+	void SetAngleX(float fX) { angleX += fX; D3DXMatrixRotationX(&m_matWorld, angleX); }
+	void SetAngleY(float fY) { angleY += fY; D3DXMatrixRotationX(&m_matWorld, angleY); }
+	void SetAngleZ(float fZ) { angleZ += fZ; D3DXMatrixRotationX(&m_matWorld, angleZ); }
+	float GetAngleX() { return angleX; }
+	float GetAngleY() { return angleY; }
+	float GetAngleZ() { return angleZ; }
 	float GetPosX(void) { return m_matWorld._41; }
 	float GetPosY(void) { return m_matWorld._42; }
 	float GetPosZ(void) { return m_matWorld._43; }

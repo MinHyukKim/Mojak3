@@ -67,20 +67,26 @@ void cMapToolScene::Update(void)
 	m_pCamera->Update();
 	m_pCamera->TestController();
 	//건물 바닥 높이 결정
-	float test_build_height = m_pBuild->GetPosY();
-	m_pMapTerrain->GetHeight(&test_build_height, m_pBuild->GetPosX(), m_pBuild->GetPosZ());
-	m_pBuild->SetPosY(test_build_height);
+	//float test_build_height = m_pBuild->GetPosY();
+	//m_pMapTerrain->GetHeight(&test_build_height, m_pBuild->GetPosX(), m_pBuild->GetPosZ());
+	//m_pBuild->SetPosY(test_build_height);
 
-	if (g_pInputManager->IsOnceKeyDown(VK_LBUTTON))
+	//if (g_pInputManager->IsOnceKeyDown(VK_LBUTTON))
+	//{
+	//	D3DXVECTOR3 vTo, vOrg, vDir;
+	//	g_pRay->RayAtWorldSpace(&vOrg, &vDir);
+	//	if (m_pMapTerrain->IsCollision(&vTo, &vOrg, &vDir))
+	//	{
+	//		//건물위치 테스트용
+	//		m_pBuild->SetPosY(vTo.y);
+	//	}
+	//}
+	if (g_pInputManager->IsOnceKeyDown(VK_RBUTTON))
 	{
-		D3DXVECTOR3 vTo, vOrg, vDir;
-		g_pRay->RayAtWorldSpace(&vOrg, &vDir);
-		if (m_pMapTerrain->IsCollision(&vTo, &vOrg, &vDir))
-		{
-			//건물위치 테스트용
-			m_pBuild->SetPosition(&vTo);
-		}
+		m_pBuild->SetRotationX(g_pTimeManager->GetElapsedTime());
+
 	}
+
 }
 
 void cMapToolScene::Render(void)
