@@ -8,15 +8,17 @@
 //테스트용
 #include "cMapObject.h"
 #include "cGrid.h"
+#include "cBuilding.h"
 
 cMapToolScene::cMapToolScene(void)
 	: m_pCamera(NULL)
 	, m_pMapTerrain(NULL)
+	, m_pBuild(NULL)
+	, m_pTexture(NULL)
+	, m_pGrid(NULL)
 {
 	//테스트용
 	//m_pMapObject = NULL;
-	m_pTexture = NULL;
-	m_pGrid = NULL;
 }
 
 cMapToolScene::~cMapToolScene(void)
@@ -26,8 +28,10 @@ cMapToolScene::~cMapToolScene(void)
 
 HRESULT cMapToolScene::Setup(void)
 {
-	m_pCamera = g_pObjectManager->GetPlayer()->GetCamera();
-	m_pCamera->AddRef();
+	m_pCamera = cCamera::Create();
+	m_pCamera->Setup();
+	m_pCamera->SetCameraType(cCamera::E_LANDOBJECT);
+	
 
 	SetMatrial(&m_stMtl.MatD3D);
 	m_stMtl.pTextureFilename = "./Texture/steppegrass01_only.dds";
@@ -41,6 +45,9 @@ HRESULT cMapToolScene::Setup(void)
 	m_pTexture = g_pTexture->GetTexture("./HeightMapData/terrain.jpg");
 
 
+	m_pBuild = new cBuilding();
+	m_pBuild->Setup();
+	m_pBuild->LoadModel("inn.X");
 
 	return S_OK;
 }
@@ -49,42 +56,37 @@ void cMapToolScene::Reset(void)
 {
 	SAFE_RELEASE(m_pCamera);
 	//테스트용
-	//SAFE_RELEASE(m_pMapObject);
 	SAFE_RELEASE(m_pMapTerrain);
 	SAFE_RELEASE(m_pGrid);
+	if (m_pBuild) m_pBuild->Destroy();
+	SAFE_DELETE(m_pBuild);
 }
 
 void cMapToolScene::Update(void)
 {
-	SAFE_UPDATE(g_pObjectManager->GetPlayer());
-	
-	//테스트용
-	if (m_pCamera)
+	m_pCamera->Update();
+	m_pCamera->TestController();
+	//건물 바닥 높이 결정
+	//float test_build_height = m_pBuild->GetPosY();
+	//m_pMapTerrain->GetHeight(&test_build_height, m_pBuild->GetPosX(), m_pBuild->GetPosZ());
+	//m_pBuild->SetPosY(test_build_height);
+
+	//if (g_pInputManager->IsOnceKeyDown(VK_LBUTTON))
+	//{
+	//	D3DXVECTOR3 vTo, vOrg, vDir;
+	//	g_pRay->RayAtWorldSpace(&vOrg, &vDir);
+	//	if (m_pMapTerrain->IsCollision(&vTo, &vOrg, &vDir))
+	//	{
+	//		//건물위치 테스트용
+	//		m_pBuild->SetPosY(vTo.y);
+	//	}
+	//}
+	if (g_pInputManager->IsOnceKeyDown(VK_RBUTTON))
 	{
-		m_pCamera->TestController();
+		m_pBuild->SetRotationX(g_pTimeManager->GetElapsedTime());
+
 	}
-	if (m_pMapTerrain)
-	{
-		if (g_pObjectManager->GetPlayer())
-		{
-			if (g_pInputManager->IsOnceKeyDown(VK_LBUTTON))
-			{
-				D3DXVECTOR3 vPos;
-				D3DXVECTOR3 vOrg;
-				D3DXVECTOR3 vDir;
-				g_pRay->RayAtWorldSpace(&vOrg, &vDir);
-				if (m_pMapTerrain->IsCollision(&vPos, &vOrg, &vDir))
-				{
-					g_pObjectManager->GetPlayer()->SetPosition(&vPos);
-				}
-			}
-			cPlayer* pPlayer = g_pObjectManager->GetPlayer();
-			float fHeight = pPlayer->GetPosY();
-			m_pMapTerrain->GetHeight(&fHeight, pPlayer->GetPosX(), pPlayer->GetPosZ());
-			pPlayer->SetPosY(fHeight);
-		}
-	}
-	SAFE_UPDATE(m_pCamera);
+
 }
 
 void cMapToolScene::Render(void)
@@ -92,11 +94,11 @@ void cMapToolScene::Render(void)
 	//테스트용
 	g_pD3DDevice->SetTexture(0, m_pTexture);
 	g_pD3DDevice->SetMaterial(&m_stMtl.MatD3D);
-	//SAFE_RENDER(m_pMapObject);
 	SAFE_RENDER(m_pMapTerrain);
-
 	SAFE_RENDER(m_pGrid);
-	SAFE_RENDER(g_pObjectManager->GetPlayer());
+
+	SAFE_RENDER(m_pBuild);
+
 }
 
 cMapToolScene* cMapToolScene::Create(void)

@@ -1,7 +1,7 @@
 #pragma once
 #include "cSceneObject.h"
 
-#define NEXT_SCENE "cUiCustomizingScene"
+#define NEXT_SCENE "cMapToolScene"
 #define NEXT_SCENE1 "cUiTestScene"
 
 class cDataLoder;
@@ -17,9 +17,10 @@ private:
 
 	cDataLoder* m_pData;
 	LPD3DXSPRITE m_pSprite;
-	cImage* m_pLodingImage;
+	cImage* m_pLoadingImage;
 	cImage* m_pLoadingBarImage; //로딩바 이미지
 	cImage* m_pLoadingGaugeImage; //로딩바 게이지
+	D3DXIMAGE_INFO m_stLoadingBar;
 	cFont* m_pFont;
 
 public:

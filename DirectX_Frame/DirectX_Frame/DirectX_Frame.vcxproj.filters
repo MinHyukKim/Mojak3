@@ -68,6 +68,7 @@
     <ClCompile Include="cMath.cpp" />
     <ClCompile Include="cUiTestScene05InventoryImage.cpp" />
     <ClCompile Include="cUiTestScene00-1TempPlayerSetup.cpp" />
+    <ClCompile Include="cMapObjectManager.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="cAllocateHierarchy.h" />
@@ -126,6 +127,7 @@
     <ClInclude Include="cBuilding.h" />
     <ClInclude Include="cMapManager.h" />
     <ClInclude Include="cMath.h" />
+    <ClInclude Include="cMapObjectManager.h" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="DirectX_Frame.rc" />

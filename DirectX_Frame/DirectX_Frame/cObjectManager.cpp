@@ -173,6 +173,8 @@ bool cObjectManager::CreateMonster(IN MONSTER_TYPE eMonsterKey, IN LPD3DXVECTOR3
 		pCreateMonster->RegisterAnimation(cPlayer::ANIMATION_WALK_OFFENSIVE, g_pAnimationManager->GetAnimation("여성_걷기02"));
 		pCreateMonster->RegisterAnimation(cPlayer::ANIMATION_RUN_PEACEFUL, g_pAnimationManager->GetAnimation("여성_달리기01"));
 		pCreateMonster->RegisterAnimation(cPlayer::ANIMATION_RUN_OFFENSIVE, g_pAnimationManager->GetAnimation("여성_달리기02"));
+		pCreateMonster->RegisterAnimation(cPlayer::ANIMATION_ATTACK_PEACEFUL, g_pAnimationManager->GetAnimation("여성_공격01"));
+		pCreateMonster->RegisterAnimation(cPlayer::ANIMATION_ATTACK_OFFENSIVE, g_pAnimationManager->GetAnimation("여성_공격02"));
 		pCreateMonster->GetAbilityParamter()->SetPlayerID(2);
 		pCreateMonster->GetAbilityParamter()->SetUnitID(1);
 		pCreateMonster->SetPatternState(cPlayer::PATTERN_IDEN_PEACEFUL);
