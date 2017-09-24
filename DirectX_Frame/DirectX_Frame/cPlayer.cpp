@@ -32,23 +32,7 @@ HRESULT cPlayer::Setup(void)
 	if (!m_pCamera) m_pCamera = cCamera::Create();
 	m_pCamera->SetupParentMatrix(&m_matWorld);
 
-	m_vecAnimationKey.resize(ANIMATION_END);
 	m_vecMesh.resize(MESH_SIZE);
-	
-	if (!m_pAnimationController)
-	{
-		this->ChangeMeshPart(cPlayer::MESH_DUMMY, g_pSkinnedMeshManager->GetSkinnedMesh("더미"));
-		//0번 트랙 설정
-		m_pAnimationController->SetTrackEnable(0, true);
-		m_pAnimationController->SetTrackPosition(0, 0.0);
-		m_pAnimationController->SetTrackSpeed(0, 1.0f);
-		m_pAnimationController->SetTrackWeight(0, 1.0f);
-		//1번 트랙 설정
-		m_pAnimationController->SetTrackEnable(1, false);
-		m_pAnimationController->SetTrackPosition(1, 0.0);
-		m_pAnimationController->SetTrackSpeed(1, 0.0f);
-		m_pAnimationController->SetTrackWeight(1, 0.0f);
-	}
 
 	return S_OK;
 }
@@ -98,6 +82,25 @@ void cPlayer::Render(void)
 
 }
 
+void cPlayer::SetupAnimationController(LPCSTR szBoneKey)
+{
+	if (!m_pAnimationController)
+	{
+		this->ChangeMeshPart(cPlayer::MESH_DUMMY, g_pSkinnedMeshManager->GetSkinnedMesh(szBoneKey));
+		//0번 트랙 설정
+		m_pAnimationController->SetTrackEnable(0, true);
+		m_pAnimationController->SetTrackPosition(0, 0.0);
+		m_pAnimationController->SetTrackSpeed(0, 1.0f);
+		m_pAnimationController->SetTrackWeight(0, 1.0f);
+		//1번 트랙 설정
+		m_pAnimationController->SetTrackEnable(1, false);
+		m_pAnimationController->SetTrackPosition(1, 0.0);
+		m_pAnimationController->SetTrackSpeed(1, 0.0f);
+		m_pAnimationController->SetTrackWeight(1, 0.0f);
+	}
+	m_vecAnimationKey.resize(ANIMATION_END);
+}
+
 //전투 준비 설정
 void cPlayer::SetIdenOffensive(void)
 {
@@ -109,6 +112,12 @@ void cPlayer::SetIdenPeaceful(void)
 {
 	this->SetSubTrackSpeed(1.0f);
 	this->SetBlendingAnimation(cPlayer::ANIMATION_IDLE_PEACEFUL);
+}
+void cPlayer::SetWalkingOffensive(void)
+{
+}
+void cPlayer::SetWalkingPeaceful(void)
+{
 }
 //전투 달리기 설정
 void cPlayer::SetRuningOffensive(void)
@@ -123,6 +132,18 @@ void cPlayer::SetRuningPeaceful(void)
 	this->SetBlendingAnimation(cPlayer::ANIMATION_RUN_PEACEFUL);
 }
 
+void cPlayer::SetAttackOffensive(void)
+{
+	this->SetSubTrackSpeed(m_AbilityParamter.GetMoveSpeed() * 2.0f);
+	this->SetBlendingAnimation(cPlayer::ANIMATION_RUN_OFFENSIVE);
+}
+
+void cPlayer::SetAttackPeaceful(void)
+{
+	this->SetSubTrackSpeed(m_AbilityParamter.GetMoveSpeed() * 2.0f);
+	this->SetBlendingAnimation(cPlayer::ANIMATION_RUN_PEACEFUL);
+}
+
 //전투 준비 상태
 void cPlayer::PatternIdenOffensive(void)
 {
@@ -132,18 +153,28 @@ void cPlayer::PatternIdenOffensive(void)
 		if (this->DistSqTarget(&fDistSq) && 9.0f > fDistSq)
 		{
 			this->TargetView();
-			if (m_AbilityParamter.IsElapsedTime())
+			if (m_AbilityParamter.IsDelayTime())
 			{
-				m_AbilityParamter.SetElapsedTime(g_pMath->Random(3.0f));
-				if (g_pMath->Random(2))
+				m_AbilityParamter.SetDelayTime(g_pMath->Random(3.0f));
+				switch (g_pMath->Random(2))
 				{
-					this->RotationToTarget(g_pMath->Random(-0.5f, 0.5f));
+				case 0:
+					this->RotationToTarget(g_pMath->Random(-1.0f, 1.0f));
 					this->SetPatternState(cPlayer::PATTERN_RUN_OFFENSIVE);
-				}
-				else
-				{
-					this->KeepToTarget(g_pMath->Random(1.0f, 3.0f));
+					break;
+
+				case 1:
+					this->KeepToTarget(g_pMath->Random(1.0f, 2.5f));
 					this->SetPatternState(cPlayer::PATTERN_RUN_OFFENSIVE);
+					break;
+
+				case 2:
+					this->GoToTarget();
+					this->SetPatternState(cPlayer::PATTERN_ATTACK_OFFENSIVE);
+					break;
+
+				default:
+					break;
 				}
 			}
 		}
@@ -163,6 +194,7 @@ void cPlayer::PatternIdenPeaceful(void)
 		{
 			if (9.0f > fDistSq)
 			{
+				m_AbilityParamter.SetDelayTime(g_pMath->Random(3.0f));
 				this->SetPatternState(cPlayer::PATTERN_IDEN_OFFENSIVE);
 			}
 		}
@@ -171,6 +203,12 @@ void cPlayer::PatternIdenPeaceful(void)
 			this->PlayerToTarget(9.0f);
 		}
 	}
+}
+void cPlayer::PatternWalkingOffensive(void)
+{
+}
+void cPlayer::PatternWalkingPeaceful(void)
+{
 }
 //전투 달리기 상태
 void cPlayer::PatternRuningOffensive(void)
@@ -204,6 +242,18 @@ void cPlayer::PatternRuningPeaceful(void)
 			this->SetPatternState(cPlayer::PATTERN_IDEN_PEACEFUL);
 		}
 	}
+}
+
+void cPlayer::PatternAttackOffensive(void)
+{
+	if (2 == m_AbilityParamter.GetPlayerID()) //컴퓨터 일때
+	{
+
+	}
+}
+
+void cPlayer::PatternAttackPeaceful(void)
+{
 }
 
 
