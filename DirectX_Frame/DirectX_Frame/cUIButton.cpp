@@ -6,6 +6,7 @@ cUIButton::cUIButton(void)
 	: m_eButtonStatus(E_NORMAL)
 	, m_pDelegate(NULL)
 	, isOver(false)
+	, isClick(false)
 	, m_Alpha(255)
 {
 }

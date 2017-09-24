@@ -256,6 +256,7 @@
     <ClCompile Include="cUIManager.cpp" />
     <ClCompile Include="cUiObject.cpp" />
     <ClCompile Include="cUiTestScene.cpp" />
+    <ClCompile Include="cUiTestScene00-1TempPlayerSetup.cpp" />
     <ClCompile Include="cUiTestScene00BaseSetUpUiMove.cpp" />
     <ClCompile Include="cUiTestScene01infoSetup.cpp" />
     <ClCompile Include="cUiTestScene02SkillSetup.cpp" />

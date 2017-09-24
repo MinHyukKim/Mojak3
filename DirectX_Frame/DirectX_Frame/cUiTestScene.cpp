@@ -6,6 +6,9 @@
 #include "cUIImageView.h"
 #include "cUITextView.h"
 #include "cUIButton.h"
+//임시 플레이어
+#include "cPlayer.h"
+#include "cCamera.h"
 
 cUiTestScene::cUiTestScene(void)
 	: m_pFont(NULL)
@@ -44,6 +47,9 @@ cUiTestScene::cUiTestScene(void)
 	, m_isWeaponHandMount(false)
 	, m_isSubHandMount(false)
 	, m_isShoesMount(false)
+	//임시 플레이어
+	, m_pPlayer(NULL)
+	, m_pMainCamera(NULL)
 {
 }
 
@@ -68,7 +74,7 @@ HRESULT cUiTestScene::Setup(void)
 
 	//임시 태스트용
 	m_pUiTesterSize = cUIImageView::Create();
-	m_pUiTesterSize->SetTexture("Texture/Ui/inventoryBase.png");
+	m_pUiTesterSize->SetTexture("Texture/Ui/loading_bar.dds");
 	m_pUiTesterSize->SetPosition(10, 10);
 	m_pUiTestRoot = m_pUiTesterSize;	
 
@@ -97,6 +103,9 @@ void cUiTestScene::Reset(void)
 	if(m_pSkillUi) SAFE_RELEASE(m_pSkillUi);
 	if(m_pQuestUi) SAFE_RELEASE(m_pQuestUi);
 	if(m_pInventoryUi) SAFE_RELEASE(m_pInventoryUi);
+	//임시용 플레이어
+	SAFE_RELEASE(m_pPlayer);
+	SAFE_RELEASE(m_pMainCamera);
 }
 
 void cUiTestScene::Update(void)
@@ -130,7 +139,7 @@ void cUiTestScene::Render(void)
 	if (m_pQuestUi && m_isQuestWindowOn) m_pQuestUi->Render(m_pSprite);
 	if (m_pInventoryUi && m_isInventoryWindowOn) m_pInventoryUi->Render(m_pSprite);
 	//크기 태스트용
-	//if (m_pUiTestRoot) m_pUiTestRoot->Render(m_pSprite);
+	if (m_pUiTestRoot) m_pUiTestRoot->Render(m_pSprite);
 }
 
 //딜리게이트(클릭)
