@@ -18,6 +18,7 @@ cCharTestScene::cCharTestScene(void)
 	: m_pCamera(NULL)
 	, m_pMapTerrain(NULL)
 	, m_pUiTest(NULL)
+	, m_pBuild(NULL)
 {
 	//테스트용
 	//m_pMapObject = NULL;
