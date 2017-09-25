@@ -9,6 +9,8 @@
 //플레이어
 #include "cPlayer.h"
 #include "cCamera.h"
+//이미지
+#include "cImage.h"
 
 void cUiTestScene::SetupQuestUi(void)
 {
@@ -37,4 +39,15 @@ void cUiTestScene::SetupQuestUi(void)
 	m_pQuestUiImage->m_Alpha = 180;
 	m_pQuestUiImage->SetTag(E_BUTTON_NONE);
 	m_pQuestUi->AddChild(m_pQuestUiImage);
+	//택스트
+	m_pQuestUiText = cUITextView::Create();
+	m_pQuestUiText->SetText("퀘스트");
+	m_pQuestUiText->SetFontType(g_pFontManager->E_INBUTTON);
+	m_pQuestUiText->SetColor(D3DCOLOR_XRGB(255, 255, 255));
+	m_pQuestUiText->SetSize(ST_SIZE(200, 100));
+	m_pQuestUiText->SetPosition(-40, -30);
+	m_pQuestUiText->SetDrawTextFormat(DT_CENTER | DT_VCENTER | DT_WORDBREAK);
+	m_pQuestUiText->SetTag(E_BUTTON_NONE);
+	m_pQuestUi->AddChild(m_pQuestUiText);
+
 }

@@ -9,6 +9,8 @@
 //플레이어
 #include "cPlayer.h"
 #include "cCamera.h"
+//이미지
+#include "cImage.h"
 
 void cUiTestScene::SetUpTempPlayer(void)
 {

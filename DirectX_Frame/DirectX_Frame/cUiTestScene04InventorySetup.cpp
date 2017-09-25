@@ -9,6 +9,8 @@
 //플레이어
 #include "cPlayer.h"
 #include "cCamera.h"
+//이미지
+#include "cImage.h"
 
 void cUiTestScene::SetupInventoryUi(void)
 {
@@ -35,6 +37,17 @@ void cUiTestScene::SetupInventoryUi(void)
 	m_pInventoryUiImage->SetPosition(2, 47);
 	m_pInventoryUiImage->m_Alpha = 180;
 	m_pInventoryUi->AddChild(m_pInventoryUiImage);
+	//택스트
+	m_pInventoryUiText = cUITextView::Create();
+	m_pInventoryUiText->SetText("인벤토리");
+	m_pInventoryUiText->SetFontType(g_pFontManager->E_INBUTTON);
+	m_pInventoryUiText->SetColor(D3DCOLOR_XRGB(255, 255, 255));
+	m_pInventoryUiText->SetSize(ST_SIZE(200, 100));
+	m_pInventoryUiText->SetPosition(-30, -30);
+	m_pInventoryUiText->SetDrawTextFormat(DT_CENTER | DT_VCENTER | DT_WORDBREAK);
+	m_pInventoryUiText->SetTag(E_BUTTON_NONE);
+	m_pInventoryUi->AddChild(m_pInventoryUiText);
+
 	//장비 이미지(전체)
 	m_pInventoryUiImage = cUIButton::Create();
 	m_pInventoryUiImage->SetTexture("Texture/Ui/inventory-equip.png",
@@ -96,43 +109,5 @@ void cUiTestScene::SetupInventoryUi(void)
 		}
 	}
 
-//	m_pInventoryUiEquipShoes = cUIButton::Create();
-//	m_pInventoryUiEquipShoes->SetTexture("Texture/Ui/inventoryShoes.png",
-//		"Texture/Ui/inventoryShoesOver.png",
-//		"Texture/Ui/inventoryShoesIn.png");
-//	m_pInventoryUiEquipShoes->SetPosition(60, 235);
-//	m_pInventoryUiEquipShoes->SetTag(E_BUTTON_NONE);
-//	m_pInventoryUi->AddChild(m_pInventoryUiEquipShoes);
 
-	//임시
-//	m_pTempItem = cUIButton::Create();
-//	m_pTempItem->SetTexture("Texture/Ui/testItem1-1.png",
-//		"Texture/Ui/testItem1-1.png",
-//		"Texture/Ui/testItem1-1.png");
-//	m_pTempItem->SetPosition(160, 90);
-//	m_pTempItem->SetTag(E_BUTTON_TEST1);
-//	m_pInventoryUi->AddChild(m_pTempItem);
-	//임시2
-	//m_pTempItemArr
-//	for (int i = 0; i < 5; i++)
-//	{
-		m_pTempItemArr[0] = cUIButton::Create();
-		m_pTempItemArr[0]->SetTexture("Texture/Ui/testItem1-2.png"
-			, "Texture/Ui/testItem1-2.png"
-			, "Texture/Ui/testItem1-2.png");
-		m_pTempItemArr[0]->SetPosition(160, 90);
-		m_pTempItemArr[0]->SetDelegate(this);
-		m_pTempItemArr[0]->SetTag(E_ITEM_WEAR1);
-		m_pInventoryUi->AddChild(m_pTempItemArr[0]);
-
-//		m_pTempItemArr[1] = cUIButton::Create();
-//		m_pTempItemArr[1]->SetTexture("Texture/Ui/testItem2-1.png"
-//			, "Texture/Ui/testItem2-1.png"
-//			, "Texture/Ui/testItem2-1.png"); //60, 147
-//	//	m_pTempItemArr[1]->SetPosition(160 + 48, 90);
-//		m_pTempItemArr[1]->SetPosition(60, 147);
-//		m_pTempItemArr[1]->SetDelegate(this);
-//		m_pTempItemArr[1]->SetTag(E_ITEM_WEAR1);
-//		m_pInventoryUi->AddChild(m_pTempItemArr[1]);
-//	}
 }
