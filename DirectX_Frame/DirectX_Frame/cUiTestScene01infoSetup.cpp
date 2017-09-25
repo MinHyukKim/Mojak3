@@ -32,8 +32,8 @@ void cUiTestScene::SetupInfoUi(void)
 	m_pInfoUi->AddChild(m_pInfoUiMoveing);
 	//정보 베이스 창
 	m_pInfoUiImage = cUIButton::Create();
-	m_pInfoUiImage->SetTexture("Texture/Ui/infoBase4.png"
-	, "Texture/Ui/infoBase4.png", "Texture/Ui/infoBase4.png");
+	m_pInfoUiImage->SetTexture("Texture/Ui/infoBase3.png"
+	, "Texture/Ui/infoBase3.png", "Texture/Ui/infoBase3.png");
 	m_pInfoUiImage->SetPosition(2, 48);
 	m_pInfoUiImage->SetDelegate(this);
 	m_pInfoUiImage->SetTag(E_BUTTON_NONE);
@@ -122,6 +122,7 @@ void cUiTestScene::SetupInfoUi(void)
 	m_pTempInfoMP->SetSize(ST_SIZE(100, 40));
 	//m_pTempInfoMP->SetPosition(20, 170 - 7); //마비체
 	m_pTempInfoMP->SetPosition(20, 170);   //나눔고딕
+	//m_pTempInfoMP->m_vPosition = D3DXVECTOR3(20, 170, -0.5f);
 	m_pTempInfoMP->SetDrawTextFormat(DT_CENTER | DT_VCENTER | DT_WORDBREAK);
 	m_pTempInfoMP->SetTag(E_BUTTON_NONE);
 	m_pInfoUi->AddChild(m_pTempInfoMP);

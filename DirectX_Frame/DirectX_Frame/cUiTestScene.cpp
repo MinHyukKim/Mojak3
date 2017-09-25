@@ -103,8 +103,8 @@ HRESULT cUiTestScene::Setup(void)
 
 	//임시 태스트용
 	m_pUiTesterSize = cUIImageView::Create();
-	m_pUiTesterSize->SetTexture("Texture/Ui/loading_bar.dds");
-	m_pUiTesterSize->SetPosition(10, 10);
+	m_pUiTesterSize->SetTexture("Texture/Ui/temp.png");
+	m_pUiTesterSize->SetPosition(mainUiLocalX + 40, mainUiLocalY);
 	m_pUiTestRoot = m_pUiTesterSize;	
 
 	//플레이어 정보 창 셋업
@@ -119,20 +119,21 @@ HRESULT cUiTestScene::Setup(void)
 //	this->SetUpTempPlayer();
 
 	//이미지 관련
+	D3DXCreateSprite(g_pD3DDevice, &m_pSpriteTemp);
 	LPDIRECT3DTEXTURE9 imageData;
 	RECT rc;
 	GetClientRect(g_hWnd, &rc);
 	//피통 멕스
 	D3DXMatrixIdentity(&m_matWorldMatrix);
-	imageData = g_pTexture->GetTextureEx("./Texture/loading_bar.dds", &m_stHpBar);
+	imageData = g_pTexture->GetTextureEx("./Texture/Ui/HPe.png", &m_stHpBar);
 	m_pHpMaxImage = cImage::Create();
 	m_pHpMaxImage->Setup(m_stHpBar, imageData);
 	m_matWorldMatrix._41 = rc.right / 2.0f;
 	m_matWorldMatrix._42 = rc.bottom / 2.0f * 1.5f;
-	m_matWorldMatrix._43 = 0.5f;
+	m_matWorldMatrix._43 = 0.0f;
 	m_pHpMaxImage->SetWorldMatrix(&m_matWorldMatrix);
-	//피통 바
-	imageData = g_pTexture->GetTextureEx("./Texture/loading_bar_color.dds", &m_stHpBar);
+	//피통
+	imageData = g_pTexture->GetTextureEx("./Texture/Ui/HP.png", &m_stHpBar);
 	m_pHpImage = cImage::Create();
 	m_pHpImage->Setup(m_stHpBar, imageData);
 	m_matWorldMatrix._41 = rc.right / 2.0f;
@@ -160,6 +161,7 @@ void cUiTestScene::Reset(void)
 	SAFE_RELEASE(m_pMainCamera);
 	SAFE_RELEASE(m_pHpMaxImage);
 	SAFE_RELEASE(m_pHpImage);
+	SAFE_RELEASE(m_pSpriteTemp);
 }
 
 void cUiTestScene::Update(void)
@@ -180,6 +182,8 @@ void cUiTestScene::Update(void)
 
 	//이동
 	this->MoveUiWindow();
+	m_matWorldMatrix._41 = m_pTempInfoHP->GetPosition().x;
+	m_matWorldMatrix._42 = m_pTempInfoHP->GetPosition().y;
 	//인벤 색 변경
 	this->changeInventoryImage();
 	//수치변화 시험용
@@ -219,13 +223,17 @@ void cUiTestScene::Render(void)
 	if (m_pSkillUi && m_isSkillWindowOn) m_pSkillUi->Render(m_pSprite);
 	if (m_pQuestUi && m_isQuestWindowOn) m_pQuestUi->Render(m_pSprite);
 	if (m_pInventoryUi && m_isInventoryWindowOn) m_pInventoryUi->Render(m_pSprite);
-
-	if (m_pHpImage) m_pHpImage->Draw(m_pSprite);
-	if (m_pHpMaxImage) m_pHpMaxImage->Draw(m_pSprite);
-//	m_pSprite->End();
+//	if (m_pHpImage) m_pHpImage->Draw(m_pSprite);
+//	if (m_pHpMaxImage) m_pHpMaxImage->Draw(m_pSprite);
 
 	//크기 태스트용
 	if (m_pUiTestRoot) m_pUiTestRoot->Render(m_pSprite);
+
+	m_pSprite->Begin(D3DXSPRITE_ALPHABLEND | D3DXSPRITE_SORT_TEXTURE);
+	if (m_pHpImage) m_pHpImage->Draw(m_pSprite);
+	if (m_pHpMaxImage) m_pHpMaxImage->Draw(m_pSprite);
+	m_pSprite->End();
+
 }
 
 //딜리게이트(클릭)
