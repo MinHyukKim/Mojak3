@@ -146,7 +146,7 @@ void cMapToolScene::Update(void)
 	//테스트용 전역변수 필히 삭제
 	static bool g_TestToggle = false;
 
-	if (g_pInputManager->IsOnceKeyDown(VK_LBUTTON))
+	if (g_pInputManager->IsOnceKeyDown(VK_RBUTTON))
 	{
 		g_pMapObjectManager->PopMapObject();
 	}
