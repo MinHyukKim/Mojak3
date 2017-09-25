@@ -303,12 +303,14 @@ void cUiTestScene::MoveUiWindow(void)
 			else if (IntersectRect(&rc, &(m_pTempItemArr[0]->rc), &(m_pInventoryUiEquipTorso->rc)))
 			{
 				m_pTempItemArr[0]->SetPosition(60, 147);
+				m_pPlayer->ChangeMeshPart(cPlayer::MESH_BODY, g_pSkinnedMeshManager->GetSkinnedMesh("바디02"));
 				m_isTorsoMount = true;
 			}
 			//인벤의 다른칸
 			else if (IntersectRect(&rc, &(m_pTempItemArr[0]->rc), &(m_pInventoryUiImage->rc)))
 			{
 				m_pTempItemArr[0]->SetPosition(160 , 90);
+				m_pPlayer->ChangeMeshPart(cPlayer::MESH_BODY, g_pSkinnedMeshManager->GetSkinnedMesh("바디01"));
 			//	m_isTorsoMount = false;
 			}
 		}
