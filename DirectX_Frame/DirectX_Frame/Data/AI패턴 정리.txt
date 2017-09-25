@@ -1,0 +1,43 @@
+AI 친절한 상태행동 (PATTERN_IDEN_FRIENDLY)
+
+if(플레이어와 거리가 50 이상일경우)
+	제자리에서 휴식을 취한다.
+
+else
+	if(휴식중일때)
+		자리에서 일어난다.
+		대기한다.
+	else
+		Random
+		현재 위치에서 휴식을 취한다. or
+		현재 위치에서 이동한다. or
+		현재 위치에서 대기한다.
+
+if(공격을 받을경우)
+	공격받은 대상을 "Target"으로 설정한다.
+	상태를 "PATTERN_IDEN_OFFENSIVE"로 전환한다.
+
+
+
+AI 공격적인 상태 (PATTERN_IDEN_OFFENSIVE)
+
+if(타겟없으면)
+	상태를 "PATTERN_IDEN_FRIENDLY"로 전환한다.
+
+else if(타겟과 거리가 40 이상일경우)
+	"Target"을 해제한다.
+	상태를 "PATTERN_IDEN_FRIENDLY"로 전환한다.
+
+else
+	if("Target"와 거리가 "fAttackRange" 이하일때)
+		상태를 "PATTERN_ATTACK_OFFENSIVE"로 전환한다.
+
+	else
+		Random0
+		타겟과 일정거리로 이동하고
+		상태를 "PATTERN_RUN_OFFENSIVE"로 전환한다.
+
+		타겟의 일정각도의 위치로 이동하고
+		상태를 "PATTERN_RUN_OFFENSIVE"로 전환한다.
+
+		현재 위치에서 대기한다.

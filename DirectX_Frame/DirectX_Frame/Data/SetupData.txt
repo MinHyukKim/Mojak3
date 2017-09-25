@@ -44,15 +44,6 @@ Color:신발00,uni_shoes01_c.dds, 0.3f, 0.3f, 0.5f, 1.0f;
 Mesh:./Chareter/Female_Face/,basicFace.X,얼굴;
 Color:얼굴,bodymap01.dds, 1.0f, 0.53f, 0.53f, 1.0f;
 
-//몬스터
-Mesh:./Chareter/DefaultPlayer/,lisaAniTest.X,임시몬스터;
-Color:임시몬스터,uni_shoes01_c.dds, 1.0f, 1.0f, 0.0f, 1.0f;
-Color:임시몬스터,hair09.dds, 0.0f, 0.0f, 0.0f, 0.0f;
-Color:임시몬스터,bodymap01.dds, 1.0f, 0.53f, 0.53f, 1.0f;
-Color:임시몬스터,uni_newbie03_c.dds, 0.8f, 0.2f, 0.8f, 1.0;
-Color:임시몬스터,uni_3rd_premium_c.dds, 0.5f, 0.0f, 0.1f, 1.0f)f;
-Color:임시몬스터,male_pumpkin_pants_c.dds, 0.0f, 0.0f, 0.0f, 1.0f;
-
 //애니메이션
 Animation:./Animation/ani_female_stand_leftahead.X,여성_기본01;
 Animation:./Animation/ani_female_stand_offensive.X,여성_기본02;
@@ -68,3 +59,21 @@ Animation:./Animation/ani_female_walk_offensive.X,여성_걷기02;
 Animation:./Animation/ani_female_windmill_rising.X,여성_윈드밀01;
 Animation:./Animation/ani_female_windmill_standing.X,여성_윈드밀02;
 Animation:./Animation/ani_female_blow_turn.X,여성_턴00;
+
+//몬스터
+Mesh:./Chareter/DefaultPlayer/,lisaAniTest.X,임시몬스터;
+Color:임시몬스터,uni_shoes01_c.dds, 1.0f, 1.0f, 0.0f, 1.0f;
+Color:임시몬스터,hair09.dds, 0.0f, 0.0f, 0.0f, 0.0f;
+Color:임시몬스터,bodymap01.dds, 1.0f, 0.53f, 0.53f, 1.0f;
+Color:임시몬스터,uni_newbie03_c.dds, 0.8f, 0.2f, 0.8f, 1.0;
+Color:임시몬스터,uni_3rd_premium_c.dds, 0.5f, 0.0f, 0.1f, 1.0f)f;
+Color:임시몬스터,male_pumpkin_pants_c.dds, 0.0f, 0.0f, 0.0f, 1.0f;
+
+//여우
+Mesh:./Monster/Fox/,FoxFrame.X,여우00;
+Mesh:./Monster/Fox/,FoxBoneMesh.X,여우01;
+Color:여우01,mon_fox.dds, 1.0f, 0.0f, 0.0f, 1.0f;
+Animation:./Monster/Fox/Fox_Stand_Friendly.X,여우_기본01;
+Animation:./Monster/Fox/Fox_Stand_Offensive.X,여우_기본02;
+Animation:./Monster/Fox/Fox_Run.X,여우_달리기01;
+Animation:./Monster/Fox/Fox_Attack.X,여우_공격01;

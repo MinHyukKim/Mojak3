@@ -2,7 +2,7 @@
 #include "cAbilityParamter.h"
 
 cAbilityParamter::cAbilityParamter(void)
-	: m_dwUnitID(0) , m_dwPlayerID(0)
+	: m_dwUnitID(0) , m_dwPlayerID(0), m_dwAICodeID(0)
 	, m_nMinLife(0) , m_nMinMana(0) , m_nMinStamina(0)
 	, m_nMaxLife(0) , m_nMaxMana(0) , m_nMaxStamina(0)
 	, m_nMinDamage(0), m_nBonusDamage(0), m_nMagicDamage(0)

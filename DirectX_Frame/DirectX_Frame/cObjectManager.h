@@ -15,6 +15,7 @@ public:
 	{
 		MONSTER_NULL,
 		MONSTER_TEXTER,
+		MONSTER_FOX01,
 	};
 private:
 	cPlayer* m_pPlayer;
@@ -36,6 +37,7 @@ public:
 	void SavePlayerData(IN LPCSTR FullPath);
 	void LoadPlayerData(IN LPCSTR FullPath);
 	cPlayer* GetPlayer(void) { return m_pPlayer; }
+	std::vector<cPlayer*>* GetMonsterVectorPointer(void) { return &m_vecMonster; }
 
 	void SetTerrain(IN cMapTerrain* pTerrain);
 

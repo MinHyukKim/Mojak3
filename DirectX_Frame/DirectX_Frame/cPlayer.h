@@ -3,6 +3,14 @@
 
 #define ANI_MATRIX 32
 
+struct ST_ANIMATIONKEY
+{
+	DWORD dwKey;
+	float fSpeed;
+
+	ST_ANIMATIONKEY(DWORD _dwKey = 0, float _fSpeed = 1.0f) : dwKey(_dwKey), fSpeed(_fSpeed) {}
+};
+
 class cActionMove;
 class cCamera;
 class cPlayer : public cObject
@@ -12,13 +20,13 @@ public:
 	{
 		PATTERN_NULL,
 		PATTERN_IDEN_OFFENSIVE,
-		PATTERN_IDEN_PEACEFUL,
+		PATTERN_IDEN_FRIENDLY,
 		PATTERN_WALK_OFFENSIVE,
-		PATTERN_WALK_PEACEFUL,
+		PATTERN_WALK_FRIENDLY,
 		PATTERN_RUN_OFFENSIVE,
-		PATTERN_RUN_PEACEFUL,
-		PATTERN_ATTACK_OFFENSIVE,
-		PATTERN_ATTACK_PEACEFUL,
+		PATTERN_RUN_FRIENDLY,				
+		PATTERN_ATTACK_OFFENSIVE,			//전문 전투 AI
+		PATTERN_ATTACK_FRIENDLY,			//1회만 공격
 	};
 	//홀수 = OFFENSIVE, 짝수 = PEACEFUL
 	enum ANIMATION_STAND
@@ -70,7 +78,7 @@ private:
 	//부위별 스킨드 메시
 	std::vector<cSkinnedMesh*> m_vecMesh;
 	//애니메이션 컨트롤러에서 애니메이션의 번호
-	std::vector<DWORD> m_vecAnimationKey;
+	std::vector<ST_ANIMATIONKEY> m_vecAnimationKey;
 	//애니메이션 컨트롤러의 트랙의 번호
 	DWORD m_dwNumMainAnimation;
 	DWORD m_dwNumSubAnimation;
@@ -109,13 +117,13 @@ public:
 	void SetPatternState(DWORD dwPattern);
 
 	//애니메이션 함수
-	DWORD RegisterAnimation(IN DWORD dwAnimationKey, IN LPD3DXANIMATIONSET pAnimation);
+	DWORD RegisterAnimation(IN DWORD dwAnimationKey, IN LPD3DXANIMATIONSET pAnimation, IN float fSpeed = 1.0f);
 	LPD3DXANIMATIONCONTROLLER GetAnimationController(void) { return m_pAnimationController; }
 	void SetAnimation(IN DWORD dwAnimationKey);
-	float SetBlendingAnimation(IN DWORD dwAnimationKey, IN float fTravel = 0.1f);
-	bool ExportAnimation(OUT LPD3DXANIMATIONSET* ppAnimation, IN DWORD dwAnimationKey = 0);
-	void SetMainTrackSpeed(float fSpeed) { m_pAnimationController->SetTrackSpeed(m_bCurrentTrack, fSpeed); }
-	void SetSubTrackSpeed(float fSpeed) { m_pAnimationController->SetTrackSpeed(!m_bCurrentTrack, fSpeed); }
+	float SetBlendingAnimation(IN DWORD dwAnimationKey, IN float fSpeed = 1.0f, IN float fTravel = 0.1f);
+	float ExportAnimation(OUT LPD3DXANIMATIONSET* ppAnimation, IN DWORD dwAnimationKey = 0);
+//	void SetMainTrackSpeed(float fSpeed) { m_pAnimationController->SetTrackSpeed(m_bCurrentTrack, fSpeed); }
+//	void SetSubTrackSpeed(float fSpeed) { m_pAnimationController->SetTrackSpeed(!m_bCurrentTrack, fSpeed); }
 
 	//형상 함수
 	void ChangeMeshPart(IN DWORD dwPart, IN LPCSTR szFolder, IN LPCSTR szFilename);
@@ -162,6 +170,7 @@ public:
 	//조건 함수
 	bool DistSqTarget(OUT float* pDist); //타겟과 거리
 	bool DistTarget(OUT float* pDist);
+	bool DistTarget(OUT DWORD dwTarget, OUT float fRange);
 
 	cAbilityParamter* GetAbilityParamter(void) { return &m_AbilityParamter; }
 	cCamera* GetCamera(void) { return m_pCamera; }
