@@ -69,7 +69,6 @@
     <ClCompile Include="cUiTestScene05InventoryImage.cpp" />
     <ClCompile Include="cUiTestScene00-1TempPlayerSetup.cpp" />
     <ClCompile Include="cMapObjectManager.cpp" />
-    <ClCompile Include="cProgressBar.cpp" />
     <ClCompile Include="cItemTemp.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -130,7 +129,6 @@
     <ClInclude Include="cMapManager.h" />
     <ClInclude Include="cMath.h" />
     <ClInclude Include="cMapObjectManager.h" />
-    <ClInclude Include="cProgressBar.h" />
     <ClInclude Include="cItemTemp.h" />
   </ItemGroup>
   <ItemGroup>

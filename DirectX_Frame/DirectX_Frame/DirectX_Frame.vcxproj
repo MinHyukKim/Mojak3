@@ -172,7 +172,6 @@
     <ClInclude Include="cObject.h" />
     <ClInclude Include="cMainGame.h" />
     <ClInclude Include="cPlayer.h" />
-    <ClInclude Include="cProgressBar.h" />
     <ClInclude Include="cPyramid.h" />
     <ClInclude Include="cQuadTree.h" />
     <ClInclude Include="cRay.h" />
@@ -233,7 +232,6 @@
     <ClCompile Include="cObject.cpp" />
     <ClCompile Include="cMainGame.cpp" />
     <ClCompile Include="cPlayer.cpp" />
-    <ClCompile Include="cProgressBar.cpp" />
     <ClCompile Include="cPyramid.cpp" />
     <ClCompile Include="cQuadTree.cpp" />
     <ClCompile Include="cRay.cpp" />
