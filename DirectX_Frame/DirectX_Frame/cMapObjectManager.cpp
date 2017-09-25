@@ -69,6 +69,17 @@ cBuilding * cMapObjectManager::GetLastMapObject()
 	else return nullptr;
 }
 
+bool cMapObjectManager::PopMapObject()
+{
+	if (m_vecBuilding.size() > 0)
+	{
+		m_vecBuilding.back()->Destroy();
+		m_vecBuilding.pop_back();
+		return true;
+	}
+	else return false;
+}
+
 void cMapObjectManager::Update()
 {
 	if (m_vecBuilding.size() > 0)
@@ -89,7 +100,7 @@ void cMapObjectManager::Update(cMapTerrain * map)
 			//건물 바닥 높이 결정
 			float test_build_height = m_vecBuilding[i]->GetPosY();
 			map->GetHeight(&test_build_height, m_vecBuilding[i]->GetPosX(), m_vecBuilding[i]->GetPosZ());
-			m_vecBuilding[i]->SetPosY(test_build_height);
+			m_vecBuilding[i]->SetPosY(test_build_height + m_vecBuilding[i]->GetOffsetY());
 
 			m_vecBuilding[i]->Update();
 		}

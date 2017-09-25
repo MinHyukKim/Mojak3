@@ -47,6 +47,10 @@ HRESULT cMapToolScene::Setup(void)
 	//건물 등록
 	g_pMapObjectManager->RegisterMapObject("", "scene_building_tirchonaill_church.x", "church");
 	g_pMapObjectManager->RegisterMapObject("", "inn.x", "inn");
+	g_pMapObjectManager->RegisterMapObject("", "farm_appletree_01.x", "farm_appletree_01");
+	g_pMapObjectManager->RegisterMapObject("", "farm_level02_se_tree_01.x", "farm_level02_se_tree_01");
+	g_pMapObjectManager->RegisterMapObject("", "scene_building_tirchonaill_chiefhouse.x", "scene_building_tirchonaill_chiefhouse");
+	g_pMapObjectManager->RegisterMapObject("", "scene_building_tirchonaill_church.x", "scene_building_tirchonaill_church");
 
 	m_pBuild = new cBuilding();
 	m_pBuild->Setup();
@@ -58,7 +62,7 @@ HRESULT cMapToolScene::Setup(void)
 	m_pBuild = new cBuilding();
 	m_pBuild->Setup();
 	m_pBuild->LoadModel("inn.X");
-	m_pBuild->SetPosition(&D3DXVECTOR3(0, 0, 0));
+	m_pBuild->SetPosition(&D3DXVECTOR3(5, 0, -5));
 
 	g_pMapObjectManager->AppendBuilding(m_pBuild);
 	g_pMapObjectManager->AppendBuilding(g_pMapObjectManager->GetMapObject("church"));
@@ -88,6 +92,7 @@ void cMapToolScene::Update(void)
 	//m_pMapTerrain->GetHeight(&test_build_height, m_pBuild->GetPosX(), m_pBuild->GetPosZ());
 	//m_pBuild->SetPosY(test_build_height);
 
+	//L버튼을 누르면 마지막으로 생성된 건물이 클릭한 위치로 이동
 	if (g_pInputManager->IsOnceKeyDown(VK_LBUTTON))
 	{
 		D3DXVECTOR3 vTo, vOrg, vDir;
@@ -99,15 +104,51 @@ void cMapToolScene::Update(void)
 			g_pMapObjectManager->GetLastMapObject()->SetPosX(vTo.x);
 		}
 	}
-	
-	if (g_pInputManager->IsStayKeyDown(VK_RBUTTON))
+	//마지막으로 생성된 건물의 좌우 방향 변환
+	if (g_pInputManager->IsStayKeyDown('J'))
 	{
 		g_pMapObjectManager->GetLastMapObject()->SetAngleY(g_pTimeManager->GetElapsedTime());
 
 	}
 
+	if (g_pInputManager->IsStayKeyDown('L'))
+	{
+		g_pMapObjectManager->GetLastMapObject()->SetAngleY(-g_pTimeManager->GetElapsedTime());
+
+	}
+	//상하이동
+	if (g_pInputManager->IsStayKeyDown('I'))
+	{
+		//g_pMapObjectManager->GetLastMapObject()->SetPosY(
+		//	g_pMapObjectManager->GetLastMapObject()->GetPosY()+ 1.f);
+		g_pMapObjectManager->GetLastMapObject()->SetOffsetY(
+			g_pMapObjectManager->GetLastMapObject()->GetOffsetY()+g_pTimeManager->GetElapsedTime());
+	}
+
+	if (g_pInputManager->IsStayKeyDown('K'))
+	{
+		g_pMapObjectManager->GetLastMapObject()->SetPosY(
+			g_pMapObjectManager->GetLastMapObject()->GetPosY() - g_pTimeManager->GetElapsedTime());
+	}
+
+	//R버튼을 누르면 해당위치에 건물 생성하고 확정버튼을 누를때까지 모델을 계속 변환
+	if (g_pInputManager->IsOnceKeyDown(VK_LBUTTON))
+	{
+		D3DXVECTOR3 vTo, vOrg, vDir;
+		g_pRay->RayAtWorldSpace(&vOrg, &vDir);
+		if (m_pMapTerrain->IsCollision(&vTo, &vOrg, &vDir))
+		{
+			//건물위치 테스트용
+			g_pMapObjectManager->GetLastMapObject()->SetPosZ(vTo.z);
+			g_pMapObjectManager->GetLastMapObject()->SetPosX(vTo.x);
+		}
+	}
+
+	static bool g_TestToggle = false;
+
 	if (g_pInputManager->IsStayKeyDown('1'))
 	{
+
 		m_pBuild = new cBuilding();
 		m_pBuild->Setup();
 		m_pBuild->LoadModel("inn.X");

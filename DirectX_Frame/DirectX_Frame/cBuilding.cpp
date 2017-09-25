@@ -140,9 +140,11 @@ cBuilding::cBuilding(void)
 	, angleX(0.0f)
 	, angleY(0.0f)
 	, angleZ(0.0f)
+	, m_fOffsetY(0.0f)
 {
 	D3DXMatrixIdentity(&m_matWorld);
 	D3DXMatrixIdentity(&m_matRot);
+	D3DXMatrixIdentity(&m_matScale);
 
 }
 
