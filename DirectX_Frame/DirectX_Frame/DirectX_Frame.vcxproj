@@ -163,6 +163,7 @@
     <ClInclude Include="cHierarchyBones.h" />
     <ClInclude Include="cImage.h" />
     <ClInclude Include="cInputManager.h" />
+    <ClInclude Include="cItemTemp.h" />
     <ClInclude Include="cLodingScene.h" />
     <ClInclude Include="cMapObject.h" />
     <ClInclude Include="cMapTerrain.h" />
@@ -171,6 +172,7 @@
     <ClInclude Include="cObject.h" />
     <ClInclude Include="cMainGame.h" />
     <ClInclude Include="cPlayer.h" />
+    <ClInclude Include="cProgressBar.h" />
     <ClInclude Include="cPyramid.h" />
     <ClInclude Include="cQuadTree.h" />
     <ClInclude Include="cRay.h" />
@@ -222,6 +224,7 @@
     <ClCompile Include="cHierarchyBones.cpp" />
     <ClCompile Include="cImage.cpp" />
     <ClCompile Include="cInputManager.cpp" />
+    <ClCompile Include="cItemTemp.cpp" />
     <ClCompile Include="cLodingScene.cpp" />
     <ClCompile Include="cMapObject.cpp" />
     <ClCompile Include="cMapTerrain.cpp" />
@@ -230,6 +233,7 @@
     <ClCompile Include="cObject.cpp" />
     <ClCompile Include="cMainGame.cpp" />
     <ClCompile Include="cPlayer.cpp" />
+    <ClCompile Include="cProgressBar.cpp" />
     <ClCompile Include="cPyramid.cpp" />
     <ClCompile Include="cQuadTree.cpp" />
     <ClCompile Include="cRay.cpp" />

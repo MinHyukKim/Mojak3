@@ -12,6 +12,7 @@ class iButtonDelegate;
 //임시 플레이어
 class cPlayer;
 class cCamera;
+class cImage;
 
 enum
 {
@@ -46,24 +47,18 @@ enum
 	E_TEXT_VIEW
 };
 
-enum eTorsoSt
-{
-	E_TORSO_NONE,
-	E_TORSO_EMPTY,
-	E_TORSO_0,
-	E_TORSO_1,
-	E_TORSO_2,
-	E_TORSO_3,
-	E_TORSO_END
-};
-
 class cUiTestScene : public cSceneObject, iButtonDelegate
 {
 private:
+	//월드 메트릭스
+	D3DXMATRIXA16 m_matWorldMatrix;
+
 	//이동 가변 뿌리들은 맴버변수로
 	cFont* m_pFont;
 	LPD3DXSPRITE m_pSprite;
 	LPDIRECT3DTEXTURE9 m_pTexture;
+	LPD3DXSPRITE m_pSpriteTemp;
+	LPDIRECT3DTEXTURE9 m_pTextureTemp;
 	//매인의 뿌리
 	cUIImageView* m_pMainRootImageView;
 	cUiObject* m_pUiRoot;
@@ -95,15 +90,40 @@ private:
 	cUIButton* m_pInfoUiImage;			//정보창(추후 버튼으로 수정)
 	cUIButton* m_pInfoUiButton;			//버튼
 	cUITextView* m_pInfoUiText;			//불변 택스트
+	//임시
+	cUITextView* m_pTotalInfo;			//종합(태스트) (X)
+	cUITextView* m_pTempInfoHP;
+	cUITextView* m_pTempInfoMP;
+	cUITextView* m_pTempInfoStamina;
+	cUITextView* m_pTempInfoSTR;
+	cUITextView* m_pTempInfoINT;
+	cUITextView* m_pTempInfoWill;
+	cUITextView* m_pTempInfoLuck;
+	cUITextView* m_pTempInfoWorkmanship;
+	cUITextView* m_pTempInfoDamage;
+	cUITextView* m_pTempInfoMagicDamage;
+	cUITextView* m_pTempInfoInjury;
+	cUITextView* m_pTempInfoCritical;
+	cUITextView* m_pTempInfoBalance;
+	cUITextView* m_pTempInfoDefense;
+	cUITextView* m_pTempInfoProtect;
+	cUITextView* m_pTempInfoMagicDefense;
+	cUITextView* m_pTempInfoMagicProtect;
+	cUITextView* m_pTempInfoArmorPiercing;
+	//플레이어 피통
+	cImage* m_pHpMaxImage;   //피통 맥스
+	cImage* m_pHpImage;		 //피통 현재량
+	D3DXIMAGE_INFO m_stHpBar;
 	cUiObject* m_pInfoUi;
-
+	
 	//플레이어 스킬창
 	int skillX;
 	int skillY;
 	cUIImageView* m_pSkillUiImageHead;	//스킬창 머리줄	
 	cUIButton* m_pSkillUiMoveing;		//머리줄 이동용 
-	cUIButton* m_pSkillUiImage;		//스킬창 이미지
+	cUIButton* m_pSkillUiImage;			//스킬창 이미지
 	cUIButton* m_pSkillUiButton;		//스킬창 버튼
+	cUITextView* m_pSkillUiText;		//불변 택스트
 	cUiObject* m_pSkillUi;
 
 	//퀘스트 정보창
@@ -113,6 +133,7 @@ private:
 	cUIButton* m_pQuestUiMoveing;		//머리줄 이동용 
 	cUIButton* m_pQuestUiImage;		//스킬창 이미지
 	cUIButton* m_pQuestUiButton;		//스킬창 버튼
+	cUITextView* m_pQuestUiText;			//불변 택스트
 	cUiObject* m_pQuestUi;
 
 	//플레이어 인벤창
@@ -121,8 +142,7 @@ private:
 	cUIImageView* m_pInventoryUiImageHead;	//인벤창 머리줄
 	cUIButton* m_pInventoryUiMoveing;		//이동용 머리줄
 	cUIButton* m_pInventoryUiImage;			//인벤 창
-	//임시 칸수 표시
-	cUIImageView* m_pInventoryUiTempImage;	//임시(안씀)
+	cUITextView* m_pInventoryUiText;			//불변 택스트
 	//칸 수
 	vector<cUIButton*> m_vecInventoryUiBlock;	//안씀
 	cUIButton* m_pInventoryUiBlock[60];			//인벤토리 칸(소지품)
@@ -150,22 +170,34 @@ private:
 	//마우스 음직임 받기용
 	POINT m_ptMouse;
 
-	//임시용 아이탬1 (나중에 뭔가로 다시 받기)
-	cUIButton* m_pTempItem;
-	cUIButton* m_pTempItem2;
-	cUIButton* m_pTempItemArr[5];
-	cUIButton* m_pTempWeapon[2];
-	cUIButton* m_pTempWear[3];
-	cUIButton* m_pTempShoes[2];
-
 	//임시 플레이어
 	//플레이어 보여주기
 	cPlayer* m_pPlayer;
 	cSkinnedMesh* pSkinMesh;
 	//임시 캐매라
 	cCamera* m_pMainCamera;
+	//임시 스탯
+	int m_nTempMaxHP; int m_nTempHP;  //피통
+	int m_nTempMaxMP; int m_nTempMP;  //마나통
+	int m_nTempMaxStamina, nTempStamina;	//스태미나
+	int m_nTempSTR;						//체력
+	int m_nTempINT;						//지력
+	int m_nTempWill;					//의지	
+	int m_nTempLuck;					//행운
+	int m_nTempWorkmanship;				//솜씨
+	int m_nTempTotalDamage, m_nTempMinDamage, m_nTempMaxDamage, m_nTempDamege; //공격렬
+	int m_nTempTotalMagicDamage, m_nTempMaxMagicDamagel, m_nTempMinMagicDamagel, m_nTempMagicDamege; //마공
+	float m_fTempInjury;	//부상확률
+	float m_fTempCritical;			//크리
+	int m_nTempBalance;					//벨런스
+	int m_nTempDefense;				//방어
+	int m_nTempProtect;				//보호
+	int m_nTempMagicDefense;		//마방
+	int m_nTempMagicProtect;		//마법보호
+	int m_nTempArmorPiercing;		//방관
 
-	eTorsoSt m_eTorsoSt;
+	std::vector<cUIButton*> m_pTempItem;
+	std::vector<cUIButton*> m_pTempBsg;
 
 public:
 	virtual HRESULT Setup(void) override;
@@ -177,6 +209,7 @@ public:
 	void SetUpTempPlayer(void);
 	virtual void Reset(void) override;
 	virtual void Update(void) override;
+	void UpdateInfoUi(void);
 	void MoveUiWindow(void);
 	virtual void Render(void) override;
 
@@ -190,17 +223,14 @@ public:
 	//ui 열림 주고 받기용
 	bool GetInfoOnOff(void) { return m_isInfoWindowOn; }
 	void SetInfoOnOff(bool is) { m_isInfoWindowOn = is; }
-
 	bool GetSkillOnOff(void) { return m_isSkillWindowOn; }
 	void SetSkillOnOff(bool is) { m_isSkillWindowOn = is; }
-
 	bool GetQuestOnOff(void) { return m_isQuestWindowOn; }
 	void SetQuestOnOff(bool is) { m_isQuestWindowOn = is; }
-
 	bool GetInventoryOnOff(void) { return m_isInventoryWindowOn; }
 	void SetInventoryOnOff(bool is) { m_isInventoryWindowOn = is; }
-
-
+	//마우스 오버
+	
 
 
 	static cUiTestScene* Create(void);
