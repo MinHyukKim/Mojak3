@@ -89,7 +89,7 @@ HRESULT cUiTestScene::Setup(void)
 	this->SetupInventoryUi();
 
 	//임시 플레이어 셋업
-//	this->SetUpTempPlayer();
+	this->SetUpTempPlayer();
 
 	return D3D_OK;
 }
