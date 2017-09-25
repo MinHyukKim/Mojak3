@@ -311,7 +311,7 @@ void cUiTestScene::MoveUiWindow(void)
 			{
 				m_pTempItemArr[0]->SetPosition(160 , 90);
 				m_pPlayer->ChangeMeshPart(cPlayer::MESH_BODY, g_pSkinnedMeshManager->GetSkinnedMesh("¹Ùµð01"));
-			//	m_isTorsoMount = false;
+				m_isTorsoMount = false;
 			}
 		}
 	}
