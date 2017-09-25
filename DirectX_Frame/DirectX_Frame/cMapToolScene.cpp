@@ -143,8 +143,14 @@ void cMapToolScene::Update(void)
 			g_pMapObjectManager->GetLastMapObject()->SetPosX(vTo.x);
 		}
 	}
-
+	//테스트용 전역변수 필히 삭제
 	static bool g_TestToggle = false;
+
+	if (g_pInputManager->IsOnceKeyDown(VK_LBUTTON))
+	{
+		g_pMapObjectManager->PopMapObject();
+	}
+
 
 	if (g_pInputManager->IsStayKeyDown('1'))
 	{
