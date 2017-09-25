@@ -1,8 +1,7 @@
 #pragma once
 #include "cSceneObject.h"
 
-#define NEXT_SCENE "cMapToolScene"
-#define NEXT_SCENE1 "cUiTestScene"
+#define NEXT_SCENE "cUiCustomizingScene"
 
 class cDataLoder;
 class cImage;
