@@ -163,7 +163,7 @@ void cBuilding::Destroy()
 	//계별적으로 관리함
 	for (int i = 0; i < m_dwNumMaterials; i++)
 	{
-		SAFE_RELEASE(m_pMeshTextures[i]);
+		//SAFE_RELEASE(m_pMeshTextures[i]);
 	}
 	SAFE_DELETE_ARRAY(m_pMeshMaterials);
 	SAFE_DELETE_ARRAY(m_pMeshTextures);

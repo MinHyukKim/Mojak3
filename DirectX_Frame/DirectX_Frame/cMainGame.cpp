@@ -69,6 +69,23 @@ void cMainGame::Update(void)
 	g_pFrustum->Update();					// 컬링 매트릭스 준비
 	g_pTimeManager->Update();
 	g_pSceneManager->Update();
+
+	//테스트용 씬전환
+	if (g_pInputManager->IsStayKeyDown(VK_MENU))
+	{
+		if (g_pInputManager->IsOnceKeyDown('1'))
+		{
+			g_pSceneManager->ChangeScene("cMapToolScene");
+		}
+		else if (g_pInputManager->IsOnceKeyDown('2'))
+		{
+			g_pSceneManager->ChangeScene("cUiTestScene");
+		}
+		else if (g_pInputManager->IsOnceKeyDown('3'))
+		{
+			g_pSceneManager->ChangeScene("cCharTestScene");
+		}
+	}
 }
 
 void cMainGame::Render(void)
