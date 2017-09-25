@@ -4,6 +4,7 @@ class cAbilityParamter
 private:
 	DWORD m_dwUnitID;			//종족번호
 	DWORD m_dwPlayerID;			//컨트롤러 권한
+	DWORD m_dwAICodeID;			//인공지능 번호
 
 	int m_nMinLife;				//최소 생명력
 	int m_nMinMana;				//최소 마나량
@@ -48,6 +49,8 @@ public:
 	DWORD GetUnitID(void) { return m_dwUnitID; }
 	void SetPlayerID(DWORD dwValue) { m_dwPlayerID = dwValue; }
 	DWORD GetPlayerID(void) { return m_dwPlayerID; }
+	void SetAICodeID(DWORD dwValue) { m_dwAICodeID = dwValue; }
+	DWORD GetAICodeID(void) { return m_dwAICodeID; }
 
 	void SetStr(float nValue) { m_fStr = nValue; }
 	int GetStr(void) { return m_fStr; }

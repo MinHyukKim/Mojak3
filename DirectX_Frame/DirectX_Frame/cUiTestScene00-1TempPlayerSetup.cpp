@@ -71,6 +71,6 @@ void cUiTestScene::SetUpTempPlayer(void)
 	//g_pAnimationManager->RegisterAnimation("./Animation/ani_female_stand_leftahead.X","여성_기본01");
 	m_pPlayer->RegisterAnimation(cPlayer::ANIMATION_IDLE_PEACEFUL, g_pAnimationManager->GetAnimation("여성_기본01"));
 	//애니메이션 변형
-	m_pPlayer->SetPatternState(cPlayer::PATTERN_IDEN_PEACEFUL);
+	m_pPlayer->SetPatternState(cPlayer::PATTERN_IDEN_FRIENDLY);
 	//	m_pPlayer->SetAnimation(cPlayer::ANIMATION_IDLE_PEACEFUL);
 }

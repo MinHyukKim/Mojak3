@@ -132,6 +132,13 @@ void cObjectManager::RegisterPlayer(IN cPlayer* pPlayer)
 {
 	SAFE_RELEASE(m_pPlayer);
 	m_pPlayer = pPlayer;
+	pPlayer->RegisterAnimation(cPlayer::ANIMATION_IDLE_OFFENSIVE, g_pAnimationManager->GetAnimation("여성_기본02"));
+	pPlayer->RegisterAnimation(cPlayer::ANIMATION_WALK_PEACEFUL, g_pAnimationManager->GetAnimation("여성_걷기01"));
+	pPlayer->RegisterAnimation(cPlayer::ANIMATION_WALK_OFFENSIVE, g_pAnimationManager->GetAnimation("여성_걷기02"));
+	pPlayer->RegisterAnimation(cPlayer::ANIMATION_RUN_PEACEFUL, g_pAnimationManager->GetAnimation("여성_달리기01"), 2.5f);
+	pPlayer->RegisterAnimation(cPlayer::ANIMATION_RUN_OFFENSIVE, g_pAnimationManager->GetAnimation("여성_달리기02"), 2.5f);
+	pPlayer->RegisterAnimation(cPlayer::ANIMATION_ATTACK_PEACEFUL, g_pAnimationManager->GetAnimation("여성_공격01"), 5.0f);
+	pPlayer->RegisterAnimation(cPlayer::ANIMATION_ATTACK_OFFENSIVE, g_pAnimationManager->GetAnimation("여성_공격02"), 5.0f);
 	m_pPlayer->GetAbilityParamter()->SetPlayerID(1);
 	m_pPlayer->GetAbilityParamter()->SetUnitID(0);
 	m_pPlayer->AddRef();
@@ -177,7 +184,23 @@ bool cObjectManager::CreateMonster(IN MONSTER_TYPE eMonsterKey, IN LPD3DXVECTOR3
 		pCreateMonster->RegisterAnimation(cPlayer::ANIMATION_ATTACK_OFFENSIVE, g_pAnimationManager->GetAnimation("여성_공격02"));
 		pCreateMonster->GetAbilityParamter()->SetPlayerID(2);
 		pCreateMonster->GetAbilityParamter()->SetUnitID(1);
-		pCreateMonster->SetPatternState(cPlayer::PATTERN_IDEN_PEACEFUL);
+		pCreateMonster->SetPatternState(cPlayer::PATTERN_IDEN_FRIENDLY);
+	}	break;
+
+	case cObjectManager::MONSTER_FOX01:
+	{
+
+		pCreateMonster = cPlayer::Create();
+		pCreateMonster->Setup();
+		pCreateMonster->SetupAnimationController("여우00");
+		pCreateMonster->ChangeMeshPart(cPlayer::MESH_BODY, g_pSkinnedMeshManager->GetSkinnedMesh("여우01"));
+		pCreateMonster->RegisterAnimation(cPlayer::ANIMATION_IDLE_PEACEFUL, g_pAnimationManager->GetAnimation("여우_기본01"));
+		pCreateMonster->RegisterAnimation(cPlayer::ANIMATION_IDLE_OFFENSIVE, g_pAnimationManager->GetAnimation("여우_기본02"));
+		pCreateMonster->RegisterAnimation(cPlayer::ANIMATION_RUN_OFFENSIVE, g_pAnimationManager->GetAnimation("여우_달리기01"));
+		pCreateMonster->RegisterAnimation(cPlayer::ANIMATION_ATTACK_OFFENSIVE, g_pAnimationManager->GetAnimation("여우_공격01"));
+		pCreateMonster->GetAbilityParamter()->SetPlayerID(2);
+		pCreateMonster->GetAbilityParamter()->SetUnitID(1);
+		pCreateMonster->SetPatternState(cPlayer::PATTERN_IDEN_FRIENDLY);
 	}	break;
 
 	default: break;
