@@ -4,14 +4,16 @@
 #define ANI_MATRIX 32
 
 #define PATTERN_NULL		0x00000000
-#define PATTERN_OFFENSIVE	0x00000002
-#define PATTERN_WALK		0x00000004
-#define PATTERN_RUN			0x00000008
+#define PATTERN_FRIENDLY	0x00000001	//일상모드
+#define PATTERN_WALK		0x00000004	//걷기가능
+#define PATTERN_RUN			0x00000008	//달리기가능
+#define PATTERN_ATTACK		0x00000020	//공격가능
 
-#define PATTERN_FRIENDLY	0x00000001
-#define PATTERN_STOP		0x00000010
+#define PATTERN_OFFENSIVE	0x00000002	//전투모드
+#define PATTERN_STOP		0x00000010	//정지가능
+#define PATTERN_TARGET		0x00000040	//추적모드
 
-#define PATTERN_NORMAL		0x0000000d
+#define PATTERN_NORMAL		0x0000002d	//기본상태
 
 struct ST_ANIMATIONKEY
 {
@@ -105,11 +107,12 @@ public:
 
 	void SetupAnimationController(LPCSTR szBoneKey = "더미");
 
+
 	//상태 변환시 1회만 적용
 	void SetupFriendly(void);
 	void SetupOffnsive(void);
 	//상태 변환시 행동을 반복함
-	void PatternIden(void);
+	void PatternUpdate(void);
 	//상태 변화
 	void SetStatePattern(DWORD dwPattern);
 
@@ -123,9 +126,11 @@ public:
 
 	void OrderFriendly(void);
 	void OrderOffensive(void);
+	void OrderIden(void);
 	void OrderIdenChange(void);
 	void OrderWalk(LPD3DXVECTOR3 pTo);
 	void OrderMove(LPD3DXVECTOR3 pTo);
+	void OrderAttack(cPlayer* pTarget);
 
 	//애니메이션 함수
 	DWORD RegisterAnimation(IN DWORD dwAnimationKey, IN LPD3DXANIMATIONSET pAnimation, IN float fSpeed = 1.0f);
