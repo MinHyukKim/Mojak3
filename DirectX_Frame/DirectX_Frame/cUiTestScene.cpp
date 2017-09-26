@@ -171,10 +171,14 @@ void cUiTestScene::Update(void)
 	else m_pMainRootImageView->SetPosition(300, 502);
 
 	if (m_pUiRoot) m_pUiRoot->Update();
-	if (m_pInfoUi && m_isInfoWindowOn) m_pInfoUi->Update();
 	if (m_pSkillUi && m_isSkillWindowOn) m_pSkillUi->Update();
 	if (m_pQuestUi && m_isQuestWindowOn) m_pQuestUi->Update();
 	if (m_pInventoryUi && m_isInventoryWindowOn) m_pInventoryUi->Update();
+	if (m_pInfoUi && m_isInfoWindowOn)
+	{
+		m_pInfoUi->Update();
+		UpdateInfoUi();
+	}
 
 	//임시 플레이어
 	SAFE_UPDATE(m_pPlayer);
@@ -208,8 +212,6 @@ void cUiTestScene::Update(void)
 		m_nTempArmorPiercing += 1;
 	}
 
-	if (m_pInfoUi) UpdateInfoUi();
-
 	if (m_pUiTestRoot) m_pUiTestRoot->Update();
 }
 
@@ -238,6 +240,8 @@ void cUiTestScene::Render(void)
 bool cUiTestScene::GetMoveingOK()
 {
 	if (m_pMainMainButton->isOver) return false;
+	if (m_pMainRootImageViewMove->isOver) return false;
+	if (m_pMinButton->isOver) return false;
 	if (m_pInfoButton->isOver) return false;
 	if (m_pSkillButton->isOver) return false;
 	if (m_pQuestButton->isOver) return false;

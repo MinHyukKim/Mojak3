@@ -21,6 +21,16 @@ void cUiTestScene::SetupBaseButton(void)
 	m_pMainRootImageView->m_Alpha = 200;
 	m_pUiRoot = m_pMainRootImageView;
 
+	m_pMainRootImageViewMove = cUIButton::Create();
+	m_pMainRootImageViewMove->SetTexture("Texture/Ui/TestRoot2.png",
+		"Texture/Ui/TestRoot2.png",
+		"Texture/Ui/TestRoot2.png");
+	m_pMainRootImageViewMove->m_Alpha = 0;
+	m_pMainRootImageViewMove->SetPosition(0, 0);
+	m_pMainRootImageViewMove->SetDelegate(this);
+	m_pMainRootImageViewMove->SetTag(E_BUTTON_NONE);
+	m_pUiRoot->AddChild(m_pMainRootImageViewMove);
+
 //	cUITextView* pTextView = cUITextView::Create();
 //	pTextView->SetText("태스트용");
 //	pTextView->SetFontType(g_pFontManager->E_NORMAL);
@@ -94,14 +104,14 @@ void cUiTestScene::SetupBaseButton(void)
 	//	pButton->SetTag(E_MAIN_BUTTON_PET);
 	//	m_pUiRoot->AddChild(pButton);
 
-	cUIButton* pMinButton = cUIButton::Create();
-	pMinButton->SetTexture("Texture/Ui/button_min_up.png",
+	m_pMinButton = cUIButton::Create();
+	m_pMinButton->SetTexture("Texture/Ui/button_min_up.png",
 		"Texture/Ui/button_min_over.png",
 		"Texture/Ui/button_min_up.png");
-	pMinButton->SetPosition(mainButtonSrart + 190, mainButtonH + 26);
-	pMinButton->SetDelegate(this);
-	pMinButton->SetTag(E_MAIN_BUTTON_MIN);
-	m_pUiRoot->AddChild(pMinButton);
+	m_pMinButton->SetPosition(mainButtonSrart + 190, mainButtonH + 26);
+	m_pMinButton->SetDelegate(this);
+	m_pMinButton->SetTag(E_MAIN_BUTTON_MIN);
+	m_pUiRoot->AddChild(m_pMinButton);
 
 	m_pMainMainButton = cUIButton::Create();
 	m_pMainMainButton->SetTexture("Texture/Ui/main_button-up.png",
