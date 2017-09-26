@@ -29,7 +29,7 @@ HRESULT cSkybox::Setup(const char * top, const char * bottom, const char * left,
 
 	pv[1].p = D3DXVECTOR3(-1.f, 1.f, -1.f);
 	pv[1].n = D3DXVECTOR3(1, 1, 1);
-	pv[1].t = D3DXVECTOR2(1, 1);
+	pv[1].t = D3DXVECTOR2(0, 0);
 	
 	pv[2].p = D3DXVECTOR3(1.f, 1.f, 1.f);
 	pv[2].n = D3DXVECTOR3(1, 1, 1);
@@ -99,19 +99,19 @@ HRESULT cSkybox::Setup(const char * top, const char * bottom, const char * left,
 	m_pVertex[3]->Unlock();
 	//front
 	if (FAILED(m_pVertex[4]->Lock(0, 0, (void**)&pv, 0))) return S_FALSE;
-	pv[0].p = D3DXVECTOR3(1.f, 1.f, -1.f);
+	pv[0].p = D3DXVECTOR3(1.f, 1.f, 1.f);
 	pv[0].n = D3DXVECTOR3(1, 1, 1);
 	pv[0].t = D3DXVECTOR2(0, 0);
 
-	pv[1].p = D3DXVECTOR3(1.f, 1.f, 1.f);
+	pv[1].p = D3DXVECTOR3(-1.f, 1.f, 1.f);
 	pv[1].n = D3DXVECTOR3(1, 1, 1);
 	pv[1].t = D3DXVECTOR2(1, 0);
 
-	pv[2].p = D3DXVECTOR3(1.f, -1.f, -1.f);
+	pv[2].p = D3DXVECTOR3(1.f, -1.f, 1.f);
 	pv[2].n = D3DXVECTOR3(1, 1, 1);
 	pv[2].t = D3DXVECTOR2(0, 1);
 
-	pv[3].p = D3DXVECTOR3(1.f, -1.f, 1.f);
+	pv[3].p = D3DXVECTOR3(-1.f, -1.f, 1.f);
 	pv[3].n = D3DXVECTOR3(1, 1, 1);
 	pv[3].t = D3DXVECTOR2(1, 1);
 

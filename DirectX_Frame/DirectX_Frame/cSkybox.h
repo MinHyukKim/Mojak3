@@ -21,6 +21,7 @@ public:
 	virtual void Render(void);
 	//스카이박스 생성 함수
 	static cSkybox* Create(void);
+
 protected:
 	cSkybox(void);
 	virtual ~cSkybox(void);

@@ -3,8 +3,7 @@
 
 class cCamera;
 class cMapTerrain;
-class cSkyBox;
-
+class cSkybox;
 
 //테스트용
 class cGrid;
@@ -23,6 +22,8 @@ private:
 	D3DXMATERIAL m_stMtl;
 
 	cBuilding* m_pBuild;
+	cSkybox*	m_pSkybox;
+
 
 public:
 	virtual HRESULT Setup(void) override;
