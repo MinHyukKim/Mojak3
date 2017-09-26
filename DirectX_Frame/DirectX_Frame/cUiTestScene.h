@@ -132,6 +132,24 @@ private:
 	//경험치 이미지
 	cUIImageViewTemp* m_pEXPMaxImage;	//경험치통 맥스
 	cUIImageViewTemp* m_pEXPImage;		 //경험치통 현재량
+
+	//메인에서의 이미지 창
+	int m_nMainHPx;
+	int m_nMainHPy;
+	cUIImageViewTemp* m_pMainHpMaxImage;	//피통 맥스
+	cUIImageViewTemp* m_pMainHpImage;		 //피통 현재량
+	cUITextView* m_pMainHpText;				//피통 택스트
+	int m_nMainMPx;
+	int m_nMainMPy;
+	cUIImageViewTemp* m_pMainMpMaxImage;	//마나통 맥스
+	cUIImageViewTemp* m_pMainMpImage;		 //마나통 현재량
+	cUITextView* m_pMainMpText;				//마나통 택스트
+	int m_nMainStaminaX;
+	int m_nMainStaminaY;
+	cUIImageViewTemp* m_pMainStaminaMaxImage;	//스태통 맥스
+	cUIImageViewTemp* m_pMainStaminaImage;		 //스태통 현재량
+	cUITextView* m_pMainStaminaText;			//스태통 택스트
+	//메인 ui뿌리
 	cUiObject* m_pInfoUi;
 	
 	//플레이어 스킬창
@@ -232,6 +250,7 @@ public:
 	void SetUpTempPlayer(void);
 	virtual void Reset(void) override;
 	virtual void Update(void) override;
+	void UpdateMainUi(void);
 	void UpdateInfoUi(void);
 	void MoveUiWindow(void);
 	virtual void Render(void) override;
