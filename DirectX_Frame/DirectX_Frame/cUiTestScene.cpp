@@ -107,6 +107,14 @@ HRESULT cUiTestScene::Setup(void)
 	m_pUiTesterSize->SetPosition(mainUiLocalX + 40, mainUiLocalY);
 	m_pUiTestRoot = m_pUiTesterSize;	
 
+//	LPDIRECT3DTEXTURE9 imageData;
+//	RECT rc;
+//	GetClientRect(g_hWnd, &rc);
+//	cImage* temp = cImage::Create();
+//	imageData = g_pTexture->GetTextureEx("Texture/Ui/loading_bar.dds", &m_stHpBar);
+//	temp->SetTexture("Texture/Ui/loading_bar.dds");
+
+
 	//플레이어 정보 창 셋업
 	this->SetupInfoUi();
 	//스킬 창 셋업
