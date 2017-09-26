@@ -11,6 +11,13 @@ void cSkybox::Update(void)
 {
 }
 
+cSkybox * cSkybox::Create(void)
+{
+	cSkybox* newClass = new cSkybox;
+	newClass->AddRef();
+	return newClass;
+}
+
 cSkybox::cSkybox(void)
 {
 }
