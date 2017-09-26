@@ -15,6 +15,7 @@ public:
 		E_QUEST,
 		E_INBUTTON,
 		E_TEMP_INBUTTON,
+		E_TEMP_IN_SMALL,
 		E_END,
 	};
 

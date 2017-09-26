@@ -78,33 +78,6 @@ void cUiTestScene::SetupBaseButton(void)
 	m_pInventoryButton->SetTag(E_MAIN_BUTTON_INVENTORY);
 	m_pUiRoot->AddChild(m_pInventoryButton);
 
-	//	pButton = cUIButton::Create();
-	//	pButton->SetTexture("Texture/Ui/player_ability_button_up.png", 
-	//		"Texture/Ui/player_ability_button_over.png",
-	//		"Texture/Ui/player_ability_button_down.png");
-	//	pButton->SetPosition(mainButtonSrart + mainButtoninterval * 4, mainButtonH);
-	//	pButton->SetDelegate(this);
-	//	pButton->SetTag(E_MAIN_BUTTON_ABILITY);
-	//	m_pUiRoot->AddChild(pButton);
-	//
-	//	pButton = cUIButton::Create();
-	//	pButton->SetTexture("Texture/Ui/player_action_button_up.png", 
-	//		"Texture/Ui/player_action_button_over.png",
-	//		"Texture/Ui/player_action_button_down.png");
-	//	pButton->SetPosition(mainButtonSrart + mainButtoninterval * 5, mainButtonH);
-	//	pButton->SetDelegate(this);
-	//	pButton->SetTag(E_MAIN_BUTTON_ACTION);
-	//	m_pUiRoot->AddChild(pButton);
-	//
-	//	pButton = cUIButton::Create();
-	//	pButton->SetTexture("Texture/Ui/player_pet_button_up.png", 
-	//		"Texture/Ui/player_pet_button_over.png",
-	//		"Texture/Ui/player_pet_button_down.png");
-	//	pButton->SetPosition(mainButtonSrart + mainButtoninterval * 6, mainButtonH);
-	//	pButton->SetDelegate(this);
-	//	pButton->SetTag(E_MAIN_BUTTON_PET);
-	//	m_pUiRoot->AddChild(pButton);
-
 	m_pMinButton = cUIButton::Create();
 	m_pMinButton->SetTexture("Texture/Ui/button_min_up.png",
 		"Texture/Ui/button_min_over.png",
@@ -122,6 +95,149 @@ void cUiTestScene::SetupBaseButton(void)
 	m_pMainMainButton->SetDelegate(this);
 	m_pMainMainButton->SetTag(E_MAIN_BUTTON_MAIN);
 	m_pUiRoot->AddChild(m_pMainMainButton);
+
+	//게이지 이미지들
+	//피통 이미지
+	//최대
+	m_pMainHpMaxImage = cUIImageViewTemp::Create();
+	m_pMainHpMaxImage->SetTexture("Texture/Ui/HPmainE.png");
+	m_pMainHpMaxImage->SetPosition(m_nMainHPx, m_nMainHPy);
+	m_pMainHpMaxImage->SetRectSize();
+	//m_pMainHpMaxImage->m_rc.right = 50.0f;
+	m_pMainHpMaxImage->m_Alpha = 160;
+	m_pUiRoot->AddChild(m_pMainHpMaxImage);
+	//현재량
+	m_pMainHpImage = cUIImageViewTemp::Create();
+	m_pMainHpImage->SetTexture("Texture/Ui/HPmain.png");
+	m_pMainHpImage->SetPosition(m_nMainHPx, m_nMainHPy);
+	m_pMainHpImage->SetRectSize();
+	m_pMainHpImage->m_rc.right = ((float)g_pObjectManager->GetPlayer()->GetAbilityParamter()->GetMinHP()
+		/ (float)g_pObjectManager->GetPlayer()->GetAbilityParamter()->GetMaxHP()) * m_pMainHpImage->stImageInfo.Width;
+	m_pMainHpImage->m_Alpha = 220;
+	m_pUiRoot->AddChild(m_pMainHpImage);
+	//피통 택스트
+	char szHP[32] = { '\0', };
+	sprintf_s(szHP, "%d / %d", g_pObjectManager->GetPlayer()->GetAbilityParamter()->GetMinHP()
+		, g_pObjectManager->GetPlayer()->GetAbilityParamter()->GetMaxHP());
+	m_pMainHpText = cUITextView::Create();
+	m_pMainHpText->SetText(szHP);
+	m_pMainHpText->SetFontType(g_pFontManager->E_TEMP_IN_SMALL);
+	m_pMainHpText->SetColor(D3DCOLOR_XRGB(255, 255, 255));
+	m_pMainHpText->SetSize(ST_SIZE(100, 12));
+	//m_pMainHpText->SetPosition(10, 150 - 7); //마비체
+	m_pMainHpText->SetPosition(m_nMainHPx - 10, m_nMainHPy);   //나눔고딕
+	m_pMainHpText->SetDrawTextFormat(DT_CENTER | DT_VCENTER | DT_WORDBREAK);
+	m_pMainHpText->SetTag(E_BUTTON_NONE);
+	m_pUiRoot->AddChild(m_pMainHpText);
+
+	//마나통 이미지
+	//최대
+	m_pMainMpMaxImage = cUIImageViewTemp::Create();
+	m_pMainMpMaxImage->SetTexture("Texture/Ui/MPmainE.png");
+	m_pMainMpMaxImage->SetPosition(m_nMainMPx, m_nMainMPy);
+	m_pMainMpMaxImage->SetRectSize();
+	//m_pMainMpMaxImage->m_rc.right = 50.0f;
+	m_pMainMpMaxImage->m_Alpha = 160;
+	m_pUiRoot->AddChild(m_pMainMpMaxImage);
+	//현재량
+	m_pMainMpImage = cUIImageViewTemp::Create();
+	m_pMainMpImage->SetTexture("Texture/Ui/MPmain.png");
+	m_pMainMpImage->SetPosition(m_nMainMPx, m_nMainMPy);
+	m_pMainMpImage->SetRectSize();
+	m_pMainMpImage->m_rc.right = ((float)g_pObjectManager->GetPlayer()->GetAbilityParamter()->GetMinMP()
+		/ (float)g_pObjectManager->GetPlayer()->GetAbilityParamter()->GetMaxMP()) * m_pMainMpImage->stImageInfo.Width;
+	m_pMainMpImage->m_Alpha = 220;
+	m_pUiRoot->AddChild(m_pMainMpImage);
+	//마나 택스트
+	char szMP[32] = { '\0', };
+	sprintf_s(szMP, "%d / %d", g_pObjectManager->GetPlayer()->GetAbilityParamter()->GetMinMP()
+		, g_pObjectManager->GetPlayer()->GetAbilityParamter()->GetMaxMP());
+	m_pMainMpText = cUITextView::Create();
+	m_pMainMpText->SetText(szMP);
+	m_pMainMpText->SetFontType(g_pFontManager->E_TEMP_IN_SMALL);
+	m_pMainMpText->SetColor(D3DCOLOR_XRGB(255, 255, 255));
+	m_pMainMpText->SetSize(ST_SIZE(100, 12));
+	//m_pMainMpText->SetPosition(10, 150 - 7); //마비체
+	m_pMainMpText->SetPosition(m_nMainMPx - 10, m_nMainMPy);   //나눔고딕
+	m_pMainMpText->SetDrawTextFormat(DT_CENTER | DT_VCENTER | DT_WORDBREAK);
+	m_pMainMpText->SetTag(E_BUTTON_NONE);
+	m_pUiRoot->AddChild(m_pMainMpText);
+
+	//스태미너 이미지
+	//최대
+	m_pMainStaminaMaxImage = cUIImageViewTemp::Create();
+	m_pMainStaminaMaxImage->SetTexture("Texture/Ui/SPmainE.png");
+	m_pMainStaminaMaxImage->SetPosition(m_nMainStaminaX, m_nMainStaminaY);
+	m_pMainStaminaMaxImage->SetRectSize();
+	//m_pMainStaminaMaxImage->m_rc.right = 50.0f;
+	m_pMainStaminaMaxImage->m_Alpha = 160;
+	m_pUiRoot->AddChild(m_pMainStaminaMaxImage);
+	//현재량
+	m_pMainStaminaImage = cUIImageViewTemp::Create();
+	m_pMainStaminaImage->SetTexture("Texture/Ui/SPmain.png");
+	m_pMainStaminaImage->SetPosition(m_nMainStaminaX, m_nMainStaminaY);
+	m_pMainStaminaImage->SetRectSize();
+	m_pMainStaminaImage->m_rc.right = ((float)g_pObjectManager->GetPlayer()->GetAbilityParamter()->GetMinStamina()
+		/ (float)g_pObjectManager->GetPlayer()->GetAbilityParamter()->GetMaxStamina()) * m_pMainStaminaImage->stImageInfo.Width;
+	m_pMainStaminaImage->m_Alpha = 220;
+	m_pUiRoot->AddChild(m_pMainStaminaImage);
+	//스테미너 택스트
+	char szStamina[32] = { '\0', };
+	sprintf_s(szStamina, "%d / %d", g_pObjectManager->GetPlayer()->GetAbilityParamter()->GetMinStamina()
+		, g_pObjectManager->GetPlayer()->GetAbilityParamter()->GetMaxStamina());
+	m_pMainStaminaText = cUITextView::Create();
+	m_pMainStaminaText->SetText(szStamina);
+	m_pMainStaminaText->SetFontType(g_pFontManager->E_TEMP_IN_SMALL);
+	m_pMainStaminaText->SetColor(D3DCOLOR_XRGB(255, 255, 255));
+	m_pMainStaminaText->SetSize(ST_SIZE(100, 12));
+	//m_pMainStaminaText->SetPosition(10, 150 - 7); //마비체
+	m_pMainStaminaText->SetPosition(m_nMainStaminaX - 10, m_nMainStaminaY);   //나눔고딕
+	m_pMainStaminaText->SetDrawTextFormat(DT_CENTER | DT_VCENTER | DT_WORDBREAK);
+	m_pMainStaminaText->SetTag(E_BUTTON_NONE);
+	m_pUiRoot->AddChild(m_pMainStaminaText);
+
+}
+
+void cUiTestScene::UpdateMainUi(void)
+{
+	//택스트
+	char szHP[32] = { '\0', };
+	sprintf_s(szHP, "%d / %d", g_pObjectManager->GetPlayer()->GetAbilityParamter()->GetMinHP()
+		, g_pObjectManager->GetPlayer()->GetAbilityParamter()->GetMaxHP());
+	m_pMainHpText->SetText(szHP);
+
+	char szMP[32] = { '\0', };
+	sprintf_s(szMP, "%d / %d", g_pObjectManager->GetPlayer()->GetAbilityParamter()->GetMinMP()
+		, g_pObjectManager->GetPlayer()->GetAbilityParamter()->GetMaxMP());
+	m_pMainMpText->SetText(szMP);
+
+
+	//게이지 업데이트
+	//피통
+	m_pMainHpImage->m_rc.right = ((float)g_pObjectManager->GetPlayer()->GetAbilityParamter()->GetMinHP()
+		/ (float)g_pObjectManager->GetPlayer()->GetAbilityParamter()->GetMaxHP()) * m_pMainHpImage->stImageInfo.Width;
+	//현재 피통이 최대량보다 많아질때
+	if (m_pMainHpImage->m_rc.right >= m_pMainHpImage->stImageInfo.Width) m_pMainHpImage->m_rc.right = m_pMainHpImage->stImageInfo.Width;
+	//현재 피통이 0보다 작아질때
+	if (g_pObjectManager->GetPlayer()->GetAbilityParamter()->GetMinHP() <= 0) m_pMainHpImage->m_rc.right = 1.0f;
+
+	//마나통
+	m_pMainMpImage->m_rc.right = ((float)g_pObjectManager->GetPlayer()->GetAbilityParamter()->GetMinMP()
+		/ (float)g_pObjectManager->GetPlayer()->GetAbilityParamter()->GetMaxMP()) * m_pMainMpImage->stImageInfo.Width;
+	//현재 마나통이 최대량보다 많아질때
+	if (m_pMainMpImage->m_rc.right >= m_pMainMpImage->stImageInfo.Width)  m_pMainMpImage->m_rc.right = m_pMainMpImage->stImageInfo.Width;
+	//현재 마나통이 0보다 작아질때
+	if (g_pObjectManager->GetPlayer()->GetAbilityParamter()->GetMinMP() <= 0) m_pMainMpImage->m_rc.right = 1.0f;
+
+	//스태미나 통
+	m_pMainStaminaImage->m_rc.right = ((float)g_pObjectManager->GetPlayer()->GetAbilityParamter()->GetMinStamina()
+		/ (float)g_pObjectManager->GetPlayer()->GetAbilityParamter()->GetMaxStamina()) * m_pMainStaminaImage->stImageInfo.Width;
+	//현재 스태미나통이 최대량보다 많아질때
+	if (m_pMainStaminaImage->m_rc.right >= m_pMainStaminaImage->stImageInfo.Width) m_pMainStaminaImage->m_rc.right = m_pMainStaminaImage->stImageInfo.Width;
+	//현재 스태미나통이 0보다 작아질때
+	if (g_pObjectManager->GetPlayer()->GetAbilityParamter()->GetMinStamina() <= 0) m_pMainStaminaImage->m_rc.right = 1.0f;
+
+
 }
 
 void cUiTestScene::MoveUiWindow(void)

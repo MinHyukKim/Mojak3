@@ -3,7 +3,7 @@
 
 cAbilityParamter::cAbilityParamter(void)
 	: m_dwUnitID(0), m_dwPlayerID(0), m_dwAICodeID(0)
-	, m_nMinLife(60), m_nMinMana(50), m_nMinStamina(49)
+	, m_nMinLife(60), m_nMinMana(50), m_nMinStamina(40)
 	, m_nMaxLife(69), m_nMaxMana(59), m_nMaxStamina(54)
 	, m_nLevel(1), m_nAP(0), m_fMaxEXP(100.0f), m_fEXP(0.0f)
 	, m_fMaxAdventureEXP(100.0f), m_fAdventureEXP(0.0f)
