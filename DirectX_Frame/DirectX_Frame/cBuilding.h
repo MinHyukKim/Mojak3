@@ -48,7 +48,7 @@ public:
 
 	float GetOffsetY() { return m_fOffsetY; }
 	void SetOffsetY(float offset) { m_fOffsetY = offset; }
-	void SetScale(float scale) { D3DXMatrixScaling(&m_matScale, scale, scale, scale); m_matWorld = m_matScale*m_matWorld; }
+	void SetScale(float scale) { D3DXMatrixScaling(&m_matScale, scale, scale, scale); m_matWorld = m_matScale*m_matWorld;}
 
 	//static cBuilding* Create(void);
 	void Destroy();

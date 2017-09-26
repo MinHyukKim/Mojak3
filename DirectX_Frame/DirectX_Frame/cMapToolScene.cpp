@@ -136,15 +136,15 @@ void cMapToolScene::Update(void)
 			g_pMapObjectManager->GetLastMapObject()->GetPosY() - g_pTimeManager->GetElapsedTime());
 	}
 
-	static float scaleTest = 1.0f;
+	//static float scaleTest = 1.0f;
 	//축소 확대기능
 	if (g_pInputManager->IsStayKeyDown('U'))
 	{
-		g_pMapObjectManager->GetLastMapObject()->SetScale(scaleTest -= 0.0001f);
+		g_pMapObjectManager->GetLastMapObject()->SetScale(0.9f);
 	}
 	if (g_pInputManager->IsStayKeyDown('O'))
 	{
-		g_pMapObjectManager->GetLastMapObject()->SetScale(scaleTest += 0.0001f);
+		g_pMapObjectManager->GetLastMapObject()->SetScale(1.1f);
 	}
 
 
