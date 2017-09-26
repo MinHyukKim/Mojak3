@@ -62,6 +62,8 @@ private:
 
 	//월드의 위치와 회전 값
 	D3DXMATRIXA16 m_matWorld;
+	//충돌체 크기
+	float m_fRadius;
 	//캐릭터의 헤어 색상
 	D3DMATERIAL9 m_stHairMaterial;
 	//각 부위에 텍스쳐 이름
@@ -161,16 +163,22 @@ public:
 	void PlayerToTarget(float fRange);	//타겟변경
 	void TargetView(void) { this->SetDirection(&(m_pTarget->GetPosition() - this->GetPosition()));}
 	void AutoTarget(float fRange);	//타겟변경
-	void GoToTarget(void);
-	void GoToTarget(float fSpeed); //타겟에게 이동
-	void KeepToTarget(float fRange); //타겟과 일정거리 유지
+	void GoToTarget(void);	//타겟에게 이동
+	void GoToTarget(float fSpeed);
+	void KeepToTarget(float fRange);	//타겟과 일정거리 유지
 	void KeepToTarget(float fRange, float fSpeed);
 	void RotationToTarget(float fAngle);	//타겟을 해당각도방향으로 직선이동합니다. (범위 : -D3DX_PI ~ D3DX_PI)
 	void RotationToTarget(float fAngle, float fSpeed);
 	//조건 함수
 	bool DistSqTarget(OUT float* pDist); //타겟과 거리
 	bool DistTarget(OUT float* pDist);
-	bool DistTarget(OUT DWORD dwTarget, OUT float fRange);
+	bool DistTarget(OUT DWORD dwTarget, OUT float fRange); // 0중립, 1플레이어, 2컴퓨터, 3타겟
+
+	//충돌함수
+	bool IsCollision(IN LPD3DXVECTOR3 pRay, IN LPD3DXVECTOR3 pDir);
+
+	void SetRadius(float fValue) { m_fRadius = fValue; }
+	float GetRadius(void) { return m_fRadius; }
 
 	cAbilityParamter* GetAbilityParamter(void) { return &m_AbilityParamter; }
 	cCamera* GetCamera(void) { return m_pCamera; }

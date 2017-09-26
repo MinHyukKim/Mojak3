@@ -65,9 +65,9 @@ void cCharTestScene::Update(void)
 
 	if (g_pInputManager->IsOnceKeyDown(VK_LBUTTON))
 	{
-		D3DXVECTOR3 vTo, vOrg, vDir;
-		g_pRay->RayAtWorldSpace(&vOrg, &vDir);
-		if (m_pMapTerrain->IsCollision(&vTo, &vOrg, &vDir))
+		D3DXVECTOR3 vTo, vRay, vDir;
+		g_pRay->RayAtWorldSpace(&vRay, &vDir);
+		if (m_pMapTerrain->IsCollision(&vTo, &vRay, &vDir))
 		{
 			g_pObjectManager->GetPlayer()->MoveToPlayer(&vTo, g_pObjectManager->GetPlayer()->GetAbilityParamter()->GetMoveSpeed());
 			g_pObjectManager->GetPlayer()->SetPatternState(cPlayer::PATTERN_RUN_FRIENDLY);

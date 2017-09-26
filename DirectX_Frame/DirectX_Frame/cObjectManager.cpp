@@ -154,6 +154,21 @@ void cObjectManager::LoadPlayerData(IN LPCSTR FullPath)
 	assert(false && "¹Ì±¸Çö");
 }
 
+cPlayer* cObjectManager::GetMonster(IN LPD3DXVECTOR3 pRay, IN LPD3DXVECTOR3 pDir)
+{
+	cPlayer* pTarget = nullptr;
+	float fDist = 1000.0f;
+	for each (auto pMonster in m_vecMonster)
+	{
+		if (!pMonster->IsCollision(pRay, pDir)) continue;
+		float fLength = D3DXVec3Length(&(pMonster->GetPosition() - (*pRay)));
+		if (fLength >= fDist) continue;
+		pTarget = pMonster;
+		fDist = fLength;
+	}
+	return pTarget;
+}
+
 void cObjectManager::SetTerrain(IN cMapTerrain* pTerrain)
 {
 	SAFE_RELEASE(m_pTerrain);

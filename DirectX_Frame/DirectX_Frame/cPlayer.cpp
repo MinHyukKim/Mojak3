@@ -696,6 +696,12 @@ bool cPlayer::DistTarget(OUT DWORD dwTarget, OUT float fRange)
 	return false;
 }
 
+//광선과 원충돌
+bool cPlayer::IsCollision(IN LPD3DXVECTOR3 pRay, IN LPD3DXVECTOR3 pDir)
+{
+	return (D3DXVec3Dot(&(this->GetPosition() - (*pRay)), pDir) < m_fRadius * m_fRadius);
+}
+
 cPlayer* cPlayer::Create(void)
 {
 	cPlayer* newClass = new cPlayer;
