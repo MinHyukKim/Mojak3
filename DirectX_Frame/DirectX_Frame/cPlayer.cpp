@@ -67,11 +67,7 @@ void cPlayer::Update(void)
 	case 2: break;
 	default: break;
 	}
-
-	//기본 업데이트
-	m_AbilityParamter.Update();
-	SAFE_UPDATE(m_pActionMove);
-	SAFE_UPDATE(m_pActionDirection);
+	this->PatternUpdate();
 }
 
 void cPlayer::Render(void)
@@ -115,8 +111,23 @@ void cPlayer::SetupOffnsive(void)
 {
 	m_dwNumPattern;
 	this->SetStateFalse(PATTERN_OFFENSIVE);
-	this->SetStateTrue(PATTERN_FRIENDLY);
+	this->SetStateTrue(PATTERN_FRIENDLY); 
 	this->SetBlendingAnimation(cPlayer::ANIMATION_IDLE_OFFENSIVE);
+}
+
+void cPlayer::PatternUpdate(void)
+{
+	//기본 업데이트
+	m_AbilityParamter.Update();
+	SAFE_UPDATE(m_pActionMove);
+	SAFE_UPDATE(m_pActionDirection);
+	if (this->CheckState(PATTERN_STOP))
+	{
+		if (m_pActionMove && !m_pActionMove->IsPlay())
+		{
+			this->OrderIden();
+		}
+	}
 }
 
 
@@ -148,8 +159,27 @@ void cPlayer::OrderOffensive(void)
 	}
 }
 
+void cPlayer::OrderIden(void)
+{
+	if (!this->CheckState(PATTERN_STOP)) return;
+
+	this->SetStateFalse(PATTERN_STOP);
+	this->SetStateFalse(PATTERN_TARGET);
+	this->MoveStop();
+
+	if (this->CheckState(PATTERN_FRIENDLY))
+	{
+		this->SetStatePattern(cPlayer::ORDER_IDLE_OFFENSIVE);
+	}
+	else
+	{
+		this->SetStatePattern(cPlayer::ORDER_IDLE_FRIENDLY);
+	}
+}
+
 void cPlayer::OrderIdenChange(void)
 {
+	this->SetStateFalse(PATTERN_STOP);
 	this->MoveStop();
 
 	if (this->CheckState(PATTERN_FRIENDLY))
@@ -168,6 +198,8 @@ void cPlayer::OrderWalk(LPD3DXVECTOR3 pTo)
 
 	this->Rotation(&((*pTo) - this->GetPosition()), 5.0f);
 	this->MoveEx(pTo, 0.5f);
+	this->SetStateTrue(PATTERN_STOP);
+	this->SetStateFalse(PATTERN_TARGET);
 
 	if (this->CheckState(PATTERN_FRIENDLY))
 	{
@@ -188,6 +220,8 @@ void cPlayer::OrderMove(LPD3DXVECTOR3 pTo)
 	{
 		this->Rotation(&((*pTo) - this->GetPosition()), 10.0f);
 		this->MoveEx(pTo, 1.0f);
+		this->SetStateTrue(PATTERN_STOP);
+		this->SetStateFalse(PATTERN_TARGET);
 
 		if (this->CheckState(PATTERN_FRIENDLY))
 		{
@@ -201,6 +235,27 @@ void cPlayer::OrderMove(LPD3DXVECTOR3 pTo)
 		}
 	}
 	else this->OrderWalk(pTo);
+}
+
+void cPlayer::OrderAttack(cPlayer* pTarget)
+{
+	SAFE_RELEASE(m_pTarget);
+	m_pTarget = pTarget;
+	SAFE_ADDREF(m_pTarget);
+
+	float fDist;
+	if (this->DistSqTarget(&fDist))
+	{
+		if (this->CheckState(PATTERN_ATTACK))
+		{
+			if (fDist > m_AbilityParamter.GetRange())
+			{
+				this->SetStateTrue(PATTERN_TARGET);
+				this->OrderMove(&m_pTarget->GetPosition());
+			}
+		}
+	}
+	
 }
 
 

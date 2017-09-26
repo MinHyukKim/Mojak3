@@ -81,7 +81,7 @@ void cCharTestScene::Update(void)
 			g_pRay->RayAtWorldSpace(&vRay, &vDir);
 			if (g_pObjectManager->GetMonster(&pMonster, &vRay, &vDir))
 			{
-				g_pObjectManager->GetPlayer()->SetTarget(pMonster);
+				g_pObjectManager->GetPlayer()->OrderAttack(pMonster);
 			}
 			else if (m_pMapTerrain->IsCollision(&vTo, &vRay, &vDir))
 			{
