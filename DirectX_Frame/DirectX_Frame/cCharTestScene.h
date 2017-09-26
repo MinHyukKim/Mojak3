@@ -17,6 +17,9 @@ private:
 	cGrid* m_pGrid;
 	LPDIRECT3DTEXTURE9 m_pTexture;
 	D3DXMATERIAL m_stMtl;
+	
+	//ui연동 태스트
+	cUiTestScene* m_pUi;
 
 public:
 	virtual HRESULT Setup(void) override;

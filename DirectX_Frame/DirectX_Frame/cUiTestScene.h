@@ -1,6 +1,7 @@
 #pragma once
 #include "cSceneObject.h"
 #include "cUIButton.h"
+#include "cAbilityParamter.h"
 
 //태스트
 class cFont;
@@ -131,9 +132,9 @@ private:
 	int queY;
 	cUIImageView* m_pQuestUiImageHead;	//스킬창 머리줄	
 	cUIButton* m_pQuestUiMoveing;		//머리줄 이동용 
-	cUIButton* m_pQuestUiImage;		//스킬창 이미지
+	cUIButton* m_pQuestUiImage;			//스킬창 이미지
 	cUIButton* m_pQuestUiButton;		//스킬창 버튼
-	cUITextView* m_pQuestUiText;			//불변 택스트
+	cUITextView* m_pQuestUiText;		//불변 택스트
 	cUiObject* m_pQuestUi;
 
 	//플레이어 인벤창
@@ -142,7 +143,7 @@ private:
 	cUIImageView* m_pInventoryUiImageHead;	//인벤창 머리줄
 	cUIButton* m_pInventoryUiMoveing;		//이동용 머리줄
 	cUIButton* m_pInventoryUiImage;			//인벤 창
-	cUITextView* m_pInventoryUiText;			//불변 택스트
+	cUITextView* m_pInventoryUiText;		//불변 택스트
 	//칸 수
 	vector<cUIButton*> m_vecInventoryUiBlock;	//안씀
 	cUIButton* m_pInventoryUiBlock[60];			//인벤토리 칸(소지품)
@@ -199,6 +200,9 @@ private:
 	std::vector<cUIButton*> m_pTempItem;
 	std::vector<cUIButton*> m_pTempBsg;
 
+	//어빌리티
+	cAbilityParamter m_AbilityParamter;
+
 public:
 	virtual HRESULT Setup(void) override;
 	void SetupBaseButton(void);
@@ -229,9 +233,12 @@ public:
 	void SetQuestOnOff(bool is) { m_isQuestWindowOn = is; }
 	bool GetInventoryOnOff(void) { return m_isInventoryWindowOn; }
 	void SetInventoryOnOff(bool is) { m_isInventoryWindowOn = is; }
-	//마우스 오버
+	//마우스 오버 함수
+	bool GetMoveingOK();
 	
 
+	//어빌리티 연동
+	cAbilityParamter* GetAbilityParamter(void) { return &m_AbilityParamter; }
 
 	static cUiTestScene* Create(void);
 protected:

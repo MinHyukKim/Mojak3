@@ -119,27 +119,26 @@ HRESULT cUiTestScene::Setup(void)
 //	this->SetUpTempPlayer();
 
 	//이미지 관련
-	D3DXCreateSprite(g_pD3DDevice, &m_pSpriteTemp);
 	LPDIRECT3DTEXTURE9 imageData;
 	RECT rc;
 	GetClientRect(g_hWnd, &rc);
-	//피통 멕스
-	D3DXMatrixIdentity(&m_matWorldMatrix);
-	imageData = g_pTexture->GetTextureEx("./Texture/Ui/HPe.png", &m_stHpBar);
-	m_pHpMaxImage = cImage::Create();
-	m_pHpMaxImage->Setup(m_stHpBar, imageData);
-	m_matWorldMatrix._41 = rc.right / 2.0f;
-	m_matWorldMatrix._42 = rc.bottom / 2.0f * 1.5f;
-	m_matWorldMatrix._43 = 0.0f;
-	m_pHpMaxImage->SetWorldMatrix(&m_matWorldMatrix);
-	//피통
-	imageData = g_pTexture->GetTextureEx("./Texture/Ui/HP.png", &m_stHpBar);
-	m_pHpImage = cImage::Create();
-	m_pHpImage->Setup(m_stHpBar, imageData);
-	m_matWorldMatrix._41 = rc.right / 2.0f;
-	m_matWorldMatrix._42 = rc.bottom / 2.0f * 1.5f;
-	m_matWorldMatrix._43 = 0.0f;
-	m_pHpImage->SetWorldMatrix(&m_matWorldMatrix);
+//	//피통 멕스
+//	D3DXMatrixIdentity(&m_matWorldMatrix);
+//	imageData = g_pTexture->GetTextureEx("./Texture/Ui/HPe.png", &m_stHpBar);
+//	m_pHpMaxImage = cImage::Create();
+//	m_pHpMaxImage->Setup(m_stHpBar, imageData);
+//	m_matWorldMatrix._41 = rc.right / 2.0f;
+//	m_matWorldMatrix._42 = rc.bottom / 2.0f * 1.5f;
+//	m_matWorldMatrix._43 = 0.0f;
+//	m_pHpMaxImage->SetWorldMatrix(&m_matWorldMatrix);
+//	//피통
+//	imageData = g_pTexture->GetTextureEx("./Texture/Ui/HP.png", &m_stHpBar);
+//	m_pHpImage = cImage::Create();
+//	m_pHpImage->Setup(m_stHpBar, imageData);
+//	m_matWorldMatrix._41 = rc.right / 2.0f;
+//	m_matWorldMatrix._42 = rc.bottom / 2.0f * 1.5f;
+//	m_matWorldMatrix._43 = 0.0f;
+//	m_pHpImage->SetWorldMatrix(&m_matWorldMatrix);
 
 
 	return D3D_OK;
@@ -161,7 +160,7 @@ void cUiTestScene::Reset(void)
 	SAFE_RELEASE(m_pMainCamera);
 	SAFE_RELEASE(m_pHpMaxImage);
 	SAFE_RELEASE(m_pHpImage);
-	SAFE_RELEASE(m_pSpriteTemp);
+//	SAFE_RELEASE(m_pSpriteTemp);
 }
 
 void cUiTestScene::Update(void)
@@ -227,14 +226,34 @@ void cUiTestScene::Render(void)
 //	if (m_pHpMaxImage) m_pHpMaxImage->Draw(m_pSprite);
 
 	//크기 태스트용
-	if (m_pUiTestRoot) m_pUiTestRoot->Render(m_pSprite);
+//	if (m_pUiTestRoot) m_pUiTestRoot->Render(m_pSprite);
 
 	m_pSprite->Begin(D3DXSPRITE_ALPHABLEND | D3DXSPRITE_SORT_TEXTURE);
-	if (m_pHpImage) m_pHpImage->Draw(m_pSprite);
-	if (m_pHpMaxImage) m_pHpMaxImage->Draw(m_pSprite);
+//	if (m_pHpImage) m_pHpImage->Draw(m_pSprite);
+//	if (m_pHpMaxImage) m_pHpMaxImage->Draw(m_pSprite);
 	m_pSprite->End();
 
 }
+
+bool cUiTestScene::GetMoveingOK()
+{
+	if (m_pMainMainButton->isOver) return false;
+	if (m_pInfoButton->isOver) return false;
+	if (m_pSkillButton->isOver) return false;
+	if (m_pQuestButton->isOver) return false;
+	if (m_pInventoryButton->isOver) return false;
+	if (m_pInfoUiMoveing->isOver) return false;
+	if (m_pInfoUiImage->isOver) return false;
+	if (m_pSkillUiMoveing->isOver) return false;
+	if (m_pSkillUiImage->isOver) return false;
+	if (m_pQuestUiMoveing->isOver) return false;
+	if (m_pQuestUiImage->isOver) return false;
+	if (m_pInventoryUiMoveing->isOver) return false;
+	if (m_pInventoryUiImage->isOver) return false;
+
+	return true;
+}
+
 
 //딜리게이트(클릭)
 void cUiTestScene::OnClick(cUIButton * pSender)
@@ -263,15 +282,6 @@ void cUiTestScene::OnClick(cUIButton * pSender)
 		m_isInventoryWindowOn = !m_isInventoryWindowOn;
 	//	pTextView->SetText("인벤토리 창 구현하기");
 	}
-//	else if (pSender->GetTag() == E_MAIN_BUTTON_ABILITY)
-//	{
-//	}
-//	else if (pSender->GetTag() == E_MAIN_BUTTON_ACTION)
-//	{
-//	}
-//	else if (pSender->GetTag() == E_MAIN_BUTTON_PET)
-//	{
-//	}
 	else if (pSender->GetTag() == E_MAIN_BUTTON_MIN)
 	{
 		m_isMainMin = !m_isMainMin;
