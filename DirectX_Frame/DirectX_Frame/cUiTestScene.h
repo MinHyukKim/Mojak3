@@ -1,6 +1,7 @@
 #pragma once
 #include "cSceneObject.h"
 #include "cUIButton.h"
+#include "cAbilityParamter.h"
 
 //태스트
 class cFont;
@@ -61,7 +62,8 @@ private:
 	LPDIRECT3DTEXTURE9 m_pTextureTemp;
 	//매인의 뿌리
 	cUIImageView* m_pMainRootImageView;
-	cUiObject* m_pUiRoot;
+	cUIButton*	m_pMainRootImageViewMove;
+	cUIButton* m_pMinButton;		//채소화 버튼
 	cUIButton* m_pMainMainButton; 	//메인
 	bool m_isMainWindowOn;
 	cUIButton* m_pInfoButton;		//정보
@@ -72,6 +74,7 @@ private:
 	bool m_isQuestWindowOn;
 	cUIButton* m_pInventoryButton;	//인벤
 	bool m_isInventoryWindowOn;
+	cUiObject* m_pUiRoot;
 
 	int m_nmainUiLocalY;
 
@@ -92,24 +95,29 @@ private:
 	cUITextView* m_pInfoUiText;			//불변 택스트
 	//임시
 	cUITextView* m_pTotalInfo;			//종합(태스트) (X)
-	cUITextView* m_pTempInfoHP;
-	cUITextView* m_pTempInfoMP;
-	cUITextView* m_pTempInfoStamina;
-	cUITextView* m_pTempInfoSTR;
-	cUITextView* m_pTempInfoINT;
-	cUITextView* m_pTempInfoWill;
-	cUITextView* m_pTempInfoLuck;
-	cUITextView* m_pTempInfoWorkmanship;
-	cUITextView* m_pTempInfoDamage;
-	cUITextView* m_pTempInfoMagicDamage;
-	cUITextView* m_pTempInfoInjury;
-	cUITextView* m_pTempInfoCritical;
-	cUITextView* m_pTempInfoBalance;
-	cUITextView* m_pTempInfoDefense;
-	cUITextView* m_pTempInfoProtect;
-	cUITextView* m_pTempInfoMagicDefense;
-	cUITextView* m_pTempInfoMagicProtect;
-	cUITextView* m_pTempInfoArmorPiercing;
+	cUITextView* m_pInfoLevel;			//레벨
+	cUITextView* m_pInfoEXP;			//경험치
+	cUITextView* m_pInfoAP;				//AP
+	cUITextView* m_pInfoAdventureLevel; //탐험레벨
+	cUITextView* m_pInfodventureEXP;	//탐험경험치
+	cUITextView* m_pTempInfoHP;			//Hp
+	cUITextView* m_pTempInfoMP;			//Mp
+	cUITextView* m_pTempInfoStamina;	//스테미나
+	cUITextView* m_pTempInfoSTR;		//체력
+	cUITextView* m_pTempInfoINT;		//지력
+	cUITextView* m_pTempInfoWill;		//의지
+	cUITextView* m_pTempInfoLuck;		//행운
+	cUITextView* m_pTempInfoWorkmanship;//솜씨
+	cUITextView* m_pTempInfoDamage;		//공격력
+	cUITextView* m_pTempInfoMagicDamage;//마법공격력
+	cUITextView* m_pTempInfoInjury;		//부상학률
+	cUITextView* m_pTempInfoCritical;	//크리티컬
+	cUITextView* m_pTempInfoBalance;	//벨런스
+	cUITextView* m_pTempInfoDefense;	//방어
+	cUITextView* m_pTempInfoProtect;	//보호
+	cUITextView* m_pTempInfoMagicDefense;//마법방어
+	cUITextView* m_pTempInfoMagicProtect;//마법보호
+	cUITextView* m_pTempInfoArmorPiercing;//방어관통
 	//플레이어 피통
 	cImage* m_pHpMaxImage;   //피통 맥스
 	cImage* m_pHpImage;		 //피통 현재량
@@ -131,9 +139,9 @@ private:
 	int queY;
 	cUIImageView* m_pQuestUiImageHead;	//스킬창 머리줄	
 	cUIButton* m_pQuestUiMoveing;		//머리줄 이동용 
-	cUIButton* m_pQuestUiImage;		//스킬창 이미지
+	cUIButton* m_pQuestUiImage;			//스킬창 이미지
 	cUIButton* m_pQuestUiButton;		//스킬창 버튼
-	cUITextView* m_pQuestUiText;			//불변 택스트
+	cUITextView* m_pQuestUiText;		//불변 택스트
 	cUiObject* m_pQuestUi;
 
 	//플레이어 인벤창
@@ -142,7 +150,8 @@ private:
 	cUIImageView* m_pInventoryUiImageHead;	//인벤창 머리줄
 	cUIButton* m_pInventoryUiMoveing;		//이동용 머리줄
 	cUIButton* m_pInventoryUiImage;			//인벤 창
-	cUITextView* m_pInventoryUiText;			//불변 택스트
+	cUIButton* m_pInventoryUiEquipImage;	//장착 창
+	cUITextView* m_pInventoryUiText;		//불변 택스트
 	//칸 수
 	vector<cUIButton*> m_vecInventoryUiBlock;	//안씀
 	cUIButton* m_pInventoryUiBlock[60];			//인벤토리 칸(소지품)
@@ -199,6 +208,9 @@ private:
 	std::vector<cUIButton*> m_pTempItem;
 	std::vector<cUIButton*> m_pTempBsg;
 
+	//어빌리티
+	cAbilityParamter m_AbilityParamter;
+
 public:
 	virtual HRESULT Setup(void) override;
 	void SetupBaseButton(void);
@@ -229,9 +241,12 @@ public:
 	void SetQuestOnOff(bool is) { m_isQuestWindowOn = is; }
 	bool GetInventoryOnOff(void) { return m_isInventoryWindowOn; }
 	void SetInventoryOnOff(bool is) { m_isInventoryWindowOn = is; }
-	//마우스 오버
+	//마우스 오버 함수
+	bool GetMoveingOK();
 	
 
+	//어빌리티 연동
+	cAbilityParamter* GetAbilityParamter(void) { return &m_AbilityParamter; }
 
 	static cUiTestScene* Create(void);
 protected:

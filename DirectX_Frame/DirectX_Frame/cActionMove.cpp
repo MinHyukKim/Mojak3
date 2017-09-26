@@ -1,7 +1,5 @@
 #include "stdafx.h"
 #include "cActionMove.h"
-#include "cObject.h"
-
 #include "cPlayer.h"
 
 cActionMove::cActionMove(void)
@@ -77,6 +75,12 @@ void cActionMove::SetToPlay(IN LPD3DXVECTOR3 vTo, IN float fSpeed)
 		this->cAction::SetActionTime(D3DXVec3Length(&(m_vTo - m_vFrom)) / fSpeed);
 		this->cAction::Play();
 	}
+}
+
+D3DXVECTOR3 & cActionMove::GetDirection(void)
+{ 
+	if (m_vDir != D3DXVECTOR3(0.0f, 0.0f, 0.0f)) return m_vDir;
+	return this->GetTarget()->GetDirection();
 }
 
 cActionMove* cActionMove::Create(void)

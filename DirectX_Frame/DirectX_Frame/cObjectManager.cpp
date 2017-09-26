@@ -133,11 +133,11 @@ void cObjectManager::RegisterPlayer(IN cPlayer* pPlayer)
 	SAFE_RELEASE(m_pPlayer);
 	m_pPlayer = pPlayer;
 	pPlayer->RegisterAnimation(cPlayer::ANIMATION_IDLE_OFFENSIVE, g_pAnimationManager->GetAnimation("여성_기본02"));
-	pPlayer->RegisterAnimation(cPlayer::ANIMATION_WALK_PEACEFUL, g_pAnimationManager->GetAnimation("여성_걷기01"));
-	pPlayer->RegisterAnimation(cPlayer::ANIMATION_WALK_OFFENSIVE, g_pAnimationManager->GetAnimation("여성_걷기02"));
-	pPlayer->RegisterAnimation(cPlayer::ANIMATION_RUN_PEACEFUL, g_pAnimationManager->GetAnimation("여성_달리기01"), 2.5f);
-	pPlayer->RegisterAnimation(cPlayer::ANIMATION_RUN_OFFENSIVE, g_pAnimationManager->GetAnimation("여성_달리기02"), 2.5f);
-	pPlayer->RegisterAnimation(cPlayer::ANIMATION_ATTACK_PEACEFUL, g_pAnimationManager->GetAnimation("여성_공격01"), 5.0f);
+	pPlayer->RegisterAnimation(cPlayer::ANIMATION_WALK_FRIENDLY, g_pAnimationManager->GetAnimation("여성_걷기01"), 3.0f);
+	pPlayer->RegisterAnimation(cPlayer::ANIMATION_WALK_OFFENSIVE, g_pAnimationManager->GetAnimation("여성_걷기02"), 3.0f);
+	pPlayer->RegisterAnimation(cPlayer::ANIMATION_RUN_FRIENDLY, g_pAnimationManager->GetAnimation("여성_달리기01"), 3.0f);
+	pPlayer->RegisterAnimation(cPlayer::ANIMATION_RUN_OFFENSIVE, g_pAnimationManager->GetAnimation("여성_달리기02"), 3.0f);
+	pPlayer->RegisterAnimation(cPlayer::ANIMATION_ATTACK_FRIENDLY, g_pAnimationManager->GetAnimation("여성_공격01"), 5.0f);
 	pPlayer->RegisterAnimation(cPlayer::ANIMATION_ATTACK_OFFENSIVE, g_pAnimationManager->GetAnimation("여성_공격02"), 5.0f);
 	m_pPlayer->GetAbilityParamter()->SetPlayerID(1);
 	m_pPlayer->GetAbilityParamter()->SetUnitID(0);
@@ -152,6 +152,22 @@ void cObjectManager::SavePlayerData(IN LPCSTR FullPath)
 void cObjectManager::LoadPlayerData(IN LPCSTR FullPath)
 {
 	assert(false && "미구현");
+}
+
+bool cObjectManager::GetMonster(OUT cPlayer** ppMonster, IN LPD3DXVECTOR3 pRay, IN LPD3DXVECTOR3 pDir)
+{
+	cPlayer* pTarget = nullptr;
+	float fDist = 1000.0f;
+	for each (auto pMonster in m_vecMonster)
+	{
+		if (!pMonster->IsCollision(pRay, pDir)) continue;
+		float fLength = D3DXVec3Length(&(pMonster->GetPosition() - (*pRay)));
+		if (fLength >= fDist) continue;
+		pTarget = pMonster;
+		fDist = fLength;
+	}
+	*ppMonster = pTarget;
+	return pTarget;
 }
 
 void cObjectManager::SetTerrain(IN cMapTerrain* pTerrain)
@@ -174,17 +190,16 @@ bool cObjectManager::CreateMonster(IN MONSTER_TYPE eMonsterKey, IN LPD3DXVECTOR3
 		pCreateMonster->Setup();
 		pCreateMonster->SetupAnimationController();
 		pCreateMonster->ChangeMeshPart(cPlayer::MESH_BODY, g_pSkinnedMeshManager->GetSkinnedMesh("임시몬스터"));
-		pCreateMonster->RegisterAnimation(cPlayer::ANIMATION_IDLE_PEACEFUL, g_pAnimationManager->GetAnimation("여성_기본01"));
+		pCreateMonster->RegisterAnimation(cPlayer::ANIMATION_IDLE_FRIENDLY, g_pAnimationManager->GetAnimation("여성_기본01"));
 		pCreateMonster->RegisterAnimation(cPlayer::ANIMATION_IDLE_OFFENSIVE, g_pAnimationManager->GetAnimation("여성_기본02"));
-		pCreateMonster->RegisterAnimation(cPlayer::ANIMATION_WALK_PEACEFUL, g_pAnimationManager->GetAnimation("여성_걷기01"));
+		pCreateMonster->RegisterAnimation(cPlayer::ANIMATION_WALK_FRIENDLY, g_pAnimationManager->GetAnimation("여성_걷기01"));
 		pCreateMonster->RegisterAnimation(cPlayer::ANIMATION_WALK_OFFENSIVE, g_pAnimationManager->GetAnimation("여성_걷기02"));
-		pCreateMonster->RegisterAnimation(cPlayer::ANIMATION_RUN_PEACEFUL, g_pAnimationManager->GetAnimation("여성_달리기01"));
+		pCreateMonster->RegisterAnimation(cPlayer::ANIMATION_RUN_FRIENDLY, g_pAnimationManager->GetAnimation("여성_달리기01"));
 		pCreateMonster->RegisterAnimation(cPlayer::ANIMATION_RUN_OFFENSIVE, g_pAnimationManager->GetAnimation("여성_달리기02"));
-		pCreateMonster->RegisterAnimation(cPlayer::ANIMATION_ATTACK_PEACEFUL, g_pAnimationManager->GetAnimation("여성_공격01"));
+		pCreateMonster->RegisterAnimation(cPlayer::ANIMATION_ATTACK_FRIENDLY, g_pAnimationManager->GetAnimation("여성_공격01"));
 		pCreateMonster->RegisterAnimation(cPlayer::ANIMATION_ATTACK_OFFENSIVE, g_pAnimationManager->GetAnimation("여성_공격02"));
 		pCreateMonster->GetAbilityParamter()->SetPlayerID(2);
 		pCreateMonster->GetAbilityParamter()->SetUnitID(1);
-		pCreateMonster->SetPatternState(cPlayer::PATTERN_IDEN_FRIENDLY);
 	}	break;
 
 	case cObjectManager::MONSTER_FOX01:
@@ -194,13 +209,12 @@ bool cObjectManager::CreateMonster(IN MONSTER_TYPE eMonsterKey, IN LPD3DXVECTOR3
 		pCreateMonster->Setup();
 		pCreateMonster->SetupAnimationController("여우00");
 		pCreateMonster->ChangeMeshPart(cPlayer::MESH_BODY, g_pSkinnedMeshManager->GetSkinnedMesh("여우01"));
-		pCreateMonster->RegisterAnimation(cPlayer::ANIMATION_IDLE_PEACEFUL, g_pAnimationManager->GetAnimation("여우_기본01"));
+		pCreateMonster->RegisterAnimation(cPlayer::ANIMATION_IDLE_FRIENDLY, g_pAnimationManager->GetAnimation("여우_기본01"));
 		pCreateMonster->RegisterAnimation(cPlayer::ANIMATION_IDLE_OFFENSIVE, g_pAnimationManager->GetAnimation("여우_기본02"));
 		pCreateMonster->RegisterAnimation(cPlayer::ANIMATION_RUN_OFFENSIVE, g_pAnimationManager->GetAnimation("여우_달리기01"));
 		pCreateMonster->RegisterAnimation(cPlayer::ANIMATION_ATTACK_OFFENSIVE, g_pAnimationManager->GetAnimation("여우_공격01"));
 		pCreateMonster->GetAbilityParamter()->SetPlayerID(2);
 		pCreateMonster->GetAbilityParamter()->SetUnitID(1);
-		pCreateMonster->SetPatternState(cPlayer::PATTERN_IDEN_FRIENDLY);
 	}	break;
 
 	default: break;
@@ -217,10 +231,15 @@ bool cObjectManager::CreateMonster(IN MONSTER_TYPE eMonsterKey, IN LPD3DXVECTOR3
 
 void cObjectManager::Destroy(void)
 {
-	SAFE_RELEASE(m_pPlayer);
+	if (m_pPlayer)
+	{
+		m_pPlayer->SetTarget(nullptr);
+		m_pPlayer->Release();
+	}
 	SAFE_RELEASE(m_pTerrain);
 	for each (auto pMonster in m_vecMonster)
 	{
+		pMonster->SetTarget(nullptr);
 		pMonster->GetAbilityParamter()->SetEffective(false);
 		pMonster->Release();
 	}

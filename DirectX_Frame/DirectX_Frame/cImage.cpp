@@ -13,6 +13,10 @@ cImage::~cImage(void)
 {
 }
 
+void cImage::Update()
+{
+}
+
 void cImage::Setup(const D3DXIMAGE_INFO & _stImageInfo, const LPDIRECT3DTEXTURE9 _pTexture)
 {
 	m_stImageInfo = _stImageInfo;

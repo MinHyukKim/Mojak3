@@ -70,6 +70,7 @@
     <ClCompile Include="cUiTestScene00-1TempPlayerSetup.cpp" />
     <ClCompile Include="cMapObjectManager.cpp" />
     <ClCompile Include="cItemTemp.cpp" />
+    <ClCompile Include="cActionDirection.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="cAllocateHierarchy.h" />
@@ -130,6 +131,7 @@
     <ClInclude Include="cMath.h" />
     <ClInclude Include="cMapObjectManager.h" />
     <ClInclude Include="cItemTemp.h" />
+    <ClInclude Include="cActionDirection.h" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="DirectX_Frame.rc" />

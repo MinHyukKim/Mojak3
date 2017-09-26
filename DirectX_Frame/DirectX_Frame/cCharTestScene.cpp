@@ -8,10 +8,13 @@
 //테스트용
 #include "cMapObject.h"
 #include "cGrid.h"
+//Ui 연동 테스트
+#include "cUiTestScene.h"
 
 cCharTestScene::cCharTestScene(void)
 	: m_pCamera(NULL)
 	, m_pMapTerrain(NULL)
+	, m_pUi(NULL)
 {
 	//테스트용
 	//m_pMapObject = NULL;
@@ -43,6 +46,10 @@ HRESULT cCharTestScene::Setup(void)
 	m_pGrid->Setup();
 	m_pTexture = g_pTexture->GetTexture("./HeightMapData/terrain.jpg");
 
+	//ui 태스트
+	m_pUi = cUiTestScene::Create();
+	m_pUi->Setup();
+
 	g_pObjectManager->CreateMonster(cObjectManager::MONSTER_FOX01, &D3DXVECTOR3(0.0f, 0.0f, 5.0f));
 
 	return S_OK;
@@ -56,6 +63,7 @@ void cCharTestScene::Reset(void)
 	//테스트용
 	//SAFE_RELEASE(m_pMapObject);
 	SAFE_RELEASE(m_pGrid);
+	SAFE_RELEASE(m_pUi);
 }
 
 void cCharTestScene::Update(void)
@@ -63,16 +71,37 @@ void cCharTestScene::Update(void)
 	//테스트용
 	if (m_pCamera) m_pCamera->TestController();
 
-	if (g_pInputManager->IsOnceKeyDown(VK_LBUTTON))
+	SAFE_UPDATE(m_pUi);
+	if (m_pUi->GetMoveingOK())
 	{
-		D3DXVECTOR3 vTo, vOrg, vDir;
-		g_pRay->RayAtWorldSpace(&vOrg, &vDir);
-		if (m_pMapTerrain->IsCollision(&vTo, &vOrg, &vDir))
+		if (g_pInputManager->IsOnceKeyDown(VK_LBUTTON))
 		{
-			g_pObjectManager->GetPlayer()->MoveToPlayer(&vTo, g_pObjectManager->GetPlayer()->GetAbilityParamter()->GetMoveSpeed());
-			g_pObjectManager->GetPlayer()->SetPatternState(cPlayer::PATTERN_RUN_FRIENDLY);
+			cPlayer* pMonster = nullptr;
+			D3DXVECTOR3 vTo, vRay, vDir;
+			g_pRay->RayAtWorldSpace(&vRay, &vDir);
+			if (g_pObjectManager->GetMonster(&pMonster, &vRay, &vDir))
+			{
+				g_pObjectManager->GetPlayer()->SetTarget(pMonster);
+			}
+			else if (m_pMapTerrain->IsCollision(&vTo, &vRay, &vDir))
+			{
+				if (g_pInputManager->IsStayKeyDown(VK_SHIFT))
+				{
+					g_pObjectManager->GetPlayer()->OrderWalk(&vTo);
+				}
+				else
+				{
+					g_pObjectManager->GetPlayer()->OrderMove(&vTo);
+				}
+			}
 		}
 	}
+	
+	if (g_pInputManager->IsOnceKeyDown(VK_SPACE))
+	{
+		g_pObjectManager->GetPlayer()->OrderIdenChange();
+	}
+
 
 	SAFE_UPDATE(g_pObjectManager);
 	cPlayer* pPlayer = g_pObjectManager->GetPlayer();
@@ -95,6 +124,7 @@ void cCharTestScene::Render(void)
 	SAFE_RENDER(m_pGrid);
 
 	SAFE_RENDER(g_pObjectManager);
+	SAFE_RENDER(m_pUi);
 }
 
 cCharTestScene* cCharTestScene::Create(void)
