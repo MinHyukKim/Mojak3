@@ -10,7 +10,7 @@ public:
 		DATA_MESH_COLOR,
 		DATA_ANIMATION,
 		DATA_BUILDING,
-		DATA_TERRAN,
+		DATA_TERRAIN,
 	};
 private:
 	std::vector<ST_DATA> m_vecData;
@@ -20,9 +20,12 @@ public:
 	void RegisterMesh(LPCSTR szFolder, LPCSTR szFilename, LPCSTR szKeyName);
 	void RegisterAnimation(LPCSTR szFullPath, LPCSTR szKeyName);
 	void RegisterMeshColor(LPCSTR szMeshName, LPCSTR szTextureName, D3DMATERIAL9* pMaterial);
-	void RegisterMeshColor(LPCSTR szMeshName, LPCSTR szTextureName, LPD3DXCOLOR color);
+	void RegisterMeshColor(LPCSTR szMeshName, LPCSTR szTextureName, LPD3DXCOLOR pColor);
+	void RegisterTerrain(LPCSTR szHighMapKey, LPCSTR szTextureKey, LPCSTR szTerrainKey, D3DMATERIAL9* pMaterial);
+	void RegisterTerrain(LPCSTR szHighMapKey, LPCSTR szTextureKey, LPCSTR szTerrainKey, LPD3DXCOLOR pColor);
 
 	bool RegisterData(LPCSTR FullPath);
+
 	void LoaderData(void);
 	void LoaderDataLoop(void);
 	float GetLodingGauge(void) { if (m_vecData.empty()) return 1.0f; return (float)m_dwCount / (float)m_vecData.size(); }

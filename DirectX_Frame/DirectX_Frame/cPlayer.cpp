@@ -16,7 +16,7 @@ cPlayer::cPlayer(void)
 	, m_dwNumPattern(PATTERN_NORMAL)
 	, m_dwNumState(cPlayer::ORDER_NULL)
 	, m_bCurrentTrack(false)
-	, m_fRadius(0.5f)
+	, m_fRadius(0.2f)
 { 
 	D3DXMatrixIdentity(&m_matWorld);
 	ZeroMemory(&m_stHairMaterial, sizeof(D3DMATERIAL9));
@@ -150,6 +150,8 @@ void cPlayer::OrderOffensive(void)
 
 void cPlayer::OrderIdenChange(void)
 {
+	this->MoveStop();
+
 	if (this->CheckState(PATTERN_FRIENDLY))
 	{
 		this->SetStatePattern(cPlayer::ORDER_IDLE_FRIENDLY);
@@ -164,7 +166,7 @@ void cPlayer::OrderWalk(LPD3DXVECTOR3 pTo)
 {
 	if (!this->CheckState(PATTERN_WALK)) return;
 
-	this->Rotation(&((*pTo) - this->GetPosition()), 20.0f);
+	this->Rotation(&((*pTo) - this->GetPosition()), 5.0f);
 	this->MoveEx(pTo, 0.5f);
 
 	if (this->CheckState(PATTERN_FRIENDLY))
@@ -182,6 +184,23 @@ void cPlayer::OrderWalk(LPD3DXVECTOR3 pTo)
 
 void cPlayer::OrderMove(LPD3DXVECTOR3 pTo)
 {
+	if (this->CheckState(PATTERN_RUN))
+	{
+		this->Rotation(&((*pTo) - this->GetPosition()), 10.0f);
+		this->MoveEx(pTo, 1.0f);
+
+		if (this->CheckState(PATTERN_FRIENDLY))
+		{
+			//전투모드
+			this->SetBlendingAnimation(cPlayer::ANIMATION_RUN_OFFENSIVE);
+		}
+		else
+		{
+			//일상모드
+			this->SetBlendingAnimation(cPlayer::ANIMATION_RUN_FRIENDLY);
+		}
+	}
+	else this->OrderWalk(pTo);
 }
 
 

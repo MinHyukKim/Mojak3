@@ -28,12 +28,25 @@ void cDataLoder::RegisterMeshColor(LPCSTR szMeshName, LPCSTR szTextureName, D3DM
 	m_vecData.push_back(ST_DATA(cDataLoder::DATA_MESH_COLOR, szMeshName, szTextureName, "", nullptr, pMaterial));
 }
 
-void cDataLoder::RegisterMeshColor(LPCSTR szMeshName, LPCSTR szTextureName, LPD3DXCOLOR color)
+void cDataLoder::RegisterMeshColor(LPCSTR szMeshName, LPCSTR szTextureName, LPD3DXCOLOR pColor)
 {
 	D3DMATERIAL9 materal;
 	ZeroMemory(&materal, sizeof(D3DMATERIAL9));
-	materal.Ambient = materal.Diffuse = materal.Specular = *color;
+	materal.Ambient = materal.Diffuse = materal.Specular = *pColor;
 	m_vecData.push_back(ST_DATA(cDataLoder::DATA_MESH_COLOR, szMeshName, szTextureName, nullptr, nullptr, &materal));
+}
+
+void cDataLoder::RegisterTerrain(LPCSTR szHighMapKey, LPCSTR szTextureKey, LPCSTR szTerrainKey, D3DMATERIAL9 * pMaterial)
+{
+	m_vecData.push_back(ST_DATA(cDataLoder::DATA_TERRAIN, szHighMapKey, szTextureKey, szTerrainKey, nullptr, pMaterial));
+}
+
+void cDataLoder::RegisterTerrain(LPCSTR szHighMapKey, LPCSTR szTextureKey, LPCSTR szTerrainKey, LPD3DXCOLOR pColor)
+{
+	D3DMATERIAL9 materal;
+	ZeroMemory(&materal, sizeof(D3DMATERIAL9));
+	materal.Ambient = materal.Diffuse = materal.Specular = *pColor;
+	m_vecData.push_back(ST_DATA(cDataLoder::DATA_TERRAIN, szHighMapKey, szTextureKey, szTerrainKey, nullptr, &materal));
 }
 
 bool cDataLoder::RegisterData(LPCSTR FullPath)
