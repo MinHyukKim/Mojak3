@@ -119,9 +119,9 @@ HRESULT cUiTestScene::Setup(void)
 //	this->SetUpTempPlayer();
 
 	//이미지 관련
-	LPDIRECT3DTEXTURE9 imageData;
-	RECT rc;
-	GetClientRect(g_hWnd, &rc);
+//	LPDIRECT3DTEXTURE9 imageData;
+//	RECT rc;
+//	GetClientRect(g_hWnd, &rc);
 //	//피통 멕스
 //	D3DXMatrixIdentity(&m_matWorldMatrix);
 //	imageData = g_pTexture->GetTextureEx("./Texture/Ui/HPe.png", &m_stHpBar);
@@ -217,6 +217,11 @@ void cUiTestScene::Update(void)
 
 void cUiTestScene::Render(void)
 {
+//	m_pSprite->Begin(D3DXSPRITE_ALPHABLEND | D3DXSPRITE_SORT_TEXTURE);
+//	if (m_pHpImage) m_pHpImage->Draw(m_pSprite);
+//	if (m_pHpMaxImage) m_pHpMaxImage->Draw(m_pSprite);
+//	m_pSprite->End();
+
 	g_pD3DDevice->SetTexture(0, m_pTexture);
 	SAFE_RENDER(m_pPlayer);
 	if (m_pUiRoot) m_pUiRoot->Render(m_pSprite);
@@ -230,10 +235,6 @@ void cUiTestScene::Render(void)
 	//크기 태스트용
 //	if (m_pUiTestRoot) m_pUiTestRoot->Render(m_pSprite);
 
-	m_pSprite->Begin(D3DXSPRITE_ALPHABLEND | D3DXSPRITE_SORT_TEXTURE);
-//	if (m_pHpImage) m_pHpImage->Draw(m_pSprite);
-//	if (m_pHpMaxImage) m_pHpMaxImage->Draw(m_pSprite);
-	m_pSprite->End();
 
 }
 

@@ -141,6 +141,49 @@ void cUiTestScene::SetupInfoUi(void)
 	m_pTempInfoStamina->SetTag(E_BUTTON_NONE);
 	m_pInfoUi->AddChild(m_pTempInfoStamina);
 
+	//레벨
+	char szLevel[32] = { '\0', };
+	sprintf_s(szLevel, "레벨             %d", g_pObjectManager->GetPlayer()->GetAbilityParamter()->GetLevel());
+	m_pInfoLevel = cUITextView::Create();
+	m_pInfoLevel->SetText(szLevel);
+	m_pInfoLevel->SetFontType(g_pFontManager->E_TEMP_INBUTTON);
+	m_pInfoLevel->SetColor(D3DCOLOR_XRGB(255, 255, 255));
+	m_pInfoLevel->SetSize(ST_SIZE(150, 40));
+	//m_pInfoLevel->SetPosition(10, 150 - 7); //마비체
+	m_pInfoLevel->SetPosition(134, 150);   //나눔고딕
+	m_pInfoLevel->SetDrawTextFormat(DT_CENTER | DT_VCENTER | DT_WORDBREAK);
+	m_pInfoLevel->SetTag(E_BUTTON_NONE);
+	m_pInfoUi->AddChild(m_pInfoLevel);
+
+	//경험치
+	char szEXP[32] = { '\0', };
+	sprintf_s(szEXP, "경험치          %.1f %%"
+	, (g_pObjectManager->GetPlayer()->GetAbilityParamter()->GetEXP() / g_pObjectManager->GetPlayer()->GetAbilityParamter()->GetMaxEXP()) * 100.0f);
+	m_pInfoEXP = cUITextView::Create();
+	m_pInfoEXP->SetText(szEXP);
+	m_pInfoEXP->SetFontType(g_pFontManager->E_TEMP_INBUTTON);
+	m_pInfoEXP->SetColor(D3DCOLOR_XRGB(255, 255, 255));
+	m_pInfoEXP->SetSize(ST_SIZE(150, 40));
+	//m_pInfoEXP->SetPosition(20, 170 - 7); //마비체
+	m_pInfoEXP->SetPosition(146, 170);   //나눔고딕
+	m_pInfoEXP->SetDrawTextFormat(DT_CENTER | DT_VCENTER | DT_WORDBREAK);
+	m_pInfoEXP->SetTag(E_BUTTON_NONE);
+	m_pInfoUi->AddChild(m_pInfoEXP);
+
+	//어빌리티포인트
+	char szAP[64] = { '\0', };
+	sprintf_s(szAP, "어빌리티포인트     %d", g_pObjectManager->GetPlayer()->GetAbilityParamter()->GetAP());
+	m_pInfoAP = cUITextView::Create();
+	m_pInfoAP->SetText(szAP);
+	m_pInfoAP->SetFontType(g_pFontManager->E_TEMP_INBUTTON);
+	m_pInfoAP->SetColor(D3DCOLOR_XRGB(255, 255, 255));
+	m_pInfoAP->SetSize(ST_SIZE(150, 40));
+	//m_pInfoAP->SetPosition(19, 190 - 7); //마비체
+	m_pInfoAP->SetPosition(148, 190);   //나눔고딕
+	m_pInfoAP->SetDrawTextFormat(DT_CENTER | DT_VCENTER | DT_WORDBREAK);
+	m_pInfoAP->SetTag(E_BUTTON_NONE);
+	m_pInfoUi->AddChild(m_pInfoAP);
+
 	//체력
 	char szSTR[64] = { '\0', };
 	sprintf_s(szSTR, "체력      %d", m_nTempSTR);
@@ -370,6 +413,16 @@ void cUiTestScene::UpdateInfoUi(void)
 		, g_pObjectManager->GetPlayer()->GetAbilityParamter()->GetMaxStamina());
 	m_pTempInfoStamina->SetText(szStamina);
 
+	
+	char szEXP[32] = { '\0', };
+	sprintf_s(szEXP, "경험치          %.1f %%"
+		, (g_pObjectManager->GetPlayer()->GetAbilityParamter()->GetEXP() / g_pObjectManager->GetPlayer()->GetAbilityParamter()->GetMaxEXP()) * 100.0f);
+	m_pInfoEXP->SetText(szEXP);
+
+	char szAP[64] = { '\0', };
+	sprintf_s(szAP, "어빌리티포인트     %d", g_pObjectManager->GetPlayer()->GetAbilityParamter()->GetAP());
+	m_pInfoAP->SetText(szAP);
+
 	char szSTR[64] = { '\0', };
 	sprintf_s(szSTR, "체력      %.0f", g_pObjectManager->GetPlayer()->GetAbilityParamter()->GetStr());
 	m_pTempInfoSTR->SetText(szSTR);
@@ -387,46 +440,47 @@ void cUiTestScene::UpdateInfoUi(void)
 	m_pTempInfoLuck->SetText(szLuck);
 
 	char szWorkmanship[64] = { '\0', };
-	sprintf_s(szWorkmanship, "솜씨      %d", g_pObjectManager->GetPlayer()->GetAbilityParamter()->GetDex());
+	sprintf_s(szWorkmanship, "솜씨      %.0f", g_pObjectManager->GetPlayer()->GetAbilityParamter()->GetDex());
 	m_pTempInfoWorkmanship->SetText(szWorkmanship);
 
 	char szDamage[64] = { '\0', };
-	sprintf_s(szDamage, "공격력           %d", m_nTempTotalDamage);
+	sprintf_s(szDamage, "공격력           %d", g_pObjectManager->GetPlayer()->GetAbilityParamter()->GetMinDamage()
+	+ g_pObjectManager->GetPlayer()->GetAbilityParamter()->GetBonusDamage());
 	m_pTempInfoDamage->SetText(szDamage);
 
 	char szMagicDamage[64] = { '\0', };
-	sprintf_s(szMagicDamage, "마법공격력      %d", m_nTempTotalMagicDamage);
+	sprintf_s(szMagicDamage, "마법공격력      %d", g_pObjectManager->GetPlayer()->GetAbilityParamter()->GetMagicDamage());
 	m_pTempInfoMagicDamage->SetText(szMagicDamage);
 
 	char szMagicInjury[64] = { '\0', };
-	sprintf_s(szMagicInjury, "부상률      %.1f %%", m_fTempInjury);
+	sprintf_s(szMagicInjury, "부상률      %.1f %%", g_pObjectManager->GetPlayer()->GetAbilityParamter()->GetInjury());
 	m_pTempInfoInjury->SetText(szMagicInjury);
 
 	char szMagicCritical[64] = { '\0', };
-	sprintf_s(szMagicCritical, "크리티컬   %.1f %%", m_fTempCritical);
+	sprintf_s(szMagicCritical, "크리티컬   %.1f %%", g_pObjectManager->GetPlayer()->GetAbilityParamter()->GetCritical());
 	m_pTempInfoCritical->SetText(szMagicCritical);
 
 	char szMagicBalance[64] = { '\0', };
-	sprintf_s(szMagicBalance, "벨런스           %d", m_nTempBalance);
+	sprintf_s(szMagicBalance, "벨런스           %.0f", g_pObjectManager->GetPlayer()->GetAbilityParamter()->GetBalance());
 	m_pTempInfoBalance->SetText(szMagicBalance);
 
 	char szDefense[64] = { '\0', };
-	sprintf_s(szDefense, "방어            %d", m_nTempDefense);
+	sprintf_s(szDefense, "방어            %d", g_pObjectManager->GetPlayer()->GetAbilityParamter()->GetDefence());
 	m_pTempInfoDefense->SetText(szDefense);
 
 	char szProtect[64] = { '\0', };
-	sprintf_s(szProtect, "보호            %d", m_nTempProtect);
+	sprintf_s(szProtect, "보호            %d", g_pObjectManager->GetPlayer()->GetAbilityParamter()->GetProtecte());
 	m_pTempInfoProtect->SetText(szProtect);
 
 	char szMagicDefense[64] = { '\0', };
-	sprintf_s(szMagicDefense, "마법방어      %d", m_nTempMagicDefense);
+	sprintf_s(szMagicDefense, "마법방어      %d", g_pObjectManager->GetPlayer()->GetAbilityParamter()->GetMagicDefence());
 	m_pTempInfoMagicDefense->SetText(szMagicDefense);
 
 	char szMagicProtect[64] = { '\0', };
-	sprintf_s(szMagicProtect, "마법보호      %d", m_nTempMagicProtect);
+	sprintf_s(szMagicProtect, "마법보호      %d", g_pObjectManager->GetPlayer()->GetAbilityParamter()->GetMagicProtecte());
 	m_pTempInfoMagicProtect->SetText(szMagicProtect);
 
 	char szArmorPiercing[64] = { '\0', };
-	sprintf_s(szArmorPiercing, "방어관통      %d", m_nTempArmorPiercing);
+	sprintf_s(szArmorPiercing, "방어관통      %.0f", g_pObjectManager->GetPlayer()->GetAbilityParamter()->GetPenetration());
 	m_pTempInfoArmorPiercing->SetText(szArmorPiercing);
 }

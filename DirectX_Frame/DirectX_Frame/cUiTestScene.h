@@ -95,24 +95,29 @@ private:
 	cUITextView* m_pInfoUiText;			//불변 택스트
 	//임시
 	cUITextView* m_pTotalInfo;			//종합(태스트) (X)
-	cUITextView* m_pTempInfoHP;
-	cUITextView* m_pTempInfoMP;
-	cUITextView* m_pTempInfoStamina;
-	cUITextView* m_pTempInfoSTR;
-	cUITextView* m_pTempInfoINT;
-	cUITextView* m_pTempInfoWill;
-	cUITextView* m_pTempInfoLuck;
-	cUITextView* m_pTempInfoWorkmanship;
-	cUITextView* m_pTempInfoDamage;
-	cUITextView* m_pTempInfoMagicDamage;
-	cUITextView* m_pTempInfoInjury;
-	cUITextView* m_pTempInfoCritical;
-	cUITextView* m_pTempInfoBalance;
-	cUITextView* m_pTempInfoDefense;
-	cUITextView* m_pTempInfoProtect;
-	cUITextView* m_pTempInfoMagicDefense;
-	cUITextView* m_pTempInfoMagicProtect;
-	cUITextView* m_pTempInfoArmorPiercing;
+	cUITextView* m_pInfoLevel;			//레벨
+	cUITextView* m_pInfoEXP;			//경험치
+	cUITextView* m_pInfoAP;				//AP
+	cUITextView* m_pInfoAdventureLevel; //탐험레벨
+	cUITextView* m_pInfodventureEXP;	//탐험경험치
+	cUITextView* m_pTempInfoHP;			//Hp
+	cUITextView* m_pTempInfoMP;			//Mp
+	cUITextView* m_pTempInfoStamina;	//스테미나
+	cUITextView* m_pTempInfoSTR;		//체력
+	cUITextView* m_pTempInfoINT;		//지력
+	cUITextView* m_pTempInfoWill;		//의지
+	cUITextView* m_pTempInfoLuck;		//행운
+	cUITextView* m_pTempInfoWorkmanship;//솜씨
+	cUITextView* m_pTempInfoDamage;		//공격력
+	cUITextView* m_pTempInfoMagicDamage;//마법공격력
+	cUITextView* m_pTempInfoInjury;		//부상학률
+	cUITextView* m_pTempInfoCritical;	//크리티컬
+	cUITextView* m_pTempInfoBalance;	//벨런스
+	cUITextView* m_pTempInfoDefense;	//방어
+	cUITextView* m_pTempInfoProtect;	//보호
+	cUITextView* m_pTempInfoMagicDefense;//마법방어
+	cUITextView* m_pTempInfoMagicProtect;//마법보호
+	cUITextView* m_pTempInfoArmorPiercing;//방어관통
 	//플레이어 피통
 	cImage* m_pHpMaxImage;   //피통 맥스
 	cImage* m_pHpImage;		 //피통 현재량
