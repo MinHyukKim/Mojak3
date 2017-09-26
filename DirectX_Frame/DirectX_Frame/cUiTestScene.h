@@ -47,6 +47,11 @@ enum
 	E_ITEM_WEAPON1 = 233,
 	E_ITEM_WEAPON2 = 234,
 	E_ITEM_SHOES = 235,
+	//닫기버튼용
+	E_BUTTON_INFO_CLOSE = 236,
+	E_BUTTON_SKILL_CLOSE = 237,
+	E_BUTTON_QUEST_CLOSE = 238,
+	E_BUTTON_INVENTORY_CLOSE = 239,
 	E_TEXT_VIEW
 };
 
@@ -76,6 +81,29 @@ private:
 	bool m_isQuestWindowOn;
 	cUIButton* m_pInventoryButton;	//인벤
 	bool m_isInventoryWindowOn;
+	//메인에서의 이미지 창
+	int m_nMainHPx;
+	int m_nMainHPy;
+	cUIImageViewTemp* m_pMainHpMaxImage;	//피통 맥스
+	cUIImageViewTemp* m_pMainHpImage;		 //피통 현재량
+	cUITextView* m_pMainHpText;				//피통 택스트
+	int m_nMainMPx;
+	int m_nMainMPy;
+	cUIImageViewTemp* m_pMainMpMaxImage;	//마나통 맥스
+	cUIImageViewTemp* m_pMainMpImage;		 //마나통 현재량
+	cUITextView* m_pMainMpText;				//마나통 택스트
+	int m_nMainStaminaX;
+	int m_nMainStaminaY;
+	cUIImageViewTemp* m_pMainStaminaMaxImage;	//스태통 맥스
+	cUIImageViewTemp* m_pMainStaminaImage;		 //스태통 현재량
+	cUITextView* m_pMainStaminaText;			//스태통 택스트
+	int m_nMainEXPx;
+	int m_nMainEXPy;
+	cUIImageViewTemp* m_pMainEXPMaxImage;	//경험치통 맥스
+	cUIImageViewTemp* m_pMainEXPImage;		 //경험치통 현재량
+	cUITextView* m_pMainEXPText;			//경험치통 택스트
+	cUITextView* m_pMainLevelText;			//레벨 택스트
+	//ㅁㅔ인 뿌리
 	cUiObject* m_pUiRoot;
 
 	int m_nmainUiLocalY;
@@ -93,6 +121,7 @@ private:
 	cUIImageView* m_pInfoUiImageHead;	//정보창 머리줄
 	cUIButton* m_pInfoUiMoveing;		//머리줄과 동일크기의 이동용 창
 	cUIButton* m_pInfoUiImage;			//정보창(추후 버튼으로 수정)
+	cUIButton* m_pInfoCloseButton;		//닫기 버튼
 	cUIButton* m_pInfoUiButton;			//버튼
 	cUITextView* m_pInfoUiText;			//불변 택스트
 	//임시
@@ -132,23 +161,6 @@ private:
 	//경험치 이미지
 	cUIImageViewTemp* m_pEXPMaxImage;	//경험치통 맥스
 	cUIImageViewTemp* m_pEXPImage;		 //경험치통 현재량
-
-	//메인에서의 이미지 창
-	int m_nMainHPx;
-	int m_nMainHPy;
-	cUIImageViewTemp* m_pMainHpMaxImage;	//피통 맥스
-	cUIImageViewTemp* m_pMainHpImage;		 //피통 현재량
-	cUITextView* m_pMainHpText;				//피통 택스트
-	int m_nMainMPx;
-	int m_nMainMPy;
-	cUIImageViewTemp* m_pMainMpMaxImage;	//마나통 맥스
-	cUIImageViewTemp* m_pMainMpImage;		 //마나통 현재량
-	cUITextView* m_pMainMpText;				//마나통 택스트
-	int m_nMainStaminaX;
-	int m_nMainStaminaY;
-	cUIImageViewTemp* m_pMainStaminaMaxImage;	//스태통 맥스
-	cUIImageViewTemp* m_pMainStaminaImage;		 //스태통 현재량
-	cUITextView* m_pMainStaminaText;			//스태통 택스트
 	//메인 ui뿌리
 	cUiObject* m_pInfoUi;
 	
@@ -158,6 +170,7 @@ private:
 	cUIImageView* m_pSkillUiImageHead;	//스킬창 머리줄	
 	cUIButton* m_pSkillUiMoveing;		//머리줄 이동용 
 	cUIButton* m_pSkillUiImage;			//스킬창 이미지
+	cUIButton* m_pSkillCloseButton;		//닫기 버튼
 	cUIButton* m_pSkillUiButton;		//스킬창 버튼
 	cUITextView* m_pSkillUiText;		//불변 택스트
 	cUiObject* m_pSkillUi;
@@ -165,10 +178,11 @@ private:
 	//퀘스트 정보창
 	int queX;
 	int queY;
-	cUIImageView* m_pQuestUiImageHead;	//스킬창 머리줄	
+	cUIImageView* m_pQuestUiImageHead;	//쿠ㅐ창 머리줄	
 	cUIButton* m_pQuestUiMoveing;		//머리줄 이동용 
-	cUIButton* m_pQuestUiImage;			//스킬창 이미지
-	cUIButton* m_pQuestUiButton;		//스킬창 버튼
+	cUIButton* m_pQuestUiImage;			//퀘창 이미지
+	cUIButton* m_pQuestCloseButton;		//닫기 버튼
+	cUIButton* m_pQuestUiButton;		//퀘창 버튼
 	cUITextView* m_pQuestUiText;		//불변 택스트
 	cUiObject* m_pQuestUi;
 
@@ -179,6 +193,7 @@ private:
 	cUIButton* m_pInventoryUiMoveing;		//이동용 머리줄
 	cUIButton* m_pInventoryUiImage;			//인벤 창
 	cUIButton* m_pInventoryUiEquipImage;	//장착 창
+	cUIButton* m_pInventoryCloseButton;		//닫기 버튼
 	cUITextView* m_pInventoryUiText;		//불변 택스트
 	//칸 수
 	vector<cUIButton*> m_vecInventoryUiBlock;	//안씀

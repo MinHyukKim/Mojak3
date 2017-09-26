@@ -85,6 +85,8 @@ cUiTestScene::cUiTestScene(void)
 	, m_nMainMPy(12)
 	, m_nMainStaminaX(50)
 	, m_nMainStaminaY(23)
+	, m_nMainEXPx(160)
+	, m_nMainEXPy(20)
 {
 	D3DXMatrixIdentity(&m_matWorldMatrix);
 }
@@ -110,16 +112,16 @@ HRESULT cUiTestScene::Setup(void)
 
 	//임시 태스트용
 	m_pUiTesterSize = cUIImageView::Create();
-	m_pUiTesterSize->SetTexture("Texture/Ui/loading_bar.dds");
-	m_pUiTesterSize->SetPosition(mainUiLocalX + 40, mainUiLocalY);
+	m_pUiTesterSize->SetTexture("Texture/Ui/EXP1.png");
+	m_pUiTesterSize->SetPosition(mainUiLocalX + 160, mainUiLocalY + 10);
 	m_pUiTestRoot = m_pUiTesterSize;	
 
-	test = cUIImageViewTemp::Create();
-	test->SetTexture("Texture/Ui/loading_bar.dds");
-	test->SetPosition(-10, -10);
-	test->SetRectSize();
-	test->m_rc.right = 50.0f;
-	m_pUiTestRoot->AddChild(test);
+//	test = cUIImageViewTemp::Create();
+//	test->SetTexture("Texture/Ui/loading_bar.dds");
+//	test->SetPosition(-10, -10);
+//	test->SetRectSize();
+//	test->m_rc.right = 50.0f;
+//	m_pUiTestRoot->AddChild(test);
 
 //	LPDIRECT3DTEXTURE9 imageData;
 //	RECT rc;
@@ -303,6 +305,26 @@ void cUiTestScene::OnClick(cUIButton * pSender)
 	{
 		isPickUpItem = !isPickUpItem;
 	}
+//	else if (pSender->GetTag() == E_BUTTON_INFO_CLOSE)
+//	{
+//	//	if (m_isInfoWindowOn) m_isInfoWindowOn = false;
+//		m_isInfoWindowOn = !m_isInfoWindowOn;
+//	}
+//	else if (pSender->GetTag() == E_BUTTON_SKILL_CLOSE)
+//	{
+//	//	if (m_isSkillWindowOn) m_isSkillWindowOn = false;
+//		m_isSkillWindowOn = !m_isSkillWindowOn;
+//	}
+//	else if (pSender->GetTag() == E_BUTTON_QUEST_CLOSE)
+//	{
+//	//	if (m_isQuestWindowOn) m_isQuestWindowOn = false;
+//		m_isQuestWindowOn = !m_isQuestWindowOn;
+//	}
+//	else if (pSender->GetTag() == E_BUTTON_INVENTORY_CLOSE)
+//	{
+//	//	if (m_isInventoryWindowOn) m_isInventoryWindowOn = false;
+//		m_isInventoryWindowOn = !m_isInventoryWindowOn;
+//	}
 
 }
 

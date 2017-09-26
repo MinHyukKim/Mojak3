@@ -40,6 +40,15 @@ void cUiTestScene::SetupInfoUi(void)
 	m_pInfoUiImage->SetTag(E_BUTTON_NONE);
 	m_pInfoUiImage->m_Alpha = 180;
 	m_pInfoUi->AddChild(m_pInfoUiImage);
+	//닫기 버튼
+	m_pInfoCloseButton = cUIButton::Create();
+	m_pInfoCloseButton->SetTexture("Texture/Ui/button_close_up.png"
+		, "Texture/Ui/button_close_over.png", "Texture/Ui/button_close_up.png");
+	m_pInfoCloseButton->SetPosition(290, 10);
+	m_pInfoCloseButton->SetDelegate(this);
+	m_pInfoCloseButton->SetTag(E_BUTTON_INFO_CLOSE);
+	m_pInfoCloseButton->m_Alpha = 180;
+	m_pInfoUi->AddChild(m_pInfoCloseButton);
 
 	//택스트
 	m_pInfoUiText = cUITextView::Create();
@@ -205,6 +214,26 @@ void cUiTestScene::SetupInfoUi(void)
 	m_pInfoLevel->SetTag(E_BUTTON_NONE);
 	m_pInfoUi->AddChild(m_pInfoLevel);
 
+	//경험치 이미지
+	int InfoEXPx = 240;
+	int InfoEXPy = 182;
+	//최대
+	m_pEXPMaxImage = cUIImageViewTemp::Create();
+	m_pEXPMaxImage->SetTexture("Texture/Ui/EXPinfoE.png");
+	m_pEXPMaxImage->SetPosition(InfoEXPx, InfoEXPy);
+	m_pEXPMaxImage->SetRectSize();
+	//m_pEXPMaxImage->m_rc.right = 50.0f;
+	m_pEXPMaxImage->m_Alpha = 160;
+	m_pInfoUi->AddChild(m_pEXPMaxImage);
+	//현재량
+	m_pEXPImage = cUIImageViewTemp::Create();
+	m_pEXPImage->SetTexture("Texture/Ui/EXPinfo1.png");
+	m_pEXPImage->SetPosition(InfoEXPx, InfoEXPy);
+	m_pEXPImage->SetRectSize();
+	m_pEXPImage->m_rc.right = ((float)g_pObjectManager->GetPlayer()->GetAbilityParamter()->GetEXP()
+		/ (float)g_pObjectManager->GetPlayer()->GetAbilityParamter()->GetMaxEXP()) * m_pEXPImage->stImageInfo.Width;
+	m_pEXPImage->m_Alpha = 220;
+	m_pInfoUi->AddChild(m_pEXPImage);
 	//경험치
 	char szEXP[32] = { '\0', };
 	sprintf_s(szEXP, "경험치          %.1f %%"
@@ -553,4 +582,10 @@ void cUiTestScene::UpdateInfoUi(void)
 		/ (float)g_pObjectManager->GetPlayer()->GetAbilityParamter()->GetMaxStamina()) * m_pStaminaImage->stImageInfo.Width;
 	if (m_pStaminaImage->m_rc.right >= m_pStaminaImage->stImageInfo.Width) m_pStaminaImage->m_rc.right = m_pStaminaImage->stImageInfo.Width;
 	if (g_pObjectManager->GetPlayer()->GetAbilityParamter()->GetMinStamina() <= 0) m_pStaminaImage->m_rc.right = 1.0f;
+
+	//경험치
+	m_pEXPImage->m_rc.right = ((float)g_pObjectManager->GetPlayer()->GetAbilityParamter()->GetEXP()
+		/ (float)g_pObjectManager->GetPlayer()->GetAbilityParamter()->GetMaxEXP()) * m_pEXPImage->stImageInfo.Width;
+	if (m_pEXPImage->m_rc.right >= m_pEXPImage->stImageInfo.Width) m_pEXPImage->m_rc.right = m_pEXPImage->stImageInfo.Width;
+	if (g_pObjectManager->GetPlayer()->GetAbilityParamter()->GetEXP() <= 0) m_pEXPImage->m_rc.right = 0.1f;
 }

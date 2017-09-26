@@ -47,6 +47,15 @@ void cUiTestScene::SetupInventoryUi(void)
 	m_pInventoryUiText->SetDrawTextFormat(DT_CENTER | DT_VCENTER | DT_WORDBREAK);
 	m_pInventoryUiText->SetTag(E_BUTTON_NONE);
 	m_pInventoryUi->AddChild(m_pInventoryUiText);
+	//닫기 버튼
+	m_pInventoryCloseButton = cUIButton::Create();
+	m_pInventoryCloseButton->SetTexture("Texture/Ui/button_close_up.png"
+		, "Texture/Ui/button_close_over.png", "Texture/Ui/button_close_up.png");
+	m_pInventoryCloseButton->SetPosition(290, 10);
+	m_pInventoryCloseButton->SetDelegate(this);
+	m_pInventoryCloseButton->SetTag(E_BUTTON_INVENTORY_CLOSE);
+	m_pInventoryCloseButton->m_Alpha = 180;
+	m_pInventoryUi->AddChild(m_pInventoryCloseButton);
 
 	//장비 이미지(전체)
 	m_pInventoryUiEquipImage = cUIButton::Create();

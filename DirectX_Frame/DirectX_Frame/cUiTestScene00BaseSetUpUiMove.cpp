@@ -186,6 +186,52 @@ void cUiTestScene::SetupBaseButton(void)
 	m_pMainStaminaText->SetTag(E_BUTTON_NONE);
 	m_pUiRoot->AddChild(m_pMainStaminaText);
 
+	//경험지 게이지
+	//최대
+	m_pMainEXPMaxImage = cUIImageViewTemp::Create();
+	m_pMainEXPMaxImage->SetTexture("Texture/Ui/EXPe1.png");
+	m_pMainEXPMaxImage->SetPosition(m_nMainEXPx, m_nMainEXPy);
+	m_pMainEXPMaxImage->SetRectSize();
+	//m_pMainEXPMaxImage->m_rc.right = 50.0f;
+	m_pMainEXPMaxImage->m_Alpha = 160;
+	m_pUiRoot->AddChild(m_pMainEXPMaxImage);
+	//현재량
+	m_pMainEXPImage = cUIImageViewTemp::Create();
+	m_pMainEXPImage->SetTexture("Texture/Ui/EXP1.png");
+	m_pMainEXPImage->SetPosition(m_nMainEXPx, m_nMainEXPy);
+	m_pMainEXPImage->SetRectSize();
+	m_pMainEXPImage->m_rc.right = ((float)g_pObjectManager->GetPlayer()->GetAbilityParamter()->GetEXP()
+		/ (float)g_pObjectManager->GetPlayer()->GetAbilityParamter()->GetMaxEXP()) * m_pMainEXPImage->stImageInfo.Width;
+	m_pMainEXPImage->m_Alpha = 220;
+	m_pUiRoot->AddChild(m_pMainEXPImage);
+
+	//경험치 및 레벨 택스트
+	char sEXP[64] = { '\0', };
+	sprintf_s(sEXP, "%.1f %%"
+		, (g_pObjectManager->GetPlayer()->GetAbilityParamter()->GetEXP() / g_pObjectManager->GetPlayer()->GetAbilityParamter()->GetMaxEXP()) * 100.0f);
+	m_pMainEXPText = cUITextView::Create();
+	m_pMainEXPText->SetText(sEXP);
+	m_pMainEXPText->SetFontType(g_pFontManager->E_TEMP_IN_SMALL);
+	m_pMainEXPText->SetColor(D3DCOLOR_XRGB(255, 255, 255));
+	m_pMainEXPText->SetSize(ST_SIZE(120, 40));
+	//m_pMainEXPText->SetPosition(-10, 280 - 7); //마비체
+	m_pMainEXPText->SetPosition(315, 5);   //나눔고딕
+	m_pMainEXPText->SetDrawTextFormat(DT_CENTER | DT_VCENTER | DT_WORDBREAK);
+	m_pMainEXPText->SetTag(E_BUTTON_NONE);
+	m_pUiRoot->AddChild(m_pMainEXPText);
+
+	char sLv[64] = { '\0', };
+	sprintf_s(sLv, "Lv %d", g_pObjectManager->GetPlayer()->GetAbilityParamter()->GetLevel());
+	m_pMainLevelText = cUITextView::Create();
+	m_pMainLevelText->SetText(sLv);
+	m_pMainLevelText->SetFontType(g_pFontManager->E_TEMP_IN_SMALL);
+	m_pMainLevelText->SetColor(D3DCOLOR_XRGB(255, 255, 255));
+	m_pMainLevelText->SetSize(ST_SIZE(120, 40));
+	//m_pMainLevelText->SetPosition(-10, 280 - 7); //마비체
+	m_pMainLevelText->SetPosition(85, 5);   //나눔고딕
+	m_pMainLevelText->SetDrawTextFormat(DT_CENTER | DT_VCENTER | DT_WORDBREAK);
+	m_pMainLevelText->SetTag(E_BUTTON_NONE);
+	m_pUiRoot->AddChild(m_pMainLevelText);
 }
 
 void cUiTestScene::UpdateMainUi(void)
@@ -200,6 +246,15 @@ void cUiTestScene::UpdateMainUi(void)
 	sprintf_s(szMP, "%d / %d", g_pObjectManager->GetPlayer()->GetAbilityParamter()->GetMinMP()
 		, g_pObjectManager->GetPlayer()->GetAbilityParamter()->GetMaxMP());
 	m_pMainMpText->SetText(szMP);
+
+	char sEXP[64] = { '\0', };
+	sprintf_s(sEXP, "%.1f %%"
+		, (g_pObjectManager->GetPlayer()->GetAbilityParamter()->GetEXP() / g_pObjectManager->GetPlayer()->GetAbilityParamter()->GetMaxEXP()) * 100.0f);
+	m_pMainEXPText->SetText(sEXP);
+
+	char sLv[64] = { '\0', };
+	sprintf_s(sLv, "Lv %d", g_pObjectManager->GetPlayer()->GetAbilityParamter()->GetLevel());
+	m_pMainLevelText->SetText(sLv);
 
 
 	//게이지 업데이트
@@ -227,6 +282,13 @@ void cUiTestScene::UpdateMainUi(void)
 	//현재 스태미나통이 0보다 작아질때
 	if (g_pObjectManager->GetPlayer()->GetAbilityParamter()->GetMinStamina() <= 0) m_pMainStaminaImage->m_rc.right = 1.0f;
 
+	//경험치
+	m_pMainEXPImage->m_rc.right = ((float)g_pObjectManager->GetPlayer()->GetAbilityParamter()->GetEXP()
+		/ (float)g_pObjectManager->GetPlayer()->GetAbilityParamter()->GetMaxEXP()) * m_pMainEXPImage->stImageInfo.Width;
+	if (m_pMainEXPImage->m_rc.right >= m_pMainEXPImage->stImageInfo.Width) m_pMainEXPImage->m_rc.right = m_pMainEXPImage->stImageInfo.Width;
+	if (g_pObjectManager->GetPlayer()->GetAbilityParamter()->GetEXP() <= 0) m_pMainEXPImage->m_rc.right = 0.1f;
+
+
 	//최소화
 	//메인창 내리기
 	if (m_isMainMin == true)
@@ -248,6 +310,10 @@ void cUiTestScene::UpdateMainUi(void)
 		m_pMainStaminaMaxImage->SetPosition(m_nMainStaminaX + 180, m_nMainHPy);
 		m_pMainStaminaImage->SetPosition(m_nMainStaminaX + 180, m_nMainHPy);
 		m_pMainStaminaText->SetPosition(m_nMainStaminaX + 170, m_nMainHPy);
+
+		m_pMinButton->SetTexture("Texture/Ui/button_max_up.png",
+			"Texture/Ui/button_max_over.png",
+			"Texture/Ui/button_max_up.png");
 	}
 	else
 	{
@@ -271,6 +337,9 @@ void cUiTestScene::UpdateMainUi(void)
 		m_pMainStaminaImage->SetPosition(m_nMainStaminaX, m_nMainStaminaY);
 		m_pMainStaminaText->SetPosition(m_nMainStaminaX - 10, m_nMainStaminaY);
 
+		m_pMinButton->SetTexture("Texture/Ui/button_min_up.png",
+			"Texture/Ui/button_min_over.png",
+			"Texture/Ui/button_min_up.png");
 	}
 }
 
