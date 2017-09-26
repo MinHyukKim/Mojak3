@@ -32,16 +32,6 @@ void cUiTestScene::SetupBaseButton(void)
 	m_pMainRootImageViewMove->SetTag(E_BUTTON_NONE);
 	m_pUiRoot->AddChild(m_pMainRootImageViewMove);
 
-//	cUITextView* pTextView = cUITextView::Create();
-//	pTextView->SetText("태스트용");
-//	pTextView->SetFontType(g_pFontManager->E_NORMAL);
-//	pTextView->SetColor(D3DCOLOR_XRGB(0, 0, 0));
-//	pTextView->SetSize(ST_SIZE(400, 500));
-//	pTextView->SetPosition(0, -300);
-//	pTextView->SetDrawTextFormat(DT_CENTER | DT_VCENTER | DT_WORDBREAK);
-//	pTextView->SetTag(E_TEXT_VIEW);
-//	m_pUiRoot->AddChild(pTextView);
-
 	m_pInfoButton = cUIButton::Create();
 	m_pInfoButton->SetTexture("Texture/Ui/player_info_button_up.png",
 		"Texture/Ui/player_info_button_over.png",
@@ -237,7 +227,51 @@ void cUiTestScene::UpdateMainUi(void)
 	//현재 스태미나통이 0보다 작아질때
 	if (g_pObjectManager->GetPlayer()->GetAbilityParamter()->GetMinStamina() <= 0) m_pMainStaminaImage->m_rc.right = 1.0f;
 
+	//최소화
+	//메인창 내리기
+	if (m_isMainMin == true)
+	{
+		m_pMainRootImageView->SetPosition(300, 520);
+		m_pInfoButton->SetPosition(1000, 1000);
+		m_pSkillButton->SetPosition(1000, 1000);
+		m_pQuestButton->SetPosition(1000, 1000);
+		m_pInventoryButton->SetPosition(1000, 1000);
 
+		m_pMainHpMaxImage->SetPosition(m_nMainHPx, m_nMainHPy);
+		m_pMainHpImage->SetPosition(m_nMainHPx, m_nMainHPy);
+		m_pMainHpText->SetPosition(m_nMainHPx - 10, m_nMainHPy);
+
+		m_pMainMpMaxImage->SetPosition(m_nMainMPx + 90, m_nMainHPy);
+		m_pMainMpImage->SetPosition(m_nMainMPx + 90, m_nMainHPy);
+		m_pMainMpText->SetPosition(m_nMainMPx + 80, m_nMainHPy);
+
+		m_pMainStaminaMaxImage->SetPosition(m_nMainStaminaX + 180, m_nMainHPy);
+		m_pMainStaminaImage->SetPosition(m_nMainStaminaX + 180, m_nMainHPy);
+		m_pMainStaminaText->SetPosition(m_nMainStaminaX + 170, m_nMainHPy);
+	}
+	else
+	{
+		//제자리
+		m_pMainRootImageView->SetPosition(300, 502);
+
+		m_pInfoButton->SetPosition(mainButtonSrart, mainButtonH);
+		m_pSkillButton->SetPosition(mainButtonSrart + mainButtoninterval, mainButtonH);
+		m_pQuestButton->SetPosition(mainButtonSrart + mainButtoninterval * 2, mainButtonH);
+		m_pInventoryButton->SetPosition(mainButtonSrart + mainButtoninterval * 3, mainButtonH);
+
+		m_pMainHpMaxImage->SetPosition(m_nMainHPx, m_nMainHPy);
+		m_pMainHpImage->SetPosition(m_nMainHPx, m_nMainHPy);
+		m_pMainHpText->SetPosition(m_nMainHPx - 10, m_nMainHPy);
+
+		m_pMainMpMaxImage->SetPosition(m_nMainMPx, m_nMainMPy);
+		m_pMainMpImage->SetPosition(m_nMainMPx, m_nMainMPy);
+		m_pMainMpText->SetPosition(m_nMainMPx - 10, m_nMainMPy);
+
+		m_pMainStaminaMaxImage->SetPosition(m_nMainStaminaX, m_nMainStaminaY);
+		m_pMainStaminaImage->SetPosition(m_nMainStaminaX, m_nMainStaminaY);
+		m_pMainStaminaText->SetPosition(m_nMainStaminaX - 10, m_nMainStaminaY);
+
+	}
 }
 
 void cUiTestScene::MoveUiWindow(void)

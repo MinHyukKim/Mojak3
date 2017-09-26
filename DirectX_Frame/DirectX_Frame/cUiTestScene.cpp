@@ -105,10 +105,6 @@ HRESULT cUiTestScene::Setup(void)
 {
 	D3DXCreateSprite(g_pD3DDevice, &m_pSprite);
 
-//	GetClientRect(g_hWnd, &m_Wrc);
-//	mainUiLocalX = m_Wrc.right / 2;
-//	mainUiLocalY = m_Wrc.bottom / 2;
-
 	//베이스 버튼(태스트 택스트 포함
 	this->SetupBaseButton();
 
@@ -168,9 +164,9 @@ void cUiTestScene::Reset(void)
 void cUiTestScene::Update(void)
 {
 	this->changeMainButtonColor();
-	//메인창 내리기 (다시 만들기)
-	if (m_isMainMin == true) m_pMainRootImageView->SetPosition(300, 520);
-	else m_pMainRootImageView->SetPosition(300, 502);
+	////메인창 내리기 (다시 만들기)
+	//if (m_isMainMin == true) m_pMainRootImageView->SetPosition(300, 520);
+	//else m_pMainRootImageView->SetPosition(300, 502);
 	//키입력
 	if (g_pInputManager->IsOnceKeyDown('Q')) m_isQuestWindowOn = !m_isQuestWindowOn;
 	if (g_pInputManager->IsOnceKeyDown('K')) m_isSkillWindowOn = !m_isSkillWindowOn;
@@ -195,7 +191,7 @@ void cUiTestScene::Update(void)
 	this->MoveUiWindow();
 	//인벤 색 변경
 	this->changeInventoryImage();
-	//메인 게이지 업뎃
+	//메인 게이지 및 최소화 업뎃
 	this->UpdateMainUi();
 	
 	//수치변화 시험용
