@@ -103,7 +103,7 @@ HRESULT cUiTestScene::Setup(void)
 
 	//임시 태스트용
 	m_pUiTesterSize = cUIImageView::Create();
-	m_pUiTesterSize->SetTexture("Texture/Ui/temp.png");
+	m_pUiTesterSize->SetTexture("Texture/Ui/loading_bar.dds");
 	m_pUiTesterSize->SetPosition(mainUiLocalX + 40, mainUiLocalY);
 	m_pUiTestRoot = m_pUiTesterSize;	
 
@@ -212,7 +212,10 @@ void cUiTestScene::Update(void)
 		m_nTempArmorPiercing += 1;
 	}
 
+
 	if (m_pUiTestRoot) m_pUiTestRoot->Update();
+
+	m_pUiTesterSize->m_rc.right = 50.0f;
 }
 
 void cUiTestScene::Render(void)
@@ -233,7 +236,7 @@ void cUiTestScene::Render(void)
 //	if (m_pHpMaxImage) m_pHpMaxImage->Draw(m_pSprite);
 
 	//크기 태스트용
-//	if (m_pUiTestRoot) m_pUiTestRoot->Render(m_pSprite);
+	if (m_pUiTestRoot) m_pUiTestRoot->Render(m_pSprite);
 
 
 }

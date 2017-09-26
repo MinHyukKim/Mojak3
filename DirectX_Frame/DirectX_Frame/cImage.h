@@ -1,6 +1,7 @@
 #pragma once
+#include "cUiObject.h"
 
-class cImage : public cObject
+class cImage : public cUiObject
 {
 private:
 	D3DXMATRIXA16 m_matWorld;
@@ -10,6 +11,9 @@ private:
 	RECT m_rc;
 
 public:
+	void Update();
+	void Render(LPD3DXSPRITE pSprite) { Draw(pSprite); }
+
 	virtual void Setup(const D3DXIMAGE_INFO& _stImageInfo, const LPDIRECT3DTEXTURE9 _pTexture);
 	virtual void SetImageInfo(const D3DXIMAGE_INFO& _stImageInfo) { m_stImageInfo = _stImageInfo; }
 	virtual D3DXIMAGE_INFO& GetImageInfo(void) { return m_stImageInfo; }

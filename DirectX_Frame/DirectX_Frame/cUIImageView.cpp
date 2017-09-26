@@ -30,9 +30,9 @@ void cUIImageView::Render(LPD3DXSPRITE pSprite)
 
 	pSprite->SetTransform(&m_matWorld);
 	//RECT rc;
-	SetRect(&rc, 0, 0, stImageInfo.Width, stImageInfo.Height);
-	SetRect(&m_conRECT, 0, 0, stImageInfo.Width, stImageInfo.Height);
-	pSprite->Draw(pTexture, &rc, &D3DXVECTOR3(0, 0, 0), &D3DXVECTOR3(0, 0, 0),
+	SetRect(&m_rc, 0, 0, stImageInfo.Width, stImageInfo.Height);
+//	SetRect(&m_conRECT, 0, 0, stImageInfo.Width, stImageInfo.Height);
+	pSprite->Draw(pTexture, &m_rc, &D3DXVECTOR3(0, 0, 0), &D3DXVECTOR3(0, 0, 0),
 		D3DCOLOR_ARGB(m_Alpha, 255, 255, 255));
 
 	pSprite->End();
@@ -40,3 +40,4 @@ void cUIImageView::Render(LPD3DXSPRITE pSprite)
 	cUiObject::Render(pSprite);
 
 }
+
