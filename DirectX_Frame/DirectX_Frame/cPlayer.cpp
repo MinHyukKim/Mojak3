@@ -4,6 +4,7 @@
 #include "cSkinnedMesh.h"
 #include "cCamera.h"
 #include "cActionMove.h"
+#include "cActionDirection.h"
 
 cPlayer::cPlayer(void)
 	: m_pCamera(nullptr)
@@ -12,8 +13,10 @@ cPlayer::cPlayer(void)
 	, m_pAnimationController(nullptr)
 	, m_dwNumMainAnimation(cPlayer::ANIMATION_NULL)
 	, m_dwNumSubAnimation(cPlayer::ANIMATION_NULL)
-	, m_dwNumPattern(PATTERN_IDEN_FRIENDLY)
+	, m_dwNumPattern(PATTERN_NORMAL)
+	, m_dwNumState(cPlayer::ORDER_NULL)
 	, m_bCurrentTrack(false)
+	, m_fRadius(0.5f)
 { 
 	D3DXMatrixIdentity(&m_matWorld);
 	ZeroMemory(&m_stHairMaterial, sizeof(D3DMATERIAL9));
@@ -28,6 +31,8 @@ HRESULT cPlayer::Setup(void)
 {
 	m_pActionMove = cActionMove::Create();
 	m_pActionMove->SetTarget(this);
+	m_pActionDirection = cActionDirection::Create();
+	m_pActionDirection->SetTarget(this);
 
 	if (!m_pCamera) m_pCamera = cCamera::Create();
 	m_pCamera->SetupParentMatrix(&m_matWorld);
@@ -44,32 +49,29 @@ void cPlayer::Reset(void)
 	SAFE_RELEASE(m_pCamera);
 	SAFE_RELEASE(m_pTarget);
 	SAFE_RELEASE(m_pActionMove);
+	SAFE_RELEASE(m_pActionDirection);
 	SAFE_RELEASE(m_pAnimationController);
 }
 
 void cPlayer::Update(void)
 {
-	m_AbilityParamter.Update();
-	SAFE_UPDATE(m_pActionMove);
-
 	//타겟 상태 확인후 유효하지 않으면 해제
 	if (m_pTarget && !m_pTarget->GetAbilityParamter()->IsEffective()) m_pTarget->Release();
+	if (!m_AbilityParamter.IsEffective()) return;
 
-	// 자세한 이론은 인터넷 검색(검색어) : 유한상태기계(FSM) FlyingSpaghettiMonster 아님
+	// 패턴에 따른 업데이트
 	switch (m_dwNumPattern)
 	{
-	case cPlayer::PATTERN_NULL: break;
-	case cPlayer::PATTERN_IDEN_OFFENSIVE: this->PatternIdenOffensive(); break;
-	case cPlayer::PATTERN_IDEN_FRIENDLY: this->PatternIdenPeaceful(); break;
-	case cPlayer::PATTERN_WALK_OFFENSIVE:  break;
-	case cPlayer::PATTERN_WALK_FRIENDLY:  break;
-	case cPlayer::PATTERN_RUN_OFFENSIVE: this->PatternRuningOffensive(); break;
-	case cPlayer::PATTERN_RUN_FRIENDLY: this->PatternRuningPeaceful(); break;
-	case cPlayer::PATTERN_ATTACK_OFFENSIVE: this->PatternAttackOffensive(); break;
-	case cPlayer::PATTERN_ATTACK_FRIENDLY: this->PatternAttackPeaceful(); break;
+	case cPlayer::ORDER_NULL: break;
+	case 1: break;
+	case 2: break;
 	default: break;
 	}
 
+	//기본 업데이트
+	m_AbilityParamter.Update();
+	SAFE_UPDATE(m_pActionMove);
+	SAFE_UPDATE(m_pActionDirection);
 }
 
 void cPlayer::Render(void)
@@ -101,195 +103,85 @@ void cPlayer::SetupAnimationController(LPCSTR szBoneKey)
 	m_vecAnimationKey.resize(ANIMATION_END);
 }
 
-//전투 준비 설정
-void cPlayer::SetIdenOffensive(void)
+void cPlayer::SetupFriendly(void)
 {
+	m_dwNumPattern;
+	this->SetStateFalse(PATTERN_FRIENDLY);
+	this->SetStateTrue(PATTERN_OFFENSIVE);
+	this->SetBlendingAnimation(cPlayer::ANIMATION_IDLE_FRIENDLY);
+}
+
+void cPlayer::SetupOffnsive(void)
+{
+	m_dwNumPattern;
+	this->SetStateFalse(PATTERN_OFFENSIVE);
+	this->SetStateTrue(PATTERN_FRIENDLY);
 	this->SetBlendingAnimation(cPlayer::ANIMATION_IDLE_OFFENSIVE);
 }
-//일반 준비 설정
-void cPlayer::SetIdenPeaceful(void)
-{
-	this->SetBlendingAnimation(cPlayer::ANIMATION_IDLE_PEACEFUL);
-}
-void cPlayer::SetWalkingOffensive(void)
-{
-}
-void cPlayer::SetWalkingPeaceful(void)
-{
-}
-//전투 달리기 설정
-void cPlayer::SetRuningOffensive(void)
-{
-	this->SetBlendingAnimation(cPlayer::ANIMATION_RUN_OFFENSIVE, m_AbilityParamter.GetMoveSpeed());
-}
-//일반 달리기 설정
-void cPlayer::SetRuningPeaceful(void)
-{
-	this->SetBlendingAnimation(cPlayer::ANIMATION_RUN_PEACEFUL, m_AbilityParamter.GetMoveSpeed());
-}
-
-void cPlayer::SetAttackOffensive(void)
-{
-	m_AbilityParamter.SetDelayTime(this->SetBlendingAnimation(cPlayer::ANIMATION_ATTACK_OFFENSIVE));
-}
-
-void cPlayer::SetAttackPeaceful(void)
-{
-	this->SetBlendingAnimation(cPlayer::ANIMATION_ATTACK_PEACEFUL);
-}
-
-//전투 준비 상태
-void cPlayer::PatternIdenOffensive(void)
-{
-	if (2 == m_AbilityParamter.GetPlayerID()) //컴퓨터 일때
-	{
-		float fDistSq;
-		if (this->DistSqTarget(&fDistSq) && 9.0f > fDistSq)
-		{
-			this->TargetView();
-			if (m_AbilityParamter.IsDelayTime())
-			{
-				m_AbilityParamter.SetDelayTime(g_pMath->Random(3.0f));
-				switch (g_pMath->Random(3))
-				{
-				case 0:
-					this->RotationToTarget(g_pMath->Random(-1.0f, 1.0f));
-					this->SetPatternState(cPlayer::PATTERN_RUN_OFFENSIVE);
-					break;
-
-				case 1:
-					this->KeepToTarget(g_pMath->Random(1.0f, 2.5f));
-					this->SetPatternState(cPlayer::PATTERN_RUN_OFFENSIVE);
-					break;
-
-				case 2:
-					this->GoToTarget();
-					this->SetPatternState(cPlayer::PATTERN_RUN_OFFENSIVE);
-					break;
-
-				default:
-					break;
-				}
-			}
-		}
-		else
-		{
-			this->SetPatternState(cPlayer::PATTERN_IDEN_FRIENDLY);
-		}
-	}
-}
-//알반 준비 상태
-void cPlayer::PatternIdenPeaceful(void)
-{
-	if (2 == m_AbilityParamter.GetPlayerID()) //컴퓨터 일때
-	{
-		float fDistSq;
-		if (this->DistSqTarget(&fDistSq))
-		{
-			if (0.5f > fDistSq)
-			{
-				this->MoveToStop();
-				this->SetPatternState(cPlayer::PATTERN_ATTACK_OFFENSIVE);
-			}
-			else if (9.0f > fDistSq)
-			{
-				m_AbilityParamter.SetDelayTime(g_pMath->Random(3.0f));
-				this->SetPatternState(cPlayer::PATTERN_IDEN_OFFENSIVE);
-			}
-		}
-		else
-		{
-			this->PlayerToTarget(9.0f);
-		}
-	}
-}
-void cPlayer::PatternWalkingOffensive(void)
-{
-}
-void cPlayer::PatternWalkingPeaceful(void)
-{
-}
-//전투 달리기 상태
-void cPlayer::PatternRuningOffensive(void)
-{
-	if (m_pActionMove)
-	{
-		if (m_pActionMove->IsPlay())
-		{
-			float fDist;
-			if (this->DistSqTarget(&fDist) && fDist < 0.5f)
-			{
-				this->MoveToStop();
-				this->SetPatternState(cPlayer::PATTERN_ATTACK_OFFENSIVE);
-			}
-			else
-			{
-				this->SetDirection(&m_pActionMove->GetDirection());
-			}
-		}
-		else
-		{
-			//이동 액션이 끝나면	iden 상태가 된다.
-			this->SetPatternState(cPlayer::PATTERN_IDEN_OFFENSIVE);
-		}
-	}
-}
-//일반 달리기 상태
-void cPlayer::PatternRuningPeaceful(void)
-{
-	if (m_pActionMove)
-	{
-		if (m_pActionMove->IsPlay())
-		{
-			//이동 액션중일 경우	캐릭터 방향을 돌린다.( 스무스하게 돌리기 미구현)
-			this->SetDirection(&m_pActionMove->GetDirection());
-		}
-		else
-		{
-			//이동 액션이 끝나면	iden 상태가 된다.
-			this->SetPatternState(cPlayer::PATTERN_IDEN_FRIENDLY);
-		}
-	}
-}
-
-void cPlayer::PatternAttackOffensive(void)
-{
-	if (2 == m_AbilityParamter.GetPlayerID()) //컴퓨터 일때
-	{
-		if (m_AbilityParamter.IsDelayTime())
-		{
-
-			m_AbilityParamter.SetDelayTime(g_pMath->Random(3.0f));
-			this->SetPatternState(cPlayer::PATTERN_IDEN_OFFENSIVE);
-		}
-		else
-		{
-		}
-	}
-}
-
-void cPlayer::PatternAttackPeaceful(void)
-{
-}
 
 
-void cPlayer::SetPatternState(DWORD dwPattern)
+void cPlayer::SetStatePattern(DWORD dwNumState)
 {
 	//패턴 전환시 초기화
-	switch (dwPattern)
+	switch (dwNumState)
 	{
-	case cPlayer::PATTERN_NULL: break;
-	case cPlayer::PATTERN_IDEN_OFFENSIVE: this->SetIdenOffensive(); break;
-	case cPlayer::PATTERN_IDEN_FRIENDLY:  this->SetIdenPeaceful(); break;
-	case cPlayer::PATTERN_WALK_OFFENSIVE:  break;
-	case cPlayer::PATTERN_WALK_FRIENDLY:  break;
-	case cPlayer::PATTERN_RUN_OFFENSIVE: this->SetRuningOffensive(); break;
-	case cPlayer::PATTERN_RUN_FRIENDLY:  this->SetRuningPeaceful(); break;
-	case cPlayer::PATTERN_ATTACK_OFFENSIVE: this->SetAttackOffensive();  break;
-	case cPlayer::PATTERN_ATTACK_FRIENDLY:  this->SetAttackPeaceful(); break;
+	case cPlayer::ORDER_IDLE_FRIENDLY: this->SetupFriendly(); break;
+	case cPlayer::ORDER_IDLE_OFFENSIVE: this->SetupOffnsive(); break;
 	default: return; // 설정되어 있지 않은 패턴 번호는 무시함
 	}
-	m_dwNumPattern = dwPattern; // 새로운 패턴으로 전환
+	m_dwNumState = dwNumState; // 상태 전환
+}
+
+void cPlayer::OrderFriendly(void)
+{
+	if (this->CheckState(PATTERN_FRIENDLY))
+	{
+		this->SetStatePattern(cPlayer::ORDER_IDLE_FRIENDLY);
+	}
+}
+
+void cPlayer::OrderOffensive(void)
+{
+	if (this->CheckState(PATTERN_OFFENSIVE))
+	{
+		this->SetStatePattern(cPlayer::ORDER_IDLE_OFFENSIVE);
+	}
+}
+
+void cPlayer::OrderIdenChange(void)
+{
+	if (this->CheckState(PATTERN_FRIENDLY))
+	{
+		this->SetStatePattern(cPlayer::ORDER_IDLE_FRIENDLY);
+	}
+	else
+	{
+		this->SetStatePattern(cPlayer::ORDER_IDLE_OFFENSIVE);
+	}
+}
+
+void cPlayer::OrderWalk(LPD3DXVECTOR3 pTo)
+{
+	if (!this->CheckState(PATTERN_WALK)) return;
+
+	this->Rotation(&((*pTo) - this->GetPosition()), 20.0f);
+	this->MoveEx(pTo, 0.5f);
+
+	if (this->CheckState(PATTERN_FRIENDLY))
+	{
+		//전투모드
+		this->SetBlendingAnimation(cPlayer::ANIMATION_WALK_OFFENSIVE);
+	}
+	else
+	{
+		//일상모드
+		this->SetBlendingAnimation(cPlayer::ANIMATION_WALK_FRIENDLY);
+		
+	}
+}
+
+void cPlayer::OrderMove(LPD3DXVECTOR3 pTo)
+{
 }
 
 
@@ -397,7 +289,7 @@ void cPlayer::SetAnimation(IN DWORD dwAnimationKey)
 	m_pAnimationController->SetTrackEnable(m_bCurrentTrack, true);
 	m_pAnimationController->SetTrackSpeed(m_bCurrentTrack, 1.0f);
 	m_pAnimationController->SetTrackWeight(m_bCurrentTrack, 1.0f);
-	m_pAnimationController->SetTrackPosition(0, 0.0);
+	m_pAnimationController->SetTrackPosition(m_bCurrentTrack, 0.0);
 	SAFE_RELEASE(pAnimationSet);
 
 	m_dwNumMainAnimation = m_vecAnimationKey[dwAnimationKey].dwKey;
@@ -554,23 +446,33 @@ void cPlayer::SetDirection(LPD3DXVECTOR3 pDir)
 	m_matWorld._31 = vDir.x, m_matWorld._32 = vDir.y, m_matWorld._33 = vDir.z;
 }
 
-void cPlayer::MoveToPlayer(LPD3DXVECTOR3 pTo, float fSpeed)
+void cPlayer::MoveEx(LPD3DXVECTOR3 pTo, float fSpeed)
 {
-	m_AbilityParamter.SetMoveSpeed(fSpeed);
-	if (!m_pActionMove) return;
-	this->m_pActionMove->SetToPlay(pTo, fSpeed);
+	assert(m_pActionMove && "이 캐릭터는 이동할 수 없는 캐릭터 입니다.");
+	this->m_pActionMove->SetToPlay(pTo, m_AbilityParamter.GetMoveSpeed() * fSpeed);
 }
 
-void cPlayer::MoveToPlayer(LPD3DXVECTOR3 pTo)
+void cPlayer::Move(LPD3DXVECTOR3 pTo)
 {
-	if (!m_pActionMove) return;
+	assert(m_pActionMove && "이 캐릭터는 이동할 수 없는 캐릭터 입니다.");
 	this->m_pActionMove->SetToPlay(pTo, m_AbilityParamter.GetMoveSpeed());
 }
 
-void cPlayer::MoveToStop(void)
+void cPlayer::Rotation(LPD3DXVECTOR3 pTo, float fSpeed)
+{
+	assert(m_pActionMove && "이 캐릭터는 회전할 수 없는 캐릭터 입니다.");
+	this->m_pActionDirection->SetToPlay(pTo, fSpeed);
+}
+
+void cPlayer::MoveStop(void)
 {
 	if (!m_pActionMove) return;
 	this->m_pActionMove->Stop();
+}
+
+bool cPlayer::TargetAttack(void)
+{
+	return false;
 }
 
 void cPlayer::PlayerToTarget(float fRange)
@@ -678,7 +580,7 @@ bool cPlayer::DistTarget(OUT DWORD dwTarget, OUT float fRange)
 		for each (auto pMonster in *g_pObjectManager->GetMonsterVectorPointer())
 		{
 			if (2 != pMonster->GetAbilityParamter()->GetPlayerID()) continue;
-			if (D3DXVec3LengthSq(&(m_pTarget->GetPosition() - this->GetPosition())) > fRangeSq) return true;
+			if (D3DXVec3LengthSq(&(m_pTarget->GetPosition() - this->GetPosition())) < fRangeSq) return true;
 		} break;
 
 	case 1: if (g_pObjectManager->GetPlayer()) return D3DXVec3LengthSq(&(g_pObjectManager->GetPlayer()->GetPosition() - this->GetPosition())) > fRangeSq; break;
@@ -687,10 +589,10 @@ bool cPlayer::DistTarget(OUT DWORD dwTarget, OUT float fRange)
 		for each (auto pMonster in *g_pObjectManager->GetMonsterVectorPointer())
 		{
 			if (2 != pMonster->GetAbilityParamter()->GetPlayerID()) continue;
-			if (D3DXVec3LengthSq(&(m_pTarget->GetPosition() - this->GetPosition())) > fRangeSq) return true;
+			if (D3DXVec3LengthSq(&(m_pTarget->GetPosition() - this->GetPosition())) < fRangeSq) return true;
 		} break;
 
-	case 3: if (m_pTarget) return D3DXVec3LengthSq(&(m_pTarget->GetPosition() - this->GetPosition())) > fRangeSq; break;
+	case 3: if (m_pTarget) return D3DXVec3LengthSq(&(m_pTarget->GetPosition() - this->GetPosition())) < fRangeSq; break;
 
 	}
 	return false;
@@ -699,7 +601,16 @@ bool cPlayer::DistTarget(OUT DWORD dwTarget, OUT float fRange)
 //광선과 원충돌
 bool cPlayer::IsCollision(IN LPD3DXVECTOR3 pRay, IN LPD3DXVECTOR3 pDir)
 {
-	return (D3DXVec3Dot(&(this->GetPosition() - (*pRay)), pDir) < m_fRadius * m_fRadius);
+	float fLength = (D3DXVec3Dot(&(this->GetPosition() - (*pRay)), pDir));
+	fLength = D3DXVec3LengthSq(&((*pRay) + (*pDir) * fLength - this->GetPosition()));
+	return (fLength  < m_fRadius * m_fRadius);
+}
+
+void cPlayer::SetTarget(cPlayer* pTarget)
+{
+	SAFE_RELEASE(m_pTarget);
+	m_pTarget = pTarget;
+	SAFE_ADDREF(m_pTarget);
 }
 
 cPlayer* cPlayer::Create(void)

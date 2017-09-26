@@ -72,17 +72,36 @@ void cCharTestScene::Update(void)
 	if (m_pCamera) m_pCamera->TestController();
 
 	SAFE_UPDATE(m_pUi);
-
-	if (g_pInputManager->IsOnceKeyDown(VK_LBUTTON) && m_pUi->GetMoveingOK() == true)
+	if (m_pUi->GetMoveingOK())
 	{
-		D3DXVECTOR3 vTo, vRay, vDir;
-		g_pRay->RayAtWorldSpace(&vRay, &vDir);
-		if (m_pMapTerrain->IsCollision(&vTo, &vRay, &vDir))
+		if (g_pInputManager->IsOnceKeyDown(VK_LBUTTON))
 		{
-			g_pObjectManager->GetPlayer()->MoveToPlayer(&vTo, g_pObjectManager->GetPlayer()->GetAbilityParamter()->GetMoveSpeed());
-			g_pObjectManager->GetPlayer()->SetPatternState(cPlayer::PATTERN_RUN_FRIENDLY);
+			cPlayer* pMonster = nullptr;
+			D3DXVECTOR3 vTo, vRay, vDir;
+			g_pRay->RayAtWorldSpace(&vRay, &vDir);
+			if (g_pObjectManager->GetMonster(&pMonster, &vRay, &vDir))
+			{
+				g_pObjectManager->GetPlayer()->SetTarget(pMonster);
+			}
+			else if (m_pMapTerrain->IsCollision(&vTo, &vRay, &vDir))
+			{
+				if (g_pInputManager->IsStayKeyDown(VK_SHIFT))
+				{
+					g_pObjectManager->GetPlayer()->OrderWalk(&vTo);
+				}
+				else
+				{
+					g_pObjectManager->GetPlayer()->OrderMove(&vTo);
+				}
+			}
 		}
 	}
+	
+	if (g_pInputManager->IsOnceKeyDown(VK_SPACE))
+	{
+		g_pObjectManager->GetPlayer()->OrderIdenChange();
+	}
+
 
 	SAFE_UPDATE(g_pObjectManager);
 	cPlayer* pPlayer = g_pObjectManager->GetPlayer();

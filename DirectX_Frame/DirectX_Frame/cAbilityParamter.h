@@ -39,7 +39,7 @@ private:
 	float m_fDownGauge;			//다운게이지 100(밀림), 120(너머짐), 150()
 	float m_fMoveSpeed;			//이동속도
 
-	float m_fAIDelayTime;		//인공지능 유효시간
+	float m_fDelayTime;		//인공지능 유효시간
 	bool m_bEffective;			//캐릭터 생존여부
 
 public:
@@ -63,11 +63,13 @@ public:
 	void SetLuk(float nValue) { m_fLuk = nValue; }
 	int GetLuk(void) { return m_fLuk; }
 
+	void SetRange(float fValue) { m_fRange = fValue; }
+	float GetRange(void) { return m_fRange; }
 	void SetMoveSpeed(float fValue) { m_fMoveSpeed = fValue; }
 	float GetMoveSpeed(void) { return m_fMoveSpeed; }
-	void SetDelayTime(float fValue) { m_fAIDelayTime = fValue; }
-	float GetDelayTime(void) { return m_fAIDelayTime; }
-	bool IsDelayTime(void) { return m_fAIDelayTime <= 0.0f; }
+	void SetDelayTime(float fValue) { m_fDelayTime = fValue; }
+	float GetDelayTime(void) { return m_fDelayTime; }
+	bool IsDelayEnd(void) { return m_fDelayTime <= 0.0f; }
 	void SetEffective(bool nValue) { m_bEffective = nValue; }
 	bool IsEffective(void) { return m_bEffective; }
 

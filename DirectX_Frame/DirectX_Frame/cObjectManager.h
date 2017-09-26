@@ -38,7 +38,7 @@ public:
 	void LoadPlayerData(IN LPCSTR FullPath);
 	cPlayer* GetPlayer(void) { return m_pPlayer; }
 	std::vector<cPlayer*>* GetMonsterVectorPointer(void) { return &m_vecMonster; }
-	cPlayer* GetMonster(IN LPD3DXVECTOR3 pRay, IN LPD3DXVECTOR3 pDir);
+	bool GetMonster(OUT cPlayer** ppMonster, IN LPD3DXVECTOR3 pRay, IN LPD3DXVECTOR3 pDir);
 
 	void SetTerrain(IN cMapTerrain* pTerrain);
 

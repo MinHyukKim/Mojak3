@@ -1,22 +1,5 @@
 #pragma once
 
-struct ST_DATA
-{
-	DWORD dwType;
-	std::string str1;
-	std::string str2;
-	std::string str3;
-	D3DXMATRIXA16 mat1;
-	D3DMATERIAL9 material;
-
-	ST_DATA(DWORD _dwType = 0, std::string _str1 = "", std::string _str2 = "", std::string _str3 = "", LPD3DXMATRIX _mat1 = nullptr, D3DMATERIAL9* _material = nullptr)
-		: dwType(_dwType), str1(_str1), str2(_str2), str3(_str3)
-	{
-		if (_mat1) mat1 = *_mat1;
-		if (_material) material = *_material;
-	}
-};
-
 class cDataLoder : public cObject
 {
 public:
@@ -27,6 +10,7 @@ public:
 		DATA_MESH_COLOR,
 		DATA_ANIMATION,
 		DATA_BUILDING,
+		DATA_TERRAN,
 	};
 private:
 	std::vector<ST_DATA> m_vecData;
