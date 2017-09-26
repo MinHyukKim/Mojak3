@@ -8,18 +8,17 @@ private:
 	LPDIRECT3DVERTEXBUFFER9		m_pVertex[6];
 	LPDIRECT3DINDEXBUFFER9		m_pIndex[6];
 	LPDIRECT3DTEXTURE9			m_pTexture[6];
+	D3DXVECTOR3					vPos;
 public:
-	cSkybox(const char* top, 
+	//스카이박스 셋업 함수(임시)
+	virtual HRESULT Setup(const char* top,
 		const char* bottom,
 		const char* left,
-		const char* right, 
+		const char* right,
 		const char* front,
 		const char* back);
-
-
-	virtual HRESULT Setup(void);
-	virtual void Update(void);
-
+	virtual void Update(D3DXVECTOR3 cameraPt);
+	virtual void Render(void);
 	//스카이박스 생성 함수
 	static cSkybox* Create(void);
 protected:

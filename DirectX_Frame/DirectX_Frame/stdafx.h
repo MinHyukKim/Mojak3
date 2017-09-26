@@ -102,6 +102,9 @@ using namespace std;
 #define SAFE_UPDATE(pointer) if (pointer) {(pointer)->Update();}
 #define SAFE_RENDER(pointer) if (pointer) {(pointer)->Render();}
 
+//인덱스 구조체
+struct	ST_INDEX { WORD _0, _1, _2; };
+
 //정점 구조체
 struct ST_PC_VERTEX
 {
