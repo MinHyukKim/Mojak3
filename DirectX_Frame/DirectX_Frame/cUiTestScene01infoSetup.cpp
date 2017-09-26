@@ -354,6 +354,7 @@ void cUiTestScene::SetupInfoUi(void)
 
 void cUiTestScene::UpdateInfoUi(void)
 {
+	//m_pPlayer->GetAbilityParamter()->GetStr
 	char szHP[32] = { '\0', };
 	sprintf_s(szHP, "ปýธํทย      %d / %d", m_nTempHP, m_nTempMaxHP);
 	m_pTempInfoHP->SetText(szHP);

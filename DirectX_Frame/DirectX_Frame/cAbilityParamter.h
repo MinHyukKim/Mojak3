@@ -36,7 +36,7 @@ private:
 
 	float m_fFood;				//배고픔
 	float m_fRange;				//공격범위
-	float m_fDownGauge;	//다운게이지 100(밀림), 120(너머짐), 150()
+	float m_fDownGauge;			//다운게이지 100(밀림), 120(너머짐), 150()
 	float m_fMoveSpeed;			//이동속도
 
 	float m_fAIDelayTime;		//인공지능 유효시간
