@@ -22,17 +22,6 @@ public:
 	//스카이박스 생성 함수
 	static cSkybox* Create(void);
 
-	void Set_Vtx3D_Tex(ST_PNT_VERTEX &ct, D3DXVECTOR3 p, D3DXVECTOR3 n, float tu, float tv)
-	{
-		ct.p = p; ct.n = n;	ct.t = D3DXVECTOR2(tu, tv);
-	}
-
-	void Set_Idx(ST_INDEX &ci, WORD _0, WORD _1, WORD _2)
-	{
-		ci._0 = _0; ci._1 = _1;	ci._2 = _2;
-	}
-
-
 protected:
 	cSkybox(void);
 	virtual ~cSkybox(void);

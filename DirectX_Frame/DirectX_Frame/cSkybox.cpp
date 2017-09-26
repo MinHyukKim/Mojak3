@@ -20,165 +20,121 @@ HRESULT cSkybox::Setup(const char * top, const char * bottom, const char * left,
 		if (FAILED(g_pD3DDevice->CreateVertexBuffer(sizeof(ST_PNT_VERTEX) * 4, 0,
 			ST_PNT_VERTEX::FVF, D3DPOOL_DEFAULT, &m_pVertex[i], NULL))) return S_FALSE;
 	}
-	////박스 PNT설정
-	////top
-	//if (FAILED(m_pVertex[0]->Lock(0, 0, (void**)&pv, 0))) return S_FALSE;
-	//pv[0].p = D3DXVECTOR3(1.f, 1.f, -1.f);
-	//pv[0].n = D3DXVECTOR3(1, 1, 1);
-	//pv[0].t = D3DXVECTOR2(0, 1);
+	//박스 PNT설정
+	//top
+	if (FAILED(m_pVertex[0]->Lock(0, 0, (void**)&pv, 0))) return S_FALSE;
+	pv[0].p = D3DXVECTOR3(1.f, 1.f, -1.f);
+	pv[0].n = D3DXVECTOR3(1, 1, 1);
+	pv[0].t = D3DXVECTOR2(0, 1);
 
-	//pv[1].p = D3DXVECTOR3(-1.f, 1.f, -1.f);
-	//pv[1].n = D3DXVECTOR3(1, 1, 1);
-	//pv[1].t = D3DXVECTOR2(1, 1);
-	//
-	//pv[2].p = D3DXVECTOR3(1.f, 1.f, 1.f);
-	//pv[2].n = D3DXVECTOR3(1, 1, 1);
-	//pv[2].t = D3DXVECTOR2(1, 1);
+	pv[1].p = D3DXVECTOR3(-1.f, 1.f, -1.f);
+	pv[1].n = D3DXVECTOR3(1, 1, 1);
+	pv[1].t = D3DXVECTOR2(0, 0);
+	
+	pv[2].p = D3DXVECTOR3(1.f, 1.f, 1.f);
+	pv[2].n = D3DXVECTOR3(1, 1, 1);
+	pv[2].t = D3DXVECTOR2(1, 1);
 
-	//pv[3].p = D3DXVECTOR3(-1.f, 1.f, 1.f);
-	//pv[3].n = D3DXVECTOR3(1, 1, 1);
-	//pv[3].t = D3DXVECTOR2(1, 0);
+	pv[3].p = D3DXVECTOR3(-1.f, 1.f, 1.f);
+	pv[3].n = D3DXVECTOR3(1, 1, 1);
+	pv[3].t = D3DXVECTOR2(1, 0);
 
-	//m_pVertex[0]->Unlock();
-
-	////bottom
-	//if (FAILED(m_pVertex[1]->Lock(0, 0, (void**)&pv, 0))) return S_FALSE;
-	//pv[0].p = D3DXVECTOR3(1.f, -1.f, 1.f);
-	//pv[0].n = D3DXVECTOR3(1, 1, 1);
-	//pv[0].t = D3DXVECTOR2(0, 0);
-
-	//pv[1].p = D3DXVECTOR3(-1.f, -1.f, 1.f);
-	//pv[1].n = D3DXVECTOR3(1, 1, 1);
-	//pv[1].t = D3DXVECTOR2(1, 0);
-
-	//pv[2].p = D3DXVECTOR3(1.f, -1.f, -1.f);
-	//pv[2].n = D3DXVECTOR3(1, 1, 1);
-	//pv[2].t = D3DXVECTOR2(0, 1);
-
-	//pv[3].p = D3DXVECTOR3(-1.f, -1.f, -1.f);
-	//pv[3].n = D3DXVECTOR3(1, 1, 1);
-	//pv[3].t = D3DXVECTOR2(1, 1);
-
-	//m_pVertex[1]->Unlock();
-	////left
-	//if (FAILED(m_pVertex[2]->Lock(0, 0, (void**)&pv, 0))) return S_FALSE;
-	//pv[0].p = D3DXVECTOR3(-1.f, 1.f, 1.f);
-	//pv[0].n = D3DXVECTOR3(1, 1, 1);
-	//pv[0].t = D3DXVECTOR2(0, 0);
-
-	//pv[1].p = D3DXVECTOR3(-1.f, 1.f, -1.f);
-	//pv[1].n = D3DXVECTOR3(1, 1, 1);
-	//pv[1].t = D3DXVECTOR2(1, 0);
-
-	//pv[2].p = D3DXVECTOR3(-1.f, -1.f, 1.f);
-	//pv[2].n = D3DXVECTOR3(1, 1, 1);
-	//pv[2].t = D3DXVECTOR2(0, 1);
-
-	//pv[3].p = D3DXVECTOR3(-1.f, -1.f, -1.f);
-	//pv[3].n = D3DXVECTOR3(1, 1, 1);
-	//pv[3].t = D3DXVECTOR2(1, 1);
-
-	//m_pVertex[2]->Unlock();
-	////right
-	//if (FAILED(m_pVertex[3]->Lock(0, 0, (void**)&pv, 0))) return S_FALSE;
-	//pv[0].p = D3DXVECTOR3(1.f, 1.f, -1.f);
-	//pv[0].n = D3DXVECTOR3(1, 1, 1);
-	//pv[0].t = D3DXVECTOR2(0, 0);
-
-	//pv[1].p = D3DXVECTOR3(1.f, 1.f, 1.f);
-	//pv[1].n = D3DXVECTOR3(1, 1, 1);
-	//pv[1].t = D3DXVECTOR2(1, 0);
-
-	//pv[2].p = D3DXVECTOR3(1.f, -1.f, -1.f);
-	//pv[2].n = D3DXVECTOR3(1, 1, 1);
-	//pv[2].t = D3DXVECTOR2(0, 1);
-
-	//pv[3].p = D3DXVECTOR3(1.f, -1.f, 1.f);
-	//pv[3].n = D3DXVECTOR3(1, 1, 1);
-	//pv[3].t = D3DXVECTOR2(1, 1);
-	//m_pVertex[3]->Unlock();
-	////front
-	//if (FAILED(m_pVertex[4]->Lock(0, 0, (void**)&pv, 0))) return S_FALSE;
-	//pv[0].p = D3DXVECTOR3(1.f, 1.f, -1.f);
-	//pv[0].n = D3DXVECTOR3(1, 1, 1);
-	//pv[0].t = D3DXVECTOR2(0, 0);
-
-	//pv[1].p = D3DXVECTOR3(1.f, 1.f, 1.f);
-	//pv[1].n = D3DXVECTOR3(1, 1, 1);
-	//pv[1].t = D3DXVECTOR2(1, 0);
-
-	//pv[2].p = D3DXVECTOR3(1.f, -1.f, -1.f);
-	//pv[2].n = D3DXVECTOR3(1, 1, 1);
-	//pv[2].t = D3DXVECTOR2(0, 1);
-
-	//pv[3].p = D3DXVECTOR3(1.f, -1.f, 1.f);
-	//pv[3].n = D3DXVECTOR3(1, 1, 1);
-	//pv[3].t = D3DXVECTOR2(1, 1);
-
-	//m_pVertex[4]->Unlock();
-	////back
-	//if (FAILED(m_pVertex[5]->Lock(0, 0, (void**)&pv, 0))) return S_FALSE;
-	//pv[0].p = D3DXVECTOR3(-1.f, 1.f, -1.f);
-	//pv[0].n = D3DXVECTOR3(1, 1, 1);
-	//pv[0].t = D3DXVECTOR2(0, 0);
-
-	//pv[1].p = D3DXVECTOR3(1.f, 1.f, -1.f);
-	//pv[1].n = D3DXVECTOR3(1, 1, 1);
-	//pv[1].t = D3DXVECTOR2(1, 0);
-
-	//pv[2].p = D3DXVECTOR3(-1.f, -1.f, -1.f);
-	//pv[2].n = D3DXVECTOR3(1, 1, 1);
-	//pv[2].t = D3DXVECTOR2(0, 1);
-
-	//pv[3].p = D3DXVECTOR3(1.f, -1.f, -1.f);
-	//pv[3].n = D3DXVECTOR3(1, 1, 1);
-	//pv[3].t = D3DXVECTOR2(1, 1);
-
-	//m_pVertex[5]->Unlock();
-
-		//top
-	if(FAILED(m_pVertex[0]->Lock(0, 0, (void**)&pv, 0)))  return S_FALSE;
-	Set_Vtx3D_Tex(pv[0],D3DXVECTOR3( 1.f, 1.f,-1.f),D3DXVECTOR3(1,1,1),0,1);
-	Set_Vtx3D_Tex(pv[1],D3DXVECTOR3(-1.f, 1.f,-1.f),D3DXVECTOR3(1,1,1),0,0);
-	Set_Vtx3D_Tex(pv[2],D3DXVECTOR3( 1.f, 1.f, 1.f),D3DXVECTOR3(1,1,1),1,1);
-	Set_Vtx3D_Tex(pv[3],D3DXVECTOR3(-1.f, 1.f, 1.f),D3DXVECTOR3(1,1,1),1,0);
 	m_pVertex[0]->Unlock();
+
 	//bottom
-	if(FAILED(m_pVertex[1]->Lock(0, 0, (void**)&pv, 0)))  return S_FALSE;
-	Set_Vtx3D_Tex(pv[0],D3DXVECTOR3( 1.f,-1.f, 1.f),D3DXVECTOR3(1,1,1),0,0);
-	Set_Vtx3D_Tex(pv[1],D3DXVECTOR3(-1.f,-1.f, 1.f),D3DXVECTOR3(1,1,1),1,0);
-	Set_Vtx3D_Tex(pv[2],D3DXVECTOR3( 1.f,-1.f,-1.f),D3DXVECTOR3(1,1,1),0,1);
-	Set_Vtx3D_Tex(pv[3],D3DXVECTOR3(-1.f,-1.f,-1.f),D3DXVECTOR3(1,1,1),1,1);
+	if (FAILED(m_pVertex[1]->Lock(0, 0, (void**)&pv, 0))) return S_FALSE;
+	pv[0].p = D3DXVECTOR3(1.f, -1.f, 1.f);
+	pv[0].n = D3DXVECTOR3(1, 1, 1);
+	pv[0].t = D3DXVECTOR2(0, 0);
+
+	pv[1].p = D3DXVECTOR3(-1.f, -1.f, 1.f);
+	pv[1].n = D3DXVECTOR3(1, 1, 1);
+	pv[1].t = D3DXVECTOR2(1, 0);
+
+	pv[2].p = D3DXVECTOR3(1.f, -1.f, -1.f);
+	pv[2].n = D3DXVECTOR3(1, 1, 1);
+	pv[2].t = D3DXVECTOR2(0, 1);
+
+	pv[3].p = D3DXVECTOR3(-1.f, -1.f, -1.f);
+	pv[3].n = D3DXVECTOR3(1, 1, 1);
+	pv[3].t = D3DXVECTOR2(1, 1);
+
 	m_pVertex[1]->Unlock();
 	//left
-	if(FAILED(m_pVertex[2]->Lock(0, 0, (void**)&pv, 0)))  return S_FALSE;
-	Set_Vtx3D_Tex(pv[0],D3DXVECTOR3(-1.f, 1.f, 1.f),D3DXVECTOR3(1,1,1),0,0);
-	Set_Vtx3D_Tex(pv[1],D3DXVECTOR3(-1.f, 1.f,-1.f),D3DXVECTOR3(1,1,1),1,0);
-	Set_Vtx3D_Tex(pv[2],D3DXVECTOR3(-1.f,-1.f, 1.f),D3DXVECTOR3(1,1,1),0,1);
-	Set_Vtx3D_Tex(pv[3],D3DXVECTOR3(-1.f,-1.f,-1.f),D3DXVECTOR3(1,1,1),1,1);
+	if (FAILED(m_pVertex[2]->Lock(0, 0, (void**)&pv, 0))) return S_FALSE;
+	pv[0].p = D3DXVECTOR3(-1.f, 1.f, 1.f);
+	pv[0].n = D3DXVECTOR3(1, 1, 1);
+	pv[0].t = D3DXVECTOR2(0, 0);
+
+	pv[1].p = D3DXVECTOR3(-1.f, 1.f, -1.f);
+	pv[1].n = D3DXVECTOR3(1, 1, 1);
+	pv[1].t = D3DXVECTOR2(1, 0);
+
+	pv[2].p = D3DXVECTOR3(-1.f, -1.f, 1.f);
+	pv[2].n = D3DXVECTOR3(1, 1, 1);
+	pv[2].t = D3DXVECTOR2(0, 1);
+
+	pv[3].p = D3DXVECTOR3(-1.f, -1.f, -1.f);
+	pv[3].n = D3DXVECTOR3(1, 1, 1);
+	pv[3].t = D3DXVECTOR2(1, 1);
+
 	m_pVertex[2]->Unlock();
 	//right
-	if(FAILED(m_pVertex[3]->Lock(0, 0, (void**)&pv, 0)))  return S_FALSE;
-	Set_Vtx3D_Tex(pv[0],D3DXVECTOR3( 1.f, 1.f,-1.f),D3DXVECTOR3(1,1,1),0,0);
-	Set_Vtx3D_Tex(pv[1],D3DXVECTOR3( 1.f, 1.f, 1.f),D3DXVECTOR3(1,1,1),1,0);
-	Set_Vtx3D_Tex(pv[2],D3DXVECTOR3( 1.f,-1.f,-1.f),D3DXVECTOR3(1,1,1),0,1);
-	Set_Vtx3D_Tex(pv[3],D3DXVECTOR3( 1.f,-1.f, 1.f),D3DXVECTOR3(1,1,1),1,1);
+	if (FAILED(m_pVertex[3]->Lock(0, 0, (void**)&pv, 0))) return S_FALSE;
+	pv[0].p = D3DXVECTOR3(1.f, 1.f, -1.f);
+	pv[0].n = D3DXVECTOR3(1, 1, 1);
+	pv[0].t = D3DXVECTOR2(0, 0);
+
+	pv[1].p = D3DXVECTOR3(1.f, 1.f, 1.f);
+	pv[1].n = D3DXVECTOR3(1, 1, 1);
+	pv[1].t = D3DXVECTOR2(1, 0);
+
+	pv[2].p = D3DXVECTOR3(1.f, -1.f, -1.f);
+	pv[2].n = D3DXVECTOR3(1, 1, 1);
+	pv[2].t = D3DXVECTOR2(0, 1);
+
+	pv[3].p = D3DXVECTOR3(1.f, -1.f, 1.f);
+	pv[3].n = D3DXVECTOR3(1, 1, 1);
+	pv[3].t = D3DXVECTOR2(1, 1);
 	m_pVertex[3]->Unlock();
 	//front
-	if(FAILED(m_pVertex[4]->Lock(0, 0, (void**)&pv, 0)))  return S_FALSE;
-	Set_Vtx3D_Tex(pv[0],D3DXVECTOR3( 1.f, 1.f, 1.f),D3DXVECTOR3(1,1,1),0,0);
-	Set_Vtx3D_Tex(pv[1],D3DXVECTOR3(-1.f, 1.f, 1.f),D3DXVECTOR3(1,1,1),1,0);
-	Set_Vtx3D_Tex(pv[2],D3DXVECTOR3( 1.f,-1.f, 1.f),D3DXVECTOR3(1,1,1),0,1);
-	Set_Vtx3D_Tex(pv[3],D3DXVECTOR3(-1.f,-1.f, 1.f),D3DXVECTOR3(1,1,1),1,1);
+	if (FAILED(m_pVertex[4]->Lock(0, 0, (void**)&pv, 0))) return S_FALSE;
+	pv[0].p = D3DXVECTOR3(1.f, 1.f, 1.f);
+	pv[0].n = D3DXVECTOR3(1, 1, 1);
+	pv[0].t = D3DXVECTOR2(0, 0);
+
+	pv[1].p = D3DXVECTOR3(-1.f, 1.f, 1.f);
+	pv[1].n = D3DXVECTOR3(1, 1, 1);
+	pv[1].t = D3DXVECTOR2(1, 0);
+
+	pv[2].p = D3DXVECTOR3(1.f, -1.f, 1.f);
+	pv[2].n = D3DXVECTOR3(1, 1, 1);
+	pv[2].t = D3DXVECTOR2(0, 1);
+
+	pv[3].p = D3DXVECTOR3(-1.f, -1.f, 1.f);
+	pv[3].n = D3DXVECTOR3(1, 1, 1);
+	pv[3].t = D3DXVECTOR2(1, 1);
+
 	m_pVertex[4]->Unlock();
 	//back
-	if(FAILED(m_pVertex[5]->Lock(0, 0, (void**)&pv, 0)))  return S_FALSE;
-	Set_Vtx3D_Tex(pv[0],D3DXVECTOR3(-1.f, 1.f,-1.f),D3DXVECTOR3(1,1,1),0,0);
-	Set_Vtx3D_Tex(pv[1],D3DXVECTOR3( 1.f, 1.f,-1.f),D3DXVECTOR3(1,1,1),1,0);
-	Set_Vtx3D_Tex(pv[2],D3DXVECTOR3(-1.f,-1.f,-1.f),D3DXVECTOR3(1,1,1),0,1);
-	Set_Vtx3D_Tex(pv[3],D3DXVECTOR3( 1.f,-1.f,-1.f),D3DXVECTOR3(1,1,1),1,1);
-	m_pVertex[5]->Unlock();
+	if (FAILED(m_pVertex[5]->Lock(0, 0, (void**)&pv, 0))) return S_FALSE;
+	pv[0].p = D3DXVECTOR3(-1.f, 1.f, -1.f);
+	pv[0].n = D3DXVECTOR3(1, 1, 1);
+	pv[0].t = D3DXVECTOR2(0, 0);
 
+	pv[1].p = D3DXVECTOR3(1.f, 1.f, -1.f);
+	pv[1].n = D3DXVECTOR3(1, 1, 1);
+	pv[1].t = D3DXVECTOR2(1, 0);
+
+	pv[2].p = D3DXVECTOR3(-1.f, -1.f, -1.f);
+	pv[2].n = D3DXVECTOR3(1, 1, 1);
+	pv[2].t = D3DXVECTOR2(0, 1);
+
+	pv[3].p = D3DXVECTOR3(1.f, -1.f, -1.f);
+	pv[3].n = D3DXVECTOR3(1, 1, 1);
+	pv[3].t = D3DXVECTOR2(1, 1);
+
+	m_pVertex[5]->Unlock();
 
 	for (int i = 0; i<6; i++)
 	{
@@ -192,10 +148,8 @@ HRESULT cSkybox::Setup(const char * top, const char * bottom, const char * left,
 	for (int i = 0; i<6; i++)
 	{
 		if (FAILED(m_pIndex[i]->Lock(0, 0, (void**)&iv, 0))) return S_FALSE;
-		Set_Idx(iv[0], 0, 1, 2);
-		Set_Idx(iv[1], 2, 1, 3);
-		/*iv[0]._0 = 0; iv[0]._1 = 1; iv[0]._2 = 2;
-		iv[1]._0 = 2; iv[1]._1 = 1; iv[1]._2 = 3;*/
+		iv[0]._0 = 0; iv[0]._1 = 1; iv[0]._2 = 2;
+		iv[1]._0 = 2; iv[1]._1 = 1; iv[1]._2 = 3;
 		m_pIndex[i]->Unlock();
 	}
 
