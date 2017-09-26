@@ -146,7 +146,7 @@ void cMapToolScene::Update(void)
 
 	if (g_pInputManager->IsStayKeyDown('K'))
 	{
-		g_pMapObjectManager->GetLastMapObject()->SetPosY(
+		g_pMapObjectManager->GetLastMapObject()->SetOffsetY(
 			g_pMapObjectManager->GetLastMapObject()->GetOffsetY() - g_pTimeManager->GetElapsedTime());
 	}
 
