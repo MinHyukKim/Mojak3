@@ -99,6 +99,8 @@ void cMapToolScene::Update(void)
 	//L버튼을 누르면 마지막으로 생성된 건물이 클릭한 위치로 이동
 	if (g_pInputManager->IsOnceKeyDown(VK_LBUTTON))
 	{
+		if (g_pMapObjectManager->GetLastMapObject() == nullptr)
+			return;
 		g_TestToggle = false;
 		D3DXVECTOR3 vTo, vOrg, vDir;
 		g_pRay->RayAtWorldSpace(&vOrg, &vDir);
@@ -109,6 +111,7 @@ void cMapToolScene::Update(void)
 			g_pMapObjectManager->GetLastMapObject()->SetPosX(vTo.x);
 		}
 	}
+
 	//마지막으로 생성된 건물의 좌우 방향 변환
 	if (g_pInputManager->IsStayKeyDown('J'))
 	{
@@ -133,34 +136,19 @@ void cMapToolScene::Update(void)
 	if (g_pInputManager->IsStayKeyDown('K'))
 	{
 		g_pMapObjectManager->GetLastMapObject()->SetPosY(
-			g_pMapObjectManager->GetLastMapObject()->GetPosY() - g_pTimeManager->GetElapsedTime());
+			g_pMapObjectManager->GetLastMapObject()->GetOffsetY() - g_pTimeManager->GetElapsedTime());
 	}
 
-	static float scaleTest = 1.0f;
+	//static float scaleTest = 1.0f;
 	//축소 확대기능
 	if (g_pInputManager->IsStayKeyDown('U'))
 	{
-		g_pMapObjectManager->GetLastMapObject()->SetScale(scaleTest -= 0.0001f);
+		g_pMapObjectManager->GetLastMapObject()->SetScale(0.9f);
 	}
 	if (g_pInputManager->IsStayKeyDown('O'))
 	{
-		g_pMapObjectManager->GetLastMapObject()->SetScale(scaleTest += 0.0001f);
+		g_pMapObjectManager->GetLastMapObject()->SetScale(1.1f);
 	}
-
-
-	//R버튼을 누르면 해당위치에 건물 생성하고 확정버튼을 누를때까지 모델을 계속 변환
-	if (g_pInputManager->IsOnceKeyDown(VK_LBUTTON))
-	{
-		D3DXVECTOR3 vTo, vOrg, vDir;
-		g_pRay->RayAtWorldSpace(&vOrg, &vDir);
-		if (m_pMapTerrain->IsCollision(&vTo, &vOrg, &vDir))
-		{
-			//건물위치 테스트용
-			g_pMapObjectManager->GetLastMapObject()->SetPosZ(vTo.z);
-			g_pMapObjectManager->GetLastMapObject()->SetPosX(vTo.x);
-		}
-	}
-
 
 	if (g_pInputManager->IsOnceKeyDown(VK_RBUTTON))
 	{
@@ -176,8 +164,6 @@ void cMapToolScene::Update(void)
 		m_pBuild->LoadModel("inn.X");
 		m_pBuild->SetPosition(&D3DXVECTOR3(0, 0, 0));
 		g_pMapObjectManager->AppendBuilding(m_pBuild);
-
-
 	}
 
 	if (g_pInputManager->IsStayKeyDown('2'))

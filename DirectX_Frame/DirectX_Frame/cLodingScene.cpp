@@ -28,7 +28,7 @@ HRESULT cLodingScene::Setup(void)
 	D3DXCreateSprite(g_pD3DDevice, &m_pSprite);
 
 	m_pFont = cFont::Create();
-	m_pFont->Setup();
+	m_pFont->Setup(12);
 	m_pFont->SetColor(D3DCOLOR_XRGB(255, 255, 255));
 
 	LPDIRECT3DTEXTURE9 imageData;
@@ -51,8 +51,8 @@ HRESULT cLodingScene::Setup(void)
 	imageData = g_pTexture->GetTextureEx("./Texture/loading_bar.dds", &m_stLoadingBar);
 	m_pLoadingGaugeImage = cImage::Create();
 	m_pLoadingGaugeImage->Setup(m_stLoadingBar, imageData);
-	m_matWorldMatrix._41 = rc.right / 2.0f;
-	m_matWorldMatrix._42 = rc.bottom / 2.0f * 1.5f;
+	m_matWorldMatrix._41 = rc.right * 0.5f;
+	m_matWorldMatrix._42 = rc.bottom * 0.66f;
 	m_matWorldMatrix._43 = 0.5f;
 	m_pLoadingGaugeImage->SetWorldMatrix(&m_matWorldMatrix);
 
@@ -60,8 +60,8 @@ HRESULT cLodingScene::Setup(void)
 	imageData = g_pTexture->GetTextureEx("./Texture/loading_bar_color.dds", &m_stLoadingBar);
 	m_pLoadingBarImage = cImage::Create();
 	m_pLoadingBarImage->Setup(m_stLoadingBar, imageData);
-	m_matWorldMatrix._41 = rc.right / 2.0f;
-	m_matWorldMatrix._42 = rc.bottom / 2.0f * 1.5f;
+	m_matWorldMatrix._41 = rc.right * 0.5f;
+	m_matWorldMatrix._42 = rc.bottom * 0.66f;
 	m_matWorldMatrix._43 = 0.0f;
 	m_pLoadingBarImage->SetWorldMatrix(&m_matWorldMatrix);
 
@@ -104,8 +104,8 @@ void cLodingScene::Update(void)
 		RECT rc;
 		GetClientRect(g_hWnd, &rc);
 		D3DXMatrixIdentity(&m_matWorldMatrix);
-		m_matWorldMatrix._41 = rc.right / 2.0f - m_stLoadingBar.Width * (1.0f - m_pData->GetLodingGauge()) / 2.0f;
-		m_matWorldMatrix._42 = rc.bottom / 2.0f * 1.5f;
+		m_matWorldMatrix._41 = rc.right * 0.5f - m_stLoadingBar.Width * (1.0f - m_pData->GetLodingGauge()) * 0.5f;
+		m_matWorldMatrix._42 = rc.bottom * 0.66f;
 		m_matWorldMatrix._43 = 0.0f;
 		m_pLoadingBarImage->SetWorldMatrix(&m_matWorldMatrix);
 		m_pLoadingBarImage->SetSize(m_stLoadingBar.Width * m_pData->GetLodingGauge(), m_stLoadingBar.Height);
@@ -113,7 +113,7 @@ void cLodingScene::Update(void)
 		//로딩 메세지
 		char szText[256] = {};
 		sprintf(szText, "로딩중 %2.2f %%", m_pData->GetLodingGauge() * 100.0f);
-		m_pFont->DrawFont(500, 400, szText);
+		m_pFont->DrawFont(rc.right * 0.45f, rc.bottom * 0.65f, szText);
 	}
 	if (m_pData && m_pData->GetLodingGauge() > 1.0f - FLT_EPSILON)
 	{

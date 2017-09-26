@@ -3,6 +3,8 @@
 
 class cCamera;
 class cMapTerrain;
+class cSkyBox;
+
 
 //테스트용
 class cGrid;

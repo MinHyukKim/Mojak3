@@ -8,6 +8,7 @@ private:
 	D3DXMATRIXA16 m_matWorld, m_matRot, m_matScale;
 	LPD3DXMESH m_pBuild;
 	LPD3DXEFFECT m_pEffect;
+	LPD3DXMESH m_pBoundBox;
 
 	//LPD3DXMESH m_pMesh;
 	D3DMATERIAL9*       m_pMeshMaterials;
@@ -20,6 +21,15 @@ private:
 	
 	//바닥에서 얼마나 떨어져있는지 결정하는 변수
 	float m_fOffsetY;
+	float m_pRadious;	
+
+	float minX = FLT_MAX;
+	float maxX = FLT_MIN;
+	float minY = FLT_MAX;
+	float maxY = FLT_MIN;
+	float minZ = FLT_MAX;
+	float maxZ = FLT_MIN;
+
 
 public:
 	virtual HRESULT Setup(void);
@@ -48,7 +58,7 @@ public:
 
 	float GetOffsetY() { return m_fOffsetY; }
 	void SetOffsetY(float offset) { m_fOffsetY = offset; }
-	void SetScale(float scale) { D3DXMatrixScaling(&m_matScale, scale, scale, scale); m_matWorld = m_matScale*m_matWorld; }
+	void SetScale(float scale) { D3DXMatrixScaling(&m_matScale, scale, scale, scale); m_matWorld = m_matScale*m_matWorld;}
 
 	//static cBuilding* Create(void);
 	void Destroy();

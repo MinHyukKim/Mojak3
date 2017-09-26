@@ -27,6 +27,13 @@ HRESULT cCamera::Setup(void)
 void cCamera::Update(void)
 {
 	this->UpdateViewSpace();
+	if (g_pInputManager->IsStayKeyDown(VK_MENU))
+	{
+		if (g_pInputManager->IsOnceKeyDown('`'))
+		{
+			this->Setup();
+		}
+	}
 }
 
 void cCamera::TestController(void)
