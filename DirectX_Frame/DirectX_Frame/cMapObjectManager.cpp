@@ -71,13 +71,15 @@ cBuilding * cMapObjectManager::GetLastMapObject()
 
 bool cMapObjectManager::PopMapObject()
 {
+	cout << m_vecBuilding.size() << endl;
 	if (m_vecBuilding.size() > 0)
 	{
 		m_vecBuilding.back()->Destroy();
 		m_vecBuilding.pop_back();
 		return true;
 	}
-	else return false;
+	
+	return false;
 }
 
 void cMapObjectManager::Update()
