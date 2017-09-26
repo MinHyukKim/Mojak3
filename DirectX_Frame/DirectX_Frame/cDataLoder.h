@@ -1,22 +1,5 @@
 #pragma once
 
-struct ST_DATA
-{
-	DWORD dwType;
-	std::string str1;
-	std::string str2;
-	std::string str3;
-	D3DXMATRIXA16 mat1;
-	D3DMATERIAL9 material;
-
-	ST_DATA(DWORD _dwType = 0, std::string _str1 = "", std::string _str2 = "", std::string _str3 = "", LPD3DXMATRIX _mat1 = nullptr, D3DMATERIAL9* _material = nullptr)
-		: dwType(_dwType), str1(_str1), str2(_str2), str3(_str3)
-	{
-		if (_mat1) mat1 = *_mat1;
-		if (_material) material = *_material;
-	}
-};
-
 class cDataLoder : public cObject
 {
 public:
@@ -27,6 +10,7 @@ public:
 		DATA_MESH_COLOR,
 		DATA_ANIMATION,
 		DATA_BUILDING,
+		DATA_TERRAIN,
 	};
 private:
 	std::vector<ST_DATA> m_vecData;
@@ -36,9 +20,12 @@ public:
 	void RegisterMesh(LPCSTR szFolder, LPCSTR szFilename, LPCSTR szKeyName);
 	void RegisterAnimation(LPCSTR szFullPath, LPCSTR szKeyName);
 	void RegisterMeshColor(LPCSTR szMeshName, LPCSTR szTextureName, D3DMATERIAL9* pMaterial);
-	void RegisterMeshColor(LPCSTR szMeshName, LPCSTR szTextureName, LPD3DXCOLOR color);
+	void RegisterMeshColor(LPCSTR szMeshName, LPCSTR szTextureName, LPD3DXCOLOR pColor);
+	void RegisterTerrain(LPCSTR szHighMapKey, LPCSTR szTextureKey, LPCSTR szTerrainKey, D3DMATERIAL9* pMaterial);
+	void RegisterTerrain(LPCSTR szHighMapKey, LPCSTR szTextureKey, LPCSTR szTerrainKey, LPD3DXCOLOR pColor);
 
 	bool RegisterData(LPCSTR FullPath);
+
 	void LoaderData(void);
 	void LoaderDataLoop(void);
 	float GetLodingGauge(void) { if (m_vecData.empty()) return 1.0f; return (float)m_dwCount / (float)m_vecData.size(); }

@@ -13,7 +13,7 @@ cAbilityParamter::cAbilityParamter(void)
 	, m_fStr(31.0f) , m_fInt(23.0f) , m_fDex(26.0f) , m_fWill(33.0f) , m_fLuk(10.0f)
 	, m_fInjury(1.0f) , m_fBalance(53.0f) , m_fPenetration(1.0f) , m_fCritical(17.2f)
 	, m_fRange(1.0f), m_fFood(0.0f) , m_fDownGauge(0.0f) , m_fMoveSpeed(1.0f)
-	, m_fAIDelayTime(0.0f)
+	, m_fDelayTime(0.0f)
 	, m_bEffective(true)
 {
 }
@@ -24,5 +24,5 @@ cAbilityParamter::~cAbilityParamter(void)
 
 void cAbilityParamter::Update(void)
 {
-	if (m_fAIDelayTime > 0.0f) m_fAIDelayTime -= g_pTimeManager->GetElapsedTime();
+	if (m_fDelayTime > 0.0f) m_fDelayTime -= g_pTimeManager->GetElapsedTime();
 }

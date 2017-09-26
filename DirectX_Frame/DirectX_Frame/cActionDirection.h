@@ -1,13 +1,11 @@
 #pragma once
 #include "cAction.h"
 
-class cActionMove : public cAction
+class cActionDirection : public cAction
 {
 private:
 	D3DXVECTOR3 m_vFrom;
 	D3DXVECTOR3 m_vTo;
-	D3DXVECTOR3 m_vDir;
-
 public:
 	virtual void Play(void) override;
 	virtual void Stop(void) override;
@@ -18,11 +16,10 @@ public:
 	void SetTo(D3DXVECTOR3& vTo) { m_vTo = vTo; }
 	D3DXVECTOR3& GetTo(void) { return m_vTo; }
 	void SetToPlay(IN LPD3DXVECTOR3 vTo, IN float fSpeed);
-	D3DXVECTOR3& GetDirection(void);
 
-	static cActionMove* Create(void);
+	static cActionDirection* Create(void);
 protected:
-	cActionMove(void);
-	virtual ~cActionMove(void);
+	cActionDirection(void);
+	virtual ~cActionDirection(void);
 };
 
