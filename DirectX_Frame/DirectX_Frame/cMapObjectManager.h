@@ -40,6 +40,9 @@ public:
 
 	void Render();
 
+	//현재 오브젝트들 파일로 세이브
+	void SaveCurrentObjectsState(const char* filename);
+	void LoadCurrentObjectsState(const char* filename);
 
 	void Destroy();
 };
