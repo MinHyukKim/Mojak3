@@ -105,10 +105,14 @@ void cMapToolScene::Update(void)
 		if (m_pMapTerrain->IsCollision(&vTo, &vOrg, &vDir))
 		{
 			//건물위치 테스트용
-			g_pMapObjectManager->GetLastMapObject()->SetPosZ(vTo.z);
-			g_pMapObjectManager->GetLastMapObject()->SetPosX(vTo.x);
+			if (!g_pMapObjectManager->GetLastMapObject())
+			{
+				g_pMapObjectManager->GetLastMapObject()->SetPosZ(vTo.z);
+				g_pMapObjectManager->GetLastMapObject()->SetPosX(vTo.x);
+			}
 		}
 	}
+
 	//마지막으로 생성된 건물의 좌우 방향 변환
 	if (g_pInputManager->IsStayKeyDown('J'))
 	{
@@ -146,21 +150,6 @@ void cMapToolScene::Update(void)
 	{
 		g_pMapObjectManager->GetLastMapObject()->SetScale(1.1f);
 	}
-
-
-	//R버튼을 누르면 해당위치에 건물 생성하고 확정버튼을 누를때까지 모델을 계속 변환
-	if (g_pInputManager->IsOnceKeyDown(VK_LBUTTON))
-	{
-		D3DXVECTOR3 vTo, vOrg, vDir;
-		g_pRay->RayAtWorldSpace(&vOrg, &vDir);
-		if (m_pMapTerrain->IsCollision(&vTo, &vOrg, &vDir))
-		{
-			//건물위치 테스트용
-			g_pMapObjectManager->GetLastMapObject()->SetPosZ(vTo.z);
-			g_pMapObjectManager->GetLastMapObject()->SetPosX(vTo.x);
-		}
-	}
-
 
 	if (g_pInputManager->IsOnceKeyDown(VK_RBUTTON))
 	{
