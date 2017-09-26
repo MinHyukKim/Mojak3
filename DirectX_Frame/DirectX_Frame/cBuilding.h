@@ -5,7 +5,7 @@ class cBuilding
 {
 private:
 	//월드의 위치와 회전 값
-	D3DXMATRIXA16 m_matWorld, m_matRot;
+	D3DXMATRIXA16 m_matWorld, m_matRot, m_matScale;
 	LPD3DXMESH m_pBuild;
 	LPD3DXEFFECT m_pEffect;
 
@@ -17,6 +17,9 @@ private:
 	float angleX;
 	float angleY;
 	float angleZ;
+	
+	//바닥에서 얼마나 떨어져있는지 결정하는 변수
+	float m_fOffsetY;
 
 public:
 	virtual HRESULT Setup(void);
@@ -42,6 +45,10 @@ public:
 	float GetPosX(void) { return m_matWorld._41; }
 	float GetPosY(void) { return m_matWorld._42; }
 	float GetPosZ(void) { return m_matWorld._43; }
+
+	float GetOffsetY() { return m_fOffsetY; }
+	void SetOffsetY(float offset) { m_fOffsetY = offset; }
+	void SetScale(float scale) { D3DXMatrixScaling(&m_matScale, scale, scale, scale); m_matWorld = m_matScale*m_matWorld; }
 
 	//static cBuilding* Create(void);
 	void Destroy();

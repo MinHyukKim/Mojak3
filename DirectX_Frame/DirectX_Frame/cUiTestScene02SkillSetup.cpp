@@ -9,6 +9,8 @@
 //플레이어
 #include "cPlayer.h"
 #include "cCamera.h"
+//이미지
+#include "cImage.h"
 
 void cUiTestScene::SetupSkillUi(void)
 {
@@ -37,5 +39,15 @@ void cUiTestScene::SetupSkillUi(void)
 	m_pSkillUiImage->m_Alpha = 180;
 	m_pSkillUiImage->SetTag(E_BUTTON_NONE);
 	m_pSkillUi->AddChild(m_pSkillUiImage);
+	//택스트
+	m_pSkillUiText = cUITextView::Create();
+	m_pSkillUiText->SetText("스킬");
+	m_pSkillUiText->SetFontType(g_pFontManager->E_INBUTTON);
+	m_pSkillUiText->SetColor(D3DCOLOR_XRGB(255, 255, 255));
+	m_pSkillUiText->SetSize(ST_SIZE(200, 100));
+	m_pSkillUiText->SetPosition(-40, -30);
+	m_pSkillUiText->SetDrawTextFormat(DT_CENTER | DT_VCENTER | DT_WORDBREAK);
+	m_pSkillUiText->SetTag(E_BUTTON_NONE);
+	m_pSkillUi->AddChild(m_pSkillUiText);
 
 }

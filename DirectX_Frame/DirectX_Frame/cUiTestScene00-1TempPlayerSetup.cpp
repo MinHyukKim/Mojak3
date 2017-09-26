@@ -9,6 +9,8 @@
 //플레이어
 #include "cPlayer.h"
 #include "cCamera.h"
+//이미지
+#include "cImage.h"
 
 void cUiTestScene::SetUpTempPlayer(void)
 {
@@ -34,6 +36,7 @@ void cUiTestScene::SetUpTempPlayer(void)
 	//플레이어 생성
 	m_pPlayer = cPlayer::Create();
 	m_pPlayer->Setup();
+	m_pPlayer->SetupAnimationController("더미");
 	//m_pPlayer->ChangeMeshPartColor(cPlayer::MESH_HAIR, "hair01.dds", &D3DXCOLOR(1.0f, 0.0f, 0.0f, 1.0f));
 	m_pPlayer->ChangeMeshPart(cPlayer::MESH_HAIR, g_pSkinnedMeshManager->GetSkinnedMesh("헤어00"));
 	m_pPlayer->SetTextureHair("hair01.dds");  //헤어.dds

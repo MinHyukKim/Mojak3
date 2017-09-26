@@ -39,8 +39,9 @@ LPD3DXMESH cBuilding::LoadModel(const char * filename)
 		if (d3dxMaterials[i].pTextureFilename != NULL &&
 			strlen(d3dxMaterials[i].pTextureFilename) > 0)
 		{
-			D3DXCreateTextureFromFile(g_pD3DDevice, d3dxMaterials[i].pTextureFilename,
-				&m_pMeshTextures[i]);
+			m_pMeshTextures[i] = g_pTexture->GetTexture(d3dxMaterials[i].pTextureFilename);
+			//D3DXCreateTextureFromFile(g_pD3DDevice, d3dxMaterials[i].pTextureFilename,
+			//	&m_pMeshTextures[i]);
 		}
 	}
 
@@ -139,9 +140,11 @@ cBuilding::cBuilding(void)
 	, angleX(0.0f)
 	, angleY(0.0f)
 	, angleZ(0.0f)
+	, m_fOffsetY(0.0f)
 {
 	D3DXMatrixIdentity(&m_matWorld);
 	D3DXMatrixIdentity(&m_matRot);
+	D3DXMatrixIdentity(&m_matScale);
 
 }
 
@@ -166,7 +169,7 @@ void cBuilding::Destroy()
 		//SAFE_RELEASE(m_pMeshTextures[i]);
 	}
 	SAFE_DELETE_ARRAY(m_pMeshMaterials);
-	SAFE_DELETE_ARRAY(m_pMeshTextures);
+	//SAFE_DELETE_ARRAY(m_pMeshTextures);
 
 	m_pBuild->Release();
 	SAFE_RELEASE(m_pEffect);

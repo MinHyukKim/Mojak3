@@ -31,6 +31,9 @@ public:
 	void AppendBuilding(cBuilding* build);
 	//마지막으로 추가된 맵 오브젝트를 반환하는 함수(임시)
 	cBuilding* GetLastMapObject();
+	//마지막으로 추가된 맵오브젝트를 삭제하는 함수
+	bool PopMapObject();
+
 
 	void Update();
 	void Update(cMapTerrain* map);

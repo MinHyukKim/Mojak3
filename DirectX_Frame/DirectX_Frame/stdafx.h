@@ -28,6 +28,7 @@
 #include <assert.h>
 #include <bitset>
 #include <thread>
+#include <list>
 
 #pragma comment(lib,"d3d9.lib")
 #pragma comment(lib,"d3dx9.lib")
