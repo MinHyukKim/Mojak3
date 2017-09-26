@@ -72,7 +72,7 @@ Color:임시몬스터,male_pumpkin_pants_c.dds, 0.0f, 0.0f, 0.0f, 1.0f;
 //여우
 Mesh:./Monster/Fox/,FoxFrame.X,여우00;
 Mesh:./Monster/Fox/,FoxBoneMesh.X,여우01;
-Color:여우01,mon_fox.dds, 0.0f, 0.0f, 1.0f, 1.0f;
+Color:여우01,mon_fox.dds, 0.5f, 0.2f, 0.2f, 1.0f;
 Animation:./Monster/Fox/Fox_Stand_Friendly.X,여우_기본01;
 Animation:./Monster/Fox/Fox_Stand_Offensive.X,여우_기본02;
 Animation:./Monster/Fox/Fox_Run.X,여우_달리기01;

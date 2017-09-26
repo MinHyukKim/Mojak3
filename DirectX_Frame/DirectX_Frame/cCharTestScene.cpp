@@ -29,6 +29,8 @@ cCharTestScene::~cCharTestScene(void)
 
 HRESULT cCharTestScene::Setup(void)
 {
+	g_pObjectManager->GetPlayer()->GetAbilityParamter()->SetMoveSpeed(2.0f);
+
 	m_pCamera = g_pObjectManager->GetPlayer()->GetCamera();
 	m_pCamera->AddRef();
 
@@ -77,7 +79,7 @@ void cCharTestScene::Update(void)
 		g_pRay->RayAtWorldSpace(&vOrg, &vDir);
 		if (m_pMapTerrain->IsCollision(&vTo, &vOrg, &vDir))
 		{
-			g_pObjectManager->GetPlayer()->MoveToPlayer(&vTo, 1.0f);
+			g_pObjectManager->GetPlayer()->MoveToPlayer(&vTo, g_pObjectManager->GetPlayer()->GetAbilityParamter()->GetMoveSpeed());
 			g_pObjectManager->GetPlayer()->SetPatternState(cPlayer::PATTERN_RUN_FRIENDLY);
 		}
 	}

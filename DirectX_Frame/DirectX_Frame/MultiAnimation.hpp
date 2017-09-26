@@ -60,13 +60,13 @@ float4 PixScene(
 	if(color.a > 0)
 	{
 		specular = saturate(dot(reflaction, -viewDir));
-		specular = pow(specular, 20.0f);	
+		specular = pow(specular, 32.0f);	
 	}
 
-	float4 DrawColor = tex2D(g_samScene, TexCoord).rgba; // *(float4((color.rgb + specular.rgb) / 6.0f + 0.66f, color.w));
+	float4 DrawColor = tex2D(g_samScene, TexCoord).rgba;
 	if (DrawColor.a > 0.0f)
 	{
-		float intensity = (0.33f * DrawColor.r + 0.33f * DrawColor.g + 0.33f * DrawColor.b) - 0.49f;
+		float intensity = (DrawColor.r * 0.3 + DrawColor.g * 0.59 + DrawColor.b * 0.11) - 0.5f;
 		if (intensity < 0.0f) intensity = 0.0f;
 		DrawColor.rgb = ((DrawColor.rgb * 2.0f * color.rgb) * (1.0f - intensity * 2.0f)) + (intensity * 2.0f);
 	}
