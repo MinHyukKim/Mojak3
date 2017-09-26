@@ -49,12 +49,12 @@ void cUiTestScene::SetupInventoryUi(void)
 	m_pInventoryUi->AddChild(m_pInventoryUiText);
 
 	//Àåºñ ÀÌ¹ÌÁö(ÀüÃ¼)
-	m_pInventoryUiImage = cUIButton::Create();
-	m_pInventoryUiImage->SetTexture("Texture/Ui/inventory-equip.png",
+	m_pInventoryUiEquipImage = cUIButton::Create();
+	m_pInventoryUiEquipImage->SetTexture("Texture/Ui/inventory-equip.png",
 		"Texture/Ui/inventory-equip.png", "Texture/Ui/inventory-equip.png");
-	m_pInventoryUiImage->SetPosition(10, 90);
-	m_pInventoryUiImage->m_Alpha = 200;
-	m_pInventoryUi->AddChild(m_pInventoryUiImage);
+	m_pInventoryUiEquipImage->SetPosition(10, 90);
+	m_pInventoryUiEquipImage->m_Alpha = 200;
+	m_pInventoryUi->AddChild(m_pInventoryUiEquipImage);
 	//Àåºñ ÀåÂø Ä­ (¸öÅë) x = 48 + 10 + 2, y = 57 + 90
 	m_pInventoryUiEquipTorso = cUIButton::Create();
 	m_pInventoryUiEquipTorso->SetTexture("Texture/Ui/inventoryTorso.png",

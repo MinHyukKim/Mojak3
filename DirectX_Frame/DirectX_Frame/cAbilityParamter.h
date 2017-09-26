@@ -53,15 +53,31 @@ public:
 	DWORD GetAICodeID(void) { return m_dwAICodeID; }
 
 	void SetStr(float nValue) { m_fStr = nValue; }
-	int GetStr(void) { return m_fStr; }
+	float GetStr(void) { return m_fStr; }
 	void SetInt(float nValue) { m_fInt = nValue; }
-	int GetInt(void) { return m_fInt; }
+	float GetInt(void) { return m_fInt; }
 	void SetDex(float nValue) { m_fDex = nValue; }
-	int GetDex(void) { return m_fDex; }
+	float GetDex(void) { return m_fDex; }
 	void SetWill(float nValue) { m_fWill = nValue; }
-	int GetWill(void) { return m_fWill; }
+	float GetWill(void) { return m_fWill; }
 	void SetLuk(float nValue) { m_fLuk = nValue; }
-	int GetLuk(void) { return m_fLuk; }
+	float GetLuk(void) { return m_fLuk; }
+	//Ãß°¡
+	void SetMaxHP(int n) { m_nMaxLife = n; }
+	int GetMaxHP(void) { return m_nMaxLife; }
+	void SetMinHP(int n) { m_nMinLife = n; }
+	int GetMinHP(void) { return m_nMinLife; }
+
+	void SetMaxMP(int n) { m_nMaxMana = n; }
+	int GetMaxMP(void) { return m_nMaxMana; }
+	void SetMinMP(int n) { m_nMinMana = n; }
+	int GetMinMP(void) { return m_nMinMana; }
+
+	void SetMaxStamina(int n) { m_nMaxStamina = n; }
+	int GetMaxStamina(void) { return m_nMaxStamina; }
+	void SetMinStamina(int n) { m_nMinStamina = n; }
+	int GetMinStamina(void) { return m_nMinStamina; }
+
 
 	void SetMoveSpeed(float fValue) { m_fMoveSpeed = fValue; }
 	float GetMoveSpeed(void) { return m_fMoveSpeed; }

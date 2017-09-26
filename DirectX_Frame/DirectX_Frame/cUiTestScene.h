@@ -62,7 +62,8 @@ private:
 	LPDIRECT3DTEXTURE9 m_pTextureTemp;
 	//매인의 뿌리
 	cUIImageView* m_pMainRootImageView;
-	cUiObject* m_pUiRoot;
+	cUIButton*	m_pMainRootImageViewMove;
+	cUIButton* m_pMinButton;		//채소화 버튼
 	cUIButton* m_pMainMainButton; 	//메인
 	bool m_isMainWindowOn;
 	cUIButton* m_pInfoButton;		//정보
@@ -73,6 +74,7 @@ private:
 	bool m_isQuestWindowOn;
 	cUIButton* m_pInventoryButton;	//인벤
 	bool m_isInventoryWindowOn;
+	cUiObject* m_pUiRoot;
 
 	int m_nmainUiLocalY;
 
@@ -143,6 +145,7 @@ private:
 	cUIImageView* m_pInventoryUiImageHead;	//인벤창 머리줄
 	cUIButton* m_pInventoryUiMoveing;		//이동용 머리줄
 	cUIButton* m_pInventoryUiImage;			//인벤 창
+	cUIButton* m_pInventoryUiEquipImage;	//장착 창
 	cUITextView* m_pInventoryUiText;		//불변 택스트
 	//칸 수
 	vector<cUIButton*> m_vecInventoryUiBlock;	//안씀

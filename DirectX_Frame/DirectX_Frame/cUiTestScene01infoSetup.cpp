@@ -356,35 +356,38 @@ void cUiTestScene::UpdateInfoUi(void)
 {
 	//m_pPlayer->GetAbilityParamter()->GetStr
 	char szHP[32] = { '\0', };
-	sprintf_s(szHP, "생명력      %d / %d", m_nTempHP, m_nTempMaxHP);
+	sprintf_s(szHP, "생명력      %d / %d", g_pObjectManager->GetPlayer()->GetAbilityParamter()->GetMinHP()
+		, g_pObjectManager->GetPlayer()->GetAbilityParamter()->GetMaxHP());
 	m_pTempInfoHP->SetText(szHP);
 
 	char szMP[32] = { '\0', };
-	sprintf_s(szMP, "마나         %d / %d", m_nTempMP, m_nTempMaxMP);
+	sprintf_s(szMP, "마나         %d / %d", g_pObjectManager->GetPlayer()->GetAbilityParamter()->GetMinMP()
+		, g_pObjectManager->GetPlayer()->GetAbilityParamter()->GetMaxMP());
 	m_pTempInfoMP->SetText(szMP);
 
 	char szStamina[64] = { '\0', };
-	sprintf_s(szStamina, "스테미나   %d / %d", nTempStamina, m_nTempMaxStamina);
+	sprintf_s(szStamina, "스테미나   %d / %d", g_pObjectManager->GetPlayer()->GetAbilityParamter()->GetMinStamina()
+		, g_pObjectManager->GetPlayer()->GetAbilityParamter()->GetMaxStamina());
 	m_pTempInfoStamina->SetText(szStamina);
 
 	char szSTR[64] = { '\0', };
-	sprintf_s(szSTR, "체력      %d", m_nTempSTR);
+	sprintf_s(szSTR, "체력      %.0f", g_pObjectManager->GetPlayer()->GetAbilityParamter()->GetStr());
 	m_pTempInfoSTR->SetText(szSTR);
 
 	char szINT[64] = { '\0', };
-	sprintf_s(szINT, "지력      %d", m_nTempINT);
+	sprintf_s(szINT, "지력      %.0f", g_pObjectManager->GetPlayer()->GetAbilityParamter()->GetInt());
 	m_pTempInfoINT->SetText(szINT);
 
 	char szWill[64] = { '\0', };
-	sprintf_s(szWill, "의지      %d", m_nTempWill);
+	sprintf_s(szWill, "의지      %.0f", g_pObjectManager->GetPlayer()->GetAbilityParamter()->GetWill());
 	m_pTempInfoWill->SetText(szWill);
 
 	char szLuck[64] = { '\0', };
-	sprintf_s(szLuck, "행운      %d", m_nTempLuck);
+	sprintf_s(szLuck, "행운      %.0f", g_pObjectManager->GetPlayer()->GetAbilityParamter()->GetLuk());
 	m_pTempInfoLuck->SetText(szLuck);
 
 	char szWorkmanship[64] = { '\0', };
-	sprintf_s(szWorkmanship, "솜씨      %d", m_nTempWorkmanship);
+	sprintf_s(szWorkmanship, "솜씨      %d", g_pObjectManager->GetPlayer()->GetAbilityParamter()->GetDex());
 	m_pTempInfoWorkmanship->SetText(szWorkmanship);
 
 	char szDamage[64] = { '\0', };
