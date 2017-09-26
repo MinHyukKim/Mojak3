@@ -71,6 +71,7 @@
     <ClCompile Include="cMapObjectManager.cpp" />
     <ClCompile Include="cItemTemp.cpp" />
     <ClCompile Include="cActionDirection.cpp" />
+    <ClCompile Include="cSkybox.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="cAllocateHierarchy.h" />
@@ -132,6 +133,7 @@
     <ClInclude Include="cMapObjectManager.h" />
     <ClInclude Include="cItemTemp.h" />
     <ClInclude Include="cActionDirection.h" />
+    <ClInclude Include="cSkybox.h" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="DirectX_Frame.rc" />
