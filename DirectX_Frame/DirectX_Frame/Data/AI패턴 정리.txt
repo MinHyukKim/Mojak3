@@ -33,11 +33,14 @@ else
 		상태를 "PATTERN_ATTACK_OFFENSIVE"로 전환한다.
 
 	else
-		Random0
-		타겟과 일정거리로 이동하고
+		Random 0
+		타겟과 "일정거리"로 이동하고
 		상태를 "PATTERN_RUN_OFFENSIVE"로 전환한다.
 
-		타겟의 일정각도의 위치로 이동하고
+		Random 1
+		타겟의 "일정각도"의 위치로 이동하고
 		상태를 "PATTERN_RUN_OFFENSIVE"로 전환한다.
 
-		현재 위치에서 대기한다.
+		Random 2
+		"일정시간"의 "AIDelayTime" 준다.
+		
