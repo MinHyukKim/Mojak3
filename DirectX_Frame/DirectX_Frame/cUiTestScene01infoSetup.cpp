@@ -443,31 +443,6 @@ void cUiTestScene::SetupInfoUi(void)
 	m_pTempInfoArmorPiercing->SetDrawTextFormat(DT_CENTER | DT_VCENTER | DT_WORDBREAK);
 	m_pTempInfoArmorPiercing->SetTag(E_BUTTON_NONE);
 	m_pInfoUi->AddChild(m_pTempInfoArmorPiercing);
-
-	//피통 마나통 기타 이지미
-	//피통
-	//m_pInfoUiImageHead = cUIImageView::Create();
-	//m_pInfoUiImageHead->SetTexture("Texture/Ui/infoBaseHead1.png");
-	//m_pInfoUiImageHead->SetPosition(infoX, infoY);
-	//m_pInfoUiImageHead->m_Alpha = 200;
-	//m_pInfoUi = m_pInfoUiImageHead;
-	//int InfoHPx = 80;
-	//int InfoHPy = 162;
-	//m_pHpMaxImage = cUIImageViewTemp::Create();
-	//m_pHpMaxImage->SetTexture("Texture/Ui/HPe.png");
-	//m_pHpMaxImage->SetPosition(InfoHPx, InfoHPy);
-	//m_pHpMaxImage->SetRectSize();
-	////m_pHpMaxImage->m_rc.right = 50.0f;
-	//m_pHpMaxImage->m_Alpha = 100;
-	//m_pInfoUi->AddChild(m_pHpMaxImage);
-
-	//m_pHpImage = cUIImageViewTemp::Create();
-	//m_pHpImage->SetTexture("Texture/Ui/HP.png");
-	//m_pHpImage->SetPosition(InfoHPx, InfoHPy);
-	//m_pHpImage->SetRectSize();
-	//// m_pHpImage->m_rc.right = ;
-	//m_pHpImage->m_Alpha = 100;
-	//m_pInfoUi->AddChild(m_pHpImage);
 }
 
 void cUiTestScene::UpdateInfoUi(void)
@@ -518,9 +493,9 @@ void cUiTestScene::UpdateInfoUi(void)
 	sprintf_s(szWorkmanship, "솜씨      %.0f", g_pObjectManager->GetPlayer()->GetAbilityParamter()->GetDex());
 	m_pTempInfoWorkmanship->SetText(szWorkmanship);
 
-	char szDamage[64] = { '\0', };
-	sprintf_s(szDamage, "공격력           %d", g_pObjectManager->GetPlayer()->GetAbilityParamter()->GetMinDamage()
-	+ g_pObjectManager->GetPlayer()->GetAbilityParamter()->GetBonusDamage());
+	char szDamage[64] = { '\0', };//p           p
+	sprintf_s(szDamage, "공격력    %d ~ %d", g_pObjectManager->GetPlayer()->GetAbilityParamter()->GetMinDamage()
+	, g_pObjectManager->GetPlayer()->GetAbilityParamter()->GetMinDamage() + g_pObjectManager->GetPlayer()->GetAbilityParamter()->GetBonusDamage());
 	m_pTempInfoDamage->SetText(szDamage);
 
 	char szMagicDamage[64] = { '\0', };
