@@ -31,6 +31,10 @@ public:
 	virtual void Update(void) override;
 	virtual void Render(void) override;
 
+
+
+
+
 	static cMapToolScene* Create(void);
 protected:
 	cMapToolScene(void);

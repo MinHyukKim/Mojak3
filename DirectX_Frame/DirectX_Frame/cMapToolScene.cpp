@@ -219,6 +219,14 @@ void cMapToolScene::Render(void)
 
 }
 
+void cMapToolScene::SaveCurrentObjectsState(const char * filename)
+{
+}
+
+void cMapToolScene::LoadCurrentObjectsState(const char * filename)
+{
+}
+
 cMapToolScene* cMapToolScene::Create(void)
 {
 	cMapToolScene* newClass = new cMapToolScene;
