@@ -13,10 +13,12 @@ cPlayer::cPlayer(void)
 	, m_pAnimationController(nullptr)
 	, m_dwNumMainAnimation(cPlayer::ANIMATION_NULL)
 	, m_dwNumSubAnimation(cPlayer::ANIMATION_NULL)
+	, m_dwNumRealdyTrue(0)
+	, m_dwNumRealdyFalse(0)
 	, m_dwNumPattern(PATTERN_NORMAL)
 	, m_dwNumState(cPlayer::ORDER_NULL)
 	, m_bCurrentTrack(false)
-	, m_fRadius(0.2f)
+	, m_fRadius(0.3f)
 { 
 	D3DXMatrixIdentity(&m_matWorld);
 	ZeroMemory(&m_stHairMaterial, sizeof(D3DMATERIAL9));
@@ -60,13 +62,13 @@ void cPlayer::Update(void)
 	if (!m_AbilityParamter.IsEffective()) return;
 
 	// 패턴에 따른 업데이트
-	switch (m_dwNumPattern)
-	{
-	case cPlayer::ORDER_NULL: break;
-	case 1: break;
-	case 2: break;
-	default: break;
-	}
+//	switch (m_dwNumPattern)
+//	{
+//	case cPlayer::ORDER_NULL: break;
+//	case 1: break;
+//	case 2: break;
+//	default: break;
+//	}
 	this->PatternUpdate();
 }
 
@@ -102,16 +104,16 @@ void cPlayer::SetupAnimationController(LPCSTR szBoneKey)
 void cPlayer::SetupFriendly(void)
 {
 	m_dwNumPattern;
-	this->SetStateFalse(PATTERN_FRIENDLY);
-	this->SetStateTrue(PATTERN_OFFENSIVE);
+	this->SetStateTrue(PATTERN_FRIENDLY);
+	this->SetStateFalse(PATTERN_OFFENSIVE);
 	this->SetBlendingAnimation(cPlayer::ANIMATION_IDLE_FRIENDLY);
 }
 
 void cPlayer::SetupOffnsive(void)
 {
 	m_dwNumPattern;
-	this->SetStateFalse(PATTERN_OFFENSIVE);
-	this->SetStateTrue(PATTERN_FRIENDLY); 
+	this->SetStateTrue(PATTERN_OFFENSIVE);
+	this->SetStateFalse(PATTERN_FRIENDLY);
 	this->SetBlendingAnimation(cPlayer::ANIMATION_IDLE_OFFENSIVE);
 }
 
@@ -126,6 +128,31 @@ void cPlayer::PatternUpdate(void)
 		if (m_pActionMove && !m_pActionMove->IsPlay())
 		{
 			this->OrderIden();
+		}
+	}
+	// 타겟을 추적중일때
+	if (this->CheckState(PATTERN_TARGET))
+	{
+		this->OrderTarget();
+	}
+	// 레디 스택
+	if (m_AbilityParamter.IsDelayEnd())
+	{
+		assert(!(m_dwNumRealdyTrue & m_dwNumRealdyFalse) && "행동 알고리즘 충돌");
+		if (m_dwNumRealdyTrue)
+		{
+			this->SetStateTrue(m_dwNumRealdyTrue);
+			m_dwNumRealdyTrue = 0;
+		}
+		if (m_dwNumRealdyFalse)
+		{
+			this->SetStateFalse(m_dwNumRealdyFalse);
+			m_dwNumRealdyFalse = 0;
+		}
+		if (m_dwNumRealdyState)
+		{
+			this->SetStatePattern(m_dwNumRealdyState);
+			m_dwNumRealdyState = 0;
 		}
 	}
 }
@@ -159,21 +186,51 @@ void cPlayer::OrderOffensive(void)
 	}
 }
 
+void cPlayer::OrderTarget(void)
+{
+	float fDistSq;
+	if (this->DistSqTarget(&fDistSq))
+	{
+		if (this->CheckState(PATTERN_ATTACK))
+		{
+			if (fDistSq > m_AbilityParamter.GetRangeSq())
+			{
+				this->SetStateTrue(PATTERN_TARGET);
+				this->OrderMove(&m_pTarget->GetPosition());
+			}
+			else
+			{
+				this->SetStateFalse(PATTERN_TARGET);
+				this->SetStateFalse(PATTERN_STOP);
+				this->SetStateFalse(PATTERN_ATTACK);
+				this->SetStateFalse(PATTERN_WALK);
+				this->SetStateFalse(PATTERN_RUN);
+				this->MoveStop();
+				if (g_pMath->Random(2)) m_AbilityParamter.SetDelayTime(this->SetBlendingAnimation(cPlayer::ANIMATION_ATTACK_01));
+				else  m_AbilityParamter.SetDelayTime(this->SetBlendingAnimation(cPlayer::ANIMATION_ATTACK_02));
+				m_dwNumRealdyTrue |= PATTERN_ATTACK | PATTERN_WALK | PATTERN_RUN | PATTERN_OFFENSIVE;
+				m_dwNumRealdyFalse |= PATTERN_FRIENDLY;
+				m_dwNumRealdyState = cPlayer::ORDER_IDLE_OFFENSIVE;
+			}
+		}
+	}
+	else this->MoveStop();
+}
+
 void cPlayer::OrderIden(void)
 {
 	if (!this->CheckState(PATTERN_STOP)) return;
 
 	this->SetStateFalse(PATTERN_STOP);
-	this->SetStateFalse(PATTERN_TARGET);
 	this->MoveStop();
 
 	if (this->CheckState(PATTERN_FRIENDLY))
 	{
-		this->SetStatePattern(cPlayer::ORDER_IDLE_OFFENSIVE);
+		this->SetStatePattern(cPlayer::ORDER_IDLE_FRIENDLY);
 	}
 	else
 	{
-		this->SetStatePattern(cPlayer::ORDER_IDLE_FRIENDLY);
+		this->SetStatePattern(cPlayer::ORDER_IDLE_OFFENSIVE);
 	}
 }
 
@@ -184,11 +241,11 @@ void cPlayer::OrderIdenChange(void)
 
 	if (this->CheckState(PATTERN_FRIENDLY))
 	{
-		this->SetStatePattern(cPlayer::ORDER_IDLE_FRIENDLY);
+		this->SetStatePattern(cPlayer::ORDER_IDLE_OFFENSIVE);
 	}
 	else
 	{
-		this->SetStatePattern(cPlayer::ORDER_IDLE_OFFENSIVE);
+		this->SetStatePattern(cPlayer::ORDER_IDLE_FRIENDLY);
 	}
 }
 
@@ -199,18 +256,16 @@ void cPlayer::OrderWalk(LPD3DXVECTOR3 pTo)
 	this->Rotation(&((*pTo) - this->GetPosition()), 5.0f);
 	this->MoveEx(pTo, 0.5f);
 	this->SetStateTrue(PATTERN_STOP);
-	this->SetStateFalse(PATTERN_TARGET);
 
 	if (this->CheckState(PATTERN_FRIENDLY))
 	{
-		//전투모드
-		this->SetBlendingAnimation(cPlayer::ANIMATION_WALK_OFFENSIVE);
+		//일상모드
+		this->SetBlendingAnimation(cPlayer::ANIMATION_WALK_FRIENDLY);
 	}
 	else
 	{
-		//일상모드
-		this->SetBlendingAnimation(cPlayer::ANIMATION_WALK_FRIENDLY);
-		
+		//전투모드
+		this->SetBlendingAnimation(cPlayer::ANIMATION_WALK_OFFENSIVE);
 	}
 }
 
@@ -218,20 +273,19 @@ void cPlayer::OrderMove(LPD3DXVECTOR3 pTo)
 {
 	if (this->CheckState(PATTERN_RUN))
 	{
-		this->Rotation(&((*pTo) - this->GetPosition()), 10.0f);
+		this->Rotation(&((*pTo) - this->GetPosition()), 20.0f);
 		this->MoveEx(pTo, 1.0f);
 		this->SetStateTrue(PATTERN_STOP);
-		this->SetStateFalse(PATTERN_TARGET);
 
 		if (this->CheckState(PATTERN_FRIENDLY))
 		{
-			//전투모드
-			this->SetBlendingAnimation(cPlayer::ANIMATION_RUN_OFFENSIVE);
+			//일상모드
+			this->SetBlendingAnimation(cPlayer::ANIMATION_RUN_FRIENDLY);
 		}
 		else
 		{
-			//일상모드
-			this->SetBlendingAnimation(cPlayer::ANIMATION_RUN_FRIENDLY);
+			//전투모드
+			this->SetBlendingAnimation(cPlayer::ANIMATION_RUN_OFFENSIVE);
 		}
 	}
 	else this->OrderWalk(pTo);
@@ -243,19 +297,13 @@ void cPlayer::OrderAttack(cPlayer* pTarget)
 	m_pTarget = pTarget;
 	SAFE_ADDREF(m_pTarget);
 
-	float fDist;
-	if (this->DistSqTarget(&fDist))
+	if (this->CheckState(PATTERN_OFFENSIVE))
 	{
-		if (this->CheckState(PATTERN_ATTACK))
-		{
-			if (fDist > m_AbilityParamter.GetRange())
-			{
-				this->SetStateTrue(PATTERN_TARGET);
-				this->OrderMove(&m_pTarget->GetPosition());
-			}
-		}
+		this->SetStateTrue(PATTERN_FRIENDLY);
+		this->SetStateFalse(PATTERN_OFFENSIVE);
 	}
-	
+
+	this->OrderTarget();
 }
 
 
@@ -541,13 +589,10 @@ void cPlayer::Rotation(LPD3DXVECTOR3 pTo, float fSpeed)
 void cPlayer::MoveStop(void)
 {
 	if (!m_pActionMove) return;
+	this->SetStateFalse(PATTERN_TARGET);
 	this->m_pActionMove->Stop();
 }
 
-bool cPlayer::TargetAttack(void)
-{
-	return false;
-}
 
 void cPlayer::PlayerToTarget(float fRange)
 {

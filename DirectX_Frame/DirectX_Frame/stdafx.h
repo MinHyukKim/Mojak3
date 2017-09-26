@@ -29,6 +29,7 @@
 #include <bitset>
 #include <thread>
 #include <list>
+#include "cCustomQueue.h"
 
 #pragma comment(lib,"d3d9.lib")
 #pragma comment(lib,"d3dx9.lib")
@@ -53,7 +54,7 @@
 #include "cMapObjectManager.h" //맵에 올라갈 오브젝트 관련 함수
 
 //콘솔 디버깅
-#define CONSOLE_DEBUG_TEST
+//#define CONSOLE_DEBUG_TEST
 
 #ifdef CONSOLE_DEBUG_TEST
 #ifdef CONSOLE_DEBUG_TEST

@@ -85,6 +85,7 @@ void cCharTestScene::Update(void)
 			}
 			else if (m_pMapTerrain->IsCollision(&vTo, &vRay, &vDir))
 			{
+				g_pObjectManager->GetPlayer()->SetStateFalse(PATTERN_TARGET);
 				if (g_pInputManager->IsStayKeyDown(VK_SHIFT))
 				{
 					g_pObjectManager->GetPlayer()->OrderWalk(&vTo);

@@ -93,10 +93,10 @@ LPD3DXMESH cBuilding::LoadModel(const char * filename)
 		if (pVertex[i].p.z < minZ)
 			minZ = pVertex[i].p.z;
 	}
-	cout << "min : " << minX << " max : " << maxX << " max-min :" << maxX - minX << endl;
-	cout << "min : " << minY << " max : " << maxY << " max-min :" << maxY - minY << endl;
-	cout << "min : " << minZ << " max : " << maxZ << " max-min :" << maxZ - minZ << endl;
-	cout << endl;
+	DEBUG_TEXT("min : " << minX << " max : " << maxX << " max-min :" << maxX - minX);
+	DEBUG_TEXT("min : " << minY << " max : " << maxY << " max-min :" << maxY - minY);
+	DEBUG_TEXT("min : " << minZ << " max : " << maxZ << " max-min :" << maxZ - minZ);
+	DEBUG_TEXT();
 	// 이제 다 썼으니 버텍스버퍼의 락을 해제해줘야겠죠.
 	pVB->Unlock();
 
@@ -195,10 +195,10 @@ LPD3DXMESH cBuilding::LoadModel(char * szFolder, char * szFilename)
 		if (pVertex[i].p.z < minZ)
 			minZ = pVertex[i].p.z;
 	}
-	cout << "min : " << minX << " max : " << maxX << " max-min :" << maxX-minX << endl;
-	cout << "min : " << minY << " max : " << maxY << " max-min :" << maxY - minY << endl;
-	cout << "min : " << minZ << " max : " << maxZ << " max-min :" << maxZ - minZ << endl;
-	cout << endl;
+	DEBUG_TEXT("min : " << minX << " max : " << maxX << " max-min :" << maxX - minX);
+	DEBUG_TEXT("min : " << minY << " max : " << maxY << " max-min :" << maxY - minY);
+	DEBUG_TEXT("min : " << minZ << " max : " << maxZ << " max-min :" << maxZ - minZ);
+	DEBUG_TEXT();
 	// 이제 다 썼으니 버텍스버퍼의 락을 해제해줘야겠죠.
 	pVB->Unlock();
 	 
