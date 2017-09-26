@@ -14,7 +14,8 @@
 
 void cUiTestScene::SetupBaseButton(void)
 {
-	//테스트용 메인버튼들
+
+	//테스트용 메인버튼들mainUiLocalX, mainUiLocalY
 	m_pMainRootImageView = cUIImageView::Create();
 	m_pMainRootImageView->SetTexture("Texture/Ui/TestRoot2.png");
 	m_pMainRootImageView->SetPosition(mainUiLocalX, mainUiLocalY);

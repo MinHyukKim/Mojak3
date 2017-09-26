@@ -38,6 +38,46 @@ void cUIImageView::Render(LPD3DXSPRITE pSprite)
 	pSprite->End();
 
 	cUiObject::Render(pSprite);
-
 }
 
+
+
+cUIImageViewTemp::cUIImageViewTemp(void)
+	:m_Alpha(255)
+{
+}
+
+cUIImageViewTemp::~cUIImageViewTemp(void)
+{
+}
+
+cUIImageViewTemp * cUIImageViewTemp::Create(void)
+{
+	cUIImageViewTemp* newClass = new cUIImageViewTemp;
+	newClass->AddRef();
+	return newClass;
+}
+
+void cUIImageViewTemp::SetTexture(std::string sFullPath)
+{
+	m_sTexture = sFullPath;
+}
+
+void cUIImageViewTemp::SetRectSize()
+{
+	pTexture = g_pTexture->GetTextureEx(m_sTexture, &stImageInfo);
+	SetRect(&m_rc, 0, 0, stImageInfo.Width, stImageInfo.Height);
+}
+
+void cUIImageViewTemp::Render(LPD3DXSPRITE pSprite)
+{
+	//D3DXIMAGE_INFO stImageInfo;
+	pSprite->Begin(D3DXSPRITE_ALPHABLEND | D3DXSPRITE_SORT_TEXTURE);
+	pSprite->SetTransform(&m_matWorld);
+	pSprite->Draw(pTexture, &m_rc, &D3DXVECTOR3(0, 0, 0), &D3DXVECTOR3(0, 0, 0),
+		D3DCOLOR_ARGB(m_Alpha, 255, 255, 255));
+
+	pSprite->End();
+
+	cUiObject::Render(pSprite);
+}

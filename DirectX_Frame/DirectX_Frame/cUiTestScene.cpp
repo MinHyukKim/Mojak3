@@ -98,6 +98,10 @@ HRESULT cUiTestScene::Setup(void)
 {
 	D3DXCreateSprite(g_pD3DDevice, &m_pSprite);
 
+//	GetClientRect(g_hWnd, &m_Wrc);
+//	mainUiLocalX = m_Wrc.right / 2;
+//	mainUiLocalY = m_Wrc.bottom / 2;
+
 	//베이스 버튼(태스트 택스트 포함
 	this->SetupBaseButton();
 
@@ -107,13 +111,19 @@ HRESULT cUiTestScene::Setup(void)
 	m_pUiTesterSize->SetPosition(mainUiLocalX + 40, mainUiLocalY);
 	m_pUiTestRoot = m_pUiTesterSize;	
 
+	test = cUIImageViewTemp::Create();
+	test->SetTexture("Texture/Ui/loading_bar.dds");
+	test->SetPosition(-10, -10);
+	test->SetRectSize();
+	test->m_rc.right = 50.0f;
+	m_pUiTestRoot->AddChild(test);
+
 //	LPDIRECT3DTEXTURE9 imageData;
 //	RECT rc;
 //	GetClientRect(g_hWnd, &rc);
 //	cImage* temp = cImage::Create();
 //	imageData = g_pTexture->GetTextureEx("Texture/Ui/loading_bar.dds", &m_stHpBar);
 //	temp->SetTexture("Texture/Ui/loading_bar.dds");
-
 
 	//플레이어 정보 창 셋업
 	this->SetupInfoUi();
@@ -125,29 +135,6 @@ HRESULT cUiTestScene::Setup(void)
 	this->SetupInventoryUi();
 	//임시 플레이어 셋업
 //	this->SetUpTempPlayer();
-
-	//이미지 관련
-//	LPDIRECT3DTEXTURE9 imageData;
-//	RECT rc;
-//	GetClientRect(g_hWnd, &rc);
-//	//피통 멕스
-//	D3DXMatrixIdentity(&m_matWorldMatrix);
-//	imageData = g_pTexture->GetTextureEx("./Texture/Ui/HPe.png", &m_stHpBar);
-//	m_pHpMaxImage = cImage::Create();
-//	m_pHpMaxImage->Setup(m_stHpBar, imageData);
-//	m_matWorldMatrix._41 = rc.right / 2.0f;
-//	m_matWorldMatrix._42 = rc.bottom / 2.0f * 1.5f;
-//	m_matWorldMatrix._43 = 0.0f;
-//	m_pHpMaxImage->SetWorldMatrix(&m_matWorldMatrix);
-//	//피통
-//	imageData = g_pTexture->GetTextureEx("./Texture/Ui/HP.png", &m_stHpBar);
-//	m_pHpImage = cImage::Create();
-//	m_pHpImage->Setup(m_stHpBar, imageData);
-//	m_matWorldMatrix._41 = rc.right / 2.0f;
-//	m_matWorldMatrix._42 = rc.bottom / 2.0f * 1.5f;
-//	m_matWorldMatrix._43 = 0.0f;
-//	m_pHpImage->SetWorldMatrix(&m_matWorldMatrix);
-
 
 	return D3D_OK;
 }
@@ -166,8 +153,8 @@ void cUiTestScene::Reset(void)
 	//임시용 플레이어
 	SAFE_RELEASE(m_pPlayer);
 	SAFE_RELEASE(m_pMainCamera);
-	SAFE_RELEASE(m_pHpMaxImage);
-	SAFE_RELEASE(m_pHpImage);
+//	SAFE_RELEASE(m_pHpMaxImage);
+//	SAFE_RELEASE(m_pHpImage);
 //	SAFE_RELEASE(m_pSpriteTemp);
 }
 
@@ -177,6 +164,11 @@ void cUiTestScene::Update(void)
 	//메인창 내리기 (다시 만들기)
 	if (m_isMainMin == true) m_pMainRootImageView->SetPosition(300, 520);
 	else m_pMainRootImageView->SetPosition(300, 502);
+	//키입력
+	if (g_pInputManager->IsOnceKeyDown('Q')) m_isQuestWindowOn = !m_isQuestWindowOn;
+	if (g_pInputManager->IsOnceKeyDown('K')) m_isSkillWindowOn = !m_isSkillWindowOn;
+	if (g_pInputManager->IsOnceKeyDown('I')) m_isInventoryWindowOn = !m_isInventoryWindowOn;
+	if (g_pInputManager->IsOnceKeyDown('C')) m_isInfoWindowOn = !m_isInfoWindowOn;
 
 	if (m_pUiRoot) m_pUiRoot->Update();
 	if (m_pSkillUi && m_isSkillWindowOn) m_pSkillUi->Update();
@@ -220,10 +212,12 @@ void cUiTestScene::Update(void)
 		m_nTempArmorPiercing += 1;
 	}
 
-
+//	if (g_pInputManager->IsOnceKeyDown('L'))
+//	{
+//		test->m_rc.right += 10.0f;
+//	}
 	if (m_pUiTestRoot) m_pUiTestRoot->Update();
 
-	m_pUiTesterSize->m_rc.right = 50.0f;
 }
 
 void cUiTestScene::Render(void)
@@ -240,11 +234,9 @@ void cUiTestScene::Render(void)
 	if (m_pSkillUi && m_isSkillWindowOn) m_pSkillUi->Render(m_pSprite);
 	if (m_pQuestUi && m_isQuestWindowOn) m_pQuestUi->Render(m_pSprite);
 	if (m_pInventoryUi && m_isInventoryWindowOn) m_pInventoryUi->Render(m_pSprite);
-//	if (m_pHpImage) m_pHpImage->Draw(m_pSprite);
-//	if (m_pHpMaxImage) m_pHpMaxImage->Draw(m_pSprite);
 
 	//크기 태스트용
-	if (m_pUiTestRoot) m_pUiTestRoot->Render(m_pSprite);
+//	if (m_pUiTestRoot) m_pUiTestRoot->Render(m_pSprite);
 
 
 }

@@ -3,10 +3,12 @@
 #include "cUIButton.h"
 #include "cAbilityParamter.h"
 
+
 //태스트
 class cFont;
 //Ui태스트
 class cUIImageView;
+class cUIImageViewTemp;
 class cUIButton;
 class cUITextView;
 class iButtonDelegate;
@@ -53,7 +55,7 @@ class cUiTestScene : public cSceneObject, iButtonDelegate
 private:
 	//월드 메트릭스
 	D3DXMATRIXA16 m_matWorldMatrix;
-
+	RECT m_Wrc;
 	//이동 가변 뿌리들은 맴버변수로
 	cFont* m_pFont;
 	LPD3DXSPRITE m_pSprite;
@@ -118,10 +120,18 @@ private:
 	cUITextView* m_pTempInfoMagicDefense;//마법방어
 	cUITextView* m_pTempInfoMagicProtect;//마법보호
 	cUITextView* m_pTempInfoArmorPiercing;//방어관통
-	//플레이어 피통
-	cImage* m_pHpMaxImage;   //피통 맥스
-	cImage* m_pHpImage;		 //피통 현재량
-	D3DXIMAGE_INFO m_stHpBar;
+	//플레이어 피통 이미지
+	cUIImageViewTemp* m_pHpMaxImage;	//피통 맥스
+	cUIImageViewTemp* m_pHpImage;		 //피통 현재량
+	//마나통 이미지
+	cUIImageViewTemp* m_pMpMaxImage;	//마나통 맥스
+	cUIImageViewTemp* m_pMpImage;		 //마나통 현재량
+	//스태미나 이미지
+	cUIImageViewTemp* m_pStaminaMaxImage;	//스태통 맥스
+	cUIImageViewTemp* m_pStaminaImage;		 //스태통 현재량
+	//경험치 이미지
+	cUIImageViewTemp* m_pEXPMaxImage;	//경험치통 맥스
+	cUIImageViewTemp* m_pEXPImage;		 //경험치통 현재량
 	cUiObject* m_pInfoUi;
 	
 	//플레이어 스킬창
@@ -171,6 +181,7 @@ private:
 	//패널 이미지 크기 태스트용
 	cUiObject* m_pUiTestRoot;
 	cUIImageView* m_pUiTesterSize;	
+	cUIImageViewTemp* test;
 
 	//왼쪽 버튼 다운 여부
 	bool m_isLbuttonDown;
