@@ -104,6 +104,10 @@ bool cDataLoder::RegisterData(LPCSTR FullPath)
 			std::string sAnimationKey = strtok(nullptr, ";");
 			this->RegisterAnimation(FullPath.c_str(), sAnimationKey.c_str());
 		}
+		else if (strstr(pToken, "Field") || strstr(pToken, "¸Ê"))
+		{
+			//Field:HighMap,Texture,MapKey, 0.75f, 0.75f, 0.75f, 1.0f;
+		}
 
 	}
 	fclose(fp);

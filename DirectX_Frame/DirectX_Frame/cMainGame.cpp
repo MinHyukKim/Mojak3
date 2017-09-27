@@ -19,12 +19,15 @@ cMainGame::~cMainGame(void)
 {
 	DEBUG_END();
 	g_pSceneManager->Destroy();
+
 	g_pObjectManager->Destroy();
 	g_pAnimationManager->Destroy();
 	g_pFrustum->Destroy();
 	g_pTexture->Destroy();
 	g_pFontManager->Destroy();
 	g_pSkinnedMeshManager->Destroy();
+	g_pMapTerrain->Destroy();
+	g_pMapObjectManager->Destroy();
 
 	g_pAutoRelasePool->Destroy();
 	g_pDeviceManager->Destroy();

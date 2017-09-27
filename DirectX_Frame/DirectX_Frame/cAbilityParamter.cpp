@@ -25,4 +25,9 @@ cAbilityParamter::~cAbilityParamter(void)
 void cAbilityParamter::Update(void)
 {
 	if (m_fDelayTime > 0.0f) m_fDelayTime -= g_pTimeManager->GetElapsedTime();
+	if (m_fDownGauge)
+	{
+		if (m_fDownGauge > 0.0f) m_fDownGauge -= g_pTimeManager->GetElapsedTime();
+		else m_fDownGauge = 0.0f;
+	}
 }
