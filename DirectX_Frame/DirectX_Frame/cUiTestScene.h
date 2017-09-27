@@ -251,6 +251,7 @@ private:
 
 	std::vector<cUIButton*> m_pTempItem;
 	std::vector<cUIButton*> m_pTempBsg;
+	std::vector<cUIButton*> m_pTempPlayerItem;
 
 	//¾îºô¸®Æ¼
 	cAbilityParamter m_AbilityParamter;

@@ -388,10 +388,10 @@ void cUiTestScene::MoveUiWindow(void)
 			&& m_pQuestUiMoveing->isClick == false)
 		{
 			m_pInfoUiMoveing->isClick = true;
-			//	infoX = m_pInfoUiImageHead->GetPosition().x + nDeltaX;
-			//	infoY = m_pInfoUiImageHead->GetPosition().y + nDeltaY;
-			//
-			//	m_pInfoUiImageHead->SetPosition(infoX, infoY);
+				infoX = m_pInfoUiImageHead->GetPosition().x + nDeltaX;
+				infoY = m_pInfoUiImageHead->GetPosition().y + nDeltaY;
+			
+				m_pInfoUiImageHead->SetPosition(infoX, infoY);
 		}
 		else m_pInfoUiMoveing->isClick = false;
 	}
@@ -412,10 +412,10 @@ void cUiTestScene::MoveUiWindow(void)
 			&& m_pQuestUiMoveing->isClick == false)
 		{
 			m_pSkillUiMoveing->isClick = true;
-			/*skillX = m_pSkillUiImageHead->GetPosition().x + nDeltaX;
+			skillX = m_pSkillUiImageHead->GetPosition().x + nDeltaX;
 			skillY = m_pSkillUiImageHead->GetPosition().y + nDeltaY;
 
-			m_pSkillUiImageHead->SetPosition(skillX, skillY);*/
+			m_pSkillUiImageHead->SetPosition(skillX, skillY);
 		}
 		else m_pSkillUiMoveing->isClick = false;
 	}
@@ -435,10 +435,10 @@ void cUiTestScene::MoveUiWindow(void)
 			&& m_pInfoUiMoveing->isClick == false)
 		{
 			m_pQuestUiMoveing->isClick = true;
-			//queX = m_pQuestUiImageHead->GetPosition().x + nDeltaX;
-			//queY = m_pQuestUiImageHead->GetPosition().y + nDeltaY;
+			queX = m_pQuestUiImageHead->GetPosition().x + nDeltaX;
+			queY = m_pQuestUiImageHead->GetPosition().y + nDeltaY;
 
-			//m_pQuestUiImageHead->SetPosition(queX, queY);
+			m_pQuestUiImageHead->SetPosition(queX, queY);
 		}
 		else m_pQuestUiMoveing->isClick = false;
 	}
@@ -449,6 +449,8 @@ void cUiTestScene::MoveUiWindow(void)
 
 		m_pQuestUiImageHead->SetPosition(queX, queY);
 	}
+
+	//¹«ºù
 
 
 }

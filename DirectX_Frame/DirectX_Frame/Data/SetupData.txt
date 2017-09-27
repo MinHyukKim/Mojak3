@@ -78,3 +78,5 @@ Animation:./Monster/Fox/Fox_Stand_Friendly.X,여우_기본01;
 Animation:./Monster/Fox/Fox_Stand_Offensive.X,여우_기본02;
 Animation:./Monster/Fox/Fox_Run.X,여우_달리기01;
 Animation:./Monster/Fox/Fox_Attack.X,여우_공격01;
+
+
