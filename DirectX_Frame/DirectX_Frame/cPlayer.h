@@ -12,6 +12,7 @@
 #define PATTERN_OFFENSIVE	0x00000002	//전투모드
 #define PATTERN_STOP		0x00000010	//정지가능
 #define PATTERN_TARGET		0x00000040	//추적모드
+#define PATTERN_BACKMOVE	0x00000080	//밀려남
 
 #define PATTERN_NORMAL		0x0000002d	//기본상태
 
@@ -40,8 +41,9 @@ public:
 	enum ORDER_STATE
 	{
 		ORDER_NULL,
-		ORDER_IDLE_FRIENDLY,
-		ORDER_IDLE_OFFENSIVE,
+		ORDER_FRIENDLY,
+		ORDER_OFFENSIVE,
+		ORDER_HIT,
 	};
 	enum ANIMATION_STATE
 	{
@@ -126,6 +128,7 @@ public:
 	//상태 변환시 1회만 적용
 	void SetupFriendly(void);
 	void SetupOffnsive(void);
+	void SetupHit(void);
 	//상태 변환시 행동을 반복함
 	void PatternUpdate(void);
 	//상태 변화
@@ -141,6 +144,7 @@ public:
 
 	void OrderFriendly(void);
 	void OrderOffensive(void);
+
 	void OrderTarget(void);
 	void OrderIden(void);
 	void OrderIdenChange(void);

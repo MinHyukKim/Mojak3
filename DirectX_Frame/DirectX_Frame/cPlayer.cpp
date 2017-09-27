@@ -104,18 +104,33 @@ void cPlayer::SetupAnimationController(LPCSTR szBoneKey)
 
 void cPlayer::SetupFriendly(void)
 {
-	m_dwNumPattern;
+	m_dwNumRealdyState = 0;
 	this->SetStateTrue(PATTERN_FRIENDLY);
 	this->SetStateFalse(PATTERN_OFFENSIVE);
 	this->SetBlendingAnimation(cPlayer::ANIMATION_IDLE_FRIENDLY);
+
 }
 
 void cPlayer::SetupOffnsive(void)
 {
-	m_dwNumPattern;
-	this->SetStateTrue(PATTERN_OFFENSIVE);
+	m_dwNumRealdyState = 0;
+ 	this->SetStateTrue(PATTERN_OFFENSIVE);
 	this->SetStateFalse(PATTERN_FRIENDLY);
 	this->SetBlendingAnimation(cPlayer::ANIMATION_IDLE_OFFENSIVE);
+}
+
+void cPlayer::SetupHit(void)
+{
+	m_dwNumRealdyState = 0;
+	float fDelay = 0.0f;
+	if (this->IsHitAnimation()) fDelay = this->SetBlendingAnimation(cPlayer::ANIMATION_HIT_01);
+	else fDelay = this->SetBlendingAnimation(cPlayer::ANIMATION_HIT_02);
+	this->SetHitAnimation(!this->IsHitAnimation());
+	this->GetAbilityParamter()->SetDelayTime(fDelay - 0.1f);
+
+	this->SetRealdyTrue(PATTERN_ATTACK | PATTERN_WALK | PATTERN_RUN | PATTERN_OFFENSIVE);
+	this->SetRealdyFalse(PATTERN_FRIENDLY);
+	this->SetRealdyState(cPlayer::ORDER_OFFENSIVE);
 }
 
 void cPlayer::PatternUpdate(void)
@@ -153,7 +168,6 @@ void cPlayer::PatternUpdate(void)
 		if (m_dwNumRealdyState)
 		{
 			this->SetStatePattern(m_dwNumRealdyState);
-			m_dwNumRealdyState = 0;
 		}
 	}
 }
@@ -164,8 +178,9 @@ void cPlayer::SetStatePattern(DWORD dwNumState)
 	//패턴 전환시 초기화
 	switch (dwNumState)
 	{
-	case cPlayer::ORDER_IDLE_FRIENDLY: this->SetupFriendly(); break;
-	case cPlayer::ORDER_IDLE_OFFENSIVE: this->SetupOffnsive(); break;
+	case cPlayer::ORDER_FRIENDLY: this->SetupFriendly(); break;
+	case cPlayer::ORDER_OFFENSIVE: this->SetupOffnsive(); break;
+	case cPlayer::ORDER_HIT: this->SetupHit(); break;
 	default: return; // 설정되어 있지 않은 패턴 번호는 무시함
 	}
 	m_dwNumState = dwNumState; // 상태 전환
@@ -173,18 +188,16 @@ void cPlayer::SetStatePattern(DWORD dwNumState)
 
 void cPlayer::OrderFriendly(void)
 {
-	if (this->CheckState(PATTERN_FRIENDLY))
-	{
-		this->SetStatePattern(cPlayer::ORDER_IDLE_FRIENDLY);
-	}
+	this->SetStatePattern(cPlayer::ORDER_FRIENDLY);
+	m_dwNumRealdyTrue |= PATTERN_ATTACK | PATTERN_WALK | PATTERN_RUN | PATTERN_FRIENDLY;
+	m_dwNumRealdyFalse |= PATTERN_OFFENSIVE;
 }
 
 void cPlayer::OrderOffensive(void)
 {
-	if (this->CheckState(PATTERN_OFFENSIVE))
-	{
-		this->SetStatePattern(cPlayer::ORDER_IDLE_OFFENSIVE);
-	}
+	m_dwNumRealdyTrue |= PATTERN_ATTACK | PATTERN_WALK | PATTERN_RUN | PATTERN_OFFENSIVE;
+	m_dwNumRealdyFalse |= PATTERN_FRIENDLY;
+	this->SetStatePattern(cPlayer::ORDER_OFFENSIVE);
 }
 
 void cPlayer::OrderTarget(void)
@@ -202,27 +215,27 @@ void cPlayer::OrderTarget(void)
 			else
 			{
 				//공격
-				this->SetStateFalse(PATTERN_TARGET);
-				this->SetStateFalse(PATTERN_STOP);
-				this->SetStateFalse(PATTERN_ATTACK);
-				this->SetStateFalse(PATTERN_WALK);
-				this->SetStateFalse(PATTERN_RUN);
 				this->MoveStop();
-				if (g_pMath->Random(2)) m_AbilityParamter.SetDelayTime(this->SetBlendingAnimation(cPlayer::ANIMATION_ATTACK_01));
-				else  m_AbilityParamter.SetDelayTime(this->SetBlendingAnimation(cPlayer::ANIMATION_ATTACK_02));
-				m_dwNumRealdyTrue |= PATTERN_ATTACK | PATTERN_WALK | PATTERN_RUN | PATTERN_OFFENSIVE;
-				m_dwNumRealdyFalse |= PATTERN_FRIENDLY;
-				m_dwNumRealdyState = cPlayer::ORDER_IDLE_OFFENSIVE;
+				this->SetDirection(&(m_pTarget->GetPosition() - this->GetPosition()));
+				this->SetStateFalse(PATTERN_TARGET | PATTERN_STOP | PATTERN_ATTACK | PATTERN_WALK | PATTERN_RUN);
+
+				float fDelay = 0.0f;
+				if (g_pMath->Random(2)) fDelay = this->SetBlendingAnimation(cPlayer::ANIMATION_ATTACK_01);
+				else  fDelay = this->SetBlendingAnimation(cPlayer::ANIMATION_ATTACK_02);
+				this->m_AbilityParamter.SetDelayTime(fDelay - 0.1f);
+
+				this->SetRealdyTrue(PATTERN_TARGET | PATTERN_STOP | PATTERN_ATTACK | PATTERN_WALK | PATTERN_RUN);
+				this->SetRealdyState(cPlayer::ORDER_OFFENSIVE);
 
 				//피격
 				m_pTarget->MoveStop();
+				m_pTarget->SetDirection(&(this->GetPosition() - m_pTarget->GetPosition()));
 				m_pTarget->SetStateFalse(PATTERN_ATTACK | PATTERN_WALK | PATTERN_RUN | PATTERN_STOP);
-				if (m_pTarget->IsHitAnimation()) m_pTarget->GetAbilityParamter()->SetDelayTime(m_pTarget->SetBlendingAnimation(cPlayer::ANIMATION_HIT_01));
-				else m_pTarget->GetAbilityParamter()->SetDelayTime(m_pTarget->SetBlendingAnimation(cPlayer::ANIMATION_HIT_02));
-				m_pTarget->SetHitAnimation(!m_pTarget->IsHitAnimation());
-				m_pTarget->SetRealdyTrue(m_pTarget->GetRealdyTrue() | PATTERN_ATTACK | PATTERN_WALK | PATTERN_RUN | PATTERN_OFFENSIVE);
-				m_pTarget->SetRealdyFalse(m_pTarget->GetRealdyFalse() | PATTERN_FRIENDLY);
-				m_pTarget->SetRealdyState(cPlayer::ORDER_IDLE_OFFENSIVE);
+				
+				m_pTarget->GetAbilityParamter()->SetDelayTime(fDelay * 0.3f);
+				m_pTarget->GetAbilityParamter()->SetDownGauge(m_pTarget->GetAbilityParamter()->GetDownGauge() + 8.0f);
+
+				m_pTarget->SetRealdyState(cPlayer::ORDER_HIT);
 			}
 		}
 	}
@@ -238,11 +251,11 @@ void cPlayer::OrderIden(void)
 
 	if (this->CheckState(PATTERN_FRIENDLY))
 	{
-		this->SetStatePattern(cPlayer::ORDER_IDLE_FRIENDLY);
+		this->SetStatePattern(cPlayer::ORDER_FRIENDLY);
 	}
 	else
 	{
-		this->SetStatePattern(cPlayer::ORDER_IDLE_OFFENSIVE);
+		this->SetStatePattern(cPlayer::ORDER_OFFENSIVE);
 	}
 }
 
@@ -253,11 +266,11 @@ void cPlayer::OrderIdenChange(void)
 
 	if (this->CheckState(PATTERN_FRIENDLY))
 	{
-		this->SetStatePattern(cPlayer::ORDER_IDLE_OFFENSIVE);
+		this->SetStatePattern(cPlayer::ORDER_OFFENSIVE);
 	}
 	else
 	{
-		this->SetStatePattern(cPlayer::ORDER_IDLE_FRIENDLY);
+		this->SetStatePattern(cPlayer::ORDER_FRIENDLY);
 	}
 }
 
@@ -350,6 +363,7 @@ void cPlayer::ChangeMeshPart(IN DWORD dwPart, IN cSkinnedMesh* pSkinnedMesh)
 	//기존 메쉬 제거
 	SAFE_DELETE(m_vecMesh[dwPart]);
 	//새 메시 등록
+	if (!pSkinnedMesh) return;
 	m_vecMesh[dwPart] = new cSkinnedMesh(pSkinnedMesh);
 
 	//애니메이션 컨트롤로 복사
