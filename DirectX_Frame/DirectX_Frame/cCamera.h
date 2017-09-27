@@ -57,7 +57,7 @@ public:
 	void UpdateViewSpace(IN const CAMERA_TYPE eCameraType);
 	void UpdateViewSpace(void);
 
-	static void UpdateProjection(IN float fMinZ = 0.1f, IN float fMaxZ = 1000.0f, IN float fAngle = D3DX_PI / 4.0f);
+	static void UpdateProjection(IN float fMinZ = 1.0f, IN float fMaxZ = 1000.0f, IN float fAngle = D3DX_PI / 4.0f);
 	
 	//카메라 생성 함수
 	static cCamera* Create(void);

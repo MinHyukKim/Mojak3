@@ -31,8 +31,9 @@ HRESULT cMapToolScene::Setup(void)
 {
 	m_pCamera = cCamera::Create();
 	m_pCamera->Setup();
-	m_pCamera->SetCameraType(cCamera::E_LANDOBJECT);
-	
+	m_pCamera->SetCameraType(cCamera::E_AIRCRAFT);
+	m_pCamera->UpdateProjection(0.1f);
+
 
 	SetMatrial(&m_stMtl.MatD3D);
 	m_stMtl.pTextureFilename = "./Texture/steppegrass01_only.dds";
@@ -219,13 +220,6 @@ void cMapToolScene::Render(void)
 
 }
 
-void cMapToolScene::SaveCurrentObjectsState(const char * filename)
-{
-}
-
-void cMapToolScene::LoadCurrentObjectsState(const char * filename)
-{
-}
 
 cMapToolScene* cMapToolScene::Create(void)
 {

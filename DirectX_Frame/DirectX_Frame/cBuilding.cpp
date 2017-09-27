@@ -58,16 +58,7 @@ LPD3DXMESH cBuilding::LoadModel(const char * filename)
 	LPDIRECT3DVERTEXBUFFER9 pVB;
 	m_pBuild->GetVertexBuffer(&pVB);
 
-	// 버텍스정보를 받아오기 위한 포인터를 생성하구요.
 	VOID* pVertices;
-
-	// 버텍스버퍼의 락을 걸고 버텍스정보를 받아와요. 여기서 쓰이는게 x파일의 fvf를 구조체로 정의한
-	// XFILE_FVF_INFO의 크기구요. 왜냐면 여기다 저장할꺼니까요. 위에다 적어놓았죠?
-	pVB->Lock(0, sizeof(ST_PNT_VERTEX) * m_pBuild->GetNumVertices(), (void**)&pVertices, 0);
-
-	// 구조체안에다가 포인터의 내용을 전달하면 이제 pVertex 안에
-	// 버텍스의 포지션, 방향값, 텍스쳐좌표가 들어있으므로 게임 끝난거죠^^
-	ST_PNT_VERTEX* pVertex = (ST_PNT_VERTEX*)pVertices;
 
 	minX = FLT_MAX;
 	maxX = FLT_MIN;
@@ -75,6 +66,10 @@ LPD3DXMESH cBuilding::LoadModel(const char * filename)
 	maxY = FLT_MIN;
 	minZ = FLT_MAX;
 	maxZ = FLT_MIN;
+
+	pVB->Lock(0, sizeof(ST_PNT_VERTEX) * m_pBuild->GetNumVertices(), (void**)&pVertices, 0);
+	ST_PNT_VERTEX* pVertex = (ST_PNT_VERTEX*)pVertices;
+
 	// 하지만 pVertex는 현재 메쉬의 모든 위치정보도 같이있으므로, 이런식으로 응용해서 작성합니다.
 	for (DWORD i = 0; i < dwVertexNum;i++)
 	{
@@ -97,7 +92,7 @@ LPD3DXMESH cBuilding::LoadModel(const char * filename)
 	cout << "min : " << minY << " max : " << maxY << " max-min :" << maxY - minY << endl;
 	cout << "min : " << minZ << " max : " << maxZ << " max-min :" << maxZ - minZ << endl;
 	cout << endl;
-	// 이제 다 썼으니 버텍스버퍼의 락을 해제해줘야겠죠.
+	
 	pVB->Unlock();
 
 	D3DXCreateBox(g_pD3DDevice, maxX - minX, maxY - minY, maxZ - minZ, &m_pBoundBox, NULL);
