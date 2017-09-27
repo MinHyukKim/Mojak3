@@ -87,8 +87,13 @@ cUiTestScene::cUiTestScene(void)
 	, m_nMainStaminaY(23)
 	, m_nMainEXPx(160)
 	, m_nMainEXPy(20)
+	, m_eEquipTorso(E_TORSO_WEAR_03)
+	, m_eEquipShoes(E_SHOES_01)
+	, m_eEquipWeaponHand(E_WEAPON_EMPTY)
 {
 	D3DXMatrixIdentity(&m_matWorldMatrix);
+	m_vecTempPlayerItem.resize(60);
+	m_vecInventoryUiBlock.resize(100);
 }
 
 cUiTestScene::~cUiTestScene(void)
@@ -170,10 +175,59 @@ void cUiTestScene::Update(void)
 	//if (m_isMainMin == true) m_pMainRootImageView->SetPosition(300, 520);
 	//else m_pMainRootImageView->SetPosition(300, 502);
 	//키입력
-	if (g_pInputManager->IsOnceKeyDown('Q')) m_isQuestWindowOn = !m_isQuestWindowOn;
-	if (g_pInputManager->IsOnceKeyDown('K')) m_isSkillWindowOn = !m_isSkillWindowOn;
-	if (g_pInputManager->IsOnceKeyDown('I')) m_isInventoryWindowOn = !m_isInventoryWindowOn;
-	if (g_pInputManager->IsOnceKeyDown('C')) m_isInfoWindowOn = !m_isInfoWindowOn;
+	if (g_pInputManager->IsOnceKeyDown('Q'))
+	{
+		m_isQuestWindowOn = !m_isQuestWindowOn;
+	}
+	else if (g_pInputManager->IsOnceKeyUp('Q'))
+	{
+		//클릭했을 때 화면이 닫히면 마우스 오버 조건을 flase로
+		if (m_isQuestWindowOn == false)
+		{
+			m_pQuestUiMoveing->isOver = false;
+			m_pQuestUiImage->isOver = false;
+		}
+	}
+
+	if (g_pInputManager->IsOnceKeyDown('K'))
+	{
+		m_isSkillWindowOn = !m_isSkillWindowOn;
+	}
+	else if (g_pInputManager->IsOnceKeyUp('K'))
+	{
+		//클릭했을 때 화면이 닫히면 마우스 오버 조건을 flase로
+		if (m_isSkillWindowOn == false)
+		{
+			m_pSkillUiMoveing->isOver = false;
+			m_pSkillUiImage->isOver = false;
+		}
+	}
+	if (g_pInputManager->IsOnceKeyDown('I'))
+	{
+		m_isInventoryWindowOn = !m_isInventoryWindowOn;
+	}
+	else if (g_pInputManager->IsOnceKeyUp('I'))
+	{
+		if (m_isInventoryWindowOn == false)
+		{
+			m_pInventoryUiMoveing->isOver = false;
+			m_pInventoryUiImage->isOver = false;
+		}
+	}
+
+	if (g_pInputManager->IsOnceKeyDown('C'))
+	{
+		m_isInfoWindowOn = !m_isInfoWindowOn;
+	}
+	else if (g_pInputManager->IsOnceKeyUp('C'))
+	{
+		//클릭했을 때 화면이 닫히면 마우스 오버 조건을 flase로
+		if (m_isInfoWindowOn == false)
+		{
+			m_pInfoUiMoveing->isOver = false;
+			m_pInfoUiImage->isOver = false;
+		}
+	}
 
 	if (m_pUiRoot) m_pUiRoot->Update();
 	if (m_pSkillUi && m_isSkillWindowOn) m_pSkillUi->Update();
@@ -219,11 +273,66 @@ void cUiTestScene::Update(void)
 		m_nTempArmorPiercing += 1;
 	}
 
-//	if (g_pInputManager->IsOnceKeyDown('L'))
-//	{
-//		test->m_rc.right += 10.0f;
-//	}
 	if (m_pUiTestRoot) m_pUiTestRoot->Update();
+
+
+	//switch (m_eCustomizingTab)
+	//{
+	//case E_CUSTOM_HAIR:
+	//{
+	//	if (m_pCustomHairUi) m_pCustomHairUi->Render(m_pSprite);
+	//	if (m_pCustomColorUi) m_pCustomColorUi->Render(m_pSprite);
+	//}
+	//break;
+	//case E_CUSTOM_EYE:
+	//{
+	//	if (m_pCustomEyeUi) m_pCustomEyeUi->Render(m_pSprite);
+	//	if (m_pCustomColorUi) m_pCustomColorUi->Render(m_pSprite);
+	//}
+	//break;
+	//case E_CUSTOM_MOUTH:
+	//{
+	//	if (m_pCustomMouthUi) m_pCustomMouthUi->Render(m_pSprite);
+	//}
+	//break;
+	//}
+
+	//매쉬 변경 테스트
+	switch (m_eEquipTorso)
+	{
+		case E_TORSO_EMPTY:
+		{
+			g_pObjectManager->GetPlayer()->ChangeMeshPart(cPlayer::MESH_BODY, g_pSkinnedMeshManager->GetSkinnedMesh("바디01"));
+		}
+		break;
+		case E_TORSO_WEAR_01:
+		{
+			g_pObjectManager->GetPlayer()->ChangeMeshPart(cPlayer::MESH_BODY, g_pSkinnedMeshManager->GetSkinnedMesh("바디01"));
+		}
+		break;
+		case E_TORSO_WEAR_02:
+		{
+			g_pObjectManager->GetPlayer()->ChangeMeshPart(cPlayer::MESH_BODY, g_pSkinnedMeshManager->GetSkinnedMesh("바디02"));
+		}
+		break;
+		case E_TORSO_WEAR_03:
+		{
+			g_pObjectManager->GetPlayer()->ChangeMeshPart(cPlayer::MESH_BODY, g_pSkinnedMeshManager->GetSkinnedMesh("바디03"));
+		}
+		break;
+	}
+
+	switch (m_eEquipShoes)
+	{
+	default:
+		break;
+	}
+
+	switch (m_eEquipWeaponHand)
+	{
+	default:
+		break;
+	}
 
 }
 
@@ -265,7 +374,7 @@ bool cUiTestScene::GetMoveingOK()
 	if (m_pQuestUiImage->isOver) return false;
 	if (m_pInventoryUiMoveing->isOver) return false;
 	if (m_pInventoryUiImage->isOver) return false;
-
+	
 	return true;
 }
 
@@ -279,23 +388,42 @@ void cUiTestScene::OnClick(cUIButton * pSender)
 
 	if (pSender->GetTag() == E_MAIN_BUTTON_PLAYER_INFO)
 	{
+		//클릭했을 때 화면이 닫히면 마우스 오버 조건을 flase로
+		if (m_isInfoWindowOn == false)
+		{
+			m_pInfoUiMoveing->isOver = false;
+			m_pInfoUiImage->isOver = false;
+		}
 		m_isInfoWindowOn = !m_isInfoWindowOn;
-	//	pTextView->SetText("플레이어 정보창 구현하기");
 	}
 	else if (pSender->GetTag() == E_MAIN_BUTTON_SKILL)
 	{
+		//클릭했을 때 화면이 닫히면 마우스 오버 조건을 flase로
+		if (m_isSkillWindowOn == false)
+		{
+			m_pSkillUiMoveing->isOver = false;
+			m_pSkillUiImage->isOver = false;
+		}
 		m_isSkillWindowOn = !m_isSkillWindowOn;
-	//	pTextView->SetText("플레이어 스킬창 구현하기");
 	}
 	else if (pSender->GetTag() == E_MAIN_BUTTON_QUEST)
 	{
+		//클릭했을 때 화면이 닫히면 마우스 오버 조건을 flase로
+		if (m_isQuestWindowOn == false)
+		{
+			m_pQuestUiMoveing->isOver = false;
+			m_pQuestUiImage->isOver = false;
+		}
 		m_isQuestWindowOn = !m_isQuestWindowOn;
-	//	pTextView->SetText("퀘스트창 구현하기");
 	}
 	else if (pSender->GetTag() == E_MAIN_BUTTON_INVENTORY)
 	{
+		if (m_isInventoryWindowOn == false)
+		{
+			m_pInventoryUiMoveing->isOver = false;
+			m_pInventoryUiImage->isOver = false;
+		}
 		m_isInventoryWindowOn = !m_isInventoryWindowOn;
-	//	pTextView->SetText("인벤토리 창 구현하기");
 	}
 	else if (pSender->GetTag() == E_MAIN_BUTTON_MIN)
 	{

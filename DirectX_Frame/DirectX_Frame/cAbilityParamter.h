@@ -44,11 +44,11 @@ private:
 	float m_fPenetration;		//물리 관통
 
 	float m_fFood;				//배고픔
-	float m_fRange;				//공격범위
+	float m_fAttackRange;		//공격범위
 	float m_fDownGauge;			//다운게이지 100(밀림), 120(너머짐), 150()
 	float m_fMoveSpeed;			//이동속도
 
-	float m_fDelayTime;		//인공지능 유효시간
+	float m_fDelayTime;			//인공지능 유효시간
 	bool m_bEffective;			//캐릭터 생존여부
 
 public:
@@ -138,14 +138,18 @@ public:
 	//방어관통
 	void SetPenetration(float f) { m_fPenetration = f; }
 	float GetPenetration(void) { return m_fPenetration; }
-
-	void SetRange(float fValue) { m_fRange = fValue; }
-	float GetRange(void) { return m_fRange; }
+	//공격범위
+	void SetRange(float fValue) { m_fAttackRange = fValue; }
+	float GetRange(void) { return m_fAttackRange; }
+	float GetRangeSq(void) { return m_fAttackRange * m_fAttackRange; }
+	//이동속도
 	void SetMoveSpeed(float fValue) { m_fMoveSpeed = fValue; }
 	float GetMoveSpeed(void) { return m_fMoveSpeed; }
+	//지연시간
 	void SetDelayTime(float fValue) { m_fDelayTime = fValue; }
 	float GetDelayTime(void) { return m_fDelayTime; }
 	bool IsDelayEnd(void) { return m_fDelayTime <= 0.0f; }
+
 	void SetEffective(bool nValue) { m_bEffective = nValue; }
 	bool IsEffective(void) { return m_bEffective; }
 

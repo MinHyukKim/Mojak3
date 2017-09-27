@@ -154,6 +154,7 @@
     <ClInclude Include="cCamera.h" />
     <ClInclude Include="cChareterCustomScene.h" />
     <ClInclude Include="cCharTestScene.h" />
+    <ClInclude Include="cCustomQueue.h" />
     <ClInclude Include="cDataLoder.h" />
     <ClInclude Include="cDeviceManager.h" />
     <ClInclude Include="cFont.h" />
@@ -216,6 +217,7 @@
     <ClCompile Include="cCamera.cpp" />
     <ClCompile Include="cChareterCustomScene.cpp" />
     <ClCompile Include="cCharTestScene.cpp" />
+    <ClCompile Include="cCustomQueue.cpp" />
     <ClCompile Include="cDataLoder.cpp" />
     <ClCompile Include="cDeviceManager.cpp" />
     <ClCompile Include="cFont.cpp" />

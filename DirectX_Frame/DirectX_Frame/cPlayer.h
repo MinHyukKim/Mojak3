@@ -15,13 +15,21 @@
 
 #define PATTERN_NORMAL		0x0000002d	//기본상태
 
-struct ST_ANIMATIONKEY
+struct ST_CONTAINER
 {
 	DWORD dwKey;
 	float fSpeed;
 
-	ST_ANIMATIONKEY(DWORD _dwKey = 0, float _fSpeed = 1.0f) : dwKey(_dwKey), fSpeed(_fSpeed) {}
+	ST_CONTAINER(DWORD _dwKey = 0, float _fSpeed = 1.0f) : dwKey(_dwKey), fSpeed(_fSpeed) {}
 };
+
+//struct ST_CONTAINER2
+//{
+//	DWORD dwKey;
+//	double worldTime;
+//
+//	ST_CONTAINER2(DWORD _dwKey = 0, double _Time = 1.0f) : dwKey(_dwKey), worldTime(_Time) {}
+//};
 
 class cCamera;
 class cActionMove;
@@ -44,8 +52,8 @@ public:
 		ANIMATION_WALK_FRIENDLY,
 		ANIMATION_RUN_OFFENSIVE,
 		ANIMATION_RUN_FRIENDLY,
-		ANIMATION_ATTACK_OFFENSIVE,
-		ANIMATION_ATTACK_FRIENDLY,
+		ANIMATION_ATTACK_01,
+		ANIMATION_ATTACK_02,
 		ANIMATION_TEST1,
 		ANIMATION_TEST2,
 		ANIMATION_TEST3,
@@ -89,11 +97,14 @@ private:
 	//명령어 검사
 	std::vector<DWORD> m_vecOrderStack;
 	//애니메이션 컨트롤러에서 애니메이션의 번호
-	std::vector<ST_ANIMATIONKEY> m_vecAnimationKey;
+	std::vector<ST_CONTAINER> m_vecAnimationKey;
 	//애니메이션 컨트롤러의 트랙의 번호
 	DWORD m_dwNumMainAnimation;
 	DWORD m_dwNumSubAnimation;
 	//행동 패턴 번호
+	DWORD m_dwNumRealdyTrue;
+	DWORD m_dwNumRealdyFalse;
+	DWORD m_dwNumRealdyState;
 	DWORD m_dwNumPattern;
 	DWORD m_dwNumState;
 	//애니메이션 컨트롤러에 메인 트랙 번호 (0 또는 1 트랙을 2개만 사용)
@@ -126,6 +137,7 @@ public:
 
 	void OrderFriendly(void);
 	void OrderOffensive(void);
+	void OrderTarget(void);
 	void OrderIden(void);
 	void OrderIdenChange(void);
 	void OrderWalk(LPD3DXVECTOR3 pTo);
@@ -175,11 +187,7 @@ public:
 	void MoveStop(void);
 
 
-
-
-
 	//액션 인공지능 함수
-	bool TargetAttack(void);
 
 	void PlayerToTarget(float fRange);	//타겟변경
 	void TargetView(void) { this->SetDirection(&(m_pTarget->GetPosition() - this->GetPosition()));}

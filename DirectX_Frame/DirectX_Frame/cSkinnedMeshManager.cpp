@@ -25,6 +25,21 @@ cSkinnedMesh * cSkinnedMeshManager::GetSkinnedMesh(char * szFolder, char * szFil
 	return m_mapSkinnedMesh[sFullPath];
 }
 
+cSkinnedMesh* cSkinnedMeshManager::CloneSkinnedMesh(LPCSTR szOriginKey, LPCSTR szCloneKey)
+{
+	if (m_mapCloneMesh.find(szCloneKey) == m_mapCloneMesh.end())
+	{
+		cSkinnedMesh* pSkinnedMesh = new cSkinnedMesh(this->GetSkinnedMesh(szOriginKey));
+		m_mapCloneMesh[szCloneKey] = pSkinnedMesh;
+	}
+	return m_mapCloneMesh[szCloneKey];
+}
+
+cSkinnedMesh * cSkinnedMeshManager::CloneSkinnedMesh(std::string & sOriginKey, std::string & sCloneKey)
+{
+	return this->CloneSkinnedMesh(sOriginKey.c_str(), sCloneKey.c_str());
+}
+
 cSkinnedMesh* cSkinnedMeshManager::RegisterSkinnedMesh(LPCSTR szFolder, LPCSTR szFilename, LPCSTR szKeyName)
 {
 
@@ -44,7 +59,11 @@ cSkinnedMesh * cSkinnedMeshManager::RegisterSkinnedMesh(std::string & szFolder, 
 
 cSkinnedMesh* cSkinnedMeshManager::GetSkinnedMesh(LPCSTR szKeyName)
 {
-	if (m_mapSkinnedMesh.find(szKeyName) == m_mapSkinnedMesh.end()) return nullptr;
+	if (m_mapSkinnedMesh.find(szKeyName) == m_mapSkinnedMesh.end())
+	{
+		if (m_mapCloneMesh.find(szKeyName) == m_mapCloneMesh.end()) return nullptr;
+		else return m_mapCloneMesh[szKeyName];
+	}
 
 	return m_mapSkinnedMesh[szKeyName];
 }
@@ -59,6 +78,10 @@ void cSkinnedMeshManager::Destroy()
 	for each(auto it in m_mapSkinnedMesh)
 	{
 		it.second->Destroy();
+		SAFE_DELETE(it.second);
+	}
+	for each(auto it in m_mapCloneMesh)
+	{
 		SAFE_DELETE(it.second);
 	}
 

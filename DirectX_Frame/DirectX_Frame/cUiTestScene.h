@@ -55,6 +55,31 @@ enum
 	E_TEXT_VIEW
 };
 
+enum ePlayerEquipTorso
+{
+	E_TORSO_NONE,
+	E_TORSO_EMPTY,
+	E_TORSO_WEAR_01,
+	E_TORSO_WEAR_02,
+	E_TORSO_WEAR_03,
+};
+
+enum ePlayerEquipShoes
+{
+	E_SHOES_NONE,
+	E_SHOES_EMPTY,
+	E_SHOES_01,
+	E_SHOES_END,
+};
+
+enum ePlaterEquipWeaponHand
+{
+	E_WEAPON_NONE,
+	E_WEAPON_EMPTY,
+	E_WEAPON_01,
+	E_WEAPON_END,
+};
+
 class cUiTestScene : public cSceneObject, iButtonDelegate
 {
 private:
@@ -196,7 +221,7 @@ private:
 	cUIButton* m_pInventoryCloseButton;		//닫기 버튼
 	cUITextView* m_pInventoryUiText;		//불변 택스트
 	//칸 수
-	vector<cUIButton*> m_vecInventoryUiBlock;	//안씀
+	vector<cUIButton*> m_vecInventoryUiBlock;	//인벤토리 칸(백터)
 	cUIButton* m_pInventoryUiBlock[60];			//인벤토리 칸(소지품)
 	cUIButton* m_pQInventoryUiButton;			//인벤 버튼
 	cUiObject* m_pInventoryUi;
@@ -249,9 +274,9 @@ private:
 	int m_nTempMagicProtect;		//마법보호
 	int m_nTempArmorPiercing;		//방관
 
-	std::vector<cUIButton*> m_pTempItem;
-	std::vector<cUIButton*> m_pTempBsg;
-	std::vector<cUIButton*> m_pTempPlayerItem;
+	std::vector<cUIButton*> m_vecTempItem;
+	std::vector<cUIButton*> m_vecTempBsg;
+	std::vector<cUIButton*> m_vecTempPlayerItem;
 
 	//어빌리티
 	cAbilityParamter m_AbilityParamter;
@@ -289,7 +314,11 @@ public:
 	void SetInventoryOnOff(bool is) { m_isInventoryWindowOn = is; }
 	//마우스 오버 함수
 	bool GetMoveingOK();
-	
+
+	//장비 장착 이넘문
+	ePlayerEquipTorso m_eEquipTorso;
+	ePlayerEquipShoes m_eEquipShoes;
+	ePlaterEquipWeaponHand m_eEquipWeaponHand;
 
 	//어빌리티 연동
 	cAbilityParamter* GetAbilityParamter(void) { return &m_AbilityParamter; }

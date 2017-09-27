@@ -118,5 +118,17 @@ void cUiTestScene::SetupInventoryUi(void)
 		}
 	}
 
+//	int x = 6, y = 10;
+//	for each (auto p in m_vecInventoryUiBlock)
+//	{
+//		m_vecInventoryUiBlock[y * 6 + x] = cUIButton::Create();
+//		m_vecInventoryUiBlock[y * 6 + x]->SetTexture("Texture/Ui/inventory1.png"
+//			, "Texture/Ui/inventory1.png"
+//			, "Texture/Ui/inventory1.png");
+//		m_vecInventoryUiBlock[y * 6 + x]->SetPosition(x * 24 + stratX, y * 24 + stratY);
+//		m_vecInventoryUiBlock[y * 6 + x]->SetTag(E_BUTTON_NONE);
+//		m_pInventoryUi->AddChild(m_vecInventoryUiBlock[y * 6 + x]);
+//	}
+
 
 }

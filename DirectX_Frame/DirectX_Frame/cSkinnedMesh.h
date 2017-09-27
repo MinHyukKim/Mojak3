@@ -23,6 +23,7 @@ private:
 	//SYNTHESIZE(ST_SPHERE, m_stSphere, BoundingSphere);
 
 public:
+
 	LPD3DXFRAME GetRootFrame(void) { return (LPD3DXFRAME)m_pRootFrame; }
 
 	D3DXVECTOR3 getPosition() { return m_vPosition; };

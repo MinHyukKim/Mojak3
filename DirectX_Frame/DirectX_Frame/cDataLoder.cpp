@@ -14,7 +14,8 @@ cDataLoder::~cDataLoder(void)
 
 void cDataLoder::RegisterMesh(LPCSTR szFolder, LPCSTR szFilename, LPCSTR szKeyName)
 {
-	m_vecData.push_back(ST_DATA(cDataLoder::DATA_MESH, szFolder, szFilename, szKeyName));
+	if (szKeyName) m_vecData.push_back(ST_DATA(cDataLoder::DATA_MESH, szFolder, szFilename, szKeyName));
+	else m_vecData.push_back(ST_DATA(cDataLoder::DATA_MESH, szFolder, szFilename, ""));
 }
 
 void cDataLoder::RegisterAnimation(LPCSTR szFullPath, LPCSTR szKeyName)
@@ -66,9 +67,11 @@ bool cDataLoder::RegisterData(LPCSTR FullPath)
 		{
 			std::string sPath = strtok(nullptr, ",");
 			std::string sFile = strtok(nullptr, ",");
-			std::string sKey = strtok(nullptr, ";");
+			std::string sKey;
+			pToken = strtok(nullptr, ";");
+			if (pToken[0] != '\n') this->RegisterMesh(sPath.c_str(), sFile.c_str(), pToken);
+			else this->RegisterMesh(sPath.c_str(), sFile.c_str(), nullptr);
 			//등록
-			this->RegisterMesh(sPath.c_str(), sFile.c_str(), sKey.c_str());
 		}
 		else if (strstr(pToken, "Color") || strstr(pToken, "색상"))
 		{
@@ -119,7 +122,10 @@ void cDataLoder::LoaderData(void)
 	{
 	case cDataLoder::DATA_NULL: break;
 
-	case cDataLoder::DATA_MESH: g_pSkinnedMeshManager->RegisterSkinnedMesh(pData->str1, pData->str2, pData->str3); break;
+	case cDataLoder::DATA_MESH:
+		if (pData->str3.empty()) g_pSkinnedMeshManager->CloneSkinnedMesh(pData->str1, pData->str2);
+		else g_pSkinnedMeshManager->RegisterSkinnedMesh(pData->str1, pData->str2, pData->str3);
+		break;
 
 	case cDataLoder::DATA_MESH_COLOR:
 		if (g_pSkinnedMeshManager->GetSkinnedMesh(pData->str1))
