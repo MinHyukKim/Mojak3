@@ -123,16 +123,14 @@ void cMapObjectManager::Render()
 
 void cMapObjectManager::Destroy()
 {
-	for each(auto it in m_mapBuilding)
-	{
-		it.second->Destroy();
-		SAFE_DELETE(it.second);
-	}
-
+	//for each(auto it in m_mapBuilding)
+	//{
+	//	it.second->Destroy();
+	//	SAFE_DELETE(it.second);
+	//}
 	for each(auto it in m_vecBuilding)
 	{
 		it->Destroy();
 		SAFE_DELETE(it);
 	}
-
 }

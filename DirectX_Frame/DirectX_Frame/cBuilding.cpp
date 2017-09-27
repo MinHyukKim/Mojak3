@@ -287,11 +287,11 @@ void cBuilding::Destroy()
 	{
 		//SAFE_RELEASE(m_pMeshTextures[i]);
 	}
-	SAFE_DELETE_ARRAY(m_pMeshMaterials);
+	//SAFE_DELETE_ARRAY(m_pMeshMaterials);
 	//SAFE_DELETE_ARRAY(m_pMeshTextures);
 
-	m_pBuild->Release();
-	SAFE_RELEASE(m_pEffect);
+	//m_pBuild->Release();
+	//SAFE_RELEASE(m_pEffect);
 }
 
 LPD3DXEFFECT cBuilding::LoadEffect(char * szFilename)
