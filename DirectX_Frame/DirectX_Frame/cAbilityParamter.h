@@ -138,15 +138,18 @@ public:
 	//방어관통
 	void SetPenetration(float f) { m_fPenetration = f; }
 	float GetPenetration(void) { return m_fPenetration; }
-
+	//공격범위
 	void SetRange(float fValue) { m_fAttackRange = fValue; }
 	float GetRange(void) { return m_fAttackRange; }
 	float GetRangeSq(void) { return m_fAttackRange * m_fAttackRange; }
+	//이동속도
 	void SetMoveSpeed(float fValue) { m_fMoveSpeed = fValue; }
 	float GetMoveSpeed(void) { return m_fMoveSpeed; }
+	//지연시간
 	void SetDelayTime(float fValue) { m_fDelayTime = fValue; }
 	float GetDelayTime(void) { return m_fDelayTime; }
 	bool IsDelayEnd(void) { return m_fDelayTime <= 0.0f; }
+
 	void SetEffective(bool nValue) { m_bEffective = nValue; }
 	bool IsEffective(void) { return m_bEffective; }
 

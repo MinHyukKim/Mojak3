@@ -168,6 +168,10 @@ struct ST_BONE : public D3DXFRAME
 		D3DXMatrixIdentity(&TransformationMatrix);
 		D3DXMatrixIdentity(&CombinedTransformationMatrix);
 	}
+	ST_BONE(ST_BONE* pOrigin) : D3DXFRAME(*pOrigin)
+	{
+		CombinedTransformationMatrix = pOrigin->CombinedTransformationMatrix;
+	}
 };
 
 //기본 메시컨테이너

@@ -413,6 +413,7 @@ cSkinnedMesh::~cSkinnedMesh(void)
 //	}
 }
 
+
 void cSkinnedMesh::UpdateAndRender()
 {
 	D3DXMATRIXA16 mat;
@@ -485,7 +486,6 @@ void cSkinnedMesh::SetBlendingAnimation(int nAnimationKey, float fTravelTime)
 bool cSkinnedMesh::FrameClone(OUT LPD3DXFRAME* ppClone, IN LPD3DXFRAME pOrigin)
 {
 	if (!ppClone || pOrigin) return false;
-
 	return true;
 }
 

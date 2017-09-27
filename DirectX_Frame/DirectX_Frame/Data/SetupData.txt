@@ -78,3 +78,8 @@ Animation:./Monster/Fox/Fox_Stand_Friendly.X,여우_기본01;
 Animation:./Monster/Fox/Fox_Stand_Offensive.X,여우_기본02;
 Animation:./Monster/Fox/Fox_Run.X,여우_달리기01;
 Animation:./Monster/Fox/Fox_Attack.X,여우_공격01;
+
+
+Mesh:여우01,여우02,;
+Color:여우02,mon_fox02.dds, 0.5f, 0.2f, 0.2f, 1.0f;
+Color:여우02,mon_skeleton01_eyes.dds, 0.5f, 0.5f, 0.4f, 1.0f;
