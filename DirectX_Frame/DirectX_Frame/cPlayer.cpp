@@ -18,6 +18,7 @@ cPlayer::cPlayer(void)
 	, m_dwNumPattern(PATTERN_NORMAL)
 	, m_dwNumState(cPlayer::ORDER_NULL)
 	, m_bCurrentTrack(false)
+	, m_bHitAnimation(false)
 	, m_fRadius(0.3f)
 { 
 	D3DXMatrixIdentity(&m_matWorld);
@@ -200,6 +201,7 @@ void cPlayer::OrderTarget(void)
 			}
 			else
 			{
+				//공격
 				this->SetStateFalse(PATTERN_TARGET);
 				this->SetStateFalse(PATTERN_STOP);
 				this->SetStateFalse(PATTERN_ATTACK);
@@ -211,6 +213,16 @@ void cPlayer::OrderTarget(void)
 				m_dwNumRealdyTrue |= PATTERN_ATTACK | PATTERN_WALK | PATTERN_RUN | PATTERN_OFFENSIVE;
 				m_dwNumRealdyFalse |= PATTERN_FRIENDLY;
 				m_dwNumRealdyState = cPlayer::ORDER_IDLE_OFFENSIVE;
+
+				//피격
+				m_pTarget->MoveStop();
+				m_pTarget->SetStateFalse(PATTERN_ATTACK | PATTERN_WALK | PATTERN_RUN | PATTERN_STOP);
+				if (m_pTarget->IsHitAnimation()) m_pTarget->GetAbilityParamter()->SetDelayTime(m_pTarget->SetBlendingAnimation(cPlayer::ANIMATION_HIT_01));
+				else m_pTarget->GetAbilityParamter()->SetDelayTime(m_pTarget->SetBlendingAnimation(cPlayer::ANIMATION_HIT_02));
+				m_pTarget->SetHitAnimation(!m_pTarget->IsHitAnimation());
+				m_pTarget->SetRealdyTrue(m_pTarget->GetRealdyTrue() | PATTERN_ATTACK | PATTERN_WALK | PATTERN_RUN | PATTERN_OFFENSIVE);
+				m_pTarget->SetRealdyFalse(m_pTarget->GetRealdyFalse() | PATTERN_FRIENDLY);
+				m_pTarget->SetRealdyState(cPlayer::ORDER_IDLE_OFFENSIVE);
 			}
 		}
 	}
@@ -439,8 +451,8 @@ float cPlayer::SetBlendingAnimation(IN DWORD dwAnimationKey, IN float fSpeed, IN
 	SAFE_RELEASE(pAnimationSet);																									//다음 애니메이션 세트 제거 (등록 후 제거)
 
 	//이전 애니메이션 (자세한 내용은 -> 참고.)
-	m_pAnimationController->KeyTrackWeight(m_bCurrentTrack, 0.0f, fCurrentTime, fTravel, D3DXTRANSITION_LINEAR);	//주 트랙에 가중치를 서서히 줄임 (예비동작 등록)
-	m_pAnimationController->KeyTrackEnable(m_bCurrentTrack, false, fCurrentTime + fTravel);							//주 트랙을 일정시간 경과후 사용안함 (예비동작 등록)
+	m_pAnimationController->KeyTrackWeight(m_bCurrentTrack, 0.0f, fCurrentTime, fTravel, D3DXTRANSITION_LINEAR);					//주 트랙에 가중치를 서서히 줄임 (예비동작 등록)
+	m_pAnimationController->KeyTrackEnable(m_bCurrentTrack, false, fCurrentTime + fTravel);											//주 트랙을 일정시간 경과후 사용안함 (예비동작 등록)
 
 
 	//애니메이션 변경 (자세한 내용은 -> 참고.)

@@ -6,10 +6,10 @@ cSkinnedMeshManager::cSkinnedMeshManager(void)
 {
 }
 
-
 cSkinnedMeshManager::~cSkinnedMeshManager(void)
 {
 }
+
 
 cSkinnedMesh * cSkinnedMeshManager::GetSkinnedMesh(char * szFolder, char * szFilename)
 {
@@ -35,7 +35,7 @@ cSkinnedMesh* cSkinnedMeshManager::CloneSkinnedMesh(LPCSTR szOriginKey, LPCSTR s
 	return m_mapCloneMesh[szCloneKey];
 }
 
-cSkinnedMesh * cSkinnedMeshManager::CloneSkinnedMesh(std::string & sOriginKey, std::string & sCloneKey)
+cSkinnedMesh* cSkinnedMeshManager::CloneSkinnedMesh(std::string & sOriginKey, std::string & sCloneKey)
 {
 	return this->CloneSkinnedMesh(sOriginKey.c_str(), sCloneKey.c_str());
 }

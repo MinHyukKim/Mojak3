@@ -139,6 +139,8 @@ void cObjectManager::RegisterPlayer(IN cPlayer* pPlayer)
 	pPlayer->RegisterAnimation(cPlayer::ANIMATION_RUN_OFFENSIVE, g_pAnimationManager->GetAnimation("여성_달리기02"), 3.0f);
 	pPlayer->RegisterAnimation(cPlayer::ANIMATION_ATTACK_01, g_pAnimationManager->GetAnimation("여성_공격01"), 5.0f);
 	pPlayer->RegisterAnimation(cPlayer::ANIMATION_ATTACK_02, g_pAnimationManager->GetAnimation("여성_공격02"), 5.0f);
+	pPlayer->RegisterAnimation(cPlayer::ANIMATION_HIT_01, g_pAnimationManager->GetAnimation("여성_피격01"));
+	pPlayer->RegisterAnimation(cPlayer::ANIMATION_HIT_02, g_pAnimationManager->GetAnimation("여성_피격02"));
 	m_pPlayer->GetAbilityParamter()->SetPlayerID(1);
 	m_pPlayer->GetAbilityParamter()->SetUnitID(0);
 	m_pPlayer->AddRef();
@@ -205,16 +207,18 @@ bool cObjectManager::CreateMonster(IN MONSTER_TYPE eMonsterKey, IN LPD3DXVECTOR3
 
 	case cObjectManager::MONSTER_FOX01:
 	{
-
 		pCreateMonster = cPlayer::Create();
 		pCreateMonster->Setup();
 		pCreateMonster->SetupAnimationController("여우00");
-		pCreateMonster->ChangeMeshPart(cPlayer::MESH_BODY, g_pSkinnedMeshManager->GetSkinnedMesh("여우02"));
+		pCreateMonster->ChangeMeshPart(cPlayer::MESH_BODY, g_pSkinnedMeshManager->GetSkinnedMesh("여우01"));
 		pCreateMonster->RegisterAnimation(cPlayer::ANIMATION_IDLE_FRIENDLY, g_pAnimationManager->GetAnimation("여우_기본01"));
 		pCreateMonster->RegisterAnimation(cPlayer::ANIMATION_IDLE_OFFENSIVE, g_pAnimationManager->GetAnimation("여우_기본02"));
+		pCreateMonster->RegisterAnimation(cPlayer::ANIMATION_RUN_FRIENDLY, g_pAnimationManager->GetAnimation("여우_달리기01"));
 		pCreateMonster->RegisterAnimation(cPlayer::ANIMATION_RUN_OFFENSIVE, g_pAnimationManager->GetAnimation("여우_달리기01"));
 		pCreateMonster->RegisterAnimation(cPlayer::ANIMATION_ATTACK_01, g_pAnimationManager->GetAnimation("여우_공격01"));
 		pCreateMonster->RegisterAnimation(cPlayer::ANIMATION_ATTACK_02, g_pAnimationManager->GetAnimation("여우_공격01"));
+		pCreateMonster->RegisterAnimation(cPlayer::ANIMATION_HIT_01, g_pAnimationManager->GetAnimation("여우_피격01"));
+		pCreateMonster->RegisterAnimation(cPlayer::ANIMATION_HIT_02, g_pAnimationManager->GetAnimation("여우_피격02"));
 		pCreateMonster->GetAbilityParamter()->SetPlayerID(2);
 		pCreateMonster->GetAbilityParamter()->SetUnitID(1);
 		pCreateMonster->OrderFriendly();
