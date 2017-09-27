@@ -41,14 +41,14 @@ void cUiTestScene::SetupInfoUi(void)
 	m_pInfoUiImage->m_Alpha = 180;
 	m_pInfoUi->AddChild(m_pInfoUiImage);
 	//닫기 버튼
-	m_pInfoCloseButton = cUIButton::Create();
-	m_pInfoCloseButton->SetTexture("Texture/Ui/button_close_up.png"
-		, "Texture/Ui/button_close_over.png", "Texture/Ui/button_close_up.png");
-	m_pInfoCloseButton->SetPosition(290, 10);
-	m_pInfoCloseButton->SetDelegate(this);
-	m_pInfoCloseButton->SetTag(E_BUTTON_INFO_CLOSE);
-	m_pInfoCloseButton->m_Alpha = 180;
-	m_pInfoUi->AddChild(m_pInfoCloseButton);
+//	m_pInfoCloseButton = cUIButton::Create();
+//	m_pInfoCloseButton->SetTexture("Texture/Ui/button_close_up.png"
+//		, "Texture/Ui/button_close_over.png", "Texture/Ui/button_close_up.png");
+//	m_pInfoCloseButton->SetPosition(290, 10);
+//	m_pInfoCloseButton->SetDelegate(this);
+//	m_pInfoCloseButton->SetTag(E_BUTTON_INFO_CLOSE);
+//	m_pInfoCloseButton->m_Alpha = 180;
+//	m_pInfoUi->AddChild(m_pInfoCloseButton);
 
 	//택스트
 	m_pInfoUiText = cUITextView::Create();
