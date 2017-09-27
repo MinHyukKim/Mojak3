@@ -30,6 +30,14 @@ cMapTerrain* cMapManager::RegisterMap(IN LPCSTR szKeyName, IN LPCSTR szHeightMap
 	return this->RegisterMap(szKeyName, szHeightMapName, &stMaterial, pScale);
 }
 
+cMapTerrain* cMapManager::RegisterMap(IN LPCSTR szKeyName, IN LPCSTR szHeightMapName, IN LPCSTR szTextureKey, IN D3DMATERIAL9* pColor, IN LPD3DXVECTOR3 pScale)
+{
+	D3DXMATERIAL stMaterial;
+	stMaterial.MatD3D =  *pColor;
+	stMaterial.pTextureFilename = (LPSTR)szTextureKey;
+	return this->RegisterMap(szKeyName, szHeightMapName, &stMaterial, pScale);
+}
+
 cMapTerrain* cMapManager::GetMapTerrain(IN LPCSTR szKeyName)
 {
 	if (m_mapTerrain.find(szKeyName) == m_mapTerrain.end()) return nullptr;

@@ -58,6 +58,8 @@ public:
 		ANIMATION_ATTACK_02,
 		ANIMATION_HIT_01,
 		ANIMATION_HIT_02,
+		ANIMATION_ENDURE_01,
+		ANIMATION_ENDURE_02,
 		ANIMATION_TEST1,
 		ANIMATION_TEST2,
 		ANIMATION_TEST3,
@@ -150,6 +152,7 @@ public:
 	void OrderIdenChange(void);
 	void OrderWalk(LPD3DXVECTOR3 pTo);
 	void OrderMove(LPD3DXVECTOR3 pTo);
+	void OrderBackMove(LPD3DXVECTOR3 pTo);
 	void OrderAttack(cPlayer* pTarget);
 
 	//애니메이션 함수
@@ -195,7 +198,6 @@ public:
 
 
 	//액션 인공지능 함수
-
 	void PlayerToTarget(float fRange);	//타겟변경
 	void TargetView(void) { this->SetDirection(&(m_pTarget->GetPosition() - this->GetPosition()));}
 	void AutoTarget(float fRange);	//타겟변경

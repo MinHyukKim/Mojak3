@@ -11,6 +11,7 @@ private:
 public:
 	cMapTerrain* RegisterMap(IN LPCSTR szKeyName, IN LPCSTR szHeightMapName, IN LPD3DXMATERIAL pMaterial, IN LPD3DXVECTOR3 pScale = &D3DXVECTOR3(1.0f, 16.0f, 1.0f));
 	cMapTerrain* RegisterMap(IN LPCSTR szKeyName, IN LPCSTR szHeightMapName, IN LPCSTR szTextureKey, IN LPD3DXCOLOR pColor, IN LPD3DXVECTOR3 pScale = &D3DXVECTOR3(1.0f, 16.0f, 1.0f));
+	cMapTerrain* RegisterMap(IN LPCSTR szKeyName, IN LPCSTR szHeightMapName, IN LPCSTR szTextureKey, IN D3DMATERIAL9* pColor, IN LPD3DXVECTOR3 pScale = &D3DXVECTOR3(1.0f, 16.0f, 1.0f));
 	cMapTerrain* GetMapTerrain(IN LPCSTR szKeyName);
 
 	void Destroy(void);
