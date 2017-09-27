@@ -25,9 +25,11 @@ cMainGame::~cMainGame(void)
 	g_pTexture->Destroy();
 	g_pFontManager->Destroy();
 	g_pSkinnedMeshManager->Destroy();
+	g_pMapObjectManager->Destroy();
 
 	g_pAutoRelasePool->Destroy();
 	g_pDeviceManager->Destroy();
+
 }
 
 

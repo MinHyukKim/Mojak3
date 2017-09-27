@@ -88,7 +88,7 @@ void cMapToolScene::Reset(void)
 	//SAFE_DELETE(m_pBuild);
 	//SAFE_RELEASE(m_pSkybox);
 
-	g_pMapObjectManager->Destroy();
+	//g_pMapObjectManager->Destroy();
 
 
 }
