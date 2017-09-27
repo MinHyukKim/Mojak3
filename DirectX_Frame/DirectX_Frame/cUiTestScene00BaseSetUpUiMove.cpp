@@ -450,7 +450,7 @@ void cUiTestScene::MoveUiWindow(void)
 		m_pQuestUiImageHead->SetPosition(queX, queY);
 	}
 
-	//¹«ºù
-
+	//ÅÆ ¹«ºù
+	
 
 }

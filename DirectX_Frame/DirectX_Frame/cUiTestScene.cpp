@@ -87,13 +87,14 @@ cUiTestScene::cUiTestScene(void)
 	, m_nMainStaminaY(23)
 	, m_nMainEXPx(160)
 	, m_nMainEXPy(20)
-	, m_eEquipTorso(E_TORSO_WEAR_03)
+	, m_eEquipTorso(E_TORSO_WEAR_01)
 	, m_eEquipShoes(E_SHOES_EMPTY)
 	, m_eEquipWeaponHand(E_WEAPON_EMPTY)
+	, m_nItemMax(3)
 {
 	D3DXMatrixIdentity(&m_matWorldMatrix);
-	m_vecTempPlayerItem.resize(60);
-	m_vecInventoryUiBlock.resize(100);
+	m_vecTempPlayerItem.resize(INVMAX);
+	m_vecInventoryUiBlock.resize(INVMAX);
 }
 
 cUiTestScene::~cUiTestScene(void)
@@ -274,52 +275,9 @@ void cUiTestScene::Update(void)
 	}
 
 	if (m_pUiTestRoot) m_pUiTestRoot->Update();
-
-	//매쉬 변경 테스트
-	switch (m_eEquipTorso)
-	{
-		case E_TORSO_EMPTY:
-		{
-			g_pObjectManager->GetPlayer()->ChangeMeshPart(cPlayer::MESH_BODY, g_pSkinnedMeshManager->GetSkinnedMesh("바디00"));
-		}
-		break;
-		case E_TORSO_WEAR_01:
-		{
-			g_pObjectManager->GetPlayer()->ChangeMeshPart(cPlayer::MESH_BODY, g_pSkinnedMeshManager->GetSkinnedMesh("바디01"));
-		}
-		break;
-		case E_TORSO_WEAR_02:
-		{
-			g_pObjectManager->GetPlayer()->ChangeMeshPart(cPlayer::MESH_BODY, g_pSkinnedMeshManager->GetSkinnedMesh("바디02"));
-		}
-		break;
-		case E_TORSO_WEAR_03:
-		{
-			g_pObjectManager->GetPlayer()->ChangeMeshPart(cPlayer::MESH_BODY, g_pSkinnedMeshManager->GetSkinnedMesh("바디03"));
-		}
-		break;
-	}
-
-	switch (m_eEquipShoes)
-	{
-		case E_SHOES_EMPTY:
-		{
-			g_pObjectManager->GetPlayer()->ChangeMeshPart(cPlayer::MESH_SHOES, g_pSkinnedMeshManager->GetSkinnedMesh("신발00"));
-		}
-		break;
-		case E_SHOES_01:
-		{
-			g_pObjectManager->GetPlayer()->ChangeMeshPart(cPlayer::MESH_SHOES, g_pSkinnedMeshManager->GetSkinnedMesh("신발00"));
-		}
-		break;
-	}
-
-	switch (m_eEquipWeaponHand)
-	{
-		default:
-		break;
-	}
-
+	//매쉬 변경
+	this->changePlayerMesh();
+//	m_vecTempPlayerItem.resize(INVMAX);
 }
 
 void cUiTestScene::Render(void)

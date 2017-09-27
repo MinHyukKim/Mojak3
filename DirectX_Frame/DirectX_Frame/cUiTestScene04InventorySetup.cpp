@@ -129,6 +129,75 @@ void cUiTestScene::SetupInventoryUi(void)
 //		m_vecInventoryUiBlock[y * 6 + x]->SetTag(E_BUTTON_NONE);
 //		m_pInventoryUi->AddChild(m_vecInventoryUiBlock[y * 6 + x]);
 //	}
+////퀘스트 창
+//	m_pQuestUiImage = cUIButton::Create();
+//	m_pQuestUiImage->SetTexture("Texture/Ui/Base.png"
+//		, "Texture/Ui/Base.png", "Texture/Ui/Base.png");
+//	m_pQuestUiImage->SetPosition(2, 48);
+//	m_pQuestUiImage->SetDelegate(this);
+//	m_pQuestUiImage->m_Alpha = 180;
+//	m_pQuestUiImage->SetTag(E_BUTTON_NONE);
+//	m_pQuestUi->AddChild(m_pQuestUiImage);
 
+	//추후 아이탬 추가 함수 따로 만들기
+	for (int i = 0; i < m_vecTempPlayerItem.size(); i++)
+	{
+		m_vecTempPlayerItem[0] = cUIButton::Create();
+		m_vecTempPlayerItem[0]->SetTexture("Texture/Ui/testItem1-1.png"
+			,"Texture/Ui/testItem1-1.png", "Texture/Ui/testItem1-1.png" );
+		m_vecTempPlayerItem[0]->SetPosition(60, 147);
+		m_vecTempPlayerItem[0]->SetDelegate(this);
+		//	m_vecTempPlayerItem[0]->m_Alpha = 180;
+		//	m_vecTempPlayerItem[0]->SetTag(E_ITEM_WEAR1);
+		m_pInventoryUi->AddChild(m_vecTempPlayerItem[0]);
+
+		m_vecTempPlayerItem[1] = cUIButton::Create();
+		m_vecTempPlayerItem[1]->SetTexture("Texture/Ui/testItem1-2.png"
+			, "Texture/Ui/testItem1-2.png", "Texture/Ui/testItem1-2.png");
+		m_vecTempPlayerItem[1]->SetPosition(160, 90);
+		m_vecTempPlayerItem[1]->SetDelegate(this);
+		//	m_vecTempPlayerItem[0]->m_Alpha = 180;
+		//	m_vecTempPlayerItem[0]->SetTag(E_ITEM_WEAR1);
+		m_pInventoryUi->AddChild(m_vecTempPlayerItem[1]);
+
+		m_vecTempPlayerItem[2] = cUIButton::Create();
+		m_vecTempPlayerItem[2]->SetTexture("Texture/Ui/testItem1-3.png"
+			, "Texture/Ui/testItem1-3.png", "Texture/Ui/testItem1-3.png");
+		m_vecTempPlayerItem[2]->SetPosition(160 + 48, 90);
+		m_vecTempPlayerItem[2]->SetDelegate(this);
+		//	m_vecTempPlayerItem[2]->m_Alpha = 180;
+		//	m_vecTempPlayerItem[2]->SetTag(E_ITEM_WEAR1);
+		m_pInventoryUi->AddChild(m_vecTempPlayerItem[2]);
+	}
+
+//	for (int i = 0; i < INVMAX; i++)
+//	{
+//		m_pTempPlayerItemArr[0] = cUIButton::Create();
+//		m_pTempPlayerItemArr[0]->SetTexture("Texture/Ui/testItem1-1.png"
+//			, "Texture/Ui/testItem1-1.png", "Texture/Ui/testItem1-1.png");
+//		m_pTempPlayerItemArr[0]->SetPosition(60, 147);
+//		m_pTempPlayerItemArr[0]->SetDelegate(this);
+//		//	m_vecTempPlayerItem[0]->m_Alpha = 180;
+//		//	m_vecTempPlayerItem[0]->SetTag(E_ITEM_WEAR1);
+//		m_pInventoryUi->AddChild(m_pTempPlayerItemArr[0]);
+//
+//		m_pTempPlayerItemArr[1] = cUIButton::Create();
+//		m_pTempPlayerItemArr[1]->SetTexture("Texture/Ui/testItem1-2.png"
+//			, "Texture/Ui/testItem1-2.png", "Texture/Ui/testItem1-2.png");
+//		m_pTempPlayerItemArr[1]->SetPosition(160, 90);
+//		m_pTempPlayerItemArr[1]->SetDelegate(this);
+//		//	m_vecTempPlayerItem[0]->m_Alpha = 180;
+//		//	m_vecTempPlayerItem[0]->SetTag(E_ITEM_WEAR1);
+//		m_pInventoryUi->AddChild(m_pTempPlayerItemArr[1]);
+//
+//		m_pTempPlayerItemArr[2] = cUIButton::Create();
+//		m_pTempPlayerItemArr[2]->SetTexture("Texture/Ui/testItem1-3.png"
+//			, "Texture/Ui/testItem1-3.png", "Texture/Ui/testItem1-3.png");
+//		m_pTempPlayerItemArr[2]->SetPosition(160 + 48, 90);
+//		m_pTempPlayerItemArr[2]->SetDelegate(this);
+//		//	m_vecTempPlayerItem[2]->m_Alpha = 180;
+//		//	m_vecTempPlayerItem[2]->SetTag(E_ITEM_WEAR1);
+//		m_pInventoryUi->AddChild(m_pTempPlayerItemArr[2]);
+//	}
 
 }

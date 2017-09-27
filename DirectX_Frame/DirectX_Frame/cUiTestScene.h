@@ -3,6 +3,7 @@
 #include "cUIButton.h"
 #include "cAbilityParamter.h"
 
+#define INVMAX 60
 
 //태스트
 class cFont;
@@ -221,8 +222,8 @@ private:
 	cUIButton* m_pInventoryCloseButton;		//닫기 버튼
 	cUITextView* m_pInventoryUiText;		//불변 택스트
 	//칸 수
-	vector<cUIButton*> m_vecInventoryUiBlock;	//인벤토리 칸(백터)
-	cUIButton* m_pInventoryUiBlock[60];			//인벤토리 칸(소지품)
+	vector<cUIButton*> m_vecInventoryUiBlock;	//인벤토리 칸(백터)(x)
+	cUIButton* m_pInventoryUiBlock[INVMAX];			//인벤토리 칸(소지품)
 	cUIButton* m_pQInventoryUiButton;			//인벤 버튼
 	cUiObject* m_pInventoryUi;
 	//장비 자리 표시
@@ -274,9 +275,12 @@ private:
 	int m_nTempMagicProtect;		//마법보호
 	int m_nTempArmorPiercing;		//방관
 
-	std::vector<cUIButton*> m_vecTempItem;
-	std::vector<cUIButton*> m_vecTempBsg;
+	//std::vector<cUIButton*> m_vecTempItem;
+	//std::vector<cUIButton*> m_vecTempBsg;
 	std::vector<cUIButton*> m_vecTempPlayerItem;
+	int m_nItemMax;
+	cUIButton* m_pTempPlayerItemArr[INVMAX];
+
 
 	//어빌리티
 	cAbilityParamter m_AbilityParamter;
@@ -302,6 +306,8 @@ public:
 	void changeMainButtonColor(void);
 	//인벤토리 이미지 변경 함수
 	void changeInventoryImage(void);
+	//매쉬 변경 함수
+	void changePlayerMesh(void);
 
 	//ui 열림 주고 받기용
 	bool GetInfoOnOff(void) { return m_isInfoWindowOn; }
