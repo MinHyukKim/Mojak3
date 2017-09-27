@@ -49,5 +49,13 @@ void cUiTestScene::SetupQuestUi(void)
 	m_pQuestUiText->SetDrawTextFormat(DT_CENTER | DT_VCENTER | DT_WORDBREAK);
 	m_pQuestUiText->SetTag(E_BUTTON_NONE);
 	m_pQuestUi->AddChild(m_pQuestUiText);
-
+	//´Ý±â ¹öÆ°
+//	m_pQuestCloseButton = cUIButton::Create();
+//	m_pQuestCloseButton->SetTexture("Texture/Ui/button_close_up.png"
+//		, "Texture/Ui/button_close_over.png", "Texture/Ui/button_close_up.png");
+//	m_pQuestCloseButton->SetPosition(290, 10);
+//	m_pQuestCloseButton->SetDelegate(this);
+//	m_pQuestCloseButton->SetTag(E_BUTTON_QUEST_CLOSE);
+//	m_pQuestCloseButton->m_Alpha = 180;
+//	m_pQuestUi->AddChild(m_pQuestCloseButton);
 }

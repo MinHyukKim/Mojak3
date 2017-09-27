@@ -8,7 +8,7 @@
 //"cUiCustomizingScene",
 //"cLodingScene", 
 
-#define NEXT_SCENE "cUiCustomizingScene"
+#define NEXT_SCENE "cMapToolScene"
 
 class cDataLoder;
 class cImage;

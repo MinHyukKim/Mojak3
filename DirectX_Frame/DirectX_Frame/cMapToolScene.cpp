@@ -9,6 +9,7 @@
 #include "cMapObject.h"
 #include "cGrid.h"
 #include "cBuilding.h"
+#include "cSkybox.h"
 
 cMapToolScene::cMapToolScene(void)
 	: m_pCamera(NULL)
@@ -30,8 +31,9 @@ HRESULT cMapToolScene::Setup(void)
 {
 	m_pCamera = cCamera::Create();
 	m_pCamera->Setup();
-	m_pCamera->SetCameraType(cCamera::E_LANDOBJECT);
-	
+	m_pCamera->SetCameraType(cCamera::E_AIRCRAFT);
+	m_pCamera->UpdateProjection(0.1f);
+
 
 	SetMatrial(&m_stMtl.MatD3D);
 	m_stMtl.pTextureFilename = "./Texture/steppegrass01_only.dds";
@@ -67,6 +69,12 @@ HRESULT cMapToolScene::Setup(void)
 	g_pMapObjectManager->AppendBuilding(m_pBuild);
 	g_pMapObjectManager->AppendBuilding(g_pMapObjectManager->GetMapObject("church"));
 
+	m_pSkybox = cSkybox::Create();
+	m_pSkybox->Setup(".\\skyboxMap\\vanilla_sky_frost_up.jpg", ".\\skyboxMap\\vanilla_sky_frost_dn.jpg",
+		".\\skyboxMap\\vanilla_sky_frost_lf.jpg", ".\\skyboxMap\\vanilla_sky_frost_rt.jpg",
+		".\\skyboxMap\\vanilla_sky_frost_ft.jpg", ".\\skyboxMap\\vanilla_sky_frost_bk.jpg");
+
+
 	return S_OK;
 }
 
@@ -78,6 +86,8 @@ void cMapToolScene::Reset(void)
 	SAFE_RELEASE(m_pGrid);
 	//if (m_pBuild) m_pBuild->Destroy();
 	//SAFE_DELETE(m_pBuild);
+	//SAFE_RELEASE(m_pSkybox);
+
 	g_pMapObjectManager->Destroy();
 
 
@@ -92,6 +102,8 @@ void cMapToolScene::Update(void)
 	//m_pMapTerrain->GetHeight(&test_build_height, m_pBuild->GetPosX(), m_pBuild->GetPosZ());
 	//m_pBuild->SetPosY(test_build_height);
 	
+	m_pSkybox->Update(*m_pCamera->GetPosition());
+
 	//테스트용 전역변수 필히 삭제
 	static bool g_TestToggle = false;
 
@@ -135,7 +147,7 @@ void cMapToolScene::Update(void)
 
 	if (g_pInputManager->IsStayKeyDown('K'))
 	{
-		g_pMapObjectManager->GetLastMapObject()->SetPosY(
+		g_pMapObjectManager->GetLastMapObject()->SetOffsetY(
 			g_pMapObjectManager->GetLastMapObject()->GetOffsetY() - g_pTimeManager->GetElapsedTime());
 	}
 
@@ -199,6 +211,7 @@ void cMapToolScene::Render(void)
 	//테스트용
 	g_pD3DDevice->SetTexture(0, m_pTexture);
 	g_pD3DDevice->SetMaterial(&m_stMtl.MatD3D);
+	SAFE_RENDER(m_pSkybox);
 	SAFE_RENDER(m_pMapTerrain);
 	SAFE_RENDER(m_pGrid);
 
@@ -206,6 +219,7 @@ void cMapToolScene::Render(void)
 	g_pMapObjectManager->Render();
 
 }
+
 
 cMapToolScene* cMapToolScene::Create(void)
 {
