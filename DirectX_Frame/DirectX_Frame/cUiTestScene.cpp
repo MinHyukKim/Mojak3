@@ -88,7 +88,7 @@ cUiTestScene::cUiTestScene(void)
 	, m_nMainEXPx(160)
 	, m_nMainEXPy(20)
 	, m_eEquipTorso(E_TORSO_WEAR_03)
-	, m_eEquipShoes(E_SHOES_01)
+	, m_eEquipShoes(E_SHOES_EMPTY)
 	, m_eEquipWeaponHand(E_WEAPON_EMPTY)
 {
 	D3DXMatrixIdentity(&m_matWorldMatrix);
@@ -275,34 +275,12 @@ void cUiTestScene::Update(void)
 
 	if (m_pUiTestRoot) m_pUiTestRoot->Update();
 
-
-	//switch (m_eCustomizingTab)
-	//{
-	//case E_CUSTOM_HAIR:
-	//{
-	//	if (m_pCustomHairUi) m_pCustomHairUi->Render(m_pSprite);
-	//	if (m_pCustomColorUi) m_pCustomColorUi->Render(m_pSprite);
-	//}
-	//break;
-	//case E_CUSTOM_EYE:
-	//{
-	//	if (m_pCustomEyeUi) m_pCustomEyeUi->Render(m_pSprite);
-	//	if (m_pCustomColorUi) m_pCustomColorUi->Render(m_pSprite);
-	//}
-	//break;
-	//case E_CUSTOM_MOUTH:
-	//{
-	//	if (m_pCustomMouthUi) m_pCustomMouthUi->Render(m_pSprite);
-	//}
-	//break;
-	//}
-
 	//매쉬 변경 테스트
 	switch (m_eEquipTorso)
 	{
 		case E_TORSO_EMPTY:
 		{
-			g_pObjectManager->GetPlayer()->ChangeMeshPart(cPlayer::MESH_BODY, g_pSkinnedMeshManager->GetSkinnedMesh("바디01"));
+			g_pObjectManager->GetPlayer()->ChangeMeshPart(cPlayer::MESH_BODY, g_pSkinnedMeshManager->GetSkinnedMesh("바디00"));
 		}
 		break;
 		case E_TORSO_WEAR_01:
@@ -324,13 +302,21 @@ void cUiTestScene::Update(void)
 
 	switch (m_eEquipShoes)
 	{
-	default:
+		case E_SHOES_EMPTY:
+		{
+			g_pObjectManager->GetPlayer()->ChangeMeshPart(cPlayer::MESH_SHOES, g_pSkinnedMeshManager->GetSkinnedMesh("신발00"));
+		}
+		break;
+		case E_SHOES_01:
+		{
+			g_pObjectManager->GetPlayer()->ChangeMeshPart(cPlayer::MESH_SHOES, g_pSkinnedMeshManager->GetSkinnedMesh("신발00"));
+		}
 		break;
 	}
 
 	switch (m_eEquipWeaponHand)
 	{
-	default:
+		default:
 		break;
 	}
 
