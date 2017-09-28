@@ -17,6 +17,7 @@ cMapToolScene::cMapToolScene(void)
 	, m_pBuild(NULL)
 	, m_pTexture(NULL)
 	, m_pGrid(NULL)
+	, m_pSkybox(nullptr)
 {
 	//테스트용
 	//m_pMapObject = NULL;
@@ -38,8 +39,8 @@ HRESULT cMapToolScene::Setup(void)
 	SetMatrial(&m_stMtl.MatD3D);
 	m_stMtl.pTextureFilename = "./Texture/steppegrass01_only.dds";
 
-	m_pMapTerrain = cMapTerrain::Create();
-	m_pMapTerrain->Setup("./HeightMapData/HeightMap.raw", &m_stMtl);
+//	m_pMapTerrain = cMapTerrain::Create();
+//	m_pMapTerrain->Setup("./HeightMapData/HeightMap.raw", &m_stMtl);
 
 	//테스트용
 	m_pGrid = cGrid::Create();
@@ -74,10 +75,10 @@ HRESULT cMapToolScene::Setup(void)
 
 	//g_pMapObjectManager->AppendBuilding(g_pMapObjectManager->GetMapObject("church"));
 
-	m_pSkybox = cSkybox::Create();
-	m_pSkybox->Setup(".\\skyboxMap\\vanilla_sky_frost_up.jpg", ".\\skyboxMap\\vanilla_sky_frost_dn.jpg",
-		".\\skyboxMap\\vanilla_sky_frost_lf.jpg", ".\\skyboxMap\\vanilla_sky_frost_rt.jpg",
-		".\\skyboxMap\\vanilla_sky_frost_ft.jpg", ".\\skyboxMap\\vanilla_sky_frost_bk.jpg");
+//	m_pSkybox = cSkybox::Create();
+//	m_pSkybox->Setup(".\\skyboxMap\\vanilla_sky_frost_up.jpg", ".\\skyboxMap\\vanilla_sky_frost_dn.jpg",
+//		".\\skyboxMap\\vanilla_sky_frost_lf.jpg", ".\\skyboxMap\\vanilla_sky_frost_rt.jpg",
+//		".\\skyboxMap\\vanilla_sky_frost_ft.jpg", ".\\skyboxMap\\vanilla_sky_frost_bk.jpg");
 
 
 	return S_OK;
@@ -89,8 +90,6 @@ void cMapToolScene::Reset(void)
 	//테스트용
 	SAFE_RELEASE(m_pMapTerrain);
 	SAFE_RELEASE(m_pGrid);
-	if (m_pBuild) m_pBuild->Destroy();
-	SAFE_DELETE(m_pBuild);
 	SAFE_RELEASE(m_pSkybox);
 
 	//g_pMapObjectManager->Destroy();
@@ -107,7 +106,7 @@ void cMapToolScene::Update(void)
 	//m_pMapTerrain->GetHeight(&test_build_height, m_pBuild->GetPosX(), m_pBuild->GetPosZ());
 	//m_pBuild->SetPosY(test_build_height);
 	
-	m_pSkybox->Update(*m_pCamera->GetPosition());
+	if (m_pSkybox) m_pSkybox->Update(*m_pCamera->GetPosition());
 
 	//테스트용 전역변수 필히 삭제
 	static bool g_TestToggle = false;
@@ -127,97 +126,101 @@ void cMapToolScene::Update(void)
 			g_pMapObjectManager->GetLastMapObject()->SetPosZ(vTo.z);
 			g_pMapObjectManager->GetLastMapObject()->SetPosX(vTo.x);
 		}
+		g_pMapObjectManager->Get
 	}
-
-	//마지막으로 생성된 건물의 좌우 방향 변환
-	if (g_pInputManager->IsStayKeyDown('J'))
-	{
-		g_pMapObjectManager->GetLastMapObject()->SetAngleY(g_pTimeManager->GetElapsedTime());
-
-	}
-
-	if (g_pInputManager->IsStayKeyDown('L'))
-	{
-		g_pMapObjectManager->GetLastMapObject()->SetAngleY(-g_pTimeManager->GetElapsedTime());
-
-	}
-	//상하이동
-	if (g_pInputManager->IsStayKeyDown('I'))
-	{
-		//g_pMapObjectManager->GetLastMapObject()->SetPosY(
-		//	g_pMapObjectManager->GetLastMapObject()->GetPosY()+ 1.f);
-		g_pMapObjectManager->GetLastMapObject()->SetOffsetY(
-			g_pMapObjectManager->GetLastMapObject()->GetOffsetY()+g_pTimeManager->GetElapsedTime());
-	}
-
-	if (g_pInputManager->IsStayKeyDown('K'))
-	{
-		g_pMapObjectManager->GetLastMapObject()->SetOffsetY(
-			g_pMapObjectManager->GetLastMapObject()->GetOffsetY() - g_pTimeManager->GetElapsedTime());
-	}
-
-	//static float scaleTest = 1.0f;
-	//축소 확대기능
-	if (g_pInputManager->IsStayKeyDown('U'))
-	{
-		g_pMapObjectManager->GetLastMapObject()->SetScale(0.9f);
-	}
-	if (g_pInputManager->IsStayKeyDown('O'))
-	{
-		g_pMapObjectManager->GetLastMapObject()->SetScale(1.1f);
-	}
-
-	if (g_pInputManager->IsOnceKeyDown(VK_RBUTTON))
-	{
-		g_pMapObjectManager->PopMapObject();
-	}
-
-
+//
+//	//마지막으로 생성된 건물의 좌우 방향 변환
+//	if (g_pInputManager->IsStayKeyDown('J'))
+//	{
+//		g_pMapObjectManager->GetLastMapObject()->SetAngleY(g_pTimeManager->GetElapsedTime());
+//
+//	}
+//
+//	if (g_pInputManager->IsStayKeyDown('L'))
+//	{
+//		g_pMapObjectManager->GetLastMapObject()->SetAngleY(-g_pTimeManager->GetElapsedTime());
+//
+//	}
+//	//상하이동
+//	if (g_pInputManager->IsStayKeyDown('I'))
+//	{
+//		//g_pMapObjectManager->GetLastMapObject()->SetPosY(
+//		//	g_pMapObjectManager->GetLastMapObject()->GetPosY()+ 1.f);
+//		g_pMapObjectManager->GetLastMapObject()->SetOffsetY(
+//			g_pMapObjectManager->GetLastMapObject()->GetOffsetY()+g_pTimeManager->GetElapsedTime());
+//	}
+//
+//	if (g_pInputManager->IsStayKeyDown('K'))
+//	{
+//		g_pMapObjectManager->GetLastMapObject()->SetOffsetY(
+//			g_pMapObjectManager->GetLastMapObject()->GetOffsetY() - g_pTimeManager->GetElapsedTime());
+//	}
+//
+//	//static float scaleTest = 1.0f;
+//	//축소 확대기능
+//	if (g_pInputManager->IsStayKeyDown('U'))
+//	{
+//		g_pMapObjectManager->GetLastMapObject()->SetScale(0.9f);
+//	}
+//	if (g_pInputManager->IsStayKeyDown('O'))
+//	{
+//		g_pMapObjectManager->GetLastMapObject()->SetScale(1.1f);
+//	}
+//
+//	if (g_pInputManager->IsOnceKeyDown(VK_RBUTTON))
+//	{
+//		g_pMapObjectManager->PopMapObject();
+//	}
+//
+//
 	if (g_pInputManager->IsStayKeyDown('1'))
 	{
-		if (g_TestToggle == false)
-		{
-			g_TestToggle = true;
-			//g_pMapObjectManager->PopMapObject();
-			m_pBuild = g_pMapObjectManager->getMapObjectRotation();
-			m_pBuild->Setup();
-			g_pMapObjectManager->AppendBuilding(m_pBuild);
-		}
-		else
-		{
-			g_pMapObjectManager->PopMapObject();
-			m_pBuild = g_pMapObjectManager->getMapObjectRotation();
-			m_pBuild->Setup();
-			g_pMapObjectManager->AppendBuilding(m_pBuild);
-
-		}
+		g_pMapObjectManager->getMapObjectRotation();
+		g_pMapObjectManager->cur++;
+		//if (g_TestToggle == false)
+		//{
+		//	g_TestToggle = true;
+		//	//g_pMapObjectManager->PopMapObject();
+		//	m_pBuild = g_pMapObjectManager->getMapObjectRotation();
+		//	m_pBuild->Setup();
+		//	g_pMapObjectManager->AppendBuilding(m_pBuild);
+		//}
+		//else
+		//{
+		//	g_pMapObjectManager->PopMapObject();
+		//	m_pBuild = g_pMapObjectManager->getMapObjectRotation();
+		//	g_pMapObjectManager->cur++;
+		//	m_pBuild->Setup();
+		//	g_pMapObjectManager->AppendBuilding(m_pBuild);
+		//
+		//}
 	}
-
-	if (g_pInputManager->IsStayKeyDown('2'))
-	{
-		g_TestToggle = true;
-
-		m_pBuild = new cBuilding();
-		m_pBuild->Setup();
-		m_pBuild->LoadModel("scene_building_tirchonaill_church.x");
-		m_pBuild->SetPosition(&D3DXVECTOR3(0, 0, 0));
-		g_pMapObjectManager->AppendBuilding(m_pBuild);
-
-	}
-	//변수가 토글되어있으면 마지막으로 추가된 맵오브젝트가 마우스를 따라온다
-	if (g_TestToggle)
-	{
-		D3DXVECTOR3 vTo, vOrg, vDir;
-		g_pRay->RayAtWorldSpace(&vOrg, &vDir);
-		if (m_pMapTerrain->IsCollision(&vTo, &vOrg, &vDir))
-		{
-			//건물위치 테스트용
-			g_pMapObjectManager->GetLastMapObject()->SetPosZ(vTo.z);
-			g_pMapObjectManager->GetLastMapObject()->SetPosX(vTo.x);
-		}
-	}
-
-	g_pMapObjectManager->Update(m_pMapTerrain);
+//
+//	if (g_pInputManager->IsStayKeyDown('2'))
+//	{
+//		g_TestToggle = true;
+//
+//		m_pBuild = cBuilding::Create();
+//		m_pBuild->Setup();
+//		m_pBuild->LoadModel("scene_building_tirchonaill_church.x");
+//		m_pBuild->SetPosition(&D3DXVECTOR3(0, 0, 0));
+//		g_pMapObjectManager->AppendBuilding(m_pBuild);
+//
+//	}
+//	//변수가 토글되어있으면 마지막으로 추가된 맵오브젝트가 마우스를 따라온다
+//	if (g_TestToggle)
+//	{
+//		D3DXVECTOR3 vTo, vOrg, vDir;
+//		g_pRay->RayAtWorldSpace(&vOrg, &vDir);
+//		if (m_pMapTerrain->IsCollision(&vTo, &vOrg, &vDir))
+//		{
+//			//건물위치 테스트용
+//			g_pMapObjectManager->GetLastMapObject()->SetPosZ(vTo.z);
+//			g_pMapObjectManager->GetLastMapObject()->SetPosX(vTo.x);
+//		}
+//	}
+//
+	if (m_pMapTerrain) g_pMapObjectManager->Update(m_pMapTerrain);
 
 }
      

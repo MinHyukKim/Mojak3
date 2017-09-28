@@ -24,8 +24,7 @@ LPD3DXMESH cBuilding::LoadModel(const char * filename)
 	m_pFilename = filename;
 	m_pFoldername = "";
 
-	D3DXMATERIAL* d3dxMaterials =
-		(D3DXMATERIAL*)pD3DXMtrlBuffer->GetBufferPointer();
+	D3DXMATERIAL* d3dxMaterials = (D3DXMATERIAL*)pD3DXMtrlBuffer->GetBufferPointer();
 	m_pMeshMaterials = new D3DMATERIAL9[m_dwNumMaterials];
 	m_pMeshTextures = new LPDIRECT3DTEXTURE9[m_dwNumMaterials];
 
@@ -96,6 +95,7 @@ LPD3DXMESH cBuilding::LoadModel(const char * filename)
 	DEBUG_TEXT();
 	// 이제 다 썼으니 버텍스버퍼의 락을 해제해줘야겠죠.
 	pVB->Unlock();
+	pVB->Release();
 
 	D3DXCreateBox(g_pD3DDevice, maxX - minX, maxY - minY, maxZ - minZ, &m_pBoundBox, NULL);
 	//D3DXCreateBox(g_pD3DDevice, 1, 1, 1, &m_pBoundBox, NULL);
@@ -138,14 +138,6 @@ LPD3DXMESH cBuilding::LoadModel(char * szFolder, char * szFilename)
 
 		// Set the ambient color for the material (D3DX does not do this)
 		m_pMeshMaterials[i].Ambient = m_pMeshMaterials[i].Diffuse;
-
-//		m_pMeshTextures[i] = NULL;
-//		if (d3dxMaterials[i].pTextureFilename != NULL &&
-//			strlen(d3dxMaterials[i].pTextureFilename) > 0)
-//		{
-//			D3DXCreateTextureFromFile(g_pD3DDevice, d3dxMaterials[i].pTextureFilename,
-//				&m_pMeshTextures[i]);
-//		}
 		m_pMeshTextures[i] = g_pTexture->GetTexture(d3dxMaterials[i].pTextureFilename);
 	}
 
@@ -203,6 +195,7 @@ LPD3DXMESH cBuilding::LoadModel(char * szFolder, char * szFilename)
 	DEBUG_TEXT();
 	// 이제 다 썼으니 버텍스버퍼의 락을 해제해줘야겠죠.
 	pVB->Unlock();
+	pVB->Release();
 	 
 	D3DXCreateBox(g_pD3DDevice, maxX - minX, maxY - minY, maxZ - minZ, &m_pBoundBox, NULL);
 	//D3DXCreateBox(g_pD3DDevice, 1, 1, 1, &m_pBoundBox, NULL);
@@ -277,9 +270,12 @@ cBuilding::cBuilding(void)
 
 }
 
+cBuilding::cBuilding(cBuilding* pBuilding) : cBuilding(*pBuilding)
+{
+}
+
 cBuilding::~cBuilding(void)
 {
-
 }
 
 //cBuilding* cBuilding::Create(void)
@@ -290,13 +286,14 @@ cBuilding::~cBuilding(void)
 //}
 
 
-void cBuilding::Destroy()
+void cBuilding::Destroy(void)
 {
-	//SAFE_DELETE_ARRAY(m_pMeshMaterials);
-	//SAFE_DELETE_ARRAY(m_pMeshTextures);
+	SAFE_DELETE_ARRAY(m_pMeshMaterials);
+	SAFE_DELETE_ARRAY(m_pMeshTextures);
 
-	//m_pBuild->Release();
-	//SAFE_RELEASE(m_pEffect);
+	SAFE_RELEASE(m_pBuild);
+	SAFE_RELEASE(m_pBoundBox);
+	SAFE_RELEASE(m_pEffect);
 }
 
 LPD3DXEFFECT cBuilding::LoadEffect(char * szFilename)
@@ -353,4 +350,18 @@ LPD3DXEFFECT cBuilding::LoadEffect(char * szFilename)
 	}
 
 	return pEffect;
+}
+
+cBuilding* cBuilding::Create(void)
+{
+	cBuilding* newClass = new cBuilding;
+	newClass->AddRef();
+	return newClass;
+}
+
+cBuilding * cBuilding::Create(cBuilding* pBuilding)
+{
+	cBuilding* newClass = new cBuilding(pBuilding);
+	newClass->AddRef();
+	return newClass;
 }

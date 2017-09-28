@@ -33,14 +33,16 @@ public:
 class cMapObjectManager
 {
 private:
-	std::map<std::string, cBuilding*>::iterator m_iMapBuilding;
 	std::map<std::string, cBuilding*> m_mapBuilding;
-	//std::vector<cBuilding*> m_vecBuilding;
+	std::vector<cBuilding*> m_vecBuilding;
+	cBuilding* m_pSelectBuilding;
+	D3DXVECTOR3 m_vLandPos;
+
 	cMapObjectManager(void);
 	~cMapObjectManager(void);
 
 	cMapTerrain* m_pMapTerrain;
-	cMapObjectRail* m_pMapObjects;
+//	cMapObjectRail* m_pMapObjects;
 
 public:
 	//싱글톤 생성
@@ -68,14 +70,14 @@ public:
 	bool PopMapObject();
 
 
-	void Update();
+//	void Update();
 	void Update(cMapTerrain* map);
 
 	void Render();
-
-	//현재 오브젝트들 파일로 세이브
-	void SaveCurrentObjectsState(const char* filename);
-	void LoadCurrentObjectsState(const char* filename);
+//
+//	//현재 오브젝트들 파일로 세이브
+//	void SaveCurrentObjectsState(const char* filename);
+//	void LoadCurrentObjectsState(const char* filename);
 
 	void Destroy();
 };

@@ -66,10 +66,16 @@ public:
 	void SetScale(float scale) { D3DXMatrixScaling(&m_matScale, scale, scale, scale); m_matWorld = m_matScale*m_matWorld;}
 
 	//static cBuilding* Create(void);
-	void Destroy();
+	void Destroy(void);
 
 	LPD3DXEFFECT LoadEffect(char * szFilename);
+
+	static cBuilding* Create(void);
+	static cBuilding* Create(cBuilding* pBuilding);
+
+protected:
 	cBuilding(void);
+	cBuilding(cBuilding* pBuilding);
 	virtual ~cBuilding(void);
 
 };
