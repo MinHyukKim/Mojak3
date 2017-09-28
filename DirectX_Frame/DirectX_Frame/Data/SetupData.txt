@@ -13,6 +13,7 @@ Mesh:./Chareter/Female_Hair/,hair_female_hair22_t22.X,헤어02;
 
 //기본 바디
 Mesh:./Chareter/Female_Body/,basicBody.X,바디00;
+Color:바디00,bodymap01.dds, 1.0f, 0.53f, 0.53f, 1.0f;
 
 //옷 바디01
 Mesh:./Chareter/Female_Body/,wear_female_3rd_newbie.X,바디01;

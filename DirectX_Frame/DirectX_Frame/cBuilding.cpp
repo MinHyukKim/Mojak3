@@ -21,9 +21,10 @@ LPD3DXMESH cBuilding::LoadModel(const char * filename)
 	{
 		OutputDebugString("모델 로딩 실패");
 	}
+	m_pFilename = filename;
+	m_pFoldername = "";
 
-	D3DXMATERIAL* d3dxMaterials =
-		(D3DXMATERIAL*)pD3DXMtrlBuffer->GetBufferPointer();
+	D3DXMATERIAL* d3dxMaterials = (D3DXMATERIAL*)pD3DXMtrlBuffer->GetBufferPointer();
 	m_pMeshMaterials = new D3DMATERIAL9[m_dwNumMaterials];
 	m_pMeshTextures = new LPDIRECT3DTEXTURE9[m_dwNumMaterials];
 
@@ -94,6 +95,7 @@ LPD3DXMESH cBuilding::LoadModel(const char * filename)
 	DEBUG_TEXT();
 	// 이제 다 썼으니 버텍스버퍼의 락을 해제해줘야겠죠.
 	pVB->Unlock();
+	pVB->Release();
 
 	D3DXCreateBox(g_pD3DDevice, maxX - minX, maxY - minY, maxZ - minZ, &m_pBoundBox, NULL);
 	//D3DXCreateBox(g_pD3DDevice, 1, 1, 1, &m_pBoundBox, NULL);
@@ -119,6 +121,10 @@ LPD3DXMESH cBuilding::LoadModel(char * szFolder, char * szFilename)
 	{
 		OutputDebugString("모델 로딩 실패");
 	}
+	//CopyString(&m_pFilename, sFullPath.c_str());
+	//SAFE_DELETE_ARRAY(m_pFilename);
+	m_pFilename = m_pFilename;
+	m_pFoldername = "";
 
 	D3DXMATERIAL* d3dxMaterials =
 		(D3DXMATERIAL*)pD3DXMtrlBuffer->GetBufferPointer();
@@ -132,14 +138,7 @@ LPD3DXMESH cBuilding::LoadModel(char * szFolder, char * szFilename)
 
 		// Set the ambient color for the material (D3DX does not do this)
 		m_pMeshMaterials[i].Ambient = m_pMeshMaterials[i].Diffuse;
-
-		m_pMeshTextures[i] = NULL;
-		if (d3dxMaterials[i].pTextureFilename != NULL &&
-			strlen(d3dxMaterials[i].pTextureFilename) > 0)
-		{
-			D3DXCreateTextureFromFile(g_pD3DDevice, d3dxMaterials[i].pTextureFilename,
-				&m_pMeshTextures[i]);
-		}
+		m_pMeshTextures[i] = g_pTexture->GetTexture(d3dxMaterials[i].pTextureFilename);
 	}
 
 	pD3DXMtrlBuffer->Release();  // 머티리얼 버퍼 해제
@@ -196,6 +195,7 @@ LPD3DXMESH cBuilding::LoadModel(char * szFolder, char * szFilename)
 	DEBUG_TEXT();
 	// 이제 다 썼으니 버텍스버퍼의 락을 해제해줘야겠죠.
 	pVB->Unlock();
+	pVB->Release();
 	 
 	D3DXCreateBox(g_pD3DDevice, maxX - minX, maxY - minY, maxZ - minZ, &m_pBoundBox, NULL);
 	//D3DXCreateBox(g_pD3DDevice, 1, 1, 1, &m_pBoundBox, NULL);
@@ -252,6 +252,7 @@ void cBuilding::Render(void)
 cBuilding::cBuilding(void)
 	:m_pBuild(NULL)
 	, m_pEffect(NULL)
+	, m_pMaterials(nullptr)
 	, m_pMeshMaterials(NULL)
 	, m_pMeshTextures(NULL)
 	, m_dwNumMaterials(0)
@@ -260,6 +261,8 @@ cBuilding::cBuilding(void)
 	, angleZ(0.0f)
 	, m_fOffsetY(0.0f)
 	, m_pBoundBox(NULL)
+	, m_pFilename("")
+	, m_pFoldername("")
 {
 	D3DXMatrixIdentity(&m_matWorld);
 	D3DXMatrixIdentity(&m_matRot);
@@ -267,9 +270,12 @@ cBuilding::cBuilding(void)
 
 }
 
+cBuilding::cBuilding(cBuilding* pBuilding) : cBuilding(*pBuilding)
+{
+}
+
 cBuilding::~cBuilding(void)
 {
-
 }
 
 //cBuilding* cBuilding::Create(void)
@@ -280,18 +286,14 @@ cBuilding::~cBuilding(void)
 //}
 
 
-void cBuilding::Destroy()
+void cBuilding::Destroy(void)
 {
-	//계별적으로 관리함
-	for (int i = 0; i < m_dwNumMaterials; i++)
-	{
-		//SAFE_RELEASE(m_pMeshTextures[i]);
-	}
-	//SAFE_DELETE_ARRAY(m_pMeshMaterials);
-	//SAFE_DELETE_ARRAY(m_pMeshTextures);
+	SAFE_DELETE_ARRAY(m_pMeshMaterials);
+	SAFE_DELETE_ARRAY(m_pMeshTextures);
 
-	//m_pBuild->Release();
-	//SAFE_RELEASE(m_pEffect);
+	SAFE_RELEASE(m_pBuild);
+	SAFE_RELEASE(m_pBoundBox);
+	SAFE_RELEASE(m_pEffect);
 }
 
 LPD3DXEFFECT cBuilding::LoadEffect(char * szFilename)
@@ -348,4 +350,18 @@ LPD3DXEFFECT cBuilding::LoadEffect(char * szFilename)
 	}
 
 	return pEffect;
+}
+
+cBuilding* cBuilding::Create(void)
+{
+	cBuilding* newClass = new cBuilding;
+	newClass->AddRef();
+	return newClass;
+}
+
+cBuilding * cBuilding::Create(cBuilding* pBuilding)
+{
+	cBuilding* newClass = new cBuilding(pBuilding);
+	newClass->AddRef();
+	return newClass;
 }
