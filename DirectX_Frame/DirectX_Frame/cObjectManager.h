@@ -16,6 +16,8 @@ public:
 		MONSTER_NULL,
 		MONSTER_TEXTER,
 		MONSTER_FOX01,
+		MONSTER_FOX02,
+		MONSTER_FOX03,
 	};
 private:
 	cPlayer* m_pPlayer;

@@ -172,10 +172,8 @@ struct ST_BONE : public D3DXFRAME
 		D3DXMatrixIdentity(&TransformationMatrix);
 		D3DXMatrixIdentity(&CombinedTransformationMatrix);
 	}
-	ST_BONE(ST_BONE* pOrigin) : D3DXFRAME(*pOrigin)
-	{
-		CombinedTransformationMatrix = pOrigin->CombinedTransformationMatrix;
-	}
+
+	ST_BONE(ST_BONE* pOrigin) : ST_BONE(*pOrigin) {}
 };
 
 //기본 메시컨테이너
@@ -201,6 +199,7 @@ struct ST_BONE_MESH : public D3DXMESHCONTAINER
 		, pBufBoneCombos(nullptr), dwNumPaletteEntries(0), dwMaxNumFaceInfls(0), dwNumAttrGroups(0)
 	{
 	}
+	ST_BONE_MESH(ST_BONE_MESH* pBoneMesh) : ST_BONE_MESH(*pBoneMesh) {}
 };
 
 //데이터

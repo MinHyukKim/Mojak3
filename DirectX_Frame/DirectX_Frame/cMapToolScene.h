@@ -24,17 +24,15 @@ private:
 	cBuilding* m_pBuild;
 	cSkybox*	m_pSkybox;
 
+	vector<char*> m_vecObjectList;
+
 
 public:
 	virtual HRESULT Setup(void) override;
 	virtual void Reset(void) override;
 	virtual void Update(void) override;
 	virtual void Render(void) override;
-
-
-
-
-
+	
 	static cMapToolScene* Create(void);
 protected:
 	cMapToolScene(void);

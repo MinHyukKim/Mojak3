@@ -23,6 +23,8 @@ private:
 	//SYNTHESIZE(ST_SPHERE, m_stSphere, BoundingSphere);
 
 public:
+	void HalfClone(void);
+	void HalfDestroy(void);
 
 	LPD3DXFRAME GetRootFrame(void) { return (LPD3DXFRAME)m_pRootFrame; }
 
@@ -72,6 +74,8 @@ private:
 	void _Render(ST_BONE* pBone = NULL);
 	void ShaderRender(ST_BONE* pBone = NULL);
 	void SetupBoneMatrixPtrs(ST_BONE* pBone);
+	void _HalfClone(LPD3DXFRAME* ppRoot);
+	void _HalfDestroy(LPD3DXFRAME* ppRoot);
 	void Destroy();
 	static HRESULT CopyString(OUT LPSTR* ppTextCopy, IN LPCSTR pTextOrigin);
 

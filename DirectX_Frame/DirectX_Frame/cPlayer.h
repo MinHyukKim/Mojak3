@@ -12,7 +12,11 @@
 #define PATTERN_OFFENSIVE	0x00000002	//전투모드
 #define PATTERN_STOP		0x00000010	//정지가능
 #define PATTERN_TARGET		0x00000040	//추적모드
-#define PATTERN_BACKMOVE	0x00000080	//밀려남
+#define PATTERN_BACKMOVE	0x00000080	//밀려남, 날아감
+#define PATTERN_SMASH		0x00000100	//스매시
+#define PATTERN_DEFENCE		0x00000200	//디펜스
+#define PATTERN_COUNTER		0x00000100	//카운터
+#define PATTERN_SMASH		0x00000100	//원드밀
 
 #define PATTERN_NORMAL		0x0000002d	//기본상태
 
@@ -111,6 +115,7 @@ private:
 	DWORD m_dwNumRealdyTrue;
 	DWORD m_dwNumRealdyFalse;
 	DWORD m_dwNumRealdyState;
+	DWORD m_dwNumRealdyParam;
 	DWORD m_dwNumPattern;
 	DWORD m_dwNumState;
 	//애니메이션 컨트롤러에 메인 트랙 번호 (0 또는 1 트랙을 2개만 사용)
@@ -226,6 +231,8 @@ public:
 	DWORD GetPattern(void) { return m_dwNumPattern; }
 	void SetState(DWORD dwValue) { m_dwNumState = dwValue; }
 	DWORD GetState(void) { return m_dwNumState; }
+	void SetParam(DWORD dwValue) { m_dwNumRealdyParam = dwValue; }
+	DWORD GetParam(void) { return m_dwNumRealdyParam; }
 	void SetRealdyTrue(DWORD dwValue) { m_dwNumRealdyTrue = dwValue; }
 	DWORD GetRealdyTrue(void) { return m_dwNumRealdyTrue; }
 	void SetRealdyFalse(DWORD dwValue) { m_dwNumRealdyFalse = dwValue; }
