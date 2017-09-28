@@ -34,7 +34,7 @@ void cDataLoder::RegisterMeshColor(LPCSTR szMeshName, LPCSTR szTextureName, LPD3
 	D3DMATERIAL9 materal;
 	ZeroMemory(&materal, sizeof(D3DMATERIAL9));
 	materal.Ambient = materal.Diffuse = materal.Specular = *pColor;
-	m_vecData.push_back(ST_DATA(cDataLoder::DATA_MESH_COLOR, szMeshName, szTextureName, nullptr, nullptr, &materal));
+	m_vecData.push_back(ST_DATA(cDataLoder::DATA_MESH_COLOR, szMeshName, szTextureName, "", nullptr, &materal));
 }
 
 void cDataLoder::RegisterTerrain(LPCSTR szHighMapKey, LPCSTR szTextureKey, LPCSTR szTerrainKey, D3DMATERIAL9 * pMaterial)
@@ -77,7 +77,7 @@ bool cDataLoder::RegisterData(LPCSTR FullPath)
 		{
 			std::string sMeshKey = strtok(nullptr, ",");
 			std::string sTexture = strtok(nullptr, ",");
-			D3DMATERIAL9 stColor;
+			D3DMATERIAL9 stColor = {};
 			stColor.Diffuse.r = atof(strtok(nullptr, ","));
 			stColor.Diffuse.g = atof(strtok(nullptr, ","));
 			stColor.Diffuse.b = atof(strtok(nullptr, ","));
@@ -103,6 +103,33 @@ bool cDataLoder::RegisterData(LPCSTR FullPath)
 			std::string FullPath = strtok(nullptr, ",");
 			std::string sAnimationKey = strtok(nullptr, ";");
 			this->RegisterAnimation(FullPath.c_str(), sAnimationKey.c_str());
+		}
+		else if (strstr(pToken, "Field") || strstr(pToken, "¸Ê"))
+		{
+			std::string sHightMap = strtok(nullptr, ",");
+			std::string sTexture = strtok(nullptr, ",");
+			std::string sMapKey = strtok(nullptr, ",");
+
+			D3DMATERIAL9 stColor = {};
+			stColor.Diffuse.r = atof(strtok(nullptr, ","));
+			stColor.Diffuse.g = atof(strtok(nullptr, ","));
+			stColor.Diffuse.b = atof(strtok(nullptr, ","));
+			stColor.Diffuse.a = atof(strtok(nullptr, ","));
+			pToken = strtok(nullptr, ",");
+			if (pToken)
+			{
+				stColor.Ambient.r = atof(pToken);
+				stColor.Ambient.g = atof(strtok(nullptr, ","));
+				stColor.Ambient.b = atof(strtok(nullptr, ","));
+				stColor.Ambient.a = atof(strtok(nullptr, ","));
+				stColor.Specular.r = atof(strtok(nullptr, ","));
+				stColor.Specular.g = atof(strtok(nullptr, ","));
+				stColor.Specular.b = atof(strtok(nullptr, ","));
+				stColor.Specular.a = atof(strtok(nullptr, ","));
+			}
+			else stColor.Ambient = stColor.Specular = stColor.Diffuse;
+			this->RegisterTerrain(sHightMap.c_str(), sTexture.c_str(), sMapKey.c_str(), &stColor);
+			//Field:HighMap,Texture,MapKey, 0.75f, 0.75f, 0.75f, 1.0f;
 		}
 
 	}
@@ -135,6 +162,8 @@ void cDataLoder::LoaderData(void)
 		break;
 
 	case cDataLoder::DATA_ANIMATION: g_pAnimationManager->RegisterAnimation(pData->str1.c_str(), pData->str2.c_str()); break;
+
+	case cDataLoder::DATA_TERRAIN: g_pMapTerrain->RegisterMap(pData->str3.c_str(), pData->str1.c_str(), pData->str2.c_str(), &pData->material); break;
 
 	default: break;
 	}

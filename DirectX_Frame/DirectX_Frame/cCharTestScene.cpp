@@ -17,8 +17,6 @@ cCharTestScene::cCharTestScene(void)
 	, m_pUi(NULL)
 {
 	//테스트용
-	//m_pMapObject = NULL;
-	m_pTexture = NULL;
 	m_pGrid = NULL;
 }
 
@@ -29,27 +27,32 @@ cCharTestScene::~cCharTestScene(void)
 
 HRESULT cCharTestScene::Setup(void)
 {
-	g_pObjectManager->GetPlayer()->GetAbilityParamter()->SetMoveSpeed(2.0f);
 
 	m_pCamera = g_pObjectManager->GetPlayer()->GetCamera();
 	m_pCamera->AddRef();
 
-	SetMatrial(&m_stMtl.MatD3D);
-	m_stMtl.pTextureFilename = "./Texture/steppegrass01_only.dds";
-
-	m_pMapTerrain = cMapTerrain::Create();
-	m_pMapTerrain->Setup("./HeightMapData/HeightMap.raw", &m_stMtl);
-	g_pObjectManager->SetTerrain(m_pMapTerrain);
+//	D3DXMATERIAL stMtl;
+//	SetMatrial(&stMtl.MatD3D);
+//	stMtl.pTextureFilename = "./Texture/steppegrass01_only.dds";
+//
+//	m_pMapTerrain = cMapTerrain::Create();
+//	m_pMapTerrain->Setup("./HeightMapData/HeightMap.raw", &stMtl);
+//	g_pMapTerrain->RegisterMap("테스트용", "./HeightMapData/HeightMap.raw", "./Texture/steppegrass01_only.dds", &D3DXCOLOR(1.0f, 1.0f, 1.0f, 1.0f));
+//	g_pObjectManager->SetTerrain(m_pMapTerrain);
+	g_pObjectManager->SetTerrain(g_pMapTerrain->GetMapTerrain("테스트용"));
+	m_pMapTerrain = g_pMapTerrain->GetMapTerrain("테스트용");
+	m_pMapTerrain->AddRef();
 
 	//테스트용
 	m_pGrid = cGrid::Create();
 	m_pGrid->Setup();
-	m_pTexture = g_pTexture->GetTexture("./HeightMapData/terrain.jpg");
+//	m_pTexture = g_pTexture->GetTexture("./HeightMapData/terrain.jpg");
 
 	//ui 태스트
 	m_pUi = cUiTestScene::Create();
 	m_pUi->Setup();
 
+	g_pObjectManager->CreateMonster(cObjectManager::MONSTER_FOX01, &D3DXVECTOR3(0.0f, 0.0f, 5.0f));
 	g_pObjectManager->CreateMonster(cObjectManager::MONSTER_FOX01, &D3DXVECTOR3(0.0f, 0.0f, 5.0f));
 
 	return S_OK;
@@ -117,8 +120,8 @@ void cCharTestScene::Update(void)
 void cCharTestScene::Render(void)
 {
 	//테스트용
-	g_pD3DDevice->SetTexture(0, m_pTexture);
-	g_pD3DDevice->SetMaterial(&m_stMtl.MatD3D);
+//	g_pD3DDevice->SetTexture(0, m_pTexture);
+//	g_pD3DDevice->SetMaterial(&m_stMtl.MatD3D);
 	//SAFE_RENDER(m_pMapObject);
 	SAFE_RENDER(m_pMapTerrain);
 

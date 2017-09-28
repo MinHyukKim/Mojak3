@@ -12,6 +12,7 @@
 #define PATTERN_OFFENSIVE	0x00000002	//전투모드
 #define PATTERN_STOP		0x00000010	//정지가능
 #define PATTERN_TARGET		0x00000040	//추적모드
+#define PATTERN_BACKMOVE	0x00000080	//밀려남
 
 #define PATTERN_NORMAL		0x0000002d	//기본상태
 
@@ -40,8 +41,9 @@ public:
 	enum ORDER_STATE
 	{
 		ORDER_NULL,
-		ORDER_IDLE_FRIENDLY,
-		ORDER_IDLE_OFFENSIVE,
+		ORDER_FRIENDLY,
+		ORDER_OFFENSIVE,
+		ORDER_HIT,
 	};
 	enum ANIMATION_STATE
 	{
@@ -54,6 +56,10 @@ public:
 		ANIMATION_RUN_FRIENDLY,
 		ANIMATION_ATTACK_01,
 		ANIMATION_ATTACK_02,
+		ANIMATION_HIT_01,
+		ANIMATION_HIT_02,
+		ANIMATION_ENDURE_01,
+		ANIMATION_ENDURE_02,
 		ANIMATION_TEST1,
 		ANIMATION_TEST2,
 		ANIMATION_TEST3,
@@ -109,6 +115,8 @@ private:
 	DWORD m_dwNumState;
 	//애니메이션 컨트롤러에 메인 트랙 번호 (0 또는 1 트랙을 2개만 사용)
 	bool m_bCurrentTrack;
+	//피격컨트롤러
+	bool m_bHitAnimation;
 
 public:
 	virtual HRESULT Setup(void) override;
@@ -122,6 +130,7 @@ public:
 	//상태 변환시 1회만 적용
 	void SetupFriendly(void);
 	void SetupOffnsive(void);
+	void SetupHit(void);
 	//상태 변환시 행동을 반복함
 	void PatternUpdate(void);
 	//상태 변화
@@ -137,11 +146,13 @@ public:
 
 	void OrderFriendly(void);
 	void OrderOffensive(void);
+
 	void OrderTarget(void);
 	void OrderIden(void);
 	void OrderIdenChange(void);
 	void OrderWalk(LPD3DXVECTOR3 pTo);
 	void OrderMove(LPD3DXVECTOR3 pTo);
+	void OrderBackMove(LPD3DXVECTOR3 pTo);
 	void OrderAttack(cPlayer* pTarget);
 
 	//애니메이션 함수
@@ -169,7 +180,6 @@ public:
 	void SetTextureHairColor(LPD3DXCOLOR pColor);
 
 	//좌표 함수
-	
 	void SetPosition(LPD3DXVECTOR3 pPosition) { memcpy(&m_matWorld._41, pPosition, sizeof(D3DXVECTOR3)); }
 	D3DXVECTOR3 GetPosition(void) { return D3DXVECTOR3(m_matWorld._41, m_matWorld._42, m_matWorld._43); }
 	void SetPosX(float fX) { m_matWorld._41 = fX; }
@@ -188,7 +198,6 @@ public:
 
 
 	//액션 인공지능 함수
-
 	void PlayerToTarget(float fRange);	//타겟변경
 	void TargetView(void) { this->SetDirection(&(m_pTarget->GetPosition() - this->GetPosition()));}
 	void AutoTarget(float fRange);	//타겟변경
@@ -209,11 +218,20 @@ public:
 	void SetRadius(float fValue) { m_fRadius = fValue; }
 	float GetRadius(void) { return m_fRadius; }
 
+	void SetHitAnimation(bool bValue) { m_bHitAnimation = bValue; }
+	bool IsHitAnimation(void) { return m_bHitAnimation; }
+
 	//상태값
-	void SetPattern(DWORD fValue) { m_dwNumPattern = fValue; }
+	void SetPattern(DWORD dwValue) { m_dwNumPattern = dwValue; }
 	DWORD GetPattern(void) { return m_dwNumPattern; }
-	void SetState(DWORD fValue) { m_dwNumState = fValue; }
+	void SetState(DWORD dwValue) { m_dwNumState = dwValue; }
 	DWORD GetState(void) { return m_dwNumState; }
+	void SetRealdyTrue(DWORD dwValue) { m_dwNumRealdyTrue = dwValue; }
+	DWORD GetRealdyTrue(void) { return m_dwNumRealdyTrue; }
+	void SetRealdyFalse(DWORD dwValue) { m_dwNumRealdyFalse = dwValue; }
+	DWORD GetRealdyFalse(void) { return m_dwNumRealdyFalse; }
+	void SetRealdyState(DWORD dwValue) { m_dwNumRealdyState = dwValue; }
+	DWORD GetRealdyState(void) { return m_dwNumRealdyState; }
 
 	//반환함수
 	cAbilityParamter* GetAbilityParamter(void) { return &m_AbilityParamter; }
