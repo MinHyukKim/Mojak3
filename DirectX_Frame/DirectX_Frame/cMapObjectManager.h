@@ -4,31 +4,6 @@
 #define g_pMapObjectManager cMapObjectManager::GetInstance()
 
 class cMapTerrain;
-
-//맵오브젝트 백터를 관리하는 클래스
-class cMapObjectRail
-{
-private:
-	std::vector<cBuilding*> m_vecBuilding;
-public:
-	void Update(cMapTerrain* map);
-	void Render();
-
-	cMapObjectRail(void);
-	~cMapObjectRail(void);
-
-	//백터에 건물 클래스 추가하는 함수
-	void AppendBuilding(cBuilding* build);
-
-	//마지막으로 추가된 맵 오브젝트를 반환하는 함수(임시)
-	cBuilding* GetLastMapObject();
-	//마지막으로 추가된 맵오브젝트를 삭제하는 함수
-	bool PopMapObject();
-	void Destroy();
-
-
-};
-
 //맵오브젝트를 등록하고 관리하는 클래스
 class cMapObjectManager
 {
@@ -66,6 +41,11 @@ public:
 	int cur;
 	//마지막으로 추가된 맵 오브젝트를 반환하는 함수(임시)
 	cBuilding* GetLastMapObject();
+	//선택중인 맵 오브젝트를 반환하는 함수
+	cBuilding* GetSelectObject(void) { return m_pSelectBuilding; }
+	//현재 마우스 위치에 건물을 빌딩하는 스위치
+	void SetupBuilding(void);
+	void ResetBuilding(void) { m_pSelectBuilding = nullptr; }
 	//마지막으로 추가된 맵오브젝트를 삭제하는 함수
 	bool PopMapObject();
 

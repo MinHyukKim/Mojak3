@@ -7,8 +7,6 @@
 cMapObjectManager::cMapObjectManager(void)
 	:cur(0) , m_pSelectBuilding(nullptr)
 {
-//	m_pMapObjects = new cMapObjectRail();
-//	m_iMapBuilding = m_mapBuilding.begin();
 }
 
 cMapObjectManager::~cMapObjectManager(void)
@@ -61,7 +59,6 @@ cBuilding * cMapObjectManager::GetMapObject(std::string & szKeyName)
 bool cMapObjectManager::AppendBuilding(cBuilding* build)
 {
 	if (build == NULL) return false;
-//	m_pMapObjects->AppendBuilding(build);
 
 	cBuilding* pClone = cBuilding::Create(build);
 	m_vecBuilding.push_back(pClone);
@@ -78,11 +75,6 @@ bool cMapObjectManager::AppendBuilding(std::string & szKeyName)
 bool cMapObjectManager::AppendBuilding(LPCSTR szKeyName)
 {
 	return this->AppendBuilding(this->GetMapObject(szKeyName));
-//	if (m_mapBuilding.find(szKeyName) == m_mapBuilding.end()) return false;
-//	cBuilding* temp = cBuilding::Create();
-//	temp->LoadModel(szKeyName);
-//	m_pMapObjects->AppendBuilding(temp);
-//	return true;
 }
 
 cBuilding* cMapObjectManager::getMapObjectRotation()
@@ -95,22 +87,23 @@ cBuilding* cMapObjectManager::getMapObjectRotation()
 		cur = 0;
 	}
 	m_pSelectBuilding = iMapBuilding->second;
-//	cBuilding* temp = cBuilding::Create();
-//	temp->LoadModel(m_iMapBuilding->first.c_str());
 
 	return m_pSelectBuilding;
-	//cBuilding* temp = (*m_iMapBuilding).first
 }
 
 cBuilding * cMapObjectManager::GetLastMapObject()
 {
-//	return m_pMapObjects->GetLastMapObject();
 	return m_vecBuilding.back();
+}
+
+void cMapObjectManager::SetupBuilding(void)
+{
+	this->AppendBuilding(this->GetSelectObject());
+	m_vecBuilding.back()->SetPosition(&m_vLandPos);
 }
 
 bool cMapObjectManager::PopMapObject()
 {
-	//m_pMapObjects->PopMapObject();
 	if (m_vecBuilding.empty()) return false;
 	SAFE_RELEASE(m_vecBuilding.back());
 	m_vecBuilding.pop_back();
@@ -130,16 +123,15 @@ bool cMapObjectManager::PopMapObject()
 
 void cMapObjectManager::Update(cMapTerrain* map)
 {
-//	m_pMapObjects->Update(map);
+	if (!m_pSelectBuilding) return;
 	D3DXVECTOR3 vPos, vOrg, vDir;
 	g_pRay->RayAtWorldSpace(&vOrg, &vDir);
 	if (map->IsCollision(&vPos, &vOrg, &vDir)) m_vLandPos = vPos;
-	if (m_pSelectBuilding) m_pSelectBuilding->SetPosition(&vPos);
+	 m_pSelectBuilding->SetPosition(&vPos);
 }
 
 void cMapObjectManager::Render()
 {
-	//m_pMapObjects->Render();
 	for each (auto p in m_vecBuilding) p->Render();
 	SAFE_RENDER(m_pSelectBuilding);
 }
@@ -156,78 +148,6 @@ void cMapObjectManager::Destroy()
 	for each(auto p in m_vecBuilding)
 	{
 		SAFE_RELEASE(p);
-	}
-	m_vecBuilding.clear();
-}
-
-void cMapObjectRail::Update(cMapTerrain * map)
-{
-	if (m_vecBuilding.size() > 0)
-	{
-		for (int i = 0; i < m_vecBuilding.size(); i++)
-		{
-			//건물 바닥 높이 결정
-			float test_build_height = m_vecBuilding[i]->GetPosY();
-			map->GetHeight(&test_build_height, m_vecBuilding[i]->GetPosX(), m_vecBuilding[i]->GetPosZ());
-			m_vecBuilding[i]->SetPosY(test_build_height + m_vecBuilding[i]->GetOffsetY());
-
-			m_vecBuilding[i]->Update();
-		}
-	}
-}
-
-void cMapObjectRail::Render()
-{
-	if (m_vecBuilding.size() > 0)
-	{
-		for (int i = 0; i < m_vecBuilding.size(); i++)
-		{
-			SAFE_RENDER(m_vecBuilding[i]);
-		}
-	}
-}
-
-cMapObjectRail::cMapObjectRail(void)
-{
-}
-
-cMapObjectRail::~cMapObjectRail(void)
-{
-}
-
-void cMapObjectRail::AppendBuilding(cBuilding * build)
-{
-	m_vecBuilding.push_back(build);
-}
-
-cBuilding * cMapObjectRail::GetLastMapObject()
-{
-	if (m_vecBuilding.size() > 0)
-	{
-		return m_vecBuilding[m_vecBuilding.size() - 1];
-	}
-	else return nullptr;
-}
-
-bool cMapObjectRail::PopMapObject()
-{
-	DEBUG_TEXT(m_vecBuilding.size());
-	if (m_vecBuilding.size() > 0)
-	{
-		m_vecBuilding.back()->Release();
-		m_vecBuilding.pop_back();
-		return true;
-	}
-
-	return false;
-}
-
-void cMapObjectRail::Destroy()
-{
-	for each(auto p in m_vecBuilding)
-	{
-		p->Destroy();
-//		SAFE_RELEASE(p);
 	}
 	m_vecBuilding.clear();
 }
