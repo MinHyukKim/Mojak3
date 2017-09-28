@@ -53,6 +53,7 @@ public:
 	RECT rc;
 	bool isOver;
 	bool isClick;
+	D3DXVECTOR3 m_vItemPrevPos;
 
 	int m_Alpha;
 	// 오브젝트를 상속받은 모든 클래스는 아래와 같은 형식을 사용합니다. (오버로딩하여 사용하세요.)

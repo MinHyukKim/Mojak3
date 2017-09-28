@@ -45,7 +45,7 @@ cUiTestScene::cUiTestScene(void)
 	//아이탬 픽킹
 	, isPickUpItem(false)
 	//착용 여부
-	, m_isTorsoMount(false) //초기에 장착시 true로 변경
+	, m_isTorsoMount(0) 
 	, m_isWeaponHandMount(false)
 	, m_isSubHandMount(false)
 	, m_isShoesMount(false)
@@ -346,11 +346,11 @@ void cUiTestScene::OnClick(cUIButton * pSender)
 	}
 	else if (pSender->GetTag() == E_MAIN_BUTTON_INVENTORY)
 	{
-		if (m_isInventoryWindowOn == false)
-		{
-			m_pInventoryUiMoveing->isOver = false;
-			m_pInventoryUiImage->isOver = false;
-		}
+	//	if (m_isInventoryWindowOn == false)
+	//	{
+		//	m_pInventoryUiMoveing->isOver = false;
+		//	m_pInventoryUiImage->isOver = false;
+	//	}
 		m_isInventoryWindowOn = !m_isInventoryWindowOn;
 	}
 	else if (pSender->GetTag() == E_MAIN_BUTTON_MIN)

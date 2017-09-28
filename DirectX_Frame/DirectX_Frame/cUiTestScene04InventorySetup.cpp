@@ -139,10 +139,12 @@ void cUiTestScene::SetupInventoryUi(void)
 //	m_pQuestUi->AddChild(m_pQuestUiImage);
 
 	//추후 아이탬 추가 함수 따로 만들기
+
 	m_vecTempPlayerItem[0] = cUIButton::Create();
 	m_vecTempPlayerItem[0]->SetTexture("Texture/Ui/testItem1-1.png"
 		, "Texture/Ui/testItem1-1.png", "Texture/Ui/testItem1-1.png");
 	m_vecTempPlayerItem[0]->SetPosition(60, 147);
+	m_vecTempPlayerItem[0]->Update();
 	m_vecTempPlayerItem[0]->SetDelegate(this);
 	//	m_vecTempPlayerItem[0]->m_Alpha = 180;
 	//	m_vecTempPlayerItem[0]->SetTag(E_ITEM_WEAR1);
@@ -152,6 +154,7 @@ void cUiTestScene::SetupInventoryUi(void)
 	m_vecTempPlayerItem[1]->SetTexture("Texture/Ui/testItem1-2.png"
 		, "Texture/Ui/testItem1-2.png", "Texture/Ui/testItem1-2.png");
 	m_vecTempPlayerItem[1]->SetPosition(160, 90);
+	m_vecTempPlayerItem[1]->Update();
 	m_vecTempPlayerItem[1]->SetDelegate(this);
 	//	m_vecTempPlayerItem[0]->m_Alpha = 180;
 	//	m_vecTempPlayerItem[0]->SetTag(E_ITEM_WEAR1);
@@ -161,6 +164,7 @@ void cUiTestScene::SetupInventoryUi(void)
 	m_vecTempPlayerItem[2]->SetTexture("Texture/Ui/testItem1-3.png"
 		, "Texture/Ui/testItem1-3.png", "Texture/Ui/testItem1-3.png");
 	m_vecTempPlayerItem[2]->SetPosition(160 + 48, 90);
+	m_vecTempPlayerItem[2]->Update();
 	m_vecTempPlayerItem[2]->SetDelegate(this);
 	//	m_vecTempPlayerItem[2]->m_Alpha = 180;
 	//	m_vecTempPlayerItem[2]->SetTag(E_ITEM_WEAR1);

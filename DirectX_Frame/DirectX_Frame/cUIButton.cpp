@@ -53,6 +53,7 @@ void cUIButton::Update()
 			{
 				m_eButtonStatus = E_SELECTED;
 				isClick = true;
+				m_vItemPrevPos = this->GetPosition();
 			}
 		}
 		else
