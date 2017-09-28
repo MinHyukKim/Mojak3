@@ -203,7 +203,7 @@ bool cObjectManager::CreateMonster(IN MONSTER_TYPE eMonsterKey, IN LPD3DXVECTOR3
 		pCreateMonster->RegisterAnimation(cPlayer::ANIMATION_HIT_01, g_pAnimationManager->GetAnimation("여성_피격01"), 5.0f);
 		pCreateMonster->RegisterAnimation(cPlayer::ANIMATION_HIT_02, g_pAnimationManager->GetAnimation("여성_피격02"), 5.0f);
 		pCreateMonster->GetAbilityParamter()->SetPlayerID(2);
-		pCreateMonster->GetAbilityParamter()->SetUnitID(1);
+		pCreateMonster->GetAbilityParamter()->SetUnitID(cObjectManager::MONSTER_TEXTER);
 		pCreateMonster->OrderFriendly();
 	}	break;
 
@@ -226,7 +226,7 @@ bool cObjectManager::CreateMonster(IN MONSTER_TYPE eMonsterKey, IN LPD3DXVECTOR3
 		pCreateMonster->RegisterAnimation(cPlayer::ANIMATION_ENDURE_01, g_pAnimationManager->GetAnimation("여우_밀려남"), 5.0f);
 		pCreateMonster->RegisterAnimation(cPlayer::ANIMATION_ENDURE_02, g_pAnimationManager->GetAnimation("여우_밀려남"), 5.0f);
 		pCreateMonster->GetAbilityParamter()->SetPlayerID(2);
-		pCreateMonster->GetAbilityParamter()->SetUnitID(1);
+		pCreateMonster->GetAbilityParamter()->SetUnitID(cObjectManager::MONSTER_FOX01);
 		pCreateMonster->OrderFriendly();
 	}	break;
 

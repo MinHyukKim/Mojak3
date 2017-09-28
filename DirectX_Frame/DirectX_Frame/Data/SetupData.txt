@@ -90,7 +90,7 @@ Animation:./Monster/Fox/FoxEndure.X,여우_밀려남;
 
 Mesh:./Monster/Fox/,FoxMeshEx.X,여우01;
 Color:여우01,mon_fox02.dds, 0.5f, 0.2f, 0.2f, 1.0f;
-Color:여우01,mon_skeleton01_eyes.dds, 0.5f, 0.5f, 0.4f, 1.0f;
+Color:여우01,mon_skeleton01_eyes.dds, 0.5f, 0.5f, 0.2f, 1.0f;
 
 Mesh:여우01,여우02,;
 Color:여우02,mon_fox02.dds, 0.5f, 0.5f, 0.5f, 1.0f;

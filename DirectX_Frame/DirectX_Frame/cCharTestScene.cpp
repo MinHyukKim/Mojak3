@@ -53,6 +53,7 @@ HRESULT cCharTestScene::Setup(void)
 	m_pUi->Setup();
 
 	g_pObjectManager->CreateMonster(cObjectManager::MONSTER_FOX01, &D3DXVECTOR3(0.0f, 0.0f, 5.0f));
+	g_pObjectManager->CreateMonster(cObjectManager::MONSTER_FOX01, &D3DXVECTOR3(0.0f, 0.0f, 5.0f));
 
 	return S_OK;
 }
