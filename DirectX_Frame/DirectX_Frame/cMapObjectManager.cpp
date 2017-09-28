@@ -5,7 +5,10 @@
 
 
 cMapObjectManager::cMapObjectManager(void)
+	:cur(0)
 {
+	m_pMapObjects = new cMapObjectRail();
+	m_iMapBuilding = m_mapBuilding.begin();
 }
 
 cMapObjectManager::~cMapObjectManager(void)
@@ -55,45 +58,92 @@ cBuilding * cMapObjectManager::GetMapObject(std::string & szKeyName)
 	return this->GetMapObject(szKeyName.c_str());
 }
 
-void cMapObjectManager::AppendBuilding(cBuilding * build)
+bool cMapObjectManager::AppendBuilding(cBuilding * build)
 {
-	m_vecBuilding.push_back(build);
+	if (build == NULL) return false;
+	m_pMapObjects->AppendBuilding(build);
+
+	return true;
+}
+
+bool cMapObjectManager::AppendBuilding(std::string & szKeyName)
+{
+	return this->AppendBuilding(szKeyName.c_str());
+}
+
+bool cMapObjectManager::AppendBuilding(LPCSTR szKeyName)
+{
+	if (m_mapBuilding.find(szKeyName) == m_mapBuilding.end()) return false;
+	cBuilding* temp = new cBuilding;
+	temp->LoadModel(szKeyName);
+	m_pMapObjects->AppendBuilding(temp);
+	return true;
+}
+
+cBuilding * cMapObjectManager::getMapObjectRotation()
+{
+	m_iMapBuilding = m_mapBuilding.begin();
+	for (int i = 0; i < cur; i++) m_iMapBuilding++;
+	if (m_iMapBuilding == m_mapBuilding.end())
+	{
+		m_iMapBuilding = m_mapBuilding.begin();
+		cur = 0;
+	}
+
+	cBuilding* temp = new cBuilding;
+	temp->AddRef();
+	temp->LoadModel(m_iMapBuilding->first.c_str());
+
+
+	cur++;
+	return temp;
+	//cBuilding* temp = (*m_iMapBuilding).first
 }
 
 cBuilding * cMapObjectManager::GetLastMapObject()
 {
-	if (m_vecBuilding.size() > 0)
-	{
-		return m_vecBuilding[m_vecBuilding.size() - 1];
-	}
-	else return nullptr;
+	return m_pMapObjects->GetLastMapObject();
 }
 
 bool cMapObjectManager::PopMapObject()
 {
-	DEBUG_TEXT(m_vecBuilding.size());
-	if (m_vecBuilding.size() > 0)
-	{
-		m_vecBuilding.back()->Destroy();
-		m_vecBuilding.pop_back();
-		return true;
-	}
-	
-	return false;
+	m_pMapObjects->PopMapObject();
+	return true;
 }
 
 void cMapObjectManager::Update()
 {
-	if (m_vecBuilding.size() > 0)
-	{
-		for (int i = 0; i < m_vecBuilding.size(); i++)
-		{
-			m_vecBuilding[i]->Update();
-		}
-	}
+	//if (m_vecBuilding.size() > 0)
+	//{
+	//	for (int i = 0; i < m_vecBuilding.size(); i++)
+	//	{
+	//		m_vecBuilding[i]->Update();
+	//	}
+	//}
 }
 
 void cMapObjectManager::Update(cMapTerrain * map)
+{
+	m_pMapObjects->Update(map);
+}
+
+void cMapObjectManager::Render()
+{
+	m_pMapObjects->Render();
+}
+
+void cMapObjectManager::Destroy()
+{
+	for each(auto it in m_mapBuilding)
+	{
+		it.second->Destroy();
+		SAFE_DELETE(it.second);
+	}
+
+	m_pMapObjects->Destroy();
+}
+
+void cMapObjectRail::Update(cMapTerrain * map)
 {
 	if (m_vecBuilding.size() > 0)
 	{
@@ -107,27 +157,56 @@ void cMapObjectManager::Update(cMapTerrain * map)
 			m_vecBuilding[i]->Update();
 		}
 	}
-
 }
 
-void cMapObjectManager::Render()
+void cMapObjectRail::Render()
 {
 	if (m_vecBuilding.size() > 0)
 	{
 		for (int i = 0; i < m_vecBuilding.size(); i++)
 		{
-			m_vecBuilding[i]->Render();
+			SAFE_RENDER(m_vecBuilding[i]);
 		}
 	}
 }
 
-void cMapObjectManager::Destroy()
+cMapObjectRail::cMapObjectRail(void)
 {
-	//for each(auto it in m_mapBuilding)
-	//{
-	//	it.second->Destroy();
-	//	SAFE_DELETE(it.second);
-	//}
+}
+
+cMapObjectRail::~cMapObjectRail(void)
+{
+}
+
+void cMapObjectRail::AppendBuilding(cBuilding * build)
+{
+	m_vecBuilding.push_back(build);
+}
+
+cBuilding * cMapObjectRail::GetLastMapObject()
+{
+	if (m_vecBuilding.size() > 0)
+	{
+		return m_vecBuilding[m_vecBuilding.size() - 1];
+	}
+	else return nullptr;
+}
+
+bool cMapObjectRail::PopMapObject()
+{
+	DEBUG_TEXT(m_vecBuilding.size());
+	if (m_vecBuilding.size() > 0)
+	{
+		//m_vecBuilding.back()->Destroy();
+		m_vecBuilding.pop_back();
+		return true;
+	}
+
+	return false;
+}
+
+void cMapObjectRail::Destroy()
+{
 	for each(auto it in m_vecBuilding)
 	{
 		it->Destroy();

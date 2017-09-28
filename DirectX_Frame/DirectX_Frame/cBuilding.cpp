@@ -21,6 +21,8 @@ LPD3DXMESH cBuilding::LoadModel(const char * filename)
 	{
 		OutputDebugString("모델 로딩 실패");
 	}
+	m_pFilename = filename;
+	m_pFoldername = "";
 
 	D3DXMATERIAL* d3dxMaterials =
 		(D3DXMATERIAL*)pD3DXMtrlBuffer->GetBufferPointer();
@@ -119,6 +121,10 @@ LPD3DXMESH cBuilding::LoadModel(char * szFolder, char * szFilename)
 	{
 		OutputDebugString("모델 로딩 실패");
 	}
+	//CopyString(&m_pFilename, sFullPath.c_str());
+	//SAFE_DELETE_ARRAY(m_pFilename);
+	m_pFilename = m_pFilename;
+	m_pFoldername = "";
 
 	D3DXMATERIAL* d3dxMaterials =
 		(D3DXMATERIAL*)pD3DXMtrlBuffer->GetBufferPointer();
@@ -133,13 +139,14 @@ LPD3DXMESH cBuilding::LoadModel(char * szFolder, char * szFilename)
 		// Set the ambient color for the material (D3DX does not do this)
 		m_pMeshMaterials[i].Ambient = m_pMeshMaterials[i].Diffuse;
 
-		m_pMeshTextures[i] = NULL;
-		if (d3dxMaterials[i].pTextureFilename != NULL &&
-			strlen(d3dxMaterials[i].pTextureFilename) > 0)
-		{
-			D3DXCreateTextureFromFile(g_pD3DDevice, d3dxMaterials[i].pTextureFilename,
-				&m_pMeshTextures[i]);
-		}
+//		m_pMeshTextures[i] = NULL;
+//		if (d3dxMaterials[i].pTextureFilename != NULL &&
+//			strlen(d3dxMaterials[i].pTextureFilename) > 0)
+//		{
+//			D3DXCreateTextureFromFile(g_pD3DDevice, d3dxMaterials[i].pTextureFilename,
+//				&m_pMeshTextures[i]);
+//		}
+		m_pMeshTextures[i] = g_pTexture->GetTexture(d3dxMaterials[i].pTextureFilename);
 	}
 
 	pD3DXMtrlBuffer->Release();  // 머티리얼 버퍼 해제
@@ -252,6 +259,7 @@ void cBuilding::Render(void)
 cBuilding::cBuilding(void)
 	:m_pBuild(NULL)
 	, m_pEffect(NULL)
+	, m_pMaterials(nullptr)
 	, m_pMeshMaterials(NULL)
 	, m_pMeshTextures(NULL)
 	, m_dwNumMaterials(0)
@@ -260,6 +268,8 @@ cBuilding::cBuilding(void)
 	, angleZ(0.0f)
 	, m_fOffsetY(0.0f)
 	, m_pBoundBox(NULL)
+	, m_pFilename("")
+	, m_pFoldername("")
 {
 	D3DXMatrixIdentity(&m_matWorld);
 	D3DXMatrixIdentity(&m_matRot);
@@ -282,11 +292,6 @@ cBuilding::~cBuilding(void)
 
 void cBuilding::Destroy()
 {
-	//계별적으로 관리함
-	for (int i = 0; i < m_dwNumMaterials; i++)
-	{
-		//SAFE_RELEASE(m_pMeshTextures[i]);
-	}
 	//SAFE_DELETE_ARRAY(m_pMeshMaterials);
 	//SAFE_DELETE_ARRAY(m_pMeshTextures);
 

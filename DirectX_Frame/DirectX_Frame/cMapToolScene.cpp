@@ -46,28 +46,33 @@ HRESULT cMapToolScene::Setup(void)
 	m_pGrid->Setup();
 	m_pTexture = g_pTexture->GetTexture("./HeightMapData/terrain.jpg");
 	
+	m_vecObjectList.push_back("scene_building_tirchonaill_chiefhouse.x");
+	m_vecObjectList.push_back("inn.x");
+	m_vecObjectList.push_back("farm_appletree_01.x");
+	m_vecObjectList.push_back("farm_level02_se_tree_01.x");
+	m_vecObjectList.push_back("scene_building_tirchonaill_church.x");
+	
 	//건물 등록
-	g_pMapObjectManager->RegisterMapObject("", "scene_building_tirchonaill_church.x", "church");
-	g_pMapObjectManager->RegisterMapObject("", "inn.x", "inn");
-	g_pMapObjectManager->RegisterMapObject("", "farm_appletree_01.x", "farm_appletree_01");
-	g_pMapObjectManager->RegisterMapObject("", "farm_level02_se_tree_01.x", "farm_level02_se_tree_01");
-	g_pMapObjectManager->RegisterMapObject("", "scene_building_tirchonaill_chiefhouse.x", "scene_building_tirchonaill_chiefhouse");
-	g_pMapObjectManager->RegisterMapObject("", "scene_building_tirchonaill_church.x", "scene_building_tirchonaill_church");
+	g_pMapObjectManager->RegisterMapObject("", m_vecObjectList[0], m_vecObjectList[0]);
+	g_pMapObjectManager->RegisterMapObject("", m_vecObjectList[1], m_vecObjectList[1]);
+	g_pMapObjectManager->RegisterMapObject("", m_vecObjectList[2], m_vecObjectList[2]);
+	g_pMapObjectManager->RegisterMapObject("", m_vecObjectList[3], m_vecObjectList[3]);
+	g_pMapObjectManager->RegisterMapObject("", m_vecObjectList[4], m_vecObjectList[4]);
+	//g_pMapObjectManager->RegisterMapObject("", m_vecObjectList[5], m_vecObjectList[5]);
 
-	m_pBuild = new cBuilding();
-	m_pBuild->Setup();
-	m_pBuild->LoadModel("inn.X");
-	m_pBuild->SetPosition(&D3DXVECTOR3(-5, 0, -5));
+	//m_pBuild = new cBuilding();
+	//m_pBuild->Setup();
+	//m_pBuild->LoadModel("inn.X);
+	//m_pBuild->SetPosition(&D3DXVECTOR3(-5, 0, -5));
+	//m_pBuild = g_pMapObjectManager->GetMapObject(m_vecObjectList[0]);
+	//m_pBuild->SetPosition(&D3DXVECTOR3(0, 0, 0));
+	//g_pMapObjectManager->AppendBuilding(m_pBuild);
 
-	g_pMapObjectManager->AppendBuilding(m_pBuild);
+	//m_pBuild = g_pMapObjectManager->GetMapObject(m_vecObjectList[1]);
+	//m_pBuild->SetPosition(&D3DXVECTOR3(5, 0, -5));
+	//g_pMapObjectManager->AppendBuilding(m_pBuild);
 
-	m_pBuild = new cBuilding();
-	m_pBuild->Setup();
-	m_pBuild->LoadModel("inn.X");
-	m_pBuild->SetPosition(&D3DXVECTOR3(5, 0, -5));
-
-	g_pMapObjectManager->AppendBuilding(m_pBuild);
-	g_pMapObjectManager->AppendBuilding(g_pMapObjectManager->GetMapObject("church"));
+	//g_pMapObjectManager->AppendBuilding(g_pMapObjectManager->GetMapObject("church"));
 
 	m_pSkybox = cSkybox::Create();
 	m_pSkybox->Setup(".\\skyboxMap\\vanilla_sky_frost_up.jpg", ".\\skyboxMap\\vanilla_sky_frost_dn.jpg",
@@ -84,9 +89,9 @@ void cMapToolScene::Reset(void)
 	//테스트용
 	SAFE_RELEASE(m_pMapTerrain);
 	SAFE_RELEASE(m_pGrid);
-	//if (m_pBuild) m_pBuild->Destroy();
-	//SAFE_DELETE(m_pBuild);
-	//SAFE_RELEASE(m_pSkybox);
+	if (m_pBuild) m_pBuild->Destroy();
+	SAFE_DELETE(m_pBuild);
+	SAFE_RELEASE(m_pSkybox);
 
 	//g_pMapObjectManager->Destroy();
 
@@ -170,12 +175,22 @@ void cMapToolScene::Update(void)
 
 	if (g_pInputManager->IsStayKeyDown('1'))
 	{
-		g_TestToggle = true;
-		m_pBuild = new cBuilding();
-		m_pBuild->Setup();
-		m_pBuild->LoadModel("inn.X");
-		m_pBuild->SetPosition(&D3DXVECTOR3(0, 0, 0));
-		g_pMapObjectManager->AppendBuilding(m_pBuild);
+		if (g_TestToggle == false)
+		{
+			g_TestToggle = true;
+			//g_pMapObjectManager->PopMapObject();
+			m_pBuild = g_pMapObjectManager->getMapObjectRotation();
+			m_pBuild->Setup();
+			g_pMapObjectManager->AppendBuilding(m_pBuild);
+		}
+		else
+		{
+			g_pMapObjectManager->PopMapObject();
+			m_pBuild = g_pMapObjectManager->getMapObjectRotation();
+			m_pBuild->Setup();
+			g_pMapObjectManager->AppendBuilding(m_pBuild);
+
+		}
 	}
 
 	if (g_pInputManager->IsStayKeyDown('2'))

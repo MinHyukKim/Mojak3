@@ -1,7 +1,7 @@
 /*빌딩 모델을 불러와 렌더하는 클래스*/
 #pragma once
 
-class cBuilding
+class cBuilding : public cObject
 {
 private:
 	//월드의 위치와 회전 값
@@ -11,6 +11,7 @@ private:
 	LPD3DXMESH m_pBoundBox;
 
 	//LPD3DXMESH m_pMesh;
+	LPD3DXMATERIAL      m_pMaterials;
 	D3DMATERIAL9*       m_pMeshMaterials;
 	LPDIRECT3DTEXTURE9* m_pMeshTextures;
 	DWORD               m_dwNumMaterials;
@@ -29,6 +30,10 @@ private:
 	float maxY = FLT_MIN;
 	float minZ = FLT_MAX;
 	float maxZ = FLT_MIN;
+	
+	//파일이름 폴더이름 보존
+	std::string m_pFilename;
+	std::string m_pFoldername;
 
 
 public:
