@@ -50,6 +50,20 @@ public:
 		E_ITEM_END
 	};
 
+	enum eItemAbility
+	{
+		E_ITEM_STATS_NONE,
+		E_ITEM_STATS_WEAR_NONE,
+		E_ITEM_STATS_WEAR_01,
+		E_ITEM_STATS_WEAR_02,
+		E_ITEM_STATS_WEAR_03,
+		E_ITEM_STATS_SHOES_NONE,
+		E_ITEM_STATS_SHOES_01,
+		E_ITEM_STATS_WEAPON_NONE,
+		E_ITEM_STATS_WEAPON_01,
+		E_ITEM_STATS_END
+	};
+
 	virtual void SetTexture(std::string sNor, std::string sOvr, std::string sSel);
 	virtual void Update() override;
 	virtual void Render(LPD3DXSPRITE pSprite) override;
@@ -62,6 +76,7 @@ public:
 	bool isOver;
 	bool isClick;
 	eIfItemKinds m_eItem;
+	eItemAbility m_eItemStats;
 	D3DXVECTOR3 m_vItemPrevPos;
 
 	int m_Alpha;

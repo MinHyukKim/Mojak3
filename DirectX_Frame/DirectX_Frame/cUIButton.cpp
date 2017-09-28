@@ -9,6 +9,7 @@ cUIButton::cUIButton(void)
 	, isClick(false)
 	, m_Alpha(255)
 	, m_eItem(E_ITEM_NONE)
+	, m_eItemStats(E_ITEM_STATS_NONE)
 {
 }
 
