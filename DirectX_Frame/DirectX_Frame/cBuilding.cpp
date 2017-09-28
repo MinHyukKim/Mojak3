@@ -216,8 +216,6 @@ void cBuilding::Update(void)
 
 void cBuilding::Render(void)
 {
-	//D3DXMATRIXA16 matWorld;
-	//D3DXMatrixIdentity(&matWorld);
 	g_pD3DDevice->SetTransform(D3DTS_WORLD, &m_matWorld);
 	D3DXMATRIXA16 matView, matProjection, matViewProj, matWorldViewProjection;
 
@@ -231,7 +229,7 @@ void cBuilding::Render(void)
 		m_pBuild->DrawSubset(i);
 	}
 
-	m_matWorld._42 += (maxY - minY)/2;
+	//m_matWorld._42 += (maxY - minY)/2;
 	g_pD3DDevice->SetTransform(D3DTS_WORLD, &m_matWorld);
 	g_pD3DDevice->SetRenderState(D3DRS_FILLMODE, D3DFILL_WIREFRAME);
 	g_pD3DDevice->SetRenderState(D3DRS_CULLMODE, D3DCULL_NONE);
@@ -265,9 +263,6 @@ cBuilding::cBuilding(void)
 	, m_pFoldername("")
 {
 	D3DXMatrixIdentity(&m_matWorld);
-	D3DXMatrixIdentity(&m_matRot);
-	D3DXMatrixIdentity(&m_matScale);
-
 }
 
 cBuilding::cBuilding(cBuilding* pBuilding) : cBuilding(*pBuilding)
@@ -359,7 +354,7 @@ cBuilding* cBuilding::Create(void)
 	return newClass;
 }
 
-cBuilding * cBuilding::Create(cBuilding* pBuilding)
+cBuilding* cBuilding::Create(cBuilding* pBuilding)
 {
 	cBuilding* newClass = new cBuilding(pBuilding);
 	newClass->AddRef();

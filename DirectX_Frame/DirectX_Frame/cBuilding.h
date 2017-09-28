@@ -5,7 +5,7 @@ class cBuilding : public cObject
 {
 private:
 	//월드의 위치와 회전 값
-	D3DXMATRIXA16 m_matWorld, m_matRot, m_matScale;
+	D3DXMATRIXA16 m_matWorld;
 	LPD3DXMESH m_pBuild;
 	LPD3DXEFFECT m_pEffect;
 	LPD3DXMESH m_pBoundBox;
@@ -51,9 +51,9 @@ public:
 	void SetPosX(float fX) { m_matWorld._41 = fX; }
 	void SetPosY(float fY) { m_matWorld._42 = fY; }
 	void SetPosZ(float fZ) { m_matWorld._43 = fZ; }
-	void SetAngleX(float fX) { D3DXMatrixRotationX(&m_matRot, fX); m_matWorld = m_matRot*m_matWorld; }
-	void SetAngleY(float fY) { D3DXMatrixRotationY(&m_matRot, fY); m_matWorld = m_matRot*m_matWorld; }
-	void SetAngleZ(float fZ) { D3DXMatrixRotationZ(&m_matRot, fZ); m_matWorld = m_matRot*m_matWorld; }
+	void SetAngleX(float fX) { D3DXMatrixRotationAxis(&m_matWorld, (LPD3DXVECTOR3)&m_matWorld._11, fX); }
+	void SetAngleY(float fY) { D3DXMatrixRotationAxis(&m_matWorld, (LPD3DXVECTOR3)&m_matWorld._21, fY); }
+	void SetAngleZ(float fZ) { D3DXMatrixRotationAxis(&m_matWorld, (LPD3DXVECTOR3)&m_matWorld._31, fZ); }
 	float GetAngleX() { return angleX; }
 	float GetAngleY() { return angleY; }
 	float GetAngleZ() { return angleZ; }
@@ -63,7 +63,7 @@ public:
 
 	float GetOffsetY() { return m_fOffsetY; }
 	void SetOffsetY(float offset) { m_fOffsetY = offset; }
-	void SetScale(float scale) { D3DXMatrixScaling(&m_matScale, scale, scale, scale); m_matWorld = m_matScale*m_matWorld;}
+//	void SetScale(float scale) { D3DXMatrixScaling(&m_matScale, scale, scale, scale); m_matWorld = m_matScale*m_matWorld;}
 
 	//static cBuilding* Create(void);
 	void Destroy(void);

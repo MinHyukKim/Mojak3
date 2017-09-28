@@ -39,8 +39,8 @@ HRESULT cMapToolScene::Setup(void)
 	SetMatrial(&m_stMtl.MatD3D);
 	m_stMtl.pTextureFilename = "./Texture/steppegrass01_only.dds";
 
-//	m_pMapTerrain = cMapTerrain::Create();
-//	m_pMapTerrain->Setup("./HeightMapData/HeightMap.raw", &m_stMtl);
+	m_pMapTerrain = g_pMapTerrain->GetMapTerrain("테스트용");
+	SAFE_ADDREF(m_pMapTerrain);
 
 	//테스트용
 	m_pGrid = cGrid::Create();
@@ -75,10 +75,10 @@ HRESULT cMapToolScene::Setup(void)
 
 	//g_pMapObjectManager->AppendBuilding(g_pMapObjectManager->GetMapObject("church"));
 
-//	m_pSkybox = cSkybox::Create();
-//	m_pSkybox->Setup(".\\skyboxMap\\vanilla_sky_frost_up.jpg", ".\\skyboxMap\\vanilla_sky_frost_dn.jpg",
-//		".\\skyboxMap\\vanilla_sky_frost_lf.jpg", ".\\skyboxMap\\vanilla_sky_frost_rt.jpg",
-//		".\\skyboxMap\\vanilla_sky_frost_ft.jpg", ".\\skyboxMap\\vanilla_sky_frost_bk.jpg");
+	m_pSkybox = cSkybox::Create();
+	m_pSkybox->Setup(".\\skyboxMap\\vanilla_sky_frost_up.jpg", ".\\skyboxMap\\vanilla_sky_frost_dn.jpg",
+		".\\skyboxMap\\vanilla_sky_frost_lf.jpg", ".\\skyboxMap\\vanilla_sky_frost_rt.jpg",
+		".\\skyboxMap\\vanilla_sky_frost_ft.jpg", ".\\skyboxMap\\vanilla_sky_frost_bk.jpg");
 
 
 	return S_OK;
@@ -111,23 +111,27 @@ void cMapToolScene::Update(void)
 	//테스트용 전역변수 필히 삭제
 	static bool g_TestToggle = false;
 
+	if (m_pMapTerrain)
+	{
+		g_pMapObjectManager->Update(m_pMapTerrain);
+		m_pMapTerrain->Update();
+	}
 
 	//L버튼을 누르면 마지막으로 생성된 건물이 클릭한 위치로 이동
 	if (g_pInputManager->IsOnceKeyDown(VK_LBUTTON))
 	{
-		if (g_pMapObjectManager->GetLastMapObject() == nullptr)
-			return;
-		g_TestToggle = false;
-		D3DXVECTOR3 vTo, vOrg, vDir;
-		g_pRay->RayAtWorldSpace(&vOrg, &vDir);
-		if (m_pMapTerrain->IsCollision(&vTo, &vOrg, &vDir))
-		{
-			//건물위치 테스트용
-			g_pMapObjectManager->GetLastMapObject()->SetPosZ(vTo.z);
-			g_pMapObjectManager->GetLastMapObject()->SetPosX(vTo.x);
-		}
-	//	g_pMapObjectManager->Get
+		g_pMapObjectManager->SetupBuilding();
 	}
+//			return;
+//		g_TestToggle = false;
+//		D3DXVECTOR3 vTo, vOrg, vDir;
+//		g_pRay->RayAtWorldSpace(&vOrg, &vDir);
+//		if (m_pMapTerrain->IsCollision(&vTo, &vOrg, &vDir))
+//		{
+//			//건물위치 테스트용
+//			g_pMapObjectManager->GetLastMapObject()->SetPosZ(vTo.z);
+//			g_pMapObjectManager->GetLastMapObject()->SetPosX(vTo.x);
+//		}
 //
 //	//마지막으로 생성된 건물의 좌우 방향 변환
 //	if (g_pInputManager->IsStayKeyDown('J'))
@@ -177,23 +181,10 @@ void cMapToolScene::Update(void)
 	{
 		g_pMapObjectManager->getMapObjectRotation();
 		g_pMapObjectManager->cur++;
-		//if (g_TestToggle == false)
-		//{
-		//	g_TestToggle = true;
-		//	//g_pMapObjectManager->PopMapObject();
-		//	m_pBuild = g_pMapObjectManager->getMapObjectRotation();
-		//	m_pBuild->Setup();
-		//	g_pMapObjectManager->AppendBuilding(m_pBuild);
-		//}
-		//else
-		//{
-		//	g_pMapObjectManager->PopMapObject();
-		//	m_pBuild = g_pMapObjectManager->getMapObjectRotation();
-		//	g_pMapObjectManager->cur++;
-		//	m_pBuild->Setup();
-		//	g_pMapObjectManager->AppendBuilding(m_pBuild);
-		//
-		//}
+	}
+	if (g_pInputManager->IsStayKeyDown(VK_ESCAPE))
+	{
+		g_pMapObjectManager->ResetBuilding();
 	}
 //
 //	if (g_pInputManager->IsStayKeyDown('2'))
@@ -220,7 +211,6 @@ void cMapToolScene::Update(void)
 //		}
 //	}
 //
-	if (m_pMapTerrain) g_pMapObjectManager->Update(m_pMapTerrain);
 
 }
      
