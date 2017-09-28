@@ -375,6 +375,41 @@ void cSkinnedMesh::SetupBoneMatrixPtrs(ST_BONE * pBone)
 
 }
 
+void cSkinnedMesh::_HalfClone(LPD3DXFRAME* ppRoot)
+{
+	ST_BONE* pBoneMesh = new ST_BONE((ST_BONE*)*ppRoot);
+	(*ppRoot) = (LPD3DXFRAME)pBoneMesh;
+	if (pBoneMesh->pMeshContainer)
+	{
+		ST_BONE_MESH* pMeshContainer = new ST_BONE_MESH((ST_BONE_MESH*)pBoneMesh->pMeshContainer);
+		if (pMeshContainer->pMaterials && pMeshContainer->NumMaterials)
+		{
+			LPD3DXMATERIAL pMaterials = new D3DXMATERIAL[pMeshContainer->NumMaterials];
+			memcpy(pMaterials, pMeshContainer->pMaterials, pMeshContainer->NumMaterials * sizeof(D3DXMATERIAL));
+			pMeshContainer->pMaterials = pMaterials;
+		}
+		pBoneMesh->pMeshContainer = pMeshContainer;
+	}
+
+	//자식과 형제
+	if (pBoneMesh->pFrameFirstChild) _HalfClone(&pBoneMesh->pFrameFirstChild);
+	if (pBoneMesh->pFrameSibling) _HalfClone(&pBoneMesh->pFrameSibling);
+}
+
+void cSkinnedMesh::_HalfDestroy(LPD3DXFRAME* ppRoot)
+{
+	ST_BONE* pBoneMesh = (ST_BONE*)*ppRoot;
+	//형제
+	if (pBoneMesh->pFrameSibling) _HalfDestroy(&pBoneMesh->pFrameSibling);
+	if (pBoneMesh->pFrameFirstChild) _HalfDestroy(&pBoneMesh->pFrameFirstChild);
+	if (pBoneMesh->pMeshContainer)
+	{
+		SAFE_DELETE_ARRAY(pBoneMesh->pMeshContainer->pMaterials);
+		delete pBoneMesh->pMeshContainer;
+	}
+	SAFE_DELETE(pBoneMesh);
+}
+
 void cSkinnedMesh::Destroy()
 {
 	//계별적으로 관리함
@@ -413,6 +448,16 @@ cSkinnedMesh::~cSkinnedMesh(void)
 //	}
 }
 
+
+void cSkinnedMesh::HalfClone(void)
+{
+	this->_HalfClone((LPD3DXFRAME*)&m_pRootFrame);
+}
+
+void cSkinnedMesh::HalfDestroy(void)
+{
+	this->_HalfDestroy((LPD3DXFRAME*)&m_pRootFrame);
+}
 
 void cSkinnedMesh::UpdateAndRender()
 {

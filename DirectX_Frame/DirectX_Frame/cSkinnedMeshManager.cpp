@@ -30,6 +30,7 @@ cSkinnedMesh* cSkinnedMeshManager::CloneSkinnedMesh(LPCSTR szOriginKey, LPCSTR s
 	if (m_mapCloneMesh.find(szCloneKey) == m_mapCloneMesh.end())
 	{
 		cSkinnedMesh* pSkinnedMesh = new cSkinnedMesh(this->GetSkinnedMesh(szOriginKey));
+		pSkinnedMesh->HalfClone();
 		m_mapCloneMesh[szCloneKey] = pSkinnedMesh;
 	}
 	return m_mapCloneMesh[szCloneKey];
@@ -82,6 +83,7 @@ void cSkinnedMeshManager::Destroy()
 	}
 	for each(auto it in m_mapCloneMesh)
 	{
+		it.second->HalfDestroy();
 		SAFE_DELETE(it.second);
 	}
 

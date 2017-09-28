@@ -17,6 +17,7 @@ cPlayer::cPlayer(void)
 	, m_dwNumRealdyFalse(0)
 	, m_dwNumPattern(PATTERN_NORMAL)
 	, m_dwNumState(cPlayer::ORDER_NULL)
+	, m_dwNumRealdyParam(0)
 	, m_bCurrentTrack(false)
 	, m_bHitAnimation(false)
 	, m_fRadius(0.3f)
@@ -223,28 +224,37 @@ void cPlayer::OrderTarget(void)
 			}
 			else
 			{
-				//공격
+				//공격 준비
 				this->MoveStop();
 				this->SetDirection(&(m_pTarget->GetPosition() - this->GetPosition()));
 				this->SetStateFalse(PATTERN_TARGET | PATTERN_STOP | PATTERN_ATTACK | PATTERN_WALK | PATTERN_RUN);
-
 				float fDelay = 0.0f;
-				if (g_pMath->Random(2)) fDelay = this->SetBlendingAnimation(cPlayer::ANIMATION_ATTACK_01);
-				else  fDelay = this->SetBlendingAnimation(cPlayer::ANIMATION_ATTACK_02);
-				this->m_AbilityParamter.SetDelayTime(fDelay - 0.1f);
 
-				this->SetRealdyTrue(PATTERN_TARGET | PATTERN_STOP | PATTERN_ATTACK | PATTERN_WALK | PATTERN_RUN);
-				this->SetRealdyState(cPlayer::ORDER_OFFENSIVE);
+				if (this->CheckState(PATTERN_SMASH))
+				{
 
-				//피격
-				m_pTarget->MoveStop();
-				m_pTarget->Rotation(&(this->GetPosition() - m_pTarget->GetPosition()), 20.0f);
-				m_pTarget->SetStateFalse(PATTERN_ATTACK | PATTERN_WALK | PATTERN_RUN | PATTERN_STOP);
-				
-				m_pTarget->GetAbilityParamter()->SetDelayTime(fDelay * 0.3f);
-				m_pTarget->GetAbilityParamter()->SetDownGauge(m_pTarget->GetAbilityParamter()->GetDownGauge() + 2.25f);
+				}
+				else
+				{
+					//통상 공격
+					if (g_pMath->Random(2)) fDelay = this->SetBlendingAnimation(cPlayer::ANIMATION_ATTACK_01);
+					else  fDelay = this->SetBlendingAnimation(cPlayer::ANIMATION_ATTACK_02);
+					this->m_AbilityParamter.SetDelayTime(fDelay - 0.1f);
 
-				m_pTarget->SetRealdyState(cPlayer::ORDER_HIT);
+					this->SetRealdyTrue(PATTERN_TARGET | PATTERN_STOP | PATTERN_ATTACK | PATTERN_WALK | PATTERN_RUN);
+					this->SetRealdyState(cPlayer::ORDER_OFFENSIVE);
+
+					//통상 피격
+					m_pTarget->MoveStop();
+					m_pTarget->Rotation(&(this->GetPosition() - m_pTarget->GetPosition()), 20.0f);
+					m_pTarget->SetStateFalse(PATTERN_ATTACK | PATTERN_WALK | PATTERN_RUN | PATTERN_STOP);
+
+					m_pTarget->GetAbilityParamter()->SetDelayTime(fDelay * 0.3f);
+					m_pTarget->GetAbilityParamter()->SetDownGauge(m_pTarget->GetAbilityParamter()->GetDownGauge() + 2.25f);
+
+					m_pTarget->SetRealdyState(cPlayer::ORDER_HIT);
+					m_pTarget->SetParam(0);
+				}
 			}
 		}
 	}
