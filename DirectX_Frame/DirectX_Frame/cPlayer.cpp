@@ -123,9 +123,18 @@ void cPlayer::SetupHit(void)
 {
 	m_dwNumRealdyState = 0;
 	float fDelay = 0.0f;
-	if (this->IsHitAnimation()) fDelay = this->SetBlendingAnimation(cPlayer::ANIMATION_HIT_01);
-	else fDelay = this->SetBlendingAnimation(cPlayer::ANIMATION_HIT_02);
-	this->SetHitAnimation(!this->IsHitAnimation());
+	if (2.75f < m_AbilityParamter.GetDownGauge())
+	{
+		if (g_pMath->Random(2)) fDelay = this->SetBlendingAnimation(cPlayer::ANIMATION_ENDURE_01);
+		else fDelay = this->SetBlendingAnimation(cPlayer::ANIMATION_ENDURE_02);
+		this->OrderBackMove(&(this->GetPosition() - this->GetDirection() * fDelay));
+	}
+	else
+	{
+		if (this->IsHitAnimation()) fDelay = this->SetBlendingAnimation(cPlayer::ANIMATION_HIT_01);
+		else fDelay = this->SetBlendingAnimation(cPlayer::ANIMATION_HIT_02);
+		this->SetHitAnimation(!this->IsHitAnimation());
+	}
 	this->GetAbilityParamter()->SetDelayTime(fDelay - 0.1f);
 
 	this->SetRealdyTrue(PATTERN_ATTACK | PATTERN_WALK | PATTERN_RUN | PATTERN_OFFENSIVE);
@@ -229,11 +238,11 @@ void cPlayer::OrderTarget(void)
 
 				//피격
 				m_pTarget->MoveStop();
-				m_pTarget->SetDirection(&(this->GetPosition() - m_pTarget->GetPosition()));
+				m_pTarget->Rotation(&(this->GetPosition() - m_pTarget->GetPosition()), 20.0f);
 				m_pTarget->SetStateFalse(PATTERN_ATTACK | PATTERN_WALK | PATTERN_RUN | PATTERN_STOP);
 				
 				m_pTarget->GetAbilityParamter()->SetDelayTime(fDelay * 0.3f);
-				m_pTarget->GetAbilityParamter()->SetDownGauge(m_pTarget->GetAbilityParamter()->GetDownGauge() + 8.0f);
+				m_pTarget->GetAbilityParamter()->SetDownGauge(m_pTarget->GetAbilityParamter()->GetDownGauge() + 2.25f);
 
 				m_pTarget->SetRealdyState(cPlayer::ORDER_HIT);
 			}
@@ -314,6 +323,14 @@ void cPlayer::OrderMove(LPD3DXVECTOR3 pTo)
 		}
 	}
 	else this->OrderWalk(pTo);
+}
+
+void cPlayer::OrderBackMove(LPD3DXVECTOR3 pTo)
+{
+	assert(m_pActionMove && "이 캐릭터는 이동할 수 없는 캐릭터 입니다.");
+	this->Rotation(&(this->GetPosition() - (*pTo)), 20.0f);
+	this->m_pActionMove->SetToPlay(pTo, 2.0f);
+	this->SetStateFalse(PATTERN_STOP);
 }
 
 void cPlayer::OrderAttack(cPlayer* pTarget)

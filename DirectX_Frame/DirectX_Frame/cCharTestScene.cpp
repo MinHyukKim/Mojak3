@@ -37,7 +37,7 @@ HRESULT cCharTestScene::Setup(void)
 //
 //	m_pMapTerrain = cMapTerrain::Create();
 //	m_pMapTerrain->Setup("./HeightMapData/HeightMap.raw", &stMtl);
-	g_pMapTerrain->RegisterMap("테스트용", "./HeightMapData/HeightMap.raw", "./Texture/steppegrass01_only.dds", &D3DXCOLOR(1.0f, 1.0f, 1.0f, 1.0f));
+//	g_pMapTerrain->RegisterMap("테스트용", "./HeightMapData/HeightMap.raw", "./Texture/steppegrass01_only.dds", &D3DXCOLOR(1.0f, 1.0f, 1.0f, 1.0f));
 //	g_pObjectManager->SetTerrain(m_pMapTerrain);
 	g_pObjectManager->SetTerrain(g_pMapTerrain->GetMapTerrain("테스트용"));
 	m_pMapTerrain = g_pMapTerrain->GetMapTerrain("테스트용");
