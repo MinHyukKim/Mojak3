@@ -442,15 +442,69 @@ void cUiTestScene::MoveUiWindow(void)
 		}
 		else m_pQuestUiMoveing->isClick = false;
 	}
-	else if (m_pQuestUiMoveing->isClick)
-	{
-		queX = m_pQuestUiImageHead->GetPosition().x + nDeltaX;
-		queY = m_pQuestUiImageHead->GetPosition().y + nDeltaY;
-
-		m_pQuestUiImageHead->SetPosition(queX, queY);
-	}
+//	else if (m_pQuestUiMoveing->isClick)
+//	{
+//		queX = m_pQuestUiImageHead->GetPosition().x + nDeltaX;
+//		queY = m_pQuestUiImageHead->GetPosition().y + nDeltaY;
+//
+//		m_pQuestUiImageHead->SetPosition(queX, queY);
+//	}
 
 	//ÅÆ ¹«ºù
-	
+	int tempX;
+	int tempY;
+	//¹éÅÍ
+	for (int i = 0; i < INVMAX; i++)
+	{
+		if (m_vecTempPlayerItem[i] == NULL) return;
+
+		if (m_vecTempPlayerItem[i]->isOver)
+		{
+			if (g_pInputManager->IsStayKeyDown(VK_LBUTTON))
+			{
+				m_vecTempPlayerItem[i]->isClick = true;
+				tempX = m_vecTempPlayerItem[i]->GetPosition().x + nDeltaX;
+				tempY = m_vecTempPlayerItem[i]->GetPosition().y + nDeltaY;
+
+				m_vecTempPlayerItem[i]->SetPosition(tempX, tempY);
+			}
+			else m_vecTempPlayerItem[i]->isClick = false;
+		}
+		else if (m_vecTempPlayerItem[i]->isClick)
+		{
+			tempX = m_vecTempPlayerItem[i]->GetPosition().x + nDeltaX;
+			tempY = m_vecTempPlayerItem[i]->GetPosition().y + nDeltaY;
+
+			m_vecTempPlayerItem[i]->SetPosition(tempX, tempY);
+		}
+	}
+
+	int tX;
+	int tY;
+	//¹è¿­
+//	for (int i = 0; i < INVMAX; i++)
+//	{
+//		if (m_pTempPlayerItemArr[i] == NULL) return;
+//
+//		if (m_pTempPlayerItemArr[1]->isOver)
+//		{
+//			if (g_pInputManager->IsStayKeyDown(VK_LBUTTON))
+//			{
+//				m_pTempPlayerItemArr[1]->isClick = true;
+//				tX = m_pTempPlayerItemArr[1]->GetPosition().x + nDeltaX;
+//				tY = m_pTempPlayerItemArr[1]->GetPosition().y + nDeltaY;
+//
+//				m_pTempPlayerItemArr[1]->SetPosition(tX, tY);
+//			}
+//			else m_pTempPlayerItemArr[1]->isClick = false;
+//		}
+//	//	else if (m_pTempPlayerItemArr[1]->isClick)
+//	//	{
+//	//		tempX = m_pTempPlayerItemArr[1]->GetPosition().x + nDeltaX;
+//	//		tempY = m_pTempPlayerItemArr[1]->GetPosition().y + nDeltaY;
+//	//
+//	//		m_pTempPlayerItemArr[1]->SetPosition(tempX, tempY);
+//	//	}
+//	}
 
 }

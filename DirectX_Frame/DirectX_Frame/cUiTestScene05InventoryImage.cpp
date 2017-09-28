@@ -15,28 +15,24 @@
 void cUiTestScene::changeInventoryImage(void)
 {
 	//ÅÆÄ­
+	//¹éÅÍ
 	RECT rc;
-	for (int i = 0; i < INVMAX; i++)
-	{
-		//IntersectRect(&rc, &(m_pInventoryUiBlock[i]->rc), &(m_vecTempPlayerItem[i]->rc))
-	//	for each(auto n in m_vecTempPlayerItem)
-	//	{
-	//	for (int j = 0; j < m_vecTempPlayerItem.size(); j++)
-	//	{
-			if (IntersectRect(&rc, &(m_pInventoryUiBlock[i]->rc), &m_vecTempPlayerItem[2]->rc))
-			{
-				m_pInventoryUiBlock[i]->SetTexture("Texture/Ui/inventory2.png"
-					, "Texture/Ui/inventory2.png", "Texture/Ui/inventory2.png");
-			}
-			else
-			{
-				m_pInventoryUiBlock[i]->SetTexture("Texture/Ui/inventory1.png"
-					, "Texture/Ui/inventory1.png", "Texture/Ui/inventory1.png");
-			}
-	//	}
-	//	}	
-	}
-
+//	for (int i = 0; i < INVMAX; i++)
+//	{
+//		//IntersectRect(&rc, &(m_pInventoryUiBlock[i]->rc), &(m_vecTempPlayerItem[i]->rc))
+//		if (m_vecTempPlayerItem[i] == NULL) return;
+//		if (IntersectRect(&rc, &(m_pInventoryUiBlock[i]->rc), &m_vecTempPlayerItem[i]->rc))
+//		{			
+//			m_pInventoryUiBlock[i]->SetTexture("Texture/Ui/inventory2.png"
+//				, "Texture/Ui/inventory2.png", "Texture/Ui/inventory2.png");
+//		}
+//		else
+//		{
+//			m_pInventoryUiBlock[i]->SetTexture("Texture/Ui/inventory1.png"
+//				, "Texture/Ui/inventory1.png", "Texture/Ui/inventory1.png");
+//		}
+//	}
+	//¹è¿­
 
 	//ÀåºñÄ­
 	if (m_isTorsoMount)
@@ -97,7 +93,7 @@ void cUiTestScene::changePlayerMesh(void)
 	{
 	case E_SHOES_EMPTY:
 	{
-		g_pObjectManager->GetPlayer()->ChangeMeshPart(cPlayer::MESH_SHOES, g_pSkinnedMeshManager->GetSkinnedMesh("½Å¹ß00"));
+		g_pObjectManager->GetPlayer()->ChangeMeshPart(cPlayer::MESH_SHOES, nullptr);
 	}
 	break;
 	case E_SHOES_01:
