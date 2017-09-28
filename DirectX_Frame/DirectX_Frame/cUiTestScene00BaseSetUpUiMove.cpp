@@ -471,7 +471,7 @@ void cUiTestScene::MoveUiWindow(void)
 					//착용 이미지들(전체) 와 아이탬이 충돌 할 시
 					if (IntersectRect(&rcTemp, &m_pInventoryUiEquipImage->rc, &m_vecTempPlayerItem[i]->rc))
 					{
-						if (true) //몸통일때 (버튼에서 따로 만들기)
+						if (m_vecTempPlayerItem[i]->m_eItem == cUIButton::E_ITEM_WEAR) //몸통일때 (버튼에서 따로 만들기)
 						{
 							//기존에 착용안 아이템이 있으면 해제
 							// 착용 중 장비가 옮기는 장비와 같지 않을 시 (장비 교체)
@@ -492,10 +492,25 @@ void cUiTestScene::MoveUiWindow(void)
 							//없으면 기냥 이동
 							else m_vecTempPlayerItem[i]->SetPosition(m_pInventoryUiEquipTorso->GetPosition());
 						}
+						else if (m_vecTempPlayerItem[i]->m_eItem == cUIButton::E_ITEM_SHOES)
+						{
+							if (m_isShoesMount != i)
+							{
+								if (m_isShoesMount > -1)
+								{
+									m_vecTempPlayerItem[m_isShoesMount]->SetPosition(m_vecTempPlayerItem[i]->m_vItemPrevPos);
+									m_vecTempPlayerItem[m_isShoesMount]->Update();
+								}
+								m_vecTempPlayerItem[i]->SetPosition(m_pInventoryUiEquipShoes->GetPosition());
+								m_isShoesMount = i;
+								break;
+							}
+						}
 					}
 					else // 장비 헤제 할 시(장비를 빼서 아이탬칸으로 이동 시)
 					{
 						if (m_isTorsoMount == i) m_isTorsoMount = -1; // -1(장비헤제 상태로 변경)
+						if (m_isShoesMount == i) m_isShoesMount = -1;
 						this->_ItemInventory(i); //위치 재정렬)
 					}
 				}

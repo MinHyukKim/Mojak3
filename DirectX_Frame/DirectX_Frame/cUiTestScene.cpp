@@ -48,7 +48,7 @@ cUiTestScene::cUiTestScene(void)
 	, m_isTorsoMount(0) 
 	, m_isWeaponHandMount(false)
 	, m_isSubHandMount(false)
-	, m_isShoesMount(false)
+	, m_isShoesMount(-1)
 	//임시 플레이어
 	, m_pPlayer(NULL)
 	, m_pMainCamera(NULL)

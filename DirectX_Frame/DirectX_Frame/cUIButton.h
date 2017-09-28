@@ -38,9 +38,17 @@ public:
 	//	E_SELECTED,
 	//	E_STATUS_COUNT,
 	//};
-
 	//eButtonStatus m_eButtonStatus;
 	//std::string m_aTexture[E_STATUS_COUNT];
+	
+	enum eIfItemKinds
+	{
+		E_ITEM_NONE, 
+		E_ITEM_WEAR,
+		E_ITEM_SHOES,
+		E_ITEM_WEAPON,
+		E_ITEM_END
+	};
 
 	virtual void SetTexture(std::string sNor, std::string sOvr, std::string sSel);
 	virtual void Update() override;
@@ -53,6 +61,7 @@ public:
 	RECT rc;
 	bool isOver;
 	bool isClick;
+	eIfItemKinds m_eItem;
 	D3DXVECTOR3 m_vItemPrevPos;
 
 	int m_Alpha;

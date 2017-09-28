@@ -82,6 +82,15 @@ void cUiTestScene::changePlayerMesh(void)
 		g_pObjectManager->GetPlayer()->GetAbilityParamter()->SetDefence(30);
 	}
 
+	if (m_isShoesMount == -1)
+	{
+		g_pObjectManager->GetPlayer()->ChangeMeshPart(cPlayer::MESH_SHOES, nullptr);
+	}
+	else if (m_isShoesMount == 3)
+	{
+		g_pObjectManager->GetPlayer()->ChangeMeshPart(cPlayer::MESH_SHOES, g_pSkinnedMeshManager->GetSkinnedMesh("신발00"));
+	}
+
 //	//매쉬 변경 테스트
 //	switch (m_eEquipTorso)
 //	{
