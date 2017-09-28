@@ -36,12 +36,12 @@ void cUiTestScene::changeInventoryImage(void)
 
 
 	//ÀåºñÄ­
-	if (m_isTorsoMount)
+	if (m_isTorsoMount > -1)
 	{
 		m_pInventoryUiEquipTorso->SetTexture("Texture/Ui/inventoryTorsoin.png",
 			"Texture/Ui/inventoryTorsoOver.png", "Texture/Ui/inventoryTorsoin.png");
 	}
-	else
+	else if(m_isTorsoMount == -1)
 	{
 		m_pInventoryUiEquipTorso->SetTexture("Texture/Ui/inventoryTorso.png",
 			"Texture/Ui/inventoryTorso.png", "Texture/Ui/inventoryTorso.png");

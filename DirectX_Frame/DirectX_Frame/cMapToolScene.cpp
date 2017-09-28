@@ -126,7 +126,7 @@ void cMapToolScene::Update(void)
 			g_pMapObjectManager->GetLastMapObject()->SetPosZ(vTo.z);
 			g_pMapObjectManager->GetLastMapObject()->SetPosX(vTo.x);
 		}
-		g_pMapObjectManager->Get
+	//	g_pMapObjectManager->Get
 	}
 //
 //	//마지막으로 생성된 건물의 좌우 방향 변환
