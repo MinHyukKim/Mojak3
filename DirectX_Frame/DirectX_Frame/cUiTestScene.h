@@ -40,14 +40,14 @@ enum
 	E_INVENTORY_MOVE = 226,
 	//인벤토리 태스트용
 	E_BUTTON_TEST1 = 227,
-	E_ITEM_WEAR = 228,
-	E_ITEM_WEAR1 = 229,
-	E_ITEM_WEAR2 = 230,
-	E_ITEM_WEAR3 = 231,
-	E_ITEM_WEAPON = 232,
-	E_ITEM_WEAPON1 = 233,
-	E_ITEM_WEAPON2 = 234,
-	E_ITEM_SHOES = 235,
+//	E_ITEM_WEAR = 228,
+//	E_ITEM_WEAR1 = 229,
+//	E_ITEM_WEAR2 = 230,
+//	E_ITEM_WEAR3 = 231,
+//	E_ITEM_WEAPON = 232,
+//	E_ITEM_WEAPON1 = 233,
+//	E_ITEM_WEAPON2 = 234,
+//	E_ITEM_SHOES = 235,
 	//닫기버튼용
 	E_BUTTON_INFO_CLOSE = 236,
 	E_BUTTON_SKILL_CLOSE = 237,
@@ -58,11 +58,11 @@ enum
 
 enum ePlayerEquipTorso
 {
-	E_TORSO_NONE,
-	E_TORSO_EMPTY,
-	E_TORSO_WEAR_01,
-	E_TORSO_WEAR_02,
-	E_TORSO_WEAR_03,
+	E_TORSO_NONE = -2,
+	E_TORSO_EMPTY = -1,
+	E_TORSO_WEAR_01 = 0,
+	E_TORSO_WEAR_02 = 1,
+	E_TORSO_WEAR_03 = 2,
 };
 
 enum ePlayerEquipShoes
@@ -223,18 +223,19 @@ private:
 	cUITextView* m_pInventoryUiText;		//불변 택스트
 	//칸 수
 	vector<cUIButton*> m_vecInventoryUiBlock;	//인벤토리 칸(백터)(x)
-	cUIButton* m_pInventoryUiBlock[INVMAX];			//인벤토리 칸(소지품)
+	D3DXVECTOR3 m_vItemPrevPos;
+	cUIButton* m_pInventoryUiBlock[INVMAX];		//인벤토리 칸(소지품)
 	cUIButton* m_pQInventoryUiButton;			//인벤 버튼
 	cUiObject* m_pInventoryUi;
 	//장비 자리 표시
 	cUIButton* m_pInventoryUiEquipTorso;			//몸통 칸
-	bool m_isTorsoMount;							//몸통 장착 여부
+	int m_isTorsoMount;								//몸통 장착 여부
 	cUIButton* m_pInventoryUiEquipWeaponHand;		//무기 손 칸
 	bool m_isWeaponHandMount;						//무기 손 장착 여부
 	cUIButton* m_pInventoryUiEquipSubHand;			//서브 손 칸
 	bool m_isSubHandMount;							//서브 손 장착 여부
 	cUIButton* m_pInventoryUiEquipShoes;			//신발 손 칸
-	bool m_isShoesMount;							//신발 장착여부
+	int m_isShoesMount;							//신발 장착여부
 	//아이탬 픽업 여부
 	bool isPickUpItem;				//아이탬 픽업 여부(찍고 올리기)
 	//패널 이미지 크기 태스트용
@@ -280,8 +281,6 @@ private:
 	std::vector<cUIButton*> m_vecTempPlayerItem;
 	int m_nItemMax;
 	cUIButton* m_pTempPlayerItemArr[INVMAX];
-
-
 	//어빌리티
 	cAbilityParamter m_AbilityParamter;
 
@@ -298,6 +297,7 @@ public:
 	void UpdateMainUi(void);
 	void UpdateInfoUi(void);
 	void MoveUiWindow(void);
+	void _ItemInventory(int i);
 	virtual void Render(void) override;
 
 	void MsgProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam);

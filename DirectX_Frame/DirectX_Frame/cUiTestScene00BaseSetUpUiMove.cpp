@@ -388,10 +388,10 @@ void cUiTestScene::MoveUiWindow(void)
 			&& m_pQuestUiMoveing->isClick == false)
 		{
 			m_pInfoUiMoveing->isClick = true;
-				infoX = m_pInfoUiImageHead->GetPosition().x + nDeltaX;
-				infoY = m_pInfoUiImageHead->GetPosition().y + nDeltaY;
+			infoX = m_pInfoUiImageHead->GetPosition().x + nDeltaX;
+			infoY = m_pInfoUiImageHead->GetPosition().y + nDeltaY;
 			
-				m_pInfoUiImageHead->SetPosition(infoX, infoY);
+			m_pInfoUiImageHead->SetPosition(infoX, infoY);
 		}
 		else m_pInfoUiMoveing->isClick = false;
 	}
@@ -442,69 +442,108 @@ void cUiTestScene::MoveUiWindow(void)
 		}
 		else m_pQuestUiMoveing->isClick = false;
 	}
-//	else if (m_pQuestUiMoveing->isClick)
-//	{
-//		queX = m_pQuestUiImageHead->GetPosition().x + nDeltaX;
-//		queY = m_pQuestUiImageHead->GetPosition().y + nDeltaY;
-//
-//		m_pQuestUiImageHead->SetPosition(queX, queY);
-//	}
 
 	//탬 무빙
 	int tempX;
 	int tempY;
-	//백터
-	for (int i = 0; i < INVMAX; i++)
+	bool isOnceCheck = true;
+	
+	if (m_isInventoryWindowOn)  //인벤토리 창이 열릴때만 
 	{
-		if (m_vecTempPlayerItem[i] == NULL) return;
-
-		if (m_vecTempPlayerItem[i]->isOver)
+		for (int i = 0; i < INVMAX; i++)
 		{
-			if (g_pInputManager->IsStayKeyDown(VK_LBUTTON))
+			if (m_vecTempPlayerItem[i] == NULL) return; //탬이 없으면 리턴
+
+			if (isOnceCheck)    // 중복체크 방지
 			{
-				m_vecTempPlayerItem[i]->isClick = true;
-				tempX = m_vecTempPlayerItem[i]->GetPosition().x + nDeltaX;
-				tempY = m_vecTempPlayerItem[i]->GetPosition().y + nDeltaY;
+				//체크 상태일때(오버된 상태에서 누르고 있을때)
+				if (m_vecTempPlayerItem[i]->isClick && m_pInventoryUiMoveing->isClick == false) 
+				{
+					tempX = m_vecTempPlayerItem[i]->GetPosition().x + nDeltaX;
+					tempY = m_vecTempPlayerItem[i]->GetPosition().y + nDeltaY;
 
-				m_vecTempPlayerItem[i]->SetPosition(tempX, tempY);
+					m_vecTempPlayerItem[i]->SetPosition(tempX, tempY);  //좌표 잡고 이동 후
+					isOnceCheck = false;   //중복 체크 방지 다시 false
+				} // x = 160 ++24 y = 90 ++24
+				else  //체크 상태가 아닐 시 (마우스를 때고 있을 시)
+				{
+					RECT rcTemp;
+					//착용 이미지들(전체) 와 아이탬이 충돌 할 시
+					if (IntersectRect(&rcTemp, &m_pInventoryUiEquipImage->rc, &m_vecTempPlayerItem[i]->rc))
+					{
+						if (m_vecTempPlayerItem[i]->m_eItem == cUIButton::E_ITEM_WEAR) //몸통일때 (버튼에서 따로 만들기)
+						{
+							//기존에 착용안 아이템이 있으면 해제
+							// 착용 중 장비가 옮기는 장비와 같지 않을 시 (장비 교체)
+							if (m_isTorsoMount != i)  
+							{
+								if (m_isTorsoMount > -1)  //장비가 있을시 (-1이면 장비헤제)
+								{
+									//이전 착용중인 장비의 포지션을 옮기는 장비의 이전 위치로 변경 후 업데이트
+									//버튼 내에서 이전 위치 저장
+									m_vecTempPlayerItem[m_isTorsoMount]->SetPosition(m_vecTempPlayerItem[i]->m_vItemPrevPos);
+									m_vecTempPlayerItem[m_isTorsoMount]->Update();
+								}
+								//이미지 위치 이동 후
+								m_vecTempPlayerItem[i]->SetPosition(m_pInventoryUiEquipTorso->GetPosition());
+								m_isTorsoMount = i; //착용 장비 변경
+								break;
+							}
+							//없으면 기냥 이동
+							else m_vecTempPlayerItem[i]->SetPosition(m_pInventoryUiEquipTorso->GetPosition());
+						}
+						else if (m_vecTempPlayerItem[i]->m_eItem == cUIButton::E_ITEM_SHOES)
+						{
+							if (m_isShoesMount != i)
+							{
+								if (m_isShoesMount > -1)
+								{
+									m_vecTempPlayerItem[m_isShoesMount]->SetPosition(m_vecTempPlayerItem[i]->m_vItemPrevPos);
+									m_vecTempPlayerItem[m_isShoesMount]->Update();
+								}
+								m_vecTempPlayerItem[i]->SetPosition(m_pInventoryUiEquipShoes->GetPosition());
+								m_isShoesMount = i;
+								break;
+							}
+						}
+					}
+					else // 장비 헤제 할 시(장비를 빼서 아이탬칸으로 이동 시)
+					{
+						if (m_isTorsoMount == i) m_isTorsoMount = -1; // -1(장비헤제 상태로 변경)
+						if (m_isShoesMount == i) m_isShoesMount = -1;
+						this->_ItemInventory(i); //위치 재정렬)
+					}
+				}
 			}
-			else m_vecTempPlayerItem[i]->isClick = false;
-		}
-		else if (m_vecTempPlayerItem[i]->isClick)
-		{
-			tempX = m_vecTempPlayerItem[i]->GetPosition().x + nDeltaX;
-			tempY = m_vecTempPlayerItem[i]->GetPosition().y + nDeltaY;
+			else
+			{
+				m_vecTempPlayerItem[i]->isClick = false;
+			}
 
-			m_vecTempPlayerItem[i]->SetPosition(tempX, tempY);
 		}
 	}
+}
 
-	int tX;
-	int tY;
-	//배열
-//	for (int i = 0; i < INVMAX; i++)
-//	{
-//		if (m_pTempPlayerItemArr[i] == NULL) return;
-//
-//		if (m_pTempPlayerItemArr[1]->isOver)
-//		{
-//			if (g_pInputManager->IsStayKeyDown(VK_LBUTTON))
-//			{
-//				m_pTempPlayerItemArr[1]->isClick = true;
-//				tX = m_pTempPlayerItemArr[1]->GetPosition().x + nDeltaX;
-//				tY = m_pTempPlayerItemArr[1]->GetPosition().y + nDeltaY;
-//
-//				m_pTempPlayerItemArr[1]->SetPosition(tX, tY);
-//			}
-//			else m_pTempPlayerItemArr[1]->isClick = false;
-//		}
-//	//	else if (m_pTempPlayerItemArr[1]->isClick)
-//	//	{
-//	//		tempX = m_pTempPlayerItemArr[1]->GetPosition().x + nDeltaX;
-//	//		tempY = m_pTempPlayerItemArr[1]->GetPosition().y + nDeltaY;
-//	//
-//	//		m_pTempPlayerItemArr[1]->SetPosition(tempX, tempY);
-//	//	}
-//	}
+void cUiTestScene::_ItemInventory(int i)
+{
+	//x좌표 구하기
+	const int nOffsetX = 160;
+	const int nBlockSize = 24; //블럭 크기
+	int nPositionX = m_vecTempPlayerItem[i]->GetPosition().x - nOffsetX;
+	int nBlockX = nPositionX / nBlockSize; //몫(위치)
+	float fCheckX = nPositionX - nBlockX * (float)nBlockSize; //나머지
+	//나머지의 크기가 겹치는 블럭의 반보다 크면 다음 블럭으로 이동
+	if (fCheckX > nBlockSize * 0.5f && nBlockX < 6) nBlockX = nBlockX + 1;
+	nPositionX = nBlockX * nBlockSize + nOffsetX;
 
+	//y좌표 구하기
+	const int nOffsetY = 90;
+	int nPositionY = m_vecTempPlayerItem[i]->GetPosition().y - nOffsetY;
+	int nBlockY = nPositionY / nBlockSize;   //몫(위치)
+	float fCheckY = nPositionY - nBlockY * (float)nBlockSize; //나머지
+	//나머지 크기가 겹치는 블럭의 반보다 크면 다음 블럭으로
+	if (fCheckY > nBlockSize * 0.5f && nBlockY < 10) nBlockY += 1;
+	nPositionY = nBlockY * nBlockSize + nOffsetY;
+
+	m_vecTempPlayerItem[i]->SetPosition(nPositionX, nPositionY);
 }

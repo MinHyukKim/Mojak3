@@ -8,6 +8,8 @@ cUIButton::cUIButton(void)
 	, isOver(false)
 	, isClick(false)
 	, m_Alpha(255)
+	, m_eItem(E_ITEM_NONE)
+	, m_eItemStats(E_ITEM_STATS_NONE)
 {
 }
 
@@ -52,10 +54,13 @@ void cUIButton::Update()
 			if (m_eButtonStatus == E_MOUSEOVER)
 			{
 				m_eButtonStatus = E_SELECTED;
+				isClick = true;
+				m_vItemPrevPos = this->GetPosition();
 			}
 		}
 		else
 		{
+			if (isClick) isClick = false;
 			if (m_eButtonStatus == E_SELECTED)
 			{
 				if (m_pDelegate) m_pDelegate->OnClick(this);

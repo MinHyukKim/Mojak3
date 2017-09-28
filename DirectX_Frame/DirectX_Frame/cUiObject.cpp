@@ -61,6 +61,7 @@ void cUiObject::SetPosition(float x, float y)
 	m_vPosition.z = 0;
 }
 
+
 void cUiObject::GetRect(RECT * pRect)
 {
 	if (!pRect) return;
