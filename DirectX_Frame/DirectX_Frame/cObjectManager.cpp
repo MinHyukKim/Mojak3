@@ -141,6 +141,9 @@ void cObjectManager::RegisterPlayer(IN cPlayer* pPlayer)
 	pPlayer->RegisterAnimation(cPlayer::ANIMATION_ATTACK_02, g_pAnimationManager->GetAnimation("여성_공격02"), 5.0f);
 	pPlayer->RegisterAnimation(cPlayer::ANIMATION_HIT_01, g_pAnimationManager->GetAnimation("여성_피격01"), 5.0f);
 	pPlayer->RegisterAnimation(cPlayer::ANIMATION_HIT_02, g_pAnimationManager->GetAnimation("여성_피격02"), 5.0f);
+	pPlayer->RegisterAnimation(cPlayer::ANIMATION_ENDURE_01, g_pAnimationManager->GetAnimation("여성_밀려남01"), 5.0f);
+	pPlayer->RegisterAnimation(cPlayer::ANIMATION_ENDURE_02, g_pAnimationManager->GetAnimation("여성_밀려남02"), 5.0f);
+	pPlayer->RegisterAnimation(cPlayer::ANIMATION_SMASH, g_pAnimationManager->GetAnimation("여성_스매시"), 5.0f);
 	m_pPlayer->GetAbilityParamter()->SetPlayerID(1);
 	m_pPlayer->GetAbilityParamter()->SetUnitID(0);
 	m_pPlayer->AddRef();
@@ -202,6 +205,9 @@ bool cObjectManager::CreateMonster(IN MONSTER_TYPE eMonsterKey, IN LPD3DXVECTOR3
 		pCreateMonster->RegisterAnimation(cPlayer::ANIMATION_ATTACK_02, g_pAnimationManager->GetAnimation("여성_공격02"), 5.0f);
 		pCreateMonster->RegisterAnimation(cPlayer::ANIMATION_HIT_01, g_pAnimationManager->GetAnimation("여성_피격01"), 5.0f);
 		pCreateMonster->RegisterAnimation(cPlayer::ANIMATION_HIT_02, g_pAnimationManager->GetAnimation("여성_피격02"), 5.0f);
+		pCreateMonster->RegisterAnimation(cPlayer::ANIMATION_ENDURE_01, g_pAnimationManager->GetAnimation("여성_밀려남01"), 5.0f);
+		pCreateMonster->RegisterAnimation(cPlayer::ANIMATION_ENDURE_02, g_pAnimationManager->GetAnimation("여성_밀려남02"), 5.0f);
+		pCreateMonster->RegisterAnimation(cPlayer::ANIMATION_SMASH, g_pAnimationManager->GetAnimation("여성_스매시"), 5.0f);
 		pCreateMonster->GetAbilityParamter()->SetPlayerID(2);
 		pCreateMonster->GetAbilityParamter()->SetUnitID(cObjectManager::MONSTER_TEXTER);
 		pCreateMonster->OrderFriendly();
@@ -225,6 +231,7 @@ bool cObjectManager::CreateMonster(IN MONSTER_TYPE eMonsterKey, IN LPD3DXVECTOR3
 		pCreateMonster->RegisterAnimation(cPlayer::ANIMATION_HIT_02, g_pAnimationManager->GetAnimation("여우_피격02"), 5.0f);
 		pCreateMonster->RegisterAnimation(cPlayer::ANIMATION_ENDURE_01, g_pAnimationManager->GetAnimation("여우_밀려남"), 5.0f);
 		pCreateMonster->RegisterAnimation(cPlayer::ANIMATION_ENDURE_02, g_pAnimationManager->GetAnimation("여우_밀려남"), 5.0f);
+		pCreateMonster->RegisterAnimation(cPlayer::ANIMATION_SMASH, g_pAnimationManager->GetAnimation("여우_스매시"), 5.0f);
 		pCreateMonster->GetAbilityParamter()->SetPlayerID(2);
 		pCreateMonster->GetAbilityParamter()->SetUnitID(cObjectManager::MONSTER_FOX01);
 		pCreateMonster->OrderFriendly();
@@ -248,6 +255,7 @@ bool cObjectManager::CreateMonster(IN MONSTER_TYPE eMonsterKey, IN LPD3DXVECTOR3
 		pCreateMonster->RegisterAnimation(cPlayer::ANIMATION_HIT_02, g_pAnimationManager->GetAnimation("여우_피격02"), 5.0f);
 		pCreateMonster->RegisterAnimation(cPlayer::ANIMATION_ENDURE_01, g_pAnimationManager->GetAnimation("여우_밀려남"), 5.0f);
 		pCreateMonster->RegisterAnimation(cPlayer::ANIMATION_ENDURE_02, g_pAnimationManager->GetAnimation("여우_밀려남"), 5.0f);
+		pCreateMonster->RegisterAnimation(cPlayer::ANIMATION_SMASH, g_pAnimationManager->GetAnimation("여우_스매시"), 5.0f);
 		pCreateMonster->GetAbilityParamter()->SetPlayerID(2);
 		pCreateMonster->GetAbilityParamter()->SetUnitID(1);
 		pCreateMonster->OrderFriendly();
@@ -271,6 +279,7 @@ bool cObjectManager::CreateMonster(IN MONSTER_TYPE eMonsterKey, IN LPD3DXVECTOR3
 		pCreateMonster->RegisterAnimation(cPlayer::ANIMATION_HIT_02, g_pAnimationManager->GetAnimation("여우_피격02"), 5.0f);
 		pCreateMonster->RegisterAnimation(cPlayer::ANIMATION_ENDURE_01, g_pAnimationManager->GetAnimation("여우_밀려남"), 5.0f);
 		pCreateMonster->RegisterAnimation(cPlayer::ANIMATION_ENDURE_02, g_pAnimationManager->GetAnimation("여우_밀려남"), 5.0f);
+		pCreateMonster->RegisterAnimation(cPlayer::ANIMATION_SMASH, g_pAnimationManager->GetAnimation("여우_스매시"), 5.0f);
 		pCreateMonster->GetAbilityParamter()->SetPlayerID(2);
 		pCreateMonster->GetAbilityParamter()->SetUnitID(1);
 		pCreateMonster->OrderFriendly();

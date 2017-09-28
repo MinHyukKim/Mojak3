@@ -58,6 +58,7 @@ Animation:./Animation/ani_female_hit_01.X,여성_피격01;
 Animation:./Animation/ani_female_hit_02.X,여성_피격02;
 Animation:./Animation/ani_female_endure_01.X,여성_밀려남01;
 Animation:./Animation/ani_female_endure_02.X,여성_밀려남02;
+Animation:./Animation/Female_Smash.X,여성_스매시;
 
 Animation:./Animation/ani_female_counter.X,여성_카운터;
 Animation:./Animation/ani_female_down_attack.X,여성_다운공격00;
@@ -87,6 +88,7 @@ Animation:./Monster/Fox/Fox_Attack.X,여우_공격;
 Animation:./Monster/Fox/FoxHit01.X,여우_피격01;
 Animation:./Monster/Fox/FoxHit02.X,여우_피격02;
 Animation:./Monster/Fox/FoxEndure.X,여우_밀려남;
+Animation:./Animation/Fox_Smash.X,여우_스매시;
 
 Mesh:./Monster/Fox/,FoxMeshEx.X,여우01;
 Color:여우01,mon_fox02.dds, 0.6f, 0.2f, 0.2f, 1.0f;

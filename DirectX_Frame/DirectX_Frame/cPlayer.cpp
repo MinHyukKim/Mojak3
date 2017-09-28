@@ -230,8 +230,11 @@ void cPlayer::OrderTarget(void)
 				this->SetStateFalse(PATTERN_TARGET | PATTERN_STOP | PATTERN_ATTACK | PATTERN_WALK | PATTERN_RUN);
 				float fDelay = 0.0f;
 
-				if (this->CheckState(PATTERN_SMASH))
+				if (this->CheckState(PATTERN_SMASH))	//스매시
 				{
+					//공격
+
+					//피격
 
 				}
 				else
