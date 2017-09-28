@@ -122,19 +122,6 @@ HRESULT cUiTestScene::Setup(void)
 	m_pUiTesterSize->SetPosition(mainUiLocalX + 160, mainUiLocalY + 10);
 	m_pUiTestRoot = m_pUiTesterSize;	
 
-//	test = cUIImageViewTemp::Create();
-//	test->SetTexture("Texture/Ui/loading_bar.dds");
-//	test->SetPosition(-10, -10);
-//	test->SetRectSize();
-//	test->m_rc.right = 50.0f;
-//	m_pUiTestRoot->AddChild(test);
-
-//	LPDIRECT3DTEXTURE9 imageData;
-//	RECT rc;
-//	GetClientRect(g_hWnd, &rc);
-//	cImage* temp = cImage::Create();
-//	imageData = g_pTexture->GetTextureEx("Texture/Ui/loading_bar.dds", &m_stHpBar);
-//	temp->SetTexture("Texture/Ui/loading_bar.dds");
 
 	//플레이어 정보 창 셋업
 	this->SetupInfoUi();
@@ -164,9 +151,6 @@ void cUiTestScene::Reset(void)
 	//임시용 플레이어
 	SAFE_RELEASE(m_pPlayer);
 	SAFE_RELEASE(m_pMainCamera);
-//	SAFE_RELEASE(m_pHpMaxImage);
-//	SAFE_RELEASE(m_pHpImage);
-//	SAFE_RELEASE(m_pSpriteTemp);
 }
 
 void cUiTestScene::Update(void)

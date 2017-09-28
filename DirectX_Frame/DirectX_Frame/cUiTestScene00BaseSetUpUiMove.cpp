@@ -388,10 +388,10 @@ void cUiTestScene::MoveUiWindow(void)
 			&& m_pQuestUiMoveing->isClick == false)
 		{
 			m_pInfoUiMoveing->isClick = true;
-				infoX = m_pInfoUiImageHead->GetPosition().x + nDeltaX;
-				infoY = m_pInfoUiImageHead->GetPosition().y + nDeltaY;
+			infoX = m_pInfoUiImageHead->GetPosition().x + nDeltaX;
+			infoY = m_pInfoUiImageHead->GetPosition().y + nDeltaY;
 			
-				m_pInfoUiImageHead->SetPosition(infoX, infoY);
+			m_pInfoUiImageHead->SetPosition(infoX, infoY);
 		}
 		else m_pInfoUiMoveing->isClick = false;
 	}
@@ -442,69 +442,31 @@ void cUiTestScene::MoveUiWindow(void)
 		}
 		else m_pQuestUiMoveing->isClick = false;
 	}
-//	else if (m_pQuestUiMoveing->isClick)
-//	{
-//		queX = m_pQuestUiImageHead->GetPosition().x + nDeltaX;
-//		queY = m_pQuestUiImageHead->GetPosition().y + nDeltaY;
-//
-//		m_pQuestUiImageHead->SetPosition(queX, queY);
-//	}
 
 	//ÅÆ ¹«ºù
 	int tempX;
 	int tempY;
 	//¹éÅÍ
+	bool isOnceCheck = true;
 	for (int i = 0; i < INVMAX; i++)
 	{
 		if (m_vecTempPlayerItem[i] == NULL) return;
 
-		if (m_vecTempPlayerItem[i]->isOver)
+		if (isOnceCheck)
 		{
-			if (g_pInputManager->IsStayKeyDown(VK_LBUTTON))
+			if (m_vecTempPlayerItem[i]->isClick)
 			{
-				m_vecTempPlayerItem[i]->isClick = true;
 				tempX = m_vecTempPlayerItem[i]->GetPosition().x + nDeltaX;
 				tempY = m_vecTempPlayerItem[i]->GetPosition().y + nDeltaY;
 
 				m_vecTempPlayerItem[i]->SetPosition(tempX, tempY);
+				isOnceCheck = false;
 			}
-			else m_vecTempPlayerItem[i]->isClick = false;
 		}
-		else if (m_vecTempPlayerItem[i]->isClick)
+		else 
 		{
-			tempX = m_vecTempPlayerItem[i]->GetPosition().x + nDeltaX;
-			tempY = m_vecTempPlayerItem[i]->GetPosition().y + nDeltaY;
-
-			m_vecTempPlayerItem[i]->SetPosition(tempX, tempY);
+			m_vecTempPlayerItem[i]->isClick = false;
 		}
+
 	}
-
-	int tX;
-	int tY;
-	//¹è¿­
-//	for (int i = 0; i < INVMAX; i++)
-//	{
-//		if (m_pTempPlayerItemArr[i] == NULL) return;
-//
-//		if (m_pTempPlayerItemArr[1]->isOver)
-//		{
-//			if (g_pInputManager->IsStayKeyDown(VK_LBUTTON))
-//			{
-//				m_pTempPlayerItemArr[1]->isClick = true;
-//				tX = m_pTempPlayerItemArr[1]->GetPosition().x + nDeltaX;
-//				tY = m_pTempPlayerItemArr[1]->GetPosition().y + nDeltaY;
-//
-//				m_pTempPlayerItemArr[1]->SetPosition(tX, tY);
-//			}
-//			else m_pTempPlayerItemArr[1]->isClick = false;
-//		}
-//	//	else if (m_pTempPlayerItemArr[1]->isClick)
-//	//	{
-//	//		tempX = m_pTempPlayerItemArr[1]->GetPosition().x + nDeltaX;
-//	//		tempY = m_pTempPlayerItemArr[1]->GetPosition().y + nDeltaY;
-//	//
-//	//		m_pTempPlayerItemArr[1]->SetPosition(tempX, tempY);
-//	//	}
-//	}
-
 }

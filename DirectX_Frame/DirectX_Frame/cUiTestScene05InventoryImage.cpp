@@ -20,8 +20,8 @@ void cUiTestScene::changeInventoryImage(void)
 //	for (int i = 0; i < INVMAX; i++)
 //	{
 //		//IntersectRect(&rc, &(m_pInventoryUiBlock[i]->rc), &(m_vecTempPlayerItem[i]->rc))
-//		if (m_vecTempPlayerItem[i] == NULL) return;
-//		if (IntersectRect(&rc, &(m_pInventoryUiBlock[i]->rc), &m_vecTempPlayerItem[i]->rc))
+//	//	if (m_vecTempPlayerItem[i] == NULL) return;
+//		if (IntersectRect(&rc, &(m_pInventoryUiBlock[i]->rc), &m_vecTempPlayerItem[1]->rc))
 //		{			
 //			m_pInventoryUiBlock[i]->SetTexture("Texture/Ui/inventory2.png"
 //				, "Texture/Ui/inventory2.png", "Texture/Ui/inventory2.png");
@@ -32,7 +32,7 @@ void cUiTestScene::changeInventoryImage(void)
 //				, "Texture/Ui/inventory1.png", "Texture/Ui/inventory1.png");
 //		}
 //	}
-	//배열
+
 
 	//장비칸
 	if (m_isTorsoMount)
