@@ -283,6 +283,10 @@ private:
 	cUIButton* m_pTempPlayerItemArr[INVMAX];
 	//어빌리티
 	cAbilityParamter m_AbilityParamter;
+	//수치 변경
+	int m_nBasicDef;
+	int m_nWearDef;
+	int m_nShoesDef;
 
 public:
 	virtual HRESULT Setup(void) override;
@@ -292,6 +296,7 @@ public:
 	void SetupQuestUi(void);
 	void SetupInventoryUi(void);
 	void SetUpTempPlayer(void);
+	void AddItem(LPCSTR imgName, float x, float y, int itemType, int itemName);
 	virtual void Reset(void) override;
 	virtual void Update(void) override;
 	void UpdateMainUi(void);

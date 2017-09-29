@@ -93,8 +93,10 @@ cUiTestScene::cUiTestScene(void)
 	, m_nItemMax(3)
 {
 	D3DXMatrixIdentity(&m_matWorldMatrix);
-	m_vecTempPlayerItem.resize(INVMAX);
-	m_vecInventoryUiBlock.resize(INVMAX);
+	m_vecTempPlayerItem.reserve(INVMAX);
+	m_vecInventoryUiBlock.reserve(INVMAX);
+	m_nWearDef = 2;
+	m_nShoesDef = 2;
 }
 
 cUiTestScene::~cUiTestScene(void)
@@ -132,6 +134,7 @@ HRESULT cUiTestScene::Setup(void)
 	//인벤토리 창 셋업
 	this->SetupInventoryUi();
 	//임시 플레이어 셋업
+	m_nBasicDef = g_pObjectManager->GetPlayer()->GetAbilityParamter()->GetDefence();
 //	this->SetUpTempPlayer();
 
 	return D3D_OK;
@@ -230,8 +233,6 @@ void cUiTestScene::Update(void)
 	//m_matWorldMatrix._42 = m_pTempInfoHP->GetPosition().y;
 	//이동
 	this->MoveUiWindow();
-	//인벤 색 변경
-	this->changeInventoryImage();
 	//메인 게이지 및 최소화 업뎃
 	this->UpdateMainUi();
 	
@@ -261,6 +262,8 @@ void cUiTestScene::Update(void)
 	if (m_pUiTestRoot) m_pUiTestRoot->Update();
 	//매쉬 변경
 	this->changePlayerMesh();
+	//인벤 색 변경
+	this->changeInventoryImage();
 //	m_vecTempPlayerItem.resize(INVMAX);
 }
 
