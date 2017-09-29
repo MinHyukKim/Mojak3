@@ -93,11 +93,13 @@ cBuilding* cMapObjectManager::getMapObjectRotation()
 
 cBuilding * cMapObjectManager::GetLastMapObject()
 {
+	if (m_vecBuilding.empty()) return nullptr;
 	return m_vecBuilding.back();
 }
 
 void cMapObjectManager::SetupBuilding(void)
 {
+	if (this->GetSelectObject() == NULL) return;
 	this->AppendBuilding(this->GetSelectObject());
 	m_vecBuilding.back()->SetPosition(&m_vLandPos);
 }

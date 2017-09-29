@@ -122,23 +122,14 @@ void cMapToolScene::Update(void)
 	{
 		g_pMapObjectManager->SetupBuilding();
 	}
-//			return;
-//		g_TestToggle = false;
-//		D3DXVECTOR3 vTo, vOrg, vDir;
-//		g_pRay->RayAtWorldSpace(&vOrg, &vDir);
-//		if (m_pMapTerrain->IsCollision(&vTo, &vOrg, &vDir))
-//		{
-//			//건물위치 테스트용
-//			g_pMapObjectManager->GetLastMapObject()->SetPosZ(vTo.z);
-//			g_pMapObjectManager->GetLastMapObject()->SetPosX(vTo.x);
-//		}
 //
 //	//마지막으로 생성된 건물의 좌우 방향 변환
-//	if (g_pInputManager->IsStayKeyDown('J'))
-//	{
-//		g_pMapObjectManager->GetLastMapObject()->SetAngleY(g_pTimeManager->GetElapsedTime());
-//
-//	}
+	if (g_pInputManager->IsStayKeyDown('J'))
+	{
+		if (g_pMapObjectManager->GetLastMapObject() == NULL) return;
+		g_pMapObjectManager->GetLastMapObject()->SetAngleY(g_pTimeManager->GetElapsedTime());
+
+	}
 //
 //	if (g_pInputManager->IsStayKeyDown('L'))
 //	{
@@ -177,7 +168,7 @@ void cMapToolScene::Update(void)
 //	}
 //
 //
-	if (g_pInputManager->IsStayKeyDown('1'))
+	if (g_pInputManager->IsOnceKeyDown('1'))
 	{
 		g_pMapObjectManager->getMapObjectRotation();
 		g_pMapObjectManager->cur++;
