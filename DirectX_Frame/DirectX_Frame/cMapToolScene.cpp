@@ -130,26 +130,26 @@ void cMapToolScene::Update(void)
 		g_pMapObjectManager->GetLastMapObject()->SetAngleY(g_pTimeManager->GetElapsedTime());
 
 	}
-//
-//	if (g_pInputManager->IsStayKeyDown('L'))
-//	{
-//		g_pMapObjectManager->GetLastMapObject()->SetAngleY(-g_pTimeManager->GetElapsedTime());
-//
-//	}
-//	//상하이동
-//	if (g_pInputManager->IsStayKeyDown('I'))
-//	{
-//		//g_pMapObjectManager->GetLastMapObject()->SetPosY(
-//		//	g_pMapObjectManager->GetLastMapObject()->GetPosY()+ 1.f);
-//		g_pMapObjectManager->GetLastMapObject()->SetOffsetY(
-//			g_pMapObjectManager->GetLastMapObject()->GetOffsetY()+g_pTimeManager->GetElapsedTime());
-//	}
-//
-//	if (g_pInputManager->IsStayKeyDown('K'))
-//	{
-//		g_pMapObjectManager->GetLastMapObject()->SetOffsetY(
-//			g_pMapObjectManager->GetLastMapObject()->GetOffsetY() - g_pTimeManager->GetElapsedTime());
-//	}
+
+	if (g_pInputManager->IsStayKeyDown('L'))
+	{
+		if (g_pMapObjectManager->GetLastMapObject() == NULL) return;
+		g_pMapObjectManager->GetLastMapObject()->SetAngleY(-g_pTimeManager->GetElapsedTime());
+
+	}
+	//상하이동
+	if (g_pInputManager->IsStayKeyDown('I'))
+	{
+		if (g_pMapObjectManager->GetLastMapObject() == NULL) return;
+		g_pMapObjectManager->GetLastMapObject()->SetOffsetY(
+			g_pMapObjectManager->GetLastMapObject()->GetOffsetY()+g_pTimeManager->GetElapsedTime());
+	}
+
+	if (g_pInputManager->IsStayKeyDown('K'))
+	{
+		g_pMapObjectManager->GetLastMapObject()->SetOffsetY(
+			g_pMapObjectManager->GetLastMapObject()->GetOffsetY() - g_pTimeManager->GetElapsedTime());
+	}
 //
 //	//static float scaleTest = 1.0f;
 //	//축소 확대기능
