@@ -50,6 +50,10 @@ void cMainGame::Setup(void)
 	g_pD3DDevice->SetRenderState(D3DRS_SRCBLEND, D3DBLEND_SRCALPHA);
 	g_pD3DDevice->SetRenderState(D3DRS_DESTBLEND, D3DBLEND_INVSRCALPHA);
 	g_pD3DDevice->SetRenderState(D3DRS_ALPHABLENDENABLE, true);
+
+	g_pD3DDevice->SetRenderState(D3DRS_ALPHATESTENABLE, true);
+	g_pD3DDevice->SetRenderState(D3DRS_ALPHAFUNC, D3DCMP_GREATER);
+	g_pD3DDevice->SetRenderState(D3DRS_ALPHAREF, 0);
 	
 	//¾À ¸Å´ÏÀú
 	g_pSceneManager->AddScene("cMapToolScene", cMapToolScene::Create());
