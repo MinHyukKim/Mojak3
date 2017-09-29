@@ -114,7 +114,7 @@ LPD3DXMESH cBuilding::LoadModel(char * szFolder, char * szFilename)
 	std::string sFullPath(szFolder);
 	sFullPath += std::string(szFilename);
 
-	LPD3DXBUFFER pD3DXMtrlBuffer;
+	LPD3DXBUFFER pD3DXMtrlBuffer = NULL;
 
 	//LPD3DXMESH ret = NULL;
 	if (FAILED(D3DXLoadMeshFromX(sFullPath.c_str(), D3DXMESH_SYSTEMMEM, g_pD3DDevice, NULL, &pD3DXMtrlBuffer, NULL, &m_dwNumMaterials, &m_pBuild)));
@@ -125,9 +125,9 @@ LPD3DXMESH cBuilding::LoadModel(char * szFolder, char * szFilename)
 	//SAFE_DELETE_ARRAY(m_pFilename);
 	m_pFilename = m_pFilename;
 	m_pFoldername = "";
-
-	D3DXMATERIAL* d3dxMaterials =
-		(D3DXMATERIAL*)pD3DXMtrlBuffer->GetBufferPointer();
+	D3DXMATERIAL* d3dxMaterials;
+	if (pD3DXMtrlBuffer != NULL)
+		d3dxMaterials = (D3DXMATERIAL*)pD3DXMtrlBuffer->GetBufferPointer();
 	m_pMeshMaterials = new D3DMATERIAL9[m_dwNumMaterials];
 	m_pMeshTextures = new LPDIRECT3DTEXTURE9[m_dwNumMaterials];
 
@@ -141,7 +141,7 @@ LPD3DXMESH cBuilding::LoadModel(char * szFolder, char * szFilename)
 		m_pMeshTextures[i] = g_pTexture->GetTexture(d3dxMaterials[i].pTextureFilename);
 	}
 
-	pD3DXMtrlBuffer->Release();  // 머티리얼 버퍼 해제
+	SAFE_RELEASE(pD3DXMtrlBuffer);  // 머티리얼 버퍼 해제
 
 	g_pD3DDevice->SetRenderState(D3DRS_LIGHTING, TRUE);
 	g_pD3DDevice->SetRenderState(D3DRS_AMBIENT, 0xffffffff); // 흰색 주변광
@@ -216,9 +216,12 @@ void cBuilding::Update(void)
 
 void cBuilding::Render(void)
 {
+
+
 	D3DXMATRIXA16 mat = m_matWorld;
 	mat._42 += m_fOffsetY;
 	g_pD3DDevice->SetTransform(D3DTS_WORLD, &mat);
+	g_pD3DDevice->SetRenderState(D3DRS_CULLMODE, D3DCULL_NONE);
 	//D3DXMATRIXA16 matView, matProjection, matViewProj, matWorldViewProjection;
 
 	//g_pD3DDevice->GetTransform(D3DTS_VIEW, &matView);
@@ -230,6 +233,7 @@ void cBuilding::Render(void)
 
 		m_pBuild->DrawSubset(i);
 	}
+	g_pD3DDevice->SetRenderState(D3DRS_CULLMODE, D3DCULL_CCW);
 
 	if (m_pBoundBox != NULL)
 	{
