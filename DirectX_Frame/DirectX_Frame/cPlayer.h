@@ -48,6 +48,7 @@ public:
 		ORDER_FRIENDLY,
 		ORDER_OFFENSIVE,
 		ORDER_HIT,
+		ORDER_SPIN,
 	};
 	enum ANIMATION_STATE
 	{
@@ -60,9 +61,13 @@ public:
 		ANIMATION_RUN_FRIENDLY,
 		ANIMATION_ATTACK_01,
 		ANIMATION_ATTACK_02,
+		ANIMATION_SMASH,
 		ANIMATION_HIT_01,
 		ANIMATION_HIT_02,
-		ANIMATION_SMASH,
+		ANIMATION_SPIN,
+		ANIMATION_GROGGY,
+		ANIMATION_DOWND,
+		ANIMATION_DOWN_TO_STAND,
 		ANIMATION_ENDURE_01,
 		ANIMATION_ENDURE_02,
 		ANIMATION_TEST1,
@@ -137,6 +142,7 @@ public:
 	void SetupFriendly(void);
 	void SetupOffnsive(void);
 	void SetupHit(void);
+	void SetupSpin(void);
 	//상태 변환시 행동을 반복함
 	void PatternUpdate(void);
 	//상태 변화

@@ -143,6 +143,20 @@ void cPlayer::SetupHit(void)
 	this->SetRealdyState(cPlayer::ORDER_OFFENSIVE);
 }
 
+void cPlayer::SetupSpin(void)
+{
+	m_dwNumRealdyState = 0;
+	float fDelay = 0.0f;
+
+	fDelay = this->SetBlendingAnimation(cPlayer::ANIMATION_SPIN);
+
+	this->GetAbilityParamter()->SetDelayTime(fDelay - 0.1f);
+
+	this->SetRealdyTrue(PATTERN_ATTACK | PATTERN_WALK | PATTERN_RUN | PATTERN_OFFENSIVE);
+	this->SetRealdyFalse(PATTERN_FRIENDLY);
+	this->SetRealdyState(cPlayer::ORDER_OFFENSIVE);
+}
+
 void cPlayer::PatternUpdate(void)
 {
 	//기본 업데이트
@@ -233,8 +247,23 @@ void cPlayer::OrderTarget(void)
 				if (this->CheckState(PATTERN_SMASH))	//스매시
 				{
 					//공격
+					fDelay = this->SetBlendingAnimation(cPlayer::ANIMATION_SMASH);
+					this->m_AbilityParamter.SetDelayTime(fDelay - 0.1f);
+
+					this->SetRealdyTrue(PATTERN_TARGET | PATTERN_STOP | PATTERN_ATTACK | PATTERN_WALK | PATTERN_RUN);
+					this->SetRealdyFalse(PATTERN_SMASH);
+					this->SetRealdyState(cPlayer::ORDER_OFFENSIVE);
 
 					//피격
+					m_pTarget->MoveStop();
+					m_pTarget->Rotation(&(this->GetPosition() - m_pTarget->GetPosition()), 20.0f);
+					m_pTarget->SetStateFalse(PATTERN_ATTACK | PATTERN_WALK | PATTERN_RUN | PATTERN_STOP);
+
+					m_pTarget->GetAbilityParamter()->SetDelayTime(fDelay * 0.3f);
+					m_pTarget->GetAbilityParamter()->SetDownGauge(m_pTarget->GetAbilityParamter()->GetDownGauge() + 2.25f);
+
+					m_pTarget->SetRealdyState(cPlayer::ORDER_SPIN);
+					m_pTarget->SetParam(0);
 
 				}
 				else
