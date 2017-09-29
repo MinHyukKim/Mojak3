@@ -62,6 +62,8 @@ public:
 	float GetPosY(void) { return m_matWorld._42; }
 	float GetPosZ(void) { return m_matWorld._43; }
 
+	D3DXMATRIX GetMatrix() { return m_matWorld; }
+
 	float GetOffsetY() { return m_fOffsetY; }
 	void SetOffsetY(float offset) { m_fOffsetY = offset; }
 	void OffsetScale(float scale);
