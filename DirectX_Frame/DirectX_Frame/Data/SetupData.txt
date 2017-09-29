@@ -3,8 +3,15 @@
 // Color : 메시키,텍스쳐, 1.0f, 1.0f, 1.0f, 0.5f;
 // Animation : 경로/파일, 키;
 
+//NPC
+//npc 더미
+Mesh:./Chareter/NPC/,npc_bone_nao.X, 나오더미;
+//전체 매시
+Mesh:./Chareter/NPC/,npc_mesh_base_nao.X, 나오메시;
+
 //더미
 Mesh:./Chareter/DefaultPlayer/,Female_Bone26_Dummy.X,더미;
+
 
 //머리
 Mesh:./Chareter/Female_Hair/,hair_female_hair02_t02.X,헤어00;
@@ -12,7 +19,7 @@ Mesh:./Chareter/Female_Hair/,hair_female_hair37_t37.X,헤어01;
 Mesh:./Chareter/Female_Hair/,hair_female_hair22_t22.X,헤어02;
 
 //기본 바디
-Mesh:./Chareter/Female_Body/,basicBody.X,바디00;
+Mesh:./Chareter/Female_Body/,wear_female_unde.X,바디00;
 Color:바디00,bodymap01.dds, 1.0f, 0.53f, 0.53f, 1.0f;
 
 //옷 바디01
