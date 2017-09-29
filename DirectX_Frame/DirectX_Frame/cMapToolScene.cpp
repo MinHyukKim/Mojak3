@@ -126,48 +126,52 @@ void cMapToolScene::Update(void)
 //	//마지막으로 생성된 건물의 좌우 방향 변환
 	if (g_pInputManager->IsStayKeyDown('J'))
 	{
-		if (g_pMapObjectManager->GetLastMapObject() == NULL) return;
-		g_pMapObjectManager->GetLastMapObject()->SetAngleY(g_pTimeManager->GetElapsedTime());
+		if (g_pMapObjectManager->GetSelectObject() == NULL) return;
+		g_pMapObjectManager->GetSelectObject()->SetAngleY(g_pTimeManager->GetElapsedTime());
 
 	}
 
 	if (g_pInputManager->IsStayKeyDown('L'))
 	{
-		if (g_pMapObjectManager->GetLastMapObject() == NULL) return;
-		g_pMapObjectManager->GetLastMapObject()->SetAngleY(-g_pTimeManager->GetElapsedTime());
+		if (g_pMapObjectManager->GetSelectObject() == NULL) return;
+		g_pMapObjectManager->GetSelectObject()->SetAngleY(-g_pTimeManager->GetElapsedTime());
 
 	}
 	//상하이동
 	if (g_pInputManager->IsStayKeyDown('I'))
 	{
-		if (g_pMapObjectManager->GetLastMapObject() == NULL) return;
-		g_pMapObjectManager->GetLastMapObject()->SetOffsetY(
-			g_pMapObjectManager->GetLastMapObject()->GetOffsetY()+g_pTimeManager->GetElapsedTime());
+		if (g_pMapObjectManager->GetSelectObject() == NULL) return;
+		g_pMapObjectManager->GetSelectObject()->SetOffsetY(
+			g_pMapObjectManager->GetSelectObject()->GetOffsetY()+0.1f);
 	}
 
 	if (g_pInputManager->IsStayKeyDown('K'))
 	{
-		g_pMapObjectManager->GetLastMapObject()->SetOffsetY(
-			g_pMapObjectManager->GetLastMapObject()->GetOffsetY() - g_pTimeManager->GetElapsedTime());
+		if (g_pMapObjectManager->GetSelectObject() == NULL) return;
+		g_pMapObjectManager->GetSelectObject()->SetOffsetY(
+			g_pMapObjectManager->GetSelectObject()->GetOffsetY()-0.1f);
 	}
 //
 //	//static float scaleTest = 1.0f;
-//	//축소 확대기능
-//	if (g_pInputManager->IsStayKeyDown('U'))
-//	{
-//		g_pMapObjectManager->GetLastMapObject()->SetScale(0.9f);
-//	}
-//	if (g_pInputManager->IsStayKeyDown('O'))
-//	{
-//		g_pMapObjectManager->GetLastMapObject()->SetScale(1.1f);
-//	}
-//
-//	if (g_pInputManager->IsOnceKeyDown(VK_RBUTTON))
-//	{
-//		g_pMapObjectManager->PopMapObject();
-//	}
-//
-//
+	//축소 확대기능
+	if (g_pInputManager->IsStayKeyDown('U'))
+	{
+		if (g_pMapObjectManager->GetSelectObject() == NULL) return;
+		g_pMapObjectManager->GetSelectObject()->OffsetScale(-0.01f);
+	}
+	if (g_pInputManager->IsStayKeyDown('O'))
+	{
+		if (g_pMapObjectManager->GetSelectObject() == NULL) return;
+		g_pMapObjectManager->GetSelectObject()->OffsetScale(0.01f);
+	}
+
+	if (g_pInputManager->IsOnceKeyDown(VK_RBUTTON))
+	{
+		if (g_pMapObjectManager->GetSelectObject() == NULL) return;
+		g_pMapObjectManager->PopMapObject();
+	}
+
+
 	if (g_pInputManager->IsOnceKeyDown('1'))
 	{
 		g_pMapObjectManager->getMapObjectRotation();

@@ -216,11 +216,13 @@ void cBuilding::Update(void)
 
 void cBuilding::Render(void)
 {
-	g_pD3DDevice->SetTransform(D3DTS_WORLD, &m_matWorld);
-	D3DXMATRIXA16 matView, matProjection, matViewProj, matWorldViewProjection;
+	D3DXMATRIXA16 mat = m_matWorld;
+	mat._42 += m_fOffsetY;
+	g_pD3DDevice->SetTransform(D3DTS_WORLD, &mat);
+	//D3DXMATRIXA16 matView, matProjection, matViewProj, matWorldViewProjection;
 
-	g_pD3DDevice->GetTransform(D3DTS_VIEW, &matView);
-	g_pD3DDevice->GetTransform(D3DTS_PROJECTION, &matProjection);
+	//g_pD3DDevice->GetTransform(D3DTS_VIEW, &matView);
+	//g_pD3DDevice->GetTransform(D3DTS_PROJECTION, &matProjection);
 	for (DWORD i = 0; i < m_dwNumMaterials; i++)
 	{
 		g_pD3DDevice->SetMaterial(&m_pMeshMaterials[i]);
@@ -229,22 +231,49 @@ void cBuilding::Render(void)
 		m_pBuild->DrawSubset(i);
 	}
 
-	//m_matWorld._42 += (maxY - minY)/2;
-	g_pD3DDevice->SetTransform(D3DTS_WORLD, &m_matWorld);
-	g_pD3DDevice->SetRenderState(D3DRS_FILLMODE, D3DFILL_WIREFRAME);
-	g_pD3DDevice->SetRenderState(D3DRS_CULLMODE, D3DCULL_NONE);
 	if (m_pBoundBox != NULL)
 	{
+		D3DXMATRIXA16 mat = m_matWorld;
+		mat._42 += (maxY - minY) / 2.0f;
+		g_pD3DDevice->SetTransform(D3DTS_WORLD, &mat);
+		g_pD3DDevice->SetRenderState(D3DRS_FILLMODE, D3DFILL_WIREFRAME);
+		g_pD3DDevice->SetRenderState(D3DRS_CULLMODE, D3DCULL_NONE);
+
 		D3DMATERIAL9 mtl = {};
 		mtl.Ambient = D3DXCOLOR(1.0f, 1.0f, 1.0f, 0.3f);
 		mtl.Diffuse = D3DXCOLOR(1.0f, 1.0f, 1.0f, 0.3f);
 		mtl.Specular = D3DXCOLOR(1.0f, 1.0f, 1.0f,0.3f);
 		g_pD3DDevice->SetMaterial(&mtl);
 		m_pBoundBox->DrawSubset(0);
-	}
-	g_pD3DDevice->SetRenderState(D3DRS_CULLMODE, D3DCULL_CCW);
-	g_pD3DDevice->SetRenderState(D3DRS_FILLMODE, D3DFILL_SOLID);
+		g_pD3DDevice->SetRenderState(D3DRS_CULLMODE, D3DCULL_CCW);
+		g_pD3DDevice->SetRenderState(D3DRS_FILLMODE, D3DFILL_SOLID);
 
+	}
+
+}
+
+void cBuilding::SetAngleX(float fX)
+{
+	D3DXMATRIXA16 matR;
+	D3DXMatrixRotationAxis(&matR, (LPD3DXVECTOR3)&m_matWorld._11, fX);
+	D3DXVec3TransformCoord((LPD3DXVECTOR3)&m_matWorld._21, (LPD3DXVECTOR3)&m_matWorld._21, &matR);
+	D3DXVec3TransformCoord((LPD3DXVECTOR3)&m_matWorld._31, (LPD3DXVECTOR3)&m_matWorld._31, &matR);
+}
+
+void cBuilding::SetAngleY(float fY)
+{
+	D3DXMATRIXA16 matR;
+	D3DXMatrixRotationAxis(&matR, (LPD3DXVECTOR3)&m_matWorld._21, fY);
+	D3DXVec3TransformCoord((LPD3DXVECTOR3)&m_matWorld._11, (LPD3DXVECTOR3)&m_matWorld._11, &matR);
+	D3DXVec3TransformCoord((LPD3DXVECTOR3)&m_matWorld._31, (LPD3DXVECTOR3)&m_matWorld._31, &matR);
+}
+
+void cBuilding::SetAngleZ(float fZ)
+{
+	D3DXMATRIXA16 matR;
+	D3DXMatrixRotationAxis(&matR, (LPD3DXVECTOR3)&m_matWorld._31, fZ);
+	D3DXVec3TransformCoord((LPD3DXVECTOR3)&m_matWorld._11, (LPD3DXVECTOR3)&m_matWorld._11, &matR);
+	D3DXVec3TransformCoord((LPD3DXVECTOR3)&m_matWorld._21, (LPD3DXVECTOR3)&m_matWorld._21, &matR);
 }
 
 cBuilding::cBuilding(void)
@@ -261,6 +290,7 @@ cBuilding::cBuilding(void)
 	, m_pBoundBox(NULL)
 	, m_pFilename("")
 	, m_pFoldername("")
+	, m_fScale(1.0f)
 {
 	D3DXMatrixIdentity(&m_matWorld);
 }
@@ -280,6 +310,14 @@ cBuilding::~cBuilding(void)
 //	return newClass;
 //}
 
+
+void cBuilding::OffsetScale(float scale)
+{
+	m_fScale += scale;
+	D3DXVECTOR3 v = D3DXVECTOR3(m_matWorld._41, m_matWorld._42, m_matWorld._43);
+	D3DXMatrixScaling(&m_matWorld, m_fScale, m_fScale, m_fScale);
+	memcpy(&m_matWorld._41, &v, sizeof(D3DXVECTOR3));
+}
 
 void cBuilding::Destroy(void)
 {
