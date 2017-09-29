@@ -210,6 +210,7 @@ private:
 	cUIButton* m_pQuestCloseButton;		//닫기 버튼
 	cUIButton* m_pQuestUiButton;		//퀘창 버튼
 	cUITextView* m_pQuestUiText;		//불변 택스트
+	cUITextView* m_pQuestText;			//태스트용 태스트
 	cUiObject* m_pQuestUi;
 
 	//플레이어 인벤창
