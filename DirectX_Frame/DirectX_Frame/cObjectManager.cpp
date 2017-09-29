@@ -179,7 +179,7 @@ void cObjectManager::SetTerrain(IN cMapTerrain* pTerrain)
 	m_pTerrain->AddRef();
 }
 
-bool cObjectManager::CreateMonster(IN MONSTER_TYPE eMonsterKey, IN LPD3DXVECTOR3 pPostion)
+bool cObjectManager::CreateMonster(IN UNIT_TYPE eMonsterKey, IN LPD3DXVECTOR3 pPostion)
 {
 	cPlayer* pCreateMonster = nullptr;
 	switch (eMonsterKey)
@@ -285,6 +285,13 @@ bool cObjectManager::CreateMonster(IN MONSTER_TYPE eMonsterKey, IN LPD3DXVECTOR3
 		m_vecMonster.push_back(pCreateMonster);
 		return true;
 	}
+	return false;
+}
+
+bool cObjectManager::CreateNPC(IN UNIT_TYPE eNPCKey, IN LPD3DXVECTOR3 pPostion)
+{
+	cPlayer* pCreateNPC = nullptr;
+
 	return false;
 }
 

@@ -11,19 +11,23 @@ class cMapTerrain;
 class cObjectManager
 {
 public:
-	enum MONSTER_TYPE
+	enum UNIT_TYPE
 	{
 		MONSTER_NULL,
 		MONSTER_TEXTER,
 		MONSTER_FOX01,
 		MONSTER_FOX02,
 		MONSTER_FOX03,
+		NPC_NAO,
 	};
+
 private:
 	cPlayer* m_pPlayer;
 	cMapTerrain*  m_pTerrain;
 	std::vector<cPlayer*>  m_vecMonster;
+	std::vector<cPlayer*>  m_vecNPC;
 	std::vector<cPlayer*>  m_vecRelease;
+	
 public:
 	void Update(void);
 	void Render(void);
@@ -44,7 +48,8 @@ public:
 
 	void SetTerrain(IN cMapTerrain* pTerrain);
 
-	bool CreateMonster(IN MONSTER_TYPE eMonsterKey, IN LPD3DXVECTOR3 pPostion);
+	bool CreateMonster(IN UNIT_TYPE eMonsterKey, IN LPD3DXVECTOR3 pPostion);
+	bool CreateNPC(IN UNIT_TYPE eNPCKey, IN LPD3DXVECTOR3 pPostion);
 	void ReleaseMonster(IN cPlayer* pMonster) { return m_vecRelease.push_back(pMonster); }
 	void Destroy(void);
 

@@ -120,8 +120,9 @@ HRESULT cUiTestScene::Setup(void)
 
 	//임시 태스트용
 	m_pUiTesterSize = cUIImageView::Create();
-	m_pUiTesterSize->SetTexture("Texture/Ui/EXP1.png");
-	m_pUiTesterSize->SetPosition(mainUiLocalX + 160, mainUiLocalY + 10);
+	m_pUiTesterSize->SetTexture("Texture/Ui/dialog2.png");
+	m_pUiTesterSize->SetPosition(mainUiLocalX - 20, mainUiLocalY - 140);
+	m_pUiTesterSize->m_Alpha = 180;
 	m_pUiTestRoot = m_pUiTesterSize;	
 
 
@@ -269,10 +270,6 @@ void cUiTestScene::Update(void)
 
 void cUiTestScene::Render(void)
 {
-//	m_pSprite->Begin(D3DXSPRITE_ALPHABLEND | D3DXSPRITE_SORT_TEXTURE);
-//	if (m_pHpImage) m_pHpImage->Draw(m_pSprite);
-//	if (m_pHpMaxImage) m_pHpMaxImage->Draw(m_pSprite);
-//	m_pSprite->End();
 
 	g_pD3DDevice->SetTexture(0, m_pTexture);
 	SAFE_RENDER(m_pPlayer);
@@ -283,7 +280,7 @@ void cUiTestScene::Render(void)
 	if (m_pInventoryUi && m_isInventoryWindowOn) m_pInventoryUi->Render(m_pSprite);
 
 	//크기 태스트용
-//	if (m_pUiTestRoot) m_pUiTestRoot->Render(m_pSprite);
+	if (m_pUiTestRoot) m_pUiTestRoot->Render(m_pSprite);
 
 
 }

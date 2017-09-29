@@ -570,4 +570,7 @@ void cUiTestScene::_ItemInventory(int i)
 	nPositionY = nBlockY * nBlockSize + nOffsetY;
 
 	m_vecTempPlayerItem[i]->SetPosition(nPositionX, nPositionY);
+
+	RECT rc;
+	//if(IntersectRect(&rc, &(), ()))
 }
