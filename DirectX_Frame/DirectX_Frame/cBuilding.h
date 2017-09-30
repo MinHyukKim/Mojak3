@@ -64,7 +64,7 @@ public:
 
 	//월드매트릭스를 반환
 	D3DXMATRIX GetMatrix() { return m_matWorld; }
-	D3DXMATRIX SetMatrix(D3DXMATRIX matrix) { m_matWorld = matrix; }
+	void SetMatrix(D3DXMATRIX matrix) { m_matWorld = matrix; }
 	//객체가 생성된 모델의 경로를 반환
 	const char* GetFilenname() { return m_pFilename.c_str(); }
 

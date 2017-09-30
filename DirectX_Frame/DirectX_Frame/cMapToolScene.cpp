@@ -183,7 +183,10 @@ void cMapToolScene::Update(void)
 	{
 		g_pMapObjectManager->SaveCurrentObjectsState("test.obj");
 	}
-
+	if (g_pInputManager->IsOnceKeyDown('6'))
+	{
+		g_pMapObjectManager->LoadCurrentObjectsState("test.obj");
+	}
 
 
 	if (g_pInputManager->IsStayKeyDown(VK_ESCAPE))

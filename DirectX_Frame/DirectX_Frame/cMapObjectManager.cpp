@@ -172,7 +172,7 @@ void cMapObjectManager::LoadCurrentObjectsState(const char * filename)
 	FILE *fp;
 	fp = fopen(filename, "r");
 	if (!fp) return;
-	while (fp != EOF)
+	while (!feof(fp))
 	{
 		char* cTemp;
 		D3DXMATRIX matTemp;
@@ -183,7 +183,7 @@ void cMapObjectManager::LoadCurrentObjectsState(const char * filename)
 			matTemp._31, matTemp._32, matTemp._33, matTemp._34,
 			matTemp._41, matTemp._42, matTemp._43, matTemp._44);
 		AppendBuilding(cTemp);
-		m_vecBuilding.back();
+		m_vecBuilding.back()->SetMatrix(matTemp);
 	}
 	fclose(fp);
 
