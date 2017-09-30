@@ -174,14 +174,15 @@ void cMapObjectManager::LoadCurrentObjectsState(const char * filename)
 	if (!fp) return;
 	while (!feof(fp))
 	{
-		char* cTemp;
+		char cTemp[255];
 		D3DXMATRIX matTemp;
-		fscanf(fp, "%s\n", &cTemp);
+		fgets(cTemp, 255, fp);
+		cTemp[strlen(cTemp) - 1] = '\0';
 		fscanf(fp, "%f %f %f %f\n%f %f %f %f\n%f %f %f %f\n%f %f %f %f\n",
-			matTemp._11, matTemp._12, matTemp._13, matTemp._14,
-			matTemp._21, matTemp._22, matTemp._23, matTemp._24,
-			matTemp._31, matTemp._32, matTemp._33, matTemp._34,
-			matTemp._41, matTemp._42, matTemp._43, matTemp._44);
+			&matTemp._11, &matTemp._12, &matTemp._13, &matTemp._14,
+			&matTemp._21, &matTemp._22, &matTemp._23, &matTemp._24,
+			&matTemp._31, &matTemp._32, &matTemp._33, &matTemp._34,
+			&matTemp._41, &matTemp._42, &matTemp._43, &matTemp._44);
 		AppendBuilding(cTemp);
 		m_vecBuilding.back()->SetMatrix(matTemp);
 	}
