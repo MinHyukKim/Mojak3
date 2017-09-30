@@ -188,7 +188,7 @@ void cObjectManager::SetTerrain(IN cMapTerrain* pTerrain)
 	m_pTerrain->AddRef();
 }
 
-bool cObjectManager::CreateMonster(IN MONSTER_TYPE eMonsterKey, IN LPD3DXVECTOR3 pPostion, IN LPD3DXCOLOR pColor)
+bool cObjectManager::CreateMonster(IN UNIT_TYPE eMonsterKey, IN LPD3DXVECTOR3 pPostion, IN LPD3DXCOLOR pColor)
 {
 	cPlayer* pCreateMonster = nullptr;
 	switch (eMonsterKey)
