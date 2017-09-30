@@ -294,6 +294,13 @@ bool cObjectManager::CreateNPC(IN UNIT_TYPE eNPCKey, IN LPD3DXVECTOR3 pPostion)
 	switch (eNPCKey)
 	{
 	case cObjectManager::MONSTER_NULL: break;
+		case cObjectManager::NPC_NAO:
+		{
+			pCreateNPC = cPlayer::Create();
+			
+			pCreateNPC->GetAbilityParamter()->SetPlayerID(3);
+			pCreateNPC->GetAbilityParamter()->SetUnitID(2);
+		}
 	}
 
 	return false;

@@ -361,7 +361,11 @@ void cUiTestScene::MoveUiWindow(void)
 		if (g_pInputManager->IsStayKeyDown(VK_LBUTTON)
 			&& m_pInfoUiMoveing->isClick == false
 			&& m_pSkillUiMoveing->isClick == false
-			&& m_pQuestUiMoveing->isClick == false)
+			&& m_pQuestUiMoveing->isClick == false
+			//&& m_pInfoCloseButton->isOver == false
+			&& m_pInventoryCloseButton->isOver == false
+			//&& m_pSkillCloseButton->isOver == false
+			/*&& m_pQuestCloseButton->isOver == false*/)
 		{
 			m_pInventoryUiMoveing->isClick = true;
 			invX = m_pInventoryUiImageHead->GetPosition().x + nDeltaX; //잡은 윈도우 창에서 음직인 양만큼 더해준다
@@ -385,7 +389,11 @@ void cUiTestScene::MoveUiWindow(void)
 		if (g_pInputManager->IsStayKeyDown(VK_LBUTTON)
 			&& m_pInventoryUiMoveing->isClick == false
 			&& m_pSkillUiMoveing->isClick == false
-			&& m_pQuestUiMoveing->isClick == false)
+			&& m_pQuestUiMoveing->isClick == false
+			&& m_pInfoCloseButton->isOver == false
+			//&& m_pInventoryCloseButton->isOver == false
+			//&& m_pSkillCloseButton->isOver == false
+			/*&& m_pQuestCloseButton->isOver == false*/)
 		{
 			m_pInfoUiMoveing->isClick = true;
 			infoX = m_pInfoUiImageHead->GetPosition().x + nDeltaX;
@@ -409,7 +417,11 @@ void cUiTestScene::MoveUiWindow(void)
 		if (g_pInputManager->IsStayKeyDown(VK_LBUTTON)
 			&& m_pInventoryUiMoveing->isClick == false
 			&& m_pInfoUiMoveing->isClick == false
-			&& m_pQuestUiMoveing->isClick == false)
+			&& m_pQuestUiMoveing->isClick == false
+			//&& m_pInfoCloseButton->isOver == false
+			//&& m_pInventoryCloseButton->isOver == false
+			&& m_pSkillCloseButton->isOver == false
+			/*&& m_pQuestCloseButton->isOver == false*/)
 		{
 			m_pSkillUiMoveing->isClick = true;
 			skillX = m_pSkillUiImageHead->GetPosition().x + nDeltaX;
@@ -432,7 +444,11 @@ void cUiTestScene::MoveUiWindow(void)
 		if (g_pInputManager->IsStayKeyDown(VK_LBUTTON)
 			&& m_pInventoryUiMoveing->isClick == false
 			&& m_pSkillUiMoveing->isClick == false
-			&& m_pInfoUiMoveing->isClick == false)
+			&& m_pInfoUiMoveing->isClick == false
+			//&& m_pInfoCloseButton->isOver == false
+			//&& m_pInventoryCloseButton->isOver == false
+			//&& m_pSkillCloseButton->isOver == false
+			&& m_pQuestCloseButton->isOver == false)
 		{
 			m_pQuestUiMoveing->isClick = true;
 			queX = m_pQuestUiImageHead->GetPosition().x + nDeltaX;
@@ -441,6 +457,13 @@ void cUiTestScene::MoveUiWindow(void)
 			m_pQuestUiImageHead->SetPosition(queX, queY);
 		}
 		else m_pQuestUiMoveing->isClick = false;
+	}
+	else if (m_pQuestUiMoveing->isClick)
+	{
+		queX = m_pQuestUiImageHead->GetPosition().x + nDeltaX;
+		queY = m_pQuestUiImageHead->GetPosition().y + nDeltaY;
+
+		m_pQuestUiImageHead->SetPosition(queX, queY);
 	}
 
 	//탬 무빙

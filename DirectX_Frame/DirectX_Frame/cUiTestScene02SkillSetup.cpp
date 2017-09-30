@@ -50,13 +50,13 @@ void cUiTestScene::SetupSkillUi(void)
 	m_pSkillUiText->SetTag(E_BUTTON_NONE);
 	m_pSkillUi->AddChild(m_pSkillUiText);
 	//´Ý±â ¹öÆ°
-//	m_pSkillCloseButton = cUIButton::Create();
-//	m_pSkillCloseButton->SetTexture("Texture/Ui/button_close_up.png"
-//		, "Texture/Ui/button_close_over.png", "Texture/Ui/button_close_up.png");
-//	m_pSkillCloseButton->SetPosition(290, 10);
-//	m_pSkillCloseButton->SetDelegate(this);
-//	m_pSkillCloseButton->SetTag(E_BUTTON_SKILL_CLOSE);
-//	m_pSkillCloseButton->m_Alpha = 180;
-//	m_pSkillUi->AddChild(m_pSkillCloseButton);
+	m_pSkillCloseButton = cUIButton::Create();
+	m_pSkillCloseButton->SetTexture("Texture/Ui/button_close_up.png"
+		, "Texture/Ui/button_close_over.png", "Texture/Ui/button_close_up.png");
+	m_pSkillCloseButton->SetPosition(290, 10);
+	m_pSkillCloseButton->SetDelegate(this);
+	m_pSkillCloseButton->SetTag(E_BUTTON_SKILL_CLOSE);
+	m_pSkillCloseButton->m_Alpha = 180;
+	m_pSkillUi->AddChild(m_pSkillCloseButton);
 
 }
