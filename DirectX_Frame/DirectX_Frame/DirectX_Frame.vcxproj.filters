@@ -73,6 +73,7 @@
     <ClCompile Include="cActionDirection.cpp" />
     <ClCompile Include="cSkybox.cpp" />
     <ClCompile Include="cCustomQueue.cpp" />
+    <ClCompile Include="cUiTestScene06Dialog.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="cAllocateHierarchy.h" />
