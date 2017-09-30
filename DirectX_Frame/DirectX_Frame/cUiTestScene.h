@@ -210,6 +210,7 @@ private:
 	cUIButton* m_pQuestCloseButton;		//닫기 버튼
 	cUIButton* m_pQuestUiButton;		//퀘창 버튼
 	cUITextView* m_pQuestUiText;		//불변 택스트
+	cUITextView* m_pQuestText;			//태스트용 태스트
 	cUiObject* m_pQuestUi;
 
 	//플레이어 인벤창
@@ -283,6 +284,10 @@ private:
 	cUIButton* m_pTempPlayerItemArr[INVMAX];
 	//어빌리티
 	cAbilityParamter m_AbilityParamter;
+	//수치 변경
+	int m_nBasicDef;
+	int m_nWearDef;
+	int m_nShoesDef;
 
 public:
 	virtual HRESULT Setup(void) override;
@@ -292,6 +297,7 @@ public:
 	void SetupQuestUi(void);
 	void SetupInventoryUi(void);
 	void SetUpTempPlayer(void);
+	void AddItem(LPCSTR imgName, float x, float y, int itemType, int itemName);
 	virtual void Reset(void) override;
 	virtual void Update(void) override;
 	void UpdateMainUi(void);

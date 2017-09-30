@@ -49,6 +49,8 @@ void cUiTestScene::SetupQuestUi(void)
 	m_pQuestUiText->SetDrawTextFormat(DT_CENTER | DT_VCENTER | DT_WORDBREAK);
 	m_pQuestUiText->SetTag(E_BUTTON_NONE);
 	m_pQuestUi->AddChild(m_pQuestUiText);
+	//택스트 및 이ㅣ미지
+
 	//닫기 버튼
 //	m_pQuestCloseButton = cUIButton::Create();
 //	m_pQuestCloseButton->SetTexture("Texture/Ui/button_close_up.png"

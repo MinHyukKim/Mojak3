@@ -3,8 +3,15 @@
 // Color : 메시키,텍스쳐, 1.0f, 1.0f, 1.0f, 0.5f;
 // Animation : 경로/파일, 키;
 
+//NPC
+//npc 더미
+Mesh:./Chareter/NPC/,npc_bone_nao.X, 나오더미;
+//전체 매시
+Mesh:./Chareter/NPC/,npc_mesh_base_nao.X, 나오메시;
+
 //더미
 Mesh:./Chareter/DefaultPlayer/,Female_Bone26_Dummy.X,더미;
+
 
 //머리
 Mesh:./Chareter/Female_Hair/,hair_female_hair02_t02.X,헤어00;
@@ -12,14 +19,14 @@ Mesh:./Chareter/Female_Hair/,hair_female_hair37_t37.X,헤어01;
 Mesh:./Chareter/Female_Hair/,hair_female_hair22_t22.X,헤어02;
 
 //기본 바디
-Mesh:./Chareter/Female_Body/,basicBody.X,바디00;
+Mesh:./Chareter/Female_Body/,wear_female_unde.X,바디00;
 Color:바디00,bodymap01.dds, 1.0f, 0.53f, 0.53f, 1.0f;
 
 //옷 바디01
 Mesh:./Chareter/Female_Body/,wear_female_3rd_newbie.X,바디01;
 Color:바디01,bodymap01.dds, 1.0f, 0.53f, 0.53f, 1.0f;
 Color:바디01,uni_newbie03_c.dds, 0.8f, 0.2f, 0.8f, 1.0;
-Color:바디01,uni_3rd_premium_c.dds, 0.5f, 0.0f, 0.1f, 1.0f)f; 
+Color:바디01,uni_3rd_premium_c.dds, 0.5f, 0.0f, 0.1f, 1.0f; 
 Color:바디01,male_pumpkin_pants_c.dds, 0.0f, 0.0f, 0.0f, 1.0f;
 //옷 바디02
 Mesh:./Chareter/Female_Body/,wear_adventurer01.X,바디02;
@@ -58,12 +65,16 @@ Animation:./Animation/ani_female_hit_01.X,여성_피격01;
 Animation:./Animation/ani_female_hit_02.X,여성_피격02;
 Animation:./Animation/ani_female_endure_01.X,여성_밀려남01;
 Animation:./Animation/ani_female_endure_02.X,여성_밀려남02;
-
+Animation:./Animation/Female_Smash.X,여성_스매시;
+Animation:./Animation/ani_female_blow_turn.X,여성_스핀;
+Animation:./Animation/ani_female_groggy.X,여성_그로기;
+Animation:./Animation/ani_female_down.X,여성_다운드;
+Animation:./Animation/ani_female_down_to_stand.X,여성_다운투스텐드;
 Animation:./Animation/ani_female_counter.X,여성_카운터;
+
 Animation:./Animation/ani_female_down_attack.X,여성_다운공격00;
 Animation:./Animation/ani_female_windmill_rising.X,여성_윈드밀01;
 Animation:./Animation/ani_female_windmill_standing.X,여성_윈드밀02;
-Animation:./Animation/ani_female_blow_turn.X,여성_턴00;
 
 //맵
 Field:./HeightMapData/HeightMap.raw,./Texture/steppegrass01_only.dds,테스트용, 0.75f, 0.75f, 0.75f, 1.0f;
@@ -74,7 +85,7 @@ Color:임시몬스터,uni_shoes01_c.dds, 1.0f, 1.0f, 0.0f, 1.0f;
 Color:임시몬스터,hair09.dds, 0.0f, 0.0f, 0.0f, 0.0f;
 Color:임시몬스터,bodymap01.dds, 1.0f, 0.53f, 0.53f, 1.0f;
 Color:임시몬스터,uni_newbie03_c.dds, 0.8f, 0.2f, 0.8f, 1.0;
-Color:임시몬스터,uni_3rd_premium_c.dds, 0.5f, 0.0f, 0.1f, 1.0f)f;
+Color:임시몬스터,uni_3rd_premium_c.dds, 0.5f, 0.0f, 0.1f, 1.0f;
 Color:임시몬스터,male_pumpkin_pants_c.dds, 0.0f, 0.0f, 0.0f, 1.0f;
 
 //여우
@@ -87,16 +98,13 @@ Animation:./Monster/Fox/Fox_Attack.X,여우_공격;
 Animation:./Monster/Fox/FoxHit01.X,여우_피격01;
 Animation:./Monster/Fox/FoxHit02.X,여우_피격02;
 Animation:./Monster/Fox/FoxEndure.X,여우_밀려남;
+Animation:./Monster/Fox/Fox_Smash.X,여우_스매시;
+Animation:./Monster/Fox/Fox_Spin.X,여우_스핀;
+Animation:./Monster/Fox/FoxGroggy.X,여우_그로기;
+Animation:./Monster/Fox/FoxDownd.X,여우_다운드;
+Animation:./Monster/Fox/FoxDownToStand.X,여우_다운투스텐드;
+Animation:./Monster/Fox/FoxCounter.X,여우_카운터;
 
 Mesh:./Monster/Fox/,FoxMeshEx.X,여우01;
 Color:여우01,mon_fox02.dds, 0.6f, 0.2f, 0.2f, 1.0f;
 Color:여우01,mon_skeleton01_eyes.dds, 0.5f, 0.5f, 0.2f, 1.0f;
-
-Mesh:여우01,여우02,;
-Color:여우02,mon_fox02.dds, 0.5f, 0.5f, 0.5f, 1.0f;
-Color:여우02,mon_skeleton01_eyes.dds, 0.5f, 0.5f, 0.2f, 1.0f;
-
-Mesh:여우01,여우03,;
-Color:여우03,mon_fox02.dds, 1.0f, 0.2f, 0.2f, 1.0f;
-Color:여우03,mon_skeleton01_eyes.dds, 0.5f, 0.5f, 0.2f, 1.0f;
-
