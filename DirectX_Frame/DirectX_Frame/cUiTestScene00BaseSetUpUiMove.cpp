@@ -450,7 +450,7 @@ void cUiTestScene::MoveUiWindow(void)
 	
 	if (m_isInventoryWindowOn)  //인벤토리 창이 열릴때만 
 	{
-		for (int i = 0; i < INVMAX; i++)
+		for (int i = 0; i < m_vecTempPlayerItem.size(); i++)
 		{
 			if (m_vecTempPlayerItem[i] == NULL) return; //탬이 없으면 리턴
 
@@ -487,6 +487,18 @@ void cUiTestScene::MoveUiWindow(void)
 								//이미지 위치 이동 후
 								m_vecTempPlayerItem[i]->SetPosition(m_pInventoryUiEquipTorso->GetPosition());
 								m_isTorsoMount = i; //착용 장비 변경
+								if (m_vecTempPlayerItem[i]->m_eItemStats == cUIButton::E_ITEM_STATS_WEAR_01)
+								{
+									m_eEquipTorso = E_TORSO_WEAR_01;
+								}
+								else if (m_vecTempPlayerItem[i]->m_eItemStats == cUIButton::E_ITEM_STATS_WEAR_02)
+								{
+									m_eEquipTorso = E_TORSO_WEAR_02;
+								}
+								else if (m_vecTempPlayerItem[i]->m_eItemStats == cUIButton::E_ITEM_STATS_WEAR_03)
+								{
+									m_eEquipTorso = E_TORSO_WEAR_03;
+								}
 								break;
 							}
 							//없으면 기냥 이동
@@ -503,14 +515,26 @@ void cUiTestScene::MoveUiWindow(void)
 								}
 								m_vecTempPlayerItem[i]->SetPosition(m_pInventoryUiEquipShoes->GetPosition());
 								m_isShoesMount = i;
+								if (m_vecTempPlayerItem[i]->m_eItemStats == cUIButton::E_ITEM_STATS_SHOES_01)
+								{
+									m_eEquipShoes = E_SHOES_01;
+								}
 								break;
 							}
 						}
 					}
 					else // 장비 헤제 할 시(장비를 빼서 아이탬칸으로 이동 시)
 					{
-						if (m_isTorsoMount == i) m_isTorsoMount = -1; // -1(장비헤제 상태로 변경)
-						if (m_isShoesMount == i) m_isShoesMount = -1;
+						if (m_isTorsoMount == i)
+						{
+							m_isTorsoMount = -1; // -1(장비헤제 상태로 변경)
+							m_eEquipTorso = E_TORSO_EMPTY;
+						}
+						if (m_isShoesMount == i)
+						{
+							m_isShoesMount = -1;
+							m_eEquipShoes = E_SHOES_EMPTY;
+						}
 						this->_ItemInventory(i); //위치 재정렬)
 					}
 				}
@@ -546,4 +570,7 @@ void cUiTestScene::_ItemInventory(int i)
 	nPositionY = nBlockY * nBlockSize + nOffsetY;
 
 	m_vecTempPlayerItem[i]->SetPosition(nPositionX, nPositionY);
+
+	RECT rc;
+	//if(IntersectRect(&rc, &(), ()))
 }

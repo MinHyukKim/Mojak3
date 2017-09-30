@@ -47,6 +47,7 @@ public:
 		E_ITEM_WEAR,
 		E_ITEM_SHOES,
 		E_ITEM_WEAPON,
+		E_ITEM_OTHER,
 		E_ITEM_END
 	};
 

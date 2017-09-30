@@ -72,4 +72,6 @@ void cUiTestScene::SetUpTempPlayer(void)
 	m_pPlayer->RegisterAnimation(cPlayer::ANIMATION_IDLE_FRIENDLY, g_pAnimationManager->GetAnimation("여성_기본01"));
 	//애니메이션 변형
 	m_pPlayer->SetupFriendly();
-} 
+}
+
+

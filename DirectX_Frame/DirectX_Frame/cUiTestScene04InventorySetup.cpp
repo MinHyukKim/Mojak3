@@ -129,63 +129,80 @@ void cUiTestScene::SetupInventoryUi(void)
 //		m_vecInventoryUiBlock[y * 6 + x]->SetTag(E_BUTTON_NONE);
 //		m_pInventoryUi->AddChild(m_vecInventoryUiBlock[y * 6 + x]);
 //	}
-//	m_pQuestUiImage = cUIButton::Create();
-//	m_pQuestUiImage->SetTexture("Texture/Ui/Base.png"
-//		, "Texture/Ui/Base.png", "Texture/Ui/Base.png");
-//	m_pQuestUiImage->SetPosition(2, 48);
-//	m_pQuestUiImage->SetDelegate(this);
-//	m_pQuestUiImage->m_Alpha = 180;
-//	m_pQuestUiImage->SetTag(E_BUTTON_NONE);
-//	m_pQuestUi->AddChild(m_pQuestUiImage);
 
-	//추후 아이탬 추가 함수 따로 만들기
+//	//추후 아이탬 추가 함수 따로 만들기
+//	m_vecTempPlayerItem[0] = cUIButton::Create();
+//	m_vecTempPlayerItem[0]->SetTexture("Texture/Ui/testItem1-1.png"
+//		, "Texture/Ui/testItem1-1.png", "Texture/Ui/testItem1-1.png");
+//	m_vecTempPlayerItem[0]->SetPosition(60, 147);
+//	m_vecTempPlayerItem[0]->m_eItem = cUIButton::E_ITEM_WEAR;
+//	m_vecTempPlayerItem[0]->m_eItemStats = cUIButton::E_ITEM_STATS_WEAR_01;
+//	m_vecTempPlayerItem[0]->Update();
+//	m_vecTempPlayerItem[0]->SetDelegate(this);
+//	//	m_vecTempPlayerItem[0]->m_Alpha = 180;
+//	//	m_vecTempPlayerItem[0]->SetTag(E_ITEM_WEAR1);
+//	m_pInventoryUi->AddChild(m_vecTempPlayerItem[0]);
+//
+//	m_vecTempPlayerItem[1] = cUIButton::Create();
+//	m_vecTempPlayerItem[1]->SetTexture("Texture/Ui/testItem1-2.png"
+//		, "Texture/Ui/testItem1-2.png", "Texture/Ui/testItem1-2.png");
+//	m_vecTempPlayerItem[1]->SetPosition(160, 90);
+//	m_vecTempPlayerItem[1]->m_eItem = cUIButton::E_ITEM_WEAR;
+//	m_vecTempPlayerItem[1]->m_eItemStats = cUIButton::E_ITEM_STATS_WEAR_02;
+//	m_vecTempPlayerItem[1]->Update();
+//	m_vecTempPlayerItem[1]->SetDelegate(this);
+//	//	m_vecTempPlayerItem[1]->m_Alpha = 180;
+//	//	m_vecTempPlayerItem[1]->SetTag(E_ITEM_WEAR1);
+//	m_pInventoryUi->AddChild(m_vecTempPlayerItem[1]);
+//
+//	m_vecTempPlayerItem[2] = cUIButton::Create();
+//	m_vecTempPlayerItem[2]->SetTexture("Texture/Ui/testItem1-3.png"
+//		, "Texture/Ui/testItem1-3.png", "Texture/Ui/testItem1-3.png");
+//	m_vecTempPlayerItem[2]->SetPosition(160 + 48, 90);
+//	m_vecTempPlayerItem[2]->m_eItem = cUIButton::E_ITEM_WEAR;
+//	m_vecTempPlayerItem[2]->m_eItemStats = cUIButton::E_ITEM_STATS_WEAR_03;
+//	m_vecTempPlayerItem[2]->Update();
+//	m_vecTempPlayerItem[2]->SetDelegate(this);
+//	//	m_vecTempPlayerItem[2]->m_Alpha = 180;
+//	//	m_vecTempPlayerItem[2]->SetTag(E_ITEM_WEAR1);
+//	m_pInventoryUi->AddChild(m_vecTempPlayerItem[2]);
+//
+//	m_vecTempPlayerItem[3] = cUIButton::Create();
+//	m_vecTempPlayerItem[3]->SetTexture("Texture/Ui/testShoes1-1.png"
+//		, "Texture/Ui/testShoes1-1.png", "Texture/Ui/testShoes1-1.png");
+//	m_vecTempPlayerItem[3]->SetPosition(160 + 48, 90 + 48 * 3);
+//	m_vecTempPlayerItem[3]->m_eItem = cUIButton::E_ITEM_SHOES;
+//	m_vecTempPlayerItem[3]->m_eItemStats = cUIButton::E_ITEM_STATS_SHOES_01;
+//	m_vecTempPlayerItem[3]->Update();
+//	m_vecTempPlayerItem[3]->SetDelegate(this);
+//	//	m_vecTempPlayerItem[3]->m_Alpha = 180;
+//	//	m_vecTempPlayerItem[3]->SetTag(E_ITEM_WEAR1);
+//	m_pInventoryUi->AddChild(m_vecTempPlayerItem[3]);
 
-	m_vecTempPlayerItem[0] = cUIButton::Create();
-	m_vecTempPlayerItem[0]->SetTexture("Texture/Ui/testItem1-1.png"
-		, "Texture/Ui/testItem1-1.png", "Texture/Ui/testItem1-1.png");
-	m_vecTempPlayerItem[0]->SetPosition(60, 147);
-	m_vecTempPlayerItem[0]->m_eItem = cUIButton::E_ITEM_WEAR;
-	m_vecTempPlayerItem[0]->m_eItemStats = cUIButton::E_ITEM_STATS_WEAR_01;
-	m_vecTempPlayerItem[0]->Update();
-	m_vecTempPlayerItem[0]->SetDelegate(this);
-	//	m_vecTempPlayerItem[0]->m_Alpha = 180;
-	//	m_vecTempPlayerItem[0]->SetTag(E_ITEM_WEAR1);
-	m_pInventoryUi->AddChild(m_vecTempPlayerItem[0]);
+	this->AddItem("Texture/Ui/testItem1-1.png", 60, 147, cUIButton::E_ITEM_WEAR
+		, cUIButton::E_ITEM_STATS_WEAR_01);
 
-	m_vecTempPlayerItem[1] = cUIButton::Create();
-	m_vecTempPlayerItem[1]->SetTexture("Texture/Ui/testItem1-2.png"
-		, "Texture/Ui/testItem1-2.png", "Texture/Ui/testItem1-2.png");
-	m_vecTempPlayerItem[1]->SetPosition(160, 90);
-	m_vecTempPlayerItem[1]->m_eItem = cUIButton::E_ITEM_WEAR;
-	m_vecTempPlayerItem[0]->m_eItemStats = cUIButton::E_ITEM_STATS_WEAR_02;
-	m_vecTempPlayerItem[1]->Update();
-	m_vecTempPlayerItem[1]->SetDelegate(this);
-	//	m_vecTempPlayerItem[0]->m_Alpha = 180;
-	//	m_vecTempPlayerItem[0]->SetTag(E_ITEM_WEAR1);
-	m_pInventoryUi->AddChild(m_vecTempPlayerItem[1]);
+	this->AddItem("Texture/Ui/testItem1-2.png", 160, 90, cUIButton::E_ITEM_WEAR
+		, cUIButton::E_ITEM_STATS_WEAR_02);
 
-	m_vecTempPlayerItem[2] = cUIButton::Create();
-	m_vecTempPlayerItem[2]->SetTexture("Texture/Ui/testItem1-3.png"
-		, "Texture/Ui/testItem1-3.png", "Texture/Ui/testItem1-3.png");
-	m_vecTempPlayerItem[2]->SetPosition(160 + 48, 90);
-	m_vecTempPlayerItem[2]->m_eItem = cUIButton::E_ITEM_WEAR;
-	m_vecTempPlayerItem[0]->m_eItemStats = cUIButton::E_ITEM_STATS_WEAR_03;
-	m_vecTempPlayerItem[2]->Update();
-	m_vecTempPlayerItem[2]->SetDelegate(this);
-	//	m_vecTempPlayerItem[2]->m_Alpha = 180;
-	//	m_vecTempPlayerItem[2]->SetTag(E_ITEM_WEAR1);
-	m_pInventoryUi->AddChild(m_vecTempPlayerItem[2]);
+	this->AddItem("Texture/Ui/testItem1-3.png", 160 + 48, 90, cUIButton::E_ITEM_WEAR
+		, cUIButton::E_ITEM_STATS_WEAR_03);
 
-	m_vecTempPlayerItem[3] = cUIButton::Create();
-	m_vecTempPlayerItem[3]->SetTexture("Texture/Ui/testShoes1-1.png"
-		, "Texture/Ui/testShoes1-1.png", "Texture/Ui/testShoes1-1.png");
-	m_vecTempPlayerItem[3]->SetPosition(160 + 48, 90 + 48 * 3);
-	m_vecTempPlayerItem[3]->m_eItem = cUIButton::E_ITEM_SHOES;
-	m_vecTempPlayerItem[0]->m_eItemStats = cUIButton::E_ITEM_STATS_SHOES_01;
-	m_vecTempPlayerItem[3]->Update();
-	m_vecTempPlayerItem[3]->SetDelegate(this);
-	//	m_vecTempPlayerItem[3]->m_Alpha = 180;
-	//	m_vecTempPlayerItem[3]->SetTag(E_ITEM_WEAR1);
-	m_pInventoryUi->AddChild(m_vecTempPlayerItem[3]);
+	this->AddItem("Texture/Ui/testShoes1-1.png", 160 + 48, 90 + 48 * 3, cUIButton::E_ITEM_SHOES
+		, cUIButton::E_ITEM_STATS_SHOES_01);
+}
 
+void cUiTestScene::AddItem(LPCSTR imgName, float x, float y, int itemType, int itemName)
+{
+	cUIButton* pItem = cUIButton::Create();
+	pItem->SetTexture(imgName , imgName, imgName);
+	pItem->SetPosition(x, y);
+	pItem->m_eItem = (cUIButton::eIfItemKinds)itemType;
+	pItem->m_eItemStats = (cUIButton::eItemAbility)itemName;
+	pItem->Update();
+	pItem->SetDelegate(this);
+	//pItem->m_Alpha = 180;
+	//pItem->SetTag(E_ITEM_WEAR1);
+	m_vecTempPlayerItem.push_back(pItem);
+	m_pInventoryUi->AddChild(pItem);
 }

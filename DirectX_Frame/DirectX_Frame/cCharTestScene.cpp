@@ -56,6 +56,9 @@ HRESULT cCharTestScene::Setup(void)
 	g_pObjectManager->CreateMonster(cObjectManager::MONSTER_FOX, &D3DXVECTOR3(0.0f, 0.0f, 5.0f), &MONSTERCOLOR_GRAY);
 	g_pObjectManager->CreateMonster(cObjectManager::MONSTER_FOX, &D3DXVECTOR3(2.0f, 0.0f, 5.0f), &MONSTERCOLOR_RED);
 
+	//npcÅÂ½ºÆ®
+
+
 	return S_OK;
 }
 

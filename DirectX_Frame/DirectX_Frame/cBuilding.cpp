@@ -114,7 +114,7 @@ LPD3DXMESH cBuilding::LoadModel(char * szFolder, char * szFilename)
 	std::string sFullPath(szFolder);
 	sFullPath += std::string(szFilename);
 
-	LPD3DXBUFFER pD3DXMtrlBuffer;
+	LPD3DXBUFFER pD3DXMtrlBuffer = NULL;
 
 	//LPD3DXMESH ret = NULL;
 	if (FAILED(D3DXLoadMeshFromX(sFullPath.c_str(), D3DXMESH_SYSTEMMEM, g_pD3DDevice, NULL, &pD3DXMtrlBuffer, NULL, &m_dwNumMaterials, &m_pBuild)));
@@ -125,9 +125,9 @@ LPD3DXMESH cBuilding::LoadModel(char * szFolder, char * szFilename)
 	//SAFE_DELETE_ARRAY(m_pFilename);
 	m_pFilename = m_pFilename;
 	m_pFoldername = "";
-
-	D3DXMATERIAL* d3dxMaterials =
-		(D3DXMATERIAL*)pD3DXMtrlBuffer->GetBufferPointer();
+	D3DXMATERIAL* d3dxMaterials;
+	if (pD3DXMtrlBuffer != NULL)
+		d3dxMaterials = (D3DXMATERIAL*)pD3DXMtrlBuffer->GetBufferPointer();
 	m_pMeshMaterials = new D3DMATERIAL9[m_dwNumMaterials];
 	m_pMeshTextures = new LPDIRECT3DTEXTURE9[m_dwNumMaterials];
 
@@ -141,7 +141,7 @@ LPD3DXMESH cBuilding::LoadModel(char * szFolder, char * szFilename)
 		m_pMeshTextures[i] = g_pTexture->GetTexture(d3dxMaterials[i].pTextureFilename);
 	}
 
-	pD3DXMtrlBuffer->Release();  // 머티리얼 버퍼 해제
+	SAFE_RELEASE(pD3DXMtrlBuffer);  // 머티리얼 버퍼 해제
 
 	g_pD3DDevice->SetRenderState(D3DRS_LIGHTING, TRUE);
 	g_pD3DDevice->SetRenderState(D3DRS_AMBIENT, 0xffffffff); // 흰색 주변광
@@ -216,11 +216,16 @@ void cBuilding::Update(void)
 
 void cBuilding::Render(void)
 {
-	g_pD3DDevice->SetTransform(D3DTS_WORLD, &m_matWorld);
-	D3DXMATRIXA16 matView, matProjection, matViewProj, matWorldViewProjection;
 
-	g_pD3DDevice->GetTransform(D3DTS_VIEW, &matView);
-	g_pD3DDevice->GetTransform(D3DTS_PROJECTION, &matProjection);
+
+	D3DXMATRIXA16 mat = m_matWorld;
+	mat._42 += m_fOffsetY;
+	g_pD3DDevice->SetTransform(D3DTS_WORLD, &mat);
+	g_pD3DDevice->SetRenderState(D3DRS_CULLMODE, D3DCULL_NONE);
+	//D3DXMATRIXA16 matView, matProjection, matViewProj, matWorldViewProjection;
+
+	//g_pD3DDevice->GetTransform(D3DTS_VIEW, &matView);
+	//g_pD3DDevice->GetTransform(D3DTS_PROJECTION, &matProjection);
 	for (DWORD i = 0; i < m_dwNumMaterials; i++)
 	{
 		g_pD3DDevice->SetMaterial(&m_pMeshMaterials[i]);
@@ -228,23 +233,51 @@ void cBuilding::Render(void)
 
 		m_pBuild->DrawSubset(i);
 	}
+	g_pD3DDevice->SetRenderState(D3DRS_CULLMODE, D3DCULL_CCW);
 
-	//m_matWorld._42 += (maxY - minY)/2;
-	g_pD3DDevice->SetTransform(D3DTS_WORLD, &m_matWorld);
-	g_pD3DDevice->SetRenderState(D3DRS_FILLMODE, D3DFILL_WIREFRAME);
-	g_pD3DDevice->SetRenderState(D3DRS_CULLMODE, D3DCULL_NONE);
 	if (m_pBoundBox != NULL)
 	{
+		D3DXMATRIXA16 mat = m_matWorld;
+		mat._42 += (maxY - minY) / 2.0f;
+		g_pD3DDevice->SetTransform(D3DTS_WORLD, &mat);
+		g_pD3DDevice->SetRenderState(D3DRS_FILLMODE, D3DFILL_WIREFRAME);
+		g_pD3DDevice->SetRenderState(D3DRS_CULLMODE, D3DCULL_NONE);
+
 		D3DMATERIAL9 mtl = {};
 		mtl.Ambient = D3DXCOLOR(1.0f, 1.0f, 1.0f, 0.3f);
 		mtl.Diffuse = D3DXCOLOR(1.0f, 1.0f, 1.0f, 0.3f);
 		mtl.Specular = D3DXCOLOR(1.0f, 1.0f, 1.0f,0.3f);
 		g_pD3DDevice->SetMaterial(&mtl);
 		m_pBoundBox->DrawSubset(0);
-	}
-	g_pD3DDevice->SetRenderState(D3DRS_CULLMODE, D3DCULL_CCW);
-	g_pD3DDevice->SetRenderState(D3DRS_FILLMODE, D3DFILL_SOLID);
+		g_pD3DDevice->SetRenderState(D3DRS_CULLMODE, D3DCULL_CCW);
+		g_pD3DDevice->SetRenderState(D3DRS_FILLMODE, D3DFILL_SOLID);
 
+	}
+
+}
+
+void cBuilding::SetAngleX(float fX)
+{
+	D3DXMATRIXA16 matR;
+	D3DXMatrixRotationAxis(&matR, (LPD3DXVECTOR3)&m_matWorld._11, fX);
+	D3DXVec3TransformCoord((LPD3DXVECTOR3)&m_matWorld._21, (LPD3DXVECTOR3)&m_matWorld._21, &matR);
+	D3DXVec3TransformCoord((LPD3DXVECTOR3)&m_matWorld._31, (LPD3DXVECTOR3)&m_matWorld._31, &matR);
+}
+
+void cBuilding::SetAngleY(float fY)
+{
+	D3DXMATRIXA16 matR;
+	D3DXMatrixRotationAxis(&matR, (LPD3DXVECTOR3)&m_matWorld._21, fY);
+	D3DXVec3TransformCoord((LPD3DXVECTOR3)&m_matWorld._11, (LPD3DXVECTOR3)&m_matWorld._11, &matR);
+	D3DXVec3TransformCoord((LPD3DXVECTOR3)&m_matWorld._31, (LPD3DXVECTOR3)&m_matWorld._31, &matR);
+}
+
+void cBuilding::SetAngleZ(float fZ)
+{
+	D3DXMATRIXA16 matR;
+	D3DXMatrixRotationAxis(&matR, (LPD3DXVECTOR3)&m_matWorld._31, fZ);
+	D3DXVec3TransformCoord((LPD3DXVECTOR3)&m_matWorld._11, (LPD3DXVECTOR3)&m_matWorld._11, &matR);
+	D3DXVec3TransformCoord((LPD3DXVECTOR3)&m_matWorld._21, (LPD3DXVECTOR3)&m_matWorld._21, &matR);
 }
 
 cBuilding::cBuilding(void)
@@ -261,6 +294,7 @@ cBuilding::cBuilding(void)
 	, m_pBoundBox(NULL)
 	, m_pFilename("")
 	, m_pFoldername("")
+	, m_fScale(1.0f)
 {
 	D3DXMatrixIdentity(&m_matWorld);
 }
@@ -280,6 +314,14 @@ cBuilding::~cBuilding(void)
 //	return newClass;
 //}
 
+
+void cBuilding::OffsetScale(float scale)
+{
+	m_fScale += scale;
+	D3DXVECTOR3 v = D3DXVECTOR3(m_matWorld._41, m_matWorld._42, m_matWorld._43);
+	D3DXMatrixScaling(&m_matWorld, m_fScale, m_fScale, m_fScale);
+	memcpy(&m_matWorld._41, &v, sizeof(D3DXVECTOR3));
+}
 
 void cBuilding::Destroy(void)
 {

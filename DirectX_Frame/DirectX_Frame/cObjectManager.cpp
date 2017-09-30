@@ -272,6 +272,17 @@ bool cObjectManager::CreateMonster(IN MONSTER_TYPE eMonsterKey, IN LPD3DXVECTOR3
 	return pCreateMonster;
 }
 
+bool cObjectManager::CreateNPC(IN UNIT_TYPE eNPCKey, IN LPD3DXVECTOR3 pPostion)
+{
+	cPlayer* pCreateNPC = nullptr;
+	switch (eNPCKey)
+	{
+	case cObjectManager::MONSTER_NULL: break;
+	}
+
+	return false;
+}
+
 void cObjectManager::Destroy(void)
 {
 	if (m_pPlayer)
