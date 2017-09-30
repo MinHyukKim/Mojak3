@@ -19,7 +19,7 @@ Color:바디00,bodymap01.dds, 1.0f, 0.53f, 0.53f, 1.0f;
 Mesh:./Chareter/Female_Body/,wear_female_3rd_newbie.X,바디01;
 Color:바디01,bodymap01.dds, 1.0f, 0.53f, 0.53f, 1.0f;
 Color:바디01,uni_newbie03_c.dds, 0.8f, 0.2f, 0.8f, 1.0;
-Color:바디01,uni_3rd_premium_c.dds, 0.5f, 0.0f, 0.1f, 1.0f)f; 
+Color:바디01,uni_3rd_premium_c.dds, 0.5f, 0.0f, 0.1f, 1.0f; 
 Color:바디01,male_pumpkin_pants_c.dds, 0.0f, 0.0f, 0.0f, 1.0f;
 //옷 바디02
 Mesh:./Chareter/Female_Body/,wear_adventurer01.X,바디02;
@@ -63,8 +63,8 @@ Animation:./Animation/ani_female_blow_turn.X,여성_스핀;
 Animation:./Animation/ani_female_groggy.X,여성_그로기;
 Animation:./Animation/ani_female_down.X,여성_다운드;
 Animation:./Animation/ani_female_down_to_stand.X,여성_다운투스텐드;
-
 Animation:./Animation/ani_female_counter.X,여성_카운터;
+
 Animation:./Animation/ani_female_down_attack.X,여성_다운공격00;
 Animation:./Animation/ani_female_windmill_rising.X,여성_윈드밀01;
 Animation:./Animation/ani_female_windmill_standing.X,여성_윈드밀02;
@@ -78,7 +78,7 @@ Color:임시몬스터,uni_shoes01_c.dds, 1.0f, 1.0f, 0.0f, 1.0f;
 Color:임시몬스터,hair09.dds, 0.0f, 0.0f, 0.0f, 0.0f;
 Color:임시몬스터,bodymap01.dds, 1.0f, 0.53f, 0.53f, 1.0f;
 Color:임시몬스터,uni_newbie03_c.dds, 0.8f, 0.2f, 0.8f, 1.0;
-Color:임시몬스터,uni_3rd_premium_c.dds, 0.5f, 0.0f, 0.1f, 1.0f)f;
+Color:임시몬스터,uni_3rd_premium_c.dds, 0.5f, 0.0f, 0.1f, 1.0f;
 Color:임시몬스터,male_pumpkin_pants_c.dds, 0.0f, 0.0f, 0.0f, 1.0f;
 
 //여우
@@ -96,16 +96,8 @@ Animation:./Monster/Fox/Fox_Spin.X,여우_스핀;
 Animation:./Monster/Fox/FoxGroggy.X,여우_그로기;
 Animation:./Monster/Fox/FoxDownd.X,여우_다운드;
 Animation:./Monster/Fox/FoxDownToStand.X,여우_다운투스텐드;
+Animation:./Monster/Fox/FoxCounter.X,여우_카운터;
 
 Mesh:./Monster/Fox/,FoxMeshEx.X,여우01;
 Color:여우01,mon_fox02.dds, 0.6f, 0.2f, 0.2f, 1.0f;
 Color:여우01,mon_skeleton01_eyes.dds, 0.5f, 0.5f, 0.2f, 1.0f;
-
-Mesh:여우01,여우02,;
-Color:여우02,mon_fox02.dds, 0.5f, 0.5f, 0.5f, 1.0f;
-Color:여우02,mon_skeleton01_eyes.dds, 0.5f, 0.5f, 0.2f, 1.0f;
-
-Mesh:여우01,여우03,;
-Color:여우03,mon_fox02.dds, 1.0f, 0.2f, 0.2f, 1.0f;
-Color:여우03,mon_skeleton01_eyes.dds, 0.5f, 0.5f, 0.2f, 1.0f;
-

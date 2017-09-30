@@ -15,8 +15,7 @@
 #define PATTERN_BACKMOVE	0x00000080	//밀려남, 날아감
 #define PATTERN_SMASH		0x00000100	//스매시
 #define PATTERN_DEFENCE		0x00000200	//디펜스
-#define PATTERN_COUNTER		0x00000100	//카운터
-#define PATTERN_SMASH		0x00000100	//원드밀
+#define PATTERN_COUNTER		0x00000400	//카운터
 
 #define PATTERN_NORMAL		0x0000002d	//기본상태
 
@@ -49,6 +48,8 @@ public:
 		ORDER_OFFENSIVE,
 		ORDER_HIT,
 		ORDER_SPIN,
+		ORDER_DOWND,
+		ORDER_STANDUP,
 	};
 	enum ANIMATION_STATE
 	{
@@ -62,6 +63,7 @@ public:
 		ANIMATION_ATTACK_01,
 		ANIMATION_ATTACK_02,
 		ANIMATION_SMASH,
+		ANIMATION_COUNTER,
 		ANIMATION_HIT_01,
 		ANIMATION_HIT_02,
 		ANIMATION_SPIN,
@@ -143,6 +145,8 @@ public:
 	void SetupOffnsive(void);
 	void SetupHit(void);
 	void SetupSpin(void);
+	void SetupDownd(void);
+	void SetupStandUp(void);
 	//상태 변환시 행동을 반복함
 	void PatternUpdate(void);
 	//상태 변화
