@@ -52,9 +52,9 @@ HRESULT cCharTestScene::Setup(void)
 	m_pUi = cUiTestScene::Create();
 	m_pUi->Setup();
 
-	g_pObjectManager->CreateMonster(cObjectManager::MONSTER_FOX01, &D3DXVECTOR3(0.0f, 0.0f, 5.0f));
-	g_pObjectManager->CreateMonster(cObjectManager::MONSTER_FOX02, &D3DXVECTOR3(-5.0f, 0.0f, 5.0f));
-	g_pObjectManager->CreateMonster(cObjectManager::MONSTER_FOX03, &D3DXVECTOR3(5.0f, 0.0f, 5.0f));
+	g_pObjectManager->CreateMonster(cObjectManager::MONSTER_FOX, &D3DXVECTOR3(-2.0f, 0.0f, 5.0f), &MONSTERCOLOR_BROWN);
+	g_pObjectManager->CreateMonster(cObjectManager::MONSTER_FOX, &D3DXVECTOR3(0.0f, 0.0f, 5.0f), &MONSTERCOLOR_GRAY);
+	g_pObjectManager->CreateMonster(cObjectManager::MONSTER_FOX, &D3DXVECTOR3(2.0f, 0.0f, 5.0f), &MONSTERCOLOR_RED);
 
 	//npcÅÂ½ºÆ®
 
@@ -108,6 +108,14 @@ void cCharTestScene::Update(void)
 	if (g_pInputManager->IsOnceKeyDown(VK_SPACE))
 	{
 		g_pObjectManager->GetPlayer()->OrderIdenChange();
+	}
+	if (g_pInputManager->IsOnceKeyDown('1'))
+	{
+		g_pObjectManager->GetPlayer()->SetStateTrue(PATTERN_SMASH);
+	}
+	if (g_pInputManager->IsOnceKeyDown('2'))
+	{
+		g_pObjectManager->GetPlayer()->GetTarget()->SetStateTrue(PATTERN_COUNTER);
 	}
 
 
