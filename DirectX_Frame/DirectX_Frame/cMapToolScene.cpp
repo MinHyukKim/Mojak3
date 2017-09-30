@@ -178,6 +178,14 @@ void cMapToolScene::Update(void)
 		g_pMapObjectManager->getMapObjectRotation();
 		g_pMapObjectManager->cur++;
 	}
+
+	if (g_pInputManager->IsOnceKeyDown('5'))
+	{
+		g_pMapObjectManager->SaveCurrentObjectsState("test.obj");
+	}
+
+
+
 	if (g_pInputManager->IsStayKeyDown(VK_ESCAPE))
 	{
 		g_pMapObjectManager->ResetBuilding();
