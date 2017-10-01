@@ -94,8 +94,10 @@ cUiTestScene::cUiTestScene(void)
 	//대화창
 	, m_pDialogUi(NULL)
 	, m_isDialogOpen(false)
-	//대화창 종류
-	, m_eTextKind(E_TEXT_NONE)
+	//대화NPC 종류
+	, m_eDialogNPCKind(E_DIALOG_NPC_NONE)
+	//대화 순서
+	, m_eDialogText(E_TEXT_01)
 {
 	D3DXMatrixIdentity(&m_matWorldMatrix);
 	m_vecTempPlayerItem.reserve(INVMAX);
@@ -400,6 +402,11 @@ void cUiTestScene::OnClick(cUIButton * pSender)
 	{
 	//	if (m_isInventoryWindowOn) m_isInventoryWindowOn = false;
 		m_isInventoryWindowOn = !m_isInventoryWindowOn;
+	}
+	//대화창 관련
+	if (m_isDialogOpen && m_eDialogNPCKind == E_DIALOG_NPC_NAO)
+	{
+
 	}
 
 }

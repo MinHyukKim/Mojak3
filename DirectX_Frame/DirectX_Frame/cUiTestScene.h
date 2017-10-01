@@ -87,14 +87,22 @@ enum ePlaterEquipWeaponHand
 	E_WEAPON_END,
 };
 
-enum eText
+enum eDialogNPC
+{
+	E_DIALOG_NPC_NONE,
+	E_DIALOG_NPC_NAO,
+	E_DIALOG_NPC_END
+};
+
+enum eDialogText
 {
 	E_TEXT_NONE,
-	E_TEXT_NAO_01,
-	E_TEXT_NAO_02,
-	E_TEXT_NAO_03,
-	E_TEXT_NAO_04,
-	E_TEXT_NAO_05,
+	E_TEXT_01,
+	E_TEXT_02,
+	E_TEXT_03,
+	E_TEXT_04,
+	E_TEXT_05,
+	E_TEXR_END
 };
 
 class cUiTestScene : public cSceneObject, iButtonDelegate
@@ -220,18 +228,19 @@ private:
 	//대화관련
 	int m_nDialogX;
 	int m_nDialogY;
-	bool m_isDialogOpen;
-	cUIButton* m_pDialogBackImage;
-	cUITextView* m_pDialogNameText;
-	cUITextView* m_pDialogText;
-	cUIButton* m_pDialogPrev;
+	bool m_isDialogOpen;			//대사창 온/오프
+	cUIButton* m_pDialogBackImage;  //대사 창 이미지
+	cUITextView* m_pDialogNameText;	//NPC 이름	
+	cUITextView* m_pDialogText;		//대화 내용
+	cUIButton* m_pDialogPrev;		//이전버튼
 	cUITextView* pDialogPrevText;
-	cUIButton* m_pDialogNext;
+	cUIButton* m_pDialogNext;		//다음 버튼
 	cUITextView* pDialogNextText;
-	cUIButton* m_pDialogAcceptButton;
-	bool m_isDialogFin;
-	eText m_eTextKind;
-	cUiObject* m_pDialogUi;
+	cUIButton* m_pDialogAcceptButton; //수락 여부 버튼
+	bool m_isDialogFin;					//대화 끝(안씀
+	eDialogNPC m_eDialogNPCKind;		//대화중인 NPC(선택한 NPC) 종류
+	eDialogText m_eDialogText;			//택스트 순서
+	cUiObject* m_pDialogUi;			
 
 	//퀘스트 정보창
 	int queX;
