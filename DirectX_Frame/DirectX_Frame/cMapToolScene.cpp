@@ -193,13 +193,39 @@ void cMapToolScene::Update(void)
 	if (g_pInputManager->IsOnceKeyDown('5'))
 	{
 		OPENFILENAME OFN;
+		char filename[255];
+		char lpstrFile[MAX_PATH] = "";
+		memset(&OFN, 0, sizeof(OPENFILENAME));
+		OFN.lpstrTitle = "저장하기";
+		OFN.lStructSize = sizeof(OPENFILENAME);
+		OFN.hwndOwner = g_hWnd;
+		OFN.lpstrFilter = "모든 파일(*.*)\0*.*\0맵 오브젝트 파일\0*.obj;\0";
+		OFN.lpstrFile = lpstrFile;
+		OFN.nMaxFile = 256;
+		OFN.Flags = OFN_OVERWRITEPROMPT;
+		//OFN.lpstrInitialDir = "c:\\";
+		if (GetSaveFileName(&OFN) != 0) 
+			g_pMapObjectManager->SaveCurrentObjectsState(OFN.lpstrFile);
 
-
-		g_pMapObjectManager->SaveCurrentObjectsState("test.obj");
 	}
 	if (g_pInputManager->IsOnceKeyDown('6'))
 	{
-		g_pMapObjectManager->LoadCurrentObjectsState("test.obj");
+		OPENFILENAME OFN;
+		char filename[255];
+		char lpstrFile[MAX_PATH] = "";
+		memset(&OFN, 0, sizeof(OPENFILENAME));
+		OFN.lpstrTitle = "저장하기";
+		OFN.lStructSize = sizeof(OPENFILENAME);
+		OFN.hwndOwner = g_hWnd;
+		OFN.lpstrFilter = "모든 파일(*.*)\0*.*\0맵 오브젝트 파일\0*.obj;\0";
+		OFN.lpstrFile = lpstrFile;
+		OFN.nMaxFile = 256;
+		OFN.Flags = OFN_OVERWRITEPROMPT;
+		//OFN.lpstrInitialDir = "c:\\";
+		if (GetOpenFileName(&OFN) != 0)
+			g_pMapObjectManager->LoadCurrentObjectsState(OFN.lpstrFile);
+
+
 	}
 
 
