@@ -12,6 +12,13 @@ class cBuilding;
 
 class cMapToolScene : public cSceneObject
 {
+public:
+	enum E_MODE
+	{
+		M_BUILD,
+		M_MOB,
+		END,
+	};
 private:
 	cCamera* m_pCamera;
 	cMapTerrain* m_pMapTerrain;

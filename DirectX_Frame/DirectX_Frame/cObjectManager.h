@@ -20,6 +20,7 @@ public:
 		MONSTER_NULL,
 		MONSTER_TEXTER,
 		MONSTER_FOX,
+		MONSTER_END,
 		NPC_NAO,
 	};
 
@@ -29,10 +30,15 @@ private:
 	std::vector<cPlayer*>  m_vecMonster;
 	std::vector<cPlayer*>  m_vecNPC;
 	std::vector<cPlayer*>  m_vecRelease;
+
+	//몬스터 소환 위치 기록
+	int m_nMonsterCursor;
 	
 public:
 	void Update(void);
 	void Render(void);
+	//몹만 따로 렌더
+	void monsterRender(void);
 
 	//컨트롤 함수
 	void Controller(void);
@@ -47,6 +53,8 @@ public:
 	cPlayer* GetPlayer(void) { return m_pPlayer; }
 	std::vector<cPlayer*>* GetMonsterVectorPointer(void) { return &m_vecMonster; }
 	bool GetMonster(OUT cPlayer** ppMonster, IN LPD3DXVECTOR3 pRay, IN LPD3DXVECTOR3 pDir);
+	cPlayer* GetMonsterRotation();
+
 
 	void SetTerrain(IN cMapTerrain* pTerrain);
 

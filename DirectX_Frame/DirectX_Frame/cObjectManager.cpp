@@ -7,6 +7,7 @@
 cObjectManager::cObjectManager(void)
 	: m_pPlayer(nullptr)
 	, m_pTerrain(nullptr)
+	, m_nMonsterCursor(UNIT_TYPE::MONSTER_NULL+1)
 {
 }
 
@@ -51,11 +52,17 @@ void cObjectManager::Render(void)
 {
 	SAFE_RENDER(m_pPlayer);
 	SAFE_RENDER(m_pTerrain);
+	monsterRender();
+}
+void cObjectManager::monsterRender(void)
+{
 	for each (auto pMonster in m_vecMonster)
 	{
 		pMonster->Render();
 	}
 }
+
+
 
 void cObjectManager::Controller(void)
 {
@@ -179,6 +186,30 @@ bool cObjectManager::GetMonster(OUT cPlayer** ppMonster, IN LPD3DXVECTOR3 pRay, 
 	}
 	*ppMonster = pTarget;
 	return pTarget;
+}
+
+cPlayer * cObjectManager::GetMonsterRotation()
+{
+	//std::map<std::string, cBuilding*>::iterator iMapBuilding = m_mapBuilding.begin();
+	//for (int i = 0; i < cur; i++) iMapBuilding++;
+	//if (iMapBuilding == m_mapBuilding.end())
+	//{
+	//	iMapBuilding = m_mapBuilding.begin();
+	//	cur = 0;
+	//}
+	//m_pSelectBuilding = iMapBuilding->second;
+
+	//return m_pSelectBuilding;
+	
+	
+	if (m_nMonsterCursor == UNIT_TYPE::MONSTER_END)
+		m_nMonsterCursor = UNIT_TYPE::MONSTER_NULL + 1;
+	
+	
+
+
+
+	return nullptr;
 }
 
 void cObjectManager::SetTerrain(IN cMapTerrain* pTerrain)

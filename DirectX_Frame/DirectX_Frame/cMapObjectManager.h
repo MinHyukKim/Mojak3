@@ -15,6 +15,8 @@ public:
 		END,
 	};
 
+
+
 private:
 	std::map<std::string, cBuilding*> m_mapBuilding;
 	std::vector<cBuilding*> m_vecBuilding;
