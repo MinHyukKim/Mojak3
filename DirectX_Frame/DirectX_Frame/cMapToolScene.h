@@ -33,6 +33,7 @@ private:
 
 	vector<char*> m_vecObjectList;
 
+	int currentMode;
 
 public:
 	virtual HRESULT Setup(void) override;
