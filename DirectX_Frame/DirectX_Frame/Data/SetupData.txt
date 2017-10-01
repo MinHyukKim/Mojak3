@@ -108,3 +108,25 @@ Animation:./Monster/Fox/FoxCounter.X,¿©¿ì_Ä«¿îÅÍ;
 Mesh:./Monster/Fox/,FoxMeshEx.X,¿©¿ì01;
 Color:¿©¿ì01,mon_fox02.dds, 0.6f, 0.2f, 0.2f, 1.0f;
 Color:¿©¿ì01,mon_skeleton01_eyes.dds, 0.5f, 0.5f, 0.2f, 1.0f;
+
+//°õ
+Mesh:./Monster/Bear/,FoxFrame.X,»ç°ñ;
+Animation:./Monster/Bear/BearStand01.X,°õ_±âº»01;
+Animation:./Monster/Bear/BearStand02.X,°õ_±âº»02;
+Animation:./Monster/Bear/BearWalk.X,°õ_°È±â;
+Animation:./Monster/Bear/BearRun.X,°õ_´Þ¸®±â;
+Animation:./Monster/Bear/BearAttack01.X,°õ_°ø°Ý01;
+Animation:./Monster/Bear/BearAttack02.X,°õ_°ø°Ý02;
+Animation:./Monster/Bear/BearHit01.X,°õ_ÇÇ°Ý01;
+Animation:./Monster/Bear/BearHit02.X,°õ_ÇÇ°Ý02;
+Animation:./Monster/Bear/BearEndure.X,°õ_¹Ð·Á³²;
+Animation:./Monster/Bear/BearSmash.X,°õ_½º¸Å½Ã;
+Animation:./Monster/Bear/BearSpin.X,°õ_½ºÇÉ;
+Animation:./Monster/Bear/BearGroggy.X,°õ_±×·Î±â;
+Animation:./Monster/Bear/BearDownd.X,°õ_´Ù¿îµå;
+Animation:./Monster/Bear/BearDownToStand.X,°õ_´Ù¿îÅõ½ºÅÙµå;
+Animation:./Monster/Bear/BearCounter.X,°õ_Ä«¿îÅÍ;
+
+Mesh:./Monster/Bear/,BearMesh.X,°õÅÁ;
+Color:°õÅÁ,mon_bear02.dds, 0.6f, 0.2f, 0.2f, 1.0f;
+Color:°õÅÁ,mon_skeleton01_eyes.dds, 0.5f, 0.5f, 0.2f, 1.0f;

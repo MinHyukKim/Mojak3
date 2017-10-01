@@ -7,7 +7,7 @@
 #define ELSE_IF_VERSION(fVersion, fMin, fMax) else if(fMin < fVersion && fVersion > fMax)
 
 #define MONSTERCOLOR_BROWN D3DXCOLOR(0.5f, 0.25f, 0.25f, 1.0f)
-#define MONSTERCOLOR_GRAY D3DXCOLOR(0.5f, 0.5f, 0.5f, 1.0f)
+#define MONSTERCOLOR_GRAY D3DXCOLOR(0.33f, 0.33f, 0.33f, 1.0f)
 #define MONSTERCOLOR_RED D3DXCOLOR(0.75f, 0.25f, 0.25f, 1.0f)
 
 class cPlayer;
@@ -20,6 +20,7 @@ public:
 		MONSTER_NULL,
 		MONSTER_TEXTER,
 		MONSTER_FOX,
+		MONSTER_BEAR,
 		NPC_NAO,
 	};
 

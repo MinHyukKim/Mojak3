@@ -188,7 +188,7 @@ void cObjectManager::SetTerrain(IN cMapTerrain* pTerrain)
 	m_pTerrain->AddRef();
 }
 
-bool cObjectManager::CreateMonster(IN MONSTER_TYPE eMonsterKey, IN LPD3DXVECTOR3 pPostion, IN LPD3DXCOLOR pColor)
+bool cObjectManager::CreateMonster(IN UNIT_TYPE eMonsterKey, IN LPD3DXVECTOR3 pPostion, IN LPD3DXCOLOR pColor)
 {
 	cPlayer* pCreateMonster = nullptr;
 	switch (eMonsterKey)
@@ -232,7 +232,7 @@ bool cObjectManager::CreateMonster(IN MONSTER_TYPE eMonsterKey, IN LPD3DXVECTOR3
 		if (pColor)
 		{
 			char szText[1024] = {};
-			sprintf_s(szText,"¿©¿ì(%1.2f,%1.2f,%1.2f,%1.2f)", pColor->r, pColor->g, pColor->b, pColor->a);
+			sprintf_s(szText, "¿©¿ì(%1.2f,%1.2f,%1.2f,%1.2f)", pColor->r, pColor->g, pColor->b, pColor->a);
 			pCreateMonster->ChangeMeshPart(cPlayer::MESH_BODY, g_pSkinnedMeshManager->CloneSkinnedMesh("¿©¿ì01", szText));
 			pCreateMonster->ChangeMeshPartColor(cPlayer::MESH_BODY, "mon_fox02.dds", pColor);
 		}
@@ -258,6 +258,43 @@ bool cObjectManager::CreateMonster(IN MONSTER_TYPE eMonsterKey, IN LPD3DXVECTOR3
 
 		pCreateMonster->GetAbilityParamter()->SetPlayerID(2);
 		pCreateMonster->GetAbilityParamter()->SetUnitID(cObjectManager::MONSTER_FOX);
+		pCreateMonster->OrderFriendly();
+	}	break;
+
+	case cObjectManager::MONSTER_BEAR:
+	{
+		pCreateMonster = cPlayer::Create();
+		pCreateMonster->Setup();
+		pCreateMonster->SetupAnimationController("»ç°ñ");
+		if (pColor)
+		{
+			char szText[1024] = {};
+			sprintf_s(szText, "°õ(%1.2f,%1.2f,%1.2f,%1.2f)", pColor->r, pColor->g, pColor->b, pColor->a);
+			pCreateMonster->ChangeMeshPart(cPlayer::MESH_BODY, g_pSkinnedMeshManager->CloneSkinnedMesh("°õÅÁ", szText));
+			pCreateMonster->ChangeMeshPartColor(cPlayer::MESH_BODY, "mon_bear02.dds", pColor);
+		}
+		else pCreateMonster->ChangeMeshPart(cPlayer::MESH_BODY, g_pSkinnedMeshManager->GetSkinnedMesh("°õÅÁ"));
+		pCreateMonster->RegisterAnimation(cPlayer::ANIMATION_IDLE_FRIENDLY, g_pAnimationManager->GetAnimation("°õ_±âº»01"));
+		pCreateMonster->RegisterAnimation(cPlayer::ANIMATION_IDLE_OFFENSIVE, g_pAnimationManager->GetAnimation("°õ_±âº»02"));
+		pCreateMonster->RegisterAnimation(cPlayer::ANIMATION_WALK_FRIENDLY, g_pAnimationManager->GetAnimation("°õ_°È±â"), 3.0f);
+		pCreateMonster->RegisterAnimation(cPlayer::ANIMATION_WALK_OFFENSIVE, g_pAnimationManager->GetAnimation("°õ_°È±â"), 3.0f);
+		pCreateMonster->RegisterAnimation(cPlayer::ANIMATION_RUN_FRIENDLY, g_pAnimationManager->GetAnimation("°õ_´Ş¸®±â"), 3.0f);
+		pCreateMonster->RegisterAnimation(cPlayer::ANIMATION_RUN_OFFENSIVE, g_pAnimationManager->GetAnimation("°õ_´Ş¸®±â"), 3.0f);
+		pCreateMonster->RegisterAnimation(cPlayer::ANIMATION_ATTACK_01, g_pAnimationManager->GetAnimation("°õ_°ø°İ01"), 5.0f);
+		pCreateMonster->RegisterAnimation(cPlayer::ANIMATION_ATTACK_02, g_pAnimationManager->GetAnimation("°õ_°ø°İ02"), 5.0f);
+		pCreateMonster->RegisterAnimation(cPlayer::ANIMATION_HIT_01, g_pAnimationManager->GetAnimation("°õ_ÇÇ°İ01"), 5.0f);
+		pCreateMonster->RegisterAnimation(cPlayer::ANIMATION_HIT_02, g_pAnimationManager->GetAnimation("°õ_ÇÇ°İ02"), 5.0f);
+		pCreateMonster->RegisterAnimation(cPlayer::ANIMATION_ENDURE_01, g_pAnimationManager->GetAnimation("°õ_¹Ğ·Á³²"), 5.0f);
+		pCreateMonster->RegisterAnimation(cPlayer::ANIMATION_ENDURE_02, g_pAnimationManager->GetAnimation("°õ_¹Ğ·Á³²"), 5.0f);
+		pCreateMonster->RegisterAnimation(cPlayer::ANIMATION_SMASH, g_pAnimationManager->GetAnimation("°õ_½º¸Å½Ã"), 5.0f);
+		pCreateMonster->RegisterAnimation(cPlayer::ANIMATION_SPIN, g_pAnimationManager->GetAnimation("°õ_½ºÇÉ"), 4.0f);
+		pCreateMonster->RegisterAnimation(cPlayer::ANIMATION_GROGGY, g_pAnimationManager->GetAnimation("°õ_±×·Î±â"), 5.0f);
+		pCreateMonster->RegisterAnimation(cPlayer::ANIMATION_DOWND, g_pAnimationManager->GetAnimation("°õ_´Ù¿îµå"), 5.0f);
+		pCreateMonster->RegisterAnimation(cPlayer::ANIMATION_DOWN_TO_STAND, g_pAnimationManager->GetAnimation("°õ_´Ù¿îÅõ½ºÅÙµå"), 5.0f);
+		pCreateMonster->RegisterAnimation(cPlayer::ANIMATION_COUNTER, g_pAnimationManager->GetAnimation("°õ_Ä«¿îÅÍ"), 2.0f);
+
+		pCreateMonster->GetAbilityParamter()->SetPlayerID(2);
+		pCreateMonster->GetAbilityParamter()->SetUnitID(cObjectManager::MONSTER_BEAR);
 		pCreateMonster->OrderFriendly();
 	}	break;
 
