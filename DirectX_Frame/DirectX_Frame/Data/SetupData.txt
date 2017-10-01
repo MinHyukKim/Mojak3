@@ -5,9 +5,9 @@
 
 //NPC
 //npc 더미
-Mesh:./Chareter/NPC/,npc_bone_nao.X, 나오더미;
+Mesh:./Chareter/NPC/,npc_bone_nao.X,나오더미;
 //전체 매시
-Mesh:./Chareter/NPC/,npc_mesh_base_nao.X, 나오메시;
+Mesh:./Chareter/NPC/,npc_mesh_base_nao.X,나오메시;
 
 //더미
 Mesh:./Chareter/DefaultPlayer/,Female_Bone26_Dummy.X,더미;

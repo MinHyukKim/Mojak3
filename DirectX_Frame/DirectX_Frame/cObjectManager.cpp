@@ -34,6 +34,18 @@ void cObjectManager::Update(void)
 			pMonster->SetPosY(fHeight);
 		}
 	}
+	//NPC
+	for each (auto pNPC in m_vecNPC)
+	{
+		pNPC->Update();
+		if (m_pTerrain)
+		{
+			float fHeight = pNPC->GetPosY();
+			m_pTerrain->GetHeight(&fHeight, pNPC->GetPosX(), pNPC->GetPosZ());
+			pNPC->SetPosY(fHeight);
+		}
+	}
+
 	for each (auto pRelease in m_vecRelease)
 	{
 		for (std::vector<cPlayer*>::iterator it = m_vecMonster.begin(); it != m_vecMonster.end(); it++)
@@ -54,6 +66,10 @@ void cObjectManager::Render(void)
 	for each (auto pMonster in m_vecMonster)
 	{
 		pMonster->Render();
+	}
+	for each (auto pNPC in m_vecNPC)
+	{
+		pNPC->Render();
 	}
 }
 
@@ -277,14 +293,23 @@ bool cObjectManager::CreateNPC(IN UNIT_TYPE eNPCKey, IN LPD3DXVECTOR3 pPostion)
 	cPlayer* pCreateNPC = nullptr;
 	switch (eNPCKey)
 	{
-	case cObjectManager::MONSTER_NULL: break;
+		case cObjectManager::MONSTER_NULL: break;
 		case cObjectManager::NPC_NAO:
 		{
 			pCreateNPC = cPlayer::Create();
-			
+			pCreateNPC->Setup();
+			pCreateNPC->SetupAnimationController("나오더미");
+			pCreateNPC->ChangeMeshPart(cPlayer::MESH_BODY, g_pSkinnedMeshManager->GetSkinnedMesh("나오메시"));
+
 			pCreateNPC->GetAbilityParamter()->SetPlayerID(3);
 			pCreateNPC->GetAbilityParamter()->SetUnitID(2);
 		}
+	}
+
+	if (pCreateNPC)
+	{
+		pCreateNPC->SetPosition(pPostion);
+		m_vecNPC.push_back(pCreateNPC);
 	}
 
 	return false;
@@ -304,6 +329,14 @@ void cObjectManager::Destroy(void)
 		pMonster->GetAbilityParamter()->SetEffective(false);
 		pMonster->Release();
 	}
+	//NPC
+	for each(auto pNPC in m_vecNPC)
+	{
+		pNPC->SetTarget(nullptr);
+		pNPC->GetAbilityParamter()->SetEffective(false);
+		pNPC->Release();
+	}
 	m_vecMonster.clear();
+	m_vecNPC.clear();
 }
 
