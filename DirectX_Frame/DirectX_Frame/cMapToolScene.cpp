@@ -123,6 +123,12 @@ void cMapToolScene::Update(void)
 	//L버튼을 누르면 마지막으로 생성된 건물이 클릭한 위치로 이동
 	if (g_pInputManager->IsOnceKeyDown(VK_LBUTTON))
 	{
+		if (currentMode == E_MODE::M_BUILD)
+			g_pMapObjectManager->SetupBuilding();
+		else if (currentMode == E_MODE::M_MOB)
+		{
+			g_pObjectManager->SetupMonster();
+		}
 		/*if (true)
 		{
 			g_pMapObjectManager->ResetBuilding();
@@ -131,7 +137,6 @@ void cMapToolScene::Update(void)
 		{
 			g_pMapObjectManager->SetupBuilding();
 		}*/
-		g_pMapObjectManager->SetupBuilding();
 
 	}
 //

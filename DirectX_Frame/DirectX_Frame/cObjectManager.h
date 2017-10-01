@@ -58,10 +58,13 @@ public:
 	bool GetMonster(OUT cPlayer** ppMonster, IN LPD3DXVECTOR3 pRay, IN LPD3DXVECTOR3 pDir);
 	
 	//몬스터 로테이션 출력 관련
+
+	//선택중인 맵 오브젝트를 반환하는 함수
+	cPlayer* GetSelectObject(void) { return m_pSelectMonster; }
 	void SetCursorIncrease();
 	cPlayer* GetMonsterRotation();
 	void ResetMobSelect(void);
-
+	void SetupMonster();
 
 	void SetTerrain(IN cMapTerrain* pTerrain);
 
