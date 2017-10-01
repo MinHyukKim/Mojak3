@@ -184,13 +184,16 @@ void cMapToolScene::Update(void)
 	//맵오브젝트 배치
 	if (g_pInputManager->IsOnceKeyDown('1'))
 	{
-		curMode = 
+		//빌드 모드로 변경
+		currentMode = E_MODE::M_BUILD;
 		g_pMapObjectManager->getMapObjectRotation();
 		g_pMapObjectManager->cur++;
 	}
 	//몹오브젝트 배치
 	if (g_pInputManager->IsOnceKeyDown('2'))
 	{
+		//몹 배치 모드로 변경
+		currentMode = E_MODE::M_MOB;
 		g_pMapObjectManager->getMapObjectRotation();
 		g_pMapObjectManager->cur++;
 	}
@@ -236,7 +239,12 @@ void cMapToolScene::Update(void)
 
 	if (g_pInputManager->IsStayKeyDown(VK_ESCAPE))
 	{
-		g_pMapObjectManager->ResetBuilding();
+		if(currentMode == E_MODE::M_BUILD)
+			g_pMapObjectManager->ResetBuilding();
+		else if(currentMode == E_MODE::M_MOB)
+		{
+
+		}
 	}
 }
      
