@@ -47,8 +47,8 @@ void cMainGame::Setup(void)
 	//블랜더 설정
 	g_pD3DDevice->SetRenderState(D3DRS_BLENDOP, D3DBLENDOP_ADD);
 
-	g_pD3DDevice->SetRenderState(D3DRS_SRCBLEND, D3DBLEND_SRCALPHA);
-	g_pD3DDevice->SetRenderState(D3DRS_DESTBLEND, D3DBLEND_INVSRCALPHA);
+//	g_pD3DDevice->SetRenderState(D3DRS_SRCBLEND, D3DBLEND_SRCALPHA);
+//	g_pD3DDevice->SetRenderState(D3DRS_DESTBLEND, D3DBLEND_INVSRCALPHA);
 	g_pD3DDevice->SetRenderState(D3DRS_ALPHABLENDENABLE, true);
 
 	g_pD3DDevice->SetRenderState(D3DRS_ALPHATESTENABLE, true);

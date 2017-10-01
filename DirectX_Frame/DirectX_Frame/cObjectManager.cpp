@@ -132,6 +132,7 @@ void cObjectManager::RegisterPlayer(IN cPlayer* pPlayer)
 {
 	SAFE_RELEASE(m_pPlayer);
 	m_pPlayer = pPlayer;
+	m_pPlayer->SetRadius(0.3f);
 	m_pPlayer->RegisterAnimation(cPlayer::ANIMATION_IDLE_OFFENSIVE, g_pAnimationManager->GetAnimation("여성_기본02"));
 	m_pPlayer->RegisterAnimation(cPlayer::ANIMATION_WALK_FRIENDLY, g_pAnimationManager->GetAnimation("여성_걷기01"), 3.0f);
 	m_pPlayer->RegisterAnimation(cPlayer::ANIMATION_WALK_OFFENSIVE, g_pAnimationManager->GetAnimation("여성_걷기02"), 3.0f);
@@ -199,6 +200,7 @@ bool cObjectManager::CreateMonster(IN UNIT_TYPE eMonsterKey, IN LPD3DXVECTOR3 pP
 	{
 		pCreateMonster = cPlayer::Create();
 		pCreateMonster->Setup();
+		pCreateMonster->SetRadius(0.3f);
 		pCreateMonster->SetupAnimationController();
 		pCreateMonster->ChangeMeshPart(cPlayer::MESH_BODY, g_pSkinnedMeshManager->GetSkinnedMesh("임시몬스터"));
 		pCreateMonster->RegisterAnimation(cPlayer::ANIMATION_IDLE_FRIENDLY, g_pAnimationManager->GetAnimation("여성_기본01"));
@@ -228,6 +230,7 @@ bool cObjectManager::CreateMonster(IN UNIT_TYPE eMonsterKey, IN LPD3DXVECTOR3 pP
 	{
 		pCreateMonster = cPlayer::Create();
 		pCreateMonster->Setup();
+		pCreateMonster->SetRadius(0.3f);
 		pCreateMonster->SetupAnimationController("여우00");
 		if (pColor)
 		{
@@ -265,6 +268,7 @@ bool cObjectManager::CreateMonster(IN UNIT_TYPE eMonsterKey, IN LPD3DXVECTOR3 pP
 	{
 		pCreateMonster = cPlayer::Create();
 		pCreateMonster->Setup();
+		pCreateMonster->SetRadius(0.5f);
 		pCreateMonster->SetupAnimationController("사골");
 		if (pColor)
 		{

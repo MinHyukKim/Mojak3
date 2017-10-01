@@ -67,7 +67,7 @@ Animation:./Animation/ani_female_endure_01.X,여성_밀려남01;
 Animation:./Animation/ani_female_endure_02.X,여성_밀려남02;
 Animation:./Animation/Female_Smash.X,여성_스매시;
 Animation:./Animation/ani_female_blow_turn.X,여성_스핀;
-Animation:./Animation/ani_female_groggy.X,여성_그로기;
+Animation:./Animation/FemaleGroggy.X,여성_그로기;
 Animation:./Animation/ani_female_down.X,여성_다운드;
 Animation:./Animation/ani_female_down_to_stand.X,여성_다운투스텐드;
 Animation:./Animation/ani_female_counter.X,여성_카운터;
@@ -110,7 +110,7 @@ Color:여우01,mon_fox02.dds, 0.6f, 0.2f, 0.2f, 1.0f;
 Color:여우01,mon_skeleton01_eyes.dds, 0.5f, 0.5f, 0.2f, 1.0f;
 
 //곰
-Mesh:./Monster/Bear/,FoxFrame.X,사골;
+Mesh:./Monster/Bear/,BearFrame.X,사골;
 Animation:./Monster/Bear/BearStand01.X,곰_기본01;
 Animation:./Monster/Bear/BearStand02.X,곰_기본02;
 Animation:./Monster/Bear/BearWalk.X,곰_걷기;
