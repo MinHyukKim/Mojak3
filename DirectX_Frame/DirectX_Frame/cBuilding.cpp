@@ -92,7 +92,7 @@ LPD3DXMESH cBuilding::LoadModel(const char * filename)
 	DEBUG_TEXT("min : " << minX << " max : " << maxX << " max-min :" << maxX - minX);
 	DEBUG_TEXT("min : " << minY << " max : " << maxY << " max-min :" << maxY - minY);
 	DEBUG_TEXT("min : " << minZ << " max : " << maxZ << " max-min :" << maxZ - minZ);
-	DEBUG_TEXT();
+	DEBUG_TEXT("");
 	// 이제 다 썼으니 버텍스버퍼의 락을 해제해줘야겠죠.
 	pVB->Unlock();
 	pVB->Release();
