@@ -187,6 +187,12 @@ void cMapToolScene::Update(void)
 		g_pMapObjectManager->getMapObjectRotation();
 		g_pMapObjectManager->cur++;
 	}
+	//몹오브젝트 배치
+	if (g_pInputManager->IsOnceKeyDown('2'))
+	{
+		g_pMapObjectManager->getMapObjectRotation();
+		g_pMapObjectManager->cur++;
+	}
 
 
 	//맵오브젝트 세이브 로드 테스트
@@ -224,8 +230,6 @@ void cMapToolScene::Update(void)
 		//OFN.lpstrInitialDir = "c:\\";
 		if (GetOpenFileName(&OFN) != 0)
 			g_pMapObjectManager->LoadCurrentObjectsState(OFN.lpstrFile);
-
-
 	}
 
 
