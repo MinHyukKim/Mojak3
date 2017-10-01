@@ -121,7 +121,16 @@ void cMapToolScene::Update(void)
 	//L버튼을 누르면 마지막으로 생성된 건물이 클릭한 위치로 이동
 	if (g_pInputManager->IsOnceKeyDown(VK_LBUTTON))
 	{
+		/*if (true)
+		{
+			g_pMapObjectManager->ResetBuilding();
+		}
+		else
+		{
+			g_pMapObjectManager->SetupBuilding();
+		}*/
 		g_pMapObjectManager->SetupBuilding();
+
 	}
 //
 //	//마지막으로 생성된 건물의 좌우 방향 변환
@@ -172,20 +181,51 @@ void cMapToolScene::Update(void)
 		g_pMapObjectManager->PopMapObject();
 	}
 
-
+	//맵오브젝트 배치
 	if (g_pInputManager->IsOnceKeyDown('1'))
 	{
 		g_pMapObjectManager->getMapObjectRotation();
 		g_pMapObjectManager->cur++;
 	}
 
+
+	//맵오브젝트 세이브 로드 테스트
 	if (g_pInputManager->IsOnceKeyDown('5'))
 	{
-		g_pMapObjectManager->SaveCurrentObjectsState("test.obj");
+		OPENFILENAME OFN;
+		char filename[255];
+		char lpstrFile[MAX_PATH] = "";
+		memset(&OFN, 0, sizeof(OPENFILENAME));
+		OFN.lpstrTitle = "저장하기";
+		OFN.lStructSize = sizeof(OPENFILENAME);
+		OFN.hwndOwner = g_hWnd;
+		OFN.lpstrFilter = "모든 파일(*.*)\0*.*\0맵 오브젝트 파일\0*.obj;\0";
+		OFN.lpstrFile = lpstrFile;
+		OFN.nMaxFile = 256;
+		OFN.Flags = OFN_OVERWRITEPROMPT;
+		//OFN.lpstrInitialDir = "c:\\";
+		if (GetSaveFileName(&OFN) != 0) 
+			g_pMapObjectManager->SaveCurrentObjectsState(OFN.lpstrFile);
+
 	}
 	if (g_pInputManager->IsOnceKeyDown('6'))
 	{
-		g_pMapObjectManager->LoadCurrentObjectsState("test.obj");
+		OPENFILENAME OFN;
+		char filename[255];
+		char lpstrFile[MAX_PATH] = "";
+		memset(&OFN, 0, sizeof(OPENFILENAME));
+		OFN.lpstrTitle = "저장하기";
+		OFN.lStructSize = sizeof(OPENFILENAME);
+		OFN.hwndOwner = g_hWnd;
+		OFN.lpstrFilter = "모든 파일(*.*)\0*.*\0맵 오브젝트 파일\0*.obj;\0";
+		OFN.lpstrFile = lpstrFile;
+		OFN.nMaxFile = 256;
+		OFN.Flags = OFN_OVERWRITEPROMPT;
+		//OFN.lpstrInitialDir = "c:\\";
+		if (GetOpenFileName(&OFN) != 0)
+			g_pMapObjectManager->LoadCurrentObjectsState(OFN.lpstrFile);
+
+
 	}
 
 
