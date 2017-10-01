@@ -28,6 +28,8 @@ private:
 
 	cMapTerrain* m_pMapTerrain;
 //	cMapObjectRail* m_pMapObjects;
+	//오브젝트 프리셋 커서
+	int m_nBuildCursor;
 
 	struct m_stMapObject
 	{
@@ -58,7 +60,8 @@ public:
 	cBuilding* getMapObjectRotation();
 
 
-	int cur;
+	void SetCursorIncrease();
+
 	//마지막으로 추가된 맵 오브젝트를 반환하는 함수(임시)
 	cBuilding* GetLastMapObject();
 	//선택중인 맵 오브젝트를 반환하는 함수

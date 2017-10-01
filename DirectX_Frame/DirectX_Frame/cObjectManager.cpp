@@ -188,6 +188,13 @@ bool cObjectManager::GetMonster(OUT cPlayer** ppMonster, IN LPD3DXVECTOR3 pRay, 
 	return pTarget;
 }
 
+void cObjectManager::SetCursorIncrease()
+{
+	if (m_nMonsterCursor == UNIT_TYPE::MONSTER_END)
+		m_nMonsterCursor = UNIT_TYPE::MONSTER_NULL + 1;
+	else m_nMonsterCursor++;
+}
+
 cPlayer * cObjectManager::GetMonsterRotation()
 {
 	//std::map<std::string, cBuilding*>::iterator iMapBuilding = m_mapBuilding.begin();
@@ -202,8 +209,7 @@ cPlayer * cObjectManager::GetMonsterRotation()
 	//return m_pSelectBuilding;
 	
 	
-	if (m_nMonsterCursor == UNIT_TYPE::MONSTER_END)
-		m_nMonsterCursor = UNIT_TYPE::MONSTER_NULL + 1;
+
 	
 	
 
