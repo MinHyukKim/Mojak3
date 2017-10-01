@@ -7,6 +7,14 @@ class cMapTerrain;
 //맵오브젝트를 등록하고 관리하는 클래스
 class cMapObjectManager
 {
+public:
+	enum E_OBJECT_TYPE
+	{
+		BUILDING,// 건물
+		INTERIOR,// 인테리어(나무같은)
+		END,
+	};
+
 private:
 	std::map<std::string, cBuilding*> m_mapBuilding;
 	std::vector<cBuilding*> m_vecBuilding;
@@ -18,6 +26,16 @@ private:
 
 	cMapTerrain* m_pMapTerrain;
 //	cMapObjectRail* m_pMapObjects;
+
+	struct m_stMapObject
+	{
+		//오브젝트 타입
+		E_OBJECT_TYPE type;
+		//오브젝트 경로
+		std::string name;
+		//오브젝트 위치 매트릭스;
+		D3DXMATRIX matWorld;
+	};
 
 public:
 	//싱글톤 생성
@@ -56,8 +74,8 @@ public:
 	void Render();
 //
 //	//현재 오브젝트들 파일로 세이브
-//	void SaveCurrentObjectsState(const char* filename);
-//	void LoadCurrentObjectsState(const char* filename);
+	void SaveCurrentObjectsState(const char* filename);
+	void LoadCurrentObjectsState(const char* filename);
 
 	void Destroy();
 };
