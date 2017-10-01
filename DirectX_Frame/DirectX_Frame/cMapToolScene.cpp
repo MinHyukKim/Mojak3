@@ -121,7 +121,16 @@ void cMapToolScene::Update(void)
 	//L버튼을 누르면 마지막으로 생성된 건물이 클릭한 위치로 이동
 	if (g_pInputManager->IsOnceKeyDown(VK_LBUTTON))
 	{
+		/*if (true)
+		{
+			g_pMapObjectManager->ResetBuilding();
+		}
+		else
+		{
+			g_pMapObjectManager->SetupBuilding();
+		}*/
 		g_pMapObjectManager->SetupBuilding();
+
 	}
 //
 //	//마지막으로 생성된 건물의 좌우 방향 변환
@@ -172,15 +181,20 @@ void cMapToolScene::Update(void)
 		g_pMapObjectManager->PopMapObject();
 	}
 
-
+	//맵오브젝트 배치
 	if (g_pInputManager->IsOnceKeyDown('1'))
 	{
 		g_pMapObjectManager->getMapObjectRotation();
 		g_pMapObjectManager->cur++;
 	}
 
+
+	//맵오브젝트 세이브 로드 테스트
 	if (g_pInputManager->IsOnceKeyDown('5'))
 	{
+		OPENFILENAME OFN;
+
+
 		g_pMapObjectManager->SaveCurrentObjectsState("test.obj");
 	}
 	if (g_pInputManager->IsOnceKeyDown('6'))

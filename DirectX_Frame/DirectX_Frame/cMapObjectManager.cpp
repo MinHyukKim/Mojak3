@@ -29,7 +29,6 @@ cBuilding* cMapObjectManager::GetMapObject(char* szFolder, char* szFilename)
 
 cBuilding* cMapObjectManager::RegisterMapObject(LPCSTR szFolder, LPCSTR szFilename, LPCSTR szKeyName)
 {
-	D3DXMATRIX test;
 	if (m_mapBuilding.find(szKeyName) == m_mapBuilding.end())
 	{
 		cBuilding* pBuilding = cBuilding::Create();
@@ -140,7 +139,7 @@ void cMapObjectManager::Render()
 
 void cMapObjectManager::SaveCurrentObjectsState(const char * filename)
 {
-	//저장할 빌딩이 없으면 삭제
+	//저장할 빌딩이 없으면 리턴
 	if (m_vecBuilding.size() < 1) return;
 	FILE *fp;
 	fp = fopen(filename, "w");
