@@ -116,6 +116,7 @@ void cMapToolScene::Update(void)
 	if (m_pMapTerrain)
 	{
 		g_pMapObjectManager->Update(m_pMapTerrain);
+		g_pObjectManager->SelectUpdate(m_pMapTerrain);
 		m_pMapTerrain->Update();
 	}
 
@@ -272,6 +273,8 @@ void cMapToolScene::Render(void)
 
 	//SAFE_RENDER(m_pBuild);
 	g_pMapObjectManager->Render();
+	g_pObjectManager->monsterRender();
+
 }
 
 

@@ -48,6 +48,15 @@ void cObjectManager::Update(void)
 	m_vecRelease.clear();
 }
 
+void cObjectManager::SelectUpdate(cMapTerrain* map)
+{
+	if (!m_pSelectMonster) return;
+	D3DXVECTOR3 vPos, vOrg, vDir;
+	g_pRay->RayAtWorldSpace(&vOrg, &vDir);
+	map->IsCollision(&vPos, &vOrg, &vDir);
+	m_pSelectMonster->SetPosition(&vPos);
+}
+
 void cObjectManager::Render(void)
 {
 	SAFE_RENDER(m_pPlayer);
@@ -190,7 +199,7 @@ bool cObjectManager::GetMonster(OUT cPlayer** ppMonster, IN LPD3DXVECTOR3 pRay, 
 
 void cObjectManager::SetCursorIncrease()
 {
-	if (m_nMonsterCursor == UNIT_TYPE::MONSTER_END)
+	if (m_nMonsterCursor == UNIT_TYPE::MONSTER_END-1)
 		m_nMonsterCursor = UNIT_TYPE::MONSTER_NULL + 1;
 	else m_nMonsterCursor++;
 }
@@ -207,15 +216,16 @@ cPlayer * cObjectManager::GetMonsterRotation()
 	//m_pSelectBuilding = iMapBuilding->second;
 
 	//return m_pSelectBuilding;
+	if (m_vecMonster.size() > 0)
+	{
+		m_vecMonster.back()->Release();
+		m_vecMonster.pop_back();
+	}
+		
 	
-	
-
-	
-	
-
-
-
-	return nullptr;
+	CreateMonster((UNIT_TYPE)m_nMonsterCursor,&D3DXVECTOR3(0, 0, 0));
+	m_pSelectMonster = m_vecMonster.back();
+	return m_vecMonster.back();
 }
 
 void cObjectManager::SetTerrain(IN cMapTerrain* pTerrain)

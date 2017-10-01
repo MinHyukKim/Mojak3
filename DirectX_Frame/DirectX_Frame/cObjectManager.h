@@ -33,9 +33,12 @@ private:
 
 	//몬스터 소환 위치 기록
 	int m_nMonsterCursor;
+	//선택된 몬스터
+	cPlayer* m_pSelectMonster;
 	
 public:
 	void Update(void);
+	void SelectUpdate(cMapTerrain * map);
 	void Render(void);
 	//몹만 따로 렌더
 	void monsterRender(void);
