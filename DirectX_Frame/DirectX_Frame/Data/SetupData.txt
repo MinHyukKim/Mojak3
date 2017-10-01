@@ -3,12 +3,6 @@
 // Color : 메시키,텍스쳐, 1.0f, 1.0f, 1.0f, 0.5f;
 // Animation : 경로/파일, 키;
 
-//NPC
-//npc 더미
-Mesh:./Chareter/NPC/,npc_bone_nao.X,나오더미;
-//전체 매시
-Mesh:./Chareter/NPC/,npc_mesh_base_nao.X,나오메시;
-//
 
 //더미
 Mesh:./Chareter/DefaultPlayer/,Female_Bone26_Dummy.X,더미;
@@ -131,3 +125,16 @@ Animation:./Monster/Bear/BearCounter.X,곰_카운터;
 Mesh:./Monster/Bear/,BearMesh.X,곰탕;
 Color:곰탕,mon_bear02.dds, 0.6f, 0.2f, 0.2f, 1.0f;
 Color:곰탕,mon_skeleton01_eyes.dds, 0.5f, 0.5f, 0.2f, 1.0f;
+
+//NPC
+//npc 더미
+Mesh:./Chareter/NPC/,npc_bone_nao.X,나오더미;
+//전체 매시
+Mesh:./Chareter/NPC/,npc_mesh_base_nao.X,나오메시;
+//칼라 Color:바디00,bodymap01.dds, 1.0f, 0.53f, 0.53f, 1.0f;
+Color:나오메시,nao_summer_hair.dds, 0.89f, 0.85f, 0.53f, 1.0f;
+Color:나오메시,nao_summer_cloth_01.dds, 0.2ff, 0.2f, 0.2f, 1.0f; //옷
+Color:나오메시,nao_summer_cloth_02.dds, 0.1f, 0.1f, 0.1f, 1.0f;  //스타킹
+Color:나오메시,nao_summer_cloth_m.dds, 0.95f, 0.95f, 0.95f, 1.0f;   //장식
+Color:나오메시,nao_eyes.dds, 1.0f, 0.53f, 0.53f, 1.0f;			//장갑 혹은 팔
+Color:나오메시,nao_eyes02.dds, 1.0f, 0.0f, 0.0f, 1.0f;
