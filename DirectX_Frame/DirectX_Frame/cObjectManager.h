@@ -60,6 +60,7 @@ public:
 	//몬스터 로테이션 출력 관련
 	void SetCursorIncrease();
 	cPlayer* GetMonsterRotation();
+	void ResetMobSelect(void);
 
 
 	void SetTerrain(IN cMapTerrain* pTerrain);

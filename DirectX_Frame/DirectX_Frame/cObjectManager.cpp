@@ -228,6 +228,16 @@ cPlayer * cObjectManager::GetMonsterRotation()
 	return m_vecMonster.back();
 }
 
+void cObjectManager::ResetMobSelect(void)
+{
+	if (m_vecMonster.size() > 0)
+	{
+		m_vecMonster.back()->Release();
+		m_vecMonster.pop_back();
+	}
+	m_pSelectMonster = nullptr;
+}
+
 void cObjectManager::SetTerrain(IN cMapTerrain* pTerrain)
 {
 	SAFE_RELEASE(m_pTerrain);

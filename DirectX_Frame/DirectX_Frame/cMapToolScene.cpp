@@ -291,7 +291,7 @@ void cMapToolScene::DeselectObjects()
 		g_pMapObjectManager->ResetBuilding();
 	else if (currentMode == E_MODE::M_MOB)
 	{
-
+		g_pObjectManager->ResetMobSelect();
 	}
 
 }
