@@ -45,7 +45,7 @@ cUiTestScene::cUiTestScene(void)
 	//아이탬 픽킹
 	, isPickUpItem(false)
 	//착용 여부
-	, m_isTorsoMount(0) 
+	, m_isTorsoMount(0)
 	, m_isWeaponHandMount(false)
 	, m_isSubHandMount(false)
 	, m_isShoesMount(-1)
@@ -91,6 +91,11 @@ cUiTestScene::cUiTestScene(void)
 	, m_eEquipShoes(E_SHOES_EMPTY)
 	, m_eEquipWeaponHand(E_WEAPON_EMPTY)
 	, m_nItemMax(3)
+	//대화창
+	, m_pDialogUi(NULL)
+	, m_isDialogOpen(false)
+	//대화창 종류
+	, m_eTextKind(E_TEXT_NONE)
 {
 	D3DXMatrixIdentity(&m_matWorldMatrix);
 	m_vecTempPlayerItem.reserve(INVMAX);
@@ -134,8 +139,12 @@ HRESULT cUiTestScene::Setup(void)
 	this->SetupQuestUi();
 	//인벤토리 창 셋업
 	this->SetupInventoryUi();
-	//임시 플레이어 셋업
+	//대화 창 셋업
+	this->SetupDialogUi();
+	//임시 플레이어 능력치
 	m_nBasicDef = g_pObjectManager->GetPlayer()->GetAbilityParamter()->GetDefence();
+
+
 //	this->SetUpTempPlayer();
 
 	return D3D_OK;
@@ -155,6 +164,8 @@ void cUiTestScene::Reset(void)
 	//임시용 플레이어
 	SAFE_RELEASE(m_pPlayer);
 	SAFE_RELEASE(m_pMainCamera);
+	//대화창
+	SAFE_RELEASE(m_pDialogUi);
 }
 
 void cUiTestScene::Update(void)
@@ -218,10 +229,18 @@ void cUiTestScene::Update(void)
 		}
 	}
 
+	if (g_pInputManager->IsOnceKeyUp('G'))
+	{
+		m_isDialogOpen = !m_isDialogOpen;
+	}
+
 	if (m_pUiRoot) m_pUiRoot->Update();
 	if (m_pSkillUi && m_isSkillWindowOn) m_pSkillUi->Update();
 	if (m_pQuestUi && m_isQuestWindowOn) m_pQuestUi->Update();
 	if (m_pInventoryUi && m_isInventoryWindowOn) m_pInventoryUi->Update();
+
+	if (m_pDialogUi && m_isDialogOpen) m_pDialogUi->Update();
+
 	if (m_pInfoUi && m_isInfoWindowOn)
 	{
 		m_pInfoUi->Update();
@@ -278,9 +297,11 @@ void cUiTestScene::Render(void)
 	if (m_pSkillUi && m_isSkillWindowOn) m_pSkillUi->Render(m_pSprite);
 	if (m_pQuestUi && m_isQuestWindowOn) m_pQuestUi->Render(m_pSprite);
 	if (m_pInventoryUi && m_isInventoryWindowOn) m_pInventoryUi->Render(m_pSprite);
+	//대화 조건 넣기
+	if (m_pDialogUi && m_isDialogOpen) m_pDialogUi->Render(m_pSprite);
 
 	//크기 태스트용
-	if (m_pUiTestRoot) m_pUiTestRoot->Render(m_pSprite);
+//	if (m_pUiTestRoot) m_pUiTestRoot->Render(m_pSprite);
 
 
 }
@@ -302,6 +323,7 @@ bool cUiTestScene::GetMoveingOK()
 	if (m_pQuestUiImage->isOver) return false;
 	if (m_pInventoryUiMoveing->isOver) return false;
 	if (m_pInventoryUiImage->isOver) return false;
+	if (m_pDialogBackImage->isOver) return false;
 	
 	return true;
 }
@@ -310,9 +332,6 @@ bool cUiTestScene::GetMoveingOK()
 //딜리게이트(클릭)
 void cUiTestScene::OnClick(cUIButton * pSender)
 {
-//	cUITextView* pTextView = (cUITextView*)m_pUiRoot->GetChildByTag(E_TEXT_VIEW);
-//	pTextView->SetColor(D3DCOLOR_XRGB(0, 0, 0));
-//	if (pTextView == NULL) return;
 
 	if (pSender->GetTag() == E_MAIN_BUTTON_PLAYER_INFO)
 	{
@@ -361,26 +380,27 @@ void cUiTestScene::OnClick(cUIButton * pSender)
 	{
 		isPickUpItem = !isPickUpItem;
 	}
-//	else if (pSender->GetTag() == E_BUTTON_INFO_CLOSE)
-//	{
-//	//	if (m_isInfoWindowOn) m_isInfoWindowOn = false;
-//		m_isInfoWindowOn = !m_isInfoWindowOn;
-//	}
-//	else if (pSender->GetTag() == E_BUTTON_SKILL_CLOSE)
-//	{
-//	//	if (m_isSkillWindowOn) m_isSkillWindowOn = false;
-//		m_isSkillWindowOn = !m_isSkillWindowOn;
-//	}
-//	else if (pSender->GetTag() == E_BUTTON_QUEST_CLOSE)
-//	{
-//	//	if (m_isQuestWindowOn) m_isQuestWindowOn = false;
-//		m_isQuestWindowOn = !m_isQuestWindowOn;
-//	}
-//	else if (pSender->GetTag() == E_BUTTON_INVENTORY_CLOSE)
-//	{
-//	//	if (m_isInventoryWindowOn) m_isInventoryWindowOn = false;
-//		m_isInventoryWindowOn = !m_isInventoryWindowOn;
-//	}
+
+	else if (pSender->GetTag() == E_BUTTON_INFO_CLOSE)
+	{
+	//	if (m_isInfoWindowOn) m_isInfoWindowOn = false;
+		m_isInfoWindowOn = !m_isInfoWindowOn;
+	}
+	else if (pSender->GetTag() == E_BUTTON_SKILL_CLOSE)
+	{
+	//	if (m_isSkillWindowOn) m_isSkillWindowOn = false;
+		m_isSkillWindowOn = !m_isSkillWindowOn;
+	}
+	else if (pSender->GetTag() == E_BUTTON_QUEST_CLOSE)
+	{
+	//	if (m_isQuestWindowOn) m_isQuestWindowOn = false;
+		m_isQuestWindowOn = !m_isQuestWindowOn;
+	}
+	else if (pSender->GetTag() == E_BUTTON_INVENTORY_CLOSE)
+	{
+	//	if (m_isInventoryWindowOn) m_isInventoryWindowOn = false;
+		m_isInventoryWindowOn = !m_isInventoryWindowOn;
+	}
 
 }
 

@@ -53,6 +53,12 @@ enum
 	E_BUTTON_SKILL_CLOSE = 237,
 	E_BUTTON_QUEST_CLOSE = 238,
 	E_BUTTON_INVENTORY_CLOSE = 239,
+	//대화창 딜리게이트
+	E_IMAGE_DIALOG,
+	E_BUTTON_DIALOG_PREV,
+	E_BUTTON_DIALOG_NEXT,
+	E_TEXT_DIALOG_HEAD,
+	E_TEXT_DIALOG,
 	E_TEXT_VIEW
 };
 
@@ -79,6 +85,16 @@ enum ePlaterEquipWeaponHand
 	E_WEAPON_EMPTY,
 	E_WEAPON_01,
 	E_WEAPON_END,
+};
+
+enum eText
+{
+	E_TEXT_NONE,
+	E_TEXT_NAO_01,
+	E_TEXT_NAO_02,
+	E_TEXT_NAO_03,
+	E_TEXT_NAO_04,
+	E_TEXT_NAO_05,
 };
 
 class cUiTestScene : public cSceneObject, iButtonDelegate
@@ -201,6 +217,22 @@ private:
 	cUITextView* m_pSkillUiText;		//불변 택스트
 	cUiObject* m_pSkillUi;
 
+	//대화관련
+	int m_nDialogX;
+	int m_nDialogY;
+	bool m_isDialogOpen;
+	cUIButton* m_pDialogBackImage;
+	cUITextView* m_pDialogNameText;
+	cUITextView* m_pDialogText;
+	cUIButton* m_pDialogPrev;
+	cUITextView* pDialogPrevText;
+	cUIButton* m_pDialogNext;
+	cUITextView* pDialogNextText;
+	cUIButton* m_pDialogAcceptButton;
+	bool m_isDialogFin;
+	eText m_eTextKind;
+	cUiObject* m_pDialogUi;
+
 	//퀘스트 정보창
 	int queX;
 	int queY;
@@ -210,7 +242,7 @@ private:
 	cUIButton* m_pQuestCloseButton;		//닫기 버튼
 	cUIButton* m_pQuestUiButton;		//퀘창 버튼
 	cUITextView* m_pQuestUiText;		//불변 택스트
-	cUITextView* m_pQuestText;			//태스트용 태스트
+	cUITextView* m_pQuestText;			//태스트용 택스트
 	cUiObject* m_pQuestUi;
 
 	//플레이어 인벤창
@@ -296,6 +328,7 @@ public:
 	void SetupSkillUi(void);
 	void SetupQuestUi(void);
 	void SetupInventoryUi(void);
+	void SetupDialogUi(void);
 	void SetUpTempPlayer(void);
 	void AddItem(LPCSTR imgName, float x, float y, int itemType, int itemName);
 	virtual void Reset(void) override;
@@ -326,6 +359,9 @@ public:
 	void SetInventoryOnOff(bool is) { m_isInventoryWindowOn = is; }
 	//마우스 오버 함수
 	bool GetMoveingOK();
+	//대화창 열고 닫기
+	bool GetDialogOpen() { return m_isDialogOpen; }
+	void SetDialogOpen(bool is) { m_isDialogOpen = is; }
 
 	//장비 장착 이넘문
 	ePlayerEquipTorso m_eEquipTorso;

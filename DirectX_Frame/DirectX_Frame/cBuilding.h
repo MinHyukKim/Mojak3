@@ -62,6 +62,12 @@ public:
 	float GetPosY(void) { return m_matWorld._42; }
 	float GetPosZ(void) { return m_matWorld._43; }
 
+	//월드매트릭스를 반환
+	D3DXMATRIX GetMatrix() { return m_matWorld; }
+	void SetMatrix(D3DXMATRIX matrix) { m_matWorld = matrix; }
+	//객체가 생성된 모델의 경로를 반환
+	const char* GetFilenname() { return m_pFilename.c_str(); }
+
 	float GetOffsetY() { return m_fOffsetY; }
 	void SetOffsetY(float offset) { m_fOffsetY = offset; }
 	void OffsetScale(float scale);

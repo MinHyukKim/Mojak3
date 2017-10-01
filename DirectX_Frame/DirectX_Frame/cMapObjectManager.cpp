@@ -29,7 +29,6 @@ cBuilding* cMapObjectManager::GetMapObject(char* szFolder, char* szFilename)
 
 cBuilding* cMapObjectManager::RegisterMapObject(LPCSTR szFolder, LPCSTR szFilename, LPCSTR szKeyName)
 {
-
 	if (m_mapBuilding.find(szKeyName) == m_mapBuilding.end())
 	{
 		cBuilding* pBuilding = cBuilding::Create();
@@ -136,6 +135,58 @@ void cMapObjectManager::Render()
 {
 	for each (auto p in m_vecBuilding) p->Render();
 	SAFE_RENDER(m_pSelectBuilding);
+}
+
+void cMapObjectManager::SaveCurrentObjectsState(const char * filename)
+{
+	//저장할 빌딩이 없으면 리턴
+	if (m_vecBuilding.size() < 1) return;
+	FILE *fp;
+	fp = fopen(filename, "w");
+	for each(auto v in m_vecBuilding)
+	{
+		//오브젝트 타입 추가예정.
+		D3DXMATRIX matTemp = v->GetMatrix();
+		const char* test = v->GetFilenname();
+		fprintf(fp, "%s\n", v->GetFilenname());
+		fprintf(fp, "%f %f %f %f\n%f %f %f %f\n%f %f %f %f\n%f %f %f %f\n",
+			matTemp._11, matTemp._12, matTemp._13, matTemp._14,
+			matTemp._21, matTemp._22, matTemp._23, matTemp._24,
+			matTemp._31, matTemp._32, matTemp._33, matTemp._34,
+			matTemp._41, matTemp._42, matTemp._43, matTemp._44);
+	}
+
+	fclose(fp);
+}
+
+void cMapObjectManager::LoadCurrentObjectsState(const char * filename)
+{
+	//현재 존재하는 오브젝트들 청소
+	for each(auto p in m_vecBuilding)
+	{
+		SAFE_RELEASE(p);
+	}
+	m_vecBuilding.clear();
+
+	FILE *fp;
+	fp = fopen(filename, "r");
+	if (!fp) return;
+	while (!feof(fp))
+	{
+		char cTemp[255];
+		D3DXMATRIX matTemp;
+		fgets(cTemp, 255, fp);
+		cTemp[strlen(cTemp) - 1] = '\0';
+		fscanf(fp, "%f %f %f %f\n%f %f %f %f\n%f %f %f %f\n%f %f %f %f\n",
+			&matTemp._11, &matTemp._12, &matTemp._13, &matTemp._14,
+			&matTemp._21, &matTemp._22, &matTemp._23, &matTemp._24,
+			&matTemp._31, &matTemp._32, &matTemp._33, &matTemp._34,
+			&matTemp._41, &matTemp._42, &matTemp._43, &matTemp._44);
+		AppendBuilding(cTemp);
+		m_vecBuilding.back()->SetMatrix(matTemp);
+	}
+	fclose(fp);
+
 }
 
 void cMapObjectManager::Destroy()
