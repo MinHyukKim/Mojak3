@@ -184,6 +184,7 @@ void cMapToolScene::Update(void)
 	//맵오브젝트 배치
 	if (g_pInputManager->IsOnceKeyDown('1'))
 	{
+		curMode = 
 		g_pMapObjectManager->getMapObjectRotation();
 		g_pMapObjectManager->cur++;
 	}

@@ -15,6 +15,7 @@ class cMapToolScene : public cSceneObject
 public:
 	enum E_MODE
 	{
+		M_NONE,
 		M_BUILD,
 		M_MOB,
 		END,
