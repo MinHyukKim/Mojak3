@@ -15,7 +15,6 @@ private:
 
 	int					m_nAnimationKey;
 	bool				m_isCurrentTrack;
-
 	//객체마다 생성
 	LPD3DXANIMATIONCONTROLLER	m_pAnimController;
 
@@ -36,6 +35,7 @@ public:
 	void SetAnimationIndex(int nIndex);
 	void SetBlendingAnimation(int nAnimationKey, float fTravelTime = 0.1f);
 
+	D3DXCOLOR m_pMainColor;
 
 	bool FrameClone(OUT LPD3DXFRAME* ppClone, IN LPD3DXFRAME pOrigin);
 	DWORD AddAnimationSet(LPD3DXANIMATIONSET pAnimation);
@@ -58,6 +58,7 @@ public:
 	static void SetTextureAmbient(LPD3DXFRAME pRoot, LPCSTR szTextureName, LPD3DXCOLOR pAmbient);
 	static void SetTextureSpecular(LPD3DXFRAME pRoot, LPCSTR szTextureName, LPD3DXCOLOR pSpecular);
 	static void SetTextureColor(LPD3DXFRAME pRoot, LPCSTR szTextureName, LPD3DXCOLOR pColor);
+	D3DCOLORVALUE GetTextureColor(LPD3DXFRAME pRoot, LPCSTR szTextureName);
 	static void SetTextureColor(LPD3DXFRAME pRoot, LPCSTR szTextureName, D3DMATERIAL9* pMaterial);
 	static void SetTextureChange(LPD3DXFRAME pRoot, LPCSTR szPrevTextureName, LPCSTR szNextTextureName);
 	static void AddTexture(LPD3DXFRAME pRoot, LPCSTR szFrameName, LPCSTR szTextureName);

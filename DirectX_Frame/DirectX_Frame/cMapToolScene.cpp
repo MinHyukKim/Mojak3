@@ -285,6 +285,13 @@ void cMapToolScene::Update(void)
 			g_pObjectManager->SaveMonsterObjectState(OFN.lpstrFile);
 	}
 
+	if (g_pInputManager->IsOnceKeyDown('8'))
+	{
+		DeselectObjects();
+			g_pObjectManager->LoadMonsterObjectState("fffff");
+	}
+
+
 	if (g_pInputManager->IsStayKeyDown(VK_ESCAPE))
 	{
 		DeselectObjects();
