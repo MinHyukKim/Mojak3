@@ -15,9 +15,9 @@ private:
 
 public:
 	//퀴드트리를 구축한다.
-	bool TreeBuild(std::vector<ST_PNT_VERTEX> pVertex, DWORD dwUnit = 1);
+	bool TreeBuild(std::vector<ST_PNT_VERTEX>* pVertex, DWORD dwUnit = 1);
 	//삼각형 갯수와 인덱스 반환
-	DWORD GenerateIndex(OUT LPDWORD pIndexBuffer, std::vector<ST_PNT_VERTEX>* pVertex, cFrustum* pFrustum, DWORD dwUnit = 1);
+	DWORD GenerateIndex(OUT LPDWORD pIndexBuffer, std::vector<ST_PNT_VERTEX>* pVertex, cFrustum* pFrustum, IN DWORD dwUnit);
 
 	cQuadTree(IN int nX, IN int nY);
 	cQuadTree(cQuadTree* pParent);
@@ -48,7 +48,7 @@ private:
 	//출력가능여부 체크
 	inline bool _IsVisible(DWORD dwUnit) { return (dwUnit >= m_dwCorner[cQuadTree::CORNER_RIGHT_TOP] - m_dwCorner[cQuadTree::CORNER_LEFT_TOP]); }
 	//출력할 폴리곤의 인덱스 생성
-	inline int _GenTriIndex(OUT LPDWORD pIndex, IN DWORD dwTriangles, DWORD dwUnit);
+	inline int _GenTriIndex(OUT LPDWORD pIndex, IN DWORD dwTriangles, IN DWORD dwUnit);
 	//쿼드트리 메모리 삭제
 	inline void _Destroy(void);
 //절두체 컬링

@@ -183,7 +183,6 @@ void cObjectManager::RegisterPlayer(IN cPlayer* pPlayer)
 	m_pPlayer->RegisterAnimation(cPlayer::ANIMATION_DOWND, g_pAnimationManager->GetAnimation("여성_다운드"), 5.0f);
 	m_pPlayer->RegisterAnimation(cPlayer::ANIMATION_DOWN_TO_STAND, g_pAnimationManager->GetAnimation("여성_다운투스텐드"), 5.0f);
 	m_pPlayer->RegisterAnimation(cPlayer::ANIMATION_COUNTER, g_pAnimationManager->GetAnimation("여성_카운터"), 2.0f);
-	
 	m_pPlayer->GetAbilityParamter()->SetPlayerID(1);
 	m_pPlayer->GetAbilityParamter()->SetUnitID(0);
 	m_pPlayer->AddRef();
@@ -217,6 +216,7 @@ bool cObjectManager::GetMonster(OUT cPlayer** ppMonster, IN LPD3DXVECTOR3 pRay, 
 
 void cObjectManager::SetCursorIncrease()
 {
+	//백터 내에 몹이 없으면 카운터를 올려줄 필요가 없다.
 	if (m_vecMonster.size() < 1) return;
 	m_nMonsterCursor++;
 	if (m_nMonsterCursor == UNIT_TYPE::MONSTER_END)
@@ -251,6 +251,37 @@ void cObjectManager::SetupMonster()
 	//m_pSelectMonster = nullptr;
 
 	//m_vecBuilding.back()->SetPosition(&m_vLandPos);
+}
+
+bool cObjectManager::SaveMonsterObjectState(const char * filename)
+{
+	//저장할 빌딩이 없으면 리턴
+	if (m_vecMonster.size() < 1) return false;
+	FILE *fp;
+	fp = fopen(filename, "w");
+	for each(auto v in m_vecMonster)
+	{
+		//오브젝트 타입 추가예정.
+		//위치 저장
+		D3DXVECTOR3 vPos = v->GetPosition();
+		//오브젝트 타입
+		DWORD unitID = v->GetAbilityParamter()->GetUnitID();
+		//오브젝트 컬러
+		D3DXCOLOR color = v->GetMeshColor();
+		fprintf(fp, "%ld\n", &unitID);
+		fprintf(fp, "%f %f %f %f\n", color.a, color.r, color.g, color.b);
+		fprintf(fp, "%f %f %f\n", vPos.x, vPos.y, vPos.z);
+
+	}
+	fclose(fp);
+	return true;
+}
+
+bool cObjectManager::LoadMonsterObjectState(const char * filename)
+{
+	//LPD3DXFRAME test =  m_vecMonster[0]->GetMeshPart(cPlayer::MESH_BODY)->GetRootFrame();
+
+	return false;
 }
 
 void cObjectManager::SetTerrain(IN cMapTerrain* pTerrain)

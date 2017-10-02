@@ -4,6 +4,7 @@
 
 cActionDirection::cActionDirection(void)
 {
+
 }
 
 cActionDirection::~cActionDirection(void)

@@ -137,7 +137,12 @@ void cMapObjectManager::Update(cMapTerrain* map)
 	if (!m_pSelectBuilding) return;
 	D3DXVECTOR3 vPos, vOrg, vDir;
 	g_pRay->RayAtWorldSpace(&vOrg, &vDir);
-	if (map->IsCollision(&vPos, &vOrg, &vDir)) m_vLandPos = vPos;
+	if (map->IsCollision(&vPos, &vOrg, &vDir))
+	{
+		m_vLandPos = vPos;
+		m_vLandPos.y =  map->GetHeight(vPos.x, vPos.z);
+	}
+		
 	 m_pSelectBuilding->SetPosition(&vPos);
 }
 
