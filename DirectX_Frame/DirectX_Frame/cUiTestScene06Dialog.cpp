@@ -16,9 +16,9 @@ void cUiTestScene::SetupDialogUi(void)
 {
 	//NPC대화 관련
 	m_pDialogBackImage = cUIButton::Create();
-	m_pDialogBackImage->SetTexture("Texture/Ui/dialog3.png",
-		"Texture/Ui/dialog3.png", "Texture/Ui/dialog3.png");
-	m_pDialogBackImage->SetPosition(300, 300);
+	m_pDialogBackImage->SetTexture("Texture/Ui/dialog5.png",
+		"Texture/Ui/dialog5.png", "Texture/Ui/dialog5.png");
+	m_pDialogBackImage->SetPosition(75, 300);
 	m_pDialogBackImage->SetDelegate(this);
 	m_pDialogBackImage->m_Alpha = 180;
 	m_pDialogBackImage->SetTag(E_IMAGE_DIALOG);
