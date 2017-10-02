@@ -207,29 +207,10 @@ void cObjectManager::SetCursorIncrease()
 
 cPlayer * cObjectManager::GetMonsterRotation()
 {
-	//std::map<std::string, cBuilding*>::iterator iMapBuilding = m_mapBuilding.begin();
-	//for (int i = 0; i < m_nBuildCursor; i++) iMapBuilding++;
-	////if (iMapBuilding == m_mapBuilding.end())
-	////{
-	////	iMapBuilding = m_mapBuilding.begin();
-	////	m_nBuildCursor = 0;
-	////}
-	//m_pSelectBuilding = iMapBuilding->second;
-
-	//return m_pSelectBuilding;
-
-	//if (m_vecMonster.size() > 0)
-	//{
-	//	m_vecMonster.back()->Release();
-	//	m_vecMonster.pop_back();
-	//}
-
-
 	CreateMonster((UNIT_TYPE)m_nMonsterCursor, &D3DXVECTOR3(0, 0, 0));
 	SAFE_RELEASE(m_pSelectMonster);
 	m_pSelectMonster = m_vecMonster.back();
 	m_vecMonster.pop_back();
-
 
 	return m_pSelectMonster;
 }
@@ -377,6 +358,7 @@ void cObjectManager::Destroy(void)
 		pMonster->GetAbilityParamter()->SetEffective(false);
 		pMonster->Release();
 	}
+	SAFE_RELEASE(m_pSelectMonster);
 	m_vecMonster.clear();
 }
 
