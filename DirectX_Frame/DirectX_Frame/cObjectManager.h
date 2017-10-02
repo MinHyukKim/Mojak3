@@ -24,6 +24,7 @@ public:
 		MONSTER_TEXTER,
 		MONSTER_FOX,
 		MONSTER_BEAR,
+		MONSTER_END,
 		NPC_NAO,
 	};
 
@@ -33,10 +34,18 @@ private:
 	std::vector<cPlayer*>  m_vecMonster;
 	std::vector<cPlayer*>  m_vecNPC;
 	std::vector<cPlayer*>  m_vecRelease;
+
+	//몬스터 소환 위치 기록
+	int m_nMonsterCursor;
+	//선택된 몬스터
+	cPlayer* m_pSelectMonster;
 	
 public:
 	void Update(void);
+	void SelectUpdate(cMapTerrain * map);
 	void Render(void);
+	//몹만 따로 렌더
+	void monsterRender(void);
 
 	//컨트롤 함수
 	void Controller(void);
@@ -51,6 +60,15 @@ public:
 	cPlayer* GetPlayer(void) { return m_pPlayer; }
 	std::vector<cPlayer*>* GetMonsterVectorPointer(void) { return &m_vecMonster; }
 	bool GetMonster(OUT cPlayer** ppMonster, IN LPD3DXVECTOR3 pRay, IN LPD3DXVECTOR3 pDir);
+	
+	//몬스터 로테이션 출력 관련
+
+	//선택중인 맵 오브젝트를 반환하는 함수
+	cPlayer* GetSelectObject(void) { return m_pSelectMonster; }
+	void SetCursorIncrease();
+	cPlayer* GetMonsterRotation();
+	void ResetMobSelect(void);
+	void SetupMonster();
 
 	void SetTerrain(IN cMapTerrain* pTerrain);
 

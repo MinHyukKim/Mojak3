@@ -18,6 +18,7 @@ cMapToolScene::cMapToolScene(void)
 	, m_pTexture(NULL)
 	, m_pGrid(NULL)
 	, m_pSkybox(nullptr)
+	, currentMode(E_MODE::M_BUILD)
 {
 	//테스트용
 	//m_pMapObject = NULL;
@@ -115,12 +116,19 @@ void cMapToolScene::Update(void)
 	if (m_pMapTerrain)
 	{
 		g_pMapObjectManager->Update(m_pMapTerrain);
+		g_pObjectManager->SelectUpdate(m_pMapTerrain);
 		m_pMapTerrain->Update();
 	}
 
 	//L버튼을 누르면 마지막으로 생성된 건물이 클릭한 위치로 이동
 	if (g_pInputManager->IsOnceKeyDown(VK_LBUTTON))
 	{
+		if (currentMode == E_MODE::M_BUILD)
+			g_pMapObjectManager->SetupBuilding();
+		else if (currentMode == E_MODE::M_MOB)
+		{
+			g_pObjectManager->SetupMonster();
+		}
 		/*if (true)
 		{
 			g_pMapObjectManager->ResetBuilding();
@@ -129,7 +137,6 @@ void cMapToolScene::Update(void)
 		{
 			g_pMapObjectManager->SetupBuilding();
 		}*/
-		g_pMapObjectManager->SetupBuilding();
 
 	}
 //
@@ -184,14 +191,58 @@ void cMapToolScene::Update(void)
 	//맵오브젝트 배치
 	if (g_pInputManager->IsOnceKeyDown('1'))
 	{
+		if (currentMode != E_MODE::M_BUILD)
+		{
+			//이전에 선택된 부분이 있으면 해제하고 모드 변경
+			//g_pMapObjectManager->ResetBuilding();
+
+			//g_pObjectManager->DeSelectMob()
+			//빌드 모드로 변경
+			currentMode = E_MODE::M_BUILD;
+		}
 		g_pMapObjectManager->getMapObjectRotation();
-		g_pMapObjectManager->cur++;
+		g_pMapObjectManager->SetCursorIncrease();
+	}
+	//몹오브젝트 배치
+	if (g_pInputManager->IsOnceKeyDown('2'))
+	{
+		if (currentMode != E_MODE::M_MOB)
+		{
+			//이전에 선택된 부분이 있으면 해제하고 모드 변경
+			g_pMapObjectManager->ResetBuilding();
+			//몹선택 모드로 변경
+			currentMode = E_MODE::M_MOB;
+		}
+		g_pObjectManager->GetMonsterRotation();
+		g_pObjectManager->SetCursorIncrease();
 	}
 
 
 	//맵오브젝트 세이브 로드 테스트
 	if (g_pInputManager->IsOnceKeyDown('5'))
 	{
+		DeselectObjects();
+
+		OPENFILENAME OFN;
+		char filename[255];
+		char lpstrFile[MAX_PATH] = "";
+		memset(&OFN, 0, sizeof(OPENFILENAME));
+		OFN.lpstrTitle = "로드하기";
+		OFN.lStructSize = sizeof(OPENFILENAME);
+		OFN.hwndOwner = g_hWnd;
+		OFN.lpstrFilter = "모든 파일(*.*)\0*.*\0맵 오브젝트 파일\0*.obj;\0";
+		OFN.lpstrFile = lpstrFile;
+		OFN.nMaxFile = 256;
+		//OFN.lpstrInitialDir = "c:\\";
+		if (GetOpenFileName(&OFN) != 0)
+			g_pMapObjectManager->LoadCurrentObjectsState(OFN.lpstrFile);
+	}
+
+
+	if (g_pInputManager->IsOnceKeyDown('6'))
+	{
+		DeselectObjects();
+
 		OPENFILENAME OFN;
 		char filename[255];
 		char lpstrFile[MAX_PATH] = "";
@@ -206,32 +257,13 @@ void cMapToolScene::Update(void)
 		//OFN.lpstrInitialDir = "c:\\";
 		if (GetSaveFileName(&OFN) != 0) 
 			g_pMapObjectManager->SaveCurrentObjectsState(OFN.lpstrFile);
-
 	}
-	if (g_pInputManager->IsOnceKeyDown('6'))
-	{
-		OPENFILENAME OFN;
-		char filename[255];
-		char lpstrFile[MAX_PATH] = "";
-		memset(&OFN, 0, sizeof(OPENFILENAME));
-		OFN.lpstrTitle = "저장하기";
-		OFN.lStructSize = sizeof(OPENFILENAME);
-		OFN.hwndOwner = g_hWnd;
-		OFN.lpstrFilter = "모든 파일(*.*)\0*.*\0맵 오브젝트 파일\0*.obj;\0";
-		OFN.lpstrFile = lpstrFile;
-		OFN.nMaxFile = 256;
-		OFN.Flags = OFN_OVERWRITEPROMPT;
-		//OFN.lpstrInitialDir = "c:\\";
-		if (GetOpenFileName(&OFN) != 0)
-			g_pMapObjectManager->LoadCurrentObjectsState(OFN.lpstrFile);
 
-
-	}
 
 
 	if (g_pInputManager->IsStayKeyDown(VK_ESCAPE))
 	{
-		g_pMapObjectManager->ResetBuilding();
+		DeselectObjects();
 	}
 }
      
@@ -246,6 +278,8 @@ void cMapToolScene::Render(void)
 
 	//SAFE_RENDER(m_pBuild);
 	g_pMapObjectManager->Render();
+	g_pObjectManager->monsterRender();
+
 }
 
 
@@ -254,5 +288,16 @@ cMapToolScene* cMapToolScene::Create(void)
 	cMapToolScene* newClass = new cMapToolScene;
 	newClass->AddRef();
 	return newClass;
+}
+
+void cMapToolScene::DeselectObjects()
+{
+	if (currentMode == E_MODE::M_BUILD)
+		g_pMapObjectManager->ResetBuilding();
+	else if (currentMode == E_MODE::M_MOB)
+	{
+		g_pObjectManager->ResetMobSelect();
+	}
+
 }
 

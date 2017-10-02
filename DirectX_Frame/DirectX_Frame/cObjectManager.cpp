@@ -7,6 +7,7 @@
 cObjectManager::cObjectManager(void)
 	: m_pPlayer(nullptr)
 	, m_pTerrain(nullptr)
+	, m_nMonsterCursor(UNIT_TYPE::MONSTER_NULL+1)
 {
 }
 
@@ -59,10 +60,24 @@ void cObjectManager::Update(void)
 	m_vecRelease.clear();
 }
 
+void cObjectManager::SelectUpdate(cMapTerrain* map)
+{
+	if (!m_pSelectMonster) return;
+	D3DXVECTOR3 vPos, vOrg, vDir;
+	g_pRay->RayAtWorldSpace(&vOrg, &vDir);
+	map->IsCollision(&vPos, &vOrg, &vDir);
+	m_pSelectMonster->SetPosition(&vPos);
+}
+
 void cObjectManager::Render(void)
 {
 	SAFE_RENDER(m_pPlayer);
 	SAFE_RENDER(m_pTerrain);
+	monsterRender();
+}
+void cObjectManager::monsterRender(void)
+{
+	SAFE_RENDER(m_pSelectMonster);
 	for each (auto pMonster in m_vecMonster)
 	{
 		pMonster->Render();
@@ -72,6 +87,8 @@ void cObjectManager::Render(void)
 		pNPC->Render();
 	}
 }
+
+
 
 void cObjectManager::Controller(void)
 {
@@ -196,6 +213,44 @@ bool cObjectManager::GetMonster(OUT cPlayer** ppMonster, IN LPD3DXVECTOR3 pRay, 
 	}
 	*ppMonster = pTarget;
 	return pTarget;
+}
+
+void cObjectManager::SetCursorIncrease()
+{
+	if (m_vecMonster.size() < 1) return;
+	m_nMonsterCursor++;
+	if (m_nMonsterCursor == UNIT_TYPE::MONSTER_END)
+		m_nMonsterCursor = UNIT_TYPE::MONSTER_NULL + 1;
+}
+
+cPlayer * cObjectManager::GetMonsterRotation()
+{
+	CreateMonster((UNIT_TYPE)m_nMonsterCursor, &D3DXVECTOR3(0, 0, 0));
+	SAFE_RELEASE(m_pSelectMonster);
+	m_pSelectMonster = m_vecMonster.back();
+	m_vecMonster.pop_back();
+
+	return m_pSelectMonster;
+}
+
+void cObjectManager::ResetMobSelect(void)
+{
+	SAFE_RELEASE(m_pSelectMonster);
+	m_pSelectMonster = nullptr;
+}
+
+void cObjectManager::SetupMonster()
+{
+	if (this->GetSelectObject() == NULL) return;
+	m_vecMonster.push_back(m_pSelectMonster);
+	CreateMonster((UNIT_TYPE)m_nMonsterCursor, &D3DXVECTOR3(0, 0, 0));
+	m_pSelectMonster = m_vecMonster.back();
+	m_vecMonster.pop_back();
+
+
+	//m_pSelectMonster = nullptr;
+
+	//m_vecBuilding.back()->SetPosition(&m_vLandPos);
 }
 
 void cObjectManager::SetTerrain(IN cMapTerrain* pTerrain)
@@ -377,6 +432,7 @@ void cObjectManager::Destroy(void)
 		pNPC->GetAbilityParamter()->SetEffective(false);
 		pNPC->Release();
 	}
+	SAFE_RELEASE(m_pSelectMonster);
 	m_vecMonster.clear();
 	m_vecNPC.clear();
 }
