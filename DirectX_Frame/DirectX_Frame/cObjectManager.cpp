@@ -281,7 +281,7 @@ bool cObjectManager::SaveMonsterObjectState(const char * filename)
 		LPD3DXCOLOR color = v->GetMeshColor();
 		if (color != nullptr)
 		{
-			fprintf(fp, "%f %f %f %f\n", &color->a, &color->r, &color->g, &color->b);
+			fprintf(fp, "%f %f %f %f\n", color->a, color->r, color->g, color->b);
 		}
 		else
 		{
