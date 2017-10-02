@@ -131,6 +131,9 @@ private:
 	//피격컨트롤러
 	bool m_bHitAnimation;
 
+	//메인 컬러 저장
+	D3DXCOLOR m_mainColor;
+
 public:
 	virtual HRESULT Setup(void) override;
 	void Reset(void);
@@ -183,6 +186,8 @@ public:
 	void ChangeMeshPart(IN DWORD dwPart, IN cSkinnedMesh* pSkinnedMesh);
 	void ChangeMeshPartColor(IN DWORD dwPart, IN LPCSTR TextureName, IN LPD3DXCOLOR pColor);
 	cSkinnedMesh* GetMeshPart(IN DWORD dwPart) { return m_vecMesh[dwPart]; }
+
+	D3DXCOLOR GetMeshColor();
 
 	//초기화 함수
 	void SetTextureEye(LPCSTR szEyeName);

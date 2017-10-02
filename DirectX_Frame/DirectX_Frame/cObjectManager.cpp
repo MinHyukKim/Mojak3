@@ -7,6 +7,7 @@
 cObjectManager::cObjectManager(void)
 	: m_pPlayer(nullptr)
 	, m_pTerrain(nullptr)
+	, m_nMonsterCursor(UNIT_TYPE::MONSTER_NULL+1)
 {
 }
 
@@ -34,6 +35,18 @@ void cObjectManager::Update(void)
 			pMonster->SetPosY(fHeight);
 		}
 	}
+	//NPC
+	for each (auto pNPC in m_vecNPC)
+	{
+		pNPC->Update();
+		if (m_pTerrain)
+		{
+			float fHeight = pNPC->GetPosY();
+			m_pTerrain->GetHeight(&fHeight, pNPC->GetPosX(), pNPC->GetPosZ());
+			pNPC->SetPosY(fHeight);
+		}
+	}
+
 	for each (auto pRelease in m_vecRelease)
 	{
 		for (std::vector<cPlayer*>::iterator it = m_vecMonster.begin(); it != m_vecMonster.end(); it++)
@@ -47,15 +60,35 @@ void cObjectManager::Update(void)
 	m_vecRelease.clear();
 }
 
+void cObjectManager::SelectUpdate(cMapTerrain* map)
+{
+	if (!m_pSelectMonster) return;
+	D3DXVECTOR3 vPos, vOrg, vDir;
+	g_pRay->RayAtWorldSpace(&vOrg, &vDir);
+	map->IsCollision(&vPos, &vOrg, &vDir);
+	m_pSelectMonster->SetPosition(&vPos);
+}
+
 void cObjectManager::Render(void)
 {
 	SAFE_RENDER(m_pPlayer);
 	SAFE_RENDER(m_pTerrain);
+	monsterRender();
+}
+void cObjectManager::monsterRender(void)
+{
+	SAFE_RENDER(m_pSelectMonster);
 	for each (auto pMonster in m_vecMonster)
 	{
 		pMonster->Render();
 	}
+	for each (auto pNPC in m_vecNPC)
+	{
+		pNPC->Render();
+	}
 }
+
+
 
 void cObjectManager::Controller(void)
 {
@@ -150,7 +183,6 @@ void cObjectManager::RegisterPlayer(IN cPlayer* pPlayer)
 	m_pPlayer->RegisterAnimation(cPlayer::ANIMATION_DOWND, g_pAnimationManager->GetAnimation("여성_다운드"), 5.0f);
 	m_pPlayer->RegisterAnimation(cPlayer::ANIMATION_DOWN_TO_STAND, g_pAnimationManager->GetAnimation("여성_다운투스텐드"), 5.0f);
 	m_pPlayer->RegisterAnimation(cPlayer::ANIMATION_COUNTER, g_pAnimationManager->GetAnimation("여성_카운터"), 2.0f);
-	
 	m_pPlayer->GetAbilityParamter()->SetPlayerID(1);
 	m_pPlayer->GetAbilityParamter()->SetUnitID(0);
 	m_pPlayer->AddRef();
@@ -180,6 +212,76 @@ bool cObjectManager::GetMonster(OUT cPlayer** ppMonster, IN LPD3DXVECTOR3 pRay, 
 	}
 	*ppMonster = pTarget;
 	return pTarget;
+}
+
+void cObjectManager::SetCursorIncrease()
+{
+	//백터 내에 몹이 없으면 카운터를 올려줄 필요가 없다.
+	if (m_vecMonster.size() < 1) return;
+	m_nMonsterCursor++;
+	if (m_nMonsterCursor == UNIT_TYPE::MONSTER_END)
+		m_nMonsterCursor = UNIT_TYPE::MONSTER_NULL + 1;
+}
+
+cPlayer * cObjectManager::GetMonsterRotation()
+{
+	CreateMonster((UNIT_TYPE)m_nMonsterCursor, &D3DXVECTOR3(0, 0, 0));
+	SAFE_RELEASE(m_pSelectMonster);
+	m_pSelectMonster = m_vecMonster.back();
+	m_vecMonster.pop_back();
+
+	return m_pSelectMonster;
+}
+
+void cObjectManager::ResetMobSelect(void)
+{
+	SAFE_RELEASE(m_pSelectMonster);
+	m_pSelectMonster = nullptr;
+}
+
+void cObjectManager::SetupMonster()
+{
+	if (this->GetSelectObject() == NULL) return;
+	m_vecMonster.push_back(m_pSelectMonster);
+	CreateMonster((UNIT_TYPE)m_nMonsterCursor, &D3DXVECTOR3(0, 0, 0));
+	m_pSelectMonster = m_vecMonster.back();
+	m_vecMonster.pop_back();
+
+
+	//m_pSelectMonster = nullptr;
+
+	//m_vecBuilding.back()->SetPosition(&m_vLandPos);
+}
+
+bool cObjectManager::SaveMonsterObjectState(const char * filename)
+{
+	//저장할 빌딩이 없으면 리턴
+	if (m_vecMonster.size() < 1) return false;
+	FILE *fp;
+	fp = fopen(filename, "w");
+	for each(auto v in m_vecMonster)
+	{
+		//오브젝트 타입 추가예정.
+		//위치 저장
+		D3DXVECTOR3 vPos = v->GetPosition();
+		//오브젝트 타입
+		DWORD unitID = v->GetAbilityParamter()->GetUnitID();
+		//오브젝트 컬러
+		D3DXCOLOR color = v->GetMeshColor();
+		fprintf(fp, "%ld\n", &unitID);
+		fprintf(fp, "%f %f %f %f\n", color.a, color.r, color.g, color.b);
+		fprintf(fp, "%f %f %f\n", vPos.x, vPos.y, vPos.z);
+
+	}
+	fclose(fp);
+	return true;
+}
+
+bool cObjectManager::LoadMonsterObjectState(const char * filename)
+{
+	//LPD3DXFRAME test =  m_vecMonster[0]->GetMeshPart(cPlayer::MESH_BODY)->GetRootFrame();
+
+	return false;
 }
 
 void cObjectManager::SetTerrain(IN cMapTerrain* pTerrain)
@@ -318,14 +420,23 @@ bool cObjectManager::CreateNPC(IN UNIT_TYPE eNPCKey, IN LPD3DXVECTOR3 pPostion)
 	cPlayer* pCreateNPC = nullptr;
 	switch (eNPCKey)
 	{
-	case cObjectManager::MONSTER_NULL: break;
+		case cObjectManager::MONSTER_NULL: break;
 		case cObjectManager::NPC_NAO:
 		{
 			pCreateNPC = cPlayer::Create();
-			
+			pCreateNPC->Setup();
+			pCreateNPC->SetupAnimationController("나오더미");
+			pCreateNPC->ChangeMeshPart(cPlayer::MESH_BODY, g_pSkinnedMeshManager->GetSkinnedMesh("나오메시"));
+
 			pCreateNPC->GetAbilityParamter()->SetPlayerID(3);
 			pCreateNPC->GetAbilityParamter()->SetUnitID(2);
 		}
+	}
+
+	if (pCreateNPC)
+	{
+		pCreateNPC->SetPosition(pPostion);
+		m_vecNPC.push_back(pCreateNPC);
 	}
 
 	return false;
@@ -345,6 +456,15 @@ void cObjectManager::Destroy(void)
 		pMonster->GetAbilityParamter()->SetEffective(false);
 		pMonster->Release();
 	}
+	//NPC
+	for each(auto pNPC in m_vecNPC)
+	{
+		pNPC->SetTarget(nullptr);
+		pNPC->GetAbilityParamter()->SetEffective(false);
+		pNPC->Release();
+	}
+	SAFE_RELEASE(m_pSelectMonster);
 	m_vecMonster.clear();
+	m_vecNPC.clear();
 }
 

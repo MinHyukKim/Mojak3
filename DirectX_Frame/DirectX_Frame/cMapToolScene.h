@@ -12,6 +12,14 @@ class cBuilding;
 
 class cMapToolScene : public cSceneObject
 {
+public:
+	enum E_MODE
+	{
+		M_NONE,
+		M_BUILD,
+		M_MOB,
+		END,
+	};
 private:
 	cCamera* m_pCamera;
 	cMapTerrain* m_pMapTerrain;
@@ -26,6 +34,7 @@ private:
 
 	vector<char*> m_vecObjectList;
 
+	int currentMode;
 
 public:
 	virtual HRESULT Setup(void) override;
@@ -34,6 +43,9 @@ public:
 	virtual void Render(void) override;
 	
 	static cMapToolScene* Create(void);
+
+	//현재 오브젝트 선택 상태에 따라 상태를 해제해주는 함수
+	void DeselectObjects();
 protected:
 	cMapToolScene(void);
 	virtual ~cMapToolScene(void);

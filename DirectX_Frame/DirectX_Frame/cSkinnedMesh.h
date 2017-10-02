@@ -15,7 +15,6 @@ private:
 
 	int					m_nAnimationKey;
 	bool				m_isCurrentTrack;
-
 	//객체마다 생성
 	LPD3DXANIMATIONCONTROLLER	m_pAnimController;
 
@@ -35,7 +34,6 @@ public:
 	void UpdateAndRender(LPD3DXMATRIX pMatrix);
 	void SetAnimationIndex(int nIndex);
 	void SetBlendingAnimation(int nAnimationKey, float fTravelTime = 0.1f);
-
 
 	bool FrameClone(OUT LPD3DXFRAME* ppClone, IN LPD3DXFRAME pOrigin);
 	DWORD AddAnimationSet(LPD3DXANIMATIONSET pAnimation);

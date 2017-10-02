@@ -5,7 +5,8 @@
 
 
 cMapObjectManager::cMapObjectManager(void)
-	:cur(0) , m_pSelectBuilding(nullptr)
+	:m_nBuildCursor(E_OBJECT_TYPE::BUILDING)
+	,m_pSelectBuilding(nullptr)
 {
 }
 
@@ -79,15 +80,24 @@ bool cMapObjectManager::AppendBuilding(LPCSTR szKeyName)
 cBuilding* cMapObjectManager::getMapObjectRotation()
 {
 	std::map<std::string, cBuilding*>::iterator iMapBuilding = m_mapBuilding.begin();
-	for (int i = 0; i < cur; i++) iMapBuilding++;
-	if (iMapBuilding == m_mapBuilding.end())
-	{
-		iMapBuilding = m_mapBuilding.begin();
-		cur = 0;
-	}
+	for (int i = 0; i < m_nBuildCursor; i++) iMapBuilding++;
+	//if (iMapBuilding == m_mapBuilding.end())
+	//{
+	//	iMapBuilding = m_mapBuilding.begin();
+	//	m_nBuildCursor = 0;
+	//}
 	m_pSelectBuilding = iMapBuilding->second;
 
 	return m_pSelectBuilding;
+}
+
+void cMapObjectManager::SetCursorIncrease()
+{
+	if (m_mapBuilding.size()-1 <= m_nBuildCursor)
+	{
+		m_nBuildCursor = 0;
+	}
+	else m_nBuildCursor++;
 }
 
 cBuilding * cMapObjectManager::GetLastMapObject()
@@ -127,7 +137,12 @@ void cMapObjectManager::Update(cMapTerrain* map)
 	if (!m_pSelectBuilding) return;
 	D3DXVECTOR3 vPos, vOrg, vDir;
 	g_pRay->RayAtWorldSpace(&vOrg, &vDir);
-	if (map->IsCollision(&vPos, &vOrg, &vDir)) m_vLandPos = vPos;
+	if (map->IsCollision(&vPos, &vOrg, &vDir))
+	{
+		m_vLandPos = vPos;
+		m_vLandPos.y =  map->GetHeight(vPos.x, vPos.z);
+	}
+		
 	 m_pSelectBuilding->SetPosition(&vPos);
 }
 
