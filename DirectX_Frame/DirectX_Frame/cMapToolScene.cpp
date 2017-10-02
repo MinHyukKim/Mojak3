@@ -42,7 +42,6 @@ HRESULT cMapToolScene::Setup(void)
 
 	m_pMapTerrain = g_pMapTerrain->GetMapTerrain("테스트용");
 	SAFE_ADDREF(m_pMapTerrain);
-
 	//테스트용
 	m_pGrid = cGrid::Create();
 	m_pGrid->Setup();
@@ -81,8 +80,8 @@ HRESULT cMapToolScene::Setup(void)
 	m_pSkybox->Setup(".\\skyboxMap\\vanilla_sky_frost_up.jpg", ".\\skyboxMap\\vanilla_sky_frost_dn.jpg",
 		".\\skyboxMap\\vanilla_sky_frost_lf.jpg", ".\\skyboxMap\\vanilla_sky_frost_rt.jpg",
 		".\\skyboxMap\\vanilla_sky_frost_ft.jpg", ".\\skyboxMap\\vanilla_sky_frost_bk.jpg");
-
-
+	g_pObjectManager->SetTerrain(m_pMapTerrain);
+	g_pMapObjectManager->SetMapTerrain(m_pMapTerrain);
 	return S_OK;
 }
 

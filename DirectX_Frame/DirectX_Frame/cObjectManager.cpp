@@ -19,7 +19,7 @@ void cObjectManager::Update(void)
 {
 	SAFE_UPDATE(m_pTerrain);
 	SAFE_UPDATE(m_pPlayer);
-	
+	//높이 세팅하는 부분 함수로 뺌.
 	m_pPlayer->SetPosY(GetMapHeight(m_pPlayer));
 	
 	for each (auto pMonster in m_vecMonster)
@@ -74,8 +74,6 @@ void cObjectManager::monsterRender(void)
 		pNPC->Render();
 	}
 }
-
-
 
 void cObjectManager::Controller(void)
 {
@@ -214,7 +212,7 @@ float cObjectManager::GetMapHeight(cPlayer* player)
 void cObjectManager::SetCursorIncrease()
 {
 	//백터 내에 몹이 없으면 카운터를 올려줄 필요가 없다.
-	if (m_vecMonster.size() < 1) return;
+	if (m_vecMonster.size() < 1 && m_pSelectMonster == nullptr) return;
 	m_nMonsterCursor++;
 	if (m_nMonsterCursor == UNIT_TYPE::MONSTER_END)
 		m_nMonsterCursor = UNIT_TYPE::MONSTER_NULL + 1;
@@ -222,7 +220,11 @@ void cObjectManager::SetCursorIncrease()
 
 cPlayer * cObjectManager::GetMonsterRotation()
 {
-	CreateMonster((UNIT_TYPE)m_nMonsterCursor, &D3DXVECTOR3(0, 0, 0));
+	D3DXVECTOR3 vPos, vOrg, vDir;
+	g_pRay->RayAtWorldSpace(&vOrg, &vDir);
+	m_pTerrain->IsCollision(&vPos, &vOrg, &vDir);
+
+	CreateMonster((UNIT_TYPE)m_nMonsterCursor, &vPos);
 	SAFE_RELEASE(m_pSelectMonster);
 	m_pSelectMonster = m_vecMonster.back();
 	m_vecMonster.pop_back();
@@ -240,15 +242,20 @@ void cObjectManager::SetupMonster()
 {
 	if (this->GetSelectObject() == NULL) return;
 	m_vecMonster.push_back(m_pSelectMonster);
+
+	D3DXVECTOR3 vPos, vOrg, vDir;
+	g_pRay->RayAtWorldSpace(&vOrg, &vDir);
+	m_pTerrain->IsCollision(&vPos, &vOrg, &vDir);
+	
 	int dice = g_pMath->GetFromIntTo(0, 1);
 	if (dice == 0)
 	{
-		CreateMonster((UNIT_TYPE)m_nMonsterCursor, &D3DXVECTOR3(0, 0, 0));
+		CreateMonster((UNIT_TYPE)m_nMonsterCursor, &vPos);
 		
 	}
 	else
 	{
-		CreateMonster((UNIT_TYPE)m_nMonsterCursor, &D3DXVECTOR3(0, 0, 0), &D3DXCOLOR(0.6f, 0.2f, 0.2f, 1.0f));
+		CreateMonster((UNIT_TYPE)m_nMonsterCursor, &vPos, &D3DXCOLOR(0.6f, 0.2f, 0.2f, 1.0f));
 	}
 	m_pSelectMonster = m_vecMonster.back();
 	m_vecMonster.pop_back();

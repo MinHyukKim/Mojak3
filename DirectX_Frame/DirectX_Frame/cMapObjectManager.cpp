@@ -6,7 +6,8 @@
 
 cMapObjectManager::cMapObjectManager(void)
 	:m_nBuildCursor(E_OBJECT_TYPE::BUILDING)
-	,m_pSelectBuilding(nullptr)
+	, m_pSelectBuilding(nullptr)
+	, m_pMapTerrain(nullptr)
 {
 }
 
@@ -86,8 +87,12 @@ cBuilding* cMapObjectManager::getMapObjectRotation()
 	//	iMapBuilding = m_mapBuilding.begin();
 	//	m_nBuildCursor = 0;
 	//}
+	D3DXVECTOR3 vPos, vOrg, vDir;
+	g_pRay->RayAtWorldSpace(&vOrg, &vDir);
+	if (m_pMapTerrain->IsCollision(&vPos, &vOrg, &vDir))
+		m_vLandPos = vPos;
+	iMapBuilding->second->SetPosition(&vPos);
 	m_pSelectBuilding = iMapBuilding->second;
-
 	return m_pSelectBuilding;
 }
 

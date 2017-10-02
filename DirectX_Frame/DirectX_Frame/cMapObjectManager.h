@@ -51,6 +51,9 @@ public:
 	cBuilding* GetMapObject(LPCSTR szKeyName);
 	cBuilding* GetMapObject(std::string& szKeyName);
 
+	void SetMapTerrain(cMapTerrain* map) { m_pMapTerrain = map; }
+
+
 	//백터에 건물 클래스 추가하는 함수
 	bool AppendBuilding(cBuilding* build);
 	bool AppendBuilding(std::string& szKeyName);
