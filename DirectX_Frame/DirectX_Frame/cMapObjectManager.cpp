@@ -140,7 +140,7 @@ void cMapObjectManager::Update(cMapTerrain* map)
 	if (map->IsCollision(&vPos, &vOrg, &vDir))
 	{
 		m_vLandPos = vPos;
-		m_vLandPos.y =  map->GetHeight(vPos.x, vPos.z);
+//		m_vLandPos.y =  map->GetHeight(vPos.x, vPos.z);
 	}
 		
 	 m_pSelectBuilding->SetPosition(&vPos);

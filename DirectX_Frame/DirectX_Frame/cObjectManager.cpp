@@ -308,7 +308,7 @@ void cObjectManager::SetTerrain(IN cMapTerrain* pTerrain)
 	m_pTerrain->AddRef();
 }
 
-bool cObjectManager::CreateMonster(IN UNIT_TYPE eMonsterKey, IN LPD3DXVECTOR3 pPostion, IN LPD3DXCOLOR pColor)
+cPlayer* cObjectManager::CreateMonster(IN UNIT_TYPE eMonsterKey, IN LPD3DXVECTOR3 pPostion, IN LPD3DXCOLOR pColor)
 {
 	cPlayer* pCreateMonster = nullptr;
 	switch (eMonsterKey)
@@ -447,8 +447,8 @@ bool cObjectManager::CreateNPC(IN UNIT_TYPE eNPCKey, IN LPD3DXVECTOR3 pPostion)
 			pCreateNPC = cPlayer::Create();
 			pCreateNPC->Setup();
 			pCreateNPC->SetupAnimationController("나오더미");
+			pCreateNPC->ChangeMeshPart(cPlayer::MESH_SHOES, g_pSkinnedMeshManager->GetSkinnedMesh("나오스타킹"));
 			pCreateNPC->ChangeMeshPart(cPlayer::MESH_BODY, g_pSkinnedMeshManager->GetSkinnedMesh("나오메시"));
-		//	pCreateMonster->RegisterAnimation(cPlayer::ANIMATION_IDLE_FRIENDLY, g_pAnimationManager->GetAnimation("곰_기본01"));
 			pCreateNPC->RegisterAnimation(cPlayer::ANIMATION_IDLE_FRIENDLY, g_pAnimationManager->GetAnimation("나오_기본01"));
 
 			pCreateNPC->GetAbilityParamter()->SetPlayerID(3);

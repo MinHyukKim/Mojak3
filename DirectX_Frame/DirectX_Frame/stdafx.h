@@ -55,7 +55,7 @@
 #include "cMapManager.h"	//¸Ê?
 
 //ÄÜ¼Ö µð¹ö±ë
-//#define CONSOLE_DEBUG_TEST
+#define CONSOLE_DEBUG_TEST
 
 #ifdef CONSOLE_DEBUG_TEST
 #ifdef CONSOLE_DEBUG_TEST

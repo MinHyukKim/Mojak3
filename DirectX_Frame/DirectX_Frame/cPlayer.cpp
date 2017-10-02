@@ -190,7 +190,7 @@ void cPlayer::PatternUpdate(void)
 		{
 			this->OrderIden();
 		}
-		else if (this->CheckState(PATTERN_OFFENSIVE))
+		else if (2 == this->GetAbilityParamter()->GetPlayerID() && this->CheckState(PATTERN_OFFENSIVE))
 		{
 			if (m_pActionDirection && !m_pActionDirection->IsPlay())
 			{

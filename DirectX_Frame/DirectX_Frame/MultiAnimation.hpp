@@ -69,12 +69,14 @@ float4 PixScene(
 		float intensity = (DrawColor.r * 0.3 + DrawColor.g * 0.59 + DrawColor.b * 0.11) - 0.5f;
 		if (intensity < 0.0f) intensity = 0.0f;
 		DrawColor.rgb = ((DrawColor.rgb * 2.0f * color.rgb) * (1.0f - intensity * 2.0f)) + (intensity * 2.0f);
-		DrawColor.a = DrawColor.a * color.a;
 	}
 	//DrawColor = DrawColor * (float4(0.5f, 0.4f, 0.3f, 1.0f) + color.rgba * 2.0f / 3.0f + 0.66f);
 	//DrawColor.rgb = (DrawColor.rgb + specular.rgb) * 0.5f;
 	//DrawColor.rgb = (DrawColor.rgb + color.rgb + specular) / 3.0f;
 	//DrawColor.rgb = (DrawColor.rgb + color.rgb) / 2.0f;
+	DrawColor.a = DrawColor.a * color.a;
+	//DrawColor.a = DrawColor.a * 0.9f;
+
 	return DrawColor;
 }
 
@@ -105,7 +107,7 @@ VS_OUTPUT VertSkinning( VS_INPUT Input, uniform int nNumBones )
 	float3 lightDir = normalize(vso.vPos.xyz - vWorldLightPos.xyz);
 
 	// Shade (Ambient + etc.)
-	Output.Diffuse = float4( vMaterialAmbient.xyz + saturate( dot( Normal, lightDir.xyz ) ) * vMaterialDiffuse.xyz, 1.0 );
+	Output.Diffuse = float4( vMaterialAmbient.rgb + saturate( dot( Normal, lightDir.rgb) ) * vMaterialDiffuse.rgb, vMaterialDiffuse.a);
 	//Output.Diffuse = ceil(Output.Diffuse * 3) / 3.0f; //Ä«Å÷ ·»´õ¸µ ¿¬»ê
 
 	// ÅØ½ºÃÄ ÁÂÇ¥
