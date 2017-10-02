@@ -21,6 +21,7 @@ cPlayer::cPlayer(void)
 	, m_bCurrentTrack(false)
 	, m_bHitAnimation(false)
 	, m_fRadius(0.3f)
+	, m_pMainColor(nullptr)
 { 
 	D3DXMatrixIdentity(&m_matWorld);
 	ZeroMemory(&m_stHairMaterial, sizeof(D3DMATERIAL9));
@@ -55,6 +56,8 @@ void cPlayer::Reset(void)
 	SAFE_RELEASE(m_pActionMove);
 	SAFE_RELEASE(m_pActionDirection);
 	SAFE_RELEASE(m_pAnimationController);
+	//컬러값 받아올때 동적할당때문.
+	SAFE_DELETE(m_pMainColor);
 }
 
 void cPlayer::Update(void)
@@ -523,13 +526,14 @@ void cPlayer::ChangeMeshPart(IN DWORD dwPart, IN cSkinnedMesh* pSkinnedMesh)
 
 void cPlayer::ChangeMeshPartColor(IN DWORD dwPart, IN LPCSTR TextureName, IN LPD3DXCOLOR pColor)
 {
-	m_mainColor = *pColor;
+	m_pMainColor = new D3DXCOLOR;
+	memcpy(m_pMainColor, pColor, sizeof(D3DXCOLOR));
 	if (m_vecMesh[dwPart]) m_vecMesh[dwPart]->SetTextureColor(TextureName, pColor);
 }
 
-D3DXCOLOR cPlayer::GetMeshColor()
+LPD3DXCOLOR cPlayer::GetMeshColor()
 {
-	return m_mainColor;
+	return m_pMainColor;
 }
 
 DWORD cPlayer::RegisterAnimation(IN DWORD dwAnimationKey, IN LPD3DXANIMATIONSET pAnimation, IN float fSpeed)

@@ -20,7 +20,7 @@ void cUiTestScene::SetupDialogUi(void)
 		"Texture/Ui/dialog5.png", "Texture/Ui/dialog5.png");
 	m_pDialogBackImage->SetPosition(75, 300);
 	m_pDialogBackImage->SetDelegate(this);
-	m_pDialogBackImage->m_Alpha = 180;
+	//m_pDialogBackImage->m_Alpha = 180;
 	m_pDialogBackImage->SetTag(E_IMAGE_DIALOG);
 	m_pDialogUi = m_pDialogBackImage;
 
@@ -28,7 +28,7 @@ void cUiTestScene::SetupDialogUi(void)
 	m_pDialogNameText->SetText("태스트용 이름");
 	m_pDialogNameText->SetFontType(g_pFontManager->E_INBUTTON);
 	m_pDialogNameText->SetColor(D3DCOLOR_XRGB(0, 240, 240));
-	m_pDialogNameText->SetSize(ST_SIZE(200, 30));
+	m_pDialogNameText->SetSize(ST_SIZE(150, 50));
 	m_pDialogNameText->SetPosition(10, 5);
 	m_pDialogNameText->SetDrawTextFormat(DT_CENTER | DT_VCENTER | DT_WORDBREAK);
 	m_pDialogNameText->SetTag(E_TEXT_DIALOG_HEAD);
@@ -38,13 +38,13 @@ void cUiTestScene::SetupDialogUi(void)
 	m_pDialogText->SetText("대화창 태스트01");
 	m_pDialogText->SetFontType(g_pFontManager->E_INBUTTON);
 	m_pDialogText->SetColor(D3DCOLOR_XRGB(255, 255, 255));
-	m_pDialogText->SetSize(ST_SIZE(200, 100));
+	m_pDialogText->SetSize(ST_SIZE(150, 80));
 	m_pDialogText->SetPosition(20, 30);
 	m_pDialogText->SetDrawTextFormat(DT_CENTER | DT_VCENTER | DT_WORDBREAK);
 	m_pDialogText->SetTag(E_TEXT_DIALOG);
 	m_pDialogUi->AddChild(m_pDialogText);
 
-	int DialogButtonX = 310;
+	int DialogButtonX = 40;
 	int DialogButtonY = 145;
 	//대화창 이전 버튼
 	m_pDialogPrev = cUIButton::Create();
