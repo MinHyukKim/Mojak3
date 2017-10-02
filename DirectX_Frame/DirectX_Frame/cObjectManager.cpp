@@ -133,6 +133,7 @@ void cObjectManager::RegisterPlayer(IN cPlayer* pPlayer)
 	SAFE_RELEASE(m_pPlayer);
 	m_pPlayer = pPlayer;
 	m_pPlayer->SetRadius(0.3f);
+	m_pPlayer->GetAbilityParamter()->SetPower(2.25f);
 	m_pPlayer->RegisterAnimation(cPlayer::ANIMATION_IDLE_OFFENSIVE, g_pAnimationManager->GetAnimation("여성_기본02"));
 	m_pPlayer->RegisterAnimation(cPlayer::ANIMATION_WALK_FRIENDLY, g_pAnimationManager->GetAnimation("여성_걷기01"), 3.0f);
 	m_pPlayer->RegisterAnimation(cPlayer::ANIMATION_WALK_OFFENSIVE, g_pAnimationManager->GetAnimation("여성_걷기02"), 3.0f);
@@ -201,6 +202,7 @@ bool cObjectManager::CreateMonster(IN UNIT_TYPE eMonsterKey, IN LPD3DXVECTOR3 pP
 		pCreateMonster = cPlayer::Create();
 		pCreateMonster->Setup();
 		pCreateMonster->SetRadius(0.3f);
+		pCreateMonster->GetAbilityParamter()->SetPower(2.25f);
 		pCreateMonster->SetupAnimationController();
 		pCreateMonster->ChangeMeshPart(cPlayer::MESH_BODY, g_pSkinnedMeshManager->GetSkinnedMesh("임시몬스터"));
 		pCreateMonster->RegisterAnimation(cPlayer::ANIMATION_IDLE_FRIENDLY, g_pAnimationManager->GetAnimation("여성_기본01"));
@@ -222,7 +224,7 @@ bool cObjectManager::CreateMonster(IN UNIT_TYPE eMonsterKey, IN LPD3DXVECTOR3 pP
 		pCreateMonster->RegisterAnimation(cPlayer::ANIMATION_DOWN_TO_STAND, g_pAnimationManager->GetAnimation("여성_다운투스텐드"), 5.0f);
 		pCreateMonster->RegisterAnimation(cPlayer::ANIMATION_COUNTER, g_pAnimationManager->GetAnimation("여성_카운터"), 2.0f);
 		pCreateMonster->GetAbilityParamter()->SetPlayerID(2);
-		pCreateMonster->GetAbilityParamter()->SetUnitID(cObjectManager::MONSTER_TEXTER);
+		pCreateMonster->GetAbilityParamter()->SetUnitID(eMonsterKey);
 		pCreateMonster->OrderFriendly();
 	}	break;
 
@@ -231,7 +233,9 @@ bool cObjectManager::CreateMonster(IN UNIT_TYPE eMonsterKey, IN LPD3DXVECTOR3 pP
 		pCreateMonster = cPlayer::Create();
 		pCreateMonster->Setup();
 		pCreateMonster->SetRadius(0.3f);
+		pCreateMonster->GetAbilityParamter()->SetPower(3.0f);
 		pCreateMonster->SetupAnimationController("여우00");
+		pCreateMonster->GetAbilityParamter()->SetMoveSpeed(1.5f);
 		if (pColor)
 		{
 			char szText[1024] = {};
@@ -242,10 +246,10 @@ bool cObjectManager::CreateMonster(IN UNIT_TYPE eMonsterKey, IN LPD3DXVECTOR3 pP
 		else pCreateMonster->ChangeMeshPart(cPlayer::MESH_BODY, g_pSkinnedMeshManager->GetSkinnedMesh("여우01"));
 		pCreateMonster->RegisterAnimation(cPlayer::ANIMATION_IDLE_FRIENDLY, g_pAnimationManager->GetAnimation("여우_기본01"));
 		pCreateMonster->RegisterAnimation(cPlayer::ANIMATION_IDLE_OFFENSIVE, g_pAnimationManager->GetAnimation("여우_기본02"));
-		pCreateMonster->RegisterAnimation(cPlayer::ANIMATION_WALK_FRIENDLY, g_pAnimationManager->GetAnimation("여우_걷기"), 3.0f);
-		pCreateMonster->RegisterAnimation(cPlayer::ANIMATION_WALK_OFFENSIVE, g_pAnimationManager->GetAnimation("여우_걷기"), 3.0f);
-		pCreateMonster->RegisterAnimation(cPlayer::ANIMATION_RUN_FRIENDLY, g_pAnimationManager->GetAnimation("여우_달리기"), 3.0f);
-		pCreateMonster->RegisterAnimation(cPlayer::ANIMATION_RUN_OFFENSIVE, g_pAnimationManager->GetAnimation("여우_달리기"), 3.0f);
+		pCreateMonster->RegisterAnimation(cPlayer::ANIMATION_WALK_FRIENDLY, g_pAnimationManager->GetAnimation("여우_걷기"), 1.5f);
+		pCreateMonster->RegisterAnimation(cPlayer::ANIMATION_WALK_OFFENSIVE, g_pAnimationManager->GetAnimation("여우_걷기"), 1.5f);
+		pCreateMonster->RegisterAnimation(cPlayer::ANIMATION_RUN_FRIENDLY, g_pAnimationManager->GetAnimation("여우_달리기"), 1.5f);
+		pCreateMonster->RegisterAnimation(cPlayer::ANIMATION_RUN_OFFENSIVE, g_pAnimationManager->GetAnimation("여우_달리기"), 1.5f);
 		pCreateMonster->RegisterAnimation(cPlayer::ANIMATION_ATTACK_01, g_pAnimationManager->GetAnimation("여우_공격"), 5.0f);
 		pCreateMonster->RegisterAnimation(cPlayer::ANIMATION_ATTACK_02, g_pAnimationManager->GetAnimation("여우_공격"), 5.0f);
 		pCreateMonster->RegisterAnimation(cPlayer::ANIMATION_HIT_01, g_pAnimationManager->GetAnimation("여우_피격01"), 5.0f);
@@ -260,7 +264,7 @@ bool cObjectManager::CreateMonster(IN UNIT_TYPE eMonsterKey, IN LPD3DXVECTOR3 pP
 		pCreateMonster->RegisterAnimation(cPlayer::ANIMATION_COUNTER, g_pAnimationManager->GetAnimation("여우_카운터"), 2.0f);
 
 		pCreateMonster->GetAbilityParamter()->SetPlayerID(2);
-		pCreateMonster->GetAbilityParamter()->SetUnitID(cObjectManager::MONSTER_FOX);
+		pCreateMonster->GetAbilityParamter()->SetUnitID(eMonsterKey);
 		pCreateMonster->OrderFriendly();
 	}	break;
 
@@ -269,6 +273,7 @@ bool cObjectManager::CreateMonster(IN UNIT_TYPE eMonsterKey, IN LPD3DXVECTOR3 pP
 		pCreateMonster = cPlayer::Create();
 		pCreateMonster->Setup();
 		pCreateMonster->SetRadius(0.5f);
+		pCreateMonster->GetAbilityParamter()->SetPower(2.45f);
 		pCreateMonster->SetupAnimationController("사골");
 		if (pColor)
 		{
@@ -298,7 +303,7 @@ bool cObjectManager::CreateMonster(IN UNIT_TYPE eMonsterKey, IN LPD3DXVECTOR3 pP
 		pCreateMonster->RegisterAnimation(cPlayer::ANIMATION_COUNTER, g_pAnimationManager->GetAnimation("곰_카운터"), 2.0f);
 
 		pCreateMonster->GetAbilityParamter()->SetPlayerID(2);
-		pCreateMonster->GetAbilityParamter()->SetUnitID(cObjectManager::MONSTER_BEAR);
+		pCreateMonster->GetAbilityParamter()->SetUnitID(eMonsterKey);
 		pCreateMonster->OrderFriendly();
 	}	break;
 

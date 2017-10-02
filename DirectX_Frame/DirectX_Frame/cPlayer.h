@@ -214,14 +214,17 @@ public:
 
 
 	//액션 인공지능 함수
+	void ComputerAI(void);
 	void PlayerToTarget(float fRange);	//타겟변경
-	void TargetView(void) { this->SetDirection(&(m_pTarget->GetPosition() - this->GetPosition()));}
+	void TargetView(void) { if (m_pTarget) this->SetDirection(&(m_pTarget->GetPosition() - this->GetPosition())); }
 	void AutoTarget(float fRange);	//타겟변경
 	void GoToTarget(void);	//타겟에게 이동
 	void GoToTarget(float fSpeed);
 	void KeepToTarget(float fRange);	//타겟과 일정거리 유지
 	void KeepToTarget(float fRange, float fSpeed);
 	void RotationToTarget(float fAngle);	//타겟을 해당각도방향으로 직선이동합니다. (범위 : -D3DX_PI ~ D3DX_PI)
+	void RotationToTarget(cPlayer* pTarget, float fAngle, float Distance);
+	void RotationToTargetWalk(cPlayer* pTarget, float fAngle, float Distance);
 	void RotationToTarget(float fAngle, float fSpeed);
 	//조건 함수
 	bool DistSqTarget(OUT float* pDist); //타겟과 거리를 구하는 함수
