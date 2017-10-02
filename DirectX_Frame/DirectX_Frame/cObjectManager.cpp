@@ -266,7 +266,7 @@ bool cObjectManager::SaveMonsterObjectState(const char * filename)
 		D3DXVECTOR3 vPos = v->GetPosition();
 		DWORD test = v->GetAbilityParamter()->GetUnitID();
 		fprintf(fp, "%ld\n", &test);
-		fprintf(fp, "%f %f %f\n", &vPos.x, &vPos.y, &vPos.z);
+		fprintf(fp, "%f %f %f", vPos.x, vPos.y, vPos.z);
 	}
 
 	fclose(fp);
