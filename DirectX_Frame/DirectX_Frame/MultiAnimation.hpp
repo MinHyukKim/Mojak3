@@ -74,8 +74,7 @@ float4 PixScene(
 	//DrawColor = DrawColor * (float4(0.5f, 0.4f, 0.3f, 1.0f) + color.rgba * 2.0f / 3.0f + 0.66f);
 	//DrawColor.rgb = (DrawColor.rgb + specular.rgb) * 0.5f;
 	//DrawColor.rgb = (DrawColor.rgb + color.rgb + specular) / 3.0f;
-	DrawColor.rgb = (DrawColor.rgb + color.rgb) / 2.0f;
-	DrawColor.a = DrawColor.a * color.a;
+	//DrawColor.rgb = (DrawColor.rgb + color.rgb) / 2.0f;
 	return DrawColor;
 }
 
