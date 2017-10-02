@@ -46,7 +46,6 @@ private:
 	float m_fFood;				//배고픔
 	float m_fAttackRange;		//공격범위
 	float m_fDownGauge;			//다운게이지 9.0(밀림), 1.2(넘어짐)
-	float m_fPower;				//파워
 	float m_fMoveSpeed;			//이동속도
 
 	float m_fDelayTime;			//인공지능 유효시간
@@ -145,9 +144,6 @@ public:
 	//다운게이지
 	void SetDownGauge(float fValue) { m_fDownGauge = fValue; }
 	float GetDownGauge(void) { return m_fDownGauge; }
-	//게이지 증가량
-	void SetPower(float fValue) { m_fPower = fValue; }
-	float GetPower(void) { return m_fPower; }
 	//이동속도
 	void SetMoveSpeed(float fValue) { m_fMoveSpeed = fValue; }
 	float GetMoveSpeed(void) { return m_fMoveSpeed; }

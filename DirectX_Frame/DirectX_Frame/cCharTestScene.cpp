@@ -106,7 +106,6 @@ void cCharTestScene::Update(void)
 		}
 	}
 	
-	//임시 테스트용 AI 컨트롤러
 	if (g_pInputManager->IsOnceKeyDown(VK_SPACE))
 	{
 		g_pObjectManager->GetPlayer()->OrderIdenChange();

@@ -62,7 +62,15 @@ void cPlayer::Update(void)
 	//타겟 상태 확인후 유효하지 않으면 해제
 	if (m_pTarget && !m_pTarget->GetAbilityParamter()->IsEffective()) m_pTarget->Release();
 	if (!m_AbilityParamter.IsEffective()) return;
-	if (2 == m_AbilityParamter.GetPlayerID()) this->ComputerAI(); // AI 함수
+
+	// 패턴에 따른 업데이트
+//	switch (m_dwNumPattern)
+//	{
+//	case cPlayer::ORDER_NULL: break;
+//	case 1: break;
+//	case 2: break;
+//	default: break;
+//	}
 	this->PatternUpdate();
 }
 
@@ -107,8 +115,8 @@ void cPlayer::SetupFriendly(void)
 void cPlayer::SetupOffnsive(void)
 {
 	m_dwNumRealdyState = 0;
-	this->SetRealdyTrue(PATTERN_ATTACK | PATTERN_WALK | PATTERN_RUN | PATTERN_OFFENSIVE);
-	this->SetRealdyFalse(PATTERN_FRIENDLY);
+ 	this->SetStateTrue(PATTERN_OFFENSIVE);
+	this->SetStateFalse(PATTERN_FRIENDLY);
 	this->SetBlendingAnimation(cPlayer::ANIMATION_IDLE_OFFENSIVE);
 }
 
@@ -131,8 +139,8 @@ void cPlayer::SetupHit(void)
 	}
 	this->GetAbilityParamter()->SetDelayTime(fDelay - 0.1f);
 
-//	this->SetRealdyTrue(PATTERN_ATTACK | PATTERN_WALK | PATTERN_RUN | PATTERN_OFFENSIVE);
-//	this->SetRealdyFalse(PATTERN_FRIENDLY);
+	this->SetRealdyTrue(PATTERN_ATTACK | PATTERN_WALK | PATTERN_RUN | PATTERN_OFFENSIVE);
+	this->SetRealdyFalse(PATTERN_FRIENDLY);
 	this->SetRealdyState(cPlayer::ORDER_OFFENSIVE);
 }
 
@@ -180,19 +188,11 @@ void cPlayer::PatternUpdate(void)
 	m_AbilityParamter.Update();
 	SAFE_UPDATE(m_pActionMove);
 	SAFE_UPDATE(m_pActionDirection);
-
-	if (m_pActionMove && !m_pActionMove->IsPlay())
+	if (this->CheckState(PATTERN_STOP))
 	{
-		if (this->CheckState(PATTERN_STOP))
+		if (m_pActionMove && !m_pActionMove->IsPlay())
 		{
 			this->OrderIden();
-		}
-		else if(this->CheckState(PATTERN_OFFENSIVE))
-		{
-			if (m_pActionDirection && !m_pActionDirection->IsPlay())
-			{
-				this->TargetView();
-			}
 		}
 	}
 	// 타겟을 추적중일때
@@ -257,22 +257,18 @@ void cPlayer::OrderTarget(void)
 	float fDistSq;
 	if (this->DistSqTarget(&fDistSq))
 	{
-		//타겟이 있을때
 		if (this->CheckState(PATTERN_ATTACK))
 		{
-			//공격모드일때
 			if (fDistSq > m_AbilityParamter.GetRangeSq())
 			{
-				//공격범위 밖에 있을경우
 				this->SetStateTrue(PATTERN_TARGET);
 				this->OrderMove(&m_pTarget->GetPosition());
 			}
-			else if (!m_dwNumRealdyState)
+			else
 			{
-				//공격범위 안에 있을경우
 				//공격 준비
-				this->OrderIden();
-				//this->SetDirection(&(m_pTarget->GetPosition() - this->GetPosition()));
+				this->MoveStop();
+				this->SetDirection(&(m_pTarget->GetPosition() - this->GetPosition()));
 				this->SetStateFalse(PATTERN_TARGET | PATTERN_STOP | PATTERN_ATTACK | PATTERN_WALK | PATTERN_RUN);
 				float fDelay = 0.0f;
 
@@ -283,10 +279,10 @@ void cPlayer::OrderTarget(void)
 					this->SetRealdyFalse(PATTERN_SMASH);
 
 					//피격
-					m_pTarget->OrderIden();
+					m_pTarget->MoveStop();
 					m_pTarget->SetTarget(this);
 					m_pTarget->Rotation(&(this->GetPosition() - m_pTarget->GetPosition()), 20.0f);
-					m_pTarget->SetStateFalse(PATTERN_TARGET | PATTERN_ATTACK | PATTERN_WALK | PATTERN_RUN | PATTERN_STOP);
+					m_pTarget->SetStateFalse(PATTERN_ATTACK | PATTERN_WALK | PATTERN_RUN | PATTERN_STOP);
 
 					if (m_pTarget->CheckState(PATTERN_COUNTER))
 					{
@@ -330,10 +326,10 @@ void cPlayer::OrderTarget(void)
 					else  fDelay = this->SetBlendingAnimation(cPlayer::ANIMATION_ATTACK_02);
 
 					//통상 피격
-					m_pTarget->OrderIden();
+					m_pTarget->MoveStop();
 					m_pTarget->SetTarget(this);
 					m_pTarget->Rotation(&(this->GetPosition() - m_pTarget->GetPosition()), 20.0f);
-					m_pTarget->SetStateFalse(PATTERN_TARGET | PATTERN_ATTACK | PATTERN_WALK | PATTERN_RUN | PATTERN_STOP);
+					m_pTarget->SetStateFalse(PATTERN_ATTACK | PATTERN_WALK | PATTERN_RUN | PATTERN_STOP);
 
 					if (m_pTarget->CheckState(PATTERN_COUNTER))
 					{
@@ -361,7 +357,7 @@ void cPlayer::OrderTarget(void)
 						this->SetRealdyState(cPlayer::ORDER_OFFENSIVE);
 						//피격
 						m_pTarget->GetAbilityParamter()->SetDelayTime(fDelay * 0.3f);
-						m_pTarget->GetAbilityParamter()->SetDownGauge(m_pTarget->GetAbilityParamter()->GetDownGauge() + this->GetAbilityParamter()->GetPower());
+						m_pTarget->GetAbilityParamter()->SetDownGauge(m_pTarget->GetAbilityParamter()->GetDownGauge() + 2.25f);
 
 						m_pTarget->SetRealdyState(cPlayer::ORDER_HIT);
 						m_pTarget->SetParam(0);
@@ -370,7 +366,7 @@ void cPlayer::OrderTarget(void)
 			}
 		}
 	}
-	else this->OrderIden();
+	else this->MoveStop();
 }
 
 void cPlayer::OrderIden(void)
@@ -757,108 +753,6 @@ void cPlayer::MoveStop(void)
 }
 
 
-void cPlayer::ComputerAI(void)
-{
-	if (this->CheckState(PATTERN_FRIENDLY))
-	{
-		//일상 모드일때
-		if (m_AbilityParamter.IsDelayEnd())
-		{
-			//지연시간이 없으면
-			float fFriendlyRange = 10.0f;
-			if (!this->DistTarget(1, fFriendlyRange))
-			{
-				//'플레이어'와 거리가 '10.0f' 미만일때 ('1'와 거리가 'fFriendlyRange' 이상이 아닐때)
-				float fOffensiveRange = 5.0f;
-				if (this->DistTarget(1, fFriendlyRange))
-				{
-					//'플레이어'와 거리가 '5.0f' 이상일때 ('1'와 거리가 'fOffensiveRange' 이상일때)
-					RotationToTargetWalk(this, g_pMath->Random(-D3DX_PI, D3DX_PI), g_pMath->Random(10.0f));
-					m_AbilityParamter.SetDelayTime(g_pMath->Random(3.0f, 8.0f));
-				}
-				else
-				{
-					//'플레이어'와 거리가 '5.0f' 미만일때 ('1'와 거리가 'fOffensiveRange' 이상이 아닐때)
-					if (g_pMath->Random(8))
-					{
-						RotationToTargetWalk(g_pObjectManager->GetPlayer(), g_pMath->Random(-1.0f, 1.0f), g_pMath->Random(1.0f, 10.0f));
-						m_AbilityParamter.SetDelayTime(g_pMath->Random(5.0f, 10.0f));
-					}
-					else
-					{
-						SAFE_RELEASE(m_pTarget);
-						m_pTarget = g_pObjectManager->GetPlayer();
-						SAFE_ADDREF(m_pTarget);
-						this->OrderIdenChange();
-					}
-				}
-			}
-		}
-	}
-	else if (this->CheckState(PATTERN_OFFENSIVE))
-	{
-		//전투 모드일때
-		if ( ! this->DistTarget(3, 5.0f))
-		{
-			//타겟과 거리가 5.0f 초과일때
-			this->OrderIdenChange();
-		}
-		else if ( ! this->CheckState(PATTERN_TARGET))
-		{
-			//공격하려 가는중이 아닐때
-			if (this->m_AbilityParamter.IsDelayEnd())
-			{
-				if (this->CheckState(PATTERN_COUNTER))
-				{
-					this->SetStateTrue(PATTERN_WALK | PATTERN_RUN);
-					this->SetStateFalse(PATTERN_COUNTER);
-				}
-				//지연시간이 없으면
-				if (this->DistTarget(3, m_AbilityParamter.GetRange() + 0.01f))
-				{
-					//타겟이 공격범위 안에 있을경우
-					this->OrderAttack(m_pTarget);
-				}
-				else
-				{
-					//타겟이 공격범위 밖에 있을경우
-					switch (g_pMath->Random(5))
-					{
-					case 0:
-						//아무것도 하지않고 3~8초 쉰다.
-						this->m_AbilityParamter.SetDelayTime(g_pMath->Random(3.0f, 8.0f));
-						break;
-
-					case 1:
-						//타겟에게 강한 공격한다.
-						this->OrderAttack(m_pTarget);
-						this->SetStateTrue(PATTERN_SMASH);
-						break;
-
-					case 2:
-						//일정시간동안 공격에 대비한다.
-						this->SetStateTrue(PATTERN_COUNTER);
-						this->SetStateFalse(PATTERN_WALK | PATTERN_RUN);
-						this->m_AbilityParamter.SetDelayTime(g_pMath->Random(3.0f, 8.0f));
-						break;
-
-					case 3:
-						//타겟 주위를 맴돈다.
-						this->RotationToTarget(g_pMath->Random(-1.5f,1.5f));
-						this->m_AbilityParamter.SetDelayTime(g_pMath->Random(1.0f, 3.0f));
-						break;
-
-					default:
-						//타겟에게 일반 공격한다.
-						this->OrderAttack(m_pTarget);
-						break;
-					}
-				}
-			}
-		}
-	}
-}
-
 void cPlayer::PlayerToTarget(float fRange)
 {
 	cPlayer* pPlayer = g_pObjectManager->GetPlayer();
@@ -926,31 +820,7 @@ void cPlayer::RotationToTarget(float fAngle)
 	D3DXMATRIXA16 matR;
 	if (vDir == D3DXVECTOR3(0.0f, 0.0f, 0.0f)) vDir = m_pActionMove->GetDirection();
 	D3DXVec3TransformCoord(&vDir, &vDir, D3DXMatrixRotationY(&matR, fAngle));
-//	this->m_pActionMove->SetToPlay(&(m_pTarget->GetPosition() + vDir), m_AbilityParamter.GetMoveSpeed());
-	OrderMove(&(m_pTarget->GetPosition() + vDir));
-}
-
-void cPlayer::RotationToTarget(cPlayer* pTarget, float fAngle, float Distance)
-{
-	if (!pTarget || !m_pActionMove) return;
-	D3DXVECTOR3 vDir;
-	D3DXMATRIXA16 matR;
-	if (this == pTarget) D3DXVec3Normalize(&vDir, &this->GetDirection());
-	else D3DXVec3Normalize(&vDir, &(this->GetPosition() - pTarget->GetPosition()));
-	if (vDir == D3DXVECTOR3(0.0f, 0.0f, 0.0f)) vDir = m_pActionMove->GetDirection();
-	D3DXVec3TransformCoord(&vDir, &vDir, D3DXMatrixRotationY(&matR, fAngle));
-	this->OrderMove(&(pTarget->GetPosition() + vDir * Distance));
-}
-void cPlayer::RotationToTargetWalk(cPlayer* pTarget, float fAngle, float Distance)
-{
-	if (!pTarget || !m_pActionMove) return;
-	D3DXVECTOR3 vDir;
-	D3DXMATRIXA16 matR;
-	if (this == pTarget) D3DXVec3Normalize(&vDir, &this->GetDirection());
-	else D3DXVec3Normalize(&vDir, &(this->GetPosition() - pTarget->GetPosition()));
-	if (vDir == D3DXVECTOR3(0.0f, 0.0f, 0.0f)) vDir = m_pActionMove->GetDirection();
-	D3DXVec3TransformCoord(&vDir, &vDir, D3DXMatrixRotationY(&matR, fAngle));
-	this->OrderWalk(&(pTarget->GetPosition() + vDir * Distance));
+	this->m_pActionMove->SetToPlay(&(m_pTarget->GetPosition() + vDir), m_AbilityParamter.GetMoveSpeed());
 }
 
 void cPlayer::RotationToTarget(float fAngle, float fSpeed)
