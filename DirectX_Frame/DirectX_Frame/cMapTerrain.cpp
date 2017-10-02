@@ -42,7 +42,7 @@ HRESULT cMapTerrain::Setup(IN LPCSTR szHeightMapName, IN D3DXMATERIAL* pMaterial
 void cMapTerrain::Update(void)
 {
 	//서핑보드만 컬링조절
-	m_dwTriangles = m_pQuadTree->GenerateIndex(&m_vecIndex[0], &m_vecPosition, g_pFrustum, m_dwUnit);
+	m_dwTriangles = m_pQuadTree->GenerateIndex(&m_vecIndex[0], &m_vecPosition, g_pFrustum);
 //	if (g_pInputManager->IsOnceKeyDown(VK_SPACE))
 //	{
 //		LPDWORD pIndex;

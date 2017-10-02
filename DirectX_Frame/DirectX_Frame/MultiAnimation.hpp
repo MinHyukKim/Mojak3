@@ -69,6 +69,7 @@ float4 PixScene(
 		float intensity = (DrawColor.r * 0.3 + DrawColor.g * 0.59 + DrawColor.b * 0.11) - 0.5f;
 		if (intensity < 0.0f) intensity = 0.0f;
 		DrawColor.rgb = ((DrawColor.rgb * 2.0f * color.rgb) * (1.0f - intensity * 2.0f)) + (intensity * 2.0f);
+		DrawColor.a = DrawColor.a * color.a;
 	}
 	//DrawColor = DrawColor * (float4(0.5f, 0.4f, 0.3f, 1.0f) + color.rgba * 2.0f / 3.0f + 0.66f);
 	//DrawColor.rgb = (DrawColor.rgb + specular.rgb) * 0.5f;
