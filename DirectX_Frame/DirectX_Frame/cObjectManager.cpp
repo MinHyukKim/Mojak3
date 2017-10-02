@@ -35,6 +35,18 @@ void cObjectManager::Update(void)
 			pMonster->SetPosY(fHeight);
 		}
 	}
+	//NPC
+	for each (auto pNPC in m_vecNPC)
+	{
+		pNPC->Update();
+		if (m_pTerrain)
+		{
+			float fHeight = pNPC->GetPosY();
+			m_pTerrain->GetHeight(&fHeight, pNPC->GetPosX(), pNPC->GetPosZ());
+			pNPC->SetPosY(fHeight);
+		}
+	}
+
 	for each (auto pRelease in m_vecRelease)
 	{
 		for (std::vector<cPlayer*>::iterator it = m_vecMonster.begin(); it != m_vecMonster.end(); it++)
@@ -69,6 +81,10 @@ void cObjectManager::monsterRender(void)
 	for each (auto pMonster in m_vecMonster)
 	{
 		pMonster->Render();
+	}
+	for each (auto pNPC in m_vecNPC)
+	{
+		pNPC->Render();
 	}
 }
 
@@ -149,6 +165,7 @@ void cObjectManager::RegisterPlayer(IN cPlayer* pPlayer)
 {
 	SAFE_RELEASE(m_pPlayer);
 	m_pPlayer = pPlayer;
+	m_pPlayer->SetRadius(0.3f);
 	m_pPlayer->RegisterAnimation(cPlayer::ANIMATION_IDLE_OFFENSIVE, g_pAnimationManager->GetAnimation("¿©¼º_±âº»02"));
 	m_pPlayer->RegisterAnimation(cPlayer::ANIMATION_WALK_FRIENDLY, g_pAnimationManager->GetAnimation("¿©¼º_°È±â01"), 3.0f);
 	m_pPlayer->RegisterAnimation(cPlayer::ANIMATION_WALK_OFFENSIVE, g_pAnimationManager->GetAnimation("¿©¼º_°È±â02"), 3.0f);
@@ -253,6 +270,7 @@ bool cObjectManager::CreateMonster(IN UNIT_TYPE eMonsterKey, IN LPD3DXVECTOR3 pP
 	{
 		pCreateMonster = cPlayer::Create();
 		pCreateMonster->Setup();
+		pCreateMonster->SetRadius(0.3f);
 		pCreateMonster->SetupAnimationController();
 		pCreateMonster->ChangeMeshPart(cPlayer::MESH_BODY, g_pSkinnedMeshManager->GetSkinnedMesh("ÀÓ½Ã¸ó½ºÅÍ"));
 		pCreateMonster->RegisterAnimation(cPlayer::ANIMATION_IDLE_FRIENDLY, g_pAnimationManager->GetAnimation("¿©¼º_±âº»01"));
@@ -282,11 +300,12 @@ bool cObjectManager::CreateMonster(IN UNIT_TYPE eMonsterKey, IN LPD3DXVECTOR3 pP
 	{
 		pCreateMonster = cPlayer::Create();
 		pCreateMonster->Setup();
+		pCreateMonster->SetRadius(0.3f);
 		pCreateMonster->SetupAnimationController("¿©¿ì00");
 		if (pColor)
 		{
 			char szText[1024] = {};
-			sprintf_s(szText,"¿©¿ì(%1.2f,%1.2f,%1.2f,%1.2f)", pColor->r, pColor->g, pColor->b, pColor->a);
+			sprintf_s(szText, "¿©¿ì(%1.2f,%1.2f,%1.2f,%1.2f)", pColor->r, pColor->g, pColor->b, pColor->a);
 			pCreateMonster->ChangeMeshPart(cPlayer::MESH_BODY, g_pSkinnedMeshManager->CloneSkinnedMesh("¿©¿ì01", szText));
 			pCreateMonster->ChangeMeshPartColor(cPlayer::MESH_BODY, "mon_fox02.dds", pColor);
 		}
@@ -315,6 +334,44 @@ bool cObjectManager::CreateMonster(IN UNIT_TYPE eMonsterKey, IN LPD3DXVECTOR3 pP
 		pCreateMonster->OrderFriendly();
 	}	break;
 
+	case cObjectManager::MONSTER_BEAR:
+	{
+		pCreateMonster = cPlayer::Create();
+		pCreateMonster->Setup();
+		pCreateMonster->SetRadius(0.5f);
+		pCreateMonster->SetupAnimationController("»ç°ñ");
+		if (pColor)
+		{
+			char szText[1024] = {};
+			sprintf_s(szText, "°õ(%1.2f,%1.2f,%1.2f,%1.2f)", pColor->r, pColor->g, pColor->b, pColor->a);
+			pCreateMonster->ChangeMeshPart(cPlayer::MESH_BODY, g_pSkinnedMeshManager->CloneSkinnedMesh("°õÅÁ", szText));
+			pCreateMonster->ChangeMeshPartColor(cPlayer::MESH_BODY, "mon_bear02.dds", pColor);
+		}
+		else pCreateMonster->ChangeMeshPart(cPlayer::MESH_BODY, g_pSkinnedMeshManager->GetSkinnedMesh("°õÅÁ"));
+		pCreateMonster->RegisterAnimation(cPlayer::ANIMATION_IDLE_FRIENDLY, g_pAnimationManager->GetAnimation("°õ_±âº»01"));
+		pCreateMonster->RegisterAnimation(cPlayer::ANIMATION_IDLE_OFFENSIVE, g_pAnimationManager->GetAnimation("°õ_±âº»02"));
+		pCreateMonster->RegisterAnimation(cPlayer::ANIMATION_WALK_FRIENDLY, g_pAnimationManager->GetAnimation("°õ_°È±â"), 3.0f);
+		pCreateMonster->RegisterAnimation(cPlayer::ANIMATION_WALK_OFFENSIVE, g_pAnimationManager->GetAnimation("°õ_°È±â"), 3.0f);
+		pCreateMonster->RegisterAnimation(cPlayer::ANIMATION_RUN_FRIENDLY, g_pAnimationManager->GetAnimation("°õ_´Þ¸®±â"), 3.0f);
+		pCreateMonster->RegisterAnimation(cPlayer::ANIMATION_RUN_OFFENSIVE, g_pAnimationManager->GetAnimation("°õ_´Þ¸®±â"), 3.0f);
+		pCreateMonster->RegisterAnimation(cPlayer::ANIMATION_ATTACK_01, g_pAnimationManager->GetAnimation("°õ_°ø°Ý01"), 5.0f);
+		pCreateMonster->RegisterAnimation(cPlayer::ANIMATION_ATTACK_02, g_pAnimationManager->GetAnimation("°õ_°ø°Ý02"), 5.0f);
+		pCreateMonster->RegisterAnimation(cPlayer::ANIMATION_HIT_01, g_pAnimationManager->GetAnimation("°õ_ÇÇ°Ý01"), 5.0f);
+		pCreateMonster->RegisterAnimation(cPlayer::ANIMATION_HIT_02, g_pAnimationManager->GetAnimation("°õ_ÇÇ°Ý02"), 5.0f);
+		pCreateMonster->RegisterAnimation(cPlayer::ANIMATION_ENDURE_01, g_pAnimationManager->GetAnimation("°õ_¹Ð·Á³²"), 5.0f);
+		pCreateMonster->RegisterAnimation(cPlayer::ANIMATION_ENDURE_02, g_pAnimationManager->GetAnimation("°õ_¹Ð·Á³²"), 5.0f);
+		pCreateMonster->RegisterAnimation(cPlayer::ANIMATION_SMASH, g_pAnimationManager->GetAnimation("°õ_½º¸Å½Ã"), 5.0f);
+		pCreateMonster->RegisterAnimation(cPlayer::ANIMATION_SPIN, g_pAnimationManager->GetAnimation("°õ_½ºÇÉ"), 4.0f);
+		pCreateMonster->RegisterAnimation(cPlayer::ANIMATION_GROGGY, g_pAnimationManager->GetAnimation("°õ_±×·Î±â"), 5.0f);
+		pCreateMonster->RegisterAnimation(cPlayer::ANIMATION_DOWND, g_pAnimationManager->GetAnimation("°õ_´Ù¿îµå"), 5.0f);
+		pCreateMonster->RegisterAnimation(cPlayer::ANIMATION_DOWN_TO_STAND, g_pAnimationManager->GetAnimation("°õ_´Ù¿îÅõ½ºÅÙµå"), 5.0f);
+		pCreateMonster->RegisterAnimation(cPlayer::ANIMATION_COUNTER, g_pAnimationManager->GetAnimation("°õ_Ä«¿îÅÍ"), 2.0f);
+
+		pCreateMonster->GetAbilityParamter()->SetPlayerID(2);
+		pCreateMonster->GetAbilityParamter()->SetUnitID(cObjectManager::MONSTER_BEAR);
+		pCreateMonster->OrderFriendly();
+	}	break;
+
 	default: break;
 	}
 
@@ -331,14 +388,23 @@ bool cObjectManager::CreateNPC(IN UNIT_TYPE eNPCKey, IN LPD3DXVECTOR3 pPostion)
 	cPlayer* pCreateNPC = nullptr;
 	switch (eNPCKey)
 	{
-	case cObjectManager::MONSTER_NULL: break;
+		case cObjectManager::MONSTER_NULL: break;
 		case cObjectManager::NPC_NAO:
 		{
 			pCreateNPC = cPlayer::Create();
-			
+			pCreateNPC->Setup();
+			pCreateNPC->SetupAnimationController("³ª¿À´õ¹Ì");
+			pCreateNPC->ChangeMeshPart(cPlayer::MESH_BODY, g_pSkinnedMeshManager->GetSkinnedMesh("³ª¿À¸Þ½Ã"));
+
 			pCreateNPC->GetAbilityParamter()->SetPlayerID(3);
 			pCreateNPC->GetAbilityParamter()->SetUnitID(2);
 		}
+	}
+
+	if (pCreateNPC)
+	{
+		pCreateNPC->SetPosition(pPostion);
+		m_vecNPC.push_back(pCreateNPC);
 	}
 
 	return false;
@@ -358,7 +424,15 @@ void cObjectManager::Destroy(void)
 		pMonster->GetAbilityParamter()->SetEffective(false);
 		pMonster->Release();
 	}
+	//NPC
+	for each(auto pNPC in m_vecNPC)
+	{
+		pNPC->SetTarget(nullptr);
+		pNPC->GetAbilityParamter()->SetEffective(false);
+		pNPC->Release();
+	}
 	SAFE_RELEASE(m_pSelectMonster);
 	m_vecMonster.clear();
+	m_vecNPC.clear();
 }
 

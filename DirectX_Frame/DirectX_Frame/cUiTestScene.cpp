@@ -94,8 +94,10 @@ cUiTestScene::cUiTestScene(void)
 	//대화창
 	, m_pDialogUi(NULL)
 	, m_isDialogOpen(false)
-	//대화창 종류
-	, m_eTextKind(E_TEXT_NONE)
+	//대화NPC 종류
+	, m_eDialogNPCKind(E_DIALOG_NPC_NONE)
+	//대화 순서
+	, m_eDialogText(E_TEXT_01)
 {
 	D3DXMatrixIdentity(&m_matWorldMatrix);
 	m_vecTempPlayerItem.reserve(INVMAX);
@@ -325,6 +327,7 @@ bool cUiTestScene::GetMoveingOK()
 	if (m_pInventoryUiImage->isOver) return false;
 	if (m_pDialogBackImage->isOver) return false;
 	
+	if (m_isInfoWindowOn == false) return true;
 	return true;
 }
 
@@ -365,11 +368,11 @@ void cUiTestScene::OnClick(cUIButton * pSender)
 	}
 	else if (pSender->GetTag() == E_MAIN_BUTTON_INVENTORY)
 	{
-	//	if (m_isInventoryWindowOn == false)
-	//	{
-		//	m_pInventoryUiMoveing->isOver = false;
-		//	m_pInventoryUiImage->isOver = false;
-	//	}
+		if (m_isInventoryWindowOn == false)
+		{
+			m_pInventoryUiMoveing->isOver = false;
+			m_pInventoryUiImage->isOver = false;
+		}
 		m_isInventoryWindowOn = !m_isInventoryWindowOn;
 	}
 	else if (pSender->GetTag() == E_MAIN_BUTTON_MIN)
@@ -383,24 +386,43 @@ void cUiTestScene::OnClick(cUIButton * pSender)
 
 	else if (pSender->GetTag() == E_BUTTON_INFO_CLOSE)
 	{
-	//	if (m_isInfoWindowOn) m_isInfoWindowOn = false;
+		if (m_isInfoWindowOn == false)
+		{
+			m_pInfoUiMoveing->isOver = false;
+			m_pInfoUiImage->isOver = false;
+			m_pInfoCloseButton->isOver = false;
+		}
 		m_isInfoWindowOn = !m_isInfoWindowOn;
 	}
 	else if (pSender->GetTag() == E_BUTTON_SKILL_CLOSE)
 	{
-	//	if (m_isSkillWindowOn) m_isSkillWindowOn = false;
+		if (m_isSkillWindowOn == false)
+		{
+			m_pSkillCloseButton->isOver = false;
+		}
 		m_isSkillWindowOn = !m_isSkillWindowOn;
 	}
 	else if (pSender->GetTag() == E_BUTTON_QUEST_CLOSE)
 	{
-	//	if (m_isQuestWindowOn) m_isQuestWindowOn = false;
+		if (m_isQuestWindowOn == false)
+		{
+			m_pQuestCloseButton->isOver = false;
+		}
 		m_isQuestWindowOn = !m_isQuestWindowOn;
 	}
 	else if (pSender->GetTag() == E_BUTTON_INVENTORY_CLOSE)
 	{
-	//	if (m_isInventoryWindowOn) m_isInventoryWindowOn = false;
+		if (m_isInventoryWindowOn == false)
+		{
+			m_pInventoryCloseButton->isOver = false;
+		}
 		m_isInventoryWindowOn = !m_isInventoryWindowOn;
 	}
+	//대화창 관련
+//	if (m_isDialogOpen && m_eDialogNPCKind == E_DIALOG_NPC_NAO)
+//	{
+//
+//	}
 
 }
 

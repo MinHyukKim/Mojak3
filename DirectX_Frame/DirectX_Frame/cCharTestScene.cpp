@@ -52,12 +52,13 @@ HRESULT cCharTestScene::Setup(void)
 	m_pUi = cUiTestScene::Create();
 	m_pUi->Setup();
 
-	g_pObjectManager->CreateMonster(cObjectManager::MONSTER_FOX, &D3DXVECTOR3(-2.0f, 0.0f, 5.0f), &MONSTERCOLOR_BROWN);
-	g_pObjectManager->CreateMonster(cObjectManager::MONSTER_FOX, &D3DXVECTOR3(0.0f, 0.0f, 5.0f), &MONSTERCOLOR_GRAY);
-	g_pObjectManager->CreateMonster(cObjectManager::MONSTER_FOX, &D3DXVECTOR3(2.0f, 0.0f, 5.0f), &MONSTERCOLOR_RED);
+	g_pObjectManager->CreateMonster(cObjectManager::MONSTER_FOX, &D3DXVECTOR3(-2.0f, 0.0f, 5.0f), &FOX_BROWN);
+	g_pObjectManager->CreateMonster(cObjectManager::MONSTER_FOX, &D3DXVECTOR3(0.0f, 0.0f, 4.0f), &FOX_GRAY);
+	g_pObjectManager->CreateMonster(cObjectManager::MONSTER_FOX, &D3DXVECTOR3(2.0f, 0.0f, 5.0f), &FOX_RED);
+	g_pObjectManager->CreateMonster(cObjectManager::MONSTER_BEAR, &D3DXVECTOR3(0.0f, 0.0f, 7.0f), &BEAR_BLACK);
 
 	//npcÅÂ½ºÆ®
-
+	g_pObjectManager->CreateNPC(cObjectManager::NPC_NAO, &D3DXVECTOR3(-3.0f, 0.0f, 5.0f));
 
 	return S_OK;
 }
@@ -114,6 +115,22 @@ void cCharTestScene::Update(void)
 		g_pObjectManager->GetPlayer()->SetStateTrue(PATTERN_SMASH);
 	}
 	if (g_pInputManager->IsOnceKeyDown('2'))
+	{
+		g_pObjectManager->GetPlayer()->SetStateTrue(PATTERN_COUNTER);
+	}
+	if (g_pInputManager->IsOnceKeyDown('3'))
+	{
+		g_pObjectManager->GetPlayer()->GetTarget()->OrderIdenChange();
+	}
+	if (g_pInputManager->IsOnceKeyDown('4'))
+	{
+		g_pObjectManager->GetPlayer()->GetTarget()->OrderAttack(g_pObjectManager->GetPlayer());
+	}
+	if (g_pInputManager->IsOnceKeyDown('5'))
+	{
+		g_pObjectManager->GetPlayer()->GetTarget()->SetStateTrue(PATTERN_SMASH);
+	}
+	if (g_pInputManager->IsOnceKeyDown('6'))
 	{
 		g_pObjectManager->GetPlayer()->GetTarget()->SetStateTrue(PATTERN_COUNTER);
 	}

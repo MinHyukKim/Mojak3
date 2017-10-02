@@ -5,9 +5,10 @@
 
 //NPC
 //npc 더미
-Mesh:./Chareter/NPC/,npc_bone_nao.X, 나오더미;
+Mesh:./Chareter/NPC/,npc_bone_nao.X,나오더미;
 //전체 매시
-Mesh:./Chareter/NPC/,npc_mesh_base_nao.X, 나오메시;
+Mesh:./Chareter/NPC/,npc_mesh_base_nao.X,나오메시;
+//
 
 //더미
 Mesh:./Chareter/DefaultPlayer/,Female_Bone26_Dummy.X,더미;
@@ -67,7 +68,7 @@ Animation:./Animation/ani_female_endure_01.X,여성_밀려남01;
 Animation:./Animation/ani_female_endure_02.X,여성_밀려남02;
 Animation:./Animation/Female_Smash.X,여성_스매시;
 Animation:./Animation/ani_female_blow_turn.X,여성_스핀;
-Animation:./Animation/ani_female_groggy.X,여성_그로기;
+Animation:./Animation/FemaleGroggy.X,여성_그로기;
 Animation:./Animation/ani_female_down.X,여성_다운드;
 Animation:./Animation/ani_female_down_to_stand.X,여성_다운투스텐드;
 Animation:./Animation/ani_female_counter.X,여성_카운터;
@@ -108,3 +109,25 @@ Animation:./Monster/Fox/FoxCounter.X,여우_카운터;
 Mesh:./Monster/Fox/,FoxMeshEx.X,여우01;
 Color:여우01,mon_fox02.dds, 0.6f, 0.2f, 0.2f, 1.0f;
 Color:여우01,mon_skeleton01_eyes.dds, 0.5f, 0.5f, 0.2f, 1.0f;
+
+//곰
+Mesh:./Monster/Bear/,BearFrame.X,사골;
+Animation:./Monster/Bear/BearStand01.X,곰_기본01;
+Animation:./Monster/Bear/BearStand02.X,곰_기본02;
+Animation:./Monster/Bear/BearWalk.X,곰_걷기;
+Animation:./Monster/Bear/BearRun.X,곰_달리기;
+Animation:./Monster/Bear/BearAttack01.X,곰_공격01;
+Animation:./Monster/Bear/BearAttack02.X,곰_공격02;
+Animation:./Monster/Bear/BearHit01.X,곰_피격01;
+Animation:./Monster/Bear/BearHit02.X,곰_피격02;
+Animation:./Monster/Bear/BearEndure.X,곰_밀려남;
+Animation:./Monster/Bear/BearSmash.X,곰_스매시;
+Animation:./Monster/Bear/BearSpin.X,곰_스핀;
+Animation:./Monster/Bear/BearGroggy.X,곰_그로기;
+Animation:./Monster/Bear/BearDownd.X,곰_다운드;
+Animation:./Monster/Bear/BearDownToStand.X,곰_다운투스텐드;
+Animation:./Monster/Bear/BearCounter.X,곰_카운터;
+
+Mesh:./Monster/Bear/,BearMesh.X,곰탕;
+Color:곰탕,mon_bear02.dds, 0.6f, 0.2f, 0.2f, 1.0f;
+Color:곰탕,mon_skeleton01_eyes.dds, 0.5f, 0.5f, 0.2f, 1.0f;
