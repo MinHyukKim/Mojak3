@@ -212,9 +212,13 @@ void cMapToolScene::Update(void)
 			g_pMapObjectManager->ResetBuilding();
 			//몹선택 모드로 변경
 			currentMode = E_MODE::M_MOB;
+			g_pObjectManager->GetMonsterRotation();
 		}
-		g_pObjectManager->GetMonsterRotation();
-		g_pObjectManager->SetCursorIncrease();
+		else
+		{
+			g_pObjectManager->SetCursorIncrease();
+			g_pObjectManager->GetMonsterRotation();
+		}
 	}
 
 
@@ -227,7 +231,7 @@ void cMapToolScene::Update(void)
 		char filename[255];
 		char lpstrFile[MAX_PATH] = "";
 		memset(&OFN, 0, sizeof(OPENFILENAME));
-		OFN.lpstrTitle = "로드하기";
+		OFN.lpstrTitle = "맵오브젝트 로드하기";
 		OFN.lStructSize = sizeof(OPENFILENAME);
 		OFN.hwndOwner = g_hWnd;
 		OFN.lpstrFilter = "모든 파일(*.*)\0*.*\0맵 오브젝트 파일\0*.obj;\0";
@@ -247,7 +251,7 @@ void cMapToolScene::Update(void)
 		char filename[255];
 		char lpstrFile[MAX_PATH] = "";
 		memset(&OFN, 0, sizeof(OPENFILENAME));
-		OFN.lpstrTitle = "저장하기";
+		OFN.lpstrTitle = "맵오브젝트 저장하기";
 		OFN.lStructSize = sizeof(OPENFILENAME);
 		OFN.hwndOwner = g_hWnd;
 		OFN.lpstrFilter = "모든 파일(*.*)\0*.*\0맵 오브젝트 파일\0*.obj;\0";
@@ -260,6 +264,26 @@ void cMapToolScene::Update(void)
 	}
 
 
+	//몹 세이브 로드 테스트
+	if (g_pInputManager->IsOnceKeyDown('7'))
+	{
+		DeselectObjects();
+
+		OPENFILENAME OFN;
+		char filename[255];
+		char lpstrFile[MAX_PATH] = "";
+		memset(&OFN, 0, sizeof(OPENFILENAME));
+		OFN.lpstrTitle = "적 배치 저장하기";
+		OFN.lStructSize = sizeof(OPENFILENAME);
+		OFN.hwndOwner = g_hWnd;
+		OFN.lpstrFilter = "모든 파일(*.*)\0*.*\0적 배치 파일\0*.enm;\0";
+		OFN.lpstrFile = lpstrFile;
+		OFN.nMaxFile = 256;
+		OFN.Flags = OFN_OVERWRITEPROMPT;
+		//OFN.lpstrInitialDir = "c:\\";
+		if (GetSaveFileName(&OFN) != 0)
+			g_pObjectManager->SaveMonsterObjectState(OFN.lpstrFile);
+	}
 
 	if (g_pInputManager->IsStayKeyDown(VK_ESCAPE))
 	{

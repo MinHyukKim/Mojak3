@@ -254,6 +254,32 @@ void cObjectManager::SetupMonster()
 	//m_vecBuilding.back()->SetPosition(&m_vLandPos);
 }
 
+bool cObjectManager::SaveMonsterObjectState(const char * filename)
+{
+	//저장할 빌딩이 없으면 리턴
+	if (m_vecMonster.size() < 1) return false;
+	FILE *fp;
+	fp = fopen(filename, "w");
+	for each(auto v in m_vecMonster)
+	{
+		//오브젝트 타입 추가예정.
+		D3DXVECTOR3 vPos = v->GetPosition();
+		DWORD test = v->GetAbilityParamter()->GetUnitID();
+		fprintf(fp, "%ld\n", &test);
+		fprintf(fp, "%f %f %f\n", &vPos.x, &vPos.y, &vPos.z);
+	}
+
+	fclose(fp);
+
+
+	return true;
+}
+
+bool cObjectManager::LoadMonsterObjectState(const char * filename)
+{
+	return false;
+}
+
 void cObjectManager::SetTerrain(IN cMapTerrain* pTerrain)
 {
 	SAFE_RELEASE(m_pTerrain);
