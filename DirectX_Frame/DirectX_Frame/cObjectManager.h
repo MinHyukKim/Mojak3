@@ -70,6 +70,10 @@ public:
 	void ResetMobSelect(void);
 	void SetupMonster();
 
+	//맵 몬스터 저장 로드
+	bool SaveMonsterObjectState(const char* filename);
+	bool LoadMonsterObjectState(const char* filename);
+
 	void SetTerrain(IN cMapTerrain* pTerrain);
 
 	bool CreateMonster(IN UNIT_TYPE eMonsterKey, IN LPD3DXVECTOR3 pPostion, IN LPD3DXCOLOR pColor = nullptr);
@@ -78,6 +82,7 @@ public:
 	void Destroy(void);
 
 	static cObjectManager* GetInstance(void) { static cObjectManager instance; return &instance; }
+
 private:
 	cObjectManager(void);
 	virtual ~cObjectManager(void);

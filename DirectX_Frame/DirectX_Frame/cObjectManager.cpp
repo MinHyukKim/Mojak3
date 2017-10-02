@@ -217,6 +217,7 @@ bool cObjectManager::GetMonster(OUT cPlayer** ppMonster, IN LPD3DXVECTOR3 pRay, 
 
 void cObjectManager::SetCursorIncrease()
 {
+	//백터 내에 몹이 없으면 카운터를 올려줄 필요가 없다.
 	if (m_vecMonster.size() < 1) return;
 	m_nMonsterCursor++;
 	if (m_nMonsterCursor == UNIT_TYPE::MONSTER_END)
