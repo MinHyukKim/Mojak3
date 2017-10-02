@@ -82,11 +82,7 @@ cBuilding* cMapObjectManager::getMapObjectRotation()
 {
 	std::map<std::string, cBuilding*>::iterator iMapBuilding = m_mapBuilding.begin();
 	for (int i = 0; i < m_nBuildCursor; i++) iMapBuilding++;
-	//if (iMapBuilding == m_mapBuilding.end())
-	//{
-	//	iMapBuilding = m_mapBuilding.begin();
-	//	m_nBuildCursor = 0;
-	//}
+	//피킹
 	D3DXVECTOR3 vPos, vOrg, vDir;
 	g_pRay->RayAtWorldSpace(&vOrg, &vDir);
 	if (m_pMapTerrain->IsCollision(&vPos, &vOrg, &vDir))
@@ -178,6 +174,7 @@ void cMapObjectManager::SaveCurrentObjectsState(const char * filename)
 
 void cMapObjectManager::LoadCurrentObjectsState(const char * filename)
 {
+	ResetBuilding();
 	//현재 존재하는 오브젝트들 청소
 	for each(auto p in m_vecBuilding)
 	{

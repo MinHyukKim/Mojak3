@@ -274,7 +274,7 @@ bool cObjectManager::SaveMonsterObjectState(const char * filename)
 		D3DXVECTOR3 vPos = v->GetPosition();
 		//오브젝트 타입
 		DWORD unitID = v->GetAbilityParamter()->GetUnitID();
-		fprintf(fp, "%ld\n", &unitID);
+		fprintf(fp, "%ld\n", unitID);
 		//오브젝트 컬러
 		LPD3DXCOLOR color = v->GetMeshColor();
 		if (color != nullptr)
@@ -293,9 +293,50 @@ bool cObjectManager::SaveMonsterObjectState(const char * filename)
 
 bool cObjectManager::LoadMonsterObjectState(const char * filename)
 {
-	//LPD3DXFRAME test =  m_vecMonster[0]->GetMeshPart(cPlayer::MESH_BODY)->GetRootFrame();
+	//현재 존재하는 오브젝트들 청소
+	ResetMobSelect();
+	for each(auto p in m_vecMonster)
+	{
+		SAFE_RELEASE(p);
+	}
+	m_vecMonster.clear();
+	FILE *fp;
+	fp = fopen(filename, "r");
+	if (!fp) return false;
 
-	return false;
+	while (!feof(fp))
+	{
+		//오브젝트 타입
+		DWORD unitID;
+		//위치 저장
+		D3DXVECTOR3 vPos;
+		//오브젝트 컬러
+		D3DXCOLOR color;
+		int r = fscanf(fp, "%ld\n", &unitID);
+		bool result;
+		result = fscanf(fp, "%f %f %f %f\n", &color.a, &color.r, &color.g, &color.b);
+		//result값이 null이라면 파싱이 제대로 안됐다=컬러값이 없다는 의미임으로 한줄 스킵해줌.
+		if (!result)
+		{
+			char cTemp[255];
+			fgets(cTemp, 255, fp);
+		}
+		fscanf(fp, "%f %f %f\n", &vPos.x, &vPos.y, &vPos.z);
+		//컬러값이 없으면 컬러값을 넣어주지 않음.
+		if (!result)
+		{
+			CreateMonster((UNIT_TYPE)unitID, &vPos);
+		}
+		else
+		{
+			CreateMonster((UNIT_TYPE)unitID, &vPos, &color);
+		}
+	}
+	fclose(fp);
+
+
+
+	return true;
 }
 
 void cObjectManager::SetTerrain(IN cMapTerrain* pTerrain)

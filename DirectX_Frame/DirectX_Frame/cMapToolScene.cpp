@@ -277,7 +277,7 @@ void cMapToolScene::Update(void)
 	if (g_pInputManager->IsOnceKeyDown('8'))
 	{
 		DeselectObjects();
-			g_pObjectManager->LoadMonsterObjectState("fffff");
+		g_pObjectManager->LoadMonsterObjectState("test.enm");
 	}
 
 
