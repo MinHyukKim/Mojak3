@@ -59,7 +59,7 @@ inline cQuadTree* cQuadTree::_AddChild(IN int nCornerLT, IN int nCornerRT, IN in
 {
 	cQuadTree* pChild = new cQuadTree(this);
 	pChild->_SetCorners(nCornerLT, nCornerRT, nCornerLB, nCornerRB);
-	DEBUG_TEXT("생성된 쿼드트리 : " << pChild->m_dwCenter);
+	//DEBUG_TEXT("생성된 쿼드트리 : " << pChild->m_dwCenter); // 오래걸림
 	return pChild;
 }
 
