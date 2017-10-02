@@ -19,32 +19,19 @@ void cObjectManager::Update(void)
 {
 	SAFE_UPDATE(m_pTerrain);
 	SAFE_UPDATE(m_pPlayer);
-	if (m_pTerrain)
-	{
-		float fHeight = m_pPlayer->GetPosY();
-		m_pTerrain->GetHeight(&fHeight, m_pPlayer->GetPosX(), m_pPlayer->GetPosZ());
-		m_pPlayer->SetPosY(fHeight);
-	}
+	
+	m_pPlayer->SetPosY(GetMapHeight(m_pPlayer));
+	
 	for each (auto pMonster in m_vecMonster)
 	{
 		pMonster->Update();
-		if (m_pTerrain)
-		{
-			float fHeight = pMonster->GetPosY();
-			m_pTerrain->GetHeight(&fHeight, pMonster->GetPosX(), pMonster->GetPosZ());
-			pMonster->SetPosY(fHeight);
-		}
+		pMonster->SetPosY(GetMapHeight(pMonster));
 	}
 	//NPC
 	for each (auto pNPC in m_vecNPC)
 	{
 		pNPC->Update();
-		if (m_pTerrain)
-		{
-			float fHeight = pNPC->GetPosY();
-			m_pTerrain->GetHeight(&fHeight, pNPC->GetPosX(), pNPC->GetPosZ());
-			pNPC->SetPosY(fHeight);
-		}
+		pNPC->SetPosY(GetMapHeight(pNPC));
 	}
 
 	for each (auto pRelease in m_vecRelease)
@@ -214,6 +201,16 @@ bool cObjectManager::GetMonster(OUT cPlayer** ppMonster, IN LPD3DXVECTOR3 pRay, 
 	return pTarget;
 }
 
+float cObjectManager::GetMapHeight(cPlayer* player)
+{
+	float fHeight = player->GetPosY();
+	if (m_pTerrain)
+	{
+		m_pTerrain->GetHeight(&fHeight, player->GetPosX(), player->GetPosZ());
+	}
+	return fHeight;
+}
+
 void cObjectManager::SetCursorIncrease()
 {
 	//백터 내에 몹이 없으면 카운터를 올려줄 필요가 없다.
@@ -252,15 +249,9 @@ void cObjectManager::SetupMonster()
 	else
 	{
 		CreateMonster((UNIT_TYPE)m_nMonsterCursor, &D3DXVECTOR3(0, 0, 0), &D3DXCOLOR(0.6f, 0.2f, 0.2f, 1.0f));
-
 	}
 	m_pSelectMonster = m_vecMonster.back();
 	m_vecMonster.pop_back();
-
-
-	//m_pSelectMonster = nullptr;
-
-	//m_vecBuilding.back()->SetPosition(&m_vLandPos);
 }
 
 bool cObjectManager::SaveMonsterObjectState(const char * filename)
