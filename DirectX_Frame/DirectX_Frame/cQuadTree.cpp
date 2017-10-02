@@ -23,8 +23,6 @@ cQuadTree::cQuadTree(cQuadTree* pParent)
 	: m_dwCenter(0)
 	, m_fRadius(0.0f)
 	, m_bCulled(false)
-	, m_pVertex(nullptr)
-	, m_dwUnit(0)
 {
 	ZeroMemory(m_pChild, 4 * sizeof(cQuadTree*));	//	m_pChild[0] = nullptr, m_pChild[1] = nullptr, m_pChild[2] = nullptr, m_pChild[3] = nullptr;
 	ZeroMemory(m_dwCorner, 4 * sizeof(DWORD));		//	m_dwCorner[0] = 0, m_dwCorner[1] = 0, m_dwCorner[2] = 0, m_dwCorner[3] = 0;
@@ -37,26 +35,24 @@ cQuadTree::~cQuadTree(void)
 
 bool cQuadTree::TreeBuild(std::vector<ST_PNT_VERTEX>* pVertex, DWORD dwUnit)
 {
-	m_pVertex = pVertex;
 	D3DXVECTOR3 v = (*pVertex)[m_dwCorner[cQuadTree::CORNER_RIGHT_BOTTOM]].p - (*pVertex)[m_dwCorner[cQuadTree::CORNER_LEFT_TOP]].p;
 	m_fRadius = D3DXVec3Length(&v) / 2.0f;
-	m_dwUnit = dwUnit;
 	//자식 생성후
-	if (_SubDivide(m_dwUnit))
+	if (_SubDivide(dwUnit))
 	{
 		//자식 빌드
-		m_pChild[cQuadTree::CORNER_LEFT_TOP]->TreeBuild(pVertex, m_dwUnit);
-		m_pChild[cQuadTree::CORNER_RIGHT_TOP]->TreeBuild(pVertex, m_dwUnit);
-		m_pChild[cQuadTree::CORNER_LEFT_BOTTOM]->TreeBuild(pVertex, m_dwUnit);
-		m_pChild[cQuadTree::CORNER_RIGHT_BOTTOM]->TreeBuild(pVertex, m_dwUnit);
+		m_pChild[cQuadTree::CORNER_LEFT_TOP]->TreeBuild(pVertex, dwUnit);
+		m_pChild[cQuadTree::CORNER_RIGHT_TOP]->TreeBuild(pVertex, dwUnit);
+		m_pChild[cQuadTree::CORNER_LEFT_BOTTOM]->TreeBuild(pVertex, dwUnit);
+		m_pChild[cQuadTree::CORNER_RIGHT_BOTTOM]->TreeBuild(pVertex, dwUnit);
 	}
 	return true;
 }
 
-DWORD cQuadTree::GenerateIndex(OUT LPDWORD pIndexBuffer, std::vector<ST_PNT_VERTEX>* pVertex, cFrustum* pFrustum)
+DWORD cQuadTree::GenerateIndex(OUT LPDWORD pIndexBuffer, std::vector<ST_PNT_VERTEX>* pVertex, cFrustum* pFrustum, IN DWORD dwUnit)
 {
 	this->_FrustumCull(pVertex, pFrustum);
-	return this->_GenTriIndex(pIndexBuffer, 0);
+	return this->_GenTriIndex(pIndexBuffer, 0, dwUnit);
 }
 
 inline cQuadTree* cQuadTree::_AddChild(IN int nCornerLT, IN int nCornerRT, IN int nCornerLB, IN int nCornerRB)
@@ -98,7 +94,7 @@ inline bool cQuadTree::_SubDivide(DWORD dwUnit)
 	return true;
 }
 
-inline int cQuadTree::_GenTriIndex(OUT LPDWORD pIndex, IN DWORD dwTriangles)
+inline int cQuadTree::_GenTriIndex(OUT LPDWORD pIndex, IN DWORD dwTriangles, IN DWORD dwUnit)
 {
 	if (m_bCulled)
 	{
@@ -106,7 +102,7 @@ inline int cQuadTree::_GenTriIndex(OUT LPDWORD pIndex, IN DWORD dwTriangles)
 		return dwTriangles;
 	}
 
-	if (this->_IsVisible(m_dwUnit))
+	if (this->_IsVisible(dwUnit))
 	{
 		LPDWORD pointer = pIndex += dwTriangles * 3;
 		pointer[0] = m_dwCorner[0];
@@ -119,17 +115,11 @@ inline int cQuadTree::_GenTriIndex(OUT LPDWORD pIndex, IN DWORD dwTriangles)
 	}
 
 	DWORD dwFaces = dwTriangles;
-	if (m_pChild[cQuadTree::CORNER_LEFT_TOP]) dwFaces = m_pChild[cQuadTree::CORNER_LEFT_TOP]->_GenTriIndex(pIndex, dwFaces);
-	if (m_pChild[cQuadTree::CORNER_RIGHT_TOP]) dwFaces = m_pChild[cQuadTree::CORNER_RIGHT_TOP]->_GenTriIndex(pIndex, dwFaces);
-	if (m_pChild[cQuadTree::CORNER_LEFT_BOTTOM]) dwFaces = m_pChild[cQuadTree::CORNER_LEFT_BOTTOM]->_GenTriIndex(pIndex, dwFaces);
-	if (m_pChild[cQuadTree::CORNER_RIGHT_BOTTOM]) dwFaces = m_pChild[cQuadTree::CORNER_RIGHT_BOTTOM]->_GenTriIndex(pIndex, dwFaces);
+	if (m_pChild[cQuadTree::CORNER_LEFT_TOP]) dwFaces = m_pChild[cQuadTree::CORNER_LEFT_TOP]->_GenTriIndex(pIndex, dwFaces, dwUnit);
+	if (m_pChild[cQuadTree::CORNER_RIGHT_TOP]) dwFaces = m_pChild[cQuadTree::CORNER_RIGHT_TOP]->_GenTriIndex(pIndex, dwFaces, dwUnit);
+	if (m_pChild[cQuadTree::CORNER_LEFT_BOTTOM]) dwFaces = m_pChild[cQuadTree::CORNER_LEFT_BOTTOM]->_GenTriIndex(pIndex, dwFaces, dwUnit);
+	if (m_pChild[cQuadTree::CORNER_RIGHT_BOTTOM]) dwFaces = m_pChild[cQuadTree::CORNER_RIGHT_BOTTOM]->_GenTriIndex(pIndex, dwFaces, dwUnit);
 	
-//	if (1 != m_dwUnit && !m_pChild[0] && !m_pChild[1] && !m_pChild[2] && !m_pChild[3])
-//	{
-//		m_dwUnit /= 2;
-//		this->TreeBuild();
-//
-//	}
 	return dwFaces;
 }
 

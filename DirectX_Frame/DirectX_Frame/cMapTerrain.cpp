@@ -15,7 +15,7 @@ cMapTerrain::cMapTerrain(void)
 	, m_dwRow(0)
 	, m_dwTriangles(0)
 	, m_dwIndexBuffer(0)
-	, m_dwUnit(16)
+	, m_dwUnit(1)
 {
 }
 
@@ -42,7 +42,7 @@ HRESULT cMapTerrain::Setup(IN LPCSTR szHeightMapName, IN D3DXMATERIAL* pMaterial
 void cMapTerrain::Update(void)
 {
 	//서핑보드만 컬링조절
-	m_dwTriangles = m_pQuadTree->GenerateIndex(&m_vecIndex[0], &m_vecPosition, g_pFrustum);
+	m_dwTriangles = m_pQuadTree->GenerateIndex(&m_vecIndex[0], &m_vecPosition, g_pFrustum, m_dwUnit);
 //	if (g_pInputManager->IsOnceKeyDown(VK_SPACE))
 //	{
 //		LPDWORD pIndex;
