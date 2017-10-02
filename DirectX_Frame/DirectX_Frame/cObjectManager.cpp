@@ -217,9 +217,10 @@ bool cObjectManager::GetMonster(OUT cPlayer** ppMonster, IN LPD3DXVECTOR3 pRay, 
 
 void cObjectManager::SetCursorIncrease()
 {
-	if (m_nMonsterCursor == UNIT_TYPE::MONSTER_END-1)
+	if (m_vecMonster.size() < 1) return;
+	m_nMonsterCursor++;
+	if (m_nMonsterCursor == UNIT_TYPE::MONSTER_END)
 		m_nMonsterCursor = UNIT_TYPE::MONSTER_NULL + 1;
-	else m_nMonsterCursor++;
 }
 
 cPlayer * cObjectManager::GetMonsterRotation()
