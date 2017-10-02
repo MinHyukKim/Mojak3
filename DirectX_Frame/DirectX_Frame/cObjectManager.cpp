@@ -396,9 +396,12 @@ bool cObjectManager::CreateNPC(IN UNIT_TYPE eNPCKey, IN LPD3DXVECTOR3 pPostion)
 			pCreateNPC->Setup();
 			pCreateNPC->SetupAnimationController("나오더미");
 			pCreateNPC->ChangeMeshPart(cPlayer::MESH_BODY, g_pSkinnedMeshManager->GetSkinnedMesh("나오메시"));
+		//	pCreateMonster->RegisterAnimation(cPlayer::ANIMATION_IDLE_FRIENDLY, g_pAnimationManager->GetAnimation("곰_기본01"));
+			pCreateNPC->RegisterAnimation(cPlayer::ANIMATION_IDLE_FRIENDLY, g_pAnimationManager->GetAnimation("나오_기본01"));
 
 			pCreateNPC->GetAbilityParamter()->SetPlayerID(3);
-			pCreateNPC->GetAbilityParamter()->SetUnitID(2);
+			pCreateNPC->GetAbilityParamter()->SetUnitID(cObjectManager::NPC_NAO);
+			pCreateNPC->OrderFriendly();
 		}
 	}
 
