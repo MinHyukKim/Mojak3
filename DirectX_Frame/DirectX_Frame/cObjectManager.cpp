@@ -243,7 +243,17 @@ void cObjectManager::SetupMonster()
 {
 	if (this->GetSelectObject() == NULL) return;
 	m_vecMonster.push_back(m_pSelectMonster);
-	CreateMonster((UNIT_TYPE)m_nMonsterCursor, &D3DXVECTOR3(0, 0, 0));
+	int dice = g_pMath->GetFromIntTo(0, 1);
+	if (dice == 0)
+	{
+		CreateMonster((UNIT_TYPE)m_nMonsterCursor, &D3DXVECTOR3(0, 0, 0));
+		
+	}
+	else
+	{
+		CreateMonster((UNIT_TYPE)m_nMonsterCursor, &D3DXVECTOR3(0, 0, 0), &D3DXCOLOR(0.6f, 0.2f, 0.2f, 1.0f));
+
+	}
 	m_pSelectMonster = m_vecMonster.back();
 	m_vecMonster.pop_back();
 
@@ -266,12 +276,18 @@ bool cObjectManager::SaveMonsterObjectState(const char * filename)
 		D3DXVECTOR3 vPos = v->GetPosition();
 		//오브젝트 타입
 		DWORD unitID = v->GetAbilityParamter()->GetUnitID();
-		//오브젝트 컬러
-		D3DXCOLOR color = v->GetMeshColor();
 		fprintf(fp, "%ld\n", &unitID);
-		fprintf(fp, "%f %f %f %f\n", color.a, color.r, color.g, color.b);
+		//오브젝트 컬러
+		LPD3DXCOLOR color = v->GetMeshColor();
+		if (color != nullptr)
+		{
+			fprintf(fp, "%f %f %f %f\n", &color->a, &color->r, &color->g, &color->b);
+		}
+		else
+		{
+			fprintf(fp, "null\n");
+		}
 		fprintf(fp, "%f %f %f\n", vPos.x, vPos.y, vPos.z);
-
 	}
 	fclose(fp);
 	return true;

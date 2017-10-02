@@ -132,7 +132,7 @@ private:
 	bool m_bHitAnimation;
 
 	//메인 컬러 저장
-	D3DXCOLOR m_mainColor;
+	LPD3DXCOLOR m_pMainColor;
 
 public:
 	virtual HRESULT Setup(void) override;
@@ -187,7 +187,7 @@ public:
 	void ChangeMeshPartColor(IN DWORD dwPart, IN LPCSTR TextureName, IN LPD3DXCOLOR pColor);
 	cSkinnedMesh* GetMeshPart(IN DWORD dwPart) { return m_vecMesh[dwPart]; }
 
-	D3DXCOLOR GetMeshColor();
+	LPD3DXCOLOR GetMeshColor();
 
 	//초기화 함수
 	void SetTextureEye(LPCSTR szEyeName);
