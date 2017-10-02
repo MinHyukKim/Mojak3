@@ -187,7 +187,7 @@ public:
 	void ChangeMeshPartColor(IN DWORD dwPart, IN LPCSTR TextureName, IN LPD3DXCOLOR pColor);
 	cSkinnedMesh* GetMeshPart(IN DWORD dwPart) { return m_vecMesh[dwPart]; }
 
-	LPD3DXCOLOR GetMeshColor();
+	D3DXCOLOR GetMeshColor();
 
 	//초기화 함수
 	void SetTextureEye(LPCSTR szEyeName);

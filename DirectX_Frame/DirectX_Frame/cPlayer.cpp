@@ -522,13 +522,9 @@ void cPlayer::ChangeMeshPartColor(IN DWORD dwPart, IN LPCSTR TextureName, IN LPD
 	if (m_vecMesh[dwPart]) m_vecMesh[dwPart]->SetTextureColor(TextureName, pColor);
 }
 
-LPD3DXCOLOR cPlayer::GetMeshColor()
+D3DXCOLOR cPlayer::GetMeshColor()
 {
-	if (m_vecMesh.size() < 1) return nullptr;
-
-
-
-	return LPD3DXCOLOR();
+	return m_mainColor;
 }
 
 DWORD cPlayer::RegisterAnimation(IN DWORD dwAnimationKey, IN LPD3DXANIMATIONSET pAnimation, IN float fSpeed)

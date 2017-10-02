@@ -266,13 +266,10 @@ bool cObjectManager::SaveMonsterObjectState(const char * filename)
 		D3DXVECTOR3 vPos = v->GetPosition();
 		//오브젝트 타입
 		DWORD unitID = v->GetAbilityParamter()->GetUnitID();
-		cSkinnedMesh testMesh = v->GetMeshPart(cPlayer::MESH_BODY);
-		//D3DCOLORVALUE color = v->GetMeshPart(cPlayer::MESH_BODY)->GetRootFrame()->pMeshContainer->pMaterials[0].MatD3D.Ambient;
-		//DEBUG_TEXT(color.r << " "<< color.g <<" "<< color.b);
-
 		//오브젝트 컬러
-		//LPD3DXCOLOR pColor = v->get
+		D3DXCOLOR color = v->GetMeshColor();
 		fprintf(fp, "%ld\n", &unitID);
+		fprintf(fp, "%f %f %f %f\n", color.a, color.r, color.g, color.b);
 		fprintf(fp, "%f %f %f\n", vPos.x, vPos.y, vPos.z);
 
 	}
@@ -282,7 +279,7 @@ bool cObjectManager::SaveMonsterObjectState(const char * filename)
 
 bool cObjectManager::LoadMonsterObjectState(const char * filename)
 {
-	LPD3DXFRAME test =  m_vecMonster[0]->GetMeshPart(cPlayer::MESH_BODY)->GetRootFrame();
+	//LPD3DXFRAME test =  m_vecMonster[0]->GetMeshPart(cPlayer::MESH_BODY)->GetRootFrame();
 
 	return false;
 }

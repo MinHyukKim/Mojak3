@@ -638,7 +638,6 @@ void cSkinnedMesh::FrameChange(LPD3DXFRAME pFrame)
 
 void cSkinnedMesh::SetTextureColor(LPCSTR szTextureName, LPD3DXCOLOR pColor)
 {
-	m_pMainColor = *pColor;
 	cSkinnedMesh::SetTextureColor(m_pRootFrame, szTextureName, pColor);
 }
 
@@ -789,38 +788,6 @@ void cSkinnedMesh::SetTextureColor(LPD3DXFRAME pRoot, LPCSTR szTextureName, LPD3
 		cSkinnedMesh::SetTextureColor(pRoot->pFrameSibling, szTextureName, pColor);
 	}
 }
-
-D3DCOLORVALUE cSkinnedMesh::GetTextureColor(LPD3DXFRAME pRoot, LPCSTR szTextureName)
-{
-	if (!pRoot) return;
-	if (pRoot->pMeshContainer)
-	{
-		for (DWORD i = 0; i < pRoot->pMeshContainer->NumMaterials; i++)
-		{
-			LPD3DXMATERIAL pMaterial = &pRoot->pMeshContainer->pMaterials[i];
-			//메트리얼->이름 == 찾는이름
-			if (pMaterial && !strcmp(pMaterial->pTextureFilename, szTextureName))
-			{
-				//색상변경
-				return pMaterial->MatD3D.Ambient;
-			}
-		}
-	}
-
-	//자식 찾기
-	if (pRoot->pFrameFirstChild)
-	{
-		cSkinnedMesh::GetTextureColor(pRoot->pFrameFirstChild, szTextureName);
-	}
-
-	//형제 찾기
-	if (pRoot->pFrameSibling)
-	{
-		cSkinnedMesh::GetTextureColor(pRoot->pFrameSibling, szTextureName);
-	}
-}
-
-
 
 void cSkinnedMesh::SetTextureColor(LPD3DXFRAME pRoot, LPCSTR szTextureName, D3DMATERIAL9* pMaterial)
 {
