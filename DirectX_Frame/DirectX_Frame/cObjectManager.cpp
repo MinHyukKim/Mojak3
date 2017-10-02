@@ -277,6 +277,7 @@ bool cObjectManager::SaveMonsterObjectState(const char * filename)
 		fprintf(fp, "%ld\n", unitID);
 		//오브젝트 컬러
 		LPD3DXCOLOR color = v->GetMeshColor();
+		//컬러값이 있으면 넣고 없으면 문자열 null을 넣음
 		if (color != nullptr)
 		{
 			fprintf(fp, "%f %f %f %f\n", color->a, color->r, color->g, color->b);
