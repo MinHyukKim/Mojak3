@@ -111,7 +111,7 @@ void cMapToolScene::Update(void)
 	if (m_pSkybox) m_pSkybox->Update(*m_pCamera->GetPosition());
 
 	//테스트용 전역변수 필히 삭제
-	static bool g_TestToggle = false;
+	//static bool g_TestToggle = false;
 
 	if (m_pMapTerrain)
 	{
@@ -129,15 +129,6 @@ void cMapToolScene::Update(void)
 		{
 			g_pObjectManager->SetupMonster();
 		}
-		/*if (true)
-		{
-			g_pMapObjectManager->ResetBuilding();
-		}
-		else
-		{
-			g_pMapObjectManager->SetupBuilding();
-		}*/
-
 	}
 //
 //	//마지막으로 생성된 건물의 좌우 방향 변환
@@ -194,9 +185,8 @@ void cMapToolScene::Update(void)
 		if (currentMode != E_MODE::M_BUILD)
 		{
 			//이전에 선택된 부분이 있으면 해제하고 모드 변경
-			//g_pMapObjectManager->ResetBuilding();
-
-			//g_pObjectManager->DeSelectMob()
+			DeselectObjects();
+			
 			//빌드 모드로 변경
 			currentMode = E_MODE::M_BUILD;
 		}
@@ -209,7 +199,7 @@ void cMapToolScene::Update(void)
 		if (currentMode != E_MODE::M_MOB)
 		{
 			//이전에 선택된 부분이 있으면 해제하고 모드 변경
-			g_pMapObjectManager->ResetBuilding();
+			DeselectObjects();
 			//몹선택 모드로 변경
 			currentMode = E_MODE::M_MOB;
 			g_pObjectManager->GetMonsterRotation();
