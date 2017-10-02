@@ -15,7 +15,7 @@ cMapTerrain::cMapTerrain(void)
 	, m_dwRow(0)
 	, m_dwTriangles(0)
 	, m_dwIndexBuffer(0)
-	, m_dwUnit(16)
+	, m_dwUnit(1)
 {
 }
 
@@ -245,11 +245,13 @@ inline HRESULT cMapTerrain::_BuildHeightMap(DWORD dwCol, DWORD dwRow)
 
 inline HRESULT cMapTerrain::_BuilldQuadTree(DWORD dwUnit)
 {
+	DEBUG_TEXT("쿼드트리 생성");
 	if (m_pQuadTree)
 	{
-		m_pQuadTree->TreeBuild(m_vecPosition, dwUnit);
+		m_pQuadTree->TreeBuild(&m_vecPosition, dwUnit);
 		return S_OK;
 	}
+	DEBUG_TEXT("쿼드트리 완료");
 	return E_FAIL;
 }
 

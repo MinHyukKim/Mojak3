@@ -46,7 +46,7 @@ HRESULT cMapToolScene::Setup(void)
 	//테스트용
 	m_pGrid = cGrid::Create();
 	m_pGrid->Setup();
-	m_pTexture = g_pTexture->GetTexture("./HeightMapData/terrain.jpg");
+//	m_pTexture = g_pTexture->GetTexture("./HeightMapData/terrain.jpg");
 	
 	m_vecObjectList.push_back("scene_building_tirchonaill_chiefhouse.x");
 	m_vecObjectList.push_back("inn.x");
