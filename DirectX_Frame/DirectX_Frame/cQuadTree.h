@@ -7,16 +7,17 @@ private:
 	//4개의 자식노드
 	cQuadTree* m_pChild[4];
 	//중앙과 4개의 코너값(center, leftTop, rightTop, leftBottom, RightBottom)
-	DWORD m_dwUnit;
 	DWORD m_dwCenter;
 	DWORD m_dwCorner[4];
 
 	float m_fRadius;
 	bool m_bCulled;
 
+	std::vector<ST_PNT_VERTEX>* m_pVertex;
+	DWORD m_dwUnit;
 public:
 	//퀴드트리를 구축한다.
-	bool TreeBuild(std::vector<ST_PNT_VERTEX> pVertex, DWORD dwUnit = 1);
+	bool TreeBuild(std::vector<ST_PNT_VERTEX>* pVertex, DWORD dwUnit = 1);
 	//삼각형 갯수와 인덱스 반환
 	DWORD GenerateIndex(OUT LPDWORD pIndexBuffer, std::vector<ST_PNT_VERTEX>* pVertex, cFrustum* pFrustum);
 

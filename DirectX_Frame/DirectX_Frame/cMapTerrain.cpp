@@ -247,7 +247,7 @@ inline HRESULT cMapTerrain::_BuilldQuadTree(DWORD dwUnit)
 {
 	if (m_pQuadTree)
 	{
-		m_pQuadTree->TreeBuild(m_vecPosition, dwUnit);
+		m_pQuadTree->TreeBuild(&m_vecPosition, dwUnit);
 		return S_OK;
 	}
 	return E_FAIL;
