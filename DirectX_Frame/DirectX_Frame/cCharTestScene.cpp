@@ -79,6 +79,7 @@ void cCharTestScene::Update(void)
 	//테스트용
 	if (m_pCamera) m_pCamera->TestController();
 
+	//if (m_pUi->GetMoveingOK() || true)
 	SAFE_UPDATE(m_pUi);
 	if (m_pUi->GetMoveingOK())
 	{
