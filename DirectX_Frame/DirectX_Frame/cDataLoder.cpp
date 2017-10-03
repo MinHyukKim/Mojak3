@@ -134,6 +134,17 @@ bool cDataLoder::RegisterData(LPCSTR FullPath)
 
 	}
 	fclose(fp);
+		
+	//건물 등록(임시)
+	g_pMapObjectManager->RegisterMapObject("", "scene_building_tirchonaill_chiefhouse.x", "scene_building_tirchonaill_chiefhouse.x");
+	g_pMapObjectManager->RegisterMapObject("", "inn.x", "inn.x");
+	g_pMapObjectManager->RegisterMapObject("", "farm_appletree_01.x", "farm_appletree_01.x");
+	g_pMapObjectManager->RegisterMapObject("", "farm_level02_se_tree_01.x", "farm_level02_se_tree_01.x");
+	g_pMapObjectManager->RegisterMapObject("", "scene_building_tirchonaill_church.x", "scene_building_tirchonaill_church.x");
+	g_pMapObjectManager->RegisterMapObject("", "smooth_appleTree.x", "smooth_appleTree.x");
+
+
+
 }
 
 void cDataLoder::LoaderData(void)
