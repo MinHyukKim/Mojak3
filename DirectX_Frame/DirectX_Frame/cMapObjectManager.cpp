@@ -6,7 +6,8 @@
 
 cMapObjectManager::cMapObjectManager(void)
 	:m_nBuildCursor(E_OBJECT_TYPE::BUILDING)
-	,m_pSelectBuilding(nullptr)
+	, m_pSelectBuilding(nullptr)
+	, m_pMapTerrain(nullptr)
 {
 }
 
@@ -81,13 +82,13 @@ cBuilding* cMapObjectManager::getMapObjectRotation()
 {
 	std::map<std::string, cBuilding*>::iterator iMapBuilding = m_mapBuilding.begin();
 	for (int i = 0; i < m_nBuildCursor; i++) iMapBuilding++;
-	//if (iMapBuilding == m_mapBuilding.end())
-	//{
-	//	iMapBuilding = m_mapBuilding.begin();
-	//	m_nBuildCursor = 0;
-	//}
+	//피킹
+	D3DXVECTOR3 vPos, vOrg, vDir;
+	g_pRay->RayAtWorldSpace(&vOrg, &vDir);
+	if (m_pMapTerrain->IsCollision(&vPos, &vOrg, &vDir))
+		m_vLandPos = vPos;
+	iMapBuilding->second->SetPosition(&vPos);
 	m_pSelectBuilding = iMapBuilding->second;
-
 	return m_pSelectBuilding;
 }
 
@@ -138,10 +139,7 @@ void cMapObjectManager::Update(cMapTerrain* map)
 	D3DXVECTOR3 vPos, vOrg, vDir;
 	g_pRay->RayAtWorldSpace(&vOrg, &vDir);
 	if (map->IsCollision(&vPos, &vOrg, &vDir))
-	{
 		m_vLandPos = vPos;
-		m_vLandPos.y =  map->GetHeight(vPos.x, vPos.z);
-	}
 		
 	 m_pSelectBuilding->SetPosition(&vPos);
 }
@@ -176,6 +174,7 @@ void cMapObjectManager::SaveCurrentObjectsState(const char * filename)
 
 void cMapObjectManager::LoadCurrentObjectsState(const char * filename)
 {
+	ResetBuilding();
 	//현재 존재하는 오브젝트들 청소
 	for each(auto p in m_vecBuilding)
 	{

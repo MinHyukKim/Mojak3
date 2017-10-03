@@ -47,14 +47,14 @@ void cMainGame::Setup(void)
 	//블랜더 설정
 	g_pD3DDevice->SetRenderState(D3DRS_BLENDOP, D3DBLENDOP_ADD);
 
-//	g_pD3DDevice->SetRenderState(D3DRS_SRCBLEND, D3DBLEND_SRCALPHA);
-//	g_pD3DDevice->SetRenderState(D3DRS_DESTBLEND, D3DBLEND_INVSRCALPHA);
+	g_pD3DDevice->SetRenderState(D3DRS_SRCBLEND, D3DBLEND_SRCALPHA);
+	g_pD3DDevice->SetRenderState(D3DRS_DESTBLEND, D3DBLEND_INVSRCALPHA);
 	g_pD3DDevice->SetRenderState(D3DRS_ALPHABLENDENABLE, true);
 
 	g_pD3DDevice->SetRenderState(D3DRS_ALPHATESTENABLE, true);
 	g_pD3DDevice->SetRenderState(D3DRS_ALPHAFUNC, D3DCMP_GREATER);
-	g_pD3DDevice->SetRenderState(D3DRS_ALPHAREF, 0);
-	
+	g_pD3DDevice->SetRenderState(D3DRS_ALPHAREF, 0x00000000);
+
 	//씬 매니저
 	g_pSceneManager->AddScene("cMapToolScene", cMapToolScene::Create());
 	g_pSceneManager->AddScene("cUiTestScene", cUiTestScene::Create());

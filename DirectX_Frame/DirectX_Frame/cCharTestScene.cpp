@@ -58,7 +58,7 @@ HRESULT cCharTestScene::Setup(void)
 	g_pObjectManager->CreateMonster(cObjectManager::MONSTER_BEAR, &D3DXVECTOR3(0.0f, 0.0f, 7.0f), &BEAR_BLACK);
 
 	//npcÅÂ½ºÆ®
-	g_pObjectManager->CreateNPC(cObjectManager::NPC_NAO, &D3DXVECTOR3(-3.0f, 0.0f, 5.0f));
+	g_pObjectManager->CreateNPC(cObjectManager::NPC_NAO, &D3DXVECTOR3(-1.0f, 0.0f, 1.0f));
 
 	return S_OK;
 }
@@ -136,6 +136,12 @@ void cCharTestScene::Update(void)
 		g_pObjectManager->GetPlayer()->GetTarget()->SetStateTrue(PATTERN_COUNTER);
 	}
 
+
+
+	if (g_pInputManager->IsOnceKeyDown('9'))
+	{
+		g_pObjectManager->LoadMonsterObjectState("test.enm");
+	}
 
 	SAFE_UPDATE(g_pObjectManager);
 	cPlayer* pPlayer = g_pObjectManager->GetPlayer();

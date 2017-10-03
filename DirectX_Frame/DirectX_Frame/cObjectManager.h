@@ -61,6 +61,8 @@ public:
 	std::vector<cPlayer*>* GetMonsterVectorPointer(void) { return &m_vecMonster; }
 	bool GetMonster(OUT cPlayer** ppMonster, IN LPD3DXVECTOR3 pRay, IN LPD3DXVECTOR3 pDir);
 	
+	float GetMapHeight(cPlayer*);
+
 	//몬스터 로테이션 출력 관련
 
 	//선택중인 맵 오브젝트를 반환하는 함수
@@ -76,7 +78,7 @@ public:
 
 	void SetTerrain(IN cMapTerrain* pTerrain);
 
-	bool CreateMonster(IN UNIT_TYPE eMonsterKey, IN LPD3DXVECTOR3 pPostion, IN LPD3DXCOLOR pColor = nullptr);
+	cPlayer* CreateMonster(IN UNIT_TYPE eMonsterKey, IN LPD3DXVECTOR3 pPostion, IN LPD3DXCOLOR pColor = nullptr);
 	bool CreateNPC(IN UNIT_TYPE eNPCKey, IN LPD3DXVECTOR3 pPostion);
 	void ReleaseMonster(IN cPlayer* pMonster) { return m_vecRelease.push_back(pMonster); }
 	void Destroy(void);

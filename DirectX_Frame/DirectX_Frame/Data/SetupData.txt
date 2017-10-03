@@ -20,7 +20,7 @@ Color:바디00,bodymap01.dds, 1.0f, 0.53f, 0.53f, 1.0f;
 //옷 바디01
 Mesh:./Chareter/Female_Body/,wear_female_3rd_newbie.X,바디01;
 Color:바디01,bodymap01.dds, 1.0f, 0.53f, 0.53f, 1.0f;
-Color:바디01,uni_newbie03_c.dds, 0.8f, 0.2f, 0.8f, 1.0;
+Color:바디01,uni_newbie03_c.dds, 0.8f, 0.2f, 0.8f, 1.0f;
 Color:바디01,uni_3rd_premium_c.dds, 0.5f, 0.0f, 0.1f, 1.0f; 
 Color:바디01,male_pumpkin_pants_c.dds, 0.0f, 0.0f, 0.0f, 1.0f;
 //옷 바디02
@@ -131,11 +131,19 @@ Color:곰탕,mon_skeleton01_eyes.dds, 0.5f, 0.5f, 0.2f, 1.0f;
 Mesh:./Chareter/NPC/,npc_bone_nao.X,나오더미;
 //전체 매시
 Mesh:./Chareter/NPC/,npc_mesh_base_nao.X,나오메시;
-Color:나오메시,nao_summer_hair.dds, 0.89f, 0.85f, 0.53f, 1.0f;   //뚝베기
-Color:나오메시,nao_summer_cloth_01.dds, 0.2f, 0.2f, 0.2f, 0.2f; //옷
-Color:나오메시,nao_summer_cloth_02.dds, 0.1f, 0.1f, 0.1f, 1.0f;  //스타킹
-Color:나오메시,nao_summer_cloth_m.dds, 0.95f, 0.95f, 0.95f, 1.0f;   //장식
-Color:나오메시,nao_eyes.dds, 1.0f, 0.53f, 0.53f, 1.0f;			//장갑 혹은 팔
-Color:나오메시,nao_eyes03.dds, 1.0f, 0.53f, 0.53f, 1.0f;			//면상
+Color:나오메시,nao_summer_hair.dds, 0.5f, 0.25f, 0.25f, 1.0f;		//뚝베기
+Color:나오메시,nao_summer_cloth_01.dds, 0.5f, 0.2f, 0.2f, 0.9f;		//옷
+Color:나오메시,nao_summer_cloth_02.dds, 0.2f, 0.2f, 0.2f, 1.0f;		//스타킹
+Color:나오메시,nao_summer_cloth_m.dds, 0.2f, 0.2f, 0.2f, 1.0f;		//장식
+Color:나오메시,nao_eyes.dds, 0.5f, 0.25f, 0.25f, 1.0f;				//장갑 혹은 팔
+Color:나오메시,nao_eyes03.dds, 0.5f, 0.25f, 0.25f, 1.0f;			//면상
 //애니매이션
 Animation:./Chareter/NPC/ani_nao_standing.X,나오_기본01;
+
+Mesh:나오메시,나오스타킹,;
+Color:나오스타킹,nao_summer_hair.dds, 0.5f, 0.25f, 0.25f, 0.0f;			//뚝베기
+Color:나오스타킹,nao_summer_cloth_01.dds, 0.5f, 0.2f, 0.2f, 0.0f;		//옷
+Color:나오스타킹,nao_summer_cloth_02.dds, 0.2f, 0.2f, 0.2f, 1.0f;		//스타킹
+Color:나오스타킹,nao_summer_cloth_m.dds, 0.2f, 0.2f, 0.2f, 0.0f;		//장식
+Color:나오스타킹,nao_eyes.dds, 0.5f, 0.25f, 0.25f, 0.0f;				//장갑 혹은 팔
+Color:나오스타킹,nao_eyes03.dds, 0.5f, 0.25f, 0.25f, 0.0f;				//면상

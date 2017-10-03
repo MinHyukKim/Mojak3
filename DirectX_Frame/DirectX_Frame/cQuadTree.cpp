@@ -5,7 +5,7 @@
 
 cQuadTree::cQuadTree(IN int nX, IN int nY)
 	: m_dwCenter(0)
-	, m_fRadius(0.0f)
+	, m_fRadius(1.0f)
 	, m_bCulled(false)
 {
 	ZeroMemory(m_pChild, 4 * sizeof(cQuadTree*));	//	m_pChild[0] = nullptr, m_pChild[1] = nullptr, m_pChild[2] = nullptr, m_pChild[3] = nullptr;
@@ -21,7 +21,7 @@ cQuadTree::cQuadTree(IN int nX, IN int nY)
 
 cQuadTree::cQuadTree(cQuadTree* pParent)
 	: m_dwCenter(0)
-	, m_fRadius(0.0f)
+	, m_fRadius(1.0f)
 	, m_bCulled(false)
 {
 	ZeroMemory(m_pChild, 4 * sizeof(cQuadTree*));	//	m_pChild[0] = nullptr, m_pChild[1] = nullptr, m_pChild[2] = nullptr, m_pChild[3] = nullptr;
@@ -135,7 +135,7 @@ int cQuadTree::_IsInFrustum(std::vector<ST_PNT_VERTEX>* pVertex, cFrustum* pFrus
 {
 	std::vector<ST_PNT_VERTEX>& pVecVertex = *pVertex; // 형변환
 	//충돌검사
-	if (!pFrustum->IsCollision(&pVecVertex[m_dwCenter].p, m_fRadius)) return cQuadTree::LOCATION_OUT;
+	if (!pFrustum->IsCollision(&((pVecVertex[m_dwCorner[0]].p + pVecVertex[m_dwCorner[3]].p) / 2.0f), m_fRadius)) return cQuadTree::LOCATION_OUT;
 	//모서리 충돌검사
 	bool bChild[4] = {};
 	bChild[0] = pFrustum->IsCollision(&pVecVertex[m_dwCorner[0]].p);

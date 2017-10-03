@@ -43,13 +43,12 @@ void cMapTerrain::Update(void)
 {
 	//서핑보드만 컬링조절
 	m_dwTriangles = m_pQuadTree->GenerateIndex(&m_vecIndex[0], &m_vecPosition, g_pFrustum, m_dwUnit);
-//	if (g_pInputManager->IsOnceKeyDown(VK_SPACE))
-//	{
-//		LPDWORD pIndex;
-//		if (FAILED(m_pIndexBufer->Lock(0, (m_dwCol - 1) * (m_dwRow - 1) * 6 * sizeof(DWORD), (LPVOID*)&pIndex, 0))) return;
-//		m_dwTriangles = m_pQuadTree->GenerateIndex(pIndex, &m_vecPosition, g_pFrustum, m_dwUnit);
-//		m_pIndexBufer->Unlock();
-//	}
+
+	//컬링 테스트용
+//	LPDWORD pIndex;
+//	if (FAILED(m_pIndexBufer->Lock(0, (m_dwCol - 1) * (m_dwRow - 1) * 6 * sizeof(DWORD), (LPVOID*)&pIndex, 0))) return;
+//	m_dwTriangles = m_pQuadTree->GenerateIndex(pIndex, &m_vecPosition, g_pFrustum, m_dwUnit);
+//	m_pIndexBufer->Unlock();
 }
 
 void cMapTerrain::Render(void)
@@ -320,6 +319,7 @@ inline HRESULT cMapTerrain::_Draw(void)
 	g_pD3DDevice->SetFVF(ST_PNT_VERTEX::FVF);
 	g_pD3DDevice->SetIndices(m_pIndexBufer);
 	g_pD3DDevice->DrawIndexedPrimitive(D3DPT_TRIANGLELIST, 0, 0, m_dwCol * m_dwRow, 0, m_dwIndexBuffer);
+//	g_pD3DDevice->DrawIndexedPrimitive(D3DPT_TRIANGLELIST, 0, 0, m_dwCol * m_dwRow, 0, m_dwTriangles); //쿼드트리 테스트용
 
 	return S_OK;
 }

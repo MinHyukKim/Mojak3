@@ -19,32 +19,19 @@ void cObjectManager::Update(void)
 {
 	SAFE_UPDATE(m_pTerrain);
 	SAFE_UPDATE(m_pPlayer);
-	if (m_pTerrain)
-	{
-		float fHeight = m_pPlayer->GetPosY();
-		m_pTerrain->GetHeight(&fHeight, m_pPlayer->GetPosX(), m_pPlayer->GetPosZ());
-		m_pPlayer->SetPosY(fHeight);
-	}
+	//높이 세팅하는 부분 함수로 뺌.
+	m_pPlayer->SetPosY(GetMapHeight(m_pPlayer));
+	
 	for each (auto pMonster in m_vecMonster)
 	{
 		pMonster->Update();
-		if (m_pTerrain)
-		{
-			float fHeight = pMonster->GetPosY();
-			m_pTerrain->GetHeight(&fHeight, pMonster->GetPosX(), pMonster->GetPosZ());
-			pMonster->SetPosY(fHeight);
-		}
+		pMonster->SetPosY(GetMapHeight(pMonster));
 	}
 	//NPC
 	for each (auto pNPC in m_vecNPC)
 	{
 		pNPC->Update();
-		if (m_pTerrain)
-		{
-			float fHeight = pNPC->GetPosY();
-			m_pTerrain->GetHeight(&fHeight, pNPC->GetPosX(), pNPC->GetPosZ());
-			pNPC->SetPosY(fHeight);
-		}
+		pNPC->SetPosY(GetMapHeight(pNPC));
 	}
 
 	for each (auto pRelease in m_vecRelease)
@@ -87,8 +74,6 @@ void cObjectManager::monsterRender(void)
 		pNPC->Render();
 	}
 }
-
-
 
 void cObjectManager::Controller(void)
 {
@@ -166,6 +151,7 @@ void cObjectManager::RegisterPlayer(IN cPlayer* pPlayer)
 	SAFE_RELEASE(m_pPlayer);
 	m_pPlayer = pPlayer;
 	m_pPlayer->SetRadius(0.3f);
+	m_pPlayer->GetAbilityParamter()->SetPower(2.25f);
 	m_pPlayer->RegisterAnimation(cPlayer::ANIMATION_IDLE_OFFENSIVE, g_pAnimationManager->GetAnimation("여성_기본02"));
 	m_pPlayer->RegisterAnimation(cPlayer::ANIMATION_WALK_FRIENDLY, g_pAnimationManager->GetAnimation("여성_걷기01"), 3.0f);
 	m_pPlayer->RegisterAnimation(cPlayer::ANIMATION_WALK_OFFENSIVE, g_pAnimationManager->GetAnimation("여성_걷기02"), 3.0f);
@@ -214,10 +200,20 @@ bool cObjectManager::GetMonster(OUT cPlayer** ppMonster, IN LPD3DXVECTOR3 pRay, 
 	return pTarget;
 }
 
+float cObjectManager::GetMapHeight(cPlayer* player)
+{
+	float fHeight = player->GetPosY();
+	if (m_pTerrain)
+	{
+		m_pTerrain->GetHeight(&fHeight, player->GetPosX(), player->GetPosZ());
+	}
+	return fHeight;
+}
+
 void cObjectManager::SetCursorIncrease()
 {
 	//백터 내에 몹이 없으면 카운터를 올려줄 필요가 없다.
-	if (m_vecMonster.size() < 1) return;
+	if (m_vecMonster.size() < 1 && m_pSelectMonster == nullptr) return;
 	m_nMonsterCursor++;
 	if (m_nMonsterCursor == UNIT_TYPE::MONSTER_END)
 		m_nMonsterCursor = UNIT_TYPE::MONSTER_NULL + 1;
@@ -225,7 +221,11 @@ void cObjectManager::SetCursorIncrease()
 
 cPlayer * cObjectManager::GetMonsterRotation()
 {
-	CreateMonster((UNIT_TYPE)m_nMonsterCursor, &D3DXVECTOR3(0, 0, 0));
+	D3DXVECTOR3 vPos, vOrg, vDir;
+	g_pRay->RayAtWorldSpace(&vOrg, &vDir);
+	m_pTerrain->IsCollision(&vPos, &vOrg, &vDir);
+
+	CreateMonster((UNIT_TYPE)m_nMonsterCursor, &vPos);
 	SAFE_RELEASE(m_pSelectMonster);
 	m_pSelectMonster = m_vecMonster.back();
 	m_vecMonster.pop_back();
@@ -243,14 +243,23 @@ void cObjectManager::SetupMonster()
 {
 	if (this->GetSelectObject() == NULL) return;
 	m_vecMonster.push_back(m_pSelectMonster);
-	CreateMonster((UNIT_TYPE)m_nMonsterCursor, &D3DXVECTOR3(0, 0, 0));
+
+	D3DXVECTOR3 vPos, vOrg, vDir;
+	g_pRay->RayAtWorldSpace(&vOrg, &vDir);
+	m_pTerrain->IsCollision(&vPos, &vOrg, &vDir);
+	
+	int dice = g_pMath->GetFromIntTo(0, 1);
+	if (dice == 0)
+	{
+		CreateMonster((UNIT_TYPE)m_nMonsterCursor, &vPos);
+		
+	}
+	else
+	{
+		CreateMonster((UNIT_TYPE)m_nMonsterCursor, &vPos, &D3DXCOLOR(0.6f, 0.2f, 0.2f, 1.0f));
+	}
 	m_pSelectMonster = m_vecMonster.back();
 	m_vecMonster.pop_back();
-
-
-	//m_pSelectMonster = nullptr;
-
-	//m_vecBuilding.back()->SetPosition(&m_vLandPos);
 }
 
 bool cObjectManager::SaveMonsterObjectState(const char * filename)
@@ -266,12 +275,19 @@ bool cObjectManager::SaveMonsterObjectState(const char * filename)
 		D3DXVECTOR3 vPos = v->GetPosition();
 		//오브젝트 타입
 		DWORD unitID = v->GetAbilityParamter()->GetUnitID();
+		fprintf(fp, "%ld\n", unitID);
 		//오브젝트 컬러
-		D3DXCOLOR color = v->GetMeshColor();
-		fprintf(fp, "%ld\n", &unitID);
-		fprintf(fp, "%f %f %f %f\n", color.a, color.r, color.g, color.b);
+		LPD3DXCOLOR color = v->GetMeshColor();
+		//컬러값이 있으면 넣고 없으면 문자열 null을 넣음
+		if (color != nullptr)
+		{
+			fprintf(fp, "%f %f %f %f\n", color->a, color->r, color->g, color->b);
+		}
+		else
+		{
+			fprintf(fp, "null\n");
+		}
 		fprintf(fp, "%f %f %f\n", vPos.x, vPos.y, vPos.z);
-
 	}
 	fclose(fp);
 	return true;
@@ -279,9 +295,50 @@ bool cObjectManager::SaveMonsterObjectState(const char * filename)
 
 bool cObjectManager::LoadMonsterObjectState(const char * filename)
 {
-	//LPD3DXFRAME test =  m_vecMonster[0]->GetMeshPart(cPlayer::MESH_BODY)->GetRootFrame();
+	//현재 존재하는 오브젝트들 청소
+	ResetMobSelect();
+	for each(auto p in m_vecMonster)
+	{
+		SAFE_RELEASE(p);
+	}
+	m_vecMonster.clear();
+	FILE *fp;
+	fp = fopen(filename, "r");
+	if (!fp) return false;
 
-	return false;
+	while (!feof(fp))
+	{
+		//오브젝트 타입
+		DWORD unitID;
+		//위치 저장
+		D3DXVECTOR3 vPos;
+		//오브젝트 컬러
+		D3DXCOLOR color;
+		int r = fscanf(fp, "%ld\n", &unitID);
+		bool result;
+		result = fscanf(fp, "%f %f %f %f\n", &color.a, &color.r, &color.g, &color.b);
+		//result값이 null이라면 파싱이 제대로 안됐다=컬러값이 없다는 의미임으로 한줄 스킵해줌.
+		if (!result)
+		{
+			char cTemp[255];
+			fgets(cTemp, 255, fp);
+		}
+		fscanf(fp, "%f %f %f\n", &vPos.x, &vPos.y, &vPos.z);
+		//컬러값이 없으면 컬러값을 넣어주지 않음.
+		if (!result)
+		{
+			CreateMonster((UNIT_TYPE)unitID, &vPos);
+		}
+		else
+		{
+			CreateMonster((UNIT_TYPE)unitID, &vPos, &color);
+		}
+	}
+	fclose(fp);
+
+
+
+	return true;
 }
 
 void cObjectManager::SetTerrain(IN cMapTerrain* pTerrain)
@@ -291,7 +348,7 @@ void cObjectManager::SetTerrain(IN cMapTerrain* pTerrain)
 	m_pTerrain->AddRef();
 }
 
-bool cObjectManager::CreateMonster(IN UNIT_TYPE eMonsterKey, IN LPD3DXVECTOR3 pPostion, IN LPD3DXCOLOR pColor)
+cPlayer* cObjectManager::CreateMonster(IN UNIT_TYPE eMonsterKey, IN LPD3DXVECTOR3 pPostion, IN LPD3DXCOLOR pColor)
 {
 	cPlayer* pCreateMonster = nullptr;
 	switch (eMonsterKey)
@@ -303,6 +360,7 @@ bool cObjectManager::CreateMonster(IN UNIT_TYPE eMonsterKey, IN LPD3DXVECTOR3 pP
 		pCreateMonster = cPlayer::Create();
 		pCreateMonster->Setup();
 		pCreateMonster->SetRadius(0.3f);
+		pCreateMonster->GetAbilityParamter()->SetPower(2.25f);
 		pCreateMonster->SetupAnimationController();
 		pCreateMonster->ChangeMeshPart(cPlayer::MESH_BODY, g_pSkinnedMeshManager->GetSkinnedMesh("임시몬스터"));
 		pCreateMonster->RegisterAnimation(cPlayer::ANIMATION_IDLE_FRIENDLY, g_pAnimationManager->GetAnimation("여성_기본01"));
@@ -324,7 +382,7 @@ bool cObjectManager::CreateMonster(IN UNIT_TYPE eMonsterKey, IN LPD3DXVECTOR3 pP
 		pCreateMonster->RegisterAnimation(cPlayer::ANIMATION_DOWN_TO_STAND, g_pAnimationManager->GetAnimation("여성_다운투스텐드"), 5.0f);
 		pCreateMonster->RegisterAnimation(cPlayer::ANIMATION_COUNTER, g_pAnimationManager->GetAnimation("여성_카운터"), 2.0f);
 		pCreateMonster->GetAbilityParamter()->SetPlayerID(2);
-		pCreateMonster->GetAbilityParamter()->SetUnitID(cObjectManager::MONSTER_TEXTER);
+		pCreateMonster->GetAbilityParamter()->SetUnitID(eMonsterKey);
 		pCreateMonster->OrderFriendly();
 	}	break;
 
@@ -333,7 +391,9 @@ bool cObjectManager::CreateMonster(IN UNIT_TYPE eMonsterKey, IN LPD3DXVECTOR3 pP
 		pCreateMonster = cPlayer::Create();
 		pCreateMonster->Setup();
 		pCreateMonster->SetRadius(0.3f);
+		pCreateMonster->GetAbilityParamter()->SetPower(3.0f);
 		pCreateMonster->SetupAnimationController("여우00");
+		pCreateMonster->GetAbilityParamter()->SetMoveSpeed(1.5f);
 		if (pColor)
 		{
 			char szText[1024] = {};
@@ -344,10 +404,10 @@ bool cObjectManager::CreateMonster(IN UNIT_TYPE eMonsterKey, IN LPD3DXVECTOR3 pP
 		else pCreateMonster->ChangeMeshPart(cPlayer::MESH_BODY, g_pSkinnedMeshManager->GetSkinnedMesh("여우01"));
 		pCreateMonster->RegisterAnimation(cPlayer::ANIMATION_IDLE_FRIENDLY, g_pAnimationManager->GetAnimation("여우_기본01"));
 		pCreateMonster->RegisterAnimation(cPlayer::ANIMATION_IDLE_OFFENSIVE, g_pAnimationManager->GetAnimation("여우_기본02"));
-		pCreateMonster->RegisterAnimation(cPlayer::ANIMATION_WALK_FRIENDLY, g_pAnimationManager->GetAnimation("여우_걷기"), 3.0f);
-		pCreateMonster->RegisterAnimation(cPlayer::ANIMATION_WALK_OFFENSIVE, g_pAnimationManager->GetAnimation("여우_걷기"), 3.0f);
-		pCreateMonster->RegisterAnimation(cPlayer::ANIMATION_RUN_FRIENDLY, g_pAnimationManager->GetAnimation("여우_달리기"), 3.0f);
-		pCreateMonster->RegisterAnimation(cPlayer::ANIMATION_RUN_OFFENSIVE, g_pAnimationManager->GetAnimation("여우_달리기"), 3.0f);
+		pCreateMonster->RegisterAnimation(cPlayer::ANIMATION_WALK_FRIENDLY, g_pAnimationManager->GetAnimation("여우_걷기"), 1.5f);
+		pCreateMonster->RegisterAnimation(cPlayer::ANIMATION_WALK_OFFENSIVE, g_pAnimationManager->GetAnimation("여우_걷기"), 1.5f);
+		pCreateMonster->RegisterAnimation(cPlayer::ANIMATION_RUN_FRIENDLY, g_pAnimationManager->GetAnimation("여우_달리기"), 1.5f);
+		pCreateMonster->RegisterAnimation(cPlayer::ANIMATION_RUN_OFFENSIVE, g_pAnimationManager->GetAnimation("여우_달리기"), 1.5f);
 		pCreateMonster->RegisterAnimation(cPlayer::ANIMATION_ATTACK_01, g_pAnimationManager->GetAnimation("여우_공격"), 5.0f);
 		pCreateMonster->RegisterAnimation(cPlayer::ANIMATION_ATTACK_02, g_pAnimationManager->GetAnimation("여우_공격"), 5.0f);
 		pCreateMonster->RegisterAnimation(cPlayer::ANIMATION_HIT_01, g_pAnimationManager->GetAnimation("여우_피격01"), 5.0f);
@@ -362,7 +422,7 @@ bool cObjectManager::CreateMonster(IN UNIT_TYPE eMonsterKey, IN LPD3DXVECTOR3 pP
 		pCreateMonster->RegisterAnimation(cPlayer::ANIMATION_COUNTER, g_pAnimationManager->GetAnimation("여우_카운터"), 2.0f);
 
 		pCreateMonster->GetAbilityParamter()->SetPlayerID(2);
-		pCreateMonster->GetAbilityParamter()->SetUnitID(cObjectManager::MONSTER_FOX);
+		pCreateMonster->GetAbilityParamter()->SetUnitID(eMonsterKey);
 		pCreateMonster->OrderFriendly();
 	}	break;
 
@@ -371,6 +431,7 @@ bool cObjectManager::CreateMonster(IN UNIT_TYPE eMonsterKey, IN LPD3DXVECTOR3 pP
 		pCreateMonster = cPlayer::Create();
 		pCreateMonster->Setup();
 		pCreateMonster->SetRadius(0.5f);
+		pCreateMonster->GetAbilityParamter()->SetPower(2.45f);
 		pCreateMonster->SetupAnimationController("사골");
 		if (pColor)
 		{
@@ -400,7 +461,7 @@ bool cObjectManager::CreateMonster(IN UNIT_TYPE eMonsterKey, IN LPD3DXVECTOR3 pP
 		pCreateMonster->RegisterAnimation(cPlayer::ANIMATION_COUNTER, g_pAnimationManager->GetAnimation("곰_카운터"), 2.0f);
 
 		pCreateMonster->GetAbilityParamter()->SetPlayerID(2);
-		pCreateMonster->GetAbilityParamter()->SetUnitID(cObjectManager::MONSTER_BEAR);
+		pCreateMonster->GetAbilityParamter()->SetUnitID(eMonsterKey);
 		pCreateMonster->OrderFriendly();
 	}	break;
 
@@ -426,8 +487,8 @@ bool cObjectManager::CreateNPC(IN UNIT_TYPE eNPCKey, IN LPD3DXVECTOR3 pPostion)
 			pCreateNPC = cPlayer::Create();
 			pCreateNPC->Setup();
 			pCreateNPC->SetupAnimationController("나오더미");
+			pCreateNPC->ChangeMeshPart(cPlayer::MESH_SHOES, g_pSkinnedMeshManager->GetSkinnedMesh("나오스타킹"));
 			pCreateNPC->ChangeMeshPart(cPlayer::MESH_BODY, g_pSkinnedMeshManager->GetSkinnedMesh("나오메시"));
-		//	pCreateMonster->RegisterAnimation(cPlayer::ANIMATION_IDLE_FRIENDLY, g_pAnimationManager->GetAnimation("곰_기본01"));
 			pCreateNPC->RegisterAnimation(cPlayer::ANIMATION_IDLE_FRIENDLY, g_pAnimationManager->GetAnimation("나오_기본01"));
 
 			pCreateNPC->GetAbilityParamter()->SetPlayerID(3);
