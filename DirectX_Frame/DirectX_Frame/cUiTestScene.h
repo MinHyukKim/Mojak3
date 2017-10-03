@@ -59,6 +59,9 @@ enum
 	E_BUTTON_DIALOG_NEXT,
 	E_TEXT_DIALOG_HEAD,
 	E_TEXT_DIALOG,
+	E_BUTTON_DIALOG_CLOSE,
+	//종료 
+	E_BUTTON_EXIT,
 	E_TEXT_VIEW
 };
 
@@ -155,6 +158,12 @@ private:
 	cUITextView* m_pMainLevelText;			//레벨 택스트
 	//ㅁㅔ인 뿌리
 	cUiObject* m_pUiRoot;
+	//메인 메뉴 열기(종료)
+	cUIButton* m_pUiExitBackImage;
+	cUIButton* m_pUiExitButton;
+	cUITextView* m_pUiExitText;
+	bool m_isExitUiOn;
+	cUiObject* m_pUiExit;
 
 	int m_nmainUiLocalY;
 
@@ -237,6 +246,7 @@ private:
 	cUIButton* m_pDialogNext;		//다음 버튼
 	cUITextView* pDialogNextText;
 	cUIButton* m_pDialogAcceptButton; //수락 여부 버튼
+	cUIButton* m_pDialogCloseButton;  //닫기 버튼
 	bool m_isDialogFin;					//대화 끝(안씀
 	eDialogNPC m_eDialogNPCKind;		//대화중인 NPC(선택한 NPC) 종류
 	int m_nDialogTextNum;				//택스트 순서

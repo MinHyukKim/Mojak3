@@ -232,6 +232,25 @@ void cUiTestScene::SetupBaseButton(void)
 	m_pMainLevelText->SetDrawTextFormat(DT_CENTER | DT_VCENTER | DT_WORDBREAK);
 	m_pMainLevelText->SetTag(E_BUTTON_NONE);
 	m_pUiRoot->AddChild(m_pMainLevelText);
+
+	//종료 관련
+	m_pUiExitBackImage = cUIButton::Create();
+	m_pUiExitBackImage->SetTexture("Texture/Ui/extiBack.png",
+		"Texture/Ui/extiBack.png", "Texture/Ui/extiBack.png");
+	m_pUiExitBackImage->SetPosition(mainUiLocalX, mainUiLocalY - 40);
+	m_pUiExitBackImage->SetDelegate(this);
+	m_pUiExitBackImage->m_Alpha = 180;
+	m_pUiExitBackImage->SetTag(E_BUTTON_NONE);
+	m_pUiExit = m_pUiExitBackImage;
+
+	m_pUiExitButton = cUIButton::Create();
+	m_pUiExitButton->SetTexture("Texture/Ui/textButtonUp6024.png",
+		"Texture/Ui/textButtonUp6024.png", "Texture/Ui/textButtonDown6024.png");
+	m_pUiExitButton->SetPosition(15, 8);
+	m_pUiExitButton->SetDelegate(this);
+	m_pUiExitButton->m_Alpha = 200;
+	m_pUiExitButton->SetTag(E_BUTTON_EXIT);
+	m_pUiExit ->AddChild(m_pUiExitButton);
 }
 
 void cUiTestScene::UpdateMainUi(void)

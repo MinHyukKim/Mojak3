@@ -98,7 +98,9 @@ cUiTestScene::cUiTestScene(void)
 	, m_eDialogNPCKind(E_DIALOG_NPC_NAO)
 	//대화 순서
 	, m_eDialogText(E_TEXT_01)
-//	, m_nDialogTextNum(0)
+	//닫기 관련
+	, m_pUiExit(NULL)
+	, m_isExitUiOn(false)
 {
 	D3DXMatrixIdentity(&m_matWorldMatrix);
 	m_vecTempPlayerItem.reserve(INVMAX);
@@ -170,6 +172,8 @@ void cUiTestScene::Reset(void)
 	SAFE_RELEASE(m_pMainCamera);
 	//대화창
 	SAFE_RELEASE(m_pDialogUi);
+	//메인 종료
+	SAFE_RELEASE(m_pUiExit);
 }
 
 void cUiTestScene::Update(void)
@@ -249,6 +253,8 @@ void cUiTestScene::Update(void)
 
 	if (m_pDialogUi && m_isDialogOpen) m_pDialogUi->Update();
 
+	if (m_pUiExit && m_isExitUiOn) m_pUiExit->Update();
+
 	if (m_pInfoUi && m_isInfoWindowOn)
 	{
 		m_pInfoUi->Update();
@@ -309,6 +315,8 @@ void cUiTestScene::Render(void)
 	if (m_pInventoryUi && m_isInventoryWindowOn) m_pInventoryUi->Render(m_pSprite);
 	//대화 조건 넣기
 	if (m_pDialogUi && m_isDialogOpen) m_pDialogUi->Render(m_pSprite);
+	//종료 관련
+	if (m_pUiExit && m_isExitUiOn) m_pUiExit->Render(m_pSprite);
 
 	//크기 태스트용
 //	if (m_pUiTestRoot) m_pUiTestRoot->Render(m_pSprite);
@@ -342,6 +350,9 @@ bool cUiTestScene::GetMoveingOK()
 	if (m_pSkillCloseButton->isOver) return false;
 	if (m_pQuestCloseButton->isOver) return false;
 	if (m_pInventoryCloseButton->isOver) return false;
+	if (m_pDialogCloseButton->isOver) return false;
+	//메인->종료용
+	if (m_pUiExitBackImage->isOver) return false;
 	
 	return true;
 }
@@ -395,6 +406,14 @@ void cUiTestScene::OnClick(cUIButton * pSender)
 	{
 		m_isMainMin = !m_isMainMin;
 	}
+	else if (pSender->GetTag() == E_MAIN_BUTTON_MAIN)
+	{
+		if (m_isExitUiOn == false)
+		{
+			m_pUiExitBackImage->isOver = false;
+		}
+		m_isExitUiOn = !m_isExitUiOn;
+	}
 	else if (pSender->GetTag() == E_BUTTON_TEST1)
 	{
 		isPickUpItem = !isPickUpItem;
@@ -444,14 +463,25 @@ void cUiTestScene::OnClick(cUIButton * pSender)
 		}
 	//	m_isInventoryWindowOn = !m_isInventoryWindowOn;
 	}
+	else if (pSender->GetTag() == E_BUTTON_DIALOG_CLOSE)
+	{
+		m_isDialogOpen = false;
+		if (m_isDialogOpen == false)
+		{
+			m_pDialogBackImage->isOver = false;
+			m_pDialogCloseButton->isOver = false;
+		}
+	}
+
+
 	//대화창 관련 (열린 상태에서 NPC가 나오라면)
 	if (m_isDialogOpen && m_eDialogNPCKind == E_DIALOG_NPC_NAO)
 	{
-		if (pSender->GetTag() == E_BUTTON_DIALOG_PREV /*&& m_nDialogTextNum > 0*/ /*m_eDialogText > E_TEXT_01*/)
+		if (pSender->GetTag() == E_BUTTON_DIALOG_PREV && m_nDialogTextNum > 0 /*m_eDialogText > E_TEXT_01*/)
 		{
 			m_nDialogTextNum = m_nDialogTextNum - 1;
 		}
-		else if (pSender->GetTag() == E_BUTTON_DIALOG_NEXT/* && m_nDialogTextNum < 5*/)
+		else if (pSender->GetTag() == E_BUTTON_DIALOG_NEXT && m_nDialogTextNum < 6)
 		{
 			m_nDialogTextNum += 1;
 		}

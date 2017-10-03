@@ -44,6 +44,17 @@ void cUiTestScene::SetupDialogUi(void)
 	m_pDialogText->SetTag(E_TEXT_DIALOG);
 	m_pDialogUi->AddChild(m_pDialogText);
 
+	//닫기
+	m_pDialogCloseButton = cUIButton::Create();
+	m_pDialogCloseButton->SetTexture("Texture/Ui/button_close_up.png"
+		, "Texture/Ui/button_close_over.png", "Texture/Ui/button_close_up.png");
+	m_pDialogCloseButton->SetPosition(940, 30);
+	m_pDialogCloseButton->SetDelegate(this);
+	m_pDialogCloseButton->SetTag(E_BUTTON_DIALOG_CLOSE);
+	m_pDialogCloseButton->m_Alpha = 220;
+	m_pDialogUi->AddChild(m_pDialogCloseButton);
+
+
 	int DialogButtonX = 40;
 	int DialogButtonY = 145;
 	//대화창 이전 버튼
@@ -107,6 +118,17 @@ void cUiTestScene::changeDialogText(void)
 //	{
 //		m_pDialogText->SetText("대화창 태스트05");
 //	}
+	switch (m_eDialogNPCKind)
+	{
+		case E_DIALOG_NPC_NAO:
+		{
+			m_pDialogNameText->SetText("나오");
+			m_pDialogNameText->SetPosition(-10, 5);
+		}
+		break;
+	}
+
+	
 
 	switch (m_nDialogTextNum)
 	{
@@ -114,7 +136,9 @@ void cUiTestScene::changeDialogText(void)
 		{
 			if (m_eDialogNPCKind == E_DIALOG_NPC_NAO)
 			{
-				m_pDialogText->SetText("대화창 태스트01");
+				m_pDialogText->SetText("안녕하세요 귀한 곳에 누추한 분이 오셨군요");
+				m_pDialogText->SetSize(ST_SIZE(300, 80));
+				m_pDialogText->SetPosition(28, 20);
 			}
 		}
 		break;
@@ -155,6 +179,8 @@ void cUiTestScene::changeDialogText(void)
 			if (m_eDialogNPCKind == E_DIALOG_NPC_NAO)
 			{
 				m_pDialogText->SetText("대화창 태스트06");
+				m_pDialogText->SetSize(ST_SIZE(300, 80));
+				m_pDialogText->SetPosition(28, 20);
 			}
 		}
 		break;
