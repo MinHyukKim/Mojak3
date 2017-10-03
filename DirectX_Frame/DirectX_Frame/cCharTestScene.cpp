@@ -136,6 +136,12 @@ void cCharTestScene::Update(void)
 	}
 
 
+
+	if (g_pInputManager->IsOnceKeyDown('9'))
+	{
+		g_pObjectManager->LoadMonsterObjectState("test.enm");
+	}
+
 	SAFE_UPDATE(g_pObjectManager);
 	cPlayer* pPlayer = g_pObjectManager->GetPlayer();
 	float fHeight = pPlayer->GetPosY();
