@@ -239,6 +239,7 @@ private:
 	cUIButton* m_pDialogAcceptButton; //수락 여부 버튼
 	bool m_isDialogFin;					//대화 끝(안씀
 	eDialogNPC m_eDialogNPCKind;		//대화중인 NPC(선택한 NPC) 종류
+	int m_nDialogTextNum;				//택스트 순서
 	eDialogText m_eDialogText;			//택스트 순서
 	cUiObject* m_pDialogUi;			
 
@@ -356,6 +357,8 @@ public:
 	void changeInventoryImage(void);
 	//매쉬 변경 함수
 	void changePlayerMesh(void);
+	//대사 변경 함수
+	void changeDialogText(void);
 
 	//ui 열림 주고 받기용
 	bool GetInfoOnOff(void) { return m_isInfoWindowOn; }

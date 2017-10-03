@@ -94,16 +94,18 @@ cUiTestScene::cUiTestScene(void)
 	//대화창
 	, m_pDialogUi(NULL)
 	, m_isDialogOpen(false)
-	//대화NPC 종류
-	, m_eDialogNPCKind(E_DIALOG_NPC_NONE)
+	//대화NPC 종류 태스트용 나오 맨첨은 NONE로 바꾸기
+	, m_eDialogNPCKind(E_DIALOG_NPC_NAO)
 	//대화 순서
 	, m_eDialogText(E_TEXT_01)
+//	, m_nDialogTextNum(0)
 {
 	D3DXMatrixIdentity(&m_matWorldMatrix);
 	m_vecTempPlayerItem.reserve(INVMAX);
 	m_vecInventoryUiBlock.reserve(INVMAX);
 	m_nWearDef = 2;
 	m_nShoesDef = 2;
+	m_nDialogTextNum = 0;
 }
 
 cUiTestScene::~cUiTestScene(void)
@@ -231,9 +233,13 @@ void cUiTestScene::Update(void)
 		}
 	}
 
-	if (g_pInputManager->IsOnceKeyUp('G'))
+	if (g_pInputManager->IsOnceKeyUp('G') && m_pDialogUi)
 	{
 		m_isDialogOpen = !m_isDialogOpen;
+		if (m_isDialogOpen == false)
+		{
+			m_pDialogBackImage->isOver = false;
+		}
 	}
 
 	if (m_pUiRoot) m_pUiRoot->Update();
@@ -286,6 +292,8 @@ void cUiTestScene::Update(void)
 	this->changePlayerMesh();
 	//인벤 색 변경
 	this->changeInventoryImage();
+	//대화 변경
+	this->changeDialogText();
 //	m_vecTempPlayerItem.resize(INVMAX);
 }
 
@@ -328,14 +336,13 @@ bool cUiTestScene::GetMoveingOK()
 	if (m_pInventoryUiMoveing->isOver) return false;
 	if (m_pInventoryUiImage->isOver) return false;
 	//대화창 막기
-	if (m_pDialogBackImage->isOver) return false;
+	if (/*m_pDialogUi &&*/ m_pDialogBackImage->isOver) return false;
 	//닫기 버튼용
 	if (m_pInfoCloseButton->isOver) return false;
 	if (m_pSkillCloseButton->isOver) return false;
 	if (m_pQuestCloseButton->isOver) return false;
 	if (m_pInventoryCloseButton->isOver) return false;
 	
-//	if (m_isInfoWindowOn == false) return true;
 	return true;
 }
 
@@ -351,7 +358,7 @@ void cUiTestScene::OnClick(cUIButton * pSender)
 		{
 			m_pInfoUiMoveing->isOver = false;
 			m_pInfoUiImage->isOver = false;
-			m_pInfoCloseButton->isOver = false;
+		//	m_pInfoCloseButton->isOver = false;
 		}
 		m_isInfoWindowOn = !m_isInfoWindowOn;
 	}
@@ -437,11 +444,18 @@ void cUiTestScene::OnClick(cUIButton * pSender)
 		}
 	//	m_isInventoryWindowOn = !m_isInventoryWindowOn;
 	}
-	//대화창 관련
-//	if (m_isDialogOpen && m_eDialogNPCKind == E_DIALOG_NPC_NAO)
-//	{
-//
-//	}
+	//대화창 관련 (열린 상태에서 NPC가 나오라면)
+	if (m_isDialogOpen && m_eDialogNPCKind == E_DIALOG_NPC_NAO)
+	{
+		if (pSender->GetTag() == E_BUTTON_DIALOG_PREV /*&& m_nDialogTextNum > 0*/ /*m_eDialogText > E_TEXT_01*/)
+		{
+			m_nDialogTextNum = m_nDialogTextNum - 1;
+		}
+		else if (pSender->GetTag() == E_BUTTON_DIALOG_NEXT/* && m_nDialogTextNum < 5*/)
+		{
+			m_nDialogTextNum += 1;
+		}
+	}
 
 }
 

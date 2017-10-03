@@ -84,3 +84,79 @@ void cUiTestScene::SetupDialogUi(void)
 	pDialogNextText->SetTag(E_BUTTON_NONE);
 	m_pDialogUi->AddChild(pDialogNextText);
 }
+
+void cUiTestScene::changeDialogText(void)
+{
+//	if (m_nDialogTextNum == 0)
+//	{
+//		m_pDialogText->SetText("대화창 태스트01");
+//	}
+//	else if (m_nDialogTextNum == 1)
+//	{
+//		m_pDialogText->SetText("대화창 태스트02");
+//	}
+//	else if (m_nDialogTextNum == 2)
+//	{
+//		m_pDialogText->SetText("대화창 태스트03");
+//	}
+//	else if (m_nDialogTextNum == 3)
+//	{
+//		m_pDialogText->SetText("대화창 태스트04");
+//	}
+//	else if (m_nDialogTextNum == 4)
+//	{
+//		m_pDialogText->SetText("대화창 태스트05");
+//	}
+
+	switch (m_nDialogTextNum)
+	{
+		case 0:
+		{
+			if (m_eDialogNPCKind == E_DIALOG_NPC_NAO)
+			{
+				m_pDialogText->SetText("대화창 태스트01");
+			}
+		}
+		break;
+		case 1:
+		{
+			if (m_eDialogNPCKind == E_DIALOG_NPC_NAO)
+			{
+				m_pDialogText->SetText("대화창 태스트02");
+			}
+		}
+		break;
+		case 2:
+		{
+			if (m_eDialogNPCKind == E_DIALOG_NPC_NAO)
+			{
+				m_pDialogText->SetText("대화창 태스트03");
+			}
+		}
+		break;
+		case 3:
+		{
+			if (m_eDialogNPCKind == E_DIALOG_NPC_NAO)
+			{
+				m_pDialogText->SetText("대화창 태스트04");
+			}
+		}
+		break;
+		case 4:
+		{
+			if (m_eDialogNPCKind == E_DIALOG_NPC_NAO)
+			{
+				m_pDialogText->SetText("대화창 태스트05");
+			}
+		}
+		break;
+		case 5:
+		{
+			if (m_eDialogNPCKind == E_DIALOG_NPC_NAO)
+			{
+				m_pDialogText->SetText("대화창 태스트06");
+			}
+		}
+		break;
+	}
+}
