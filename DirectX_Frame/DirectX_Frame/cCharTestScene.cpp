@@ -138,9 +138,40 @@ void cCharTestScene::Update(void)
 
 
 
+	//맵오브젝트 세이브 로드 테스트
+	if (g_pInputManager->IsOnceKeyDown('0'))
+	{
+		OPENFILENAME OFN;
+		char filename[255];
+		char lpstrFile[MAX_PATH] = "";
+		memset(&OFN, 0, sizeof(OPENFILENAME));
+		OFN.lpstrTitle = "맵오브젝트 로드하기";
+		OFN.lStructSize = sizeof(OPENFILENAME);
+		OFN.hwndOwner = g_hWnd;
+		OFN.lpstrFilter = "모든 파일(*.*)\0*.*\0맵 오브젝트 파일\0*.obj;\0";
+		OFN.lpstrFile = lpstrFile;
+		OFN.nMaxFile = 256;
+		//OFN.lpstrInitialDir = "c:\\";
+		if (GetOpenFileName(&OFN) != 0)
+			g_pMapObjectManager->LoadCurrentObjectsState(OFN.lpstrFile);
+	}
+
+
 	if (g_pInputManager->IsOnceKeyDown('9'))
 	{
-		g_pObjectManager->LoadMonsterObjectState("test.enm");
+		OPENFILENAME OFN;
+		char filename[255];
+		char lpstrFile[MAX_PATH] = "";
+		memset(&OFN, 0, sizeof(OPENFILENAME));
+		OFN.lpstrTitle = "몬스터 배치 로드하기";
+		OFN.lStructSize = sizeof(OPENFILENAME);
+		OFN.hwndOwner = g_hWnd;
+		OFN.lpstrFilter = "모든 파일(*.*)\0*.*\0맵 오브젝트 파일\0*.obj;\0";
+		OFN.lpstrFile = lpstrFile;
+		OFN.nMaxFile = 256;
+		//OFN.lpstrInitialDir = "c:\\";
+		if (GetOpenFileName(&OFN) != 0)
+			g_pObjectManager->LoadMonsterObjectState(OFN.lpstrFile);
 	}
 
 	SAFE_UPDATE(g_pObjectManager);

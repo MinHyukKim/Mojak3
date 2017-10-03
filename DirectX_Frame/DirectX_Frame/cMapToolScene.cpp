@@ -47,20 +47,7 @@ HRESULT cMapToolScene::Setup(void)
 	m_pGrid->Setup();
 //	m_pTexture = g_pTexture->GetTexture("./HeightMapData/terrain.jpg");
 	
-	m_vecObjectList.push_back("scene_building_tirchonaill_chiefhouse.x");
-	m_vecObjectList.push_back("inn.x");
-	m_vecObjectList.push_back("farm_appletree_01.x");
-	m_vecObjectList.push_back("farm_level02_se_tree_01.x");
-	m_vecObjectList.push_back("scene_building_tirchonaill_church.x");
-	m_vecObjectList.push_back("smooth_appleTree.x");
-	
-	//건물 등록
-	g_pMapObjectManager->RegisterMapObject("", m_vecObjectList[0], m_vecObjectList[0]);
-	g_pMapObjectManager->RegisterMapObject("", m_vecObjectList[1], m_vecObjectList[1]);
-	g_pMapObjectManager->RegisterMapObject("", m_vecObjectList[2], m_vecObjectList[2]);
-	g_pMapObjectManager->RegisterMapObject("", m_vecObjectList[3], m_vecObjectList[3]);
-	g_pMapObjectManager->RegisterMapObject("", m_vecObjectList[4], m_vecObjectList[4]);
-	g_pMapObjectManager->RegisterMapObject("", m_vecObjectList[5], m_vecObjectList[5]);
+
 
 	//m_pBuild = new cBuilding();
 	//m_pBuild->Setup();
