@@ -62,6 +62,14 @@ enum
 	E_BUTTON_DIALOG_CLOSE,
 	//종료 
 	E_BUTTON_EXIT,
+	//퀵슬롯
+	E_BUTTON_QUICK_01,
+	E_BUTTON_QUICK_02,
+	E_BUTTON_QUICK_03,
+	E_BUTTON_QUICK_04,
+	E_BUTTON_QUICK_05,
+	E_BUTTON_QUICK_06,
+	E_BUTTON_QUICK_07,
 	E_TEXT_VIEW
 };
 
@@ -291,6 +299,17 @@ private:
 	int m_isShoesMount;							//신발 장착여부
 	//아이탬 픽업 여부
 	bool isPickUpItem;				//아이탬 픽업 여부(찍고 올리기)
+
+	//퀵슬롯들
+	cUIButton* m_pUiQuickSiot1;
+	cUIButton* m_pUiQuickSiot2;
+	cUIButton* m_pUiQuickSiot3;
+	cUIButton* m_pUiQuickSiot4;
+	cUIButton* m_pUiQuickSiot5;
+	cUIButton* m_pUiQuickSiot6;
+	cUIButton* m_pUiQuickSiot7;
+	cUiObject* m_pUiQuickSiot;
+
 	//패널 이미지 크기 태스트용
 	cUiObject* m_pUiTestRoot;
 	cUIImageView* m_pUiTesterSize;	

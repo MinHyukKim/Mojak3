@@ -38,6 +38,9 @@ struct ST_CONTAINER
 class cCamera;
 class cActionMove;
 class cActionDirection;
+
+class cUiTestScene;
+
 class cPlayer : public cObject
 {
 public:
@@ -132,6 +135,9 @@ private:
 	//피격컨트롤러
 	bool m_bHitAnimation;
 
+	//ui열기용
+	cUiTestScene* cUi;
+
 	//메인 컬러 저장
 	LPD3DXCOLOR m_pMainColor;
 
@@ -168,6 +174,8 @@ public:
 	void OrderOffensive(void);
 
 	void OrderTarget(void);
+	void OrderTargetNPC(void);
+
 	void OrderIden(void);
 	void OrderIdenChange(void);
 	void OrderWalk(LPD3DXVECTOR3 pTo);

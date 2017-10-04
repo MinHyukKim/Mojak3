@@ -101,6 +101,8 @@ cUiTestScene::cUiTestScene(void)
 	//닫기 관련
 	, m_pUiExit(NULL)
 	, m_isExitUiOn(false)
+	//퀵슬롯 관련
+	, m_pUiQuickSiot(NULL)
 {
 	D3DXMatrixIdentity(&m_matWorldMatrix);
 	m_vecTempPlayerItem.reserve(INVMAX);
@@ -174,6 +176,8 @@ void cUiTestScene::Reset(void)
 	SAFE_RELEASE(m_pDialogUi);
 	//메인 종료
 	SAFE_RELEASE(m_pUiExit);
+	//퀵
+	SAFE_RELEASE(m_pUiQuickSiot);
 }
 
 void cUiTestScene::Update(void)
@@ -246,14 +250,15 @@ void cUiTestScene::Update(void)
 		}
 	}
 
-	if (m_pUiRoot) m_pUiRoot->Update();
-	if (m_pSkillUi && m_isSkillWindowOn) m_pSkillUi->Update();
-	if (m_pQuestUi && m_isQuestWindowOn) m_pQuestUi->Update();
-	if (m_pInventoryUi && m_isInventoryWindowOn) m_pInventoryUi->Update();
+	if (m_pUiRoot) m_pUiRoot->Update();										//ui기본 베이스
+	if (m_pSkillUi && m_isSkillWindowOn) m_pSkillUi->Update();				//ui 스킬창
+	if (m_pQuestUi && m_isQuestWindowOn) m_pQuestUi->Update();				//ui 퀘스트 창
+	if (m_pInventoryUi && m_isInventoryWindowOn) m_pInventoryUi->Update();  //ui 인벤토리 창
 
-	if (m_pDialogUi && m_isDialogOpen) m_pDialogUi->Update();
+	if (m_pDialogUi && m_isDialogOpen) m_pDialogUi->Update();				//ui 대화창
+	if (m_pUiQuickSiot) m_pUiQuickSiot->Update();							//ui 퀵슬롯 창
 
-	if (m_pUiExit && m_isExitUiOn) m_pUiExit->Update();
+	if (m_pUiExit && m_isExitUiOn) m_pUiExit->Update();						//메인->나가기 창
 
 	if (m_pInfoUi && m_isInfoWindowOn)
 	{
@@ -317,6 +322,8 @@ void cUiTestScene::Render(void)
 	if (m_pDialogUi && m_isDialogOpen) m_pDialogUi->Render(m_pSprite);
 	//종료 관련
 	if (m_pUiExit && m_isExitUiOn) m_pUiExit->Render(m_pSprite);
+	//퀵슬롯 관련
+	if (m_pUiQuickSiot) m_pUiQuickSiot->Render(m_pSprite);
 
 	//크기 태스트용
 //	if (m_pUiTestRoot) m_pUiTestRoot->Render(m_pSprite);

@@ -6,6 +6,8 @@
 #include "cActionMove.h"
 #include "cActionDirection.h"
 
+#include "cUiTestScene.h"
+
 cPlayer::cPlayer(void)
 	: m_pCamera(nullptr)
 	, m_pTarget(nullptr)
@@ -377,6 +379,16 @@ void cPlayer::OrderTarget(void)
 	else this->OrderIden();
 }
 
+void cPlayer::OrderTargetNPC(void)
+{
+	float fDistSq;
+	if (this->DistSqTarget(&fDistSq))
+	{
+
+	}
+
+}
+
 void cPlayer::OrderIden(void)
 {
 	if (!this->CheckState(PATTERN_STOP)) return;
@@ -474,21 +486,38 @@ void cPlayer::OrderAttack(cPlayer* pTarget)
 	this->OrderTarget();
 }
 
+//대화 다가오기 켜기 (나중에 다시)
 void cPlayer::OrderDialog(cPlayer * pTargrt)
 {
 	SAFE_RELEASE(m_pTarget);
 	m_pTarget = pTargrt;
 	SAFE_ADDREF(m_pTarget);
 
-//	if (this->CheckState(PATTERN_OFFENSIVE))
-//	{
-//		this->SetStateTrue(PATTERN_FRIENDLY);
-//		this->SetStateFalse(PATTERN_OFFENSIVE);
-//	}
-//
-//	this->OrderTarget();
-}
+	this->OrderTarget();
 
+	float fDistSq;
+	if (this->DistSqTarget(&fDistSq))
+	{
+		//통상 모드일때 
+		if (this->CheckState(PATTERN_FRIENDLY))
+		{
+			//범위 밖에 있을경우
+			this->SetStateTrue(PATTERN_TARGET);
+			this->OrderMove(&m_pTarget->GetPosition());
+		}
+		else if (!m_dwNumRealdyState)
+		{
+			//범위 안에 있을경우
+			// 준비
+			this->OrderIden();
+			//this->SetDirection(&(m_pTarget->GetPosition() - this->GetPosition()));
+			//this->SetStateFalse(PATTERN_TARGET | PATTERN_STOP | PATTERN_ATTACK | PATTERN_WALK | PATTERN_RUN);
+			float fDelay = 0.0f;
+			//cUiTestScene* cUi;
+			cUi->SetDialogOpen(true);
+		}
+	}
+}
 
 void cPlayer::ChangeMeshPart(IN DWORD dwPart, IN LPCSTR szFolder, IN LPCSTR szFilename)
 {

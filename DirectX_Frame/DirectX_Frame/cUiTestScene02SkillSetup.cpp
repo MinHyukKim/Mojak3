@@ -59,4 +59,13 @@ void cUiTestScene::SetupSkillUi(void)
 	m_pSkillCloseButton->m_Alpha = 180;
 	m_pSkillUi->AddChild(m_pSkillCloseButton);
 
+	//Äü ¼³Á¤
+	m_pUiQuickSiot1 = cUIButton::Create();
+	m_pUiQuickSiot1->SetTexture("Texture/Ui/QuickSiot.png"
+		, "Texture/Ui/QuickSiot.png", "Texture/Ui/QuickSiot.png");
+	m_pUiQuickSiot1->SetPosition(10, 10);
+	m_pUiQuickSiot1->SetDelegate(this);
+	m_pUiQuickSiot1->SetTag(E_BUTTON_QUICK_01);
+//	m_pUiQuickSiot1->m_Alpha = 220;
+	m_pUiQuickSiot = m_pUiQuickSiot1;
 }
