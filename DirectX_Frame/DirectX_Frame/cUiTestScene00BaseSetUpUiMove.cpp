@@ -251,6 +251,18 @@ void cUiTestScene::SetupBaseButton(void)
 	m_pUiExitButton->m_Alpha = 200;
 	m_pUiExitButton->SetTag(E_BUTTON_EXIT);
 	m_pUiExit ->AddChild(m_pUiExitButton);
+
+	//택스트
+	m_pUiExitText = cUITextView::Create();
+	m_pUiExitText->SetText("종료");
+	m_pUiExitText->SetFontType(g_pFontManager->E_INBUTTON);
+	m_pUiExitText->SetColor(D3DCOLOR_XRGB(255, 255, 255));
+	m_pUiExitText->SetSize(ST_SIZE(80, 40));
+	m_pUiExitText->SetPosition(5, -5);
+	m_pUiExitText->SetDrawTextFormat(DT_CENTER | DT_VCENTER | DT_WORDBREAK);
+	m_pUiExitText->SetTag(E_TEXT_DIALOG);
+	m_pUiExit->AddChild(m_pUiExitText);
+
 }
 
 void cUiTestScene::UpdateMainUi(void)

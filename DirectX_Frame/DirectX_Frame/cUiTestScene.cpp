@@ -472,6 +472,10 @@ void cUiTestScene::OnClick(cUIButton * pSender)
 			m_pDialogCloseButton->isOver = false;
 		}
 	}
+	else if (pSender->GetTag() == E_BUTTON_EXIT)
+	{
+		exit(1);
+	}
 
 
 	//대화창 관련 (열린 상태에서 NPC가 나오라면)

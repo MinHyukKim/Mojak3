@@ -200,6 +200,24 @@ bool cObjectManager::GetMonster(OUT cPlayer** ppMonster, IN LPD3DXVECTOR3 pRay, 
 	return pTarget;
 }
 
+bool cObjectManager::GetNPC(OUT cPlayer ** ppNPC, IN LPD3DXVECTOR3 pRay, IN LPD3DXVECTOR3 pDir)
+{
+	cPlayer* pTarget = nullptr;
+	float fDist = 1000.0f;
+
+	for each (auto pNPC in m_vecNPC)
+	{
+		if (!pNPC->IsCollision(pRay, pDir)) continue;
+		float fLength = D3DXVec3Length(&(pNPC->GetPosition() - (*pRay)));
+		if (fLength >= fDist) continue;
+		pTarget = pNPC;
+		fDist = fLength;
+	}
+	*ppNPC = pTarget;
+	return pTarget;
+}
+
+
 float cObjectManager::GetMapHeight(cPlayer* player)
 {
 	float fHeight = player->GetPosY();

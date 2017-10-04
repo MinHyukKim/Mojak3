@@ -474,6 +474,21 @@ void cPlayer::OrderAttack(cPlayer* pTarget)
 	this->OrderTarget();
 }
 
+void cPlayer::OrderDialog(cPlayer * pTargrt)
+{
+	SAFE_RELEASE(m_pTarget);
+	m_pTarget = pTargrt;
+	SAFE_ADDREF(m_pTarget);
+
+//	if (this->CheckState(PATTERN_OFFENSIVE))
+//	{
+//		this->SetStateTrue(PATTERN_FRIENDLY);
+//		this->SetStateFalse(PATTERN_OFFENSIVE);
+//	}
+//
+//	this->OrderTarget();
+}
+
 
 void cPlayer::ChangeMeshPart(IN DWORD dwPart, IN LPCSTR szFolder, IN LPCSTR szFilename)
 {

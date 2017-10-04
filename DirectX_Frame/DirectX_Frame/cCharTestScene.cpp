@@ -92,6 +92,13 @@ void cCharTestScene::Update(void)
 			{
 				g_pObjectManager->GetPlayer()->OrderAttack(pMonster);
 			}
+
+			//NPC
+			else if (g_pObjectManager->GetNPC(&pMonster, &vRay, &vDir))
+			{
+				g_pObjectManager->GetPlayer()->OrderDialog(pMonster);
+			}
+
 			else if (m_pMapTerrain->IsCollision(&vTo, &vRay, &vDir))
 			{
 				g_pObjectManager->GetPlayer()->SetStateFalse(PATTERN_TARGET);

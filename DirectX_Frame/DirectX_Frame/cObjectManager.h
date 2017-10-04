@@ -60,7 +60,8 @@ public:
 	cPlayer* GetPlayer(void) { return m_pPlayer; }
 	std::vector<cPlayer*>* GetMonsterVectorPointer(void) { return &m_vecMonster; }
 	bool GetMonster(OUT cPlayer** ppMonster, IN LPD3DXVECTOR3 pRay, IN LPD3DXVECTOR3 pDir);
-	
+	bool GetNPC(OUT cPlayer** ppNPC, IN LPD3DXVECTOR3 pRay, IN LPD3DXVECTOR3 pDir);
+
 	float GetMapHeight(cPlayer*);
 
 	//몬스터 로테이션 출력 관련
