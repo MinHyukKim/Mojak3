@@ -195,6 +195,7 @@ void cCharTestScene::Render(void)
 	SAFE_RENDER(m_pGrid);
 
 	SAFE_RENDER(g_pObjectManager);
+	SAFE_RENDER(g_pMapObjectManager);
 	SAFE_RENDER(m_pUi);
 }
 
