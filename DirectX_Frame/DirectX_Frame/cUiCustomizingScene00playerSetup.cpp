@@ -51,7 +51,8 @@ void cUiCustomizingScene::SetupPlayer(void)
 	m_pPlayer->SetTextureMouth("mouth_0.dds");
 	m_pPlayer->SetTextureMouthColor(&D3DXCOLOR(0.0f, 0.0f, 0.0f, 1.0f));
 	m_pPlayer->SetTextureEye("eye_0.dds");
-	m_pPlayer->SetTextureEyeColor(&D3DXCOLOR(0.07f, 0.07f, 0.07f, 0.2f));
+	//m_pPlayer->SetTextureEyeColor(&D3DXCOLOR(0.07f, 0.07f, 0.07f, 0.2f));
+	m_pPlayer->SetTextureEyeColor(&D3DXCOLOR(0.07f, 0.07f, 0.07f, 1.0f));
 	//카메라 연결
 	m_pMainCamera = m_pPlayer->GetCamera();
 	m_pMainCamera->Setup();
