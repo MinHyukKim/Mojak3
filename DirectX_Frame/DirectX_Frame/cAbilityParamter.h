@@ -107,7 +107,7 @@ public:
 	void SetMinStamina(int n) { m_nMinStamina = n; }
 	int GetMinStamina(void) { return m_nMinStamina; }
 	//°ø°Ý·Â
-	void SetmMinDamage(int n) { m_nMinDamage = n; }
+	void SetMinDamage(int n) { m_nMinDamage = n; }
 	int GetMinDamage(void) { return m_nMinDamage; }
 	void SetBonusDamage(int n) { m_nBonusDamage = n; }
 	int GetBonusDamage(void) { return m_nBonusDamage; }

@@ -117,6 +117,14 @@ void cPlayer::SetupOffnsive(void)
 
 void cPlayer::SetupHit(void)
 {
+	if (this->GetParam())
+	{
+		char szText[16] = {};
+		_itoa(this->GetParam(), szText, 10);
+		g_pMeshFontManager->AddFont(szText, &(this->GetPosition() + D3DXVECTOR3(0.0f, g_pObjectManager->GetPlayer()->GetRadius(), 0.0f)));
+		this->GetAbilityParamter()->SetMinHP(this->GetAbilityParamter()->GetMinHP() - this->GetParam());
+		this->SetParam(0);
+	}
 	m_dwNumRealdyState = 0;
 	float fDelay = 0.0f;
 	this->SetStateFalse(PATTERN_STOP);
@@ -141,6 +149,15 @@ void cPlayer::SetupHit(void)
 
 void cPlayer::SetupSpin(void)
 {
+	if (this->GetParam())
+	{
+		char szText[16] = {};
+		_itoa(this->GetParam(), szText, 10);
+		g_pMeshFontManager->AddFont(szText, &(this->GetPosition() + D3DXVECTOR3(0.0f, g_pObjectManager->GetPlayer()->GetRadius(), 0.0f)));
+		this->GetAbilityParamter()->SetMinHP(this->GetAbilityParamter()->GetMinHP() - this->GetParam());
+		this->SetParam(0);
+	}
+
 	m_dwNumRealdyState = 0;
 	float fDelay = 0.0f;
 
@@ -167,14 +184,22 @@ void cPlayer::SetupDownd(void)
 
 void cPlayer::SetupStandUp(void)
 {
-	m_dwNumRealdyState = 0;
-	float fDelay = 0.0f;
+	if (0 < this->GetAbilityParamter()->GetMinHP())
+	{
+		m_dwNumRealdyState = 0;
+		float fDelay = 0.0f;
 
-	fDelay = this->SetBlendingAnimation(cPlayer::ANIMATION_DOWN_TO_STAND);
-	this->GetAbilityParamter()->SetDelayTime(fDelay - 0.1f);
+		fDelay = this->SetBlendingAnimation(cPlayer::ANIMATION_DOWN_TO_STAND);
+		this->GetAbilityParamter()->SetDelayTime(fDelay - 0.1f);
 
-	this->SetRealdyTrue(PATTERN_ATTACK | PATTERN_WALK | PATTERN_RUN);
-	this->SetRealdyState(cPlayer::ORDER_OFFENSIVE);
+		this->SetRealdyTrue(PATTERN_ATTACK | PATTERN_WALK | PATTERN_RUN);
+		this->SetRealdyState(cPlayer::ORDER_OFFENSIVE);
+	}
+	else
+	{
+		this->GetAbilityParamter()->SetDelayTime(10.0f);
+		this->SetTarget(nullptr);
+	}
 }
 
 void cPlayer::PatternUpdate(void)
@@ -279,6 +304,7 @@ void cPlayer::OrderTarget(void)
 				//this->SetDirection(&(m_pTarget->GetPosition() - this->GetPosition()));
 				this->SetStateFalse(PATTERN_TARGET | PATTERN_STOP | PATTERN_ATTACK | PATTERN_WALK | PATTERN_RUN);
 				float fDelay = 0.0f;
+				float fDamage = this->GetAbilityParamter()->GetMinDamage() + g_pMath->Random(this->GetAbilityParamter()->GetBonusDamage());
 
 				if (this->CheckState(PATTERN_SMASH))	//스매시
 				{
@@ -308,7 +334,7 @@ void cPlayer::OrderTarget(void)
 						this->GetAbilityParamter()->SetDownGauge(m_pTarget->GetAbilityParamter()->GetDownGauge() + 2.25f);
 
 						this->SetRealdyState(cPlayer::ORDER_SPIN);
-						this->SetParam(0);
+						this->SetParam(2.0f * fDamage + m_pTarget->GetAbilityParamter()->GetMinDamage());
 
 					}
 					else
@@ -323,7 +349,7 @@ void cPlayer::OrderTarget(void)
 						m_pTarget->GetAbilityParamter()->SetDownGauge(m_pTarget->GetAbilityParamter()->GetDownGauge() + 2.25f);
 
 						m_pTarget->SetRealdyState(cPlayer::ORDER_SPIN);
-						m_pTarget->SetParam(0);
+						m_pTarget->SetParam(2.0f * fDamage);
 					}
 
 				}
@@ -355,7 +381,7 @@ void cPlayer::OrderTarget(void)
 						this->GetAbilityParamter()->SetDownGauge(m_pTarget->GetAbilityParamter()->GetDownGauge() + 2.25f);
 
 						this->SetRealdyState(cPlayer::ORDER_SPIN);
-						this->SetParam(0);
+						this->SetParam(fDamage + m_pTarget->GetAbilityParamter()->GetMinDamage());
 					}
 					else
 					{
@@ -368,7 +394,7 @@ void cPlayer::OrderTarget(void)
 						m_pTarget->GetAbilityParamter()->SetDownGauge(m_pTarget->GetAbilityParamter()->GetDownGauge() + this->GetAbilityParamter()->GetPower());
 
 						m_pTarget->SetRealdyState(cPlayer::ORDER_HIT);
-						m_pTarget->SetParam(0);
+						m_pTarget->SetParam(fDamage);
 					}
 				}
 			}
@@ -762,6 +788,8 @@ void cPlayer::Rotation(LPD3DXVECTOR3 pTo, float fSpeed)
 
 void cPlayer::ComputerAI(void)
 {
+	if (0 >= this->GetAbilityParamter()->GetMinHP()) return;
+
 	if (this->CheckState(PATTERN_FRIENDLY))
 	{
 		//일상 모드일때

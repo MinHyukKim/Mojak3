@@ -74,6 +74,8 @@
     <ClCompile Include="cSkybox.cpp" />
     <ClCompile Include="cCustomQueue.cpp" />
     <ClCompile Include="cUiTestScene06Dialog.cpp" />
+    <ClCompile Include="cFontManager.cpp" />
+    <ClCompile Include="cMeshFont.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="cAllocateHierarchy.h" />
@@ -137,6 +139,8 @@
     <ClInclude Include="cActionDirection.h" />
     <ClInclude Include="cSkybox.h" />
     <ClInclude Include="cCustomQueue.h" />
+    <ClInclude Include="cFontManager.h" />
+    <ClInclude Include="cMeshFont.h" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="DirectX_Frame.rc" />

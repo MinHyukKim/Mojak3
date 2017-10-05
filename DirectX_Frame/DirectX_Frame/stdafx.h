@@ -53,6 +53,7 @@
 #include "cMath.h"	//간단한 랜덤함수
 #include "cMapObjectManager.h" //맵에 올라갈 오브젝트 관련 함수
 #include "cMapManager.h"	//맵?
+#include "cFontManager.h"
 
 //콘솔 디버깅
 #define CONSOLE_DEBUG_TEST

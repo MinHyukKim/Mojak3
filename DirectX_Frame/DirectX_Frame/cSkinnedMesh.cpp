@@ -214,7 +214,6 @@ void cSkinnedMesh::_Render(ST_BONE * pBone)
 		D3DXVECTOR3 vEye = D3DXVECTOR3(0, 0, 0);
 		D3DXVec3TransformCoord(&vEye, &vEye, &mInvView);
 
-
 		g_pD3DDevice->SetTransform(D3DTS_WORLD, &pBone->CombinedTransformationMatrix);
 		g_pD3DDevice->SetMaterial(&(pBoneMesh->pMaterials->MatD3D));
 		g_pD3DDevice->SetTexture(0, g_pTexture->GetTexture(pBoneMesh->pMaterials->pTextureFilename));
