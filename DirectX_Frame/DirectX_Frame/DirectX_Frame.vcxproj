@@ -158,6 +158,7 @@
     <ClInclude Include="cDataLoder.h" />
     <ClInclude Include="cDeviceManager.h" />
     <ClInclude Include="cFont.h" />
+    <ClInclude Include="cFontManager.h" />
     <ClInclude Include="cFrmReader.h" />
     <ClInclude Include="cFrustum.h" />
     <ClInclude Include="cGrid.h" />
@@ -171,6 +172,7 @@
     <ClInclude Include="cMapTerrain.h" />
     <ClInclude Include="cMapToolScene.h" />
     <ClInclude Include="cMath.h" />
+    <ClInclude Include="cMeshFont.h" />
     <ClInclude Include="cObject.h" />
     <ClInclude Include="cMainGame.h" />
     <ClInclude Include="cPlayer.h" />
@@ -221,6 +223,7 @@
     <ClCompile Include="cDataLoder.cpp" />
     <ClCompile Include="cDeviceManager.cpp" />
     <ClCompile Include="cFont.cpp" />
+    <ClCompile Include="cFontManager.cpp" />
     <ClCompile Include="cFrmReader.cpp" />
     <ClCompile Include="cFrustum.cpp" />
     <ClCompile Include="cGrid.cpp" />
@@ -234,6 +237,7 @@
     <ClCompile Include="cMapTerrain.cpp" />
     <ClCompile Include="cMapToolScene.cpp" />
     <ClCompile Include="cMath.cpp" />
+    <ClCompile Include="cMeshFont.cpp" />
     <ClCompile Include="cObject.cpp" />
     <ClCompile Include="cMainGame.cpp" />
     <ClCompile Include="cPlayer.cpp" />

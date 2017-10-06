@@ -20,6 +20,7 @@ cMainGame::~cMainGame(void)
 	DEBUG_END();
 	g_pSceneManager->Destroy();
 
+	g_pFontManager->Destroy();
 	g_pObjectManager->Destroy();
 	g_pAnimationManager->Destroy();
 	g_pFrustum->Destroy();
@@ -75,6 +76,7 @@ void cMainGame::Update(void)
 	g_pAutoRelasePool->AutoReleaseCheck();	// 제거가 필요한 객체 릴리즈
 	g_pFrustum->Update();					// 컬링 매트릭스 준비
 	g_pTimeManager->Update();
+	g_pMeshFontManager->Update();
 	g_pSceneManager->Update();
 
 	//테스트용 씬전환
@@ -102,6 +104,7 @@ void cMainGame::Render(void)
 	g_pD3DDevice->BeginScene();
 	//그림을 그린다
 	g_pSceneManager->Render();
+	g_pMeshFontManager->Render();
 	
 	g_pD3DDevice->EndScene();
 	g_pD3DDevice->Present(NULL, NULL, NULL, NULL);

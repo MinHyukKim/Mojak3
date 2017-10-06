@@ -85,13 +85,14 @@ void cCharTestScene::Update(void)
 	{
 		if (g_pInputManager->IsOnceKeyDown(VK_LBUTTON))
 		{
-			cPlayer* pMonster = nullptr;
+			cPlayer* pMonster = nullptr;	//
 			D3DXVECTOR3 vTo, vRay, vDir;
 			g_pRay->RayAtWorldSpace(&vRay, &vDir);
-			if (g_pObjectManager->GetMonster(&pMonster, &vRay, &vDir))
+			if (g_pObjectManager->GetMonster(&pMonster, &vRay, &vDir))	//몬스터가 피킹되면 pMonster 에 저장 후 True;
 			{
 				g_pObjectManager->GetPlayer()->OrderAttack(pMonster);
 			}
+			else if (m_pMapTerrain->IsCollision(&vTo, &vRay, &vDir))	//바닥이 피킹되면 vTo 에 위치 저장후 True;
 
 			//NPC
 			else if (g_pObjectManager->GetNPC(&pMonster, &vRay, &vDir))
@@ -141,6 +142,10 @@ void cCharTestScene::Update(void)
 	if (g_pInputManager->IsOnceKeyDown('6'))
 	{
 		g_pObjectManager->GetPlayer()->GetTarget()->SetStateTrue(PATTERN_COUNTER);
+	}
+	if (g_pInputManager->IsOnceKeyDown('T'))
+	{
+		g_pMeshFontManager->AddFont("텍스쳐", &(g_pObjectManager->GetPlayer()->GetPosition() + D3DXVECTOR3(0.0f, g_pObjectManager->GetPlayer()->GetRadius(), 0.0f)));
 	}
 
 
@@ -202,6 +207,7 @@ void cCharTestScene::Render(void)
 	SAFE_RENDER(m_pGrid);
 
 	SAFE_RENDER(g_pObjectManager);
+	SAFE_RENDER(g_pMapObjectManager);
 	SAFE_RENDER(m_pUi);
 }
 
