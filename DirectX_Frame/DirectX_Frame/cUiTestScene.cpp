@@ -128,12 +128,21 @@ HRESULT cUiTestScene::Setup(void)
 {
 	D3DXCreateSprite(g_pD3DDevice, &m_pSprite);
 
+	RECT wrc;
+	GetClientRect(g_hWnd, &wrc);
+
+	mainUiLocalX = 300;			//메인 틀 x
+	mainUiLocalY = 502;			//메인 틀 y
+	mainButtonH = -25;			//메인 버튼들 높이
+	mainButtoninterval = 40;	//메인 버튼들 가로 간격(크기)
+	mainButtonSrart = 160;		//메인 버튼들 최초 시작 위치
+
 	//베이스 버튼(태스트 택스트 포함
 	this->SetupBaseButton();
 
 	//임시 태스트용
 	m_pUiTesterSize = cUIImageView::Create();
-	m_pUiTesterSize->SetTexture("Texture/Ui/dialog2.png");
+	m_pUiTesterSize->SetTexture("Texture/Ui/skillDefense.png");
 	m_pUiTesterSize->SetPosition(mainUiLocalX - 20, mainUiLocalY - 140);
 	m_pUiTesterSize->m_Alpha = 180;
 	m_pUiTestRoot = m_pUiTesterSize;	
@@ -251,7 +260,7 @@ void cUiTestScene::Update(void)
 	}
 
 	if (m_pUiRoot) m_pUiRoot->Update();										//ui기본 베이스
-	if (m_pSkillUi && m_isSkillWindowOn) m_pSkillUi->Update();				//ui 스킬창
+//	if (m_pSkillUi && m_isSkillWindowOn) m_pSkillUi->Update();				//ui 스킬창
 	if (m_pQuestUi && m_isQuestWindowOn) m_pQuestUi->Update();				//ui 퀘스트 창
 	if (m_pInventoryUi && m_isInventoryWindowOn) m_pInventoryUi->Update();  //ui 인벤토리 창
 
@@ -260,11 +269,17 @@ void cUiTestScene::Update(void)
 
 	if (m_pUiExit && m_isExitUiOn) m_pUiExit->Update();						//메인->나가기 창
 
-	if (m_pInfoUi && m_isInfoWindowOn)
+	if (m_pInfoUi && m_isInfoWindowOn)										//ui info창
 	{
 		m_pInfoUi->Update();
 		UpdateInfoUi();
 	}
+	if (m_pSkillUi && m_isSkillWindowOn)
+	{
+		m_pSkillUi->Update();
+		UpdateSkillUi();
+	}
+
 
 	//임시 플레이어
 	SAFE_UPDATE(m_pPlayer);

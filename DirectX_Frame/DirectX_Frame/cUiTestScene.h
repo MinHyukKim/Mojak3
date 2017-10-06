@@ -70,6 +70,12 @@ enum
 	E_BUTTON_QUICK_05,
 	E_BUTTON_QUICK_06,
 	E_BUTTON_QUICK_07,
+	//퀵 등록
+	E_BUTTON_USE_SMASH,
+	E_BUTTON_USE_COUNTER,
+	E_BUTTON_USE_DEFENSE,
+	E_BUTTON_USE_DOWNATTACK,
+	E_BUTTON_USE_WINDMILL,
 	E_TEXT_VIEW
 };
 
@@ -176,11 +182,11 @@ private:
 	int m_nmainUiLocalY;
 
 	//메인 ui틀 위치
-	int mainUiLocalX = 300;			//메인 틀 x
-	int mainUiLocalY = 502;			//메인 틀 y
-	int mainButtonH = -25;			//메인 버튼들 높이
-	int mainButtoninterval = 40;	//메인 버튼들 가로 간격(크기)
-	int mainButtonSrart = 160;		//메인 버튼들 최초 시작 위치
+	int mainUiLocalX;			//메인 틀 x
+	int mainUiLocalY;			//메인 틀 y
+	int mainButtonH;			//메인 버튼들 높이
+	int mainButtoninterval;	//메인 버튼들 가로 간격(크기)
+	int mainButtonSrart;		//메인 버튼들 최초 시작 위치
 
 	//플레이어 정보창
 	int infoX;							//최초 윈도우 위치x
@@ -240,7 +246,23 @@ private:
 	cUIButton* m_pSkillCloseButton;		//닫기 버튼
 	cUIButton* m_pSkillUiButton;		//스킬창 버튼
 	cUITextView* m_pSkillUiText;		//불변 택스트
-	cUiObject* m_pSkillUi;
+
+	cUIButton* m_pSkillSmash;			//보유스킬 스메시
+	cUIButton* m_pSkillCounter;			//보유스킬 카운터
+	cUIButton* m_pSkillDefense;			//보유스킬 디펜스
+	cUIButton* m_pSkillDownAttack;		//보유스킬 다운어택
+	cUIButton* m_pSkillWindmill;		//보유 스킬 윈드밀
+	cUIButton* m_pSkillCombat;			//컴뱃 마스터리
+
+	cUIImageViewTemp* m_pSkillExpMax;			//스킬 경험치바
+	cUIImageViewTemp* m_pSkillExpSmash;			
+	cUIImageViewTemp* m_pSkillExpCounter;
+	cUIImageViewTemp* m_pSkillExpDefense;
+	cUIImageViewTemp* m_pSkillExpDownAttack;
+	cUIImageViewTemp* m_pSkillExpWindmill;
+	cUIImageViewTemp* m_pSkillExpCombat;
+
+	cUiObject* m_pSkillUi;		
 
 	//대화관련
 	int m_nDialogX;
@@ -374,6 +396,7 @@ public:
 	virtual void Update(void) override;
 	void UpdateMainUi(void);
 	void UpdateInfoUi(void);
+	void UpdateSkillUi(void);
 	void MoveUiWindow(void);
 	void _ItemInventory(int i);
 	virtual void Render(void) override;

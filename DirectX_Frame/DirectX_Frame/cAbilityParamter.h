@@ -49,6 +49,27 @@ private:
 	float m_fPower;				//파워
 	float m_fMoveSpeed;			//이동속도
 
+	//스킬 여부들
+	bool m_isHaveSkillSmash;
+	bool m_isHaveSkillCounter;
+	bool m_isHaveSkillDefense;
+	bool m_isHaveSkillDownAttack;
+	bool m_isHaveSkillWindmill;
+
+	//스킬 경험치
+	int m_nSkillLevelSmash;
+	float m_fMaxSkillExpSmash; float m_fMinSkillExpSmash;
+	int m_nSKillLevelCounter;
+	float m_fMaxSKillExpCounter; float m_fMinSKillExpCounter;
+	int m_nSkillLevelDefense;
+	float m_fMaxSkillExplDefense; float m_fMinSkillExplDefense;
+	int m_nSkillLevelWindmill;
+	float m_fMaxSkillExpWindmill; float m_fMinSkillExpWindmill;
+	int m_nSkillLevelDownAttack;
+	float m_fMaxSkillExpDownAttack; float m_fMinSkillExpDownAttack;
+	int m_nSkillLevelCombat;
+	float m_fMaxSkillExpCombat; float m_fMinSkillExpCombat;
+
 	float m_fDelayTime;			//인공지능 유효시간
 	bool m_bEffective;			//캐릭터 생존여부
 
@@ -138,6 +159,46 @@ public:
 	//방어관통
 	void SetPenetration(float f) { m_fPenetration = f; }
 	float GetPenetration(void) { return m_fPenetration; }
+	//스킬 경험치들
+	void SetSmashEXP(float f) { m_fMinSkillExpSmash = f; }
+	float GetSmashEXP(void) { return m_fMinSkillExpSmash; }
+	void SetCounterEXP(float f) { m_fMinSKillExpCounter = f; }
+	float GetCounterEXP(void) { return m_fMinSKillExpCounter; }
+	void SetDefenseEXP(float f) { m_fMinSkillExplDefense = f; }
+	float GetDefenseEXP(void) { return m_fMinSkillExplDefense; }
+	void SetWindmillEXP(float f) { m_fMinSkillExpWindmill = f; }
+	float GetWindmillEXP(void) { return m_fMinSkillExpWindmill; }
+	void SetCombatEXP(float f) { m_fMinSkillExpCombat = f; }
+	float GetCombatEXP(void) { return m_fMinSkillExpCombat; }
+	void SetDownAttackEXP(float f) { m_fMinSkillExpDownAttack = f; }
+	float GetDownAttackEXP(void) { return m_fMinSkillExpDownAttack; }
+	//경험치 맥스
+	void SetSmashEXPMax(float f) { m_fMaxSkillExpSmash = f; }
+	float GetSmashEXPMax(void) { return m_fMaxSkillExpSmash; }
+	void SetCounterEXPMax(float f) { m_fMaxSKillExpCounter = f; }
+	float GetCounterEXPMax(void) { return m_fMaxSKillExpCounter; }
+	void SetDefenseEXPMax(float f) { m_fMaxSkillExplDefense = f; }
+	float GetDefenseEXPMax(void) { return m_fMaxSkillExplDefense; }
+	void SetWindmillEXPMax(float f) { m_fMaxSkillExpWindmill = f; }
+	float GetWindmillEXPMax(void) { return m_fMaxSkillExpWindmill; }
+	void SetCombatEXPMax(float f) { m_fMaxSkillExpCombat = f; }
+	float GetCombatEXPMax(void) { return m_fMaxSkillExpCombat; }
+	void SetDownAttackEXPMax(float f) { m_fMaxSkillExpDownAttack = f; }
+	float GetDownAttackEXPMax(void) { return m_fMaxSkillExpDownAttack; }
+	//레벨
+	void SetSmashLevel(int n) { m_nSkillLevelSmash = n; }
+	int GetSmashLevel(void) { return m_nSkillLevelSmash; }
+	void SetCounterLevel(int n) { m_nSKillLevelCounter = n; }
+	int GetCounterLevel(void) { return m_nSKillLevelCounter; }
+	void SetDefenseLevel(int n) { m_nSkillLevelDefense = n; }
+	int GetDefenseLevel(void) { return m_nSkillLevelDefense; }
+	void SetWindmillLevel(int n) { m_nSkillLevelWindmill = n; }
+	int GetWindmillLevel(void) { return m_nSkillLevelWindmill; }
+	void SetDownAttackLevel(int n) { m_nSkillLevelDownAttack = n; }
+	int GetDownAttackLevel(void) { return m_nSkillLevelDownAttack; }
+	void SetCombatLevel(int n) { m_nSkillLevelCombat = n; }
+	int GetCombatLevel(void) { return m_nSkillLevelCombat; }
+
 	//공격범위
 	void SetRange(float fValue) { m_fAttackRange = fValue; }
 	float GetRange(void) { return m_fAttackRange; }
