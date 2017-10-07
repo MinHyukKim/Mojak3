@@ -63,6 +63,7 @@ HRESULT cCharTestScene::Setup(void)
 	//npc태스트
 	g_pObjectManager->CreateNPC(cObjectManager::NPC_NAO, &D3DXVECTOR3(-1.0f, 0.0f, 1.0f));
 
+	//로딩속도 저하 원인
 	m_pSkybox = cSkybox::Create();
 	m_pSkybox->Setup(".\\skyboxMap\\vanilla_sky_frost_up.jpg", ".\\skyboxMap\\vanilla_sky_frost_dn.jpg",
 		".\\skyboxMap\\vanilla_sky_frost_lf.jpg", ".\\skyboxMap\\vanilla_sky_frost_rt.jpg",
@@ -88,7 +89,8 @@ void cCharTestScene::Reset(void)
 void cCharTestScene::Update(void)
 {
 	//테스트용
-	if (m_pCamera) m_pCamera->TestController();
+//	if (m_pCamera) m_pCamera->TestController();
+	if (m_pCamera) m_pCamera->WheelController();
 
 	if (this->GetSelectNPC())
 	{
@@ -114,6 +116,7 @@ void cCharTestScene::Update(void)
 				else
 				{
 					//플레이어와의 거리가 0.3 초과일때
+
 					//NPC쪽으로 이동
 					pPlayer->OrderMove(&this->GetSelectNPC()->GetPosition());
 				}
@@ -133,6 +136,7 @@ void cCharTestScene::Update(void)
 	SAFE_UPDATE(m_pUi);
 	if (m_pUi->GetMoveingOK())
 	{
+		if (m_pCamera) m_pCamera->MouseController();
 		if (g_pInputManager->IsOnceKeyDown(VK_LBUTTON))
 		{
 			this->SetSelectNPC(nullptr);

@@ -382,8 +382,8 @@ void cUiTestScene::MoveUiWindow(void)
 	GetCursorPos(&m_ptMouse);				//마우스 좌표(맴버변수 포인터)
 	ScreenToClient(g_hWnd, &m_ptMouse);		//마우스 좌표(맴버변수 포인터)
 
-	float nDeltaX = (m_ptMouse.x - ptMouse.x); //현재 좌표 - 이전 좌표 (음직인 양)
-	float nDeltaY = (m_ptMouse.y - ptMouse.y); //현재 좌표 - 이전 좌표 (음직인 양)
+	int nDeltaX = (m_ptMouse.x - ptMouse.x); //현재 좌표 - 이전 좌표 (음직인 양)
+	int nDeltaY = (m_ptMouse.y - ptMouse.y); //현재 좌표 - 이전 좌표 (음직인 양)
 
 	//인벤 창 무빙
 //	if(m_pInventoryUiMoveing->GetButtonStatus() == 1)

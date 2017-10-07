@@ -247,7 +247,8 @@ void cUiTestScene::Update(void)
 	m_isDialogOpen = g_pObjectManager->GetPlayer()->GetAbilityParamter()->GetDialogOpen();
 	if (g_pInputManager->IsOnceKeyUp('G') && m_pDialogUi)
 	{
-		m_isDialogOpen = !m_isDialogOpen;
+
+	//	m_isDialogOpen = !m_isDialogOpen;
 		if (m_isDialogOpen == false)
 		{
 			m_pDialogBackImage->isOver = false;
@@ -335,7 +336,6 @@ void cUiTestScene::Render(void)
 
 	//크기 태스트용
 //	if (m_pUiTestRoot) m_pUiTestRoot->Render(m_pSprite);
-
 
 }
 
