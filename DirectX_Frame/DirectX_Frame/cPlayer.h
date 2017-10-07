@@ -11,7 +11,7 @@
 
 #define PATTERN_OFFENSIVE	0x00000002	//전투모드
 #define PATTERN_STOP		0x00000010	//정지가능
-#define PATTERN_TARGET		0x00000040	//추적모드
+#define PATTERN_TARGET		0x00000040	//추적모드 (후에 공격)
 #define PATTERN_BACKMOVE	0x00000080	//밀려남, 날아감
 #define PATTERN_SMASH		0x00000100	//스매시
 #define PATTERN_DEFENCE		0x00000200	//디펜스
@@ -245,7 +245,10 @@ public:
 	//조건 함수
 	bool DistSqTarget(OUT float* pDist); //타겟과 거리를 구하는 함수
 	bool DistTarget(OUT float* pDist);
+	bool DistSqTarget(OUT float* pDist, IN cPlayer* pTarget); //타겟과 거리를 구하는 함수
+	bool DistTarget(OUT float* pDist, IN cPlayer* pTarget);
 	bool DistTarget(OUT DWORD dwTarget, OUT float fRange); //거리를 확인하는 함수 0중립, 1플레이어, 2컴퓨터, 3타겟
+
 
 	//충돌함수
 	bool IsCollision(IN LPD3DXVECTOR3 pRay, IN LPD3DXVECTOR3 pDir);

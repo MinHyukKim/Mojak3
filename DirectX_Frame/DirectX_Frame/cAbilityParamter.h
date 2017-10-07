@@ -70,6 +70,9 @@ private:
 	int m_nSkillLevelCombat;
 	float m_fMaxSkillExpCombat; float m_fMinSkillExpCombat;
 
+	//대사창 띄우기
+	bool m_isDialogOpen;
+
 	float m_fDelayTime;			//인공지능 유효시간
 	bool m_bEffective;			//캐릭터 생존여부
 
@@ -159,6 +162,9 @@ public:
 	//방어관통
 	void SetPenetration(float f) { m_fPenetration = f; }
 	float GetPenetration(void) { return m_fPenetration; }
+	//대화창 여부
+	void SetDialogOpen(bool is) { m_isDialogOpen = is; }
+	bool GetDialogOpen(void) { return m_isDialogOpen; }
 	//스킬 경험치들
 	void SetSmashEXP(float f) { m_fMinSkillExpSmash = f; }
 	float GetSmashEXP(void) { return m_fMinSkillExpSmash; }
