@@ -104,6 +104,13 @@ void cUiTestScene::SetupDialogUi(void)
 	pDialogNextText->SetDrawTextFormat(DT_CENTER | DT_VCENTER | DT_WORDBREAK);
 	pDialogNextText->SetTag(E_BUTTON_NONE);
 	m_pDialogUi->AddChild(pDialogNextText);
+
+	//퀘 수락 버튼
+	m_pDialogAcceptButton = cUIButton::Create();
+	m_pDialogUi->AddChild(m_pDialogAcceptButton);
+	//퀘수락 택스트
+	m_pDialogAcceptText = cUITextView::Create();
+	m_pDialogUi->AddChild(m_pDialogAcceptText);
 }
 
 void cUiTestScene::changeDialogText(void)
@@ -123,33 +130,73 @@ void cUiTestScene::changeDialogText(void)
 	{
 		case 0:
 		{
-			if (m_eDialogNPCKind == E_DIALOG_NPC_NAO)
+			if (m_eDialogNPCKind == E_DIALOG_NPC_NAO && m_eDialogStat == E_NONE_QUEST)
 			{
 				m_pDialogText->SetText("안녕하세요 귀한 곳에 누추한 분이 오셨군요");
 				m_pDialogText->SetSize(ST_SIZE(300, 80));
 				m_pDialogText->SetPosition(28, 20);
+				m_isDialogFin = false;
+			}
+			else if (m_eDialogNPCKind == E_DIALOG_NPC_NAO && m_eDialogStat == E_QUEST)
+			{
+				m_pDialogText->SetText("가서 여우들을 조지세요");
+				m_pDialogText->SetSize(ST_SIZE(300, 80));
+				m_pDialogText->SetPosition(-20, 20);
 			}
 		}
 		break;
 		case 1:
 		{
-			if (m_eDialogNPCKind == E_DIALOG_NPC_NAO)
+			if (m_eDialogNPCKind == E_DIALOG_NPC_NAO && m_eDialogStat == E_NONE_QUEST)
 			{
 				m_pDialogText->SetText("누추한 당신에게 퀘스트를 하나 던져주겠어요");
 				m_pDialogText->SetSize(ST_SIZE(300, 80));
 				m_pDialogText->SetPosition(28, 20);
+				m_isDialogFin = false;
+			}
+			else if (m_eDialogNPCKind == E_DIALOG_NPC_NAO && m_eDialogStat == E_QUEST)
+			{
+				m_pDialogText->SetText("가서 여우들을 조지세요");
+				m_pDialogText->SetSize(ST_SIZE(300, 80));
+				m_pDialogText->SetPosition(-20, 20);
 			}
 		}
 		break;
 		case 2:
 		{
-			if (m_eDialogNPCKind == E_DIALOG_NPC_NAO)
+			if (m_eDialogNPCKind == E_DIALOG_NPC_NAO && m_eDialogStat == E_NONE_QUEST)
 			{
 				m_pDialogText->SetText("가서 여우 3마리만 잡아오세요");
 				m_pDialogText->SetSize(ST_SIZE(300, 80));
 				m_pDialogText->SetPosition(-10, 20);
 				//퀘수락 버튼 켜기
+				m_isDialogFin = true;
 
+				//수락 버튼 활성화
+				m_pDialogAcceptButton->SetTexture("Texture/Ui/textButtonUp6024.png",
+					"Texture/Ui/textButtonUp6024.png", "Texture/Ui/textButtonDown6024.png");
+				m_pDialogAcceptButton->SetPosition(250, 145);
+				m_pDialogAcceptButton->SetDelegate(this);
+				m_pDialogAcceptButton->SetTag(E_BUTTON_DIALOG_ACCEPT);
+				//수락 택스트
+				m_pDialogAcceptText->SetText("수락");
+				m_pDialogAcceptText->SetFontType(g_pFontManager->E_INBUTTON);
+				m_pDialogAcceptText->SetColor(D3DCOLOR_XRGB(255, 255, 255));
+				m_pDialogAcceptText->SetSize(ST_SIZE(60, 30));
+				m_pDialogAcceptText->SetPosition(40 + 210, 145 - 10);
+				m_pDialogAcceptText->SetDrawTextFormat(DT_CENTER | DT_VCENTER | DT_WORDBREAK);
+				m_pDialogAcceptText->SetTag(E_BUTTON_NONE);
+			}
+			else if (m_eDialogNPCKind == E_DIALOG_NPC_NAO && m_eDialogStat == E_QUEST)
+			{
+				m_pDialogText->SetText("가서 여우들을 조지세요");
+				m_pDialogText->SetSize(ST_SIZE(300, 80));
+				m_pDialogText->SetPosition(-20, 20);
+				//버튼 막기
+				m_pDialogAcceptButton->SetTexture("Texture/Ui/textButtonUp6024.png",
+					"Texture/Ui/textButtonUp6024.png", "Texture/Ui/textButtonUp6024.png");
+				m_pDialogAcceptButton->SetTag(E_BUTTON_NONE);
+				m_pDialogAcceptText->SetColor(D3DCOLOR_XRGB(180, 180, 180));
 			}
 		}
 		break;

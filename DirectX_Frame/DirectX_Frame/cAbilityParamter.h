@@ -72,6 +72,8 @@ private:
 
 	//대사창 띄우기
 	bool m_isDialogOpen;
+	//퀘스트용 킬카운트
+	int m_nKillCount; int m_nKillCountMax;
 
 	float m_fDelayTime;			//인공지능 유효시간
 	bool m_bEffective;			//캐릭터 생존여부
@@ -204,6 +206,12 @@ public:
 	int GetDownAttackLevel(void) { return m_nSkillLevelDownAttack; }
 	void SetCombatLevel(int n) { m_nSkillLevelCombat = n; }
 	int GetCombatLevel(void) { return m_nSkillLevelCombat; }
+
+	//퀘용 킬카운트
+	void SetKillCountMax(int n) { m_nKillCountMax = n; }
+	int GetKillCountMax(void) { return m_nKillCountMax; }
+	void SetKillCount(int n) { m_nKillCount = n; }
+	int GetKillCount(void) { return m_nKillCount; }
 
 	//공격범위
 	void SetRange(float fValue) { m_fAttackRange = fValue; }

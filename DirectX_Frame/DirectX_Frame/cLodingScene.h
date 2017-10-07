@@ -9,7 +9,7 @@
 //"cLodingScene", 
 //"cTitleScene",
 
-#define NEXT_SCENE "cTitleScene"
+#define NEXT_SCENE "cUiCustomizingScene"
 
 class cDataLoder;
 class cImage;

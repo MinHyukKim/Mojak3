@@ -53,15 +53,15 @@ cUiTestScene::cUiTestScene(void)
 	, m_pPlayer(NULL)
 	, m_pMainCamera(NULL)
 	//임시 스탯
-	, m_nTempMaxHP(70) , m_nTempHP(70)
-	, m_nTempMaxMP(60) , m_nTempMP(60)
-	, m_nTempMaxStamina(75) , nTempStamina(75)
-	, m_nTempSTR(30) , m_nTempINT(23) , m_nTempWill(33) , m_nTempLuck(19) , m_nTempWorkmanship(26)
-	, m_nTempDamege(24) , m_nTempTotalDamage(24)
-	, m_nTempMagicDamege(2) , m_nTempTotalMagicDamage(2)
-	, m_fTempInjury(3.0f) , m_fTempCritical(17.2f)
-	, m_nTempBalance(53) , m_nTempDefense(9) , m_nTempProtect(0)
-	, m_nTempMagicDefense(2) , m_nTempMagicProtect(0) , m_nTempArmorPiercing(1)
+	, m_nTempMaxHP(70), m_nTempHP(70)
+	, m_nTempMaxMP(60), m_nTempMP(60)
+	, m_nTempMaxStamina(75), nTempStamina(75)
+	, m_nTempSTR(30), m_nTempINT(23), m_nTempWill(33), m_nTempLuck(19), m_nTempWorkmanship(26)
+	, m_nTempDamege(24), m_nTempTotalDamage(24)
+	, m_nTempMagicDamege(2), m_nTempTotalMagicDamage(2)
+	, m_fTempInjury(3.0f), m_fTempCritical(17.2f)
+	, m_nTempBalance(53), m_nTempDefense(9), m_nTempProtect(0)
+	, m_nTempMagicDefense(2), m_nTempMagicProtect(0), m_nTempArmorPiercing(1)
 	, m_pHpMaxImage(NULL)
 	, m_pHpImage(NULL)
 	//매인 게이지바들 위치
@@ -101,6 +101,8 @@ cUiTestScene::cUiTestScene(void)
 	, m_eQuickSiot03(E_QUICK_SIOT_NONE_03)
 	, m_eQuickSiot04(E_QUICK_SIOT_NONE_04)
 	, m_eQuickSiot05(E_QUICK_SIOT_NONE_05)
+	//퀘스트 여부에 따른 대사
+	, m_eDialogStat(E_NONE_QUEST)
 {
 	D3DXMatrixIdentity(&m_matWorldMatrix);
 	m_vecTempPlayerItem.reserve(INVMAX);
@@ -275,11 +277,12 @@ void cUiTestScene::Update(void)
 	{
 		m_pInfoUi->Update();		
 	}
-	UpdateInfoUi();
+	this->UpdateInfoUi();
+	this->UpdateQuestUi();
 	if (m_pSkillUi && m_isSkillWindowOn)
 	{
 		m_pSkillUi->Update();
-		UpdateSkillUi();
+		this->UpdateSkillUi();
 	}
 
 
@@ -499,20 +502,17 @@ void cUiTestScene::OnClick(cUIButton * pSender)
 	{
 		PostQuitMessage(0);
 	}
+	//ap 수련 관련
 	else if (pSender->GetTag() == E_BUTTON_USE_SMASH)
 	{
-	//	if (m_eQuickSiot01 == E_QUICK_SIOT_NONE_01)
-	//	{
-	//		m_pUiQuickSiot1->SetTexture("Texture/Ui/skillSmash.png"
-	//			, "Texture/Ui/skillSmash.png", "Texture/Ui/skillSmash.png");
-	//		m_eQuickSiot01 = E_QUICK_SIOT_SMASH_01;
-	//	}
-	//	else if(m_eQuickSiot01 != E_QUICK_SIOT_NONE_01)
+
 	}
 	else if (pSender->GetTag() == E_BUTTON_USE_COUNTER)
 	{
 
 	}
+	
+
 
 	//대화창 관련 (열린 상태에서 NPC가 나오라면)
 	if (m_isDialogOpen && m_eDialogNPCKind == E_DIALOG_NPC_NAO)
@@ -524,6 +524,11 @@ void cUiTestScene::OnClick(cUIButton * pSender)
 		else if (pSender->GetTag() == E_BUTTON_DIALOG_NEXT && m_nDialogTextNum < 2)
 		{
 			m_nDialogTextNum += 1;
+		}
+		//퀘 수락 버튼
+		else if (pSender->GetTag() == E_BUTTON_DIALOG_ACCEPT)
+		{
+			m_eDialogStat = E_QUEST;
 		}
 	}
 

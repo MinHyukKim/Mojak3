@@ -60,4 +60,35 @@ void cUiTestScene::SetupQuestUi(void)
 	m_pQuestCloseButton->SetTag(E_BUTTON_QUEST_CLOSE);
 	m_pQuestCloseButton->m_Alpha = 180;
 	m_pQuestUi->AddChild(m_pQuestCloseButton);
+
+	//퀘 추가용
+	m_pQuestUseImage = cUIButton::Create();
+	m_pQuestUi->AddChild(m_pQuestUseImage);
+	m_pQuestUseText = cUITextView::Create();
+	m_pQuestUi->AddChild(m_pQuestUseText);
+}
+
+void cUiTestScene::UpdateQuestUi(void)
+{
+	if (m_eDialogStat == E_QUEST)
+	{
+		m_pQuestUseImage->SetTexture("Texture/Ui/quest.png"
+			, "Texture/Ui/quest.png", "Texture/Ui/quest.png");
+		m_pQuestUseImage->SetPosition(20, 70);
+		m_pQuestUseImage->SetDelegate(this);
+		m_pQuestUseImage->SetTag(E_BUTTON_NONE);
+		m_pQuestUseImage->m_Alpha = 200;
+
+		//택스트
+		char szKillCount[32] = { '\0', };
+		sprintf_s(szKillCount, "[튜토리얼] 여우잡이      %d / %d", g_pObjectManager->GetPlayer()->GetAbilityParamter()->GetKillCount()
+			, g_pObjectManager->GetPlayer()->GetAbilityParamter()->GetKillCountMax());
+		m_pQuestUseText->SetText(szKillCount);
+		m_pQuestUseText->SetFontType(g_pFontManager->E_INBUTTON);
+		m_pQuestUseText->SetColor(D3DCOLOR_XRGB(255, 255, 255));
+		m_pQuestUseText->SetSize(ST_SIZE(300, 100));
+		m_pQuestUseText->SetPosition(30, 30);
+		m_pQuestUseText->SetDrawTextFormat(DT_CENTER | DT_VCENTER | DT_WORDBREAK);
+		m_pQuestUseText->SetTag(E_BUTTON_NONE);
+	}
 }

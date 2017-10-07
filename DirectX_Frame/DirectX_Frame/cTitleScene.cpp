@@ -39,7 +39,7 @@ HRESULT cTitleScene::Setup(void)
 	RECT rc;
 	GetClientRect(g_hWnd, &rc);
 	//타이틀 그림
-	imageData = g_pTexture->GetTextureEx("./Texture/Title.jpg", &m_stImageInfo);
+	imageData = g_pTexture->GetTextureEx("./Texture/fs_title.png", &m_stImageInfo);
 	m_pTitleImage = cImage::Create();
 	m_pTitleImage->Setup(m_stImageInfo, imageData);
 	m_matWorldMatrix._41 = rc.right / 2.0f;
@@ -49,7 +49,7 @@ HRESULT cTitleScene::Setup(void)
 	m_matWorldMatrix._22 = (float)rc.bottom / (float)m_stImageInfo.Height;
 	m_pTitleImage->SetWorldMatrix(&m_matWorldMatrix);
 
-	return E_NOTIMPL;
+	return S_OK;
 }
 
 void cTitleScene::Reset(void)
@@ -60,8 +60,6 @@ void cTitleScene::Reset(void)
 	SAFE_RELEASE(m_pSkybox);
 	SAFE_RELEASE(m_pSprite);
 	SAFE_RELEASE(m_pTitleImage);
-	//추후 수정
-//	SAFE_RELEASE(m_stImageInfo); 
 	//g_pMapObjectManager->Destroy();
 }
 

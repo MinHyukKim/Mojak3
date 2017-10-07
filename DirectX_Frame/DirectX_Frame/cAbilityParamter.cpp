@@ -25,6 +25,8 @@ cAbilityParamter::cAbilityParamter(void)
 	, m_fMinSkillExpSmash(5), m_fMinSkillExpWindmill(6), m_fMinSkillExpDownAttack(13)
 	, m_isDialogOpen(false)
 
+	, m_nKillCountMax(3), m_nKillCount(0)
+
 	, m_bEffective(true)
 {
 }
