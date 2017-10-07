@@ -61,18 +61,18 @@ void cUiTestScene::SetupSkillUi(void)
 	m_pSkillUi->AddChild(m_pSkillCloseButton);
 
 	//º¸À¯ ½ºÅ³
-	cUIButton* pHaveSkill = cUIButton::Create();
-	pHaveSkill->SetTexture("Texture/Ui/skillDefenseUi.png"
-		, "Texture/Ui/skillDefenseUi.png", "Texture/Ui/skillDefenseUi.png");
-	pHaveSkill->SetPosition(10, 60);
-	pHaveSkill->SetDelegate(this);
-	pHaveSkill->SetTag(E_BUTTON_NONE);
-	m_pSkillUi->AddChild(pHaveSkill);
+//	cUIButton* pHaveSkill = cUIButton::Create();
+//	pHaveSkill->SetTexture("Texture/Ui/skillDefenseUi.png"
+//		, "Texture/Ui/skillDefenseUi.png", "Texture/Ui/skillDefenseUi.png");
+//	pHaveSkill->SetPosition(10, 60);
+//	pHaveSkill->SetDelegate(this);
+//	pHaveSkill->SetTag(E_BUTTON_NONE);
+//	m_pSkillUi->AddChild(pHaveSkill);
 
-	pHaveSkill = cUIButton::Create();
+	cUIButton* pHaveSkill = cUIButton::Create();
 	pHaveSkill->SetTexture("Texture/Ui/skillSmashUi.png"
 		, "Texture/Ui/skillSmashUi.png", "Texture/Ui/skillSmashUi.png");
-	pHaveSkill->SetPosition(10, 110);
+	pHaveSkill->SetPosition(10, 60);   //10, 110
 	pHaveSkill->SetDelegate(this);
 	pHaveSkill->SetTag(E_BUTTON_NONE);
 	m_pSkillUi->AddChild(pHaveSkill);
@@ -80,84 +80,85 @@ void cUiTestScene::SetupSkillUi(void)
 	pHaveSkill = cUIButton::Create();
 	pHaveSkill->SetTexture("Texture/Ui/skillCounterUi.png"
 		, "Texture/Ui/skillCounterUi.png", "Texture/Ui/skillCounterUi.png");
-	pHaveSkill->SetPosition(10, 160);
+	pHaveSkill->SetPosition(10, 110); //10, 160
 	pHaveSkill->SetDelegate(this);
 	pHaveSkill->SetTag(E_BUTTON_NONE);
 	m_pSkillUi->AddChild(pHaveSkill);
 
-	pHaveSkill = cUIButton::Create();
-	pHaveSkill->SetTexture("Texture/Ui/skillDownAttackUi.png"
-		, "Texture/Ui/skillDownAttackUi.png", "Texture/Ui/skillDownAttackUi.png");
-	pHaveSkill->SetPosition(10, 210);
-	pHaveSkill->SetDelegate(this);
-	pHaveSkill->SetTag(E_BUTTON_NONE);
-	m_pSkillUi->AddChild(pHaveSkill);
+//	pHaveSkill = cUIButton::Create();
+//	pHaveSkill->SetTexture("Texture/Ui/skillDownAttackUi.png"
+//		, "Texture/Ui/skillDownAttackUi.png", "Texture/Ui/skillDownAttackUi.png");
+//	pHaveSkill->SetPosition(10, 210);
+//	pHaveSkill->SetDelegate(this);
+//	pHaveSkill->SetTag(E_BUTTON_NONE);
+//	m_pSkillUi->AddChild(pHaveSkill);
 
-	pHaveSkill = cUIButton::Create();
-	pHaveSkill->SetTexture("Texture/Ui/skillWindmillUi.png"
-		, "Texture/Ui/skillWindmillUi.png", "Texture/Ui/skillWindmillUi.png");
-	pHaveSkill->SetPosition(10, 260);
-	pHaveSkill->SetDelegate(this);
-	pHaveSkill->SetTag(E_BUTTON_NONE);
-	m_pSkillUi->AddChild(pHaveSkill);
+//	pHaveSkill = cUIButton::Create();
+//	pHaveSkill->SetTexture("Texture/Ui/skillWindmillUi.png"
+//		, "Texture/Ui/skillWindmillUi.png", "Texture/Ui/skillWindmillUi.png");
+//	pHaveSkill->SetPosition(10, 260);
+//	pHaveSkill->SetDelegate(this);
+//	pHaveSkill->SetTag(E_BUTTON_NONE);
+//	m_pSkillUi->AddChild(pHaveSkill);
 
 	pHaveSkill = cUIButton::Create();
 	pHaveSkill->SetTexture("Texture/Ui/skillCombatUi.png"
 		, "Texture/Ui/skillCombatUi.png", "Texture/Ui/skillCombatUi.png");
-	pHaveSkill->SetPosition(10, 310);
+	pHaveSkill->SetPosition(10, 160);  //10, 310
 	pHaveSkill->SetDelegate(this);
 	pHaveSkill->SetTag(E_BUTTON_NONE);
 	m_pSkillUi->AddChild(pHaveSkill);
 
-	//Æä½Ãºê Ç¥½Ã
+	//¿·¹öÆ°µé
+	//Æä½Ãºê Ç¥½Ã(¾È¾¸) AP·Î º¯°æ
 	pHaveSkill = cUIButton::Create();
-	pHaveSkill->SetTexture("Texture/Ui/skillPassive.png"
-		, "Texture/Ui/skillPassive.png", "Texture/Ui/skillPassive.png");
-	pHaveSkill->SetPosition(180, 310);
+	pHaveSkill->SetTexture("Texture/Ui/APbuttonUp6542.png"
+		, "Texture/Ui/APbuttonUp6542.png", "Texture/Ui/APbuttonDown6542.png");
+	pHaveSkill->SetPosition(180, 160);  //100, 310 
 	pHaveSkill->SetDelegate(this);
 	pHaveSkill->SetTag(E_BUTTON_NONE);
 	m_pSkillUi->AddChild(pHaveSkill);
 
-	//»ç¿ë ¿©ºÎ ¹öÆ° 
-	pHaveSkill = cUIButton::Create();
-	pHaveSkill->SetTexture("Texture/Ui/buttonUp6542Use.png"
-		, "Texture/Ui/buttonUp6542Use.png", "Texture/Ui/buttonDown6542Use.png");
-	pHaveSkill->SetPosition(180, 260);
-	pHaveSkill->SetDelegate(this);
-	pHaveSkill->SetTag(E_BUTTON_USE_WINDMILL);
-	m_pSkillUi->AddChild(pHaveSkill);
+	//»ç¿ë ¿©ºÎ ¹öÆ° (ap¼ö·ÃÀ¸·Î º¯°æ)
+//	pHaveSkill = cUIButton::Create();
+//	pHaveSkill->SetTexture("Texture/Ui/buttonUp6542Use.png"
+//		, "Texture/Ui/buttonUp6542Use.png", "Texture/Ui/buttonDown6542Use.png");
+//	pHaveSkill->SetPosition(180, 260);
+//	pHaveSkill->SetDelegate(this);
+//	pHaveSkill->SetTag(E_BUTTON_USE_WINDMILL);
+//	m_pSkillUi->AddChild(pHaveSkill);
+
+//	pHaveSkill = cUIButton::Create();
+//	pHaveSkill->SetTexture("Texture/Ui/buttonUp6542Use.png"
+//		, "Texture/Ui/buttonUp6542Use.png", "Texture/Ui/buttonDown6542Use.png");
+//	pHaveSkill->SetPosition(180, 210);
+//	pHaveSkill->SetDelegate(this);
+//	pHaveSkill->SetTag(E_BUTTON_USE_DOWNATTACK);
+//	m_pSkillUi->AddChild(pHaveSkill);
 
 	pHaveSkill = cUIButton::Create();
-	pHaveSkill->SetTexture("Texture/Ui/buttonUp6542Use.png"
-		, "Texture/Ui/buttonUp6542Use.png", "Texture/Ui/buttonDown6542Use.png");
-	pHaveSkill->SetPosition(180, 210);
-	pHaveSkill->SetDelegate(this);
-	pHaveSkill->SetTag(E_BUTTON_USE_DOWNATTACK);
-	m_pSkillUi->AddChild(pHaveSkill);
-
-	pHaveSkill = cUIButton::Create();
-	pHaveSkill->SetTexture("Texture/Ui/buttonUp6542Use.png"
-		, "Texture/Ui/buttonUp6542Use.png", "Texture/Ui/buttonDown6542Use.png");
-	pHaveSkill->SetPosition(180, 160);
+	pHaveSkill->SetTexture("Texture/Ui/APbuttonUp6542.png"
+		, "Texture/Ui/APbuttonUp6542.png", "Texture/Ui/APbuttonDown6542.png");
+	pHaveSkill->SetPosition(180, 110);
 	pHaveSkill->SetDelegate(this);
 	pHaveSkill->SetTag(E_BUTTON_USE_COUNTER);
 	m_pSkillUi->AddChild(pHaveSkill);
 
 	pHaveSkill = cUIButton::Create();
-	pHaveSkill->SetTexture("Texture/Ui/buttonUp6542Use.png"
-		, "Texture/Ui/buttonUp6542Use.png", "Texture/Ui/buttonDown6542Use.png");
-	pHaveSkill->SetPosition(180, 110);
+	pHaveSkill->SetTexture("Texture/Ui/APbuttonUp6542.png"
+		, "Texture/Ui/APbuttonUp6542.png", "Texture/Ui/APbuttonDown6542.png");
+	pHaveSkill->SetPosition(180, 60);
 	pHaveSkill->SetDelegate(this);
 	pHaveSkill->SetTag(E_BUTTON_USE_SMASH);
 	m_pSkillUi->AddChild(pHaveSkill);
 
-	pHaveSkill = cUIButton::Create();
-	pHaveSkill->SetTexture("Texture/Ui/buttonUp6542Use.png"
-		, "Texture/Ui/buttonUp6542Use.png", "Texture/Ui/buttonDown6542Use.png");
-	pHaveSkill->SetPosition(180, 60);
-	pHaveSkill->SetDelegate(this);
-	pHaveSkill->SetTag(E_BUTTON_USE_DEFENSE);
-	m_pSkillUi->AddChild(pHaveSkill);
+//	pHaveSkill = cUIButton::Create();
+//	pHaveSkill->SetTexture("Texture/Ui/buttonUp6542Use.png"
+//		, "Texture/Ui/buttonUp6542Use.png", "Texture/Ui/buttonDown6542Use.png");
+//	pHaveSkill->SetPosition(180, 60);
+//	pHaveSkill->SetDelegate(this);
+//	pHaveSkill->SetTag(E_BUTTON_USE_DEFENSE);
+//	m_pSkillUi->AddChild(pHaveSkill);
 
 	//½ºÅ³ °æÇèÄ¡ ÀÌ¹ÌÁö
 	//ÅäÅ» ºóÄ­
@@ -185,44 +186,44 @@ void cUiTestScene::SetupSkillUi(void)
 	m_pSkillExpMax->m_Alpha = 180;
 	m_pSkillUi->AddChild(m_pSkillExpMax);
 
-	m_pSkillExpMax = cUIImageViewTemp::Create();
-	m_pSkillExpMax->SetTexture("Texture/Ui/ExpBarE2.png");
-	m_pSkillExpMax->SetPosition(255, 240);
-	m_pSkillExpMax->SetRectSize();
-	//m_pSkillExpMax->m_rc.right = 50.0f;
-	m_pSkillExpMax->m_Alpha = 180;
-	m_pSkillUi->AddChild(m_pSkillExpMax);
-
-	m_pSkillExpMax = cUIImageViewTemp::Create();
-	m_pSkillExpMax->SetTexture("Texture/Ui/ExpBarE2.png");
-	m_pSkillExpMax->SetPosition(255, 290);
-	m_pSkillExpMax->SetRectSize();
-	//m_pSkillExpMax->m_rc.right = 50.0f;
-	m_pSkillExpMax->m_Alpha = 180;
-	m_pSkillUi->AddChild(m_pSkillExpMax);
-
-	m_pSkillExpMax = cUIImageViewTemp::Create();
-	m_pSkillExpMax->SetTexture("Texture/Ui/ExpBarE2.png");
-	m_pSkillExpMax->SetPosition(255, 340);
-	m_pSkillExpMax->SetRectSize();
-	//m_pSkillExpMax->m_rc.right = 50.0f;
-	m_pSkillExpMax->m_Alpha = 180;
-	m_pSkillUi->AddChild(m_pSkillExpMax);
+//	m_pSkillExpMax = cUIImageViewTemp::Create();
+//	m_pSkillExpMax->SetTexture("Texture/Ui/ExpBarE2.png");
+//	m_pSkillExpMax->SetPosition(255, 240);
+//	m_pSkillExpMax->SetRectSize();
+//	//m_pSkillExpMax->m_rc.right = 50.0f;
+//	m_pSkillExpMax->m_Alpha = 180;
+//	m_pSkillUi->AddChild(m_pSkillExpMax);
+//
+//	m_pSkillExpMax = cUIImageViewTemp::Create();
+//	m_pSkillExpMax->SetTexture("Texture/Ui/ExpBarE2.png");
+//	m_pSkillExpMax->SetPosition(255, 290);
+//	m_pSkillExpMax->SetRectSize();
+//	//m_pSkillExpMax->m_rc.right = 50.0f;
+//	m_pSkillExpMax->m_Alpha = 180;
+//	m_pSkillUi->AddChild(m_pSkillExpMax);
+//
+//	m_pSkillExpMax = cUIImageViewTemp::Create();
+//	m_pSkillExpMax->SetTexture("Texture/Ui/ExpBarE2.png");
+//	m_pSkillExpMax->SetPosition(255, 340);
+//	m_pSkillExpMax->SetRectSize();
+//	//m_pSkillExpMax->m_rc.right = 50.0f;
+//	m_pSkillExpMax->m_Alpha = 180;
+//	m_pSkillUi->AddChild(m_pSkillExpMax);
 
 	//°¡º¯ ¹Ù
 	//µðÆæ½º
-	m_pSkillExpDefense = cUIImageViewTemp::Create();
-	m_pSkillExpDefense->SetTexture("Texture/Ui/ExpBar2.png");
-	m_pSkillExpDefense->SetPosition(255, 90);
-	m_pSkillExpDefense->SetRectSize();
-	m_pSkillExpDefense->m_rc.right = ((float)g_pObjectManager->GetPlayer()->GetAbilityParamter()->GetDefenseEXP()
-		/ (float)g_pObjectManager->GetPlayer()->GetAbilityParamter()->GetDefenseEXPMax()) * m_pSkillExpDefense->stImageInfo.Width;
-	m_pSkillExpDefense->m_Alpha = 220;
-	m_pSkillUi->AddChild(m_pSkillExpDefense);
+//	m_pSkillExpDefense = cUIImageViewTemp::Create();
+//	m_pSkillExpDefense->SetTexture("Texture/Ui/ExpBar2.png");
+//	m_pSkillExpDefense->SetPosition(255, 90);
+//	m_pSkillExpDefense->SetRectSize();
+//	m_pSkillExpDefense->m_rc.right = ((float)g_pObjectManager->GetPlayer()->GetAbilityParamter()->GetDefenseEXP()
+//		/ (float)g_pObjectManager->GetPlayer()->GetAbilityParamter()->GetDefenseEXPMax()) * m_pSkillExpDefense->stImageInfo.Width;
+//	m_pSkillExpDefense->m_Alpha = 220;
+//	m_pSkillUi->AddChild(m_pSkillExpDefense);
 	//½º¸Þ½Ã
 	m_pSkillExpSmash = cUIImageViewTemp::Create();
 	m_pSkillExpSmash->SetTexture("Texture/Ui/ExpBar2.png");
-	m_pSkillExpSmash->SetPosition(255, 140);
+	m_pSkillExpSmash->SetPosition(255, 90); //255, 140
 	m_pSkillExpSmash->SetRectSize();
 	m_pSkillExpSmash->m_rc.right = ((float)g_pObjectManager->GetPlayer()->GetAbilityParamter()->GetSmashEXP()
 		/ (float)g_pObjectManager->GetPlayer()->GetAbilityParamter()->GetSmashEXPMax()) * m_pSkillExpSmash->stImageInfo.Width;
@@ -231,34 +232,34 @@ void cUiTestScene::SetupSkillUi(void)
 	//Ä«¿îÅÍ
 	m_pSkillExpCounter = cUIImageViewTemp::Create();
 	m_pSkillExpCounter->SetTexture("Texture/Ui/ExpBar2.png");
-	m_pSkillExpCounter->SetPosition(255, 190);
+	m_pSkillExpCounter->SetPosition(255, 140); //255, 190
 	m_pSkillExpCounter->SetRectSize();
 	m_pSkillExpCounter->m_rc.right = ((float)g_pObjectManager->GetPlayer()->GetAbilityParamter()->GetCounterEXP()
 		/ (float)g_pObjectManager->GetPlayer()->GetAbilityParamter()->GetCounterEXPMax()) * m_pSkillExpCounter->stImageInfo.Width;
 	m_pSkillExpCounter->m_Alpha = 220;
 	m_pSkillUi->AddChild(m_pSkillExpCounter);
 	//´Ù¿î¾îÅÃ
-	m_pSkillExpDownAttack = cUIImageViewTemp::Create();
-	m_pSkillExpDownAttack->SetTexture("Texture/Ui/ExpBar2.png");
-	m_pSkillExpDownAttack->SetPosition(255, 240);
-	m_pSkillExpDownAttack->SetRectSize();
-	m_pSkillExpDownAttack->m_rc.right = ((float)g_pObjectManager->GetPlayer()->GetAbilityParamter()->GetDownAttackEXP()
-		/ (float)g_pObjectManager->GetPlayer()->GetAbilityParamter()->GetDownAttackEXPMax()) * m_pSkillExpDownAttack->stImageInfo.Width;
-	m_pSkillExpDownAttack->m_Alpha = 220;
-	m_pSkillUi->AddChild(m_pSkillExpDownAttack);
+//	m_pSkillExpDownAttack = cUIImageViewTemp::Create();
+//	m_pSkillExpDownAttack->SetTexture("Texture/Ui/ExpBar2.png");
+//	m_pSkillExpDownAttack->SetPosition(255, 240);
+//	m_pSkillExpDownAttack->SetRectSize();
+//	m_pSkillExpDownAttack->m_rc.right = ((float)g_pObjectManager->GetPlayer()->GetAbilityParamter()->GetDownAttackEXP()
+//		/ (float)g_pObjectManager->GetPlayer()->GetAbilityParamter()->GetDownAttackEXPMax()) * m_pSkillExpDownAttack->stImageInfo.Width;
+//	m_pSkillExpDownAttack->m_Alpha = 220;
+//	m_pSkillUi->AddChild(m_pSkillExpDownAttack);
 	//À©µå¹Ð
-	m_pSkillExpWindmill = cUIImageViewTemp::Create();
-	m_pSkillExpWindmill->SetTexture("Texture/Ui/ExpBar2.png");
-	m_pSkillExpWindmill->SetPosition(255, 290);
-	m_pSkillExpWindmill->SetRectSize();
-	m_pSkillExpWindmill->m_rc.right = ((float)g_pObjectManager->GetPlayer()->GetAbilityParamter()->GetWindmillEXP()
-		/ (float)g_pObjectManager->GetPlayer()->GetAbilityParamter()->GetWindmillEXPMax()) * m_pSkillExpWindmill->stImageInfo.Width;
-	m_pSkillExpWindmill->m_Alpha = 220;
-	m_pSkillUi->AddChild(m_pSkillExpWindmill);
+//	m_pSkillExpWindmill = cUIImageViewTemp::Create();
+//	m_pSkillExpWindmill->SetTexture("Texture/Ui/ExpBar2.png");
+//	m_pSkillExpWindmill->SetPosition(255, 290);
+//	m_pSkillExpWindmill->SetRectSize();
+//	m_pSkillExpWindmill->m_rc.right = ((float)g_pObjectManager->GetPlayer()->GetAbilityParamter()->GetWindmillEXP()
+//		/ (float)g_pObjectManager->GetPlayer()->GetAbilityParamter()->GetWindmillEXPMax()) * m_pSkillExpWindmill->stImageInfo.Width;
+//	m_pSkillExpWindmill->m_Alpha = 220;
+//	m_pSkillUi->AddChild(m_pSkillExpWindmill);
 	//ÄÄ¹î ¸¶½ºÅÍ¸®
 	m_pSkillExpCombat = cUIImageViewTemp::Create();
 	m_pSkillExpCombat->SetTexture("Texture/Ui/ExpBar2.png");
-	m_pSkillExpCombat->SetPosition(255, 340);
+	m_pSkillExpCombat->SetPosition(255, 190);  //255, 340
 	m_pSkillExpCombat->SetRectSize();
 	m_pSkillExpCombat->m_rc.right = ((float)g_pObjectManager->GetPlayer()->GetAbilityParamter()->GetCombatEXP()
 		/ (float)g_pObjectManager->GetPlayer()->GetAbilityParamter()->GetCombatEXPMax()) * m_pSkillExpCombat->stImageInfo.Width;
@@ -268,22 +269,23 @@ void cUiTestScene::SetupSkillUi(void)
 	//·¹º§ ÅÃ½ºÆ®
 //	char szSKillLevelSmash[64] = { '\0', };
 //	sprintf_s(szSKillLevelSmash, "·©Å© F");
-	m_pSKillLevelDefense = cUITextView::Create();
-	m_pSKillLevelDefense->SetText("·©Å© F");
-	m_pSKillLevelDefense->SetFontType(g_pFontManager->E_TEMP_IN_SMALL);
-	m_pSKillLevelDefense->SetColor(D3DCOLOR_XRGB(255, 255, 255));
-	m_pSKillLevelDefense->SetSize(ST_SIZE(30, 40));
-	m_pSKillLevelDefense->SetPosition(260, 60);
-	m_pSKillLevelDefense->SetDrawTextFormat(DT_CENTER | DT_VCENTER | DT_WORDBREAK);
-	m_pSKillLevelDefense->SetTag(E_BUTTON_NONE);
-	m_pSkillUi->AddChild(m_pSKillLevelDefense);
+
+//	m_pSKillLevelDefense = cUITextView::Create();
+//	m_pSKillLevelDefense->SetText("·©Å© F");
+//	m_pSKillLevelDefense->SetFontType(g_pFontManager->E_TEMP_IN_SMALL);
+//	m_pSKillLevelDefense->SetColor(D3DCOLOR_XRGB(255, 255, 255));
+//	m_pSKillLevelDefense->SetSize(ST_SIZE(30, 40));
+//	m_pSKillLevelDefense->SetPosition(260, 60);
+//	m_pSKillLevelDefense->SetDrawTextFormat(DT_CENTER | DT_VCENTER | DT_WORDBREAK);
+//	m_pSKillLevelDefense->SetTag(E_BUTTON_NONE);
+//	m_pSkillUi->AddChild(m_pSKillLevelDefense);
 
 	m_pSKillLevelSmash = cUITextView::Create();
 	m_pSKillLevelSmash->SetText("·©Å© F");
 	m_pSKillLevelSmash->SetFontType(g_pFontManager->E_TEMP_IN_SMALL);
 	m_pSKillLevelSmash->SetColor(D3DCOLOR_XRGB(255, 255, 255));
 	m_pSKillLevelSmash->SetSize(ST_SIZE(30, 40));
-	m_pSKillLevelSmash->SetPosition(260, 110);
+	m_pSKillLevelSmash->SetPosition(260, 60);   //260,110
 	m_pSKillLevelSmash->SetDrawTextFormat(DT_CENTER | DT_VCENTER | DT_WORDBREAK);
 	m_pSKillLevelSmash->SetTag(E_BUTTON_NONE);
 	m_pSkillUi->AddChild(m_pSKillLevelSmash);
@@ -293,37 +295,37 @@ void cUiTestScene::SetupSkillUi(void)
 	m_pSKillLevelCounter->SetFontType(g_pFontManager->E_TEMP_IN_SMALL);
 	m_pSKillLevelCounter->SetColor(D3DCOLOR_XRGB(255, 255, 255));
 	m_pSKillLevelCounter->SetSize(ST_SIZE(30, 40));
-	m_pSKillLevelCounter->SetPosition(260, 160);
+	m_pSKillLevelCounter->SetPosition(260, 110); //260 160
 	m_pSKillLevelCounter->SetDrawTextFormat(DT_CENTER | DT_VCENTER | DT_WORDBREAK);
 	m_pSKillLevelCounter->SetTag(E_BUTTON_NONE);
 	m_pSkillUi->AddChild(m_pSKillLevelCounter);
 
-	m_pSKillLevelDownAttack = cUITextView::Create();
-	m_pSKillLevelDownAttack->SetText("·©Å© F");
-	m_pSKillLevelDownAttack->SetFontType(g_pFontManager->E_TEMP_IN_SMALL);
-	m_pSKillLevelDownAttack->SetColor(D3DCOLOR_XRGB(255, 255, 255));
-	m_pSKillLevelDownAttack->SetSize(ST_SIZE(30, 40));
-	m_pSKillLevelDownAttack->SetPosition(260, 210);
-	m_pSKillLevelDownAttack->SetDrawTextFormat(DT_CENTER | DT_VCENTER | DT_WORDBREAK);
-	m_pSKillLevelDownAttack->SetTag(E_BUTTON_NONE);
-	m_pSkillUi->AddChild(m_pSKillLevelDownAttack);
+//	m_pSKillLevelDownAttack = cUITextView::Create();
+//	m_pSKillLevelDownAttack->SetText("·©Å© F");
+//	m_pSKillLevelDownAttack->SetFontType(g_pFontManager->E_TEMP_IN_SMALL);
+//	m_pSKillLevelDownAttack->SetColor(D3DCOLOR_XRGB(255, 255, 255));
+//	m_pSKillLevelDownAttack->SetSize(ST_SIZE(30, 40));
+//	m_pSKillLevelDownAttack->SetPosition(260, 210);
+//	m_pSKillLevelDownAttack->SetDrawTextFormat(DT_CENTER | DT_VCENTER | DT_WORDBREAK);
+//	m_pSKillLevelDownAttack->SetTag(E_BUTTON_NONE);
+//	m_pSkillUi->AddChild(m_pSKillLevelDownAttack);
 
-	m_pSKillLevelWindmill = cUITextView::Create();
-	m_pSKillLevelWindmill->SetText("·©Å© F");
-	m_pSKillLevelWindmill->SetFontType(g_pFontManager->E_TEMP_IN_SMALL);
-	m_pSKillLevelWindmill->SetColor(D3DCOLOR_XRGB(255, 255, 255));
-	m_pSKillLevelWindmill->SetSize(ST_SIZE(30, 40));
-	m_pSKillLevelWindmill->SetPosition(260, 260);
-	m_pSKillLevelWindmill->SetDrawTextFormat(DT_CENTER | DT_VCENTER | DT_WORDBREAK);
-	m_pSKillLevelWindmill->SetTag(E_BUTTON_NONE);
-	m_pSkillUi->AddChild(m_pSKillLevelWindmill);
+//	m_pSKillLevelWindmill = cUITextView::Create();
+//	m_pSKillLevelWindmill->SetText("·©Å© F");
+//	m_pSKillLevelWindmill->SetFontType(g_pFontManager->E_TEMP_IN_SMALL);
+//	m_pSKillLevelWindmill->SetColor(D3DCOLOR_XRGB(255, 255, 255));
+//	m_pSKillLevelWindmill->SetSize(ST_SIZE(30, 40));
+//	m_pSKillLevelWindmill->SetPosition(260, 260);
+//	m_pSKillLevelWindmill->SetDrawTextFormat(DT_CENTER | DT_VCENTER | DT_WORDBREAK);
+//	m_pSKillLevelWindmill->SetTag(E_BUTTON_NONE);
+//	m_pSkillUi->AddChild(m_pSKillLevelWindmill);
 
 	m_pSKillLevelCombat = cUITextView::Create();
 	m_pSKillLevelCombat->SetText("·©Å© F");
 	m_pSKillLevelCombat->SetFontType(g_pFontManager->E_TEMP_IN_SMALL);
 	m_pSKillLevelCombat->SetColor(D3DCOLOR_XRGB(255, 255, 255));
 	m_pSKillLevelCombat->SetSize(ST_SIZE(30, 40));
-	m_pSKillLevelCombat->SetPosition(260, 310);
+	m_pSKillLevelCombat->SetPosition(260, 160);  //260, 310
 	m_pSKillLevelCombat->SetDrawTextFormat(DT_CENTER | DT_VCENTER | DT_WORDBREAK);
 	m_pSKillLevelCombat->SetTag(E_BUTTON_NONE);
 	m_pSkillUi->AddChild(m_pSKillLevelCombat);
@@ -354,8 +356,8 @@ void cUiTestScene::SetupSkillUi(void)
 
 	//Äü ¼³Á¤
 	m_pUiQuickSiot1 = cUIButton::Create();
-	m_pUiQuickSiot1->SetTexture("Texture/Ui/QuickSiot.png"
-		, "Texture/Ui/QuickSiot.png", "Texture/Ui/QuickSiot.png");
+	m_pUiQuickSiot1->SetTexture("Texture/Ui/skillSmash.png"
+		, "Texture/Ui/skillSmash.png", "Texture/Ui/skillSmash.png");
 	m_pUiQuickSiot1->SetPosition(10, 10);
 	m_pUiQuickSiot1->SetDelegate(this);
 	m_pUiQuickSiot1->SetTag(E_BUTTON_QUICK_01);
@@ -374,8 +376,8 @@ void cUiTestScene::SetupSkillUi(void)
 	m_pUiQuickSiot->AddChild(pUiQuickText);
 
 	m_pUiQuickSiot2 = cUIButton::Create();
-	m_pUiQuickSiot2->SetTexture("Texture/Ui/QuickSiot.png"
-		, "Texture/Ui/QuickSiot.png", "Texture/Ui/QuickSiot.png");
+	m_pUiQuickSiot2->SetTexture("Texture/Ui/skillCounter.png"
+		, "Texture/Ui/skillCounter.png", "Texture/Ui/skillCounter.png");
 	m_pUiQuickSiot2->SetPosition(50, 0);
 	m_pUiQuickSiot2->SetDelegate(this);
 	m_pUiQuickSiot2->SetTag(E_BUTTON_QUICK_02);
@@ -456,34 +458,116 @@ void cUiTestScene::UpdateSkillUi(void)
 {
 	//ÀÌ¹ÌÁö ¾÷µ¥ÀÌÆ®
 	//µðÆæ½º
-	m_pSkillExpDefense->m_rc.right = ((float)g_pObjectManager->GetPlayer()->GetAbilityParamter()->GetDefenseEXP()
-		/ (float)g_pObjectManager->GetPlayer()->GetAbilityParamter()->GetDefenseEXPMax()) * m_pSkillExpDefense->stImageInfo.Width;
-	if (m_pSkillExpDefense->m_rc.right >= m_pSkillExpDefense->stImageInfo.Width) m_pSkillExpDefense->m_rc.right = m_pSkillExpDefense->stImageInfo.Width;
-	if (g_pObjectManager->GetPlayer()->GetAbilityParamter()->GetDefenseEXP() <= 0) m_pSkillExpDefense->m_rc.right = 0.5f;
+//	m_pSkillExpDefense->m_rc.right = ((float)g_pObjectManager->GetPlayer()->GetAbilityParamter()->GetDefenseEXP()
+//		/ (float)g_pObjectManager->GetPlayer()->GetAbilityParamter()->GetDefenseEXPMax()) * m_pSkillExpDefense->stImageInfo.Width;
+//	if (m_pSkillExpDefense->m_rc.right >= m_pSkillExpDefense->stImageInfo.Width) m_pSkillExpDefense->m_rc.right = m_pSkillExpDefense->stImageInfo.Width;
+//	if (g_pObjectManager->GetPlayer()->GetAbilityParamter()->GetDefenseEXP() <= 0) m_pSkillExpDefense->m_rc.right = 0.5f;
+
 	//½º¸Þ½Ã
 	m_pSkillExpSmash->m_rc.right = ((float)g_pObjectManager->GetPlayer()->GetAbilityParamter()->GetSmashEXP()
 		/ (float)g_pObjectManager->GetPlayer()->GetAbilityParamter()->GetSmashEXPMax()) * m_pSkillExpSmash->stImageInfo.Width;
 	if (m_pSkillExpSmash->m_rc.right >= m_pSkillExpSmash->stImageInfo.Width) m_pSkillExpSmash->m_rc.right = m_pSkillExpSmash->stImageInfo.Width;
 	if (g_pObjectManager->GetPlayer()->GetAbilityParamter()->GetSmashEXP() <= 0) m_pSkillExpSmash->m_rc.right = 0.5f;
+
 	//Ä«¿îÅÍ
 	m_pSkillExpCounter->m_rc.right = ((float)g_pObjectManager->GetPlayer()->GetAbilityParamter()->GetCounterEXP()
 		/ (float)g_pObjectManager->GetPlayer()->GetAbilityParamter()->GetCounterEXPMax()) * m_pSkillExpCounter->stImageInfo.Width;
 	if (m_pSkillExpCounter->m_rc.right >= m_pSkillExpCounter->stImageInfo.Width) m_pSkillExpCounter->m_rc.right = m_pSkillExpCounter->stImageInfo.Width;
 	if (g_pObjectManager->GetPlayer()->GetAbilityParamter()->GetCounterEXP() <= 0) m_pSkillExpCounter->m_rc.right = 0.5f;
+
 	//´Ù¿î¾îÅÃ
-	m_pSkillExpDownAttack->m_rc.right = ((float)g_pObjectManager->GetPlayer()->GetAbilityParamter()->GetDownAttackEXP()
-		/ (float)g_pObjectManager->GetPlayer()->GetAbilityParamter()->GetDownAttackEXPMax()) * m_pSkillExpDownAttack->stImageInfo.Width;
-	if (m_pSkillExpDownAttack->m_rc.right >= m_pSkillExpDownAttack->stImageInfo.Width) m_pSkillExpDownAttack->m_rc.right = m_pSkillExpDownAttack->stImageInfo.Width;
-	if (g_pObjectManager->GetPlayer()->GetAbilityParamter()->GetDownAttackEXP() <= 0) m_pSkillExpDownAttack->m_rc.right = 0.5f;
+//	m_pSkillExpDownAttack->m_rc.right = ((float)g_pObjectManager->GetPlayer()->GetAbilityParamter()->GetDownAttackEXP()
+//		/ (float)g_pObjectManager->GetPlayer()->GetAbilityParamter()->GetDownAttackEXPMax()) * m_pSkillExpDownAttack->stImageInfo.Width;
+//	if (m_pSkillExpDownAttack->m_rc.right >= m_pSkillExpDownAttack->stImageInfo.Width) m_pSkillExpDownAttack->m_rc.right = m_pSkillExpDownAttack->stImageInfo.Width;
+//	if (g_pObjectManager->GetPlayer()->GetAbilityParamter()->GetDownAttackEXP() <= 0) m_pSkillExpDownAttack->m_rc.right = 0.5f;
+
 	//À©µå¹Ð
-	m_pSkillExpWindmill->m_rc.right = ((float)g_pObjectManager->GetPlayer()->GetAbilityParamter()->GetWindmillEXP()
-		/ (float)g_pObjectManager->GetPlayer()->GetAbilityParamter()->GetWindmillEXPMax()) * m_pSkillExpWindmill->stImageInfo.Width;
-	if (m_pSkillExpWindmill->m_rc.right >= m_pSkillExpWindmill->stImageInfo.Width) m_pSkillExpWindmill->m_rc.right = m_pSkillExpWindmill->stImageInfo.Width;
-	if (g_pObjectManager->GetPlayer()->GetAbilityParamter()->GetWindmillEXP() <= 0) m_pSkillExpWindmill->m_rc.right = 0.5f;
+//	m_pSkillExpWindmill->m_rc.right = ((float)g_pObjectManager->GetPlayer()->GetAbilityParamter()->GetWindmillEXP()
+//		/ (float)g_pObjectManager->GetPlayer()->GetAbilityParamter()->GetWindmillEXPMax()) * m_pSkillExpWindmill->stImageInfo.Width;
+//	if (m_pSkillExpWindmill->m_rc.right >= m_pSkillExpWindmill->stImageInfo.Width) m_pSkillExpWindmill->m_rc.right = m_pSkillExpWindmill->stImageInfo.Width;
+//	if (g_pObjectManager->GetPlayer()->GetAbilityParamter()->GetWindmillEXP() <= 0) m_pSkillExpWindmill->m_rc.right = 0.5f;
+
 	//ÄÄ¹î ¸¶½ºÅÍ¸®
 	m_pSkillExpCombat->m_rc.right = ((float)g_pObjectManager->GetPlayer()->GetAbilityParamter()->GetCombatEXP()
 		/ (float)g_pObjectManager->GetPlayer()->GetAbilityParamter()->GetCombatEXPMax()) * m_pSkillExpCombat->stImageInfo.Width;
 	if (m_pSkillExpCombat->m_rc.right >= m_pSkillExpCombat->stImageInfo.Width) m_pSkillExpCombat->m_rc.right = m_pSkillExpCombat->stImageInfo.Width;
 	if (g_pObjectManager->GetPlayer()->GetAbilityParamter()->GetCombatEXP() <= 0) m_pSkillExpCombat->m_rc.right = 0.5f;
 
+
+	//·©Å© º¯µ¿
+	//½º¸Þ½Ã
+	if (g_pObjectManager->GetPlayer()->GetAbilityParamter()->GetSmashLevel() == 1)
+	{
+		m_pSKillLevelSmash->SetText("·©Å© F");
+	}
+	else if (g_pObjectManager->GetPlayer()->GetAbilityParamter()->GetSmashLevel() == 2)
+	{
+		m_pSKillLevelSmash->SetText("·©Å© E");
+	}
+	else if (g_pObjectManager->GetPlayer()->GetAbilityParamter()->GetSmashLevel() == 3)
+	{
+		m_pSKillLevelSmash->SetText("·©Å© D");
+	}
+	else if (g_pObjectManager->GetPlayer()->GetAbilityParamter()->GetSmashLevel() == 4)
+	{
+		m_pSKillLevelSmash->SetText("·©Å© C");
+	}
+	else if (g_pObjectManager->GetPlayer()->GetAbilityParamter()->GetSmashLevel() == 5)
+	{
+		m_pSKillLevelSmash->SetText("·©Å© B");
+	}
+	else if (g_pObjectManager->GetPlayer()->GetAbilityParamter()->GetSmashLevel() == 6)
+	{
+		m_pSKillLevelSmash->SetText("·©Å© A");
+	}
+	//Ä«¿îÅÍ
+	if (g_pObjectManager->GetPlayer()->GetAbilityParamter()->GetCounterLevel() == 1)
+	{
+		m_pSKillLevelCounter->SetText("·©Å© F");
+	}
+	else if (g_pObjectManager->GetPlayer()->GetAbilityParamter()->GetCounterLevel() == 2)
+	{
+		m_pSKillLevelCounter->SetText("·©Å© E");
+	}
+	else if (g_pObjectManager->GetPlayer()->GetAbilityParamter()->GetCounterLevel() == 3)
+	{
+		m_pSKillLevelCounter->SetText("·©Å© D");
+	}
+	else if (g_pObjectManager->GetPlayer()->GetAbilityParamter()->GetCounterLevel() == 4)
+	{
+		m_pSKillLevelCounter->SetText("·©Å© C");
+	}
+	else if (g_pObjectManager->GetPlayer()->GetAbilityParamter()->GetCounterLevel() == 5)
+	{
+		m_pSKillLevelCounter->SetText("·©Å© B");
+	}
+	else if (g_pObjectManager->GetPlayer()->GetAbilityParamter()->GetCounterLevel() == 6)
+	{
+		m_pSKillLevelCounter->SetText("·©Å© A");
+	}
+	//ÄÄ¹î ¸¶½ºÅÍ¸®
+	if (g_pObjectManager->GetPlayer()->GetAbilityParamter()->GetCombatLevel() == 1)
+	{
+		m_pSKillLevelCombat->SetText("·©Å© F");
+	}
+	else if (g_pObjectManager->GetPlayer()->GetAbilityParamter()->GetCombatLevel() == 2)
+	{
+		m_pSKillLevelCombat->SetText("·©Å© E");
+	}
+	else if (g_pObjectManager->GetPlayer()->GetAbilityParamter()->GetCombatLevel() == 3)
+	{
+		m_pSKillLevelCombat->SetText("·©Å© D");
+	}
+	else if (g_pObjectManager->GetPlayer()->GetAbilityParamter()->GetCombatLevel() == 4)
+	{
+		m_pSKillLevelCombat->SetText("·©Å© C");
+	}
+	else if (g_pObjectManager->GetPlayer()->GetAbilityParamter()->GetCombatLevel() == 5)
+	{
+		m_pSKillLevelCombat->SetText("·©Å© B");
+	}
+	else if (g_pObjectManager->GetPlayer()->GetAbilityParamter()->GetCombatLevel() == 6)
+	{
+		m_pSKillLevelCombat->SetText("·©Å© A");
+	}
 }
