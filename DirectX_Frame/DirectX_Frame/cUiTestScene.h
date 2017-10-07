@@ -339,7 +339,9 @@ private:
 	cUITextView* pDialogNextText;
 	cUIButton* m_pDialogAcceptButton; //수락 여부 버튼
 	cUIButton* m_pDialogCloseButton;  //닫기 버튼
-	bool m_isDialogFin;					//대화 끝(안씀
+	bool m_isDialogFin;					//대화 끝(퀘스트 수락 나오게)
+	bool m_isAcceptQuest;				//퀘 수락 여부
+	bool m_isQuestFin;					//퀘 완료 여부
 	eDialogNPC m_eDialogNPCKind;		//대화중인 NPC(선택한 NPC) 종류
 	int m_nDialogTextNum;				//택스트 순서
 	eDialogText m_eDialogText;			//택스트 순서
