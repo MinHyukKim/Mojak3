@@ -324,7 +324,7 @@ void cUiTestScene::UpdateMainUi(void)
 	//메인창 내리기
 	if (m_isMainMin == true)
 	{
-		m_pMainRootImageView->SetPosition(300, 520);
+		m_pMainRootImageView->SetPosition(mainUiLocalX, mainUiLocalY + 20);
 		m_pInfoButton->SetPosition(1000, 1000);
 		m_pSkillButton->SetPosition(1000, 1000);
 		m_pQuestButton->SetPosition(1000, 1000);
@@ -349,7 +349,7 @@ void cUiTestScene::UpdateMainUi(void)
 	else
 	{
 		//제자리
-		m_pMainRootImageView->SetPosition(300, 502);
+		m_pMainRootImageView->SetPosition(mainUiLocalX, mainUiLocalY);
 
 		m_pInfoButton->SetPosition(mainButtonSrart, mainButtonH);
 		m_pSkillButton->SetPosition(mainButtonSrart + mainButtoninterval, mainButtonH);

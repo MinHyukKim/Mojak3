@@ -120,11 +120,13 @@ HRESULT cUiTestScene::Setup(void)
 {
 	D3DXCreateSprite(g_pD3DDevice, &m_pSprite);
 
-	RECT wrc;
-	GetClientRect(g_hWnd, &wrc);
+	GetClientRect(g_hWnd, &WorldRc);
 
-	mainUiLocalX = 300;			//메인 틀 x
-	mainUiLocalY = 502;			//메인 틀 y
+	//RECT wrc;
+	//GetClientRect(g_hWnd, &wrc);
+
+	mainUiLocalX = WorldRc.right / 2 - 250;			//메인 틀 x 300
+	mainUiLocalY = WorldRc.bottom / 2 + 200;			//메인 틀 y 502
 	mainButtonH = -25;			//메인 버튼들 높이
 	mainButtoninterval = 40;	//메인 버튼들 가로 간격(크기)
 	mainButtonSrart = 160;		//메인 버튼들 최초 시작 위치
@@ -247,7 +249,8 @@ void cUiTestScene::Update(void)
 	m_isDialogOpen = g_pObjectManager->GetPlayer()->GetAbilityParamter()->GetDialogOpen();
 	if (g_pInputManager->IsOnceKeyUp('G') && m_pDialogUi)
 	{
-		m_isDialogOpen = !m_isDialogOpen;
+
+	//	m_isDialogOpen = !m_isDialogOpen;
 		if (m_isDialogOpen == false)
 		{
 			m_pDialogBackImage->isOver = false;
@@ -335,7 +338,6 @@ void cUiTestScene::Render(void)
 
 	//크기 태스트용
 //	if (m_pUiTestRoot) m_pUiTestRoot->Render(m_pSprite);
-
 
 }
 

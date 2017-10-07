@@ -451,6 +451,8 @@ private:
 	int m_nBasicDef;
 	int m_nWearDef;
 	int m_nShoesDef;
+	//월드박스
+	RECT WorldRc;
 
 public:
 	virtual HRESULT Setup(void) override;
