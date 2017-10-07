@@ -14,6 +14,17 @@ cInputManager::~cInputManager(void)
 {
 }
 
+void cInputManager::MouseUpdate(void)
+{
+	m_ptMouseMove = m_ptMouseCurrent;				//이전 좌표 저장
+
+	GetCursorPos(&m_ptMouseCurrent);				//마우스 좌표(맴버변수 포인터)
+	ScreenToClient(g_hWnd, &m_ptMouseCurrent);		//마우스 좌표(맴버변수 포인터)
+
+	m_ptMouseMove.x = (m_ptMouseCurrent.x - m_ptMouseMove.x); //현재 좌표 - 이전 좌표 (음직인 양)
+	m_ptMouseMove.y = (m_ptMouseCurrent.y - m_ptMouseMove.y); //현재 좌표 - 이전 좌표 (음직인 양)
+}
+
 bool cInputManager::IsOnceKeyDown(const int nKey)
 {
 	if (GetAsyncKeyState(nKey) & 0x8000)

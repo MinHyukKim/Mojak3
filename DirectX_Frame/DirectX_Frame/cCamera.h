@@ -29,6 +29,7 @@ public:
 	virtual void Update(void);
 
 	void TestController(void);
+	void MouseController(void);
 
 	//부모 매트릭스 설정
 	void SetupParentMatrix(IN LPD3DXMATRIX pWorldMatrix);

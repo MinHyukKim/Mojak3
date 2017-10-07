@@ -98,6 +98,10 @@ void cCamera::TestController(void)
 	}
 }
 
+void cCamera::MouseController(void)
+{
+}
+
 void cCamera::SetupParentMatrix(IN LPD3DXMATRIX pWorldMatrix)
 {
 	if (m_pParentMatrix && !pWorldMatrix)
