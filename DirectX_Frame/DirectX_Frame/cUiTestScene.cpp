@@ -53,29 +53,15 @@ cUiTestScene::cUiTestScene(void)
 	, m_pPlayer(NULL)
 	, m_pMainCamera(NULL)
 	//임시 스탯
-	, m_nTempMaxHP(70)
-	, m_nTempHP(70)
-	, m_nTempMaxMP(60)
-	, m_nTempMP(60)
-	, m_nTempMaxStamina(75)
-	, nTempStamina(75)
-	, m_nTempSTR(30)
-	, m_nTempINT(23)
-	, m_nTempWill(33)
-	, m_nTempLuck(19)
-	, m_nTempWorkmanship(26)
-	, m_nTempDamege(24)
-	, m_nTempTotalDamage(24)
-	, m_nTempMagicDamege(2)
-	, m_nTempTotalMagicDamage(2)
-	, m_fTempInjury(3.0f)
-	, m_fTempCritical(17.2f)
-	, m_nTempBalance(53)
-	, m_nTempDefense(9)
-	, m_nTempProtect(0)
-	, m_nTempMagicDefense(2)
-	, m_nTempMagicProtect(0)
-	, m_nTempArmorPiercing(1)
+	, m_nTempMaxHP(70) , m_nTempHP(70)
+	, m_nTempMaxMP(60) , m_nTempMP(60)
+	, m_nTempMaxStamina(75) , nTempStamina(75)
+	, m_nTempSTR(30) , m_nTempINT(23) , m_nTempWill(33) , m_nTempLuck(19) , m_nTempWorkmanship(26)
+	, m_nTempDamege(24) , m_nTempTotalDamage(24)
+	, m_nTempMagicDamege(2) , m_nTempTotalMagicDamage(2)
+	, m_fTempInjury(3.0f) , m_fTempCritical(17.2f)
+	, m_nTempBalance(53) , m_nTempDefense(9) , m_nTempProtect(0)
+	, m_nTempMagicDefense(2) , m_nTempMagicProtect(0) , m_nTempArmorPiercing(1)
 	, m_pHpMaxImage(NULL)
 	, m_pHpImage(NULL)
 	//매인 게이지바들 위치
@@ -103,6 +89,12 @@ cUiTestScene::cUiTestScene(void)
 	, m_isExitUiOn(false)
 	//퀵슬롯 관련
 	, m_pUiQuickSiot(NULL)
+	//슬롯 등록
+	, m_eQuickSiot01(E_QUICK_SIOT_NONE_01)
+	, m_eQuickSiot02(E_QUICK_SIOT_NONE_02)
+	, m_eQuickSiot03(E_QUICK_SIOT_NONE_03)
+	, m_eQuickSiot04(E_QUICK_SIOT_NONE_04)
+	, m_eQuickSiot05(E_QUICK_SIOT_NONE_05)
 {
 	D3DXMatrixIdentity(&m_matWorldMatrix);
 	m_vecTempPlayerItem.reserve(INVMAX);
@@ -498,6 +490,17 @@ void cUiTestScene::OnClick(cUIButton * pSender)
 	{
 		exit(1);
 	}
+	else if (pSender->GetTag() == E_BUTTON_USE_DEFENSE)
+	{
+		if (m_eQuickSiot01 == E_QUICK_SIOT_NONE_01)
+		{
+			m_pUiQuickSiot1->SetTexture("Texture/Ui/skillDefense.png"
+				, "Texture/Ui/skillDefense.png", "Texture/Ui/skillDefense.png");
+			m_eQuickSiot01 = E_QUICK_SIOT_DEFENSE_01;
+		}
+	//	else if(m_eQuickSiot01 != E_QUICK_SIOT_NONE_01)
+	}
+
 
 
 	//대화창 관련 (열린 상태에서 NPC가 나오라면)

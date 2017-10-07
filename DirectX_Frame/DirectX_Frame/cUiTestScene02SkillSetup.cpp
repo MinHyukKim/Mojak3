@@ -118,12 +118,6 @@ void cUiTestScene::SetupSkillUi(void)
 	pHaveSkill->SetTag(E_BUTTON_NONE);
 	m_pSkillUi->AddChild(pHaveSkill);
 
-
-//	E_BUTTON_USE_SMASH,
-//		E_BUTTON_USE_COUNTER,
-//		E_BUTTON_USE_DEFENSE,
-//		E_BUTTON_USE_DOWNATTACK,
-//		E_BUTTON_USE_WINDMILL,
 	//»ç¿ë ¿©ºÎ ¹öÆ° 
 	pHaveSkill = cUIButton::Create();
 	pHaveSkill->SetTexture("Texture/Ui/buttonUp6542Use.png"
@@ -271,6 +265,69 @@ void cUiTestScene::SetupSkillUi(void)
 	m_pSkillExpCombat->m_Alpha = 220;
 	m_pSkillUi->AddChild(m_pSkillExpCombat);
 
+	//·¹º§ ÅÃ½ºÆ®
+//	char szSKillLevelSmash[64] = { '\0', };
+//	sprintf_s(szSKillLevelSmash, "·©Å© F");
+	m_pSKillLevelDefense = cUITextView::Create();
+	m_pSKillLevelDefense->SetText("·©Å© F");
+	m_pSKillLevelDefense->SetFontType(g_pFontManager->E_TEMP_IN_SMALL);
+	m_pSKillLevelDefense->SetColor(D3DCOLOR_XRGB(255, 255, 255));
+	m_pSKillLevelDefense->SetSize(ST_SIZE(30, 40));
+	m_pSKillLevelDefense->SetPosition(260, 60);
+	m_pSKillLevelDefense->SetDrawTextFormat(DT_CENTER | DT_VCENTER | DT_WORDBREAK);
+	m_pSKillLevelDefense->SetTag(E_BUTTON_NONE);
+	m_pSkillUi->AddChild(m_pSKillLevelDefense);
+
+	m_pSKillLevelSmash = cUITextView::Create();
+	m_pSKillLevelSmash->SetText("·©Å© F");
+	m_pSKillLevelSmash->SetFontType(g_pFontManager->E_TEMP_IN_SMALL);
+	m_pSKillLevelSmash->SetColor(D3DCOLOR_XRGB(255, 255, 255));
+	m_pSKillLevelSmash->SetSize(ST_SIZE(30, 40));
+	m_pSKillLevelSmash->SetPosition(260, 110);
+	m_pSKillLevelSmash->SetDrawTextFormat(DT_CENTER | DT_VCENTER | DT_WORDBREAK);
+	m_pSKillLevelSmash->SetTag(E_BUTTON_NONE);
+	m_pSkillUi->AddChild(m_pSKillLevelSmash);
+
+	m_pSKillLevelCounter = cUITextView::Create();
+	m_pSKillLevelCounter->SetText("·©Å© F");
+	m_pSKillLevelCounter->SetFontType(g_pFontManager->E_TEMP_IN_SMALL);
+	m_pSKillLevelCounter->SetColor(D3DCOLOR_XRGB(255, 255, 255));
+	m_pSKillLevelCounter->SetSize(ST_SIZE(30, 40));
+	m_pSKillLevelCounter->SetPosition(260, 160);
+	m_pSKillLevelCounter->SetDrawTextFormat(DT_CENTER | DT_VCENTER | DT_WORDBREAK);
+	m_pSKillLevelCounter->SetTag(E_BUTTON_NONE);
+	m_pSkillUi->AddChild(m_pSKillLevelCounter);
+
+	m_pSKillLevelDownAttack = cUITextView::Create();
+	m_pSKillLevelDownAttack->SetText("·©Å© F");
+	m_pSKillLevelDownAttack->SetFontType(g_pFontManager->E_TEMP_IN_SMALL);
+	m_pSKillLevelDownAttack->SetColor(D3DCOLOR_XRGB(255, 255, 255));
+	m_pSKillLevelDownAttack->SetSize(ST_SIZE(30, 40));
+	m_pSKillLevelDownAttack->SetPosition(260, 210);
+	m_pSKillLevelDownAttack->SetDrawTextFormat(DT_CENTER | DT_VCENTER | DT_WORDBREAK);
+	m_pSKillLevelDownAttack->SetTag(E_BUTTON_NONE);
+	m_pSkillUi->AddChild(m_pSKillLevelDownAttack);
+
+	m_pSKillLevelWindmill = cUITextView::Create();
+	m_pSKillLevelWindmill->SetText("·©Å© F");
+	m_pSKillLevelWindmill->SetFontType(g_pFontManager->E_TEMP_IN_SMALL);
+	m_pSKillLevelWindmill->SetColor(D3DCOLOR_XRGB(255, 255, 255));
+	m_pSKillLevelWindmill->SetSize(ST_SIZE(30, 40));
+	m_pSKillLevelWindmill->SetPosition(260, 260);
+	m_pSKillLevelWindmill->SetDrawTextFormat(DT_CENTER | DT_VCENTER | DT_WORDBREAK);
+	m_pSKillLevelWindmill->SetTag(E_BUTTON_NONE);
+	m_pSkillUi->AddChild(m_pSKillLevelWindmill);
+
+	m_pSKillLevelCombat = cUITextView::Create();
+	m_pSKillLevelCombat->SetText("·©Å© F");
+	m_pSKillLevelCombat->SetFontType(g_pFontManager->E_TEMP_IN_SMALL);
+	m_pSKillLevelCombat->SetColor(D3DCOLOR_XRGB(255, 255, 255));
+	m_pSKillLevelCombat->SetSize(ST_SIZE(30, 40));
+	m_pSKillLevelCombat->SetPosition(260, 310);
+	m_pSKillLevelCombat->SetDrawTextFormat(DT_CENTER | DT_VCENTER | DT_WORDBREAK);
+	m_pSKillLevelCombat->SetTag(E_BUTTON_NONE);
+	m_pSkillUi->AddChild(m_pSKillLevelCombat);
+
 
 	//¿¹½Ã
 	//= ((float)g_pObjectManager->GetPlayer()->GetAbilityParamter()->GetMinHP()
@@ -391,6 +448,8 @@ void cUiTestScene::SetupSkillUi(void)
 	pUiQuickText->SetDrawTextFormat(DT_CENTER | DT_VCENTER | DT_WORDBREAK);
 	pUiQuickText->SetTag(E_BUTTON_NONE);
 	m_pUiQuickSiot->AddChild(pUiQuickText);
+
+
 }
 
 void cUiTestScene::UpdateSkillUi(void)

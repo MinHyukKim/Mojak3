@@ -122,6 +122,59 @@ enum eDialogText
 	E_TEXR_END
 };
 
+//퀵슬롯 용
+enum eQuickSiot01
+{
+	E_QUICK_SIOT_NONE_01,
+	E_QUICK_SIOT_SMASH_01,
+	E_QUICK_SIOT_COUNTER_01,
+	E_QUICK_SIOT_DEFENSE_01,
+	E_QUICK_SIOT_DOWNATTACK_01,
+	E_QUICK_SIOT_WINDMILL_01,
+	E_QUICK_SIOT_END_01
+};
+enum eQuickSiot02
+{
+	E_QUICK_SIOT_NONE_02,
+	E_QUICK_SIOT_SMASH_02,
+	E_QUICK_SIOT_COUNTER_02,
+	E_QUICK_SIOT_DEFENSE_02,
+	E_QUICK_SIOT_DOWNATTACK_02,
+	E_QUICK_SIOT_WINDMILL_02,
+	E_QUICK_SIOT_END_02
+};
+enum eQuickSiot03
+{
+	E_QUICK_SIOT_NONE_03,
+	E_QUICK_SIOT_SMASH_03,
+	E_QUICK_SIOT_COUNTER_03,
+	E_QUICK_SIOT_DEFENSE_03,
+	E_QUICK_SIOT_DOWNATTACK_03,
+	E_QUICK_SIOT_WINDMILL_03,
+	E_QUICK_SIOT_END_03
+};
+enum eQuickSiot04
+{
+	E_QUICK_SIOT_NONE_04,
+	E_QUICK_SIOT_SMASH_04,
+	E_QUICK_SIOT_COUNTER_04,
+	E_QUICK_SIOT_DEFENSE_04,
+	E_QUICK_SIOT_DOWNATTACK_04,
+	E_QUICK_SIOT_WINDMILL_04,
+	E_QUICK_SIOT_END_04
+
+};
+enum eQuickSiot05
+{
+	E_QUICK_SIOT_NONE_05,
+	E_QUICK_SIOT_SMASH_05,
+	E_QUICK_SIOT_COUNTER_05,
+	E_QUICK_SIOT_DEFENSE_05,
+	E_QUICK_SIOT_DOWNATTACK_05,
+	E_QUICK_SIOT_WINDMILL_05,
+	E_QUICK_SIOT_END_05
+};
+
 class cUiTestScene : public cSceneObject, iButtonDelegate
 {
 private:
@@ -262,6 +315,15 @@ private:
 	cUIImageViewTemp* m_pSkillExpWindmill;
 	cUIImageViewTemp* m_pSkillExpCombat;
 
+	//ap수련
+	cUITextView* m_pSKillLevelSmash;
+	cUITextView* m_pSKillLevelCounter;
+	cUITextView* m_pSKillLevelDefense;
+	cUITextView* m_pSKillLevelDownAttack;
+	cUITextView* m_pSKillLevelWindmill;
+	cUITextView* m_pSKillLevelCombat;
+	//cUIButton* m_pTraining
+
 	cUiObject* m_pSkillUi;		
 
 	//대화관련
@@ -331,6 +393,16 @@ private:
 	cUIButton* m_pUiQuickSiot6;
 	cUIButton* m_pUiQuickSiot7;
 	cUiObject* m_pUiQuickSiot;
+	bool m_isSiot01;
+	bool m_isSiot02;
+	bool m_isSiot03;
+	bool m_isSiot04;
+	bool m_isSiot05;
+	eQuickSiot01 m_eQuickSiot01;
+	eQuickSiot02 m_eQuickSiot02;
+	eQuickSiot03 m_eQuickSiot03;
+	eQuickSiot04 m_eQuickSiot04;
+	eQuickSiot05 m_eQuickSiot05;
 
 	//패널 이미지 크기 태스트용
 	cUiObject* m_pUiTestRoot;
@@ -370,8 +442,6 @@ private:
 	int m_nTempMagicProtect;		//마법보호
 	int m_nTempArmorPiercing;		//방관
 
-	//std::vector<cUIButton*> m_vecTempItem;
-	//std::vector<cUIButton*> m_vecTempBsg;
 	std::vector<cUIButton*> m_vecTempPlayerItem;
 	int m_nItemMax;
 	cUIButton* m_pTempPlayerItemArr[INVMAX];

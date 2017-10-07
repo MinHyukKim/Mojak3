@@ -25,7 +25,7 @@ cMainGame::~cMainGame(void)
 	g_pAnimationManager->Destroy();
 	g_pFrustum->Destroy();
 	g_pTexture->Destroy();
-	g_pFontManager->Destroy();
+//	g_pFontManager->Destroy();
 	g_pSkinnedMeshManager->Destroy();
 	g_pMapTerrain->Destroy();
 	g_pMapObjectManager->Destroy();

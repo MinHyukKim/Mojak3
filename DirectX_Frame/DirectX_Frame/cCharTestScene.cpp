@@ -92,10 +92,10 @@ void cCharTestScene::Update(void)
 			{
 				g_pObjectManager->GetPlayer()->OrderAttack(pMonster);
 			}
-			else if (m_pMapTerrain->IsCollision(&vTo, &vRay, &vDir))	//바닥이 피킹되면 vTo 에 위치 저장후 True;
+		//	else if (m_pMapTerrain->IsCollision(&vTo, &vRay, &vDir))	//바닥이 피킹되면 vTo 에 위치 저장후 True;
 
 			//NPC
-			else if (g_pObjectManager->GetNPC(&pMonster, &vRay, &vDir))
+			if (g_pObjectManager->GetNPC(&pMonster, &vRay, &vDir))
 			{
 				g_pObjectManager->GetPlayer()->OrderDialog(pMonster);
 			}
