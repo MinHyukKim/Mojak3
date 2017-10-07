@@ -46,7 +46,7 @@ HRESULT cTitleScene::Setup(void)
 	RECT rc;
 	GetClientRect(g_hWnd, &rc);
 	//타이틀 그림
-	imageData = g_pTexture->GetTextureEx("./Texture/Title.jpg", &m_stImageInfo);
+	imageData = g_pTexture->GetTextureEx("./Texture/fs_title.png", &m_stImageInfo);
 	SAFE_RELEASE(m_pTitleImage);
 	m_pTitleImage = cImage::Create();
 	m_pTitleImage->Setup(m_stImageInfo, imageData);
@@ -60,9 +60,12 @@ HRESULT cTitleScene::Setup(void)
 	//UI세팅
 	rootBase = cUIImageView::Create();
 	rootBase->SetTexture("UI/test_pannel.png");
-	rootBase->SetPosition((float)rc.right/2-rootBase->stImageInfo.Width/2 , (float)rc.bottom/2);
+	rootBase->SetPosition((float)rc.right/2-rootBase->stImageInfo.Width/2 , 
+		(float)rc.bottom/2 - rootBase->stImageInfo.Height / 2 + (float)rc.bottom / 4);
 
 	m_pUIRoot = rootBase;
+
+
 
 
 
