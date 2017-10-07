@@ -8,6 +8,11 @@
 #include "cImage.h"
 #include "cFont.h"
 
+//ui
+#include "cUIImageView.h"
+#include "cUITextView.h"
+#include "cUIButton.h"
+
 //테스트용
 #include "cBuilding.h"
 #include "cSkybox.h"
@@ -20,6 +25,8 @@ cTitleScene::cTitleScene(void)
 	, m_pSkybox(nullptr)
 	, m_pSprite(nullptr)
 	, m_pTitleImage(nullptr)
+	, m_pUIRoot(NULL)
+
 {
 	D3DXMatrixIdentity(&m_matWorldMatrix);
 }
@@ -39,7 +46,8 @@ HRESULT cTitleScene::Setup(void)
 	RECT rc;
 	GetClientRect(g_hWnd, &rc);
 	//타이틀 그림
-	imageData = g_pTexture->GetTextureEx("./Texture/fs_title.png", &m_stImageInfo);
+	imageData = g_pTexture->GetTextureEx("./Texture/Title.jpg", &m_stImageInfo);
+	SAFE_RELEASE(m_pTitleImage);
 	m_pTitleImage = cImage::Create();
 	m_pTitleImage->Setup(m_stImageInfo, imageData);
 	m_matWorldMatrix._41 = rc.right / 2.0f;
@@ -48,6 +56,17 @@ HRESULT cTitleScene::Setup(void)
 	m_matWorldMatrix._11 = (float)rc.right / (float)m_stImageInfo.Width;
 	m_matWorldMatrix._22 = (float)rc.bottom / (float)m_stImageInfo.Height;
 	m_pTitleImage->SetWorldMatrix(&m_matWorldMatrix);
+
+	//UI세팅
+	rootBase = cUIImageView::Create();
+	rootBase->SetTexture("UI/test_pannel.png");
+	rootBase->SetPosition((float)rc.right/2-rootBase->stImageInfo.Width/2 , (float)rc.bottom/2);
+
+	m_pUIRoot = rootBase;
+
+
+
+
 
 	return S_OK;
 }
@@ -61,10 +80,16 @@ void cTitleScene::Reset(void)
 	SAFE_RELEASE(m_pSprite);
 	SAFE_RELEASE(m_pTitleImage);
 	//g_pMapObjectManager->Destroy();
+	SAFE_RELEASE(m_pUIRoot);
+
+
 }
 
 void cTitleScene::Update(void)
 {
+	if (m_pUIRoot) m_pUIRoot->Update();
+
+
 }
 
 void cTitleScene::Render(void)
@@ -72,6 +97,9 @@ void cTitleScene::Render(void)
 	m_pSprite->Begin(D3DXSPRITE_ALPHABLEND | D3DXSPRITE_SORT_TEXTURE);
 
 	if (m_pTitleImage) m_pTitleImage->Draw(m_pSprite);
+
+	if (m_pUIRoot) m_pUIRoot->Render(m_pSprite);
+
 	m_pSprite->End();
 
 }

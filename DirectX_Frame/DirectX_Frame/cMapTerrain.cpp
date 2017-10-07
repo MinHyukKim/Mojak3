@@ -132,7 +132,7 @@ inline HRESULT cMapTerrain::_Destroy(void)
 {
 	SAFE_RELEASE(m_pVertexBuffer);
 	SAFE_RELEASE(m_pIndexBufer);
-
+	SAFE_DELETE(m_pQuadTree);
 
 	return S_OK;
 }

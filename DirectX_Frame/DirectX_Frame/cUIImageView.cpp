@@ -20,6 +20,7 @@ cUIImageView * cUIImageView::Create(void)
 void cUIImageView::SetTexture(std::string sFullPath)
 {
 	m_sTexture = sFullPath;
+	g_pTexture->GetTextureEx(m_sTexture, &stImageInfo);
 }
 
 void cUIImageView::Render(LPD3DXSPRITE pSprite)
