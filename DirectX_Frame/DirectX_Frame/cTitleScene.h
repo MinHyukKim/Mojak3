@@ -1,5 +1,7 @@
 #pragma once
 #include "cSceneObject.h"
+#include "cUIButton.h"
+#include "cImage.h"
 
 class cCamera;
 class cMapTerrain;
@@ -11,12 +13,11 @@ class cUIButton;
 
 class cUiObject;
 class cUIImageView;
-class cUIImageViewTemp;
 class cUIButton;
 class cUITextView;
 class iButtonDelegate;
 
-class cTitleScene : public cSceneObject
+class cTitleScene : public cSceneObject, iButtonDelegate
 {
 public:
 	enum
@@ -65,8 +66,10 @@ public:
 	virtual void Update(void) override;
 	virtual void Render(void) override;
 
-	static cTitleScene* Create(void);
+	// iButtonDelegate override
+	virtual void OnClick(cUIButton* pSender) override;
 
+	static cTitleScene* Create(void);
 
 protected:
 	cTitleScene(void);
