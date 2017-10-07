@@ -75,9 +75,11 @@ void cMainGame::Setup(void)
 void cMainGame::Update(void)
 {
 	g_pAutoRelasePool->AutoReleaseCheck();	// 제거가 필요한 객체 릴리즈
+	g_pInputManager->Update();				// 마우스 좌표 저장
 	g_pFrustum->Update();					// 컬링 매트릭스 준비
 	g_pTimeManager->Update();
 	g_pMeshFontManager->Update();
+
 	g_pSceneManager->Update();
 
 	//테스트용 씬전환

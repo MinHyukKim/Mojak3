@@ -2,7 +2,13 @@
 #include "cInputManager.h"
 
 cInputManager::cInputManager(void)
+	: m_nWheel1(0)
+	, m_nWheel2(0)
+	, m_ptMouseMove({})
 {
+	GetCursorPos(&m_ptMouseCurrent);
+	ScreenToClient(g_hWnd, &m_ptMouseCurrent);
+
 	for (int i = 0; i < KEYMAX; i++)
 	{
 		this->SetKeyUp(i, false);
@@ -14,6 +20,11 @@ cInputManager::~cInputManager(void)
 {
 }
 
+void cInputManager::Update(void)
+{
+	this->MouseUpdate();
+}
+
 void cInputManager::MouseUpdate(void)
 {
 	m_ptMouseMove = m_ptMouseCurrent;				//ÀÌÀü ÁÂÇ¥ ÀúÀå
@@ -23,6 +34,10 @@ void cInputManager::MouseUpdate(void)
 
 	m_ptMouseMove.x = (m_ptMouseCurrent.x - m_ptMouseMove.x); //ÇöÀç ÁÂÇ¥ - ÀÌÀü ÁÂÇ¥ (À½Á÷ÀÎ ¾ç)
 	m_ptMouseMove.y = (m_ptMouseCurrent.y - m_ptMouseMove.y); //ÇöÀç ÁÂÇ¥ - ÀÌÀü ÁÂÇ¥ (À½Á÷ÀÎ ¾ç)
+
+	//ÈÙ
+	m_nWheel2 = m_nWheel1;
+	m_nWheel1 = 0;
 }
 
 bool cInputManager::IsOnceKeyDown(const int nKey)
