@@ -36,7 +36,7 @@ HRESULT cLodingScene::Setup(void)
 	GetClientRect(g_hWnd, &rc);
 
 	//타이틀 그림
-	imageData = g_pTexture->GetTextureEx("./Texture/Title.jpg",&m_stLoadingBar);
+	imageData = g_pTexture->GetTextureEx("./Texture/fs_title.png",&m_stLoadingBar);
 	m_pLoadingImage = cImage::Create();
 	m_pLoadingImage->Setup(m_stLoadingBar, imageData);
 	m_matWorldMatrix._41 = rc.right / 2.0f;
@@ -75,7 +75,8 @@ HRESULT cLodingScene::Setup(void)
 	m_pData->RegisterBuild("farm_level02_se_tree_01.x");
 	m_pData->RegisterBuild("scene_building_tirchonaill_church.x");
 	m_pData->RegisterBuild("smooth_appleTree.x");
-
+	m_pData->RegisterBuild("scene_building_shop.x");
+	
 	if (m_pThread)
 	{
 		m_pThread->join();

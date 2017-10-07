@@ -64,6 +64,7 @@ void cMainGame::Setup(void)
 	g_pSceneManager->AddScene("cChareterCustomScene", cChareterCustomScene::Create());
 	g_pSceneManager->AddScene("cUiCustomizingScene", cUiCustomizingScene::Create());
 	g_pSceneManager->AddScene("cLodingScene", cLodingScene::Create());
+	g_pSceneManager->AddScene("cTitleScene", cTitleScene::Create());
 
 	g_pSceneManager->ChangeScene("cLodingScene");
 
