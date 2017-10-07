@@ -8,6 +8,7 @@
 #include "cChareterCustomScene.h"
 #include "cUiCustomizingScene.h"
 #include "cLodingScene.h"
+#include "cTitleScene.h"
 
 cMainGame::cMainGame(void)
 {
