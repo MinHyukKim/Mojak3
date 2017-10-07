@@ -7,10 +7,25 @@ class cSkybox;
 class cBuilding;
 class cImage;
 class cFont;
+class cUIButton;
+
+class cUiObject;
+class cUIImageView;
+class cUIImageViewTemp;
+class cUIButton;
+class cUITextView;
+class iButtonDelegate;
 
 class cTitleScene : public cSceneObject
 {
 public:
+	enum
+	{
+		E_MAPTOOL_BUTTON = 213,
+		E_START_BUTTON = 214,
+		E_CONTINUE_BUTTON,
+		E_EXIT_BUTTON,
+	};
 private:
 	D3DXMATRIXA16 m_matWorldMatrix;
 	LPD3DXSPRITE m_pSprite;
@@ -28,6 +43,21 @@ private:
 	D3DXMATERIAL	 m_stMtl;
 	cBuilding*		 m_pBuild;
 	cSkybox*	m_pSkybox;
+
+	//UI관련
+	//UI루트
+	cUiObject* m_pUIRoot;
+
+	cUIImageView* rootBase;				//메뉴 배경
+	cUIButton* m_pMaptoolButton;		//맵툴씬 이동 버튼
+	cUIButton* m_pStartButton;			//캐릭터 커스터마이징 씬 이동 버튼
+	cUIButton* m_pContinueButton;		//컨티뉴 버튼
+	cUIButton* m_pExitButton;			//종료버튼
+	//cUITextView* m_pQuestUiText;		//불변 택스트
+	//cUITextView* m_pQuestText;			//태스트용 택스트
+	//cUiObject* m_pQuestUi;
+
+
 
 public:
 	virtual HRESULT Setup(void) override;
