@@ -61,7 +61,6 @@ void cTitleScene::Reset(void)
 	SAFE_RELEASE(m_pSkybox);
 	SAFE_RELEASE(m_pSprite);
 	SAFE_RELEASE(m_pTitleImage);
-//	SAFE_RELEASE(m_stImageInfo);
 	//g_pMapObjectManager->Destroy();
 }
 

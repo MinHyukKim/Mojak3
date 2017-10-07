@@ -87,6 +87,12 @@ cUiTestScene::cUiTestScene(void)
 	//닫기 관련
 	, m_pUiExit(NULL)
 	, m_isExitUiOn(false)
+	//대화문 끝 여부
+	, m_isDialogFin(false)
+	//퀘 수락 여부
+	, m_isAcceptQuest(false)
+	//퀘 완료 여부
+	, m_isQuestFin(false)
 	//퀵슬롯 관련
 	, m_pUiQuickSiot(NULL)
 	//슬롯 등록
@@ -495,26 +501,18 @@ void cUiTestScene::OnClick(cUIButton * pSender)
 	}
 	else if (pSender->GetTag() == E_BUTTON_USE_SMASH)
 	{
-		if (m_eQuickSiot01 == E_QUICK_SIOT_NONE_01)
-		{
-			m_pUiQuickSiot1->SetTexture("Texture/Ui/skillSmash.png"
-				, "Texture/Ui/skillSmash.png", "Texture/Ui/skillSmash.png");
-			m_eQuickSiot01 = E_QUICK_SIOT_SMASH_01;
-		}
+	//	if (m_eQuickSiot01 == E_QUICK_SIOT_NONE_01)
+	//	{
+	//		m_pUiQuickSiot1->SetTexture("Texture/Ui/skillSmash.png"
+	//			, "Texture/Ui/skillSmash.png", "Texture/Ui/skillSmash.png");
+	//		m_eQuickSiot01 = E_QUICK_SIOT_SMASH_01;
+	//	}
 	//	else if(m_eQuickSiot01 != E_QUICK_SIOT_NONE_01)
 	}
 	else if (pSender->GetTag() == E_BUTTON_USE_COUNTER)
 	{
-		if (m_eQuickSiot02 == E_QUICK_SIOT_NONE_02)
-		{
-			m_pUiQuickSiot2->SetTexture("Texture/Ui/skillCounter.png"
-				, "Texture/Ui/skillCounter.png", "Texture/Ui/skillCounter.png");
-			m_eQuickSiot02 = E_QUICK_SIOT_COUNTER_02;
-		}
+
 	}
-	
-
-
 
 	//대화창 관련 (열린 상태에서 NPC가 나오라면)
 	if (m_isDialogOpen && m_eDialogNPCKind == E_DIALOG_NPC_NAO)
@@ -523,7 +521,7 @@ void cUiTestScene::OnClick(cUIButton * pSender)
 		{
 			m_nDialogTextNum = m_nDialogTextNum - 1;
 		}
-		else if (pSender->GetTag() == E_BUTTON_DIALOG_NEXT && m_nDialogTextNum < 5)
+		else if (pSender->GetTag() == E_BUTTON_DIALOG_NEXT && m_nDialogTextNum < 2)
 		{
 			m_nDialogTextNum += 1;
 		}

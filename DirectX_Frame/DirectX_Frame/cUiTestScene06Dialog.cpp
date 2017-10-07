@@ -44,19 +44,29 @@ void cUiTestScene::SetupDialogUi(void)
 	m_pDialogText->SetTag(E_TEXT_DIALOG);
 	m_pDialogUi->AddChild(m_pDialogText);
 
+
+	int DialogButtonX = 40;
+	int DialogButtonY = 145;
 	//닫기
 	m_pDialogCloseButton = cUIButton::Create();
-	m_pDialogCloseButton->SetTexture("Texture/Ui/button_close_up.png"
-		, "Texture/Ui/button_close_over.png", "Texture/Ui/button_close_up.png");
-	m_pDialogCloseButton->SetPosition(940, 30);
+	m_pDialogCloseButton->SetTexture("Texture/Ui/textButtonUp6024.png",
+		"Texture/Ui/textButtonUp6024.png", "Texture/Ui/textButtonDown6024.png");
+	m_pDialogCloseButton->SetPosition(DialogButtonX + 140, DialogButtonY);   //940, 30
 	m_pDialogCloseButton->SetDelegate(this);
 	m_pDialogCloseButton->SetTag(E_BUTTON_DIALOG_CLOSE);
 	m_pDialogCloseButton->m_Alpha = 220;
 	m_pDialogUi->AddChild(m_pDialogCloseButton);
+	//닫기 택스트
+	cUITextView* pTempText = cUITextView::Create();
+	pTempText->SetText("대화종료");
+	pTempText->SetFontType(g_pFontManager->E_INBUTTON);
+	pTempText->SetColor(D3DCOLOR_XRGB(255, 255, 255));
+	pTempText->SetSize(ST_SIZE(100, 30));
+	pTempText->SetPosition(DialogButtonX + 120, DialogButtonY - 10);
+	pTempText->SetDrawTextFormat(DT_CENTER | DT_VCENTER | DT_WORDBREAK);
+	pTempText->SetTag(E_BUTTON_NONE);
+	m_pDialogUi->AddChild(pTempText);
 
-
-	int DialogButtonX = 40;
-	int DialogButtonY = 145;
 	//대화창 이전 버튼
 	m_pDialogPrev = cUIButton::Create();
 	m_pDialogPrev->SetTexture("Texture/Ui/textButtonUp6024.png",
@@ -98,26 +108,6 @@ void cUiTestScene::SetupDialogUi(void)
 
 void cUiTestScene::changeDialogText(void)
 {
-//	if (m_nDialogTextNum == 0)
-//	{
-//		m_pDialogText->SetText("대화창 태스트01");
-//	}
-//	else if (m_nDialogTextNum == 1)
-//	{
-//		m_pDialogText->SetText("대화창 태스트02");
-//	}
-//	else if (m_nDialogTextNum == 2)
-//	{
-//		m_pDialogText->SetText("대화창 태스트03");
-//	}
-//	else if (m_nDialogTextNum == 3)
-//	{
-//		m_pDialogText->SetText("대화창 태스트04");
-//	}
-//	else if (m_nDialogTextNum == 4)
-//	{
-//		m_pDialogText->SetText("대화창 태스트05");
-//	}
 	switch (m_eDialogNPCKind)
 	{
 		case E_DIALOG_NPC_NAO:
@@ -127,7 +117,6 @@ void cUiTestScene::changeDialogText(void)
 		}
 		break;
 	}
-
 	
 
 	switch (m_nDialogTextNum)
@@ -146,7 +135,9 @@ void cUiTestScene::changeDialogText(void)
 		{
 			if (m_eDialogNPCKind == E_DIALOG_NPC_NAO)
 			{
-				m_pDialogText->SetText("대화창 태스트02");
+				m_pDialogText->SetText("누추한 당신에게 퀘스트를 하나 던져주겠어요");
+				m_pDialogText->SetSize(ST_SIZE(300, 80));
+				m_pDialogText->SetPosition(28, 20);
 			}
 		}
 		break;
@@ -154,7 +145,11 @@ void cUiTestScene::changeDialogText(void)
 		{
 			if (m_eDialogNPCKind == E_DIALOG_NPC_NAO)
 			{
-				m_pDialogText->SetText("대화창 태스트03");
+				m_pDialogText->SetText("가서 여우 3마리만 잡아오세요");
+				m_pDialogText->SetSize(ST_SIZE(300, 80));
+				m_pDialogText->SetPosition(-10, 20);
+				//퀘수락 버튼 켜기
+
 			}
 		}
 		break;
