@@ -181,6 +181,9 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
             EndPaint(hWnd, &ps);
         }
         break;
+	case WM_MOUSEWHEEL:
+		g_pInputManager->OffsetWheel((SHORT)HIWORD(wParam));
+		break;
     case WM_DESTROY:
         PostQuitMessage(0);
         break;

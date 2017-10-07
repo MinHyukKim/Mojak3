@@ -98,6 +98,31 @@ void cCamera::TestController(void)
 	}
 }
 
+void cCamera::MouseController(void)
+{
+	if (!g_pInputManager->IsStayKeyDown(VK_RBUTTON)) return;
+
+	POINT ptMouseMove = g_pInputManager->GetMouseMoving();
+
+	if (ptMouseMove.x)
+	{
+		this->AxisDirectionY(0.01f * (float)ptMouseMove.x);
+	}
+
+	if (ptMouseMove.y)
+	{
+		this->AxisDirectionX(0.01f * (float)ptMouseMove.y);
+	}
+}
+
+void cCamera::WheelController(void)
+{
+	int nWheel = g_pInputManager->GetMouseWheel();
+	if (!nWheel) return;
+
+	this->MovePositionZ(0.001f * nWheel);
+}
+
 void cCamera::SetupParentMatrix(IN LPD3DXMATRIX pWorldMatrix)
 {
 	if (m_pParentMatrix && !pWorldMatrix)

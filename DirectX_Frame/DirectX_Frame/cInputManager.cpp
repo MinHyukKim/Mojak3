@@ -2,7 +2,13 @@
 #include "cInputManager.h"
 
 cInputManager::cInputManager(void)
+	: m_nWheel1(0)
+	, m_nWheel2(0)
+	, m_ptMouseMove({})
 {
+	GetCursorPos(&m_ptMouseCurrent);
+	ScreenToClient(g_hWnd, &m_ptMouseCurrent);
+
 	for (int i = 0; i < KEYMAX; i++)
 	{
 		this->SetKeyUp(i, false);
@@ -12,6 +18,26 @@ cInputManager::cInputManager(void)
 
 cInputManager::~cInputManager(void)
 {
+}
+
+void cInputManager::Update(void)
+{
+	this->MouseUpdate();
+}
+
+void cInputManager::MouseUpdate(void)
+{
+	m_ptMouseMove = m_ptMouseCurrent;				//이전 좌표 저장
+
+	GetCursorPos(&m_ptMouseCurrent);				//마우스 좌표(맴버변수 포인터)
+	ScreenToClient(g_hWnd, &m_ptMouseCurrent);		//마우스 좌표(맴버변수 포인터)
+
+	m_ptMouseMove.x = (m_ptMouseCurrent.x - m_ptMouseMove.x); //현재 좌표 - 이전 좌표 (음직인 양)
+	m_ptMouseMove.y = (m_ptMouseCurrent.y - m_ptMouseMove.y); //현재 좌표 - 이전 좌표 (음직인 양)
+
+	//휠
+	m_nWheel2 = m_nWheel1;
+	m_nWheel1 = 0;
 }
 
 bool cInputManager::IsOnceKeyDown(const int nKey)
