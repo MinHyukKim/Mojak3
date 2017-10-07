@@ -25,6 +25,7 @@ cPlayer::cPlayer(void)
 	, m_fRadius(0.3f)
 	, m_pMainColor(nullptr)
 	, cUi(NULL)
+	, m_skill(nullptr)
 { 
 	D3DXMatrixIdentity(&m_matWorld);
 	ZeroMemory(&m_stHairMaterial, sizeof(D3DMATERIAL9));
@@ -47,10 +48,27 @@ HRESULT cPlayer::Setup(void)
 
 	m_vecMesh.resize(MESH_SIZE);
 
-	//태스트
-//	SAFE_RELEASE(cUi);
-//	cUi = cUiTestScene::Create();
-//	cUi->Setup();
+	//기술창
+	SAFE_RELEASE(m_skill);
+	D3DXCreateMeshFVF(2, 4, D3DXMESH_MANAGED, ST_PNT_VERTEX::FVF, g_pD3DDevice, &m_skill);
+	//기술창 버텍스
+	ST_PNT_VERTEX* pVertex = nullptr;
+	m_skill->LockVertexBuffer(0, (LPVOID*)&pVertex);
+	pVertex[0] = ST_PNT_VERTEX(D3DXVECTOR3(-0.5f, -0.5f, 0.0f), D3DXVECTOR3(0.0f,0.0f,-1.0f), D3DXVECTOR2(0.0f,1.0f));
+	pVertex[1] = ST_PNT_VERTEX(D3DXVECTOR3(-0.5f, 0.5f, 0.0f), D3DXVECTOR3(0.0f,0.0f,-1.0f), D3DXVECTOR2(0.0f,0.0f));
+	pVertex[2] = ST_PNT_VERTEX(D3DXVECTOR3(0.5f, 0.5f, 0.0f), D3DXVECTOR3(0.0f,0.0f,-1.0f), D3DXVECTOR2(1.0f,0.0f));
+	pVertex[3] = ST_PNT_VERTEX(D3DXVECTOR3(0.5f, -0.5f, 0.0f), D3DXVECTOR3(0.0f,0.0f,-1.0f), D3DXVECTOR2(1.0f,1.0f));
+	m_skill->UnlockVertexBuffer();
+	//기술창 인덱스
+	LPWORD pIndex = nullptr;
+	m_skill->LockIndexBuffer(0, (LPVOID*)&pIndex);
+	pIndex[0] = 0;
+	pIndex[1] = 1;
+	pIndex[2] = 2;
+	pIndex[3] = 0;
+	pIndex[4] = 2;
+	pIndex[5] = 3;
+	m_skill->UnlockIndexBuffer();
 
 	return S_OK;
 }
@@ -59,6 +77,7 @@ void cPlayer::Reset(void)
 {
 	for each(auto p in m_vecMesh) SAFE_DELETE(p);
 
+	SAFE_RELEASE(m_skill);
 	SAFE_RELEASE(m_pCamera);
 	SAFE_RELEASE(m_pTarget);
 	SAFE_RELEASE(m_pActionMove);
@@ -84,7 +103,57 @@ void cPlayer::Render(void)
 	{
 		if (m_vecMesh[i]) m_vecMesh[i]->UpdateAndRender(&m_matWorld);
 	}
+	if (this->CheckState(PATTERN_SMASH))
+	{
+		float fScale = 0.2f;
+		D3DXMATRIXA16 mat1 = *g_pMeshFontManager->GetInverseView(), mat2;
+		D3DXVECTOR3 vY = D3DXVECTOR3(&mat1._21);
+		D3DXVECTOR3 vZ = D3DXVECTOR3(&mat1._31);
+		D3DXMatrixScaling(&mat2, fScale, fScale, fScale);
+		mat2 = mat2 * mat1;
+		memcpy(&mat2._41, &(D3DXVECTOR3(&m_matWorld._41) + D3DXVECTOR3(0.0f, m_fRadius * 2.0f, 0.0f) + vY * fScale), sizeof(D3DXVECTOR3));
 
+		float fScale2 = 0.7f;
+		D3DXMatrixScaling(&mat1, fScale2, fScale2, fScale2);
+		mat1 = mat1 * mat2;
+		memcpy(&mat1._41, &(D3DXVECTOR3(&mat1._41) - vZ * 0.01f + vY * fScale * 0.05f), sizeof(D3DXVECTOR3));
+
+		g_pD3DDevice->SetTransform(D3DTS_WORLD, &mat2);
+		g_pD3DDevice->SetTexture(0, g_pTexture->GetTexture("./Texture/Ui/skillWindow.png"));
+		g_pD3DDevice->SetFVF(ST_PNT_VERTEX::FVF);
+		m_skill->DrawSubset(0);
+
+		g_pD3DDevice->SetTransform(D3DTS_WORLD, &mat1);
+		g_pD3DDevice->SetTexture(0, g_pTexture->GetTexture("./Texture/Ui/skillSmash.png"));
+		g_pD3DDevice->SetFVF(ST_PNT_VERTEX::FVF);
+		m_skill->DrawSubset(0);
+
+	}
+	else if (this->CheckState(PATTERN_COUNTER))
+	{
+		float fScale = 0.2f;
+		D3DXMATRIXA16 mat1 = *g_pMeshFontManager->GetInverseView(), mat2;
+		D3DXVECTOR3 vY = D3DXVECTOR3(&mat1._21);
+		D3DXVECTOR3 vZ = D3DXVECTOR3(&mat1._31);
+		D3DXMatrixScaling(&mat2, fScale, fScale, fScale);
+		mat2 = mat2 * mat1;
+		memcpy(&mat2._41, &(D3DXVECTOR3(&m_matWorld._41) + D3DXVECTOR3(0.0f, m_fRadius * 2.0f, 0.0f) + vY * fScale), sizeof(D3DXVECTOR3));
+
+		float fScale2 = 0.7f;
+		D3DXMatrixScaling(&mat1, fScale2, fScale2, fScale2);
+		mat1 = mat1 * mat2;
+		memcpy(&mat1._41, &(D3DXVECTOR3(&mat1._41) - vZ * 0.01f + vY * fScale * 0.05f), sizeof(D3DXVECTOR3));
+
+		g_pD3DDevice->SetTransform(D3DTS_WORLD, &mat2);
+		g_pD3DDevice->SetTexture(0, g_pTexture->GetTexture("./Texture/Ui/skillWindow.png"));
+		g_pD3DDevice->SetFVF(ST_PNT_VERTEX::FVF);
+		m_skill->DrawSubset(0);
+
+		g_pD3DDevice->SetTransform(D3DTS_WORLD, &mat1);
+		g_pD3DDevice->SetTexture(0, g_pTexture->GetTexture("./Texture/Ui/skillCounter.png"));
+		g_pD3DDevice->SetFVF(ST_PNT_VERTEX::FVF);
+		m_skill->DrawSubset(0);
+	}
 }
 
 void cPlayer::SetupAnimationController(LPCSTR szBoneKey)

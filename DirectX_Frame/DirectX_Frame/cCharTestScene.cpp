@@ -47,8 +47,8 @@ HRESULT cCharTestScene::Setup(void)
 	m_pMapTerrain->AddRef();
 
 	//테스트용
-	m_pGrid = cGrid::Create();
-	m_pGrid->Setup();
+//	m_pGrid = cGrid::Create();
+//	m_pGrid->Setup();
 //	m_pTexture = g_pTexture->GetTexture("./HeightMapData/terrain.jpg");
 
 	//ui 태스트

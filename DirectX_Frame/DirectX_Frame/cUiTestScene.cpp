@@ -120,16 +120,14 @@ HRESULT cUiTestScene::Setup(void)
 {
 	D3DXCreateSprite(g_pD3DDevice, &m_pSprite);
 
-	GetClientRect(g_hWnd, &WorldRc);
+//	RECT wrc;
+	GetClientRect(g_hWnd, &m_Wrc);
 
-	//RECT wrc;
-	//GetClientRect(g_hWnd, &wrc);
-
-	mainUiLocalX = WorldRc.right / 2 - 250;			//메인 틀 x 300
-	mainUiLocalY = WorldRc.bottom / 2 + 200;			//메인 틀 y 502
-	mainButtonH = -25;			//메인 버튼들 높이
-	mainButtoninterval = 40;	//메인 버튼들 가로 간격(크기)
-	mainButtonSrart = 160;		//메인 버튼들 최초 시작 위치
+	mainUiLocalX = m_Wrc.right / 2 - 220;			//메인 틀 x 300
+	mainUiLocalY = m_Wrc.bottom / 2 + 235;			//메인 틀 y 502
+	mainButtonH = -25;			//메인 버튼들 높이 -25
+	mainButtoninterval = 40;	//메인 버튼들 가로 간격(크기) 40
+	mainButtonSrart = 160;		//메인 버튼들 최초 시작 위치 160
 
 	//베이스 버튼(태스트 택스트 포함
 	this->SetupBaseButton();

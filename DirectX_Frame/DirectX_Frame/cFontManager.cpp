@@ -14,16 +14,16 @@ cFontManager::~cFontManager(void)
 void cFontManager::Update(void)
 {
 	float fElapsedTime = g_pTimeManager->GetElapsedTime();
-	D3DXMATRIXA16 matView, matInverseView;
+	D3DXMATRIXA16 matView;
 	g_pD3DDevice->GetTransform(D3DTS_VIEW, &matView);
-	D3DXMatrixInverse(&matInverseView, nullptr, &matView);
+	D3DXMatrixInverse(&m_matInverseView, nullptr, &matView);
 	for (vecFontIter it = m_vecFont.begin(); it != m_vecFont.end();)
 	{
 		it->fDelayTime -= fElapsedTime;
 		if (0.0f < it->fDelayTime)
 		{
 			it->pFont->SetPosition(&(it->pFont->GetPosition() + it->vDir * fElapsedTime));
-			it->pFont->SetBillboard(&matInverseView);
+			it->pFont->SetBillboard(&m_matInverseView);
 			it++;
 		}
 		else

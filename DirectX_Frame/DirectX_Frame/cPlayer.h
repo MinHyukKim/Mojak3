@@ -141,6 +141,8 @@ private:
 	//메인 컬러 저장
 	LPD3DXCOLOR m_pMainColor;
 
+	//준비된 기술
+	LPD3DXMESH m_skill;
 public:
 	virtual HRESULT Setup(void) override;
 	void Reset(void);

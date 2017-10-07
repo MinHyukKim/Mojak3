@@ -324,7 +324,7 @@ void cUiTestScene::UpdateMainUi(void)
 	//메인창 내리기
 	if (m_isMainMin == true)
 	{
-		m_pMainRootImageView->SetPosition(mainUiLocalX, mainUiLocalY + 20);
+		m_pMainRootImageView->SetPosition(mainUiLocalX, mainUiLocalY + 18);
 		m_pInfoButton->SetPosition(1000, 1000);
 		m_pSkillButton->SetPosition(1000, 1000);
 		m_pQuestButton->SetPosition(1000, 1000);

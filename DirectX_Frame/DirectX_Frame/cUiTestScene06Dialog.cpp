@@ -14,14 +14,11 @@
 
 void cUiTestScene::SetupDialogUi(void)
 {
-	//NPC대화 관련 75, 300
-	RECT Wrc;
-	GetClientRect(g_hWnd, &Wrc);
-
+	//NPC대화 관련  75, 300
 	m_pDialogBackImage = cUIButton::Create();
 	m_pDialogBackImage->SetTexture("Texture/Ui/dialog5.png",
 		"Texture/Ui/dialog5.png", "Texture/Ui/dialog5.png");
-	m_pDialogBackImage->SetPosition((Wrc.right / 2) - 500, 300);
+	m_pDialogBackImage->SetPosition(m_Wrc.right / 2 - 500, m_Wrc.bottom / 2 + 50);
 	m_pDialogBackImage->SetDelegate(this);
 	//m_pDialogBackImage->m_Alpha = 180;
 	m_pDialogBackImage->SetTag(E_IMAGE_DIALOG);
