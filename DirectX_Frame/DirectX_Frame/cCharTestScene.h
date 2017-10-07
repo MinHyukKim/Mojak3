@@ -7,6 +7,7 @@ class cMapTerrain;
 class cCrtCtrl;
 class cBuilding;
 class cUiTestScene;
+class cSkybox;
 
 class cCharTestScene : public cSceneObject
 {
@@ -18,6 +19,8 @@ private:
 	
 	//ui연동 태스트
 	cUiTestScene* m_pUi;
+
+	cSkybox* m_pSkybox;
 
 public:
 	virtual HRESULT Setup(void) override;

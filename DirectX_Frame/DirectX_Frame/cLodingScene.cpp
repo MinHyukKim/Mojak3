@@ -68,6 +68,13 @@ HRESULT cLodingScene::Setup(void)
 	SAFE_RELEASE(m_pData);
 	m_pData = cDataLoder::Create();
 	m_pData->RegisterData("./Data/SetupData.txt");
+	//건물 등록(임시)
+	m_pData->RegisterBuild("scene_building_tirchonaill_chiefhouse.x");
+	m_pData->RegisterBuild("inn.x");
+	m_pData->RegisterBuild("farm_appletree_01.x");
+	m_pData->RegisterBuild("farm_level02_se_tree_01.x");
+	m_pData->RegisterBuild("scene_building_tirchonaill_church.x");
+	m_pData->RegisterBuild("smooth_appleTree.x");
 
 	if (m_pThread)
 	{

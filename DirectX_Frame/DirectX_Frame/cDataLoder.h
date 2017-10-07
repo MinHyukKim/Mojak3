@@ -23,6 +23,7 @@ public:
 	void RegisterMeshColor(LPCSTR szMeshName, LPCSTR szTextureName, LPD3DXCOLOR pColor);
 	void RegisterTerrain(LPCSTR szHighMapKey, LPCSTR szTextureKey, LPCSTR szTerrainKey, D3DMATERIAL9* pMaterial);
 	void RegisterTerrain(LPCSTR szHighMapKey, LPCSTR szTextureKey, LPCSTR szTerrainKey, LPD3DXCOLOR pColor);
+	void RegisterBuild(LPCSTR szstring1);
 
 	bool RegisterData(LPCSTR FullPath);
 
