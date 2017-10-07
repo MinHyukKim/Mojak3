@@ -477,10 +477,15 @@ void cUiTestScene::SetupInfoUi(void)
 void cUiTestScene::UpdateInfoUi(void)
 {
 	//m_pPlayer->GetAbilityParamter()->GetStr
+	if (g_pObjectManager->GetPlayer()->GetAbilityParamter()->GetMinHP() < 0)
+	{
+		g_pObjectManager->GetPlayer()->GetAbilityParamter()->SetMinHP(0);
+	}
 	char szHP[32] = { '\0', };
 	sprintf_s(szHP, "생명력      %d / %d", g_pObjectManager->GetPlayer()->GetAbilityParamter()->GetMinHP()
 		, g_pObjectManager->GetPlayer()->GetAbilityParamter()->GetMaxHP());
 	m_pTempInfoHP->SetText(szHP);
+
 
 	char szMP[32] = { '\0', };
 	sprintf_s(szMP, "마나         %d / %d", g_pObjectManager->GetPlayer()->GetAbilityParamter()->GetMinMP()
@@ -569,7 +574,8 @@ void cUiTestScene::UpdateInfoUi(void)
 		/ (float)g_pObjectManager->GetPlayer()->GetAbilityParamter()->GetMaxHP()) * m_pHpImage->stImageInfo.Width;
 	if (m_pHpImage->m_rc.right >= m_pHpImage->stImageInfo.Width) m_pHpImage->m_rc.right = m_pHpImage->stImageInfo.Width;
 //	if (m_pHpImage->m_rc.right <= 0.0f) m_pHpImage->m_rc.right = 1.0f;
-	if(g_pObjectManager->GetPlayer()->GetAbilityParamter()->GetMinHP() <= 0) m_pHpImage->m_rc.right = 1.0f;
+	if (g_pObjectManager->GetPlayer()->GetAbilityParamter()->GetMinHP() < 0) m_pHpImage->m_rc.right = 1.0f;
+	
 
 	//마나
 	m_pMpImage->m_rc.right = ((float)g_pObjectManager->GetPlayer()->GetAbilityParamter()->GetMinMP()

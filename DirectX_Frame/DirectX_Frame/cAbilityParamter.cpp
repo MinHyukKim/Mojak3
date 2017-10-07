@@ -23,6 +23,7 @@ cAbilityParamter::cAbilityParamter(void)
 	, m_fMaxSkillExpSmash(100), m_fMaxSkillExpWindmill(100), m_fMaxSkillExpDownAttack(100)
 	, m_fMinSkillExpCombat(10), m_fMinSKillExpCounter(20), m_fMinSkillExplDefense(7)
 	, m_fMinSkillExpSmash(5), m_fMinSkillExpWindmill(6), m_fMinSkillExpDownAttack(13)
+	, m_isDialogOpen(false)
 
 	, m_bEffective(true)
 {

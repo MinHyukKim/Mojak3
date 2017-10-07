@@ -15,6 +15,7 @@ cCharTestScene::cCharTestScene(void)
 	: m_pCamera(NULL)
 	, m_pMapTerrain(NULL)
 	, m_pUi(NULL)
+	, m_pNPC(nullptr)
 {
 	//테스트용
 	m_pGrid = NULL;
@@ -65,6 +66,7 @@ HRESULT cCharTestScene::Setup(void)
 
 void cCharTestScene::Reset(void)
 {
+	SAFE_RELEASE(m_pNPC);
 	SAFE_RELEASE(m_pCamera);
 	SAFE_RELEASE(m_pMapTerrain);
 
@@ -79,28 +81,66 @@ void cCharTestScene::Update(void)
 	//테스트용
 	if (m_pCamera) m_pCamera->TestController();
 
+	if (this->GetSelectNPC())
+	{
+		//NPC가 선택됬음
+		cPlayer* pPlayer = g_pObjectManager->GetPlayer();
+		if (pPlayer)
+		{
+			//Player가 있을때
+			float fDist = 0.0f;
+			if (pPlayer->DistSqTarget(&fDist, this->GetSelectNPC()))
+			{
+				//타겟이 있으면 fDist에 거리를 반환
+				if (fDist < 0.3f)
+				{
+					//플레이어와의 거리가 0.3이하일때
+					//음직이지 않는다
+					pPlayer->OrderIden();
+					//대화 띄우기
+					pPlayer->GetAbilityParamter()->SetDialogOpen(true);
+					//선택해제
+					this->SetSelectNPC(nullptr);
+				}
+				else
+				{
+					//플레이어와의 거리가 0.3 초과일때
+					//NPC쪽으로 이동
+					pPlayer->OrderMove(&this->GetSelectNPC()->GetPosition());
+				}
+			}
+		}
+		else
+		{
+			//Player가 없을때
+		}
+	}
+	else
+	{
+		//NPC가 선택되지 않았음
+	}
+
 	//if (m_pUi->GetMoveingOK() || true)
 	SAFE_UPDATE(m_pUi);
 	if (m_pUi->GetMoveingOK())
 	{
 		if (g_pInputManager->IsOnceKeyDown(VK_LBUTTON))
 		{
-			cPlayer* pMonster = nullptr;	//
+			this->SetSelectNPC(nullptr);
+			cPlayer* pUnit = nullptr;	//
 			D3DXVECTOR3 vTo, vRay, vDir;
 			g_pRay->RayAtWorldSpace(&vRay, &vDir);
-			if (g_pObjectManager->GetMonster(&pMonster, &vRay, &vDir))	//몬스터가 피킹되면 pMonster 에 저장 후 True;
+			if (g_pObjectManager->GetMonster(&pUnit, &vRay, &vDir))	//몬스터가 피킹되면 pMonster 에 저장 후 True;
 			{
-				g_pObjectManager->GetPlayer()->OrderAttack(pMonster);
+				g_pObjectManager->GetPlayer()->OrderAttack(pUnit);
 			}
-		//	else if (m_pMapTerrain->IsCollision(&vTo, &vRay, &vDir))	//바닥이 피킹되면 vTo 에 위치 저장후 True;
 
 			//NPC
-			if (g_pObjectManager->GetNPC(&pMonster, &vRay, &vDir))
+			if (g_pObjectManager->GetNPC(&pUnit, &vRay, &vDir))
 			{
-				g_pObjectManager->GetPlayer()->OrderDialog(pMonster);
+				this->SetSelectNPC(pUnit);
 			}
-
-			else if (m_pMapTerrain->IsCollision(&vTo, &vRay, &vDir))
+			else if (m_pMapTerrain->IsCollision(&vTo, &vRay, &vDir))	//바닥이 피킹되면 vTo 에 위치 저장후 True;
 			{
 				g_pObjectManager->GetPlayer()->SetStateFalse(PATTERN_TARGET);
 				if (g_pInputManager->IsStayKeyDown(VK_SHIFT))
@@ -209,6 +249,13 @@ void cCharTestScene::Render(void)
 	SAFE_RENDER(g_pObjectManager);
 	SAFE_RENDER(g_pMapObjectManager);
 	SAFE_RENDER(m_pUi);
+}
+
+void cCharTestScene::SetSelectNPC(cPlayer* pNPC)
+{
+	SAFE_RELEASE(m_pNPC);
+	m_pNPC = pNPC;
+	SAFE_ADDREF(m_pNPC);
 }
 
 cCharTestScene* cCharTestScene::Create(void)

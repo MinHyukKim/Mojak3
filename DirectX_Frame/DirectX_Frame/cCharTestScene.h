@@ -18,6 +18,7 @@ private:
 	
 	//ui연동 태스트
 	cUiTestScene* m_pUi;
+	cPlayer* m_pNPC;
 
 public:
 	virtual HRESULT Setup(void) override;
@@ -25,6 +26,8 @@ public:
 	virtual void Update(void) override;
 	virtual void Render(void) override;
 
+	void SetSelectNPC(cPlayer* pNPC);
+	cPlayer* GetSelectNPC(void) { return m_pNPC; }
 
 	static cCharTestScene* Create(void);
 protected:

@@ -152,7 +152,8 @@ HRESULT cUiTestScene::Setup(void)
 	this->SetupDialogUi();
 	//임시 플레이어 능력치
 	m_nBasicDef = g_pObjectManager->GetPlayer()->GetAbilityParamter()->GetDefence();
-
+	//대화창받기
+	m_isDialogOpen = g_pObjectManager->GetPlayer()->GetAbilityParamter()->GetDialogOpen();
 
 //	this->SetUpTempPlayer();
 
@@ -242,6 +243,8 @@ void cUiTestScene::Update(void)
 		}
 	}
 
+	//대화창받기
+	m_isDialogOpen = g_pObjectManager->GetPlayer()->GetAbilityParamter()->GetDialogOpen();
 	if (g_pInputManager->IsOnceKeyUp('G') && m_pDialogUi)
 	{
 		m_isDialogOpen = !m_isDialogOpen;
@@ -263,9 +266,9 @@ void cUiTestScene::Update(void)
 
 	if (m_pInfoUi && m_isInfoWindowOn)										//ui info창
 	{
-		m_pInfoUi->Update();
-		UpdateInfoUi();
+		m_pInfoUi->Update();		
 	}
+	UpdateInfoUi();
 	if (m_pSkillUi && m_isSkillWindowOn)
 	{
 		m_pSkillUi->Update();
@@ -479,8 +482,9 @@ void cUiTestScene::OnClick(cUIButton * pSender)
 	}
 	else if (pSender->GetTag() == E_BUTTON_DIALOG_CLOSE)
 	{
-		m_isDialogOpen = false;
-		if (m_isDialogOpen == false)
+	//	m_isDialogOpen = false;
+		g_pObjectManager->GetPlayer()->GetAbilityParamter()->SetDialogOpen(false);
+		if (/*m_isDialogOpen == false*/g_pObjectManager->GetPlayer()->GetAbilityParamter()->GetDialogOpen() == false)
 		{
 			m_pDialogBackImage->isOver = false;
 			m_pDialogCloseButton->isOver = false;
@@ -488,7 +492,7 @@ void cUiTestScene::OnClick(cUIButton * pSender)
 	}
 	else if (pSender->GetTag() == E_BUTTON_EXIT)
 	{
-		exit(1);
+		PostQuitMessage(0);
 	}
 	else if (pSender->GetTag() == E_BUTTON_USE_DEFENSE)
 	{

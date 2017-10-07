@@ -24,6 +24,7 @@ cPlayer::cPlayer(void)
 	, m_bHitAnimation(false)
 	, m_fRadius(0.3f)
 	, m_pMainColor(nullptr)
+	, cUi(NULL)
 { 
 	D3DXMatrixIdentity(&m_matWorld);
 	ZeroMemory(&m_stHairMaterial, sizeof(D3DMATERIAL9));
@@ -45,6 +46,11 @@ HRESULT cPlayer::Setup(void)
 	m_pCamera->SetupParentMatrix(&m_matWorld);
 
 	m_vecMesh.resize(MESH_SIZE);
+
+	//태스트
+//	SAFE_RELEASE(cUi);
+//	cUi = cUiTestScene::Create();
+//	cUi->Setup();
 
 	return S_OK;
 }
@@ -518,17 +524,21 @@ void cPlayer::OrderDialog(cPlayer * pTargrt)
 	SAFE_RELEASE(m_pTarget);
 	m_pTarget = pTargrt;
 	SAFE_ADDREF(m_pTarget);
-
-	this->OrderTarget();
+/*
+	this->OrderTarget();*/
 
 	float fDistSq;
 	if (this->DistSqTarget(&fDistSq))
 	{
 		//통상 모드일때 
-		if (this->CheckState(PATTERN_FRIENDLY))
+		//	if (this->CheckState(PATTERN_FRIENDLY))
+		//	{
+
+		//	}
+		if (fDistSq > m_AbilityParamter.GetRangeSq())
 		{
 			//범위 밖에 있을경우
-			this->SetStateTrue(PATTERN_TARGET);
+			//this->SetStateTrue(PATTERN_TARGET);
 			this->OrderMove(&m_pTarget->GetPosition());
 		}
 		else if (!m_dwNumRealdyState)
@@ -1058,6 +1068,20 @@ bool cPlayer::DistTarget(OUT float * pDist)
 {
 	if (!m_pTarget) return false;
 	(*pDist) = D3DXVec3Length(&(m_pTarget->GetPosition() - this->GetPosition()));
+	return true;
+}
+
+bool cPlayer::DistSqTarget(OUT float * pDist, IN cPlayer * pTarget)
+{
+	if (!pTarget) return false;
+	(*pDist) = D3DXVec3LengthSq(&(pTarget->GetPosition() - this->GetPosition()));
+	return true;
+}
+
+bool cPlayer::DistTarget(OUT float * pDist, IN cPlayer * pTarget)
+{
+	if (!pTarget) return false;
+	(*pDist) = D3DXVec3Length(&(pTarget->GetPosition() - this->GetPosition()));
 	return true;
 }
 
