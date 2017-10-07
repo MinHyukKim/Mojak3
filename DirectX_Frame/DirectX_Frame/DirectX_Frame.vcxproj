@@ -190,6 +190,7 @@
     <ClInclude Include="cTextureManager.h" />
     <ClInclude Include="cTile.h" />
     <ClInclude Include="cTimer.h" />
+    <ClInclude Include="cTitleScene.h" />
     <ClInclude Include="cUIButton.h" />
     <ClInclude Include="cUiCustomizingHair.h" />
     <ClInclude Include="cUiCustomizingScene.h" />
@@ -255,6 +256,7 @@
     <ClCompile Include="cTextureManager.cpp" />
     <ClCompile Include="cTile.cpp" />
     <ClCompile Include="cTimer.cpp" />
+    <ClCompile Include="cTitleScene.cpp" />
     <ClCompile Include="cUIButton.cpp" />
     <ClCompile Include="cUiCustomizingHair.cpp" />
     <ClCompile Include="cUiCustomizingScene.cpp" />

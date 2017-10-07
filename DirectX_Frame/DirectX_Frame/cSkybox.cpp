@@ -159,7 +159,10 @@ HRESULT cSkybox::Setup(const char * top, const char * bottom, const char * left,
 
 void cSkybox::Update(D3DXVECTOR3 cameraPt)
 {
-	vPos = cameraPt;
+	D3DXMATRIXA16 matView;
+	g_pD3DDevice->GetTransform(D3DTS_VIEW, &matView);
+	D3DXMatrixInverse(&matView, nullptr, &matView);
+	vPos = D3DXVECTOR3(&matView._41);
 }
 
 void cSkybox::Render(void)

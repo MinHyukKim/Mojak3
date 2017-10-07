@@ -76,6 +76,7 @@
     <ClCompile Include="cUiTestScene06Dialog.cpp" />
     <ClCompile Include="cFontManager.cpp" />
     <ClCompile Include="cMeshFont.cpp" />
+    <ClCompile Include="cTitleScene.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="cAllocateHierarchy.h" />
@@ -141,6 +142,7 @@
     <ClInclude Include="cCustomQueue.h" />
     <ClInclude Include="cFontManager.h" />
     <ClInclude Include="cMeshFont.h" />
+    <ClInclude Include="cTitleScene.h" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="DirectX_Frame.rc" />

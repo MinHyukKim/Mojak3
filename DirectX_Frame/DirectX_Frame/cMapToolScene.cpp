@@ -87,6 +87,7 @@ void cMapToolScene::Reset(void)
 
 void cMapToolScene::Update(void)
 {
+
 	m_pCamera->Update();
 	m_pCamera->TestController();
 	//건물 바닥 높이 결정
@@ -94,7 +95,6 @@ void cMapToolScene::Update(void)
 	//m_pMapTerrain->GetHeight(&test_build_height, m_pBuild->GetPosX(), m_pBuild->GetPosZ());
 	//m_pBuild->SetPosY(test_build_height);
 	
-	if (m_pSkybox) m_pSkybox->Update(*m_pCamera->GetPosition());
 
 	//테스트용 전역변수 필히 삭제
 	//static bool g_TestToggle = false;
@@ -272,6 +272,9 @@ void cMapToolScene::Update(void)
 	{
 		DeselectObjects();
 	}
+	if (m_pSkybox) m_pSkybox->Update(*m_pCamera->GetPosition());
+
+
 }
      
 void cMapToolScene::Render(void)

@@ -50,6 +50,13 @@ void cDataLoder::RegisterTerrain(LPCSTR szHighMapKey, LPCSTR szTextureKey, LPCST
 	m_vecData.push_back(ST_DATA(cDataLoder::DATA_TERRAIN, szHighMapKey, szTextureKey, szTerrainKey, nullptr, &materal));
 }
 
+void cDataLoder::RegisterBuild(LPCSTR szstring1)
+{
+	m_vecData.push_back(ST_DATA(cDataLoder::DATA_BUILDING, szstring1));
+
+
+}
+
 bool cDataLoder::RegisterData(LPCSTR FullPath)
 {
 	FILE* fp = nullptr;
@@ -134,17 +141,6 @@ bool cDataLoder::RegisterData(LPCSTR FullPath)
 
 	}
 	fclose(fp);
-		
-	//건물 등록(임시)
-	g_pMapObjectManager->RegisterMapObject("", "scene_building_tirchonaill_chiefhouse.x", "scene_building_tirchonaill_chiefhouse.x");
-	g_pMapObjectManager->RegisterMapObject("", "inn.x", "inn.x");
-	g_pMapObjectManager->RegisterMapObject("", "farm_appletree_01.x", "farm_appletree_01.x");
-	g_pMapObjectManager->RegisterMapObject("", "farm_level02_se_tree_01.x", "farm_level02_se_tree_01.x");
-	g_pMapObjectManager->RegisterMapObject("", "scene_building_tirchonaill_church.x", "scene_building_tirchonaill_church.x");
-	g_pMapObjectManager->RegisterMapObject("", "smooth_appleTree.x", "smooth_appleTree.x");
-
-
-
 }
 
 void cDataLoder::LoaderData(void)
@@ -176,6 +172,7 @@ void cDataLoder::LoaderData(void)
 
 	case cDataLoder::DATA_TERRAIN: g_pMapTerrain->RegisterMap(pData->str3.c_str(), pData->str1.c_str(), pData->str2.c_str(), &pData->material); break;
 
+	case cDataLoder::DATA_BUILDING: g_pMapObjectManager->RegisterMapObject("", pData->str1.c_str(), pData->str1.c_str()); break;
 	default: break;
 	}
 	++m_dwCount;

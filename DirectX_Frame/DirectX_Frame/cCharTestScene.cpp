@@ -4,6 +4,7 @@
 #include "cCamera.h"
 #include "cMapTerrain.h"
 #include "cPlayer.h"
+#include "cSkybox.h"
 
 //테스트용
 #include "cMapObject.h"
@@ -16,6 +17,7 @@ cCharTestScene::cCharTestScene(void)
 	, m_pMapTerrain(NULL)
 	, m_pUi(NULL)
 	, m_pNPC(nullptr)
+	, m_pSkybox(nullptr)
 {
 	//테스트용
 	m_pGrid = NULL;
@@ -61,6 +63,11 @@ HRESULT cCharTestScene::Setup(void)
 	//npc태스트
 	g_pObjectManager->CreateNPC(cObjectManager::NPC_NAO, &D3DXVECTOR3(-1.0f, 0.0f, 1.0f));
 
+	m_pSkybox = cSkybox::Create();
+	m_pSkybox->Setup(".\\skyboxMap\\vanilla_sky_frost_up.jpg", ".\\skyboxMap\\vanilla_sky_frost_dn.jpg",
+		".\\skyboxMap\\vanilla_sky_frost_lf.jpg", ".\\skyboxMap\\vanilla_sky_frost_rt.jpg",
+		".\\skyboxMap\\vanilla_sky_frost_ft.jpg", ".\\skyboxMap\\vanilla_sky_frost_bk.jpg");
+
 	return S_OK;
 }
 
@@ -74,6 +81,8 @@ void cCharTestScene::Reset(void)
 	//SAFE_RELEASE(m_pMapObject);
 	SAFE_RELEASE(m_pGrid);
 	SAFE_RELEASE(m_pUi);
+	SAFE_RELEASE(m_pSkybox);
+
 }
 
 void cCharTestScene::Update(void)
@@ -254,7 +263,11 @@ void cCharTestScene::Update(void)
 	m_pMapTerrain->GetHeight(&fHeight, pPlayer->GetPosX(), pPlayer->GetPosZ());
 	pPlayer->SetPosY(fHeight);
 
+
+
 	SAFE_UPDATE(m_pCamera);
+	if (m_pSkybox) m_pSkybox->Update(*m_pCamera->GetPosition());
+
 
 }
 
@@ -264,6 +277,8 @@ void cCharTestScene::Render(void)
 //	g_pD3DDevice->SetTexture(0, m_pTexture);
 //	g_pD3DDevice->SetMaterial(&m_stMtl.MatD3D);
 	//SAFE_RENDER(m_pMapObject);
+	SAFE_RENDER(m_pSkybox);
+
 	SAFE_RENDER(m_pMapTerrain);
 
 	SAFE_RENDER(m_pGrid);
@@ -271,6 +286,7 @@ void cCharTestScene::Render(void)
 	SAFE_RENDER(g_pObjectManager);
 	SAFE_RENDER(g_pMapObjectManager);
 	SAFE_RENDER(m_pUi);
+
 }
 
 void cCharTestScene::SetSelectNPC(cPlayer* pNPC)
