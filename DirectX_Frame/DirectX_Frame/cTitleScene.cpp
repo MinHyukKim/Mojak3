@@ -46,7 +46,8 @@ HRESULT cTitleScene::Setup(void)
 	RECT rc;
 	GetClientRect(g_hWnd, &rc);
 	//타이틀 그림
-	imageData = g_pTexture->GetTextureEx("./Texture/fs_title.png", &m_stImageInfo);
+	imageData = g_pTexture->GetTextureEx("./Texture/Title.jpg", &m_stImageInfo);
+	SAFE_RELEASE(m_pTitleImage);
 	m_pTitleImage = cImage::Create();
 	m_pTitleImage->Setup(m_stImageInfo, imageData);
 	m_matWorldMatrix._41 = rc.right / 2.0f;

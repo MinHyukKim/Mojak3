@@ -20,6 +20,7 @@ cMainGame::~cMainGame(void)
 {
 	DEBUG_END();
 	g_pSceneManager->Destroy();
+	g_pAutoRelasePool->AutoReleaseCheck();	// 제거가 필요한 객체 릴리즈
 
 	g_pFontManager->Destroy();
 	g_pObjectManager->Destroy();
