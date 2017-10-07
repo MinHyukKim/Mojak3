@@ -60,6 +60,8 @@ enum
 	E_TEXT_DIALOG_HEAD,
 	E_TEXT_DIALOG,
 	E_BUTTON_DIALOG_CLOSE,
+	//수락 버튼 Accept
+	E_BUTTON_DIALOG_ACCEPT,
 	//종료 
 	E_BUTTON_EXIT,
 	//퀵슬롯
@@ -173,6 +175,15 @@ enum eQuickSiot05
 	E_QUICK_SIOT_DOWNATTACK_05,
 	E_QUICK_SIOT_WINDMILL_05,
 	E_QUICK_SIOT_END_05
+};
+
+enum eDialogStat
+{
+	E_NONE,
+	E_NONE_QUEST,
+	E_QUEST,
+	E_END_QUEST,
+	E_END
 };
 
 class cUiTestScene : public cSceneObject, iButtonDelegate
@@ -338,10 +349,10 @@ private:
 	cUIButton* m_pDialogNext;		//다음 버튼
 	cUITextView* pDialogNextText;
 	cUIButton* m_pDialogAcceptButton; //수락 여부 버튼
+	cUITextView* m_pDialogAcceptText; //수락 여부 택스트
 	cUIButton* m_pDialogCloseButton;  //닫기 버튼
 	bool m_isDialogFin;					//대화 끝(퀘스트 수락 나오게)
 	bool m_isAcceptQuest;				//퀘 수락 여부
-	bool m_isQuestFin;					//퀘 완료 여부
 	eDialogNPC m_eDialogNPCKind;		//대화중인 NPC(선택한 NPC) 종류
 	int m_nDialogTextNum;				//택스트 순서
 	eDialogText m_eDialogText;			//택스트 순서
@@ -357,6 +368,10 @@ private:
 	cUIButton* m_pQuestUiButton;		//퀘창 버튼
 	cUITextView* m_pQuestUiText;		//불변 택스트
 	cUITextView* m_pQuestText;			//태스트용 택스트
+	cUIButton* m_pQuestUseImage;		//있는 퀘 이미지
+	cUITextView* m_pQuestUseText;		//있는 퀘 택스트
+	eDialogStat m_eDialogStat;			//퀘 여부에 따른 대사 변경
+	bool m_isQuestFin;					//퀘 완료 여부
 	cUiObject* m_pQuestUi;
 
 	//플레이어 인벤창
@@ -471,6 +486,7 @@ public:
 	void UpdateMainUi(void);
 	void UpdateInfoUi(void);
 	void UpdateSkillUi(void);
+	void UpdateQuestUi(void);
 	void MoveUiWindow(void);
 	void _ItemInventory(int i);
 	virtual void Render(void) override;
