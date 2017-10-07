@@ -159,13 +159,35 @@ void cCharTestScene::Update(void)
 	{
 		g_pObjectManager->GetPlayer()->OrderIdenChange();
 	}
+	if (g_pInputManager->IsOnceKeyDown(VK_ESCAPE))
+	{
+		if (g_pObjectManager->GetPlayer()->CheckState(PATTERN_SMASH))
+		{
+			g_pObjectManager->GetPlayer()->SetStateFalse(PATTERN_SMASH);
+		}
+		if (g_pObjectManager->GetPlayer()->CheckState(PATTERN_COUNTER))
+		{
+			g_pObjectManager->GetPlayer()->SetStateTrue(PATTERN_RUN | PATTERN_WALK);
+			g_pObjectManager->GetPlayer()->SetStateFalse(PATTERN_COUNTER);
+		}
+	}
 	if (g_pInputManager->IsOnceKeyDown('1'))
 	{
+		if (g_pObjectManager->GetPlayer()->CheckState(PATTERN_COUNTER))
+		{
+			g_pObjectManager->GetPlayer()->SetStateTrue(PATTERN_RUN | PATTERN_WALK);
+			g_pObjectManager->GetPlayer()->SetStateFalse(PATTERN_COUNTER);
+		}
 		g_pObjectManager->GetPlayer()->SetStateTrue(PATTERN_SMASH);
 	}
 	if (g_pInputManager->IsOnceKeyDown('2'))
 	{
+		if (g_pObjectManager->GetPlayer()->CheckState(PATTERN_SMASH))
+		{
+			g_pObjectManager->GetPlayer()->SetStateFalse(PATTERN_SMASH);
+		}
 		g_pObjectManager->GetPlayer()->SetStateTrue(PATTERN_COUNTER);
+		g_pObjectManager->GetPlayer()->SetStateFalse(PATTERN_RUN | PATTERN_WALK);
 	}
 	if (g_pInputManager->IsOnceKeyDown('3'))
 	{

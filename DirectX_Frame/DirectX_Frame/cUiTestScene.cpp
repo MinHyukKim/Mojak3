@@ -278,8 +278,6 @@ void cUiTestScene::Update(void)
 
 	//임시 플레이어
 	SAFE_UPDATE(m_pPlayer);
-	//m_matWorldMatrix._41 = m_pTempInfoHP->GetPosition().x;
-	//m_matWorldMatrix._42 = m_pTempInfoHP->GetPosition().y;
 	//이동
 	this->MoveUiWindow();
 	//메인 게이지 및 최소화 업뎃
@@ -488,22 +486,33 @@ void cUiTestScene::OnClick(cUIButton * pSender)
 		{
 			m_pDialogBackImage->isOver = false;
 			m_pDialogCloseButton->isOver = false;
+			m_nDialogTextNum = 0;
 		}
 	}
 	else if (pSender->GetTag() == E_BUTTON_EXIT)
 	{
 		PostQuitMessage(0);
 	}
-	else if (pSender->GetTag() == E_BUTTON_USE_DEFENSE)
+	else if (pSender->GetTag() == E_BUTTON_USE_SMASH)
 	{
 		if (m_eQuickSiot01 == E_QUICK_SIOT_NONE_01)
 		{
-			m_pUiQuickSiot1->SetTexture("Texture/Ui/skillDefense.png"
-				, "Texture/Ui/skillDefense.png", "Texture/Ui/skillDefense.png");
-			m_eQuickSiot01 = E_QUICK_SIOT_DEFENSE_01;
+			m_pUiQuickSiot1->SetTexture("Texture/Ui/skillSmash.png"
+				, "Texture/Ui/skillSmash.png", "Texture/Ui/skillSmash.png");
+			m_eQuickSiot01 = E_QUICK_SIOT_SMASH_01;
 		}
 	//	else if(m_eQuickSiot01 != E_QUICK_SIOT_NONE_01)
 	}
+	else if (pSender->GetTag() == E_BUTTON_USE_COUNTER)
+	{
+		if (m_eQuickSiot02 == E_QUICK_SIOT_NONE_02)
+		{
+			m_pUiQuickSiot2->SetTexture("Texture/Ui/skillCounter.png"
+				, "Texture/Ui/skillCounter.png", "Texture/Ui/skillCounter.png");
+			m_eQuickSiot02 = E_QUICK_SIOT_COUNTER_02;
+		}
+	}
+	
 
 
 
@@ -514,7 +523,7 @@ void cUiTestScene::OnClick(cUIButton * pSender)
 		{
 			m_nDialogTextNum = m_nDialogTextNum - 1;
 		}
-		else if (pSender->GetTag() == E_BUTTON_DIALOG_NEXT && m_nDialogTextNum < 6)
+		else if (pSender->GetTag() == E_BUTTON_DIALOG_NEXT && m_nDialogTextNum < 5)
 		{
 			m_nDialogTextNum += 1;
 		}
