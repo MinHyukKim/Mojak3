@@ -34,9 +34,11 @@ private:
 	std::vector<cPlayer*>  m_vecMonster;
 	std::vector<cPlayer*>  m_vecNPC;
 	std::vector<cPlayer*>  m_vecRelease;
+	std::vector<cPlayer*>  m_vecDeath;
 
 	//몬스터 소환 위치 기록
 	int m_nMonsterCursor;
+
 	//선택된 몬스터
 	cPlayer* m_pSelectMonster;
 	
@@ -44,6 +46,7 @@ public:
 	void Update(void);
 	void SelectUpdate(cMapTerrain * map);
 	void Render(void);
+
 	//몹만 따로 렌더
 	void monsterRender(void);
 
@@ -81,7 +84,8 @@ public:
 
 	cPlayer* CreateMonster(IN UNIT_TYPE eMonsterKey, IN LPD3DXVECTOR3 pPostion, IN LPD3DXCOLOR pColor = nullptr);
 	bool CreateNPC(IN UNIT_TYPE eNPCKey, IN LPD3DXVECTOR3 pPostion);
-	void ReleaseMonster(IN cPlayer* pMonster) { return m_vecRelease.push_back(pMonster); }
+	void AddReleaseMonster(IN cPlayer* pMonster);
+	void AddDeathUnit(IN cPlayer* pUnit);
 	void Destroy(void);
 
 	static cObjectManager* GetInstance(void) { static cObjectManager instance; return &instance; }

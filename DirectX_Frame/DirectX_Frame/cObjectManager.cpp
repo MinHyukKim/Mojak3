@@ -524,6 +524,20 @@ bool cObjectManager::CreateNPC(IN UNIT_TYPE eNPCKey, IN LPD3DXVECTOR3 pPostion)
 	return false;
 }
 
+void cObjectManager::AddReleaseMonster(IN cPlayer * pMonster)
+{
+	if (!pMonster) return;
+	m_vecRelease.push_back(pMonster);
+}
+
+void cObjectManager::AddDeathUnit(IN cPlayer * pUnit)
+{
+	if (!pUnit) return;
+
+	m_vecDeath.push_back(pUnit);
+	pUnit->AddRef();
+}
+
 void cObjectManager::Destroy(void)
 {
 	if (m_pPlayer)
@@ -532,12 +546,19 @@ void cObjectManager::Destroy(void)
 		m_pPlayer->Release();
 	}
 	SAFE_RELEASE(m_pTerrain);
+	for each (auto pUnit in m_vecDeath)
+	{
+		pUnit->SetTarget(nullptr);
+		pUnit->Release();
+	}
+	m_vecDeath.clear();
 	for each (auto pMonster in m_vecMonster)
 	{
 		pMonster->SetTarget(nullptr);
 		pMonster->GetAbilityParamter()->SetEffective(false);
 		pMonster->Release();
 	}
+	m_vecMonster.clear();
 	//NPC
 	for each(auto pNPC in m_vecNPC)
 	{
@@ -545,8 +566,8 @@ void cObjectManager::Destroy(void)
 		pNPC->GetAbilityParamter()->SetEffective(false);
 		pNPC->Release();
 	}
-	SAFE_RELEASE(m_pSelectMonster);
-	m_vecMonster.clear();
 	m_vecNPC.clear();
+
+	SAFE_RELEASE(m_pSelectMonster);
 }
 
