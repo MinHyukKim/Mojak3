@@ -629,3 +629,25 @@ void cUiTestScene::UpdateInfoUi(void)
 	if (m_pEXPImage->m_rc.right >= m_pEXPImage->stImageInfo.Width) m_pEXPImage->m_rc.right = m_pEXPImage->stImageInfo.Width;
 	if (g_pObjectManager->GetPlayer()->GetAbilityParamter()->GetEXP() <= 0) m_pEXPImage->m_rc.right = 0.1f;
 }
+
+void cUiTestScene::LevelUp(void)
+{
+	//경험지가 맥스보다 높아질 때
+	if(g_pObjectManager->GetPlayer()->GetAbilityParamter()->GetEXP() >=
+		g_pObjectManager->GetPlayer()->GetAbilityParamter()->GetMaxEXP())
+	{
+		//쟌여 경험비 계산
+		float ReEXP = g_pObjectManager->GetPlayer()->GetAbilityParamter()->GetEXP()
+			- g_pObjectManager->GetPlayer()->GetAbilityParamter()->GetMaxEXP();
+
+		//레벨 올리고 경험치 초기화 + 잔여 더하기
+		g_pObjectManager->GetPlayer()->GetAbilityParamter()->SetLevel(
+			g_pObjectManager->GetPlayer()->GetAbilityParamter()->GetLevel() + 1);
+		//경험치
+		g_pObjectManager->GetPlayer()->GetAbilityParamter()->SetEXP(
+			0.0f + ReEXP);
+		//최대 경험치도 올리기
+		g_pObjectManager->GetPlayer()->GetAbilityParamter()->SetMaxEXP(
+			g_pObjectManager->GetPlayer()->GetAbilityParamter()->GetMaxEXP() + 25.0f);
+	}
+}

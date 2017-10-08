@@ -519,6 +519,8 @@ public:
 	void changePlayerMesh(void);
 	//대사 변경 함수
 	void changeDialogText(void);
+	//레벨업
+	void LevelUp(void);
 
 	//ui 열림 주고 받기용
 	bool GetInfoOnOff(void) { return m_isInfoWindowOn; }
