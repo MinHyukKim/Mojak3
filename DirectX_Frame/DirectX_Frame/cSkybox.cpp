@@ -217,8 +217,12 @@ cSkybox::~cSkybox(void)
 	for (int i = 0; i<6; i++)
 	{
 		SAFE_RELEASE(m_pTexture[i]);
+		SAFE_DELETE(m_pTexture[i]);
 		SAFE_RELEASE(m_pVertex[i]);
+		SAFE_DELETE(m_pVertex[i]);
 		SAFE_RELEASE(m_pIndex[i]);
+		SAFE_DELETE(m_pIndex[i]);
 	}
+	
 
 }
