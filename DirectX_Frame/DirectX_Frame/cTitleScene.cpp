@@ -17,6 +17,30 @@
 #include "cBuilding.h"
 #include "cSkybox.h"
 
+void cTitleScene::OnClick(cUIButton * pSender)
+{
+	if (pSender->GetTag() == cTitleScene::E_MAPTOOL_BUTTON)
+	{
+		m_pNextScene = new string("cMapToolScene");
+	}
+	else if (pSender->GetTag() == cTitleScene::E_START_BUTTON)
+	{
+		m_pNextScene = new string("cUiCustomizingScene");
+		DEBUG_TEXT("시작버튼");
+	}
+	else if (pSender->GetTag() == cTitleScene::E_CONTINUE_BUTTON)
+	{
+		DEBUG_TEXT("이어하기 버튼");
+	}
+	else if (pSender->GetTag() == cTitleScene::E_EXIT_BUTTON)
+	{
+		DestroyWindow(g_hWnd);
+
+		DEBUG_TEXT("종료버튼");
+	}
+
+}
+
 cTitleScene::cTitleScene(void)
 	: m_pCamera(NULL)
 	, m_pMapTerrain(NULL)
@@ -26,6 +50,7 @@ cTitleScene::cTitleScene(void)
 	, m_pSprite(nullptr)
 	, m_pTitleImage(nullptr)
 	, m_pUIRoot(NULL)
+	, m_pNextScene(NULL)
 
 {
 	D3DXMatrixIdentity(&m_matWorldMatrix);
@@ -46,7 +71,7 @@ HRESULT cTitleScene::Setup(void)
 	RECT rc;
 	GetClientRect(g_hWnd, &rc);
 	//타이틀 그림
-	imageData = g_pTexture->GetTextureEx("./Texture/Title.jpg", &m_stImageInfo);
+	imageData = g_pTexture->GetTextureEx("./Texture/fs_title.png", &m_stImageInfo);
 	SAFE_RELEASE(m_pTitleImage);
 	m_pTitleImage = cImage::Create();
 	m_pTitleImage->Setup(m_stImageInfo, imageData);
@@ -60,12 +85,48 @@ HRESULT cTitleScene::Setup(void)
 	//UI세팅
 	rootBase = cUIImageView::Create();
 	rootBase->SetTexture("UI/test_pannel.png");
-	rootBase->SetPosition((float)rc.right/2-rootBase->stImageInfo.Width/2 , (float)rc.bottom/2);
-
+	rootBase->SetPosition((float)rc.right/2-rootBase->stImageInfo.Width/2 , 
+		(float)rc.bottom/2 - rootBase->stImageInfo.Height / 2 + (float)rc.bottom / 4);
 	m_pUIRoot = rootBase;
 
+	m_pMaptoolButton = cUIButton::Create();
+	m_pMaptoolButton->SetTexture("UI/btn-med-up.png",
+		"UI/btn-med-over.png",
+		"UI/btn-med-down.png");
+	m_pMaptoolButton->SetPosition(rootBase->stImageInfo.Width / 2- m_pMaptoolButton->GetSize().fWidth/2, 5);
+	m_pMaptoolButton->SetDelegate(this);
+	m_pMaptoolButton->SetTag(cTitleScene::E_MAPTOOL_BUTTON);
+	m_pUIRoot->AddChild(m_pMaptoolButton);
 
+	m_pStartButton = cUIButton::Create();
+	m_pStartButton->SetTexture("UI/btn-med-up.png",
+		"UI/btn-med-over.png",
+		"UI/btn-med-down.png");
+	m_pStartButton->SetPosition(rootBase->stImageInfo.Width / 2 - m_pStartButton->GetSize().fWidth / 2, 
+		m_pMaptoolButton->GetPosition().y + m_pMaptoolButton->GetSize().fHeight+ 10);
+	m_pStartButton->SetDelegate(this);
+	m_pStartButton->SetTag(cTitleScene::E_START_BUTTON);
+	m_pUIRoot->AddChild(m_pStartButton);
 
+	m_pContinueButton = cUIButton::Create();
+	m_pContinueButton->SetTexture("UI/btn-med-up.png",
+		"UI/btn-med-over.png",
+		"UI/btn-med-down.png");
+	m_pContinueButton->SetPosition(rootBase->stImageInfo.Width / 2 - m_pContinueButton->GetSize().fWidth / 2, 
+		m_pStartButton->GetPosition().y + m_pStartButton->GetSize().fHeight + 10);
+	m_pContinueButton->SetDelegate(this);
+	m_pContinueButton->SetTag(cTitleScene::E_CONTINUE_BUTTON);
+	m_pUIRoot->AddChild(m_pContinueButton);
+
+	m_pExitButton = cUIButton::Create();
+	m_pExitButton->SetTexture("UI/btn-med-up.png",
+		"UI/btn-med-over.png",
+		"UI/btn-med-down.png");
+	m_pExitButton->SetPosition(rootBase->stImageInfo.Width / 2 - m_pExitButton->GetSize().fWidth / 2, 
+		m_pContinueButton->GetPosition().y + m_pContinueButton->GetSize().fHeight + 10);
+	m_pExitButton->SetDelegate(this);
+	m_pExitButton->SetTag(cTitleScene::E_EXIT_BUTTON);
+	m_pUIRoot->AddChild(m_pExitButton);
 
 
 	return S_OK;
@@ -81,7 +142,7 @@ void cTitleScene::Reset(void)
 	SAFE_RELEASE(m_pTitleImage);
 	//g_pMapObjectManager->Destroy();
 	SAFE_RELEASE(m_pUIRoot);
-
+	SAFE_DELETE(m_pNextScene);
 
 }
 
@@ -89,7 +150,8 @@ void cTitleScene::Update(void)
 {
 	if (m_pUIRoot) m_pUIRoot->Update();
 
-
+	if (m_pNextScene)
+		g_pSceneManager->ChangeScene(m_pNextScene->c_str());
 }
 
 void cTitleScene::Render(void)
