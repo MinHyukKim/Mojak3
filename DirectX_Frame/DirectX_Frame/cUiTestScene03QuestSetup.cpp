@@ -63,13 +63,16 @@ void cUiTestScene::SetupQuestUi(void)
 
 	//퀘 추가용
 	m_pQuestUseImage = cUIButton::Create();
+	m_pQuestUseImage->SetPosition(20, 70);
 	m_pQuestUi->AddChild(m_pQuestUseImage);
 	m_pQuestUseText = cUITextView::Create();
+	m_pQuestUseText->SetPosition(30, 30);
 	m_pQuestUi->AddChild(m_pQuestUseText);
 }
 
 void cUiTestScene::UpdateQuestUi(void)
 {
+	//퀘스트를 받았을 시
 	if (m_eDialogStat == E_QUEST)
 	{
 		m_pQuestUseImage->SetTexture("Texture/Ui/quest.png"
@@ -79,10 +82,10 @@ void cUiTestScene::UpdateQuestUi(void)
 		m_pQuestUseImage->SetTag(E_BUTTON_NONE);
 		m_pQuestUseImage->m_Alpha = 200;
 
+		m_nKillFox += g_pObjectManager->ClearDeath(cObjectManager::MONSTER_FOX);
 		//택스트
 		char szKillCount[32] = { '\0', };
-		sprintf_s(szKillCount, "[튜토리얼] 여우잡이  %d / %d", g_pObjectManager->GetPlayer()->GetAbilityParamter()->GetKillCount()
-			, g_pObjectManager->GetPlayer()->GetAbilityParamter()->GetKillCountMax());
+		sprintf_s(szKillCount, "[튜토리얼] 여우잡이  %d / %d", m_nKillFox, m_nKillFoxMax);
 		m_pQuestUseText->SetText(szKillCount);
 		m_pQuestUseText->SetFontType(g_pFontManager->E_INBUTTON);
 		m_pQuestUseText->SetColor(D3DCOLOR_XRGB(255, 255, 255));
@@ -90,5 +93,12 @@ void cUiTestScene::UpdateQuestUi(void)
 		m_pQuestUseText->SetPosition(30, 30);
 		m_pQuestUseText->SetDrawTextFormat(DT_CENTER | DT_VCENTER | DT_WORDBREAK);
 		m_pQuestUseText->SetTag(E_BUTTON_NONE);
+
+		//여우 카운터		
+		if (m_nKillFox >= m_nKillFoxMax)
+		{
+			//대화 상태 바꾸기
+			m_eDialogStat = E_FIN_QUEST;
+		}
 	}
 }

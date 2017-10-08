@@ -31,7 +31,7 @@ cMainGame::~cMainGame(void)
 	g_pSkinnedMeshManager->Destroy();
 	g_pMapTerrain->Destroy();
 	g_pMapObjectManager->Destroy();
-
+	g_pSoundManager->Destroy();
 	g_pAutoRelasePool->Destroy();
 	g_pDeviceManager->Destroy();
 }
@@ -40,6 +40,9 @@ cMainGame::~cMainGame(void)
 void cMainGame::Setup(void)
 {
 	DEBUG_START("Debug.txt");
+	//타이머
+	g_pTimeManager->Setup();
+	g_pSoundManager->Setup();
 	//광원 설정
 	SetDirectional(0, D3DXVECTOR3(0.0f, -1.0f, 0.0f), D3DXCOLOR(0.75f, 0.75f, 0.75f, 1.0f));
 	g_pD3DDevice->LightEnable(0, true);
@@ -68,10 +71,6 @@ void cMainGame::Setup(void)
 	g_pSceneManager->AddScene("cTitleScene", cTitleScene::Create());
 
 	g_pSceneManager->ChangeScene("cLodingScene");
-
-
-	//타이머
-	g_pTimeManager->Setup();
 }
 
 void cMainGame::Update(void)
@@ -80,6 +79,7 @@ void cMainGame::Update(void)
 	g_pInputManager->Update();				// 마우스 좌표 저장
 	g_pFrustum->Update();					// 컬링 매트릭스 준비
 	g_pTimeManager->Update();
+	g_pSoundManager->Update();
 	g_pMeshFontManager->Update();
 
 	g_pSceneManager->Update();
@@ -118,5 +118,27 @@ void cMainGame::Render(void)
 void cMainGame::MsgProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 {
 	g_pSceneManager->MsgProc(hWnd, message, wParam, lParam);
+
+	switch (message) {
+	case WM_COMMAND:
+		switch (LOWORD(wParam)) {
+		case ID_MOVETITLE:
+			g_pSceneManager->ChangeScene("cTitleScene");
+			//MessageBox(hWnd, "첫번째 메뉴를 선택했습니다.", "Menu Demo", MB_OK);
+			break;
+		case ID_MOVEMAPTOOL:
+			MessageBox(hWnd, "두번째 메뉴를 선택했습니다.", "Menu Demo", MB_OK);
+			break;
+		//case ID_FILE_EXIT:
+		//	PostQuitMessage(0);
+		//	break;
+		}
+		return;
+	case WM_DESTROY:
+		PostQuitMessage(0);
+		return;
+	default:
+		return;
+	}
 }
 

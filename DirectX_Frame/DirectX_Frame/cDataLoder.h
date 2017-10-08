@@ -11,6 +11,7 @@ public:
 		DATA_ANIMATION,
 		DATA_BUILDING,
 		DATA_TERRAIN,
+		DATA_SOUND,
 	};
 private:
 	std::vector<ST_DATA> m_vecData;
@@ -23,6 +24,9 @@ public:
 	void RegisterMeshColor(LPCSTR szMeshName, LPCSTR szTextureName, LPD3DXCOLOR pColor);
 	void RegisterTerrain(LPCSTR szHighMapKey, LPCSTR szTextureKey, LPCSTR szTerrainKey, D3DMATERIAL9* pMaterial);
 	void RegisterTerrain(LPCSTR szHighMapKey, LPCSTR szTextureKey, LPCSTR szTerrainKey, LPD3DXCOLOR pColor);
+	void RegisterSound(LPCSTR szSoundKey, LPCSTR szFilename, bool bBGM, bool bLoop);
+
+
 	void RegisterBuild(LPCSTR szstring1);
 
 	bool RegisterData(LPCSTR FullPath);

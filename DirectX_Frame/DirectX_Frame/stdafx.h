@@ -10,6 +10,8 @@
 //#define WIN32_LEAN_AND_MEAN             // 거의 사용되지 않는 내용은 Windows 헤더에서 제외합니다.
 // Windows 헤더 파일:
 #include <windows.h>
+#include "resource.h"
+
 
 // C 런타임 헤더 파일입니다.
 #include <stdlib.h>
@@ -212,9 +214,10 @@ struct ST_DATA
 	std::string str3;
 	D3DXMATRIXA16 mat1;
 	D3DMATERIAL9 material;
+	int nParam;
 
-	ST_DATA(DWORD _dwType = 0, std::string _str1 = "", std::string _str2 = "", std::string _str3 = "", LPD3DXMATRIX _mat1 = nullptr, D3DMATERIAL9* _material = nullptr)
-		: dwType(_dwType), str1(_str1), str2(_str2), str3(_str3)
+	ST_DATA(DWORD _dwType = 0, std::string _str1 = "", std::string _str2 = "", std::string _str3 = "", LPD3DXMATRIX _mat1 = nullptr, D3DMATERIAL9* _material = nullptr, int nParam = 0)
+		: dwType(_dwType), str1(_str1), str2(_str2), str3(_str3), nParam(nParam)
 	{
 		if (_mat1) mat1 = *_mat1;
 		if (_material) material = *_material;

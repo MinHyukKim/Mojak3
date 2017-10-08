@@ -31,6 +31,7 @@ cMapToolScene::~cMapToolScene(void)
 
 HRESULT cMapToolScene::Setup(void)
 {
+	g_pSoundManager->Play("mapToolBGM");
 	m_pCamera = cCamera::Create();
 	m_pCamera->Setup();
 	m_pCamera->SetCameraType(cCamera::E_AIRCRAFT);
@@ -74,11 +75,19 @@ HRESULT cMapToolScene::Setup(void)
 
 void cMapToolScene::Reset(void)
 {
+	g_pSoundManager->Stop("mapToolBGM");
+
 	SAFE_RELEASE(m_pCamera);
 	//테스트용
 	SAFE_RELEASE(m_pMapTerrain);
 	SAFE_RELEASE(m_pGrid);
 	SAFE_RELEASE(m_pSkybox);
+	DeselectObjects();
+
+	g_pObjectManager->DestroyMonster();
+	g_pObjectManager->DestroyNPC();
+
+	g_pMapObjectManager->DestroyBuilding();
 
 	//g_pMapObjectManager->Destroy();
 

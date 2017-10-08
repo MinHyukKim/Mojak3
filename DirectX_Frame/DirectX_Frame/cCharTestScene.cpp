@@ -30,7 +30,6 @@ cCharTestScene::~cCharTestScene(void)
 
 HRESULT cCharTestScene::Setup(void)
 {
-
 	m_pCamera = g_pObjectManager->GetPlayer()->GetCamera();
 	m_pCamera->AddRef();
 
@@ -52,6 +51,7 @@ HRESULT cCharTestScene::Setup(void)
 //	m_pTexture = g_pTexture->GetTexture("./HeightMapData/terrain.jpg");
 
 	//ui 태스트
+	SAFE_RELEASE(m_pUi);
 	m_pUi = cUiTestScene::Create();
 	m_pUi->Setup();
 
@@ -64,6 +64,7 @@ HRESULT cCharTestScene::Setup(void)
 	g_pObjectManager->CreateNPC(cObjectManager::NPC_NAO, &D3DXVECTOR3(-1.0f, 0.0f, 1.0f));
 
 	//로딩속도 저하 원인
+	SAFE_RELEASE(m_pSkybox);
 	m_pSkybox = cSkybox::Create();
 	m_pSkybox->Setup(".\\skyboxMap\\vanilla_sky_frost_up.jpg", ".\\skyboxMap\\vanilla_sky_frost_dn.jpg",
 		".\\skyboxMap\\vanilla_sky_frost_lf.jpg", ".\\skyboxMap\\vanilla_sky_frost_rt.jpg",
@@ -83,6 +84,9 @@ void cCharTestScene::Reset(void)
 	SAFE_RELEASE(m_pGrid);
 	SAFE_RELEASE(m_pUi);
 	SAFE_RELEASE(m_pSkybox);
+
+	g_pObjectManager->DestroyMonster();
+	g_pObjectManager->DestroyNPC();
 
 }
 
@@ -134,7 +138,7 @@ void cCharTestScene::Update(void)
 
 	//if (m_pUi->GetMoveingOK() || true)
 	SAFE_UPDATE(m_pUi);
-	if (m_pUi->GetMoveingOK())
+	if (m_pUi && m_pUi->GetMoveingOK())
 	{
 		if (m_pCamera) m_pCamera->MouseController();
 		if (g_pInputManager->IsOnceKeyDown(VK_LBUTTON))
@@ -272,6 +276,12 @@ void cCharTestScene::Update(void)
 	SAFE_UPDATE(m_pCamera);
 	if (m_pSkybox) m_pSkybox->Update(*m_pCamera->GetPosition());
 
+	if (m_pUi->isSceen)
+	{
+		g_pSceneManager->ChangeScene(LOGOFF_SCENE);
+	//	m_pUi->isSceen = false;
+		return;
+	}
 
 }
 

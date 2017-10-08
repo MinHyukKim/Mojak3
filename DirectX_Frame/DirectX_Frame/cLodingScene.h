@@ -29,6 +29,7 @@ private:
 	cImage* m_pLoadingGaugeImage; //로딩바 게이지
 	D3DXIMAGE_INFO m_stLoadingBar;
 	cFont* m_pFont;
+	float m_fBottom;
 
 public:
 	virtual HRESULT Setup(void) override;

@@ -25,6 +25,7 @@ void cTitleScene::OnClick(cUIButton * pSender)
 	}
 	else if (pSender->GetTag() == cTitleScene::E_START_BUTTON)
 	{
+		g_pObjectManager->RegisterPlayer(nullptr);
 		m_pNextScene = new string("cUiCustomizingScene");
 		DEBUG_TEXT("시작버튼");
 	}
@@ -128,7 +129,7 @@ HRESULT cTitleScene::Setup(void)
 	m_pExitButton->SetTag(cTitleScene::E_EXIT_BUTTON);
 	m_pUIRoot->AddChild(m_pExitButton);
 
-
+	
 	return S_OK;
 }
 
@@ -144,14 +145,17 @@ void cTitleScene::Reset(void)
 	SAFE_RELEASE(m_pUIRoot);
 	SAFE_DELETE(m_pNextScene);
 
+	g_pSoundManager->Stop("titleBGM");
+	g_pSoundManager->Stop("LodingMusic");
 }
 
 void cTitleScene::Update(void)
 {
 	if (m_pUIRoot) m_pUIRoot->Update();
+	if (!g_pSoundManager->isPlaySound("LodingMusic") && !g_pSoundManager->isPlaySound("titleBGM"))
+		g_pSoundManager->Play("titleBGM");
 
-	if (m_pNextScene)
-		g_pSceneManager->ChangeScene(m_pNextScene->c_str());
+	if (m_pNextScene) g_pSceneManager->ChangeScene(m_pNextScene->c_str());
 }
 
 void cTitleScene::Render(void)
