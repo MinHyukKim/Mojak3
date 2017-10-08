@@ -155,6 +155,28 @@ void cObjectManager::ClearDeath(void)
 	m_vecDeath.clear();
 }
 
+DWORD cObjectManager::ClearDeath(DWORD dwUnitID)
+{
+	DWORD dwCount = 0;
+	for each (auto pUnit in m_vecDeath)
+	{
+		if (dwUnitID == pUnit->GetAbilityParamter()->GetUnitID()) ++dwCount;
+		pUnit->Release();
+	}
+	m_vecDeath.clear();
+	return dwCount;
+}
+
+DWORD cObjectManager::CheckDeath(DWORD dwUnitID)
+{
+	DWORD dwCount = 0;
+	for each (auto pUnit in m_vecDeath)
+	{
+		if (dwUnitID == pUnit->GetAbilityParamter()->GetUnitID()) ++dwCount;
+	}
+	return dwCount;
+}
+
 void cObjectManager::RegisterPlayer(IN cPlayer* pPlayer)
 {
 	SAFE_RELEASE(m_pPlayer);
