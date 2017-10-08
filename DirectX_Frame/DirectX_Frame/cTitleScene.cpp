@@ -34,6 +34,7 @@ void cTitleScene::OnClick(cUIButton * pSender)
 	}
 	else if (pSender->GetTag() == cTitleScene::E_EXIT_BUTTON)
 	{
+		DestroyWindow(g_hWnd);
 
 		DEBUG_TEXT("종료버튼");
 	}
