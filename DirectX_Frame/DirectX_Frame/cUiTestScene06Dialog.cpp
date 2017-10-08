@@ -14,15 +14,47 @@
 
 void cUiTestScene::SetupDialogUi(void)
 {
-	//NPC대화 관련  75, 300
+	//배이스
+	m_pDialogBackGround = cUIButton::Create();
+	m_pDialogBackGround->SetTexture("Texture/Ui/dialog6.png",
+		"Texture/Ui/dialog6.png", "Texture/Ui/dialog6.png");
+	m_pDialogBackGround->SetPosition(m_Wrc.right / 2 - 500, m_Wrc.bottom / 2 + 100);
+	m_pDialogBackGround->SetDelegate(this);
+	m_pDialogBackGround->m_Alpha = 0;
+	m_pDialogBackGround->SetTag(E_BUTTON_NONE);
+	m_pDialogUi = m_pDialogBackGround;
+	
+	//뒷검은 배경
 	m_pDialogBackImage = cUIButton::Create();
-	m_pDialogBackImage->SetTexture("Texture/Ui/dialog5.png",
-		"Texture/Ui/dialog5.png", "Texture/Ui/dialog5.png");
-	m_pDialogBackImage->SetPosition(m_Wrc.right / 2 - 500, m_Wrc.bottom / 2 + 50);
+	m_pDialogBackImage->SetTexture("Texture/Ui/blackImage.png",
+		"Texture/Ui/blackImage.png", "Texture/Ui/blackImage.png");
+	m_pDialogBackImage->SetPosition(-100, 50);
+	m_pDialogBackImage->SetDelegate(this);
+//	m_pDialogBackImage->m_Alpha = 0;
+	m_pDialogBackImage->SetTag(E_BUTTON_NONE);
+	m_pDialogUi->AddChild(m_pDialogBackImage);
+
+	//NPC 이미지
+	m_pDialogNpcImage = cUIButton::Create();
+	m_pDialogNpcImage->SetTexture("Texture/Ui/nao4.png",
+		"Texture/Ui/nao4.png", "Texture/Ui/nao4.png");
+	m_pDialogNpcImage->SetPosition(-70, -250);
+	m_pDialogNpcImage->SetDelegate(this);
+//	m_pDialogNpcImage->m_Alpha = 160;
+	m_pDialogNpcImage->SetTag(E_BUTTON_NONE);
+	m_pDialogUi->AddChild(m_pDialogNpcImage);
+
+	//NPC대화창  75, 300 
+	m_pDialogBackImage = cUIButton::Create();
+	m_pDialogBackImage->SetTexture("Texture/Ui/dialog6.png",
+		"Texture/Ui/dialog6.png", "Texture/Ui/dialog6.png");
+	m_pDialogBackImage->SetPosition(/*m_Wrc.right / 2 - 500, m_Wrc.bottom / 2 + 100*/0, 0);
 	m_pDialogBackImage->SetDelegate(this);
 	//m_pDialogBackImage->m_Alpha = 180;
 	m_pDialogBackImage->SetTag(E_IMAGE_DIALOG);
-	m_pDialogUi = m_pDialogBackImage;
+	m_pDialogUi->AddChild(m_pDialogBackImage);
+	//m_pDialogUi = m_pDialogBackImage;
+
 
 	m_pDialogNameText = cUITextView::Create();
 	m_pDialogNameText->SetText("태스트용 이름");
@@ -46,7 +78,7 @@ void cUiTestScene::SetupDialogUi(void)
 
 
 	int DialogButtonX = 40;
-	int DialogButtonY = 145;
+	int DialogButtonY = 100;
 	//닫기
 	m_pDialogCloseButton = cUIButton::Create();
 	m_pDialogCloseButton->SetTexture("Texture/Ui/textButtonUp6024.png",
@@ -175,7 +207,7 @@ void cUiTestScene::changeDialogText(void)
 				//수락 버튼 활성화
 				m_pDialogAcceptButton->SetTexture("Texture/Ui/textButtonUp6024.png",
 					"Texture/Ui/textButtonUp6024.png", "Texture/Ui/textButtonDown6024.png");
-				m_pDialogAcceptButton->SetPosition(250, 145);
+				m_pDialogAcceptButton->SetPosition(250, 100);
 				m_pDialogAcceptButton->SetDelegate(this);
 				m_pDialogAcceptButton->SetTag(E_BUTTON_DIALOG_ACCEPT);
 				//수락 택스트
@@ -183,7 +215,7 @@ void cUiTestScene::changeDialogText(void)
 				m_pDialogAcceptText->SetFontType(g_pFontManager->E_INBUTTON);
 				m_pDialogAcceptText->SetColor(D3DCOLOR_XRGB(255, 255, 255));
 				m_pDialogAcceptText->SetSize(ST_SIZE(60, 30));
-				m_pDialogAcceptText->SetPosition(40 + 210, 145 - 10);
+				m_pDialogAcceptText->SetPosition(40 + 210, 100 - 10);
 				m_pDialogAcceptText->SetDrawTextFormat(DT_CENTER | DT_VCENTER | DT_WORDBREAK);
 				m_pDialogAcceptText->SetTag(E_BUTTON_NONE);
 			}

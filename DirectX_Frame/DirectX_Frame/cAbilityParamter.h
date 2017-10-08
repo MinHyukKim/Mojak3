@@ -74,6 +74,8 @@ private:
 	bool m_isDialogOpen;
 	//퀘스트용 킬카운트
 	int m_nKillCount; int m_nKillCountMax;
+	//임시 퀘스트 여부
+	bool m_isQuestTempOn;
 
 	float m_fDelayTime;			//인공지능 유효시간
 	bool m_bEffective;			//캐릭터 생존여부
@@ -212,6 +214,9 @@ public:
 	int GetKillCountMax(void) { return m_nKillCountMax; }
 	void SetKillCount(int n) { m_nKillCount = n; }
 	int GetKillCount(void) { return m_nKillCount; }
+	//임시 퀘 여부
+	void SetQuestTemp(bool is) { m_isQuestTempOn = is; }
+	bool GetQuestTemp(void) { return m_isQuestTempOn; }
 
 	//공격범위
 	void SetRange(float fValue) { m_fAttackRange = fValue; }

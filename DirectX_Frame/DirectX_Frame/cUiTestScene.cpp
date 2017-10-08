@@ -142,7 +142,7 @@ HRESULT cUiTestScene::Setup(void)
 
 	//임시 태스트용
 	m_pUiTesterSize = cUIImageView::Create();
-	m_pUiTesterSize->SetTexture("Texture/Ui/skillDefense.png");
+	m_pUiTesterSize->SetTexture("Texture/Ui/nao1.png");
 	m_pUiTesterSize->SetPosition(mainUiLocalX - 20, mainUiLocalY - 140);
 	m_pUiTesterSize->m_Alpha = 180;
 	m_pUiTestRoot = m_pUiTesterSize;	
