@@ -75,7 +75,6 @@ HRESULT cLodingScene::Setup(void)
 	m_pData->RegisterBuild("inn.x");
 	m_pData->RegisterBuild("farm_appletree_01.x");
 	m_pData->RegisterBuild("farm_level02_se_tree_01.x");
-	m_pData->RegisterBuild("scene_building_tirchonaill_church.x");
 	m_pData->RegisterBuild("smooth_appleTree.x");
 	m_pData->RegisterBuild("scene_building_shop.x");
 
