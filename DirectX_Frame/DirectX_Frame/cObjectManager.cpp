@@ -180,6 +180,7 @@ DWORD cObjectManager::CheckDeath(DWORD dwUnitID)
 void cObjectManager::RegisterPlayer(IN cPlayer* pPlayer)
 {
 	SAFE_RELEASE(m_pPlayer);
+	if (!pPlayer) return;
 	m_pPlayer = pPlayer;
 	m_pPlayer->SetRadius(0.3f);
 	m_pPlayer->GetAbilityParamter()->SetPower(2.25f);
@@ -570,21 +571,34 @@ void cObjectManager::AddDeathUnit(IN cPlayer* pUnit)
 
 void cObjectManager::Destroy(void)
 {
-	m_vecRelease.clear();
 	if (m_pPlayer)
 	{
 		m_pPlayer->SetTarget(nullptr);
 		m_pPlayer->Release();
 	}
+	m_vecRelease.clear();
 	SAFE_RELEASE(m_pTerrain);
 	this->ClearDeath();
+	//Monster
+	this->DestroyMonster();
+	//NPC
+	this->DestroyNPC();
+
+	SAFE_RELEASE(m_pSelectMonster);
+}
+
+void cObjectManager::DestroyMonster(void)
+{
 	for each (auto pMonster in m_vecMonster)
 	{
 		pMonster->GetAbilityParamter()->SetEffective(false);
 		pMonster->Release();
 	}
 	m_vecMonster.clear();
-	//NPC
+}
+
+void cObjectManager::DestroyNPC(void)
+{
 	for each(auto pNPC in m_vecNPC)
 	{
 		pNPC->SetTarget(nullptr);
@@ -592,7 +606,5 @@ void cObjectManager::Destroy(void)
 		pNPC->Release();
 	}
 	m_vecNPC.clear();
-
-	SAFE_RELEASE(m_pSelectMonster);
 }
 

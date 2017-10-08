@@ -90,6 +90,8 @@ public:
 	void AddReleaseMonster(IN cPlayer* pMonster);
 	void AddDeathUnit(IN cPlayer* pUnit);
 	void Destroy(void);
+	void DestroyMonster(void);
+	void DestroyNPC(void);
 
 	static cObjectManager* GetInstance(void) { static cObjectManager instance; return &instance; }
 
