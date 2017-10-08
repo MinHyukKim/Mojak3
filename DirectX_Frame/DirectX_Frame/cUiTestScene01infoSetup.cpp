@@ -95,6 +95,40 @@ void cUiTestScene::SetupInfoUi(void)
 	m_pInfoUiText->SetDrawTextFormat(DT_CENTER | DT_VCENTER | DT_WORDBREAK);
 	m_pInfoUiText->SetTag(E_BUTTON_NONE);
 	m_pInfoUi->AddChild(m_pInfoUiText);
+	//이름 , 나이, 종족
+	cUITextView* pTempText = cUITextView::Create();
+	pTempText->SetText("테스터");
+	pTempText->SetFontType(g_pFontManager->E_TEMP_INBUTTON);
+	pTempText->SetColor(D3DCOLOR_XRGB(255, 255, 255));
+	pTempText->SetSize(ST_SIZE(50, 40));
+	//pTempText->SetPosition(10, 50 - 7); //마비체
+	pTempText->SetPosition(120, 50);   //나눔고딕
+	pTempText->SetDrawTextFormat(DT_CENTER | DT_VCENTER | DT_WORDBREAK);
+	pTempText->SetTag(E_BUTTON_NONE);
+	m_pInfoUi->AddChild(pTempText);
+	//나이
+	pTempText = cUITextView::Create();
+	pTempText->SetText("18세");
+	pTempText->SetFontType(g_pFontManager->E_TEMP_INBUTTON);
+	pTempText->SetColor(D3DCOLOR_XRGB(255, 255, 255));
+	pTempText->SetSize(ST_SIZE(50, 40));
+	//pTempText->SetPosition(10, 50 - 7); //마비체
+	pTempText->SetPosition(113, 80);   //나눔고딕
+	pTempText->SetDrawTextFormat(DT_CENTER | DT_VCENTER | DT_WORDBREAK);
+	pTempText->SetTag(E_BUTTON_NONE);
+	m_pInfoUi->AddChild(pTempText);
+	//종족
+	pTempText = cUITextView::Create();
+	pTempText->SetText("인간/여성");
+	pTempText->SetFontType(g_pFontManager->E_TEMP_INBUTTON);
+	pTempText->SetColor(D3DCOLOR_XRGB(255, 255, 255));
+	pTempText->SetSize(ST_SIZE(100, 40));
+	//pTempText->SetPosition(-1, 110 - 7); //마비체
+	pTempText->SetPosition(103, 110);   //나눔고딕
+	pTempText->SetDrawTextFormat(DT_CENTER | DT_VCENTER | DT_WORDBREAK);
+	pTempText->SetTag(E_BUTTON_NONE);
+	m_pInfoUi->AddChild(pTempText);
+
 
 	//가변 정보 넣기
 	//피통 이미지

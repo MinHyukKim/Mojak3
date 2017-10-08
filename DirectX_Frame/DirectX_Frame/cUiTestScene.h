@@ -178,11 +178,13 @@ enum eQuickSiot05
 	E_QUICK_SIOT_END_05
 };
 
+//퀘스트 따른 대화 내용 변경
 enum eDialogStat
 {
 	E_NONE,
 	E_NONE_QUEST,
 	E_QUEST,
+	E_FIN_QUEST,
 	E_END_QUEST,
 	E_END
 };
@@ -342,7 +344,10 @@ private:
 	int m_nDialogX;
 	int m_nDialogY;
 	bool m_isDialogOpen;			//대사창 온/오프
+	cUIButton* m_pDialogBackGround;	//기본 위치잡이
 	cUIButton* m_pDialogBackImage;  //대사 창 이미지
+	cUIButton* m_pDialogBackBlack;	//대화시 검은 배경
+	cUIButton* m_pDialogNpcImage;   //NPC 이미지
 	cUITextView* m_pDialogNameText;	//NPC 이름	
 	cUITextView* m_pDialogText;		//대화 내용
 	cUIButton* m_pDialogPrev;		//이전버튼

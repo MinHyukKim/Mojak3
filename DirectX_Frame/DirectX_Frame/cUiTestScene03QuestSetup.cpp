@@ -81,12 +81,12 @@ void cUiTestScene::UpdateQuestUi(void)
 
 		//택스트
 		char szKillCount[32] = { '\0', };
-		sprintf_s(szKillCount, "[튜토리얼] 여우잡이      %d / %d", g_pObjectManager->GetPlayer()->GetAbilityParamter()->GetKillCount()
+		sprintf_s(szKillCount, "[튜토리얼] 여우잡이  %d / %d", g_pObjectManager->GetPlayer()->GetAbilityParamter()->GetKillCount()
 			, g_pObjectManager->GetPlayer()->GetAbilityParamter()->GetKillCountMax());
 		m_pQuestUseText->SetText(szKillCount);
 		m_pQuestUseText->SetFontType(g_pFontManager->E_INBUTTON);
 		m_pQuestUseText->SetColor(D3DCOLOR_XRGB(255, 255, 255));
-		m_pQuestUseText->SetSize(ST_SIZE(300, 100));
+		m_pQuestUseText->SetSize(ST_SIZE(220, 100));
 		m_pQuestUseText->SetPosition(30, 30);
 		m_pQuestUseText->SetDrawTextFormat(DT_CENTER | DT_VCENTER | DT_WORDBREAK);
 		m_pQuestUseText->SetTag(E_BUTTON_NONE);
