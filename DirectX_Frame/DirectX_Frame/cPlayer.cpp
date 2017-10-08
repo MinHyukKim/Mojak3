@@ -653,9 +653,7 @@ void cPlayer::OrderBackMove(LPD3DXVECTOR3 pTo)
 
 void cPlayer::OrderAttack(cPlayer* pTarget)
 {
-	SAFE_RELEASE(m_pTarget);
-	m_pTarget = pTarget;
-	SAFE_ADDREF(m_pTarget);
+	this->SetTarget(pTarget);
 
 	if (this->CheckState(PATTERN_OFFENSIVE))
 	{
@@ -667,11 +665,9 @@ void cPlayer::OrderAttack(cPlayer* pTarget)
 }
 
 //대화 다가오기 켜기 (나중에 다시)
-void cPlayer::OrderDialog(cPlayer * pTargrt)
+void cPlayer::OrderDialog(cPlayer * pTarget)
 {
-	SAFE_RELEASE(m_pTarget);
-	m_pTarget = pTargrt;
-	SAFE_ADDREF(m_pTarget);
+	this->SetTarget(pTarget);
 /*
 	this->OrderTarget();*/
 

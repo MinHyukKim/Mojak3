@@ -199,7 +199,7 @@ public:
 	void OrderBackMove(LPD3DXVECTOR3 pTo);
 	void OrderAttack(cPlayer* pTarget);
 	//대화 테스트
-	void OrderDialog(cPlayer* pTargrt);
+	void OrderDialog(cPlayer* pTarget);
 
 	//애니메이션 함수
 	DWORD RegisterAnimation(IN DWORD dwAnimationKey, IN LPD3DXANIMATIONSET pAnimation, IN float fSpeed = 1.0f);
