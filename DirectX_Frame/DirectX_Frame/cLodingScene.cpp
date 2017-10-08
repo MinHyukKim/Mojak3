@@ -77,6 +77,32 @@ HRESULT cLodingScene::Setup(void)
 	m_pData->RegisterBuild("farm_level02_se_tree_01.x");
 	m_pData->RegisterBuild("smooth_appleTree.x");
 	m_pData->RegisterBuild("scene_building_shop.x");
+	m_pData->RegisterBuild("scene_building_tirchonaill_smith_out.x");
+	m_pData->RegisterBuild("scene_field_barrel_01_2.x");
+	m_pData->RegisterBuild("scene_field_barrel_01_3.x");
+	m_pData->RegisterBuild("scene_field_bindstone_01_1.x");
+	m_pData->RegisterBuild("scene_field_box_01_2.x");
+	m_pData->RegisterBuild("scene_field_box_01_3.x");
+	m_pData->RegisterBuild("scene_field_streetlamp_01_1_ani.x");
+	m_pData->RegisterBuild("scene_field_tirchonaill_square_01_2_ground.x");
+	m_pData->RegisterBuild("scene_field_well_01_1.x");
+	m_pData->RegisterBuild("scene_plant_tree02.x");
+	m_pData->RegisterBuild("scene_plant_tree06_cross3.x");
+	m_pData->RegisterBuild("scene_prop_dunbarton_well.x");
+	m_pData->RegisterBuild("scene_prop_dunbaton_questboard_01.x");
+	m_pData->RegisterBuild("scene_tirchonaill_wooden_barricade01_00.x");
+	m_pData->RegisterBuild("scene_tirchonaill_wooden_barricade01_01.x");
+	m_pData->RegisterBuild("scene_tirchonaill_wooden_barricade01_02.x");
+	m_pData->RegisterBuild("scene_tirchonaill_wooden_barricade01_03.x");
+	m_pData->RegisterBuild("scene_tirchonaill_wooden_barricade01_04.x");
+	m_pData->RegisterBuild("scene_wooden_barricade_00.x");
+	m_pData->RegisterBuild("scene_wooden_barricade_01.x");
+	m_pData->RegisterBuild("scene_wooden_barricade_01_1.x");
+	m_pData->RegisterBuild("scene_wooden_barricade_02.x");
+	m_pData->RegisterBuild("scene_wooden_barricade_03.x");
+	m_pData->RegisterBuild("scene_wooden_barricade_04.x");
+
+
 
 	//¹è°æÀ½
 	m_pData->RegisterSound("titleBGM", "Sound/Char_Select.mp3", true, true);
