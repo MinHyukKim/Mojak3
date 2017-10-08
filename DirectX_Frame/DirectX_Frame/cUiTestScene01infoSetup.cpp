@@ -153,14 +153,14 @@ void cUiTestScene::SetupInfoUi(void)
 	m_pInfoUi->AddChild(m_pHpImage);
 	//피통
 	char szHP[32] = { '\0', };
-	sprintf_s(szHP, "생명력      %d / %d", m_nTempHP, m_nTempMaxHP);
+	sprintf_s(szHP, "생명력        %d / %d", m_nTempHP, m_nTempMaxHP);
 	m_pTempInfoHP = cUITextView::Create();
 	m_pTempInfoHP->SetText(szHP);
 	m_pTempInfoHP->SetFontType(g_pFontManager->E_TEMP_INBUTTON);
 	m_pTempInfoHP->SetColor(D3DCOLOR_XRGB(255, 255, 255));
-	m_pTempInfoHP->SetSize(ST_SIZE(120, 40));
+	m_pTempInfoHP->SetSize(ST_SIZE(160, 40));
 	//m_pTotalInfo->SetPosition(10, 150 - 7); //마비체
-	m_pTempInfoHP->SetPosition(10, 150);   //나눔고딕
+	m_pTempInfoHP->SetPosition(-5, 150);   //나눔고딕
 	m_pTempInfoHP->SetDrawTextFormat(DT_CENTER | DT_VCENTER | DT_WORDBREAK);
 	m_pTempInfoHP->SetTag(E_BUTTON_NONE);
 	m_pInfoUi->AddChild(m_pTempInfoHP);
@@ -187,12 +187,12 @@ void cUiTestScene::SetupInfoUi(void)
 	m_pInfoUi->AddChild(m_pMpImage);
 	//마나
 	char szMP[32] = { '\0', };
-	sprintf_s(szMP, "마나         %d / %d", m_nTempMP, m_nTempMaxMP);
+	sprintf_s(szMP, "마나           %d / %d", m_nTempMP, m_nTempMaxMP);
 	m_pTempInfoMP = cUITextView::Create();
 	m_pTempInfoMP->SetText(szMP);
 	m_pTempInfoMP->SetFontType(g_pFontManager->E_TEMP_INBUTTON);
 	m_pTempInfoMP->SetColor(D3DCOLOR_XRGB(255, 255, 255));
-	m_pTempInfoMP->SetSize(ST_SIZE(150, 40));
+	m_pTempInfoMP->SetSize(ST_SIZE(160, 40));
 	//m_pTempInfoMP->SetPosition(20, 170 - 7); //마비체
 	m_pTempInfoMP->SetPosition(-5, 170);   //나눔고딕
 	//m_pTempInfoMP->m_vPosition = D3DXVECTOR3(20, 170, -0.5f);
@@ -222,14 +222,14 @@ void cUiTestScene::SetupInfoUi(void)
 	m_pInfoUi->AddChild(m_pStaminaImage);
 	//스태미나
 	char szStamina[64] = { '\0', };
-	sprintf_s(szStamina, "스테미나   %d / %d", nTempStamina, m_nTempMaxStamina);
+	sprintf_s(szStamina, "스테미나     %d / %d", nTempStamina, m_nTempMaxStamina);
 	m_pTempInfoStamina = cUITextView::Create();
 	m_pTempInfoStamina->SetText(szStamina);
 	m_pTempInfoStamina->SetFontType(g_pFontManager->E_TEMP_INBUTTON);
 	m_pTempInfoStamina->SetColor(D3DCOLOR_XRGB(255, 255, 255));
-	m_pTempInfoStamina->SetSize(ST_SIZE(100, 40));
+	m_pTempInfoStamina->SetSize(ST_SIZE(160, 40));
 	//m_pTempInfoStamina->SetPosition(19, 190 - 7); //마비체
-	m_pTempInfoStamina->SetPosition(19, 190);   //나눔고딕
+	m_pTempInfoStamina->SetPosition(-9, 190);   //나눔고딕
 	m_pTempInfoStamina->SetDrawTextFormat(DT_CENTER | DT_VCENTER | DT_WORDBREAK);
 	m_pTempInfoStamina->SetTag(E_BUTTON_NONE);
 	m_pInfoUi->AddChild(m_pTempInfoStamina);
@@ -516,18 +516,18 @@ void cUiTestScene::UpdateInfoUi(void)
 		g_pObjectManager->GetPlayer()->GetAbilityParamter()->SetMinHP(0);
 	}
 	char szHP[32] = { '\0', };
-	sprintf_s(szHP, "생명력      %d / %d", g_pObjectManager->GetPlayer()->GetAbilityParamter()->GetMinHP()
+	sprintf_s(szHP, "생명력        %d / %d", g_pObjectManager->GetPlayer()->GetAbilityParamter()->GetMinHP()
 		, g_pObjectManager->GetPlayer()->GetAbilityParamter()->GetMaxHP());
 	m_pTempInfoHP->SetText(szHP);
 
 
 	char szMP[32] = { '\0', };
-	sprintf_s(szMP, "마나         %d / %d", g_pObjectManager->GetPlayer()->GetAbilityParamter()->GetMinMP()
+	sprintf_s(szMP, "마나           %d / %d", g_pObjectManager->GetPlayer()->GetAbilityParamter()->GetMinMP()
 		, g_pObjectManager->GetPlayer()->GetAbilityParamter()->GetMaxMP());
 	m_pTempInfoMP->SetText(szMP);
 
 	char szStamina[64] = { '\0', };
-	sprintf_s(szStamina, "스테미나   %d / %d", g_pObjectManager->GetPlayer()->GetAbilityParamter()->GetMinStamina()
+	sprintf_s(szStamina, "스테미나     %d / %d", g_pObjectManager->GetPlayer()->GetAbilityParamter()->GetMinStamina()
 		, g_pObjectManager->GetPlayer()->GetAbilityParamter()->GetMaxStamina());
 	m_pTempInfoStamina->SetText(szStamina);
 
@@ -669,6 +669,59 @@ void cUiTestScene::LevelUp(void)
 			g_pObjectManager->GetPlayer()->GetAbilityParamter()->GetMaxStamina() + 5);
 		g_pObjectManager->GetPlayer()->GetAbilityParamter()->SetMinStamina(
 			g_pObjectManager->GetPlayer()->GetAbilityParamter()->GetMaxStamina());
-		//
+		//체력 증가
+		g_pObjectManager->GetPlayer()->GetAbilityParamter()->SetStr(
+			g_pObjectManager->GetPlayer()->GetAbilityParamter()->GetStr() + 1.0f);
+		//지력 증가
+		g_pObjectManager->GetPlayer()->GetAbilityParamter()->SetInt(
+			g_pObjectManager->GetPlayer()->GetAbilityParamter()->GetInt() + 1.0f);
+		//의지 증가
+		g_pObjectManager->GetPlayer()->GetAbilityParamter()->SetWill(
+			g_pObjectManager->GetPlayer()->GetAbilityParamter()->GetWill() + 1.0f);
+		//행운 증가
+		g_pObjectManager->GetPlayer()->GetAbilityParamter()->SetLuk(
+			g_pObjectManager->GetPlayer()->GetAbilityParamter()->GetLuk() + 1.0f);
+		//솜씨 증가
+		g_pObjectManager->GetPlayer()->GetAbilityParamter()->SetDex(
+			g_pObjectManager->GetPlayer()->GetAbilityParamter()->GetDex() + 1.0f);
+		//최소공격력 증가
+		g_pObjectManager->GetPlayer()->GetAbilityParamter()->SetMinDamage(
+			g_pObjectManager->GetPlayer()->GetAbilityParamter()->GetMinDamage() + 1);
+		//마공 증가
+		g_pObjectManager->GetPlayer()->GetAbilityParamter()->SetMagicDamage(
+			g_pObjectManager->GetPlayer()->GetAbilityParamter()->GetMagicDamage() + 1);
+		//부상률 감소
+		g_pObjectManager->GetPlayer()->GetAbilityParamter()->SetInjury(
+			g_pObjectManager->GetPlayer()->GetAbilityParamter()->GetInjury() - 0.1f);
+		if (g_pObjectManager->GetPlayer()->GetAbilityParamter()->GetInjury() <= 0.0f)
+		{
+			//0이하면 0으로 고정
+			g_pObjectManager->GetPlayer()->GetAbilityParamter()->SetInjury(0.0f);
+		}
+		//크리율 증가
+		g_pObjectManager->GetPlayer()->GetAbilityParamter()->SetCritical(
+			g_pObjectManager->GetPlayer()->GetAbilityParamter()->GetCritical() + 0.2f);
+		if (g_pObjectManager->GetPlayer()->GetAbilityParamter()->GetCritical() >= 35.0f)
+		{
+			g_pObjectManager->GetPlayer()->GetAbilityParamter()->SetCritical(35.0f);
+		}
+		//밸런스 증가
+		g_pObjectManager->GetPlayer()->GetAbilityParamter()->SetBalance(
+			g_pObjectManager->GetPlayer()->GetAbilityParamter()->GetBalance() + 1.0f);
+		//방어 증가
+		g_pObjectManager->GetPlayer()->GetAbilityParamter()->SetDefence(
+			g_pObjectManager->GetPlayer()->GetAbilityParamter()->GetDefence() + 1);
+		//보호 증가
+		g_pObjectManager->GetPlayer()->GetAbilityParamter()->SetProtecte(
+			g_pObjectManager->GetPlayer()->GetAbilityParamter()->GetProtecte() + 1);
+		//마방 증가
+		g_pObjectManager->GetPlayer()->GetAbilityParamter()->SetMagicDefence(
+			g_pObjectManager->GetPlayer()->GetAbilityParamter()->GetMagicDefence() + 1);
+		//마법보호 증가
+		g_pObjectManager->GetPlayer()->GetAbilityParamter()->SetMagicProtecte(
+			g_pObjectManager->GetPlayer()->GetAbilityParamter()->GetMagicProtecte() + 1);
+		//방관 증가
+		g_pObjectManager->GetPlayer()->GetAbilityParamter()->SetPenetration(
+			g_pObjectManager->GetPlayer()->GetAbilityParamter()->GetPenetration() + 0.5f);
 	}
 }
