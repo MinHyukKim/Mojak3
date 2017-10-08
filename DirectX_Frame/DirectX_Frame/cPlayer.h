@@ -56,6 +56,12 @@ public:
 		ORDER_DOWND,
 		ORDER_STANDUP,
 	};
+	enum SOUND_KEY
+	{
+		SOUND_NULL = 0,
+		SOUND_ATTACK1,
+		SOUND_END,
+	};
 	enum ANIMATION_STATE
 	{
 		ANIMATION_NULL,
@@ -145,6 +151,8 @@ private:
 
 	//준비된 기술
 	LPD3DXMESH m_skill;
+
+	std::vector<LPSTR> m_vecSoundKey;
 public:
 	virtual HRESULT Setup(void) override;
 	void Reset(void);
@@ -152,6 +160,7 @@ public:
 	virtual void Render(void) override;
 
 	void SetupAnimationController(LPCSTR szBoneKey = "더미");
+	void RegisterSoundKey(DWORD dwSoundKey, LPSTR szSoundKey);
 
 
 	//상태 변환시 1회만 적용

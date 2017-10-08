@@ -173,7 +173,15 @@ void cPlayer::SetupAnimationController(LPCSTR szBoneKey)
 		m_pAnimationController->SetTrackSpeed(1, 0.0f);
 		m_pAnimationController->SetTrackWeight(1, 0.0f);
 	}
-	m_vecAnimationKey.resize(ANIMATION_END);
+	m_vecAnimationKey.resize(cPlayer::ANIMATION_END);
+	m_vecSoundKey.resize(cPlayer::SOUND_END);
+}
+
+void cPlayer::RegisterSoundKey(DWORD dwSoundKey, LPSTR szSoundKey)
+{
+	if (dwSoundKey >= m_vecSoundKey.size()) m_vecSoundKey.resize(2 * m_vecSoundKey.size());
+	SAFE_DELETE_ARRAY(m_vecSoundKey[dwSoundKey]);
+	CopyString(&m_vecSoundKey[dwSoundKey], szSoundKey);
 }
 
 void cPlayer::SetupFriendly(void)
