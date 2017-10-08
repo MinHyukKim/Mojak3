@@ -17,6 +17,8 @@
 #define PATTERN_DEFENCE		0x00000200	//디펜스
 #define PATTERN_COUNTER		0x00000400	//카운터
 
+#define PATTERN_DEATH		0x00001000	//사망
+
 #define PATTERN_NORMAL		0x0000002d	//기본상태
 
 struct ST_CONTAINER
