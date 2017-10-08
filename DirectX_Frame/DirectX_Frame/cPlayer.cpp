@@ -980,9 +980,7 @@ void cPlayer::ComputerAI(void)
 					}
 					else
 					{
-						SAFE_RELEASE(m_pTarget);
-						m_pTarget = g_pObjectManager->GetPlayer();
-						SAFE_ADDREF(m_pTarget);
+						this->SetTarget(g_pObjectManager->GetPlayer());
 						this->OrderIdenChange();
 					}
 				}
@@ -1070,8 +1068,7 @@ void cPlayer::PlayerToTarget(float fRange)
 	float fLengtSq = D3DXVec3LengthSq(&(pPlayer->GetPosition() - this->GetPosition()));
 	if (fLengtSq < fRangeSq)
 	{
-		m_pTarget = pPlayer;
-		m_pTarget->AddRef();
+		this->SetTarget(pPlayer);
 		this->TargetView();
 	}
 }
@@ -1081,8 +1078,7 @@ void cPlayer::AutoTarget(float fRange)
 	if (m_pTarget) g_pObjectManager->GetNextTarget(&m_pTarget, &this->GetPosition(), fRange);
 	else
 	{
-		m_pTarget = g_pObjectManager->GetMinRangeMonster(this, fRange);
-		SAFE_ADDREF(m_pTarget);
+		this->SetTarget(g_pObjectManager->GetMinRangeMonster(this, fRange));
 	}
 	if (m_pTarget) this->SetDirection(&(m_pTarget->GetPosition() - this->GetPosition()));
 }

@@ -217,7 +217,7 @@ void cUiTestScene::changeDialogText(void)
 			{
 				m_pDialogText->SetText("보상이 맘에 드시기 바랍니다");
 				m_pDialogText->SetSize(ST_SIZE(300, 80));
-				m_pDialogText->SetPosition(-40, 20);
+				m_pDialogText->SetPosition(-20, 20);
 				m_pDialogAcceptButton->SetTag(E_BUTTON_NONE);
 				m_pDialogAcceptText->SetColor(D3DCOLOR_XRGB(180, 180, 180));
 			}

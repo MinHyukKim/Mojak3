@@ -312,14 +312,10 @@ void cUiTestScene::Update(void)
 	this->changeInventoryImage();
 	//대화 변경
 	this->changeDialogText();
+	//레벨업 함수
+	this->LevelUp();
 //	m_vecTempPlayerItem.resize(INVMAX);
 
-	////플레이어 얻고 씬 변경
-	//if (this->Sceen())
-	//{
-	//	g_pSceneManager->ChangeScene(LOGOFF_SCENE);
-	//	return;
-	//}
 }
 
 void cUiTestScene::Render(void)
