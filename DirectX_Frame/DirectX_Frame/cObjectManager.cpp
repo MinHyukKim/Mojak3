@@ -201,6 +201,10 @@ void cObjectManager::RegisterPlayer(IN cPlayer* pPlayer)
 	m_pPlayer->RegisterAnimation(cPlayer::ANIMATION_DOWND, g_pAnimationManager->GetAnimation("여성_다운드"), 5.0f);
 	m_pPlayer->RegisterAnimation(cPlayer::ANIMATION_DOWN_TO_STAND, g_pAnimationManager->GetAnimation("여성_다운투스텐드"), 5.0f);
 	m_pPlayer->RegisterAnimation(cPlayer::ANIMATION_COUNTER, g_pAnimationManager->GetAnimation("여성_카운터"), 2.0f);
+
+	m_pPlayer->RegisterSoundKey(cPlayer::SOUND_ATTACK01, "Attack01");
+	m_pPlayer->RegisterSoundKey(cPlayer::SOUND_ATTACK02, "Attack02");
+
 	m_pPlayer->GetAbilityParamter()->SetPlayerID(1);
 	m_pPlayer->GetAbilityParamter()->SetUnitID(0);
 	m_pPlayer->AddRef();

@@ -368,10 +368,18 @@ void cPlayer::PatternUpdate(void)
 		{
 			this->SetStatePattern(m_dwNumRealdyState);
 		}
+	}
+
+	//사운드 트랙
+	if (m_AbilityParamter.IsSoundEnd())
+	{
 		if (m_dwNumRealdySound)
 		{
-			g_pSoundManager->Play(m_vecSoundKey[m_dwNumRealdySound]);
-			m_dwNumRealdySound = 0;
+			if (m_vecSoundKey[m_dwNumRealdySound])
+			{
+				g_pSoundManager->Play(m_vecSoundKey[m_dwNumRealdySound]);
+				m_dwNumRealdySound = 0;
+			}
 		}
 	}
 }
@@ -459,7 +467,8 @@ void cPlayer::OrderTarget(void)
 							m_pTarget->SetRealdyTrue(PATTERN_TARGET | PATTERN_STOP | PATTERN_ATTACK | PATTERN_WALK | PATTERN_RUN);
 							m_pTarget->SetRealdyState(cPlayer::ORDER_OFFENSIVE);
 							//반격 사운드
-							m_pTarget->SetRealdySound(cPlayer::SOUND_ATTACK1);
+							m_pTarget->GetAbilityParamter()->SetSoundDelay(fDelay * 0.3f);
+							m_pTarget->SetRealdySound(cPlayer::SOUND_ATTACK02);
 
 							//공격
 							this->m_AbilityParamter.SetDelayTime(fDelay * 0.3f);
@@ -477,7 +486,8 @@ void cPlayer::OrderTarget(void)
 							this->SetRealdyTrue(PATTERN_TARGET | PATTERN_STOP | PATTERN_ATTACK | PATTERN_WALK | PATTERN_RUN);
 							this->SetRealdyState(cPlayer::ORDER_OFFENSIVE);
 							//스매시 공격 사운드
-							this->SetRealdySound(cPlayer::SOUND_ATTACK1);
+							this->GetAbilityParamter()->SetSoundDelay(fDelay * 0.3f);
+							this->SetRealdySound(cPlayer::SOUND_ATTACK02);
 
 							//피격
 							m_pTarget->SetBlendingAnimation(cPlayer::ANIMATION_GROGGY, fDelay * 0.3f);
@@ -511,7 +521,8 @@ void cPlayer::OrderTarget(void)
 							m_pTarget->SetRealdyTrue(PATTERN_TARGET | PATTERN_STOP | PATTERN_ATTACK | PATTERN_WALK | PATTERN_RUN);
 							m_pTarget->SetRealdyState(cPlayer::ORDER_OFFENSIVE);
 							//반격 사운드
-							m_pTarget->SetRealdySound(cPlayer::SOUND_ATTACK1);
+							m_pTarget->GetAbilityParamter()->SetSoundDelay(fDelay * 0.3f);
+							m_pTarget->SetRealdySound(cPlayer::SOUND_ATTACK02);
 
 							//공격
 							this->m_AbilityParamter.SetDelayTime(fDelay * 0.3f);
@@ -528,7 +539,11 @@ void cPlayer::OrderTarget(void)
 							this->SetRealdyTrue(PATTERN_TARGET | PATTERN_STOP | PATTERN_ATTACK | PATTERN_WALK | PATTERN_RUN);
 							this->SetRealdyState(cPlayer::ORDER_OFFENSIVE);
 							//일반 공격 사운드
-							this->SetRealdySound(cPlayer::SOUND_ATTACK1);
+							this->GetAbilityParamter()->SetSoundDelay(fDelay * 0.3f);
+							if (2.75f + 0.3f * fDelay  > m_pTarget->GetAbilityParamter()->GetDownGauge() + this->GetAbilityParamter()->GetPower())
+								this->SetRealdySound(cPlayer::SOUND_ATTACK01);
+							else this->SetRealdySound(cPlayer::SOUND_ATTACK02);
+
 							//피격
 							m_pTarget->GetAbilityParamter()->SetDelayTime(fDelay * 0.3f);
 							m_pTarget->GetAbilityParamter()->SetDownGauge(m_pTarget->GetAbilityParamter()->GetDownGauge() + this->GetAbilityParamter()->GetPower());

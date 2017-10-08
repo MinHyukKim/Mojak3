@@ -78,13 +78,17 @@ HRESULT cLodingScene::Setup(void)
 	m_pData->RegisterBuild("scene_building_tirchonaill_church.x");
 	m_pData->RegisterBuild("smooth_appleTree.x");
 	m_pData->RegisterBuild("scene_building_shop.x");
-	//사운드 등록
 
+	//배경음
 	m_pData->RegisterSound("titleBGM", "Sound/Char_Select.mp3", true, true);
 	m_pData->RegisterSound("charMake", "Sound/Char_Making.mp3", true, true);
 	m_pData->RegisterSound("mapToolBGM", "Sound/nao_stage.mp3", true, true);
 	m_pData->RegisterSound("meetNao01", "Sound/nao_appear.mp3", true, false);
 	m_pData->RegisterSound("meetNao02", "Sound/nao_talk.mp3", true, false);
+
+	//효과음
+	m_pData->RegisterSound("Attack01", "Sound/woodblunt_hit.wav", false, false);
+	m_pData->RegisterSound("Attack02", "Sound/woodblunt_blow.wav", false, false);
 
 	if (m_pThread)
 	{

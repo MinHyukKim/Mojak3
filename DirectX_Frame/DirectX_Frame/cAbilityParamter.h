@@ -77,6 +77,7 @@ private:
 	//임시 퀘스트 여부
 	bool m_isQuestTempOn;
 
+	float m_fSoundDelay;		//소리지연 재생시간
 	float m_fDelayTime;			//인공지능 유효시간
 	bool m_bEffective;			//캐릭터 생존여부
 
@@ -235,6 +236,10 @@ public:
 	void SetDelayTime(float fValue) { m_fDelayTime = fValue; }
 	float GetDelayTime(void) { return m_fDelayTime; }
 	bool IsDelayEnd(void) { return m_fDelayTime <= 0.0f; }
+	//사운드 지연시간
+	void SetSoundDelay(float fValue) { m_fSoundDelay = fValue; }
+	float GetSoundDelay(void) { return m_fSoundDelay; }
+	bool IsSoundEnd(void) { return m_fSoundDelay <= 0.0f; }
 
 	void SetEffective(bool nValue) { m_bEffective = nValue; }
 	bool IsEffective(void) { return m_bEffective; }

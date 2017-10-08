@@ -58,7 +58,7 @@
 #include "cFontManager.h"
 
 //콘솔 디버깅
-#define CONSOLE_DEBUG_TEST
+//#define CONSOLE_DEBUG_TEST
 
 #ifdef CONSOLE_DEBUG_TEST
 #ifdef CONSOLE_DEBUG_TEST
