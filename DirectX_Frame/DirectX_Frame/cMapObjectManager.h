@@ -86,4 +86,5 @@ public:
 	void LoadCurrentObjectsState(const char* filename);
 
 	void Destroy();
+	void DestroyBuilding();
 };

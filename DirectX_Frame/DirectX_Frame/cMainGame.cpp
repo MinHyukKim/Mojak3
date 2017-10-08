@@ -40,6 +40,9 @@ cMainGame::~cMainGame(void)
 void cMainGame::Setup(void)
 {
 	DEBUG_START("Debug.txt");
+	//타이머
+	g_pTimeManager->Setup();
+	g_pSoundManager->Setup();
 	//광원 설정
 	SetDirectional(0, D3DXVECTOR3(0.0f, -1.0f, 0.0f), D3DXCOLOR(0.75f, 0.75f, 0.75f, 1.0f));
 	g_pD3DDevice->LightEnable(0, true);
@@ -68,11 +71,6 @@ void cMainGame::Setup(void)
 	g_pSceneManager->AddScene("cTitleScene", cTitleScene::Create());
 
 	g_pSceneManager->ChangeScene("cLodingScene");
-
-
-	//타이머
-	g_pTimeManager->Setup();
-	g_pSoundManager->Setup();
 }
 
 void cMainGame::Update(void)

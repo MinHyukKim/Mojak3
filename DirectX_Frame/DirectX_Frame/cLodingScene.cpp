@@ -79,8 +79,12 @@ HRESULT cLodingScene::Setup(void)
 	m_pData->RegisterBuild("smooth_appleTree.x");
 	m_pData->RegisterBuild("scene_building_shop.x");
 	//사운드 등록
-	m_pData->RegisterSound("titleBGM", "Sound/Title.mp3", true, true);
 
+	m_pData->RegisterSound("titleBGM", "Sound/Char_Select.mp3", true, true);
+	m_pData->RegisterSound("charMake", "Sound/Char_Making.mp3", true, true);
+	m_pData->RegisterSound("mapToolBGM", "Sound/nao_stage.mp3", true, true);
+	m_pData->RegisterSound("meetNao01", "Sound/nao_appear.mp3", true, false);
+	m_pData->RegisterSound("meetNao02", "Sound/nao_talk.mp3", true, false);
 
 	if (m_pThread)
 	{
@@ -88,6 +92,10 @@ HRESULT cLodingScene::Setup(void)
 		delete m_pThread;
 	}
 	m_pThread = new thread(&cDataLoder::LoaderDataLoop, m_pData);
+
+	g_pSoundManager->AddSound("LodingMusic", "Sound/Title.mp3", true, false);
+	g_pSoundManager->Play("LodingMusic");
+
 	return S_OK;
 }
 
@@ -130,6 +138,7 @@ void cLodingScene::Update(void)
 	}
 	if (m_pData && m_pData->GetLodingGauge() > 1.0f - FLT_EPSILON)
 	{
+		//g_pSoundManager->Stop("LodingMusic");
 		this->Render();
 		g_pSceneManager->ChangeScene(NEXT_SCENE);
 	}

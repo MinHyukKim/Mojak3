@@ -210,8 +210,13 @@ void cMapObjectManager::Destroy()
 		it.second->Destroy();
 		SAFE_RELEASE(it.second);
 	}
-
+	m_mapBuilding.clear();
 //	m_pMapObjects->Destroy();
+	this->DestroyBuilding();
+}
+
+void cMapObjectManager::DestroyBuilding()
+{
 	for each(auto p in m_vecBuilding)
 	{
 		SAFE_RELEASE(p);

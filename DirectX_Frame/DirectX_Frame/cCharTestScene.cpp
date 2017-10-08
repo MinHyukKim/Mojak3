@@ -55,9 +55,6 @@ HRESULT cCharTestScene::Setup(void)
 	m_pUi = cUiTestScene::Create();
 	m_pUi->Setup();
 
-	g_pObjectManager->DestroyMonster();
-	g_pObjectManager->DestroyNPC();
-
 	g_pObjectManager->CreateMonster(cObjectManager::MONSTER_FOX, &D3DXVECTOR3(-2.0f, 0.0f, 5.0f), &FOX_BROWN);
 	g_pObjectManager->CreateMonster(cObjectManager::MONSTER_FOX, &D3DXVECTOR3(0.0f, 0.0f, 4.0f), &FOX_GRAY);
 	g_pObjectManager->CreateMonster(cObjectManager::MONSTER_FOX, &D3DXVECTOR3(2.0f, 0.0f, 5.0f), &FOX_RED);
@@ -87,6 +84,9 @@ void cCharTestScene::Reset(void)
 	SAFE_RELEASE(m_pGrid);
 	SAFE_RELEASE(m_pUi);
 	SAFE_RELEASE(m_pSkybox);
+
+	g_pObjectManager->DestroyMonster();
+	g_pObjectManager->DestroyNPC();
 
 }
 
