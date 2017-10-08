@@ -505,13 +505,104 @@ void cUiTestScene::OnClick(cUIButton * pSender)
 	//ap 수련 관련
 	else if (pSender->GetTag() == E_BUTTON_USE_SMASH)
 	{
+		//AP가 0이하면 스킵
+		if (g_pObjectManager->GetPlayer()->GetAbilityParamter()->GetAP() <= 0) return;
+		//10이하일 때
+		if (g_pObjectManager->GetPlayer()->GetAbilityParamter()->GetAP() <= 10)
+		{
+			g_pObjectManager->GetPlayer()->GetAbilityParamter()->SetSmashEXP(
+				g_pObjectManager->GetPlayer()->GetAbilityParamter()->GetSmashEXP()
+				+ g_pObjectManager->GetPlayer()->GetAbilityParamter()->GetAP());
+			g_pObjectManager->GetPlayer()->GetAbilityParamter()->SetAP(0);
+		}
+		//이상일때
+		else if (g_pObjectManager->GetPlayer()->GetAbilityParamter()->GetAP() > 10)
+		{
+			g_pObjectManager->GetPlayer()->GetAbilityParamter()->SetSmashEXP(
+				g_pObjectManager->GetPlayer()->GetAbilityParamter()->GetSmashEXP() + 10);
+			g_pObjectManager->GetPlayer()->GetAbilityParamter()->SetAP(
+				g_pObjectManager->GetPlayer()->GetAbilityParamter()->GetAP() - 10);
+		}
+		//스킬업
+		if (g_pObjectManager->GetPlayer()->GetAbilityParamter()->GetSmashEXP() >=
+			g_pObjectManager->GetPlayer()->GetAbilityParamter()->GetSmashEXPMax())
+		{
+			int nAP = g_pObjectManager->GetPlayer()->GetAbilityParamter()->GetSmashEXP() 
+				- g_pObjectManager->GetPlayer()->GetAbilityParamter()->GetSmashEXPMax();
+			//레벨올림
+			g_pObjectManager->GetPlayer()->GetAbilityParamter()->SetSmashLevel(
+				g_pObjectManager->GetPlayer()->GetAbilityParamter()->GetSmashLevel() + 1);
+			//남은 ap 주기
+			g_pObjectManager->GetPlayer()->GetAbilityParamter()->SetSmashEXP(nAP);
+		}
 
 	}
 	else if (pSender->GetTag() == E_BUTTON_USE_COUNTER)
 	{
-
+		//AP가 0이하면 스킵
+		if (g_pObjectManager->GetPlayer()->GetAbilityParamter()->GetAP() <= 0) return;
+		//10이하일 때
+		if (g_pObjectManager->GetPlayer()->GetAbilityParamter()->GetAP() <= 10)
+		{
+			g_pObjectManager->GetPlayer()->GetAbilityParamter()->SetCounterEXP(
+				g_pObjectManager->GetPlayer()->GetAbilityParamter()->GetCounterEXP()
+				+ g_pObjectManager->GetPlayer()->GetAbilityParamter()->GetAP());
+			g_pObjectManager->GetPlayer()->GetAbilityParamter()->SetAP(0);
+		}
+		//이상일때
+		else if (g_pObjectManager->GetPlayer()->GetAbilityParamter()->GetAP() > 10)
+		{
+			g_pObjectManager->GetPlayer()->GetAbilityParamter()->SetCounterEXP(
+				g_pObjectManager->GetPlayer()->GetAbilityParamter()->GetCounterEXP() + 10);
+			g_pObjectManager->GetPlayer()->GetAbilityParamter()->SetAP(
+				g_pObjectManager->GetPlayer()->GetAbilityParamter()->GetAP() - 10);
+		}
+		//스킬업
+		if (g_pObjectManager->GetPlayer()->GetAbilityParamter()->GetCounterEXP() >=
+			g_pObjectManager->GetPlayer()->GetAbilityParamter()->GetCounterEXPMax())
+		{
+			int nAP = g_pObjectManager->GetPlayer()->GetAbilityParamter()->GetCounterEXP()
+				- g_pObjectManager->GetPlayer()->GetAbilityParamter()->GetCounterEXPMax();
+			//레벨올림
+			g_pObjectManager->GetPlayer()->GetAbilityParamter()->SetCounterLevel(
+				g_pObjectManager->GetPlayer()->GetAbilityParamter()->GetCounterLevel() + 1);
+			//남은 ap 주기
+			g_pObjectManager->GetPlayer()->GetAbilityParamter()->SetCounterEXP(nAP);
+		}
 	}
-	
+	else if (pSender->GetTag() == E_BUTTON_USE_COMBAT)
+	{
+		//AP가 0이하면 스킵
+		if (g_pObjectManager->GetPlayer()->GetAbilityParamter()->GetAP() <= 0) return;
+		//10이하일 때
+		if (g_pObjectManager->GetPlayer()->GetAbilityParamter()->GetAP() <= 10)
+		{
+			g_pObjectManager->GetPlayer()->GetAbilityParamter()->SetCombatEXP(
+				g_pObjectManager->GetPlayer()->GetAbilityParamter()->GetCombatEXP()
+				+ g_pObjectManager->GetPlayer()->GetAbilityParamter()->GetAP());
+			g_pObjectManager->GetPlayer()->GetAbilityParamter()->SetAP(0);
+		}
+		//이상일때
+		else if (g_pObjectManager->GetPlayer()->GetAbilityParamter()->GetAP() > 10)
+		{
+			g_pObjectManager->GetPlayer()->GetAbilityParamter()->SetCombatEXP(
+				g_pObjectManager->GetPlayer()->GetAbilityParamter()->GetCombatEXP() + 10);
+			g_pObjectManager->GetPlayer()->GetAbilityParamter()->SetAP(
+				g_pObjectManager->GetPlayer()->GetAbilityParamter()->GetAP() - 10);
+		}
+		//스킬업
+		if (g_pObjectManager->GetPlayer()->GetAbilityParamter()->GetCombatEXP() >=
+			g_pObjectManager->GetPlayer()->GetAbilityParamter()->GetCombatEXPMax())
+		{
+			int nAP = g_pObjectManager->GetPlayer()->GetAbilityParamter()->GetCombatEXP()
+				- g_pObjectManager->GetPlayer()->GetAbilityParamter()->GetCombatEXPMax();
+			//레벨올림
+			g_pObjectManager->GetPlayer()->GetAbilityParamter()->SetCombatLevel(
+				g_pObjectManager->GetPlayer()->GetAbilityParamter()->GetCombatLevel() + 1);
+			//남은 ap 주기
+			g_pObjectManager->GetPlayer()->GetAbilityParamter()->SetCombatEXP(nAP);
+		}
+	}
 
 
 	//대화창 관련 (열린 상태에서 NPC가 나오라면)

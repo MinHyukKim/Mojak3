@@ -116,7 +116,7 @@ void cUiTestScene::SetupSkillUi(void)
 		, "Texture/Ui/APbuttonUp6542.png", "Texture/Ui/APbuttonDown6542.png");
 	pHaveSkill->SetPosition(180, 160);  //100, 310 
 	pHaveSkill->SetDelegate(this);
-	pHaveSkill->SetTag(E_BUTTON_NONE);
+	pHaveSkill->SetTag(E_BUTTON_USE_COMBAT);
 	m_pSkillUi->AddChild(pHaveSkill);
 
 	//사용 여부 버튼 (ap수련으로 변경)
