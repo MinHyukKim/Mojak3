@@ -12,14 +12,11 @@ cSoundManager::~cSoundManager(void)
 
 }
 
-HRESULT cSoundManager::Init(void)
+HRESULT cSoundManager::Setup(void)
 {
-	//사운드 시스템 설정
 	System_Create(&_system);
 
-	//초기화
 	_system->init(TOTALSOUNDBUFFER, FMOD_INIT_NORMAL, 0);
-
 
 	return S_OK;
 }
@@ -63,7 +60,6 @@ void cSoundManager::AddSound(std::string keyName, std::string soundName, bool bg
 	{
 		_system->createSound(soundName.c_str(), FMOD_DEFAULT, 0, &_mTotalSounds[keyName]);
 	}
-
 }
 
 Channel* cSoundManager::Play(std::string keyName, float volume)

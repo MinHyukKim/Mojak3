@@ -31,7 +31,7 @@ cMainGame::~cMainGame(void)
 	g_pSkinnedMeshManager->Destroy();
 	g_pMapTerrain->Destroy();
 	g_pMapObjectManager->Destroy();
-
+	g_pSoundManager->Destroy();
 	g_pAutoRelasePool->Destroy();
 	g_pDeviceManager->Destroy();
 }
@@ -72,6 +72,7 @@ void cMainGame::Setup(void)
 
 	//타이머
 	g_pTimeManager->Setup();
+	g_pSoundManager->Setup();
 }
 
 void cMainGame::Update(void)
@@ -80,6 +81,7 @@ void cMainGame::Update(void)
 	g_pInputManager->Update();				// 마우스 좌표 저장
 	g_pFrustum->Update();					// 컬링 매트릭스 준비
 	g_pTimeManager->Update();
+	g_pSoundManager->Update();
 	g_pMeshFontManager->Update();
 
 	g_pSceneManager->Update();

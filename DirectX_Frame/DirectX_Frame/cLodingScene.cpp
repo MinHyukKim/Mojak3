@@ -35,8 +35,10 @@ HRESULT cLodingScene::Setup(void)
 	RECT rc;
 	GetClientRect(g_hWnd, &rc);
 
+	m_fBottom = 0.8f;
+
 	//타이틀 그림
-	imageData = g_pTexture->GetTextureEx("./Texture/Title.jpg",&m_stLoadingBar);
+	imageData = g_pTexture->GetTextureEx("./Texture/lodingSnap.png",&m_stLoadingBar);
 	m_pLoadingImage = cImage::Create();
 	m_pLoadingImage->Setup(m_stLoadingBar, imageData);
 	m_matWorldMatrix._41 = rc.right / 2.0f;
@@ -52,7 +54,7 @@ HRESULT cLodingScene::Setup(void)
 	m_pLoadingGaugeImage = cImage::Create();
 	m_pLoadingGaugeImage->Setup(m_stLoadingBar, imageData);
 	m_matWorldMatrix._41 = rc.right * 0.5f;
-	m_matWorldMatrix._42 = rc.bottom * 0.66f;
+	m_matWorldMatrix._42 = rc.bottom * m_fBottom;
 	m_matWorldMatrix._43 = 0.5f;
 	m_pLoadingGaugeImage->SetWorldMatrix(&m_matWorldMatrix);
 
@@ -61,7 +63,7 @@ HRESULT cLodingScene::Setup(void)
 	m_pLoadingBarImage = cImage::Create();
 	m_pLoadingBarImage->Setup(m_stLoadingBar, imageData);
 	m_matWorldMatrix._41 = rc.right * 0.5f;
-	m_matWorldMatrix._42 = rc.bottom * 0.66f;
+	m_matWorldMatrix._42 = rc.bottom * m_fBottom;
 	m_matWorldMatrix._43 = 0.0f;
 	m_pLoadingBarImage->SetWorldMatrix(&m_matWorldMatrix);
 
@@ -76,7 +78,10 @@ HRESULT cLodingScene::Setup(void)
 	m_pData->RegisterBuild("scene_building_tirchonaill_church.x");
 	m_pData->RegisterBuild("smooth_appleTree.x");
 	m_pData->RegisterBuild("scene_building_shop.x");
-	
+	//사운드 등록
+	m_pData->RegisterSound("titleBGM", "Sound/Title.mp3", true, true);
+
+
 	if (m_pThread)
 	{
 		m_pThread->join();
@@ -113,7 +118,7 @@ void cLodingScene::Update(void)
 		GetClientRect(g_hWnd, &rc);
 		D3DXMatrixIdentity(&m_matWorldMatrix);
 		m_matWorldMatrix._41 = rc.right * 0.5f - m_stLoadingBar.Width * (1.0f - m_pData->GetLodingGauge()) * 0.5f;
-		m_matWorldMatrix._42 = rc.bottom * 0.66f;
+		m_matWorldMatrix._42 = rc.bottom * m_fBottom;
 		m_matWorldMatrix._43 = 0.0f;
 		m_pLoadingBarImage->SetWorldMatrix(&m_matWorldMatrix);
 		m_pLoadingBarImage->SetSize(m_stLoadingBar.Width * m_pData->GetLodingGauge(), m_stLoadingBar.Height);
@@ -121,7 +126,7 @@ void cLodingScene::Update(void)
 		//로딩 메세지
 		char szText[256] = {};
 		sprintf(szText, "로딩중 %2.2f %%", m_pData->GetLodingGauge() * 100.0f);
-		m_pFont->DrawFont(rc.right * 0.45f, rc.bottom * 0.65f, szText);
+		m_pFont->DrawFont(rc.right * 0.45f, rc.bottom * (m_fBottom - 0.01), szText);
 	}
 	if (m_pData && m_pData->GetLodingGauge() > 1.0f - FLT_EPSILON)
 	{

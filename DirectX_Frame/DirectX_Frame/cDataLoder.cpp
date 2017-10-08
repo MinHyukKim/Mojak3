@@ -50,6 +50,12 @@ void cDataLoder::RegisterTerrain(LPCSTR szHighMapKey, LPCSTR szTextureKey, LPCST
 	m_vecData.push_back(ST_DATA(cDataLoder::DATA_TERRAIN, szHighMapKey, szTextureKey, szTerrainKey, nullptr, &materal));
 }
 
+void cDataLoder::RegisterSound(LPCSTR szSoundKey, LPCSTR szFilename, bool bBGM, bool bLoop)
+{
+	m_vecData.push_back(ST_DATA(cDataLoder::DATA_SOUND, szSoundKey, szFilename, "", nullptr, nullptr, bBGM << 1 + bLoop << 0));
+
+}
+
 void cDataLoder::RegisterBuild(LPCSTR szstring1)
 {
 	m_vecData.push_back(ST_DATA(cDataLoder::DATA_BUILDING, szstring1));
@@ -173,6 +179,9 @@ void cDataLoder::LoaderData(void)
 	case cDataLoder::DATA_TERRAIN: g_pMapTerrain->RegisterMap(pData->str3.c_str(), pData->str1.c_str(), pData->str2.c_str(), &pData->material); break;
 
 	case cDataLoder::DATA_BUILDING: g_pMapObjectManager->RegisterMapObject("", pData->str1.c_str(), pData->str1.c_str()); break;
+	
+	case cDataLoder::DATA_SOUND: g_pSoundManager->AddSound(pData->str1, pData->str2,pData->nParam&2, pData->nParam&1);
+
 	default: break;
 	}
 	++m_dwCount;
