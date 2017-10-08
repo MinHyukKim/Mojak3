@@ -468,7 +468,7 @@ void cPlayer::OrderTarget(void)
 							m_pTarget->SetRealdyState(cPlayer::ORDER_OFFENSIVE);
 							//반격 사운드
 							m_pTarget->GetAbilityParamter()->SetSoundDelay(fDelay * 0.3f);
-							m_pTarget->SetRealdySound(cPlayer::SOUND_ATTACK02);
+							m_pTarget->SetRealdySound(cPlayer::SOUND_ATTACK03);
 
 							//공격
 							this->m_AbilityParamter.SetDelayTime(fDelay * 0.3f);
@@ -522,7 +522,7 @@ void cPlayer::OrderTarget(void)
 							m_pTarget->SetRealdyState(cPlayer::ORDER_OFFENSIVE);
 							//반격 사운드
 							m_pTarget->GetAbilityParamter()->SetSoundDelay(fDelay * 0.3f);
-							m_pTarget->SetRealdySound(cPlayer::SOUND_ATTACK02);
+							m_pTarget->SetRealdySound(cPlayer::SOUND_ATTACK03);
 
 							//공격
 							this->m_AbilityParamter.SetDelayTime(fDelay * 0.3f);

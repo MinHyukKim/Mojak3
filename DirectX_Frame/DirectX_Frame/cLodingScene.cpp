@@ -89,6 +89,9 @@ HRESULT cLodingScene::Setup(void)
 	//È¿°úÀ½
 	m_pData->RegisterSound("Attack01", "Sound/woodblunt_hit.wav", false, false);
 	m_pData->RegisterSound("Attack02", "Sound/woodblunt_blow.wav", false, false);
+	m_pData->RegisterSound("Attack03", "Sound/bear01_natural_blowaway.wav", false, false);
+	m_pData->RegisterSound("Attack04", "Sound/bear01_natural_attack_smash.wav", false, false);
+	m_pData->RegisterSound("Attack05", "Sound/bear01_natural_attack_counter.wav", false, false);
 
 	if (m_pThread)
 	{

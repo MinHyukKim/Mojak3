@@ -204,6 +204,7 @@ void cObjectManager::RegisterPlayer(IN cPlayer* pPlayer)
 
 	m_pPlayer->RegisterSoundKey(cPlayer::SOUND_ATTACK01, "Attack01");
 	m_pPlayer->RegisterSoundKey(cPlayer::SOUND_ATTACK02, "Attack02");
+	m_pPlayer->RegisterSoundKey(cPlayer::SOUND_ATTACK03, "Attack02");
 
 	m_pPlayer->GetAbilityParamter()->SetPlayerID(1);
 	m_pPlayer->GetAbilityParamter()->SetUnitID(0);
@@ -435,6 +436,11 @@ cPlayer* cObjectManager::CreateMonster(IN UNIT_TYPE eMonsterKey, IN LPD3DXVECTOR
 		pCreateMonster->RegisterAnimation(cPlayer::ANIMATION_DOWND, g_pAnimationManager->GetAnimation("여성_다운드"), 5.0f);
 		pCreateMonster->RegisterAnimation(cPlayer::ANIMATION_DOWN_TO_STAND, g_pAnimationManager->GetAnimation("여성_다운투스텐드"), 5.0f);
 		pCreateMonster->RegisterAnimation(cPlayer::ANIMATION_COUNTER, g_pAnimationManager->GetAnimation("여성_카운터"), 2.0f);
+
+		pCreateMonster->RegisterSoundKey(cPlayer::SOUND_ATTACK01, "Attack01");
+		pCreateMonster->RegisterSoundKey(cPlayer::SOUND_ATTACK02, "Attack02");
+		pCreateMonster->RegisterSoundKey(cPlayer::SOUND_ATTACK03, "Attack02");
+
 		pCreateMonster->GetAbilityParamter()->SetPlayerID(2);
 		pCreateMonster->GetAbilityParamter()->SetUnitID(eMonsterKey);
 		pCreateMonster->OrderFriendly();
@@ -475,6 +481,10 @@ cPlayer* cObjectManager::CreateMonster(IN UNIT_TYPE eMonsterKey, IN LPD3DXVECTOR
 		pCreateMonster->RegisterAnimation(cPlayer::ANIMATION_DOWN_TO_STAND, g_pAnimationManager->GetAnimation("여우_다운투스텐드"), 5.0f);
 		pCreateMonster->RegisterAnimation(cPlayer::ANIMATION_COUNTER, g_pAnimationManager->GetAnimation("여우_카운터"), 2.0f);
 
+		pCreateMonster->RegisterSoundKey(cPlayer::SOUND_ATTACK01, "Attack01");
+		pCreateMonster->RegisterSoundKey(cPlayer::SOUND_ATTACK02, "Attack02");
+		pCreateMonster->RegisterSoundKey(cPlayer::SOUND_ATTACK03, "Attack02");
+
 		pCreateMonster->GetAbilityParamter()->SetPlayerID(2);
 		pCreateMonster->GetAbilityParamter()->SetUnitID(eMonsterKey);
 		pCreateMonster->OrderFriendly();
@@ -513,6 +523,10 @@ cPlayer* cObjectManager::CreateMonster(IN UNIT_TYPE eMonsterKey, IN LPD3DXVECTOR
 		pCreateMonster->RegisterAnimation(cPlayer::ANIMATION_DOWND, g_pAnimationManager->GetAnimation("곰_다운드"), 5.0f);
 		pCreateMonster->RegisterAnimation(cPlayer::ANIMATION_DOWN_TO_STAND, g_pAnimationManager->GetAnimation("곰_다운투스텐드"), 5.0f);
 		pCreateMonster->RegisterAnimation(cPlayer::ANIMATION_COUNTER, g_pAnimationManager->GetAnimation("곰_카운터"), 2.0f);
+
+		pCreateMonster->RegisterSoundKey(cPlayer::SOUND_ATTACK01, "Attack03");
+		pCreateMonster->RegisterSoundKey(cPlayer::SOUND_ATTACK02, "Attack04");
+		pCreateMonster->RegisterSoundKey(cPlayer::SOUND_ATTACK03, "Attack05");
 
 		pCreateMonster->GetAbilityParamter()->SetPlayerID(2);
 		pCreateMonster->GetAbilityParamter()->SetUnitID(eMonsterKey);
