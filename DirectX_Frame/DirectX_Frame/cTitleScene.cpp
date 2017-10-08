@@ -130,7 +130,6 @@ HRESULT cTitleScene::Setup(void)
 	m_pUIRoot->AddChild(m_pExitButton);
 
 	
-	g_pSoundManager->Play("titleBGM");
 	return S_OK;
 }
 
@@ -147,12 +146,14 @@ void cTitleScene::Reset(void)
 	SAFE_DELETE(m_pNextScene);
 
 	g_pSoundManager->Stop("titleBGM");
-
+	g_pSoundManager->Stop("LodingMusic");
 }
 
 void cTitleScene::Update(void)
 {
 	if (m_pUIRoot) m_pUIRoot->Update();
+	if (!g_pSoundManager->isPlaySound("LodingMusic") && !g_pSoundManager->isPlaySound("titleBGM"))
+		g_pSoundManager->Play("titleBGM");
 
 	if (m_pNextScene) g_pSceneManager->ChangeScene(m_pNextScene->c_str());
 }
