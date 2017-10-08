@@ -86,44 +86,44 @@ HRESULT cTitleScene::Setup(void)
 	rootBase = cUIImageView::Create();
 	rootBase->SetTexture("UI/test_pannel.png");
 	rootBase->SetPosition((float)rc.right/2-rootBase->stImageInfo.Width/2 , 
-		(float)rc.bottom/2 - rootBase->stImageInfo.Height / 2 + (float)rc.bottom / 4);
+		(float)rc.bottom - rootBase->stImageInfo.Height - (float)rc.bottom / 20);
 	m_pUIRoot = rootBase;
 
 	m_pMaptoolButton = cUIButton::Create();
-	m_pMaptoolButton->SetTexture("UI/btn-med-up.png",
-		"UI/btn-med-over.png",
-		"UI/btn-med-down.png");
-	m_pMaptoolButton->SetPosition(rootBase->stImageInfo.Width / 2- m_pMaptoolButton->GetSize().fWidth/2, 5);
+	m_pMaptoolButton->SetTexture("UI/btn-maptool-up.png",
+		"UI/btn-maptool-over.png",
+		"UI/btn-maptool-down.png");
+	m_pMaptoolButton->SetPosition(rootBase->stImageInfo.Width / 2- m_pMaptoolButton->GetSize().fWidth/2, 30);
 	m_pMaptoolButton->SetDelegate(this);
 	m_pMaptoolButton->SetTag(cTitleScene::E_MAPTOOL_BUTTON);
 	m_pUIRoot->AddChild(m_pMaptoolButton);
 
 	m_pStartButton = cUIButton::Create();
-	m_pStartButton->SetTexture("UI/btn-med-up.png",
-		"UI/btn-med-over.png",
-		"UI/btn-med-down.png");
+	m_pStartButton->SetTexture("UI/btn-start-up.png",
+		"UI/btn-start-over.png",
+		"UI/btn-start-down.png");
 	m_pStartButton->SetPosition(rootBase->stImageInfo.Width / 2 - m_pStartButton->GetSize().fWidth / 2, 
-		m_pMaptoolButton->GetPosition().y + m_pMaptoolButton->GetSize().fHeight+ 10);
+		m_pMaptoolButton->GetPosition().y + m_pMaptoolButton->GetSize().fHeight+ 15);
 	m_pStartButton->SetDelegate(this);
 	m_pStartButton->SetTag(cTitleScene::E_START_BUTTON);
 	m_pUIRoot->AddChild(m_pStartButton);
 
 	m_pContinueButton = cUIButton::Create();
-	m_pContinueButton->SetTexture("UI/btn-med-up.png",
-		"UI/btn-med-over.png",
-		"UI/btn-med-down.png");
+	m_pContinueButton->SetTexture("UI/btn-continue-up.png",
+		"UI/btn-continue-over.png",
+		"UI/btn-continue-down.png");
 	m_pContinueButton->SetPosition(rootBase->stImageInfo.Width / 2 - m_pContinueButton->GetSize().fWidth / 2, 
-		m_pStartButton->GetPosition().y + m_pStartButton->GetSize().fHeight + 10);
+		m_pStartButton->GetPosition().y + m_pStartButton->GetSize().fHeight + 15);
 	m_pContinueButton->SetDelegate(this);
 	m_pContinueButton->SetTag(cTitleScene::E_CONTINUE_BUTTON);
 	m_pUIRoot->AddChild(m_pContinueButton);
 
 	m_pExitButton = cUIButton::Create();
-	m_pExitButton->SetTexture("UI/btn-med-up.png",
-		"UI/btn-med-over.png",
-		"UI/btn-med-down.png");
+	m_pExitButton->SetTexture("UI/btn-exit-up.png",
+		"UI/btn-exit-over.png",
+		"UI/btn-exit-down.png");
 	m_pExitButton->SetPosition(rootBase->stImageInfo.Width / 2 - m_pExitButton->GetSize().fWidth / 2, 
-		m_pContinueButton->GetPosition().y + m_pContinueButton->GetSize().fHeight + 10);
+		m_pContinueButton->GetPosition().y + m_pContinueButton->GetSize().fHeight + 15);
 	m_pExitButton->SetDelegate(this);
 	m_pExitButton->SetTag(cTitleScene::E_EXIT_BUTTON);
 	m_pUIRoot->AddChild(m_pExitButton);
