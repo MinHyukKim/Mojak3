@@ -59,12 +59,12 @@ private:
 	//cUiObject* m_pQuestUi;
 
 
-
 public:
 	virtual HRESULT Setup(void) override;
 	virtual void Reset(void) override;
 	virtual void Update(void) override;
 	virtual void Render(void) override;
+	string* m_pNextScene;
 
 	// iButtonDelegate override
 	virtual void OnClick(cUIButton* pSender) override;
