@@ -13,27 +13,15 @@
 #include "cImage.h"
 
 cUiTestScene::cUiTestScene(void)
-	: m_pFont(NULL)
-	, m_isLbuttonDown(false)
-	, m_pSprite(NULL)
-	, m_pTexture(NULL)
-	, m_pUiRoot(NULL)
-	, m_pUiTestRoot(NULL)
-	, m_isMainMin(false)
-	, m_pMainRootImageView(NULL)
-	, m_pMainMainButton(NULL)
-	, m_pUiTesterSize(NULL)
+	: m_pFont(NULL), m_isLbuttonDown(false), m_pSprite(NULL)
+	, m_pTexture(NULL), m_pUiRoot(NULL), m_pUiTestRoot(NULL)
+	, m_isMainMin(false), m_pMainRootImageView(NULL)
+	, m_pMainMainButton(NULL), m_pUiTesterSize(NULL)
 	//열고닫힘 여부
-	, m_isMainWindowOn(false)
-	, m_isInfoWindowOn(false)
-	, m_isSkillWindowOn(false)
-	, m_isQuestWindowOn(false)
-	, m_isInventoryWindowOn(false)
+	, m_isMainWindowOn(false), m_isInfoWindowOn(false), m_isSkillWindowOn(false)
+	, m_isQuestWindowOn(false), m_isInventoryWindowOn(false)
 	//
-	, m_pInfoUi(NULL)
-	, m_pSkillUi(NULL)
-	, m_pQuestUi(NULL)
-	, m_pInventoryUi(NULL)
+	, m_pInfoUi(NULL), m_pSkillUi(NULL), m_pQuestUi(NULL), m_pInventoryUi(NULL)
 	, invX(20)
 	, invY(20)
 	, skillX(680)
@@ -50,11 +38,9 @@ cUiTestScene::cUiTestScene(void)
 	, m_isSubHandMount(false)
 	, m_isShoesMount(-1)
 	//임시 플레이어
-	, m_pPlayer(NULL)
-	, m_pMainCamera(NULL)
+	, m_pPlayer(NULL), m_pMainCamera(NULL)
 	//임시 스탯
-	, m_nTempMaxHP(70), m_nTempHP(70)
-	, m_nTempMaxMP(60), m_nTempMP(60)
+	, m_nTempMaxHP(70), m_nTempHP(70), m_nTempMaxMP(60), m_nTempMP(60)
 	, m_nTempMaxStamina(75), nTempStamina(75)
 	, m_nTempSTR(30), m_nTempINT(23), m_nTempWill(33), m_nTempLuck(19), m_nTempWorkmanship(26)
 	, m_nTempDamege(24), m_nTempTotalDamage(24)
@@ -103,6 +89,9 @@ cUiTestScene::cUiTestScene(void)
 	, m_eQuickSiot05(E_QUICK_SIOT_NONE_05)
 	//퀘스트 여부에 따른 대사
 	, m_eDialogStat(E_NONE_QUEST)
+	//여우잡이 카운터
+	, m_nKillFox(0), m_nKillFoxMax(3)
+	, isSceen(false)
 {
 	D3DXMatrixIdentity(&m_matWorldMatrix);
 	m_vecTempPlayerItem.reserve(INVMAX);
@@ -324,6 +313,13 @@ void cUiTestScene::Update(void)
 	//대화 변경
 	this->changeDialogText();
 //	m_vecTempPlayerItem.resize(INVMAX);
+
+	////플레이어 얻고 씬 변경
+	//if (this->Sceen())
+	//{
+	//	g_pSceneManager->ChangeScene(LOGOFF_SCENE);
+	//	return;
+	//}
 }
 
 void cUiTestScene::Render(void)
@@ -380,7 +376,6 @@ bool cUiTestScene::GetMoveingOK()
 	
 	return true;
 }
-
 
 //딜리게이트(클릭)
 void cUiTestScene::OnClick(cUIButton * pSender)
@@ -498,9 +493,11 @@ void cUiTestScene::OnClick(cUIButton * pSender)
 			m_nDialogTextNum = 0;
 		}
 	}
+	//종료(메인으로 돌리기)
 	else if (pSender->GetTag() == E_BUTTON_EXIT)
 	{
-		PostQuitMessage(0);
+	//	PostQuitMessage(0);
+		isSceen = true;
 	}
 	//ap 수련 관련
 	else if (pSender->GetTag() == E_BUTTON_USE_SMASH)
@@ -619,7 +616,10 @@ void cUiTestScene::OnClick(cUIButton * pSender)
 		//퀘 수락 버튼
 		else if (pSender->GetTag() == E_BUTTON_DIALOG_ACCEPT)
 		{
+			//대사를 퀘 수락 상태로 변경
 			m_eDialogStat = E_QUEST;
+			//몹 클리어데스 시키기
+			g_pObjectManager->ClearDeath();
 		}
 	}
 
@@ -683,4 +683,11 @@ void cUiTestScene::changeMainButtonColor(void)
 void cUiTestScene::MsgProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 {
 
+}
+
+
+bool cUiTestScene::Sceen()
+{
+//	if (this->GetMoveingOK()) false;
+	return true;
 }

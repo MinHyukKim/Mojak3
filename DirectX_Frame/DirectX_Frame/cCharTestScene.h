@@ -1,6 +1,8 @@
 #pragma once
 #include "cSceneObject.h"
 
+#define LOGOFF_SCENE "cTitleScene" 
+
 class cCamera;
 class cGrid;
 class cMapTerrain;

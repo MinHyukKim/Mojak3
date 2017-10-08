@@ -3,7 +3,15 @@
 #include "cUIButton.h"
 #include "cAbilityParamter.h"
 
+//"cMapToolScene", 
+//"cUiTestScene", 
+//"cCharTestScene", 
+//"cChareterCustomScene",
+//"cUiCustomizingScene",
+//"cLodingScene", 
+//"cTitleScene",
 #define INVMAX 60
+#define LOGOFF_SCENE "cTitleScene" 
 
 //태스트
 class cFont;
@@ -377,6 +385,7 @@ private:
 	cUIButton* m_pQuestUseImage;		//있는 퀘 이미지
 	cUITextView* m_pQuestUseText;		//있는 퀘 택스트
 	eDialogStat m_eDialogStat;			//퀘 여부에 따른 대사 변경
+	int m_nKillFox; int m_nKillFoxMax;	//여우잡이 숫자
 	bool m_isQuestFin;					//퀘 완료 여부
 	cUiObject* m_pQuestUi;
 
@@ -474,8 +483,9 @@ private:
 	int m_nBasicDef;
 	int m_nWearDef;
 	int m_nShoesDef;
+
 	//월드박스
-	RECT WorldRc;
+	//RECT WorldRc;
 
 public:
 	virtual HRESULT Setup(void) override;
@@ -522,6 +532,8 @@ public:
 	//대화창 열고 닫기
 	bool GetDialogOpen() { return m_isDialogOpen; }
 	void SetDialogOpen(bool is) { m_isDialogOpen = is; }
+	//씬 넘기기용
+	bool Sceen();
 
 	//장비 장착 이넘문
 	ePlayerEquipTorso m_eEquipTorso;
@@ -530,6 +542,8 @@ public:
 
 	//어빌리티 연동
 	cAbilityParamter* GetAbilityParamter(void) { return &m_AbilityParamter; }
+	//태스트용
+	bool isSceen;
 
 	static cUiTestScene* Create(void);
 protected:
