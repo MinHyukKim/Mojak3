@@ -139,6 +139,7 @@ void cUiTestScene::SetupDialogUi(void)
 
 	//퀘 수락 버튼
 	m_pDialogAcceptButton = cUIButton::Create();
+	m_pDialogAcceptButton->SetPosition(250, 100);
 	m_pDialogUi->AddChild(m_pDialogAcceptButton);
 	//퀘수락 택스트
 	m_pDialogAcceptText = cUITextView::Create();
@@ -175,6 +176,20 @@ void cUiTestScene::changeDialogText(void)
 				m_pDialogText->SetSize(ST_SIZE(300, 80));
 				m_pDialogText->SetPosition(-20, 20);
 			}
+			else if (m_eDialogNPCKind == E_DIALOG_NPC_NAO && m_eDialogStat == E_FIN_QUEST)
+			{
+				m_pDialogText->SetText("평화로운 여우들을 전부 죽이셨군요");
+				m_pDialogText->SetSize(ST_SIZE(300, 80));
+				m_pDialogText->SetPosition(-0, 20);
+			}
+			else if (m_eDialogNPCKind == E_DIALOG_NPC_NAO && m_eDialogStat == E_END_QUEST)
+			{
+				m_pDialogText->SetText("안녕하세요 누추하신 가정파괴자님");
+				m_pDialogText->SetSize(ST_SIZE(300, 80));
+				m_pDialogText->SetPosition(-0, 20);
+				m_pDialogAcceptButton->SetTag(E_BUTTON_NONE);
+				m_pDialogAcceptText->SetColor(D3DCOLOR_XRGB(180, 180, 180));
+			}
 		}
 		break;
 		case 1:
@@ -192,6 +207,20 @@ void cUiTestScene::changeDialogText(void)
 				m_pDialogText->SetSize(ST_SIZE(300, 80));
 				m_pDialogText->SetPosition(-20, 20);
 			}
+			else if (m_eDialogNPCKind == E_DIALOG_NPC_NAO && m_eDialogStat == E_FIN_QUEST)
+			{
+				m_pDialogText->SetText("정-말 잘하셨어요");
+				m_pDialogText->SetSize(ST_SIZE(300, 80));
+				m_pDialogText->SetPosition(-40, 20);
+			}
+			else if (m_eDialogNPCKind == E_DIALOG_NPC_NAO && m_eDialogStat == E_END_QUEST)
+			{
+				m_pDialogText->SetText("보상이 맘에 드시기 바랍니다");
+				m_pDialogText->SetSize(ST_SIZE(300, 80));
+				m_pDialogText->SetPosition(-40, 20);
+				m_pDialogAcceptButton->SetTag(E_BUTTON_NONE);
+				m_pDialogAcceptText->SetColor(D3DCOLOR_XRGB(180, 180, 180));
+			}
 		}
 		break;
 		case 2:
@@ -203,7 +232,6 @@ void cUiTestScene::changeDialogText(void)
 				m_pDialogText->SetPosition(-10, 20);
 				//퀘수락 버튼 켜기
 				m_isDialogFin = true;
-
 				//수락 버튼 활성화
 				m_pDialogAcceptButton->SetTexture("Texture/Ui/textButtonUp6024.png",
 					"Texture/Ui/textButtonUp6024.png", "Texture/Ui/textButtonDown6024.png");
@@ -224,6 +252,29 @@ void cUiTestScene::changeDialogText(void)
 				m_pDialogText->SetText("가서 여우들을 조지세요");
 				m_pDialogText->SetSize(ST_SIZE(300, 80));
 				m_pDialogText->SetPosition(-20, 20);
+				//버튼 막기
+				m_pDialogAcceptButton->SetTexture("Texture/Ui/textButtonUp6024.png",
+					"Texture/Ui/textButtonUp6024.png", "Texture/Ui/textButtonUp6024.png");
+				m_pDialogAcceptButton->SetTag(E_BUTTON_NONE);
+				m_pDialogAcceptText->SetColor(D3DCOLOR_XRGB(180, 180, 180));
+			}
+			else if (m_eDialogNPCKind == E_DIALOG_NPC_NAO && m_eDialogStat == E_FIN_QUEST)
+			{
+				m_pDialogText->SetText("여기 당신의 보상이 있습니다");
+				m_pDialogText->SetSize(ST_SIZE(300, 80));
+				m_pDialogText->SetPosition(0, 20);
+				//보상 버튼 켜기
+				m_pDialogAcceptButton->SetTexture("Texture/Ui/textButtonUp6024.png",
+					"Texture/Ui/textButtonUp6024.png", "Texture/Ui/textButtonDown6024.png");
+				m_pDialogAcceptButton->SetTag(E_BUTTON_DIALOG_REWARD);
+				m_pDialogAcceptText->SetText("보상");
+				m_pDialogAcceptText->SetColor(D3DCOLOR_XRGB(255, 255, 255));
+			}
+			else if (m_eDialogNPCKind == E_DIALOG_NPC_NAO && m_eDialogStat == E_END_QUEST)
+			{
+				m_pDialogText->SetText("당신의 여행에 행운이 있기를 바랍니다");
+				m_pDialogText->SetSize(ST_SIZE(300, 80));
+				m_pDialogText->SetPosition(0, 20);
 				//버튼 막기
 				m_pDialogAcceptButton->SetTexture("Texture/Ui/textButtonUp6024.png",
 					"Texture/Ui/textButtonUp6024.png", "Texture/Ui/textButtonUp6024.png");
