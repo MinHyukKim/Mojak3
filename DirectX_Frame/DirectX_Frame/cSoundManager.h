@@ -25,16 +25,13 @@ public:
 
 private:
 	Channel* _channel;
-	Sound** _sound;
 	System* _system;
 
 	arrSounds _mTotalSounds;
 	arrChannels _mTotalChannels;
 public:
-	virtual HRESULT Init(void);
-	void Destroy(void);
-
-
+	virtual HRESULT Setup(void);
+	virtual void Destroy(void);
 	virtual void Update(void);
 
 

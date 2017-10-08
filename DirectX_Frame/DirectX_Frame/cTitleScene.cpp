@@ -128,7 +128,8 @@ HRESULT cTitleScene::Setup(void)
 	m_pExitButton->SetTag(cTitleScene::E_EXIT_BUTTON);
 	m_pUIRoot->AddChild(m_pExitButton);
 
-
+	g_pSoundManager->AddSound("titleBGM", "Sound/Title.mp3", true, true);
+	g_pSoundManager->Play("titleBGM");
 	return S_OK;
 }
 
@@ -143,6 +144,8 @@ void cTitleScene::Reset(void)
 	//g_pMapObjectManager->Destroy();
 	SAFE_RELEASE(m_pUIRoot);
 	SAFE_DELETE(m_pNextScene);
+
+	g_pSoundManager->Stop("titleBGM");
 
 }
 
