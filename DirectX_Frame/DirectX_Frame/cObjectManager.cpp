@@ -146,6 +146,15 @@ void cObjectManager::GetNextTarget(cPlayer ** ppTarget, LPD3DXVECTOR3 pCenter, f
 	}
 }
 
+void cObjectManager::ClearDeath(void)
+{
+	for each (auto pUnit in m_vecDeath)
+	{
+		pUnit->Release();
+	}
+	m_vecDeath.clear();
+}
+
 void cObjectManager::RegisterPlayer(IN cPlayer* pPlayer)
 {
 	SAFE_RELEASE(m_pPlayer);
@@ -509,7 +518,7 @@ bool cObjectManager::CreateNPC(IN UNIT_TYPE eNPCKey, IN LPD3DXVECTOR3 pPostion)
 			pCreateNPC->ChangeMeshPart(cPlayer::MESH_BODY, g_pSkinnedMeshManager->GetSkinnedMesh("나오메시"));
 			pCreateNPC->RegisterAnimation(cPlayer::ANIMATION_IDLE_FRIENDLY, g_pAnimationManager->GetAnimation("나오_기본01"));
 
-			pCreateNPC->GetAbilityParamter()->SetPlayerID(3);
+			pCreateNPC->GetAbilityParamter()->SetPlayerID(0);
 			pCreateNPC->GetAbilityParamter()->SetUnitID(cObjectManager::NPC_NAO);
 			pCreateNPC->OrderFriendly();
 		}
@@ -524,37 +533,31 @@ bool cObjectManager::CreateNPC(IN UNIT_TYPE eNPCKey, IN LPD3DXVECTOR3 pPostion)
 	return false;
 }
 
-void cObjectManager::AddReleaseMonster(IN cPlayer * pMonster)
+void cObjectManager::AddReleaseMonster(IN cPlayer* pMonster)
 {
 	if (!pMonster) return;
 	m_vecRelease.push_back(pMonster);
 }
 
-void cObjectManager::AddDeathUnit(IN cPlayer * pUnit)
+void cObjectManager::AddDeathUnit(IN cPlayer* pUnit)
 {
 	if (!pUnit) return;
-
 	m_vecDeath.push_back(pUnit);
 	pUnit->AddRef();
 }
 
 void cObjectManager::Destroy(void)
 {
+	m_vecRelease.clear();
 	if (m_pPlayer)
 	{
 		m_pPlayer->SetTarget(nullptr);
 		m_pPlayer->Release();
 	}
 	SAFE_RELEASE(m_pTerrain);
-	for each (auto pUnit in m_vecDeath)
-	{
-		pUnit->SetTarget(nullptr);
-		pUnit->Release();
-	}
-	m_vecDeath.clear();
+	this->ClearDeath();
 	for each (auto pMonster in m_vecMonster)
 	{
-		pMonster->SetTarget(nullptr);
 		pMonster->GetAbilityParamter()->SetEffective(false);
 		pMonster->Release();
 	}

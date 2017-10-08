@@ -57,6 +57,7 @@ public:
 	cPlayer* GetMinRangeMonster(cPlayer* pCenter, float fRange);	//대상과 가까운 몬스터를 찾는다.
 	void GetNextTarget(cPlayer** ppTarget, LPD3DXVECTOR3 pCenter, float fRange);
 
+	void ClearDeath(void);
 	void RegisterPlayer(IN cPlayer* pPlayer);
 	void SavePlayerData(IN LPCSTR FullPath);
 	void LoadPlayerData(IN LPCSTR FullPath);

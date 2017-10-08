@@ -38,6 +38,7 @@ cPlayer::~cPlayer(void)
 
 HRESULT cPlayer::Setup(void)
 {
+	SAFE_RELEASE(m_pActionMove);
 	m_pActionMove = cActionMove::Create();
 	m_pActionMove->SetTarget(this);
 	m_pActionDirection = cActionDirection::Create();
@@ -285,7 +286,7 @@ void cPlayer::SetupStandUp(void)
 		if (this->CheckState(PATTERN_DEATH))
 		{
 			m_dwNumRealdyState = 0;
-			switch (m_AbilityParamter.GetUnitID())
+			switch (m_AbilityParamter.GetPlayerID())
 			{
 			case 0/*NPC*/: break;
 
