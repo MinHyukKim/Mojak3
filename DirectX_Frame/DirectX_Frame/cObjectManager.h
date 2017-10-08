@@ -58,6 +58,8 @@ public:
 	void GetNextTarget(cPlayer** ppTarget, LPD3DXVECTOR3 pCenter, float fRange);
 
 	void ClearDeath(void);
+	DWORD ClearDeath(DWORD dwUnitID);
+	DWORD CheckDeath(DWORD dwUnitID);
 	void RegisterPlayer(IN cPlayer* pPlayer);
 	void SavePlayerData(IN LPCSTR FullPath);
 	void LoadPlayerData(IN LPCSTR FullPath);
