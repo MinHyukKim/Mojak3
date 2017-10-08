@@ -136,6 +136,7 @@ private:
 	DWORD m_dwNumRealdyFalse;
 	DWORD m_dwNumRealdyState;
 	DWORD m_dwNumRealdyParam;
+	DWORD m_dwNumRealdySound;
 	DWORD m_dwNumPattern;
 	DWORD m_dwNumState;
 	//애니메이션 컨트롤러에 메인 트랙 번호 (0 또는 1 트랙을 2개만 사용)
@@ -285,6 +286,8 @@ public:
 	DWORD GetRealdyFalse(void) { return m_dwNumRealdyFalse; }
 	void SetRealdyState(DWORD dwValue) { m_dwNumRealdyState = dwValue; }
 	DWORD GetRealdyState(void) { return m_dwNumRealdyState; }
+	void SetRealdySound(DWORD dwValue) { m_dwNumRealdySound = dwValue; }
+	DWORD GetRealdySound(void) { return m_dwNumRealdySound; }
 
 	//반환함수
 	cAbilityParamter* GetAbilityParamter(void) { return &m_AbilityParamter; }

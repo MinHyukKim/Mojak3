@@ -20,6 +20,7 @@ cPlayer::cPlayer(void)
 	, m_dwNumPattern(PATTERN_NORMAL)
 	, m_dwNumState(cPlayer::ORDER_NULL)
 	, m_dwNumRealdyParam(0)
+	, m_dwNumRealdySound(0)
 	, m_bCurrentTrack(false)
 	, m_bHitAnimation(false)
 	, m_fRadius(0.3f)
@@ -77,7 +78,8 @@ HRESULT cPlayer::Setup(void)
 void cPlayer::Reset(void)
 {
 	for each(auto p in m_vecMesh) SAFE_DELETE(p);
-
+	for each(auto p in m_vecSoundKey) SAFE_DELETE_ARRAY(p);
+	
 	SAFE_RELEASE(m_skill);
 	SAFE_RELEASE(m_pCamera);
 	SAFE_RELEASE(m_pTarget);
@@ -366,6 +368,11 @@ void cPlayer::PatternUpdate(void)
 		{
 			this->SetStatePattern(m_dwNumRealdyState);
 		}
+		if (m_dwNumRealdySound)
+		{
+			g_pSoundManager->Play(m_vecSoundKey[m_dwNumRealdySound]);
+			m_dwNumRealdySound = 0;
+		}
 	}
 }
 
@@ -451,6 +458,8 @@ void cPlayer::OrderTarget(void)
 
 							m_pTarget->SetRealdyTrue(PATTERN_TARGET | PATTERN_STOP | PATTERN_ATTACK | PATTERN_WALK | PATTERN_RUN);
 							m_pTarget->SetRealdyState(cPlayer::ORDER_OFFENSIVE);
+							//반격 사운드
+							m_pTarget->SetRealdySound(cPlayer::SOUND_ATTACK1);
 
 							//공격
 							this->m_AbilityParamter.SetDelayTime(fDelay * 0.3f);
@@ -467,6 +476,9 @@ void cPlayer::OrderTarget(void)
 							this->m_AbilityParamter.SetDelayTime(fDelay - 0.1f);
 							this->SetRealdyTrue(PATTERN_TARGET | PATTERN_STOP | PATTERN_ATTACK | PATTERN_WALK | PATTERN_RUN);
 							this->SetRealdyState(cPlayer::ORDER_OFFENSIVE);
+							//스매시 공격 사운드
+							this->SetRealdySound(cPlayer::SOUND_ATTACK1);
+
 							//피격
 							m_pTarget->SetBlendingAnimation(cPlayer::ANIMATION_GROGGY, fDelay * 0.3f);
 							m_pTarget->GetAbilityParamter()->SetDelayTime(fDelay * 0.3f);
@@ -498,6 +510,8 @@ void cPlayer::OrderTarget(void)
 
 							m_pTarget->SetRealdyTrue(PATTERN_TARGET | PATTERN_STOP | PATTERN_ATTACK | PATTERN_WALK | PATTERN_RUN);
 							m_pTarget->SetRealdyState(cPlayer::ORDER_OFFENSIVE);
+							//반격 사운드
+							m_pTarget->SetRealdySound(cPlayer::SOUND_ATTACK1);
 
 							//공격
 							this->m_AbilityParamter.SetDelayTime(fDelay * 0.3f);
@@ -513,6 +527,8 @@ void cPlayer::OrderTarget(void)
 							this->m_AbilityParamter.SetDelayTime(fDelay - 0.1f);
 							this->SetRealdyTrue(PATTERN_TARGET | PATTERN_STOP | PATTERN_ATTACK | PATTERN_WALK | PATTERN_RUN);
 							this->SetRealdyState(cPlayer::ORDER_OFFENSIVE);
+							//일반 공격 사운드
+							this->SetRealdySound(cPlayer::SOUND_ATTACK1);
 							//피격
 							m_pTarget->GetAbilityParamter()->SetDelayTime(fDelay * 0.3f);
 							m_pTarget->GetAbilityParamter()->SetDownGauge(m_pTarget->GetAbilityParamter()->GetDownGauge() + this->GetAbilityParamter()->GetPower());
