@@ -128,7 +128,7 @@ HRESULT cTitleScene::Setup(void)
 	m_pExitButton->SetTag(cTitleScene::E_EXIT_BUTTON);
 	m_pUIRoot->AddChild(m_pExitButton);
 
-	g_pSoundManager->AddSound("titleBGM", "Sound/Title.mp3", true, true);
+	
 	g_pSoundManager->Play("titleBGM");
 	return S_OK;
 }
