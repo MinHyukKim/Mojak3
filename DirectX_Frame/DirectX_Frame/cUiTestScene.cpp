@@ -121,7 +121,7 @@ HRESULT cUiTestScene::Setup(void)
 	GetClientRect(g_hWnd, &m_Wrc);
 
 	mainUiLocalX = m_Wrc.right / 2 - 220;			//메인 틀 x 300
-	mainUiLocalY = m_Wrc.bottom / 2 + 235;			//메인 틀 y 502
+	mainUiLocalY = m_Wrc.bottom/* / 2 + 235*/;			//메인 틀 y 502
 	mainButtonH = -25;			//메인 버튼들 높이 -25
 	mainButtoninterval = 40;	//메인 버튼들 가로 간격(크기) 40
 	mainButtonSrart = 160;		//메인 버튼들 최초 시작 위치 160
@@ -303,6 +303,11 @@ void cUiTestScene::Update(void)
 		m_nTempMagicDefense -= 1;
 		m_nTempMagicProtect -= 1;
 		m_nTempArmorPiercing += 1;
+	}
+	if (g_pInputManager->IsOnceKeyDown('N'))
+	{
+		g_pObjectManager->GetPlayer()->GetAbilityParamter()->SetEXP(
+			g_pObjectManager->GetPlayer()->GetAbilityParamter()->GetEXP() + 20.0f);
 	}
 
 	if (m_pUiTestRoot) m_pUiTestRoot->Update();

@@ -18,7 +18,7 @@ void cUiTestScene::SetupBaseButton(void)
 	//테스트용 메인버튼들mainUiLocalX, mainUiLocalY
 	m_pMainRootImageView = cUIImageView::Create();
 	m_pMainRootImageView->SetTexture("Texture/Ui/TestRoot2.png");
-	m_pMainRootImageView->SetPosition(mainUiLocalX, mainUiLocalY);
+	m_pMainRootImageView->SetPosition(mainUiLocalX, mainUiLocalY - m_pMainRootImageView->stImageInfo.Height);
 	m_pMainRootImageView->m_Alpha = 200;
 	m_pUiRoot = m_pMainRootImageView;
 
@@ -324,7 +324,7 @@ void cUiTestScene::UpdateMainUi(void)
 	//메인창 내리기
 	if (m_isMainMin == true)
 	{
-		m_pMainRootImageView->SetPosition(mainUiLocalX, mainUiLocalY + 18);
+		m_pMainRootImageView->SetPosition(mainUiLocalX, mainUiLocalY - m_pMainRootImageView->stImageInfo.Height + (m_pMainRootImageView->stImageInfo.Height / 2));
 		m_pInfoButton->SetPosition(1000, 1000);
 		m_pSkillButton->SetPosition(1000, 1000);
 		m_pQuestButton->SetPosition(1000, 1000);
@@ -349,7 +349,7 @@ void cUiTestScene::UpdateMainUi(void)
 	else
 	{
 		//제자리
-		m_pMainRootImageView->SetPosition(mainUiLocalX, mainUiLocalY);
+		m_pMainRootImageView->SetPosition(mainUiLocalX, mainUiLocalY - m_pMainRootImageView->stImageInfo.Height);
 
 		m_pInfoButton->SetPosition(mainButtonSrart, mainButtonH);
 		m_pSkillButton->SetPosition(mainButtonSrart + mainButtoninterval, mainButtonH);

@@ -531,6 +531,10 @@ void cUiTestScene::UpdateInfoUi(void)
 		, g_pObjectManager->GetPlayer()->GetAbilityParamter()->GetMaxStamina());
 	m_pTempInfoStamina->SetText(szStamina);
 
+	//레벨
+	char szLevel[32] = { '\0', };
+	sprintf_s(szLevel, "레벨             %d", g_pObjectManager->GetPlayer()->GetAbilityParamter()->GetLevel());
+	m_pInfoLevel->SetText(szLevel);
 	
 	char szEXP[32] = { '\0', };
 	sprintf_s(szEXP, "경험치          %.1f %%"
@@ -641,6 +645,7 @@ void cUiTestScene::LevelUp(void)
 			- g_pObjectManager->GetPlayer()->GetAbilityParamter()->GetMaxEXP();
 
 		//레벨 올리고 경험치 초기화 + 잔여 더하기
+		//레벨업
 		g_pObjectManager->GetPlayer()->GetAbilityParamter()->SetLevel(
 			g_pObjectManager->GetPlayer()->GetAbilityParamter()->GetLevel() + 1);
 		//경험치
@@ -649,5 +654,21 @@ void cUiTestScene::LevelUp(void)
 		//최대 경험치도 올리기
 		g_pObjectManager->GetPlayer()->GetAbilityParamter()->SetMaxEXP(
 			g_pObjectManager->GetPlayer()->GetAbilityParamter()->GetMaxEXP() + 25.0f);
+		//체력 증가 및 회복
+		g_pObjectManager->GetPlayer()->GetAbilityParamter()->SetMaxHP(
+			g_pObjectManager->GetPlayer()->GetAbilityParamter()->GetMaxHP() + 5);
+		g_pObjectManager->GetPlayer()->GetAbilityParamter()->SetMinHP(
+			g_pObjectManager->GetPlayer()->GetAbilityParamter()->GetMaxHP());
+		//마나 증가 및 회복
+		g_pObjectManager->GetPlayer()->GetAbilityParamter()->SetMaxMP(
+			g_pObjectManager->GetPlayer()->GetAbilityParamter()->GetMaxMP() + 5);
+		g_pObjectManager->GetPlayer()->GetAbilityParamter()->SetMinMP(
+			g_pObjectManager->GetPlayer()->GetAbilityParamter()->GetMaxMP());
+		//스태미나 증가 및 회복
+		g_pObjectManager->GetPlayer()->GetAbilityParamter()->SetMaxStamina(
+			g_pObjectManager->GetPlayer()->GetAbilityParamter()->GetMaxStamina() + 5);
+		g_pObjectManager->GetPlayer()->GetAbilityParamter()->SetMinStamina(
+			g_pObjectManager->GetPlayer()->GetAbilityParamter()->GetMaxStamina());
+		//
 	}
 }
