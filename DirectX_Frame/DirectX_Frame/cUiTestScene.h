@@ -70,6 +70,8 @@ enum
 	E_BUTTON_DIALOG_CLOSE,
 	//수락 버튼 Accept
 	E_BUTTON_DIALOG_ACCEPT,
+	//보상 버튼  reward
+	E_BUTTON_DIALOG_REWARD,
 	//종료 
 	E_BUTTON_EXIT,
 	//퀵슬롯
@@ -544,6 +546,8 @@ public:
 	cAbilityParamter* GetAbilityParamter(void) { return &m_AbilityParamter; }
 	//태스트용
 	bool isSceen;
+	//여우 킬 카운터
+	int m_nFoxKillCount;
 
 	static cUiTestScene* Create(void);
 protected:

@@ -90,7 +90,7 @@ cUiTestScene::cUiTestScene(void)
 	//퀘스트 여부에 따른 대사
 	, m_eDialogStat(E_NONE_QUEST)
 	//여우잡이 카운터
-	, m_nKillFox(0), m_nKillFoxMax(3)
+	, m_nKillFox(0), m_nKillFoxMax(3), m_nFoxKillCount(0)
 	, isSceen(false)
 {
 	D3DXMatrixIdentity(&m_matWorldMatrix);
@@ -620,6 +620,16 @@ void cUiTestScene::OnClick(cUIButton * pSender)
 			m_eDialogStat = E_QUEST;
 			//몹 클리어데스 시키기
 			g_pObjectManager->ClearDeath();
+		}
+		else if (pSender->GetTag() == E_BUTTON_DIALOG_REWARD)
+		{
+			//대화 상태를 퀘 종료로 변경
+			m_eDialogStat = E_END_QUEST;
+			//보상 주기
+			g_pObjectManager->GetPlayer()->GetAbilityParamter()->SetAP(
+				g_pObjectManager->GetPlayer()->GetAbilityParamter()->GetAP() + 250);
+			g_pObjectManager->GetPlayer()->GetAbilityParamter()->SetEXP(
+				g_pObjectManager->GetPlayer()->GetAbilityParamter()->GetEXP() + 25.0f);
 		}
 	}
 
