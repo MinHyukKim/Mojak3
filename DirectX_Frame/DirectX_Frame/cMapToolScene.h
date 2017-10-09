@@ -8,6 +8,7 @@ class cSkybox;
 //테스트용
 class cGrid;
 class cBuilding;
+class cFont;
 //class cMapObject;
 
 class cMapToolScene : public cSceneObject
@@ -33,6 +34,8 @@ private:
 	cSkybox*	m_pSkybox;
 
 	vector<char*> m_vecObjectList;
+
+	cFont* m_pText;
 
 	int currentMode;
 

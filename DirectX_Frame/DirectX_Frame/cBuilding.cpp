@@ -141,24 +141,25 @@ void cBuilding::Render(void)
 	}
 	g_pD3DDevice->SetRenderState(D3DRS_CULLMODE, D3DCULL_CCW);
 
-	if (m_pBoundBox != NULL)
-	{
-		D3DXMATRIXA16 mat = m_matWorld;
-		mat._42 += (maxY - minY) / 2.0f;
-		g_pD3DDevice->SetTransform(D3DTS_WORLD, &mat);
-		g_pD3DDevice->SetRenderState(D3DRS_FILLMODE, D3DFILL_WIREFRAME);
-		g_pD3DDevice->SetRenderState(D3DRS_CULLMODE, D3DCULL_NONE);
+	//바운드 박스는 현재 사용하지 않음
+	//if (m_pBoundBox != NULL)
+	//{
+	//	D3DXMATRIXA16 mat = m_matWorld;
+	//	mat._42 += (maxY - minY) / 2.0f;
+	//	g_pD3DDevice->SetTransform(D3DTS_WORLD, &mat);
+	//	g_pD3DDevice->SetRenderState(D3DRS_FILLMODE, D3DFILL_WIREFRAME);
+	//	g_pD3DDevice->SetRenderState(D3DRS_CULLMODE, D3DCULL_NONE);
 
-		D3DMATERIAL9 mtl = {};
-		mtl.Ambient = D3DXCOLOR(1.0f, 1.0f, 1.0f, 0.3f);
-		mtl.Diffuse = D3DXCOLOR(1.0f, 1.0f, 1.0f, 0.3f);
-		mtl.Specular = D3DXCOLOR(1.0f, 1.0f, 1.0f,0.3f);
-		g_pD3DDevice->SetMaterial(&mtl);
-		m_pBoundBox->DrawSubset(0);
-		g_pD3DDevice->SetRenderState(D3DRS_CULLMODE, D3DCULL_CCW);
-		g_pD3DDevice->SetRenderState(D3DRS_FILLMODE, D3DFILL_SOLID);
+	//	D3DMATERIAL9 mtl = {};
+	//	mtl.Ambient = D3DXCOLOR(1.0f, 1.0f, 1.0f, 0.3f);
+	//	mtl.Diffuse = D3DXCOLOR(1.0f, 1.0f, 1.0f, 0.3f);
+	//	mtl.Specular = D3DXCOLOR(1.0f, 1.0f, 1.0f,0.3f);
+	//	g_pD3DDevice->SetMaterial(&mtl);
+	//	m_pBoundBox->DrawSubset(0);
+	//	g_pD3DDevice->SetRenderState(D3DRS_CULLMODE, D3DCULL_CCW);
+	//	g_pD3DDevice->SetRenderState(D3DRS_FILLMODE, D3DFILL_SOLID);
 
-	}
+	//}
 
 }
 

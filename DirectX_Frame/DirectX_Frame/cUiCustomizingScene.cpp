@@ -102,6 +102,10 @@ cUiCustomizingScene * cUiCustomizingScene::Create(void)
 
 HRESULT cUiCustomizingScene::Setup(void)
 {
+	//ºê±Ý
+	//g_pSoundManager->AddSound("LodingMusic", "Sound/Title.mp3", true, false);
+	if (!g_pSoundManager->Play("charMake")) g_pSoundManager->Play("charMake");
+
 	D3DXCreateSprite(g_pD3DDevice, &m_pSprite);
 
 	D3DXIMAGE_INFO imageInfo;
@@ -153,10 +157,14 @@ void cUiCustomizingScene::Reset(void)
 
 	SAFE_RELEASE(m_pNameUi);
 	SAFE_RELEASE(m_pBackImage);
+	g_pSoundManager->Stop("charMake");
 }
 
 void cUiCustomizingScene::Update(void)
 {
+	//ºê±Ý Àç»ý
+//	if(!g_pSoundManager->Play("charMake")) g_pSoundManager->Play("charMake");
+
 	this->changeButtonColor();
 	SAFE_UPDATE(m_pPlayer);
 
@@ -341,7 +349,7 @@ void cUiCustomizingScene::OnClick(cUIButton * pSender)
 		}
 	}
 
-	//´«±ò º¯°æ
+	//´« º¯°æ
 	if (m_eCustomizingTab == E_CUSTOM_EYE)
 	{
 		if (pSender->GetTag() == E_EYE_SELECT_01)

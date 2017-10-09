@@ -10,6 +10,7 @@
 #include "cGrid.h"
 #include "cBuilding.h"
 #include "cSkybox.h"
+#include "cFont.h"
 
 cMapToolScene::cMapToolScene(void)
 	: m_pCamera(NULL)
@@ -79,6 +80,8 @@ HRESULT cMapToolScene::Setup(void)
 		".\\skyboxMap\\vanilla_sky_frost_ft.jpg", ".\\skyboxMap\\vanilla_sky_frost_bk.jpg");
 	g_pObjectManager->SetTerrain(m_pMapTerrain);
 	g_pMapObjectManager->SetMapTerrain(m_pMapTerrain);
+	m_pText = cFont::Create();
+	m_pText->Setup();
 	return S_OK;
 }
 
@@ -99,6 +102,7 @@ void cMapToolScene::Reset(void)
 	g_pObjectManager->DestroyNPC();
 
 	g_pMapObjectManager->DestroyBuilding();
+	SAFE_RELEASE(m_pText);
 
 	//g_pMapObjectManager->Destroy();
 
@@ -350,12 +354,33 @@ void cMapToolScene::Render(void)
 	SAFE_RENDER(m_pMapTerrain);
 	SAFE_RENDER(m_pGrid);
 
+
+
 	//SAFE_RENDER(m_pBuild);
 	g_pMapObjectManager->Render();
 	g_pObjectManager->monsterRender();
 
-	m_pPickPosition->Render();
-
+	switch (currentMode)
+	{
+	case E_MODE::M_NONE:
+	{
+		m_pText->SetText("NONE");
+		break;
+	}
+	case E_MODE::M_BUILD:
+	{
+		m_pText->SetText("ºôµù ¸ðµå");
+		break;
+	}
+	case E_MODE::M_MOB:
+	{
+		m_pText->SetText("¸÷ ¹èÄ¡ ¸ðµå");
+		break;
+	}
+	}
+	m_pText->SetColor(D3DCOLOR_XRGB(255,0,0));
+	m_pText->SetRectangle(10, 10, 200, 30);
+	m_pText->Render();
 }
 
 
@@ -374,6 +399,7 @@ void cMapToolScene::DeselectObjects()
 	{
 		g_pObjectManager->ResetMobSelect();
 	}
+	//currentMode = E_MODE::M_NONE;
 
 }
 

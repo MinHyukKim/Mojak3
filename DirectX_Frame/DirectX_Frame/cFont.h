@@ -1,6 +1,6 @@
 #pragma once
 
-#define FONT_STYLE "±√º≠√º"
+#define FONT_STYLE "µ∏øÚ√º ∫∏≈Î"
 #define FONT_LENGTH 32
 
 class cFont : public cObject
