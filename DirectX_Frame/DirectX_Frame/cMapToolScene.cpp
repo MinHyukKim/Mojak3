@@ -194,12 +194,14 @@ void cMapToolScene::Update(void)
 		}
 		else if (currentMode == E_MODE::M_MOB)
 		{
-			cPlayer* temp;
-			if ((temp = g_pObjectManager->GetSelectObject()) != NULL &&
-				g_pObjectManager->GetMode() == cObjectManager::MODE::PICK)
-				g_pObjectManager->AddReleaseMonster(temp);
-
-				//DeselectObjects();
+			D3DXVECTOR3 vPos, vDir;
+			g_pRay->RayAtWorldSpace(&vPos, &vDir);
+			cPlayer* pMonster = nullptr;
+			if (g_pObjectManager->GetMonster(&pMonster, &vPos, &vDir))
+			{
+				g_pObjectManager->AddReleaseMonster(pMonster);
+				g_pObjectManager->ReleaseUpdate();
+			}
 		}
 	}
 
