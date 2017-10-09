@@ -237,7 +237,7 @@ void cUiTestScene::SetupBaseButton(void)
 	m_pUiExitBackImage = cUIButton::Create();
 	m_pUiExitBackImage->SetTexture("Texture/Ui/extiBack.png",
 		"Texture/Ui/extiBack.png", "Texture/Ui/extiBack.png");
-	m_pUiExitBackImage->SetPosition(mainUiLocalX, mainUiLocalY - 40);
+	m_pUiExitBackImage->SetPosition(mainUiLocalX, mainUiLocalY - m_pMainRootImageView->stImageInfo.Height - 40);
 	m_pUiExitBackImage->SetDelegate(this);
 	m_pUiExitBackImage->m_Alpha = 180;
 	m_pUiExitBackImage->SetTag(E_BUTTON_NONE);
@@ -325,6 +325,7 @@ void cUiTestScene::UpdateMainUi(void)
 	if (m_isMainMin == true)
 	{
 		m_pMainRootImageView->SetPosition(mainUiLocalX, mainUiLocalY - m_pMainRootImageView->stImageInfo.Height + (m_pMainRootImageView->stImageInfo.Height / 2));
+		m_pUiExitBackImage->SetPosition(mainUiLocalX, mainUiLocalY - m_pMainRootImageView->stImageInfo.Height - 40 + (m_pMainRootImageView->stImageInfo.Height / 2));
 		m_pInfoButton->SetPosition(1000, 1000);
 		m_pSkillButton->SetPosition(1000, 1000);
 		m_pQuestButton->SetPosition(1000, 1000);
@@ -350,6 +351,7 @@ void cUiTestScene::UpdateMainUi(void)
 	{
 		//Á¦ÀÚ¸®
 		m_pMainRootImageView->SetPosition(mainUiLocalX, mainUiLocalY - m_pMainRootImageView->stImageInfo.Height);
+		m_pUiExitBackImage->SetPosition(mainUiLocalX, mainUiLocalY - m_pMainRootImageView->stImageInfo.Height - 40);
 
 		m_pInfoButton->SetPosition(mainButtonSrart, mainButtonH);
 		m_pSkillButton->SetPosition(mainButtonSrart + mainButtoninterval, mainButtonH);
