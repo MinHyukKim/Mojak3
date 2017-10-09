@@ -167,6 +167,7 @@ void cMapObjectManager::SaveCurrentObjectsState(const char * filename)
 			matTemp._21, matTemp._22, matTemp._23, matTemp._24,
 			matTemp._31, matTemp._32, matTemp._33, matTemp._34,
 			matTemp._41, matTemp._42, matTemp._43, matTemp._44);
+		fprintf(fp, "%f\n", v->GetOffsetY());
 	}
 
 	fclose(fp);
@@ -196,8 +197,13 @@ void cMapObjectManager::LoadCurrentObjectsState(const char * filename)
 			&matTemp._21, &matTemp._22, &matTemp._23, &matTemp._24,
 			&matTemp._31, &matTemp._32, &matTemp._33, &matTemp._34,
 			&matTemp._41, &matTemp._42, &matTemp._43, &matTemp._44);
+		
+
 		AppendBuilding(cTemp);
 		m_vecBuilding.back()->SetMatrix(matTemp);
+		float fTemp;
+		fscanf(fp, "%f\n", &fTemp);
+		m_vecBuilding.back()->SetOffsetY(fTemp);
 	}
 	fclose(fp);
 
