@@ -323,6 +323,18 @@ void cUiTestScene::Update(void)
 	this->LevelUp();
 //	m_vecTempPlayerItem.resize(INVMAX);
 
+	//여우잡을 때 경험치 추가
+	if (g_pObjectManager->ClearDeath(cObjectManager::MONSTER_FOX))
+	{
+		g_pObjectManager->GetPlayer()->GetAbilityParamter()->SetEXP(
+			g_pObjectManager->GetPlayer()->GetAbilityParamter()->GetEXP() + 5.0f);
+	}
+	else if (g_pObjectManager->ClearDeath(cObjectManager::MONSTER_BEAR))
+	{
+		g_pObjectManager->GetPlayer()->GetAbilityParamter()->SetEXP(
+			g_pObjectManager->GetPlayer()->GetAbilityParamter()->GetEXP() + 7.0f);
+	}
+
 	//브금 태스트
 //	if (g_pObjectManager->GetPlayer()->GetAbilityParamter()->GetDialogOpen() == true)
 //	{
