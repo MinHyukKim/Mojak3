@@ -108,9 +108,9 @@ HRESULT cLodingScene::Setup(void)
 	m_pData->RegisterSound("titleBGM", "Sound/Char_Select.mp3", true, true);
 	m_pData->RegisterSound("charMake", "Sound/Char_Making.mp3", true, true);
 	m_pData->RegisterSound("mapToolBGM", "Sound/nao_stage.mp3", true, true);
+	m_pData->RegisterSound("InGameBGM", "Sound/arena_field.mp3", true, true);
 	m_pData->RegisterSound("meetNao01", "Sound/nao_appear.mp3", true, false);
 	m_pData->RegisterSound("meetNao02", "Sound/nao_talk.mp3", true, false);
-
 	//È¿°úÀ½
 	m_pData->RegisterSound("Attack01", "Sound/woodblunt_hit.wav", false, false);
 	m_pData->RegisterSound("Attack02", "Sound/woodblunt_blow.wav", false, false);

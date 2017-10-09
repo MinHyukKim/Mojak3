@@ -52,8 +52,8 @@ void cDataLoder::RegisterTerrain(LPCSTR szHighMapKey, LPCSTR szTextureKey, LPCST
 
 void cDataLoder::RegisterSound(LPCSTR szSoundKey, LPCSTR szFilename, bool bBGM, bool bLoop)
 {
-	m_vecData.push_back(ST_DATA(cDataLoder::DATA_SOUND, szSoundKey, szFilename, "", nullptr, nullptr, bBGM << 1 + bLoop << 0));
-
+	int nParam = (bBGM << 1) + bLoop;
+	m_vecData.push_back(ST_DATA(cDataLoder::DATA_SOUND, szSoundKey, szFilename, "", nullptr, nullptr, nParam));
 }
 
 void cDataLoder::RegisterBuild(LPCSTR szstring1)

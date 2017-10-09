@@ -30,6 +30,8 @@ cCharTestScene::~cCharTestScene(void)
 
 HRESULT cCharTestScene::Setup(void)
 {
+	g_pSoundManager->Play("InGameBGM");
+
 	m_pCamera = g_pObjectManager->GetPlayer()->GetCamera();
 	m_pCamera->AddRef();
 
@@ -81,6 +83,9 @@ HRESULT cCharTestScene::Setup(void)
 
 void cCharTestScene::Reset(void)
 {
+
+	g_pSoundManager->Stop("InGameBGM");
+
 	SAFE_RELEASE(m_pNPC);
 	SAFE_RELEASE(m_pCamera);
 	SAFE_RELEASE(m_pMapTerrain);
