@@ -89,6 +89,8 @@ void cCharTestScene::Reset(void)
 	g_pObjectManager->DestroyMonster();
 	g_pObjectManager->DestroyNPC();
 
+	g_pMapObjectManager->DestroyBuilding();
+
 }
 
 void cCharTestScene::Update(void)
