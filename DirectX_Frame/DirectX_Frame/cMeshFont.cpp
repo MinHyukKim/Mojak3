@@ -51,7 +51,7 @@ void cMeshFont::Render(void)
 
 void cMeshFont::SetText(LPCSTR szText)
 {
-	float fScaling = 0.05f;
+	float fScaling = 0.1f;
 	D3DXMATRIXA16 matS;
 	D3DXMatrixScaling(&matS, fScaling, fScaling, fScaling);
 	D3DXMatrixTranslation(&m_matTranslation, -0.2f * strlen(szText), 0.0f, 0.0f);
