@@ -14,11 +14,11 @@
 
 void cUiTestScene::SetupDialogUi(void)
 {
-	//배이스
+	//배이스 m_Wrc.right / 2 - 500, m_Wrc.bottom / 2 + 100
 	m_pDialogBackGround = cUIButton::Create();
 	m_pDialogBackGround->SetTexture("Texture/Ui/dialog6.png",
 		"Texture/Ui/dialog6.png", "Texture/Ui/dialog6.png");
-	m_pDialogBackGround->SetPosition(m_Wrc.right / 2 - 500, m_Wrc.bottom / 2 + 100);
+	m_pDialogBackGround->SetPosition(m_Wrc.right / 2 - 500, (2.0f * (m_Wrc.bottom) / 3));
 	m_pDialogBackGround->SetDelegate(this);
 	m_pDialogBackGround->m_Alpha = 0;
 	m_pDialogBackGround->SetTag(E_BUTTON_NONE);
