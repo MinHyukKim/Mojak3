@@ -345,7 +345,7 @@ void cMapToolScene::DeselectObjects()
 	{
 		g_pObjectManager->ResetMobSelect();
 	}
-	currentMode = E_MODE::M_NONE;
+	//currentMode = E_MODE::M_NONE;
 
 }
 

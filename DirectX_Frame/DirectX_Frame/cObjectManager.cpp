@@ -8,6 +8,7 @@ cObjectManager::cObjectManager(void)
 	: m_pPlayer(nullptr)
 	, m_pTerrain(nullptr)
 	, m_nMonsterCursor(UNIT_TYPE::MONSTER_NULL+1)
+	, m_nMode(MODE::NOMAL)
 {
 }
 
@@ -305,6 +306,14 @@ void cObjectManager::SetupMonster()
 			m_pSelectMonster->AddRef();
 			this->AddReleaseMonster(m_pSelectMonster);
 		}
+		m_nMode = MODE::PICK;
+		return;
+	}
+
+	if (m_nMode == MODE::PICK)
+	{
+		m_vecMonster.push_back(m_pSelectMonster);
+		m_pSelectMonster = nullptr;
 		return;
 	}
 	m_vecMonster.push_back(m_pSelectMonster);

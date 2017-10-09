@@ -27,6 +27,12 @@ public:
 		MONSTER_END,
 		NPC_NAO,
 	};
+	enum MODE
+	{
+		NOMAL,
+		PICK,
+		END,
+	};
 
 private:
 	cPlayer* m_pPlayer;
@@ -41,6 +47,8 @@ private:
 
 	//선택된 몬스터
 	cPlayer* m_pSelectMonster;
+
+	int m_nMode;
 	
 public:
 	void Update(void);
