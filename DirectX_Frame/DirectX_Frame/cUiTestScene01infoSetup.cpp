@@ -723,5 +723,8 @@ void cUiTestScene::LevelUp(void)
 		//방관 증가
 		g_pObjectManager->GetPlayer()->GetAbilityParamter()->SetPenetration(
 			g_pObjectManager->GetPlayer()->GetAbilityParamter()->GetPenetration() + 0.5f);
+		//AP증가
+		g_pObjectManager->GetPlayer()->GetAbilityParamter()->SetAP(
+			g_pObjectManager->GetPlayer()->GetAbilityParamter()->GetAP() + 5);
 	}
 }
