@@ -28,27 +28,27 @@ void cUiCustomizingScene::SetupHairStyle(void)
 	m_pCustomHairUi->AddChild(m_pCustomHairImage);
 	//헤어 버튼1
 	m_pCustomHairSulastButton = cUIButton::Create();
-	m_pCustomHairSulastButton->SetTexture("Texture/Ui/buttonBase2.png",
-		"Texture/Ui/buttonBase2.png",
-		"Texture/Ui/buttonBase2Down.png");
+	m_pCustomHairSulastButton->SetTexture("Texture/Ui/buttonHair00Up.png",
+		"Texture/Ui/buttonHair00Up.png",
+		"Texture/Ui/buttonHair00Down.png");
 	m_pCustomHairSulastButton->SetPosition(10, 120);
 	m_pCustomHairSulastButton->SetDelegate(this);
 	m_pCustomHairSulastButton->SetTag(E_HAIR_SELECT_01);
 	m_pCustomHairUi->AddChild(m_pCustomHairSulastButton);
 	//2
 	m_pCustomHairSulastButton = cUIButton::Create();
-	m_pCustomHairSulastButton->SetTexture("Texture/Ui/buttonBase2.png",
-		"Texture/Ui/buttonBase2.png",
-		"Texture/Ui/buttonBase2Down.png");
+	m_pCustomHairSulastButton->SetTexture("Texture/Ui/buttonHair01Up.png",
+		"Texture/Ui/buttonHair01Up.png",
+		"Texture/Ui/buttonHair01Down.png");
 	m_pCustomHairSulastButton->SetPosition(70, 120);
 	m_pCustomHairSulastButton->SetDelegate(this);
 	m_pCustomHairSulastButton->SetTag(E_HAIR_SELECT_02);
 	m_pCustomHairUi->AddChild(m_pCustomHairSulastButton);
 	//3
 	m_pCustomHairSulastButton = cUIButton::Create();
-	m_pCustomHairSulastButton->SetTexture("Texture/Ui/buttonBase2.png",
-		"Texture/Ui/buttonBase2.png",
-		"Texture/Ui/buttonBase2Down.png");
+	m_pCustomHairSulastButton->SetTexture("Texture/Ui/buttonHair02Up.png",
+		"Texture/Ui/buttonHair02Up.png",
+		"Texture/Ui/buttonHair02Down.png");
 	m_pCustomHairSulastButton->SetPosition(130, 120);
 	m_pCustomHairSulastButton->SetDelegate(this);
 	m_pCustomHairSulastButton->SetTag(E_HAIR_SELECT_03);
