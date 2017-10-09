@@ -111,7 +111,7 @@ void cMapObjectManager::SetupBuilding(void)
 {
 	if (this->GetSelectObject() == NULL) return;
 	this->AppendBuilding(this->GetSelectObject());
-	m_vecBuilding.back()->SetPosition(&m_vLandPos);
+	//m_vecBuilding.back()->SetPosition(&m_vLandPos);
 }
 
 bool cMapObjectManager::PopMapObject()

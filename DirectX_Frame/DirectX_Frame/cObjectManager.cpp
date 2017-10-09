@@ -41,6 +41,7 @@ void cObjectManager::Update(void)
 		{
 			if (pRelease != *it) continue;
 			(*it)->GetAbilityParamter()->SetEffective(false);
+			SAFE_RELEASE(*it);
 			m_vecMonster.erase(it);
 			break;
 		}

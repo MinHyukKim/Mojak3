@@ -29,6 +29,7 @@ public:
 	virtual void Update(void);
 
 	void TestController(void);
+	void WorldController(void);
 	void MouseController(void);
 	void WheelController(void);
 
