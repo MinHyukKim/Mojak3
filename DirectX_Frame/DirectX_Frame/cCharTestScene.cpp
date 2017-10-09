@@ -74,6 +74,7 @@ HRESULT cCharTestScene::Setup(void)
 
 
 	g_pMapObjectManager->LoadCurrentObjectsState("data/merge.obj");
+	g_pObjectManager->LoadMonsterObjectState("data/merge.enm");
 
 	return S_OK;
 }
