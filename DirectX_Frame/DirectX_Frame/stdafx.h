@@ -57,6 +57,8 @@
 #include "cMapManager.h"	//¸Ê?
 #include "cFontManager.h"
 
+#include "cFont.h"
+
 //ÄÜ¼Ö µð¹ö±ë
 //#define CONSOLE_DEBUG_TEST
 

@@ -28,7 +28,6 @@ private:
 	cGrid* m_pGrid;
 	LPDIRECT3DTEXTURE9 m_pTexture;
 	D3DXMATERIAL m_stMtl;
-	cFont* m_pFont;
 
 	cBuilding* m_pBuild;
 	cSkybox*	m_pSkybox;
@@ -36,6 +35,8 @@ private:
 	vector<char*> m_vecObjectList;
 
 	int currentMode;
+
+	cFont* m_pPickPosition;
 
 public:
 	virtual HRESULT Setup(void) override;

@@ -18,6 +18,7 @@ cMapToolScene::cMapToolScene(void)
 	, m_pTexture(NULL)
 	, m_pGrid(NULL)
 	, m_pSkybox(nullptr)
+	, m_pPickPosition(nullptr)
 	, currentMode(E_MODE::M_BUILD)
 {
 	//테스트용
@@ -31,6 +32,14 @@ cMapToolScene::~cMapToolScene(void)
 
 HRESULT cMapToolScene::Setup(void)
 {
+	RECT rcTemp = {};
+	GetClientRect(g_hWnd, &rcTemp);
+	SAFE_RELEASE(m_pPickPosition);
+	m_pPickPosition = cFont::Create();
+	m_pPickPosition->Setup();
+	m_pPickPosition->DrawFont(0, rcTemp.bottom - 20, "피킹 좌표                  공백");
+	m_pPickPosition->SetColor(D3DCOLOR_XRGB(15, 15, 15));
+
 	g_pSoundManager->Play("mapToolBGM");
 	m_pCamera = cCamera::Create();
 	m_pCamera->Setup();
@@ -75,6 +84,8 @@ HRESULT cMapToolScene::Setup(void)
 
 void cMapToolScene::Reset(void)
 {
+	SAFE_RELEASE(m_pPickPosition);
+
 	g_pSoundManager->Stop("mapToolBGM");
 
 	SAFE_RELEASE(m_pCamera);
@@ -115,6 +126,7 @@ void cMapToolScene::Update(void)
 		m_pMapTerrain->Update();
 		if (currentMode == E_MODE::M_BUILD) g_pMapObjectManager->Update(m_pMapTerrain);
 		else if (currentMode == E_MODE::M_MOB) g_pObjectManager->SelectUpdate(m_pMapTerrain);
+		D3DXVECTOR3 vPosition;
 		if (g_pInputManager->IsStayKeyDown(VK_SHIFT))	//Shift 키가 눌리면
 		{
 			if (currentMode == E_MODE::M_BUILD)		//건물을 그리드 처럼 움직인다.
@@ -122,7 +134,8 @@ void cMapToolScene::Update(void)
 				cBuilding* pBuilding = g_pMapObjectManager->GetSelectObject();
 				if (pBuilding)	//선택된 건물이 있으면
 				{
-					D3DXVECTOR3 vPosition = pBuilding->GetPosition();
+					//x, z 좌표 반올림
+					vPosition = pBuilding->GetPosition();
 					vPosition.x = SetRound(vPosition.x);
 					vPosition.z = SetRound(vPosition.z);
 					m_pMapTerrain->GetHeight(&vPosition.y, vPosition.x, vPosition.z);
@@ -134,7 +147,8 @@ void cMapToolScene::Update(void)
 				cPlayer* pMonster = g_pObjectManager->GetSelectObject();
 				if (pMonster)	//선택된 건물이 있으면
 				{
-					D3DXVECTOR3 vPosition = pMonster->GetPosition();
+					//x, z 좌표 반올림
+					vPosition = pMonster->GetPosition();
 					vPosition.x = SetRound(vPosition.x);
 					vPosition.z = SetRound(vPosition.z);
 					m_pMapTerrain->GetHeight(&vPosition.y, vPosition.x, vPosition.z);
@@ -142,6 +156,22 @@ void cMapToolScene::Update(void)
 				}
 			}
 		}
+		else
+		{
+			if (currentMode == E_MODE::M_BUILD)
+			{
+				cBuilding* pBuilding = g_pMapObjectManager->GetSelectObject();
+				if (pBuilding) vPosition = pBuilding->GetPosition();
+			}
+			else if (currentMode == E_MODE::M_MOB)
+			{
+				cPlayer* pMonster = g_pObjectManager->GetSelectObject();
+				if (pMonster) vPosition = pMonster->GetPosition();
+			}
+		}
+		char szText[1024] = {};
+		sprintf_s(szText, "X %.2f,Y %.2f,Z %.2f", vPosition.x, vPosition.y, vPosition.z);
+		m_pPickPosition->SetText(szText);
 	}
 
 	//L버튼을 누르면 마지막으로 생성된 건물이 클릭한 위치로 이동
@@ -323,6 +353,8 @@ void cMapToolScene::Render(void)
 	//SAFE_RENDER(m_pBuild);
 	g_pMapObjectManager->Render();
 	g_pObjectManager->monsterRender();
+
+	m_pPickPosition->Render();
 
 }
 
