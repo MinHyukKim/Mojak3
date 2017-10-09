@@ -36,10 +36,9 @@ private:
 	vector<char*> m_vecObjectList;
 
 	cFont* m_pText;
+	cFont* m_pPickPosition;
 
 	int currentMode;
-
-	cFont* m_pPickPosition;
 
 public:
 	virtual HRESULT Setup(void) override;

@@ -113,7 +113,7 @@ void cMapToolScene::Update(void)
 {
 
 	m_pCamera->Update();
-	m_pCamera->TestController();
+	m_pCamera->WorldController();
 	m_pCamera->MouseController();
 	m_pCamera->WheelController();
 	//건물 바닥 높이 결정
@@ -381,6 +381,7 @@ void cMapToolScene::Render(void)
 	m_pText->SetColor(D3DCOLOR_XRGB(255,0,0));
 	m_pText->SetRectangle(10, 10, 200, 30);
 	m_pText->Render();
+	m_pPickPosition->Render();
 }
 
 
