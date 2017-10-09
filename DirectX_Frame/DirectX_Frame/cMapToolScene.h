@@ -28,6 +28,7 @@ private:
 	cGrid* m_pGrid;
 	LPDIRECT3DTEXTURE9 m_pTexture;
 	D3DXMATERIAL m_stMtl;
+	cFont* m_pFont;
 
 	cBuilding* m_pBuild;
 	cSkybox*	m_pSkybox;

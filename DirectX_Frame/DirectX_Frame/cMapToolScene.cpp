@@ -99,6 +99,8 @@ void cMapToolScene::Update(void)
 
 	m_pCamera->Update();
 	m_pCamera->TestController();
+	m_pCamera->MouseController();
+	m_pCamera->WheelController();
 	//건물 바닥 높이 결정
 	//float test_build_height = m_pBuild->GetPosY();
 	//m_pMapTerrain->GetHeight(&test_build_height, m_pBuild->GetPosX(), m_pBuild->GetPosZ());
@@ -110,20 +112,43 @@ void cMapToolScene::Update(void)
 
 	if (m_pMapTerrain)
 	{
-		g_pMapObjectManager->Update(m_pMapTerrain);
-		g_pObjectManager->SelectUpdate(m_pMapTerrain);
 		m_pMapTerrain->Update();
+		if (currentMode == E_MODE::M_BUILD) g_pMapObjectManager->Update(m_pMapTerrain);
+		else if (currentMode == E_MODE::M_MOB) g_pObjectManager->SelectUpdate(m_pMapTerrain);
+		if (g_pInputManager->IsStayKeyDown(VK_SHIFT))	//Shift 키가 눌리면
+		{
+			if (currentMode == E_MODE::M_BUILD)		//건물을 그리드 처럼 움직인다.
+			{
+				cBuilding* pBuilding = g_pMapObjectManager->GetSelectObject();
+				if (pBuilding)	//선택된 건물이 있으면
+				{
+					D3DXVECTOR3 vPosition = pBuilding->GetPosition();
+					vPosition.x = SetRound(vPosition.x);
+					vPosition.z = SetRound(vPosition.z);
+					m_pMapTerrain->GetHeight(&vPosition.y, vPosition.x, vPosition.z);
+					pBuilding->SetPosition(&vPosition);
+				}
+			}
+			else if (currentMode == E_MODE::M_MOB)	//몬스터를 그리드 처럼 움직인다.
+			{
+				cPlayer* pMonster = g_pObjectManager->GetSelectObject();
+				if (pMonster)	//선택된 건물이 있으면
+				{
+					D3DXVECTOR3 vPosition = pMonster->GetPosition();
+					vPosition.x = SetRound(vPosition.x);
+					vPosition.z = SetRound(vPosition.z);
+					m_pMapTerrain->GetHeight(&vPosition.y, vPosition.x, vPosition.z);
+					pMonster->SetPosition(&vPosition);
+				}
+			}
+		}
 	}
 
 	//L버튼을 누르면 마지막으로 생성된 건물이 클릭한 위치로 이동
 	if (g_pInputManager->IsOnceKeyDown(VK_LBUTTON))
 	{
-		if (currentMode == E_MODE::M_BUILD)
-			g_pMapObjectManager->SetupBuilding();
-		else if (currentMode == E_MODE::M_MOB)
-		{
-			g_pObjectManager->SetupMonster();
-		}
+		if (currentMode == E_MODE::M_BUILD) g_pMapObjectManager->SetupBuilding();
+		else if (currentMode == E_MODE::M_MOB) g_pObjectManager->SetupMonster();
 	}
 //
 //	//마지막으로 생성된 건물의 좌우 방향 변환
@@ -145,14 +170,14 @@ void cMapToolScene::Update(void)
 	{
 		if (g_pMapObjectManager->GetSelectObject() == NULL) return;
 		g_pMapObjectManager->GetSelectObject()->SetOffsetY(
-			g_pMapObjectManager->GetSelectObject()->GetOffsetY()+0.1f);
+			g_pMapObjectManager->GetSelectObject()->GetOffsetY()+0.001f);
 	}
 
 	if (g_pInputManager->IsStayKeyDown('K'))
 	{
 		if (g_pMapObjectManager->GetSelectObject() == NULL) return;
 		g_pMapObjectManager->GetSelectObject()->SetOffsetY(
-			g_pMapObjectManager->GetSelectObject()->GetOffsetY()-0.1f);
+			g_pMapObjectManager->GetSelectObject()->GetOffsetY()-0.001f);
 	}
 //
 //	//static float scaleTest = 1.0f;
@@ -160,12 +185,12 @@ void cMapToolScene::Update(void)
 	if (g_pInputManager->IsStayKeyDown('U'))
 	{
 		if (g_pMapObjectManager->GetSelectObject() == NULL) return;
-		g_pMapObjectManager->GetSelectObject()->OffsetScale(-0.01f);
+		g_pMapObjectManager->GetSelectObject()->OffsetScale(-0.001f);
 	}
 	if (g_pInputManager->IsStayKeyDown('O'))
 	{
 		if (g_pMapObjectManager->GetSelectObject() == NULL) return;
-		g_pMapObjectManager->GetSelectObject()->OffsetScale(0.01f);
+		g_pMapObjectManager->GetSelectObject()->OffsetScale(0.001f);
 	}
 
 	if (g_pInputManager->IsOnceKeyDown(VK_RBUTTON))

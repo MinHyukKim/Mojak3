@@ -260,6 +260,8 @@ inline bool CopyString(OUT LPSTR* ppTextCopy, IN LPCSTR pTextOrigin)
 	return false;
 }
 
+//반올림 함수
+inline int SetRound(float fValue) { return (int)(fValue + 0.5f); }
 
 //신디사이저 생성
 #define SYNTHESIZE(varType, varName, funName)\
