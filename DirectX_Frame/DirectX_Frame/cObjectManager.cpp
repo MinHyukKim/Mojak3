@@ -504,9 +504,14 @@ cPlayer* cObjectManager::CreateMonster(IN UNIT_TYPE eMonsterKey, IN LPD3DXVECTOR
 		pCreateMonster->RegisterAnimation(cPlayer::ANIMATION_DOWN_TO_STAND, g_pAnimationManager->GetAnimation("여우_다운투스텐드"), 5.0f);
 		pCreateMonster->RegisterAnimation(cPlayer::ANIMATION_COUNTER, g_pAnimationManager->GetAnimation("여우_카운터"), 2.0f);
 
-		pCreateMonster->RegisterSoundKey(cPlayer::SOUND_ATTACK01, "Attack01");
-		pCreateMonster->RegisterSoundKey(cPlayer::SOUND_ATTACK02, "Attack02");
-		pCreateMonster->RegisterSoundKey(cPlayer::SOUND_ATTACK03, "Attack02");
+		pCreateMonster->RegisterSoundKey(cPlayer::SOUND_ATTACK01, "Attack06");
+		pCreateMonster->RegisterSoundKey(cPlayer::SOUND_ATTACK02, "Attack07");
+		pCreateMonster->RegisterSoundKey(cPlayer::SOUND_ATTACK03, "Attack08");
+
+		pCreateMonster->GetAbilityParamter()->SetMinHP(60);
+		pCreateMonster->GetAbilityParamter()->SetMaxHP(60);
+		pCreateMonster->GetAbilityParamter()->SetMinDamage(1);
+		pCreateMonster->GetAbilityParamter()->SetBonusDamage(4);
 
 		pCreateMonster->GetAbilityParamter()->SetPlayerID(2);
 		pCreateMonster->GetAbilityParamter()->SetUnitID(eMonsterKey);
@@ -550,6 +555,11 @@ cPlayer* cObjectManager::CreateMonster(IN UNIT_TYPE eMonsterKey, IN LPD3DXVECTOR
 		pCreateMonster->RegisterSoundKey(cPlayer::SOUND_ATTACK01, "Attack03");
 		pCreateMonster->RegisterSoundKey(cPlayer::SOUND_ATTACK02, "Attack04");
 		pCreateMonster->RegisterSoundKey(cPlayer::SOUND_ATTACK03, "Attack05");
+
+		pCreateMonster->GetAbilityParamter()->SetMinHP(300);
+		pCreateMonster->GetAbilityParamter()->SetMaxHP(300);
+		pCreateMonster->GetAbilityParamter()->SetMinDamage(8);
+		pCreateMonster->GetAbilityParamter()->SetBonusDamage(14);
 
 		pCreateMonster->GetAbilityParamter()->SetPlayerID(2);
 		pCreateMonster->GetAbilityParamter()->SetUnitID(eMonsterKey);
