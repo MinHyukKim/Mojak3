@@ -71,6 +71,9 @@ HRESULT cCharTestScene::Setup(void)
 		".\\skyboxMap\\vanilla_sky_frost_lf.jpg", ".\\skyboxMap\\vanilla_sky_frost_rt.jpg",
 		".\\skyboxMap\\vanilla_sky_frost_ft.jpg", ".\\skyboxMap\\vanilla_sky_frost_bk.jpg");
 
+
+	g_pMapObjectManager->LoadCurrentObjectsState("data/merge.obj");
+
 	return S_OK;
 }
 
