@@ -324,7 +324,7 @@ void cMapToolScene::Render(void)
 		break;
 	}
 	}
-	//ftext->SetColor(RGB(255,0,0));
+	m_pText->SetColor(D3DCOLOR_XRGB(255,0,0));
 	m_pText->SetRectangle(10, 10, 200, 30);
 	m_pText->Render();
 }
@@ -345,6 +345,7 @@ void cMapToolScene::DeselectObjects()
 	{
 		g_pObjectManager->ResetMobSelect();
 	}
+	currentMode = E_MODE::M_NONE;
 
 }
 

@@ -296,7 +296,17 @@ void cObjectManager::ResetMobSelect(void)
 
 void cObjectManager::SetupMonster()
 {
-	if (this->GetSelectObject() == NULL) return;
+	if (this->GetSelectObject() == NULL)
+	{
+		D3DXVECTOR3 vPos, vOrg, vDir;
+		g_pRay->RayAtWorldSpace(&vOrg, &vDir);
+		if (GetMonster(&m_pSelectMonster, &vOrg, &vDir))
+		{
+			m_pSelectMonster->AddRef();
+			this->AddReleaseMonster(m_pSelectMonster);
+		}
+		return;
+	}
 	m_vecMonster.push_back(m_pSelectMonster);
 
 	D3DXVECTOR3 vPos, vOrg, vDir;
