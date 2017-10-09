@@ -75,6 +75,7 @@ public:
 	std::vector<cPlayer*>* GetMonsterVectorPointer(void) { return &m_vecMonster; }
 	bool GetMonster(OUT cPlayer** ppMonster, IN LPD3DXVECTOR3 pRay, IN LPD3DXVECTOR3 pDir);
 	bool GetNPC(OUT cPlayer** ppNPC, IN LPD3DXVECTOR3 pRay, IN LPD3DXVECTOR3 pDir);
+	int GetMode() { return m_nMode; }
 
 	float GetMapHeight(cPlayer*);
 

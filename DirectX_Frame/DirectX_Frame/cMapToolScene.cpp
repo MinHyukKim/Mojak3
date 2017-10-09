@@ -126,10 +126,27 @@ void cMapToolScene::Update(void)
 			g_pMapObjectManager->SetupBuilding();
 		else if (currentMode == E_MODE::M_MOB)
 		{
-			//if(g_pObjectManager->GetMonster())
 			g_pObjectManager->SetupMonster();
 		}
 	}
+	if (g_pInputManager->IsOnceKeyDown(VK_RBUTTON))
+	{
+		if (currentMode == E_MODE::M_BUILD)
+		{
+			if (g_pMapObjectManager->GetSelectObject() == NULL) return;
+			g_pMapObjectManager->PopMapObject();
+		}
+		else if (currentMode == E_MODE::M_MOB)
+		{
+			cPlayer* temp;
+			if ((temp = g_pObjectManager->GetSelectObject()) != NULL &&
+				g_pObjectManager->GetMode() == cObjectManager::MODE::PICK)
+				g_pObjectManager->AddReleaseMonster(temp);
+
+				//DeselectObjects();
+		}
+	}
+
 //
 //	//마지막으로 생성된 건물의 좌우 방향 변환
 	if (g_pInputManager->IsStayKeyDown('J'))
@@ -173,11 +190,7 @@ void cMapToolScene::Update(void)
 		g_pMapObjectManager->GetSelectObject()->OffsetScale(0.01f);
 	}
 
-	if (g_pInputManager->IsOnceKeyDown(VK_RBUTTON))
-	{
-		if (g_pMapObjectManager->GetSelectObject() == NULL) return;
-		g_pMapObjectManager->PopMapObject();
-	}
+
 
 	//맵오브젝트 배치
 	if (g_pInputManager->IsOnceKeyDown('1'))
