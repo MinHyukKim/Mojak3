@@ -225,7 +225,7 @@ struct ST_DATA
 		if (_material) material = *_material;
 	}
 };
-
+ 
 //±¤¿ø ¼³Á¤
 inline void SetDirectional(int index, D3DXVECTOR3& direction, D3DXCOLOR& lightColor)
 {

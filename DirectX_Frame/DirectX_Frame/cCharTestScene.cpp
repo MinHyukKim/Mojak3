@@ -63,7 +63,6 @@ HRESULT cCharTestScene::Setup(void)
 //
 //	//npc 테스트
 //	g_pObjectManager->CreateNPC(cObjectManager::NPC_NAO, &D3DXVECTOR3(-1.0f, 0.0f, 1.0f));
-	g_pObjectManager->LoadMonsterObjectState("./Data/merge.obj");
 
 	//로딩속도 저하 원인
 	SAFE_RELEASE(m_pSkybox);
