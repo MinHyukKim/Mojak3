@@ -185,7 +185,7 @@ void cMapToolScene::Update(void)
 		if (currentMode == E_MODE::M_BUILD) g_pMapObjectManager->SetupBuilding();
 		else if (currentMode == E_MODE::M_MOB) g_pObjectManager->SetupMonster();
 	}
-	if (g_pInputManager->IsOnceKeyDown(VK_RBUTTON))
+	if (g_pInputManager->IsOnceKeyDown(VK_DELETE))
 	{
 		if (currentMode == E_MODE::M_BUILD)
 		{
@@ -223,14 +223,14 @@ void cMapToolScene::Update(void)
 	{
 		if (g_pMapObjectManager->GetSelectObject() == NULL) return;
 		g_pMapObjectManager->GetSelectObject()->SetOffsetY(
-			g_pMapObjectManager->GetSelectObject()->GetOffsetY()+0.001f);
+			g_pMapObjectManager->GetSelectObject()->GetOffsetY()+0.01f);
 	}
 
 	if (g_pInputManager->IsStayKeyDown('K'))
 	{
 		if (g_pMapObjectManager->GetSelectObject() == NULL) return;
 		g_pMapObjectManager->GetSelectObject()->SetOffsetY(
-			g_pMapObjectManager->GetSelectObject()->GetOffsetY()-0.001f);
+			g_pMapObjectManager->GetSelectObject()->GetOffsetY()-0.01f);
 	}
 //
 //	//static float scaleTest = 1.0f;
@@ -238,12 +238,12 @@ void cMapToolScene::Update(void)
 	if (g_pInputManager->IsStayKeyDown('U'))
 	{
 		if (g_pMapObjectManager->GetSelectObject() == NULL) return;
-		g_pMapObjectManager->GetSelectObject()->OffsetScale(-0.001f);
+		g_pMapObjectManager->GetSelectObject()->OffsetScale(-0.01f);
 	}
 	if (g_pInputManager->IsStayKeyDown('O'))
 	{
 		if (g_pMapObjectManager->GetSelectObject() == NULL) return;
-		g_pMapObjectManager->GetSelectObject()->OffsetScale(0.001f);
+		g_pMapObjectManager->GetSelectObject()->OffsetScale(0.01f);
 	}
 
 
