@@ -3,8 +3,8 @@
 
 cAbilityParamter::cAbilityParamter(void)
 	: m_dwUnitID(0), m_dwPlayerID(0), m_dwAICodeID(0)
-	, m_nMinLife(60), m_nMinMana(50), m_nMinStamina(40)
-	, m_nMaxLife(69), m_nMaxMana(59), m_nMaxStamina(54)
+	, m_nMinLife(220), m_nMinMana(50), m_nMinStamina(40)
+	, m_nMaxLife(220), m_nMaxMana(59), m_nMaxStamina(54)
 	, m_nLevel(1), m_nAP(125), m_fMaxEXP(100.0f), m_fEXP(16.0f)
 	, m_fMaxAdventureEXP(100.0f), m_fAdventureEXP(0.0f)
 	, m_nMinDamage(12), m_nBonusDamage(8), m_nMagicDamage(2)
