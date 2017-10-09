@@ -118,7 +118,13 @@ void cMainGame::Render(void)
 void cMainGame::MsgProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 {
 	g_pSceneManager->MsgProc(hWnd, message, wParam, lParam);
-
+	//"cMapToolScene", 
+	//"cUiTestScene", 
+	//"cCharTestScene", 
+	//"cChareterCustomScene",
+	//"cUiCustomizingScene",
+	//"cLodingScene", 
+	//"cTitleScene",
 	switch (message) {
 	case WM_COMMAND:
 		switch (LOWORD(wParam)) {
@@ -127,11 +133,14 @@ void cMainGame::MsgProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 			//MessageBox(hWnd, "첫번째 메뉴를 선택했습니다.", "Menu Demo", MB_OK);
 			break;
 		case ID_MOVEMAPTOOL:
-			MessageBox(hWnd, "두번째 메뉴를 선택했습니다.", "Menu Demo", MB_OK);
+			g_pSceneManager->ChangeScene("cMapToolScene");
 			break;
-		//case ID_FILE_EXIT:
+			//case ID_FILE_EXIT:
 		//	PostQuitMessage(0);
 		//	break;
+		case IDM_EXIT:
+			PostQuitMessage(0);
+			break;
 		}
 		return;
 	case WM_DESTROY:
