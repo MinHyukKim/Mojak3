@@ -34,19 +34,7 @@ void cObjectManager::Update(void)
 		pNPC->Update();
 		pNPC->SetPosY(GetMapHeight(pNPC));
 	}
-
-	for each (auto pRelease in m_vecRelease)
-	{
-		for (std::vector<cPlayer*>::iterator it = m_vecMonster.begin(); it != m_vecMonster.end(); it++)
-		{
-			if (pRelease != *it) continue;
-			(*it)->GetAbilityParamter()->SetEffective(false);
-			SAFE_RELEASE(*it);
-			m_vecMonster.erase(it);
-			break;
-		}
-	}
-	m_vecRelease.clear();
+	this->ReleaseUpdate();
 }
 
 void cObjectManager::SelectUpdate(cMapTerrain* map)
@@ -63,6 +51,21 @@ void cObjectManager::Render(void)
 	SAFE_RENDER(m_pPlayer);
 	SAFE_RENDER(m_pTerrain);
 	monsterRender();
+}
+void cObjectManager::ReleaseUpdate(void)
+{
+	for each (auto pRelease in m_vecRelease)
+	{
+		for (std::vector<cPlayer*>::iterator it = m_vecMonster.begin(); it != m_vecMonster.end(); it++)
+		{
+			if (pRelease != *it) continue;
+			(*it)->GetAbilityParamter()->SetEffective(false);
+			SAFE_RELEASE(*it);
+			m_vecMonster.erase(it);
+			break;
+		}
+	}
+	m_vecRelease.clear();
 }
 void cObjectManager::monsterRender(void)
 {

@@ -55,13 +55,14 @@ HRESULT cCharTestScene::Setup(void)
 	m_pUi = cUiTestScene::Create();
 	m_pUi->Setup();
 
-	g_pObjectManager->CreateMonster(cObjectManager::MONSTER_FOX, &D3DXVECTOR3(-2.0f, 0.0f, 5.0f), &FOX_BROWN);
-	g_pObjectManager->CreateMonster(cObjectManager::MONSTER_FOX, &D3DXVECTOR3(0.0f, 0.0f, 4.0f), &FOX_GRAY);
-	g_pObjectManager->CreateMonster(cObjectManager::MONSTER_FOX, &D3DXVECTOR3(2.0f, 0.0f, 5.0f), &FOX_RED);
-	g_pObjectManager->CreateMonster(cObjectManager::MONSTER_BEAR, &D3DXVECTOR3(0.0f, 0.0f, 7.0f), &BEAR_BLACK);
-
-	//npc태스트
-	g_pObjectManager->CreateNPC(cObjectManager::NPC_NAO, &D3DXVECTOR3(-1.0f, 0.0f, 1.0f));
+//	//몬스터 테스트
+//	g_pObjectManager->CreateMonster(cObjectManager::MONSTER_FOX, &D3DXVECTOR3(-2.0f, 0.0f, 5.0f), &FOX_BROWN);
+//	g_pObjectManager->CreateMonster(cObjectManager::MONSTER_FOX, &D3DXVECTOR3(0.0f, 0.0f, 4.0f), &FOX_GRAY);
+//	g_pObjectManager->CreateMonster(cObjectManager::MONSTER_FOX, &D3DXVECTOR3(2.0f, 0.0f, 5.0f), &FOX_RED);
+//	g_pObjectManager->CreateMonster(cObjectManager::MONSTER_BEAR, &D3DXVECTOR3(0.0f, 0.0f, 7.0f), &BEAR_BLACK);
+//
+//	//npc 테스트
+//	g_pObjectManager->CreateNPC(cObjectManager::NPC_NAO, &D3DXVECTOR3(-1.0f, 0.0f, 1.0f));
 
 	//로딩속도 저하 원인
 	SAFE_RELEASE(m_pSkybox);
@@ -87,6 +88,8 @@ void cCharTestScene::Reset(void)
 
 	g_pObjectManager->DestroyMonster();
 	g_pObjectManager->DestroyNPC();
+
+	g_pMapObjectManager->DestroyBuilding();
 
 }
 
@@ -206,21 +209,24 @@ void cCharTestScene::Update(void)
 		g_pObjectManager->GetPlayer()->SetStateTrue(PATTERN_COUNTER);
 		g_pObjectManager->GetPlayer()->SetStateFalse(PATTERN_RUN | PATTERN_WALK);
 	}
-	if (g_pInputManager->IsOnceKeyDown('3'))
+	if (g_pObjectManager->GetPlayer()->GetTarget())		//몬스터 AI 조작
 	{
-		g_pObjectManager->GetPlayer()->GetTarget()->OrderIdenChange();
-	}
-	if (g_pInputManager->IsOnceKeyDown('4'))
-	{
-		g_pObjectManager->GetPlayer()->GetTarget()->OrderAttack(g_pObjectManager->GetPlayer());
-	}
-	if (g_pInputManager->IsOnceKeyDown('5'))
-	{
-		g_pObjectManager->GetPlayer()->GetTarget()->SetStateTrue(PATTERN_SMASH);
-	}
-	if (g_pInputManager->IsOnceKeyDown('6'))
-	{
-		g_pObjectManager->GetPlayer()->GetTarget()->SetStateTrue(PATTERN_COUNTER);
+		if (g_pInputManager->IsOnceKeyDown('3'))
+		{
+			g_pObjectManager->GetPlayer()->GetTarget()->OrderIdenChange();
+		}
+		if (g_pInputManager->IsOnceKeyDown('4'))
+		{
+			g_pObjectManager->GetPlayer()->GetTarget()->OrderAttack(g_pObjectManager->GetPlayer());
+		}
+		if (g_pInputManager->IsOnceKeyDown('5'))
+		{
+			g_pObjectManager->GetPlayer()->GetTarget()->SetStateTrue(PATTERN_SMASH);
+		}
+		if (g_pInputManager->IsOnceKeyDown('6'))
+		{
+			g_pObjectManager->GetPlayer()->GetTarget()->SetStateTrue(PATTERN_COUNTER);
+		}
 	}
 	if (g_pInputManager->IsOnceKeyDown('T'))
 	{

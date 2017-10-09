@@ -55,6 +55,7 @@ public:
 	void SelectUpdate(cMapTerrain * map);
 	void Render(void);
 
+	void ReleaseUpdate(void);
 	//¸÷¸¸ µû·Î ·»´õ
 	void monsterRender(void);
 
