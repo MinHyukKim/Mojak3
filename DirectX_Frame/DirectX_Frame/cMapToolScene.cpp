@@ -45,7 +45,7 @@ HRESULT cMapToolScene::Setup(void)
 	g_pSoundManager->Play("mapToolBGM");
 	m_pCamera = cCamera::Create();
 	m_pCamera->Setup();
-	m_pCamera->SetCameraType(cCamera::E_AIRCRAFT);
+	m_pCamera->SetCameraType(cCamera::E_LANDOBJECT);
 	m_pCamera->UpdateProjection(0.1f);
 
 

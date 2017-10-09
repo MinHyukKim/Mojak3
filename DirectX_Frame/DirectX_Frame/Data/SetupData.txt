@@ -74,6 +74,7 @@ Animation:./Animation/ani_female_windmill_standing.X,여성_윈드밀02;
 
 //맵
 Field:./HeightMapData/HeightMap.raw,./Texture/steppegrass01_only.dds,테스트용, 0.75f, 0.75f, 0.75f, 1.0f;
+//Field:./HeightMapData/HeightMap.raw,./Texture/terrain.jpg,테스트용, 0.75f, 0.75f, 0.75f, 1.0f;
 
 //몬스터
 Mesh:./Chareter/DefaultPlayer/,lisaAniTest.X,임시몬스터;

@@ -183,6 +183,8 @@ inline HRESULT cMapTerrain::_BuildHeightMap(LPCSTR szMapName)
 
 			m_vecPosition[dwNumIndex].t = D3DXVECTOR2((float)(x & 0x1), (float)(z & 0x1));
 
+			//m_vecPosition[dwNumIndex].t = D3DXVECTOR2((float)x / (m_dwCol - 1), (float)z / (m_dwRow - 1));
+
 			++dwNumIndex;
 		}
 	}
