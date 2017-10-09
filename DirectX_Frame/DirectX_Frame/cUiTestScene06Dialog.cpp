@@ -227,7 +227,7 @@ void cUiTestScene::changeDialogText(void)
 		{
 			if (m_eDialogNPCKind == E_DIALOG_NPC_NAO && m_eDialogStat == E_NONE_QUEST)
 			{
-				m_pDialogText->SetText("가서 여우 3마리만 잡아오세요");
+				m_pDialogText->SetText("가서 여우 3마리 잡아오세요");
 				m_pDialogText->SetSize(ST_SIZE(300, 80));
 				m_pDialogText->SetPosition(-10, 20);
 				//퀘수락 버튼 켜기

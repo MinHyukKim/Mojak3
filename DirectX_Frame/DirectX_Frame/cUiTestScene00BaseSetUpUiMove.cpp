@@ -278,6 +278,11 @@ void cUiTestScene::UpdateMainUi(void)
 		, g_pObjectManager->GetPlayer()->GetAbilityParamter()->GetMaxMP());
 	m_pMainMpText->SetText(szMP);
 
+	char szStamina[32] = { '\0', };
+	sprintf_s(szStamina, "%d / %d", g_pObjectManager->GetPlayer()->GetAbilityParamter()->GetMinStamina()
+		, g_pObjectManager->GetPlayer()->GetAbilityParamter()->GetMaxStamina());
+	m_pMainStaminaText->SetText(szStamina);
+
 	char sEXP[64] = { '\0', };
 	sprintf_s(sEXP, "%.1f %%"
 		, (g_pObjectManager->GetPlayer()->GetAbilityParamter()->GetEXP() / g_pObjectManager->GetPlayer()->GetAbilityParamter()->GetMaxEXP()) * 100.0f);

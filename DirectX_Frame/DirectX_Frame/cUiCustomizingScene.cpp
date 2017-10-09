@@ -103,8 +103,9 @@ cUiCustomizingScene * cUiCustomizingScene::Create(void)
 HRESULT cUiCustomizingScene::Setup(void)
 {
 	//ºê±Ý
-	//g_pSoundManager->AddSound("LodingMusic", "Sound/Title.mp3", true, false);
-	if (!g_pSoundManager->Play("charMake")) g_pSoundManager->Play("charMake");
+	g_pSoundManager->AddSound("charMakeLoof", "Sound/Char_Making.mp3", true, true);
+	g_pSoundManager->Play("charMakeLoof");
+//	if (!g_pSoundManager->Play("charMake")) g_pSoundManager->Play("charMake");
 
 	D3DXCreateSprite(g_pD3DDevice, &m_pSprite);
 
@@ -157,7 +158,7 @@ void cUiCustomizingScene::Reset(void)
 
 	SAFE_RELEASE(m_pNameUi);
 	SAFE_RELEASE(m_pBackImage);
-	g_pSoundManager->Stop("charMake");
+	g_pSoundManager->Stop("charMakeLoof");
 }
 
 void cUiCustomizingScene::Update(void)
@@ -213,7 +214,6 @@ void cUiCustomizingScene::Update(void)
 	}
 	
 
-//	m_pPlayer
 	if (g_pObjectManager->GetPlayer())
 	{
 		g_pSceneManager->ChangeScene(NEXT_SCENE);
