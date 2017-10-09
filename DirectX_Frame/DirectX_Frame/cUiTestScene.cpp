@@ -117,6 +117,9 @@ HRESULT cUiTestScene::Setup(void)
 {
 	D3DXCreateSprite(g_pD3DDevice, &m_pSprite);
 
+	//브금
+	g_pSoundManager->AddSound("nao_taik01", "Sound/nao_talk.mp3", true, true);
+
 //	RECT wrc;
 	GetClientRect(g_hWnd, &m_Wrc);
 
@@ -242,15 +245,14 @@ void cUiTestScene::Update(void)
 
 	//대화창받기
 	m_isDialogOpen = g_pObjectManager->GetPlayer()->GetAbilityParamter()->GetDialogOpen();
-	if (g_pInputManager->IsOnceKeyUp('G') && m_pDialogUi)
-	{
-
-	//	m_isDialogOpen = !m_isDialogOpen;
-		if (m_isDialogOpen == false)
-		{
-			m_pDialogBackImage->isOver = false;
-		}
-	}
+//	if (g_pInputManager->IsOnceKeyUp('G') && m_pDialogUi)
+//	{
+//	//	m_isDialogOpen = !m_isDialogOpen;
+//		if (m_isDialogOpen == false)
+//		{
+//			m_pDialogBackImage->isOver = false;
+//		}
+//	}
 
 	if (m_pUiRoot) m_pUiRoot->Update();										//ui기본 베이스
 //	if (m_pSkillUi && m_isSkillWindowOn) m_pSkillUi->Update();				//ui 스킬창
@@ -321,6 +323,16 @@ void cUiTestScene::Update(void)
 	this->LevelUp();
 //	m_vecTempPlayerItem.resize(INVMAX);
 
+	//브금 태스트
+//	if (g_pObjectManager->GetPlayer()->GetAbilityParamter()->GetDialogOpen() == true)
+//	{
+//		g_pSoundManager->Play("nao_taik01");
+//		return;
+//	}
+//	else if (g_pObjectManager->GetPlayer()->GetAbilityParamter()->GetDialogOpen() == false)
+//	{
+//		g_pSoundManager->Stop("nao_taik01");
+//	}
 }
 
 void cUiTestScene::Render(void)

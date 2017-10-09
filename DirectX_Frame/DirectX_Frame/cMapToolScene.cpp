@@ -184,6 +184,35 @@ void cMapToolScene::Update(void)
 		if (currentMode == E_MODE::M_BUILD) g_pMapObjectManager->SetupBuilding();
 		else if (currentMode == E_MODE::M_MOB) g_pObjectManager->SetupMonster();
 	}
+
+	//L버튼을 누르면 마지막으로 생성된 건물이 클릭한 위치로 이동
+	if (g_pInputManager->IsOnceKeyDown(VK_LBUTTON))
+	{
+		if (currentMode == E_MODE::M_BUILD)
+			g_pMapObjectManager->SetupBuilding();
+		else if (currentMode == E_MODE::M_MOB)
+		{
+			g_pObjectManager->SetupMonster();
+		}
+	}
+	if (g_pInputManager->IsOnceKeyDown(VK_RBUTTON))
+	{
+		if (currentMode == E_MODE::M_BUILD)
+		{
+			if (g_pMapObjectManager->GetSelectObject() == NULL) return;
+			g_pMapObjectManager->PopMapObject();
+		}
+		else if (currentMode == E_MODE::M_MOB)
+		{
+			cPlayer* temp;
+			if ((temp = g_pObjectManager->GetSelectObject()) != NULL &&
+				g_pObjectManager->GetMode() == cObjectManager::MODE::PICK)
+				g_pObjectManager->AddReleaseMonster(temp);
+
+				//DeselectObjects();
+		}
+	}
+
 //
 //	//마지막으로 생성된 건물의 좌우 방향 변환
 	if (g_pInputManager->IsStayKeyDown('J'))
@@ -227,11 +256,7 @@ void cMapToolScene::Update(void)
 		g_pMapObjectManager->GetSelectObject()->OffsetScale(0.001f);
 	}
 
-	if (g_pInputManager->IsOnceKeyDown(VK_RBUTTON))
-	{
-		if (g_pMapObjectManager->GetSelectObject() == NULL) return;
-		g_pMapObjectManager->PopMapObject();
-	}
+
 
 	//맵오브젝트 배치
 	if (g_pInputManager->IsOnceKeyDown('1'))
