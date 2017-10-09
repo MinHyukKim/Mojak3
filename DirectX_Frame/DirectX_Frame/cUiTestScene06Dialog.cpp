@@ -172,7 +172,7 @@ void cUiTestScene::changeDialogText(void)
 			}
 			else if (m_eDialogNPCKind == E_DIALOG_NPC_NAO && m_eDialogStat == E_QUEST)
 			{
-				m_pDialogText->SetText("가서 여우들을 조지세요");
+				m_pDialogText->SetText("가서 여우들을 잡으세요");
 				m_pDialogText->SetSize(ST_SIZE(300, 80));
 				m_pDialogText->SetPosition(-20, 20);
 			}
@@ -184,7 +184,7 @@ void cUiTestScene::changeDialogText(void)
 			}
 			else if (m_eDialogNPCKind == E_DIALOG_NPC_NAO && m_eDialogStat == E_END_QUEST)
 			{
-				m_pDialogText->SetText("안녕하세요 누추하신 가정파괴자님");
+				m_pDialogText->SetText("안녕하세요 누추하신 여행자님");
 				m_pDialogText->SetSize(ST_SIZE(300, 80));
 				m_pDialogText->SetPosition(-0, 20);
 				m_pDialogAcceptButton->SetTag(E_BUTTON_NONE);
@@ -203,7 +203,7 @@ void cUiTestScene::changeDialogText(void)
 			}
 			else if (m_eDialogNPCKind == E_DIALOG_NPC_NAO && m_eDialogStat == E_QUEST)
 			{
-				m_pDialogText->SetText("가서 여우들을 조지세요");
+				m_pDialogText->SetText("가서 여우들을 잡으세요");
 				m_pDialogText->SetSize(ST_SIZE(300, 80));
 				m_pDialogText->SetPosition(-20, 20);
 			}
@@ -249,7 +249,7 @@ void cUiTestScene::changeDialogText(void)
 			}
 			else if (m_eDialogNPCKind == E_DIALOG_NPC_NAO && m_eDialogStat == E_QUEST)
 			{
-				m_pDialogText->SetText("가서 여우들을 조지세요");
+				m_pDialogText->SetText("가서 여우들을 잡으세요");
 				m_pDialogText->SetSize(ST_SIZE(300, 80));
 				m_pDialogText->SetPosition(-20, 20);
 				//버튼 막기

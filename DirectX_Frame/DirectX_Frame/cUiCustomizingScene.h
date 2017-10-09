@@ -3,12 +3,14 @@
 #include "cUIButton.h"
 #include "cImage.h"
 
+
 #define NEXT_SCENE "cCharTestScene"
 
 //폰트
 class cFont;
 //Ui구성
 class cUIImageView;
+class cUIImageViewTemp;
 class cUIButton;
 class cUITextView;
 class iButtonDelegate;
@@ -191,6 +193,8 @@ private:
 	//백그라운드
 //	cUIImageView* m_pBackImage;
 	cImage* m_pBackImage;
+	cUIImageViewTemp* m_pBackgroundImage;
+	cUiObject* m_pBackgroundUi;
 
 	//초기 위치 잡이
 	int m_nX, m_nY;
