@@ -20,6 +20,7 @@ cMapToolScene::cMapToolScene(void)
 	, m_pGrid(NULL)
 	, m_pSkybox(nullptr)
 	, m_pPickPosition(nullptr)
+	, m_pText(nullptr)
 	, currentMode(E_MODE::M_BUILD)
 {
 	//테스트용
@@ -505,13 +506,8 @@ void cMapToolScene::MsgProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lPara
 
 void cMapToolScene::DeselectObjects()
 {
-	if (currentMode == E_MODE::M_BUILD)
-		g_pMapObjectManager->ResetBuilding();
-	else if (currentMode == E_MODE::M_MOB)
-	{
-		g_pObjectManager->ResetMobSelect();
-	}
+	if (currentMode == E_MODE::M_BUILD) g_pMapObjectManager->ResetBuilding();
+	else if (currentMode == E_MODE::M_MOB) g_pObjectManager->ResetMobSelect();
 	//currentMode = E_MODE::M_NONE;
-
 }
 

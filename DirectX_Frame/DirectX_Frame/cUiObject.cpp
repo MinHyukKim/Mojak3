@@ -45,7 +45,7 @@ void cUiObject::Update(void)
 		p->Update();
 	}
 }
-
+//1
 void cUiObject::Render(LPD3DXSPRITE pSprite)
 {
 	for each (auto p in m_vecChild)

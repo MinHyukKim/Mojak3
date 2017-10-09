@@ -232,8 +232,25 @@ inline void SetDirectional(int index, D3DXVECTOR3& direction, D3DXCOLOR& lightCo
 	D3DLIGHT9 light;
 	ZeroMemory(&light, sizeof(D3DLIGHT9));
 	light.Type = D3DLIGHT_DIRECTIONAL;
-	light.Ambient = light.Diffuse = light.Specular = lightColor;
+	light.Ambient = lightColor * 0.4f;
+	light.Diffuse = lightColor;
+	light.Specular = lightColor * 0.6f;
 	D3DXVec3Normalize((D3DXVECTOR3*)&light.Direction, &direction);
+	g_pD3DDevice->SetLight(index, &light);
+}
+
+inline void SetPointLight(int index, D3DXVECTOR3& vPosition, D3DXCOLOR& lightColor)
+{
+	D3DLIGHT9 light;
+	ZeroMemory(&light, sizeof(D3DLIGHT9));
+	light.Type = D3DLIGHT_POINT;
+	light.Ambient = lightColor * 0.4f;
+	light.Diffuse = lightColor;
+	light.Specular = lightColor * 0.6f;
+	light.Attenuation0 = 1.0f;
+	light.Attenuation1 = 2.0f;
+	light.Attenuation2 = 3.0f;
+	D3DXVec3Normalize((D3DXVECTOR3*)&light.Position, &vPosition);
 	g_pD3DDevice->SetLight(index, &light);
 }
 
