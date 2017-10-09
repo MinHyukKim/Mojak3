@@ -10,6 +10,7 @@
 #include "cGrid.h"
 #include "cBuilding.h"
 #include "cSkybox.h"
+#include "cFont.h"
 
 cMapToolScene::cMapToolScene(void)
 	: m_pCamera(NULL)
@@ -18,7 +19,7 @@ cMapToolScene::cMapToolScene(void)
 	, m_pTexture(NULL)
 	, m_pGrid(NULL)
 	, m_pSkybox(nullptr)
-	, currentMode(E_MODE::M_BUILD)
+	, currentMode(E_MODE::M_NONE)
 {
 	//테스트용
 	//m_pMapObject = NULL;
@@ -70,6 +71,8 @@ HRESULT cMapToolScene::Setup(void)
 		".\\skyboxMap\\vanilla_sky_frost_ft.jpg", ".\\skyboxMap\\vanilla_sky_frost_bk.jpg");
 	g_pObjectManager->SetTerrain(m_pMapTerrain);
 	g_pMapObjectManager->SetMapTerrain(m_pMapTerrain);
+	m_pText = cFont::Create();
+	m_pText->Setup();
 	return S_OK;
 }
 
@@ -88,6 +91,7 @@ void cMapToolScene::Reset(void)
 	g_pObjectManager->DestroyNPC();
 
 	g_pMapObjectManager->DestroyBuilding();
+	SAFE_RELEASE(m_pText);
 
 	//g_pMapObjectManager->Destroy();
 
@@ -122,6 +126,7 @@ void cMapToolScene::Update(void)
 			g_pMapObjectManager->SetupBuilding();
 		else if (currentMode == E_MODE::M_MOB)
 		{
+			//if(g_pObjectManager->GetMonster())
 			g_pObjectManager->SetupMonster();
 		}
 	}
@@ -295,10 +300,33 @@ void cMapToolScene::Render(void)
 	SAFE_RENDER(m_pMapTerrain);
 	SAFE_RENDER(m_pGrid);
 
+
+
 	//SAFE_RENDER(m_pBuild);
 	g_pMapObjectManager->Render();
 	g_pObjectManager->monsterRender();
 
+	switch (currentMode)
+	{
+	case E_MODE::M_NONE:
+	{
+		m_pText->SetText("NONE");
+		break;
+	}
+	case E_MODE::M_BUILD:
+	{
+		m_pText->SetText("빌딩 모드");
+		break;
+	}
+	case E_MODE::M_MOB:
+	{
+		m_pText->SetText("몹 배치 모드");
+		break;
+	}
+	}
+	//ftext->SetColor(RGB(255,0,0));
+	m_pText->SetRectangle(10, 10, 200, 30);
+	m_pText->Render();
 }
 
 
