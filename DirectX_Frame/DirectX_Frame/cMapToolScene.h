@@ -46,6 +46,7 @@ public:
 	virtual void Render(void) override;
 	
 	static cMapToolScene* Create(void);
+	void MsgProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam);
 
 	//현재 오브젝트 선택 상태에 따라 상태를 해제해주는 함수
 	void DeselectObjects();

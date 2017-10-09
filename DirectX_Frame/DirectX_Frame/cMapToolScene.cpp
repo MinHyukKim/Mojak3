@@ -350,6 +350,103 @@ cMapToolScene* cMapToolScene::Create(void)
 	return newClass;
 }
 
+void cMapToolScene::MsgProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
+{
+	switch (message) {
+	case WM_COMMAND:
+		switch (LOWORD(wParam)) {
+		case 32784:
+		{
+			DeselectObjects();
+
+			OPENFILENAME OFN;
+			char filename[255];
+			char lpstrFile[MAX_PATH] = "";
+			memset(&OFN, 0, sizeof(OPENFILENAME));
+			OFN.lpstrTitle = "맵오브젝트 로드하기";
+			OFN.lStructSize = sizeof(OPENFILENAME);
+			OFN.hwndOwner = g_hWnd;
+			OFN.lpstrFilter = "모든 파일(*.*)\0*.*\0맵 오브젝트 파일\0*.obj;\0";
+			OFN.lpstrFile = lpstrFile;
+			OFN.nMaxFile = 256;
+			//OFN.lpstrInitialDir = "c:\\";
+			if (GetOpenFileName(&OFN) != 0)
+				g_pMapObjectManager->LoadCurrentObjectsState(OFN.lpstrFile);
+			break;
+		}
+		case 32785:
+		{
+			DeselectObjects();
+
+			OPENFILENAME OFN;
+			char filename[255];
+			char lpstrFile[MAX_PATH] = "";
+			memset(&OFN, 0, sizeof(OPENFILENAME));
+			OFN.lpstrTitle = "맵오브젝트 저장하기";
+			OFN.lStructSize = sizeof(OPENFILENAME);
+			OFN.hwndOwner = g_hWnd;
+			OFN.lpstrFilter = "모든 파일(*.*)\0*.*\0맵 오브젝트 파일\0*.obj;\0";
+			OFN.lpstrFile = lpstrFile;
+			OFN.nMaxFile = 256;
+			OFN.Flags = OFN_OVERWRITEPROMPT;
+			//OFN.lpstrInitialDir = "c:\\";
+			if (GetSaveFileName(&OFN) != 0)
+				g_pMapObjectManager->SaveCurrentObjectsState(OFN.lpstrFile);
+			break;
+		}
+		case 32786:
+		{
+			DeselectObjects();
+
+			OPENFILENAME OFN;
+			char filename[255];
+			char lpstrFile[MAX_PATH] = "";
+			memset(&OFN, 0, sizeof(OPENFILENAME));
+			OFN.lpstrTitle = "적 배치 로드하기";
+			OFN.lStructSize = sizeof(OPENFILENAME);
+			OFN.hwndOwner = g_hWnd;
+			OFN.lpstrFilter = "모든 파일(*.*)\0*.*\0적 배치 파일\0*.enm;\0";
+			OFN.lpstrFile = lpstrFile;
+			OFN.nMaxFile = 256;
+			//OFN.lpstrInitialDir = "c:\\";
+			if (GetOpenFileName(&OFN) != 0)
+				g_pObjectManager->LoadMonsterObjectState(OFN.lpstrFile);
+			break;
+		}
+			break;
+		case 32787:
+		{
+			DeselectObjects();
+
+			OPENFILENAME OFN;
+			char filename[255];
+			char lpstrFile[MAX_PATH] = "";
+			memset(&OFN, 0, sizeof(OPENFILENAME));
+			OFN.lpstrTitle = "적 배치 저장하기";
+			OFN.lStructSize = sizeof(OPENFILENAME);
+			OFN.hwndOwner = g_hWnd;
+			OFN.lpstrFilter = "모든 파일(*.*)\0*.*\0적 배치 파일\0*.enm;\0";
+			OFN.lpstrFile = lpstrFile;
+			OFN.nMaxFile = 256;
+			OFN.Flags = OFN_OVERWRITEPROMPT;
+			//OFN.lpstrInitialDir = "c:\\";
+			if (GetSaveFileName(&OFN) != 0)
+				g_pObjectManager->SaveMonsterObjectState(OFN.lpstrFile);
+			break;
+		}
+
+
+
+		}
+		return;
+	case WM_DESTROY:
+		PostQuitMessage(0);
+		return;
+	default:
+		return;
+	}
+}
+
 void cMapToolScene::DeselectObjects()
 {
 	if (currentMode == E_MODE::M_BUILD)
