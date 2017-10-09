@@ -44,8 +44,10 @@ void cMainGame::Setup(void)
 	g_pTimeManager->Setup();
 	g_pSoundManager->Setup();
 	//±¤¿ø ¼³Á¤
-	SetDirectional(0, D3DXVECTOR3(0.0f, -1.0f, 0.0f), D3DXCOLOR(0.75f, 0.75f, 0.75f, 1.0f));
+	SetPointLight(0, D3DXVECTOR3(0.0f, -1.0f, 0.0f), D3DXCOLOR(0.59f, 0.3f, 0.11f, 1.0f));
+	SetDirectional(1, D3DXVECTOR3(0.0f, -1.0f, 0.0f), D3DXCOLOR(0.75f, 0.75f, 0.75f, 1.0f));
 	g_pD3DDevice->LightEnable(0, true);
+	//g_pD3DDevice->LightEnable(1, true);
 
 	g_pD3DDevice->SetRenderState(D3DRS_NORMALIZENORMALS, true);
 	g_pD3DDevice->SetRenderState(D3DRS_LIGHTING, true);

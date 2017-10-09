@@ -304,8 +304,8 @@ void cObjectManager::SetupMonster()
 		g_pRay->RayAtWorldSpace(&vOrg, &vDir);
 		if (GetMonster(&m_pSelectMonster, &vOrg, &vDir))
 		{
-			m_pSelectMonster->AddRef();
 			this->AddReleaseMonster(m_pSelectMonster);
+			m_pSelectMonster = nullptr;
 		}
 		m_nMode = MODE::PICK;
 		return;
