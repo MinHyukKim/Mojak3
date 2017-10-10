@@ -954,6 +954,7 @@ void cPlayer::SetDirection(LPD3DXVECTOR3 pDir)
 	D3DXVECTOR3 vDir;
 	if (pDir) D3DXVec3Normalize(&vDir, pDir);
 	else return;
+	if (D3DXVECTOR3(0.0f, 0.0f, 0.0f) == vDir) return;
 
 	D3DXVec3Cross(&vDir, &vDir, &D3DXVECTOR3(0.0f, 1.0f, 0.0f));
 	D3DXVec3Normalize(&vDir, &vDir);

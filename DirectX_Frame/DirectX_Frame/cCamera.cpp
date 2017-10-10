@@ -113,11 +113,11 @@ void cCamera::WorldController(void)
 		//상하 이동
 		if (g_pInputManager->IsStayKeyDown('W') || g_pInputManager->IsStayKeyDown('A'))
 		{
-			this->SetPosition(&(*this->GetPosition() + D3DXVECTOR3(0.0f, 2.0f, 0.0f) * g_pTimeManager->GetElapsedTime()));
+			this->SetPosition(&(*this->GetPosition() + D3DXVECTOR3(0.0f, 5.0f, 0.0f) * g_pTimeManager->GetElapsedTime()));
 		}
 		if (g_pInputManager->IsStayKeyDown('S') || g_pInputManager->IsStayKeyDown('D'))
 		{
-			this->SetPosition(&(*this->GetPosition() + D3DXVECTOR3(0.0f, -2.0f, 0.0f) * g_pTimeManager->GetElapsedTime()));
+			this->SetPosition(&(*this->GetPosition() + D3DXVECTOR3(0.0f, -5.0f, 0.0f) * g_pTimeManager->GetElapsedTime()));
 		}
 	}
 	else
@@ -133,19 +133,19 @@ void cCamera::WorldController(void)
 		//이동
 		if (g_pInputManager->IsStayKeyDown('W'))
 		{
-			this->SetPosition(&(*this->GetPosition() + D3DXVECTOR3(0.0f, 0.0f, 2.0f) * g_pTimeManager->GetElapsedTime()));
+			this->SetPosition(&(*this->GetPosition() + D3DXVECTOR3(0.0f, 0.0f, 5.0f) * g_pTimeManager->GetElapsedTime()));
 		}
 		if (g_pInputManager->IsStayKeyDown('S'))
 		{
-			this->SetPosition(&(*this->GetPosition() + D3DXVECTOR3(0.0f, 0.0f, -2.0f) * g_pTimeManager->GetElapsedTime()));
+			this->SetPosition(&(*this->GetPosition() + D3DXVECTOR3(0.0f, 0.0f, -5.0f) * g_pTimeManager->GetElapsedTime()));
 		}
 		if (g_pInputManager->IsStayKeyDown('A'))
 		{
-			this->SetPosition(&(*this->GetPosition() + D3DXVECTOR3(-2.0f, 0.0f, 0.0f) * g_pTimeManager->GetElapsedTime()));
+			this->SetPosition(&(*this->GetPosition() + D3DXVECTOR3(-5.0f, 0.0f, 0.0f) * g_pTimeManager->GetElapsedTime()));
 		}
 		if (g_pInputManager->IsStayKeyDown('D'))
 		{
-			this->SetPosition(&(*this->GetPosition() + D3DXVECTOR3(2.0f, 0.0f, 0.0f) * g_pTimeManager->GetElapsedTime()));
+			this->SetPosition(&(*this->GetPosition() + D3DXVECTOR3(5.0f, 0.0f, 0.0f) * g_pTimeManager->GetElapsedTime()));
 		}
 	}
 }

@@ -102,8 +102,6 @@ HRESULT cLodingScene::Setup(void)
 	m_pData->RegisterBuild("scene_wooden_barricade_03.x");
 	m_pData->RegisterBuild("scene_wooden_barricade_04.x");
 
-
-
 	//¹è°æÀ½
 	m_pData->RegisterSound("titleBGM", "Sound/Char_Select.mp3", true, true);
 	m_pData->RegisterSound("charMake", "Sound/Char_Making.mp3", true, true);
