@@ -686,7 +686,7 @@ void cUiTestScene::LevelUp(void)
 			g_pObjectManager->GetPlayer()->GetAbilityParamter()->GetDex() + 1.0f);
 		//최소공격력 증가
 		g_pObjectManager->GetPlayer()->GetAbilityParamter()->SetMinDamage(
-			g_pObjectManager->GetPlayer()->GetAbilityParamter()->GetMinDamage() + 1);
+			g_pObjectManager->GetPlayer()->GetAbilityParamter()->GetMinDamage() + 5);
 		//마공 증가
 		g_pObjectManager->GetPlayer()->GetAbilityParamter()->SetMagicDamage(
 			g_pObjectManager->GetPlayer()->GetAbilityParamter()->GetMagicDamage() + 1);
