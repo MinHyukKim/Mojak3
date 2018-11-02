@@ -1259,7 +1259,7 @@ bool cPlayer::IsCollision(IN LPD3DXVECTOR3 pRay, IN LPD3DXVECTOR3 pDir)
 {
 	float fLength = (D3DXVec3Dot(&(this->GetPosition() - (*pRay)), pDir));
 	fLength = D3DXVec3LengthSq(&((*pRay) + (*pDir) * fLength - this->GetPosition()));
-	return (fLength  < m_fRadius * m_fRadius);
+	return (fLength < m_fRadius * m_fRadius);
 }
 
 void cPlayer::SetTarget(cPlayer* pTarget)
